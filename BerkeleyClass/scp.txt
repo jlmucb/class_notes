@@ -1,0 +1,2 @@
+scp -r ././CS290Spring2013 manfer@login.eecs.berkeley.edu:public_html
+
