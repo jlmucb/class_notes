@@ -1,0 +1,54 @@
+
+
+If SD card device is /dev/mmcblk0 
+sudo fdisk -l
+fdisk /dev/mmcblk0
+partd, gpard
+mount | grep -i mmcblk0p1
+cd /media/F493-CE5C
+cd
+umount /dev/mmcblk0p1
+parted [option] device [command [argument]]
+• help	  	
+• mklabel	  	
+• mkpart	  	
+• quit	  	
+• rescue	  	
+• resizepart	  	
+parted -s /dev/sdX -- mklabel msdos \
+    mkpart primary fat32 64s 4MiB \
+    mkpart primary fat32 4MiB -1s
+
+Any SD card larger than 32GB is an SDXC card and has to be formatted with the exFAT filesystem. 
+
+For a brand new SD card, you should:
+
+Partition (Linux command: partd).  Suppose the SD card is on /dev/mmcblk0.
+partd does several things. the subcommands are:
+ help
+ mklabel
+ mkpart
+ quit
+ rescue
+ resizepart
+
+mkpart primary fat32 1MiB 100% should do it.
+You can use lsblk -p before you partition to find it.
+
+To format a partition:
+sudo mkfs.vfat /dev/sdb1
+mkfs.ext4 /dev/sdc2
+sudo mkfs.fat /dev/sdc1
+sudo mkfs -V -t ext3 /dev/sdc1
+
+check for /boot
+
+There are two tools we recommend: gparted from GUI and fdisk-mkfs from CLI.
+Now you can mount the file system and read and write it.
+Get the system images for the Raspberry Pi at https://www.raspberrypi.org/downloads/
+
+
+
+
+
+

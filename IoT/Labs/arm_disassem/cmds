@@ -1,0 +1,47 @@
+#include <stdio.h>
+  
+int callee(int a) {
+  a += 120;
+  return a;
+}
+
+void caller(int a) {
+
+  int c = callee(a);
+  printf("%d\n", c);
+}
+
+g++ -c test1.cc
+objdump -disassemble-all test1.o
+
+Disassembly of section __TEXT,__text:
+__Z6calleei:
+       0:       55      pushq   %rbp
+       1:       48 89 e5        movq    %rsp, %rbp
+       4:       89 7d fc        movl    %edi, -4(%rbp)
+       7:       8b 7d fc        movl    -4(%rbp), %edi
+       a:       83 c7 78        addl    $120, %edi
+       d:       89 7d fc        movl    %edi, -4(%rbp)
+      10:       8b 45 fc        movl    -4(%rbp), %eax
+      13:       5d      popq    %rbp
+      14:       c3      retq
+      15:       66 2e 0f 1f 84 00 00 00 00 00   nopw    %cs:(%rax,%rax)
+      1f:       90      nop
+
+__Z6calleri:
+      20:       55      pushq   %rbp
+      21:       48 89 e5        movq    %rsp, %rbp
+      24:       48 83 ec 10     subq    $16, %rsp
+      28:       89 7d fc        movl    %edi, -4(%rbp)
+      2b:       8b 7d fc        movl    -4(%rbp), %edi
+      2e:       e8 00 00 00 00  callq   0 <__Z6calleri+0x13>
+      33:       89 45 f8        movl    %eax, -8(%rbp)
+      36:       8b 75 f8        movl    -8(%rbp), %esi
+      39:       48 8d 3d 10 00 00 00    leaq    16(%rip), %rdi
+      40:       b0 00   movb    $0, %al
+      42:       e8 00 00 00 00  callq   0 <__Z6calleri+0x27>
+      47:       89 45 f4        movl    %eax, -12(%rbp)
+      4a:       48 83 c4 10     addq    $16, %rsp
+      4e:       5d      popq    %rbp
+      4f:       c3      retq
+

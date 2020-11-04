@@ -1,0 +1,83 @@
+-help
+-command
+-setcommandfile filename
+-end
+-derivepassword pdkdf2 password salt count
+-split offset inFile outFile1 outFile2
+-merge inFile1 inFile2 outFile
+-printTable
+-printTableEntry
+-printTableInfo
+-closeKeyStore
+-saveKeyStore
+-saveasKeyStore outfile
+-importtotable inFile
+-exportfromtable keyName outFile
+-openKeyStore inFile
+-initKeyStore
+-exportsymkey keyName keytype szHexValue outFile
+-importsymkey keyName keytype szHexValue
+-setentropyfile filename
+-initentropy generic
+-initentropy tpm 
+-initentropy sw
+-initrandom ctr-aes256-dbrg generic
+-initrandom sha512-drg generic
+-importparameters
+-exportparameters
+-getentropy generic outFile
+-getrandom algorithm source-name numBits outFile
+-encode base64 inFile outFile
+-decode base64 inFile outFile
+-genparameters RSA keyname outFile [parameters]
+-genkey rsa1024 keyname outFile standard
+-hash md4-raw inFile outFile
+-hash md5-raw inFile outFile
+-hash sha1-raw inFile outFile
+-hash sha256-raw inFile outFile
+-hash sha512-raw inFile outFile
+-hash md4-mdpad inFile outFile
+-hash md5-mdpad inFile outFile
+-hash sha1-mdpad inFile outFile
+-hash sha256-mdpad inFile outFile
+-hash sha512-mdpad inFile outFile
+-encrypt aes128-ecb-raw -key[File|Name|Value] keyIn inFile outFile
+-encrypt aes128-cbc-raw -key[File|Name|Value] keyIn inFile outFile
+-encrypt aes128-ctr-raw -key[File|Name|Value] keyIn inFile outFile
+-encrypt aes128-cbc -key[File|Name|Value] keyIn inFile outFile
+-encrypt aes128-ctr -key[File|Name|Value] keyIn inFile outFile
+-encrypt aes256-ecb-raw -key[File|Name|Value] keyIn inFile outFile
+-encrypt aes256-cbc -key[File|Name|Value] keyIn inFile outFile
+-encrypt des-ecb-raw -key[File|Name|Value] keyIn inFile outFile
+-encrypt des-cbc -key[File|Name|Value] keyIn inFile outFile
+-encrypt tea-ecb-raw -key[File|Name|Value] keyIn inFile outFile
+-encrypt rc4 -key[File|Name|Value] keyIn inFile outFile
+-encrypt rsa1024 -key[File|Name|Value] keyIn inFile outFile
+-encrypt rsa2048 -key[File|Name|Value] keyIn inFile outFile
+-encrypt ecc256 -key[File|Name|Value] keyIn inFile outFile
+-encrypt ecc521 -key[File|Name|Value] keyIn inFile outFile
+-decrypt aes128-ecb-raw -key[File|Name|Value] keyIn inFile outFile
+-decrypt aes128-cbc-raw -key[File|Name|Value] keyIn inFile outFile
+-decrypt aes128-ctr-raw -key[File|Name|Value] keyIn inFile outFile
+-decrypt aes128-cbc -key[File|Name|Value] keyIn inFile outFile
+-decrypt aes128-ctr -key[File|Name|Value] keyIn inFile outFile
+-decrypt aes256-ecb-raw -key[File|Name|Value] keyIn inFile outFile
+-decrypt aes256-cbc -key[File|Name|Value] keyIn inFile outFile
+-decrypt des-ecb-raw -key[File|Name|Value] keyIn inFile outFile
+-decrypt des-cbc -key[File|Name|Value] keyIn inFile outFile
+-decrypt tea-ecb-raw -key[File|Name|Value] keyIn inFile outFile
+-decrypt rc4 -key[File|Name|Value] keyIn inFile outFile
+-decrypt rsa1024 -key[File|Name|Value] keyIn inFile outFile
+-decrypt rsa2048 -key[File|Name|Value] keyIn inFile outFile
+-decrypt ecc256 -key[File|Name|Value] keyIn inFile outFile
+-decrypt ecc521 -key[File|Name|Value] keyIn inFile outFile
+-pad md inFile outFile
+-pad oaep-rsa inFile outFile
+-unpad md inFile outFile1 outFile2
+-unpad oaep-rsainFile outFile1 outFile2
+-genPrime bit-size startat outFile
+-sign rsa1024-raw [optional-args] keyName inFile outFile
+-sign rsa1024-pad [optional-args] keyName inFile outFile
+-sign dsa1024-raw [optional-args] keyName inFile outFile
+-sign elgamal1024 [optional-args] keyName inFile outFile
+

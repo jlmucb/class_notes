@@ -1,0 +1,10 @@
+lcd-ic2
+bmp280
+spi
+uart
+gps
+acceleration
+analog- pfc8591
+hc-12
+scan-ic2
+

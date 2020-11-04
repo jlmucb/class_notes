@@ -1,0 +1,44 @@
+jlm@Hilbert:/media/jlm$ ls -l
+total 20
+drwxr-xr-x 22 root root  4096 Jun 19  2013 0eb36e9e-40f5-47f4-a751-4e197c0dd7c8
+drwxr-xr-x  2 jlm  jlm  16384 Dec 31  1969 boot
+
+/media/jlm/boot$ ls -l
+total 18888
+-rw-r--r-- 1 jlm jlm   17808 Jun 19  2013 bootcode.bin
+-rw-r--r-- 1 jlm jlm     142 Dec 31  1979 cmdline.txt
+-rw-r--r-- 1 jlm jlm    1180 Jun 19  2013 config.txt
+-rw-r--r-- 1 jlm jlm    2024 Jun 19  2013 fixup_cd.dat
+-rw-r--r-- 1 jlm jlm    5882 Jun 19  2013 fixup.dat
+-rw-r--r-- 1 jlm jlm    8832 Jun 19  2013 fixup_x.dat
+-rw-r--r-- 1 jlm jlm     137 Jun 19  2013 issue.txt
+-rw-r--r-- 1 jlm jlm 9610248 Jun 19  2013 kernel_emergency.img
+-rw-r--r-- 1 jlm jlm 2803520 Jun 19  2013 kernel.img
+-rw-r--r-- 1 jlm jlm  468536 Jun 19  2013 start_cd.elf
+-rw-r--r-- 1 jlm jlm 2689268 Jun 19  2013 start.elf
+-rw-r--r-- 1 jlm jlm 3656516 Jun 19  2013 start_x.elf
+
+
+jlm@Hilbert:/media/jlm/0eb36e9e-40f5-47f4-a751-4e197c0dd7c8$ ls -l
+total 92
+drwxr-xr-x  2 root root  4096 Jun 19  2013 bin
+drwxr-xr-x  2 root root  4096 Jun 19  2013 boot
+drwxr-xr-x  3 root root  4096 Jun 19  2013 dev
+drwxr-xr-x 96 root root  4096 Jun 19  2013 etc
+drwxr-xr-x  3 root root  4096 Jun 19  2013 home
+drwxr-xr-x 12 root root  4096 Jun 19  2013 lib
+drwx------  2 root root 16384 Jun 19  2013 lost+found
+drwxr-xr-x  2 root root  4096 Jun 19  2013 media
+drwxr-xr-x  2 root root  4096 Jun 15  2013 mnt
+drwxr-xr-x  3 root root  4096 Jun 19  2013 opt
+drwxr-xr-x  2 root root  4096 Jun 15  2013 proc
+drwx------  2 root root  4096 Jun 19  2013 root
+drwxr-xr-x  8 root root  4096 Dec 31  1969 run
+drwxr-xr-x  2 root root  4096 Jun 19  2013 sbin
+drwxr-xr-x  2 root root  4096 Jun 20  2012 selinux
+drwxr-xr-x  2 root root  4096 Jun 19  2013 srv
+drwxr-xr-x  2 root root  4096 Feb 25  2013 sys
+drwxrwxrwt  4 root root  4096 Jun 19  2013 tmp
+drwxr-xr-x 10 root root  4096 Jun 19  2013 usr
+drwxr-xr-x 11 root root  4096 Jun 19  2013 var
+

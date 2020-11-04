@@ -1,0 +1,125 @@
+sudo apt-get install git
+
+#include<iostream>
+
+int main(int argc, char *argv[]){
+   std::cout << "Hello World!" << std::endl;
+   return 0;
+}
+
+CMakeLists.txt file:
+
+Project CMakeLists.txt file :
+
+cmake_minimum_required(VERSION 2.8.9)
+project (hello)
+add_executable(hello helloworld.cpp)
+
+sudo apt-get install cmake
+cmake -version
+
+cmake .
+
+Multi-directory Project CMakeLists.txt file
+
+cmake_minimum_required(VERSION 2.8.9)
+project(directory_test)
+
+#Bring the headers, such as Student.h into the project
+include_directories(include)
+
+#Can manually add the sources using the set command as follows:
+#set(SOURCES src/mainapp.cpp src/Student.cpp)
+
+#However, the file(GLOB...) allows for wildcard additions:
+file(GLOB SOURCES "src/*.cpp")
+
+add_executable(testStudent ${SOURCES})
+
+Notes:
+1. The include_directories() function is used to bring the header files into 
+the build environment.
+2. The set(SOURCES … ) function can be used to set a variable (SOURCES) that
+contains the name values of all of the source files (.cpp) in the project.
+However, because each source file must be added manually the next line is
+used in its place, and this line is commented out.
+3. The file() command is used to add the source files to the project.
+GLOB (or GLOB_RECURSE) is used to create a list of all of the files that
+meet the globbing expression (i.e., “src/*.cpp“) and add them to a variable SOURCES.
+The add_executable() function uses the SOURCES variable, rather than 
+an explicit reference to each source file, in order to build the testStudent 
+executable program.
+
+tree
+
+
+Shared library
+
+cmake_minimum_required(VERSION 2.8.9)
+project(directory_test)
+set(CMAKE_BUILD_TYPE Release)
+ 
+#Bring the headers, such as Student.h into the project
+include_directories(include)
+ 
+#However, the file(GLOB...) allows for wildcard additions:
+file(GLOB SOURCES "src/*.cpp")
+ 
+#Generate the shared library from the sources
+add_library(testStudent SHARED ${SOURCES})
+ 
+#Set the location for library installation -- i.e., /usr/lib in this case
+# not really necessary in this example. Use "sudo make install" to apply
+install(TARGETS testStudent DESTINATION /usr/lib)
+
+Notes:
+
+1. The set(CMAKE_BUILD_TYPE Release) function is used to set the build 
+type to be a release build.
+2. Instead of the add_executable() function that is used in previous 
+examples, this example uses the add_library() function. The library is 
+built as a shared library using the SHARED flag (other options are: 
+STATIC or MODULE) , and the testStudent name is used as the name of 
+the shared library.
+3. The last line uses the install() function to define an installation 
+location for the library (in this case it is /usr/lib). Deployment is 
+invoked using a call to sudo make install in this case.
+
+Static library
+
+cmake_minimum_required(VERSION 2.8.9)
+project(directory_test)
+set(CMAKE_BUILD_TYPE Release)
+ 
+#Bring the headers, such as Student.h into the project
+include_directories(include)
+ 
+#However, the file(GLOB...) allows for wildcard additions:
+file(GLOB SOURCES "src/*.cpp")
+ 
+#Generate the static library from the sources
+add_library(testStudent STATIC ${SOURCES})
+ 
+#Set the location for library installation -- i.e., /usr/lib in this case
+# not really necessary in this example. Use "sudo make install" to apply
+install(TARGETS testStudent DESTINATION /usr/lib)
+
+CMakeLists.txt file for building a C++ program that uses a library
+
+cmake_minimum_required(VERSION 2.8.9)
+project (TestLibrary)
+ 
+#For the shared library:
+set ( PROJECT_LINK_LIBS libtestStudent.so )
+link_directories( ~/exploringBB/extras/cmake/studentlib_shared/build )
+ 
+#For the static library:
+#set ( PROJECT_LINK_LIBS libtestStudent.a )
+#link_directories( ~/exploringBB/extras/cmake/studentlib_static/build )
+ 
+include_directories(~/exploringBB/extras/cmake/studentlib_shared/include)
+ 
+add_executable(libtest libtest.cpp)
+target_link_libraries(libtest ${PROJECT_LINK_LIBS} )
+
+

@@ -1,0 +1,17 @@
+AT Commands:
+1. AT – Test command.
+Example: Send “AT” to module, and the module returns “OK”.
+
+2. AT+Bxxxx – Change the serial port baud rate.
+Available baud rates: 1200 bps, 2400 bps, 4800 bps, 9600 bps, 19200 bps, 38400 bps,
+  57600 bps, and 115200 bps. Default: 9600 bps.
+Example: Send “AT+B38400” to module, and the module returns “OK+B19200”.
+
+3. AT+Cxxxx – Change wireless communication channel, from 001 to 100.
+Default: Channel 001, with working frequency of 433.4MHz. Each next channel 
+  is 400KHz higher.
+
+Example: If we want to set the module to channel 006, we need to send 
+  “AT+C006” command to the module, and the module will return “OK+C006”. 
+   The new working frequency will be 435.4MHz.
+

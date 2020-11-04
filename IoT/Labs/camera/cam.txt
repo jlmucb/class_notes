@@ -1,0 +1,88 @@
+Here are the UART connections:
+UART Connections
+
+Pin		Attify
+Tx		D1
+Rx		D0
+Gnd		GND
+Don’t connect Vcc
+
+Long side board edge
+
+Xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                                        x
+                  Vcc    o         x
+                                        x
+                  Rx     o         x
+                                       x
+                  Gnd    o         x
+                                       x
+                  Tx     o         x
+                                        x
+                                        x
+                  power connector
+
+
+
+To get in single user:
+  setenv bootargs console=${consoledev},${baudrate} noinitrd mem=${mem} rw ${rootfstype} 1
+  sf probe 0 0
+  sf read ${loadaddr} ${sfkernel} ${filesize}
+  bootz
+
+
+/etc/shadow:
+root:F0pCSaZ.P1Rrc:0:0:99999:7:::
+bin:*:10933:0:99999:7:::
+daemon:*:10933:0:99999:7:::
+adm:*:10933:0:99999:7:::
+lp:*:10933:0:99999:7:::
+
+
+printenv
+arm_freq=0x00112032
+baudrate=115200
+bootcmd=run sfboot
+bootdelay=1
+bootfile=zImage
+bsbsize=2M
+consoledev=ttySGK0
+ethact=gk7101
+ethaddr=3C:97:0E:22:E1:14
+fileaddr=C1000000
+filesize=200000
+gatewayip=11.1.4.1
+hostname="gk7101"
+ipaddr=192.168.1.9
+loadaddr=0xC1000000
+mem=41M
+netdev=eth0
+netmask=255.255.255.0
+nfsserver=11.1.4.19
+phytype=0
+rootfstype=rootfstype=jffs2 root=/dev/mtdblock3
+rootpath=/opt/work
+serverip=192.168.1.7
+sfboot=setenv bootargs console=${consoledev},${baudrate} noinitrd mem=${mem} rw ${rootfstype} init=linuxrc ;sf probe 0 0;sf read ${loadaddr} ${sfkernel} ${filesize}; bootm
+sfkernel=0x50000
+soctype=1
+stderr=serial
+stdin=serial
+stdout=serial
+tftpboot=setenv bootargs root=/dev/nfs nfsroot=${nfsserver}:${rootpath},proto=tcp,nfsvers=3,nolock ip=${ipaddr}:${serverip}:${gatewayip}:${netmask}:${hostname}:${netdev} mac=${ethaddr} phytype=${phytype} console=${consoledev},${baudrate} mem=${mem};tftpboot ${bootfile};bootm
+sfkernel=0x50000
+soctype=1
+stderr=serial
+stdin=serial
+stdout=serial
+tftpboot=setenv bootargs root=/dev/nfs nfsroot=${nfsserver}:${rootpath},proto=tcp,nfsvers=3,nolock ip=${ipaddr}:${serverip}:${gatewayip}:${netmask}:${hostname}:${netdev} mac=${ethaddr} phytype=${phytype} console=${consoledev},${baudrate} mem=${mem};tftpboot ${bootfile};bootm
+
+Environment size: 1004/65532 bytes
+
+
+mainline kernel sunxi-3.4 kernel
+setenv bootargs console=ttyS0,115200 root=/dev/mmcblk0p2 rootwait panic=10
+load mmc 0:1 0x43000000 ${fdtfile} || load mmc 0:1 0x43000000 boot/${fdtfile}
+load mmc 0:1 0x42000000 uImage || load mmc 0:1 0x42000000 boot/uImage
+bootm 0x42000000 - 0x43000000
+

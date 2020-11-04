@@ -1,0 +1,97 @@
+sudo apt install g++-arm-linux-gnueabi
+sudo apt install binutils-arm-linux-gnueabihf
+
+
+arm-linux-gnueabihf-objdump --disassemble-all test1_arm.o
+
+
+test1_arm.o:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <_Z6calleei>:
+   0:	e52db004 	push	{fp}		; (str fp, [sp, #-4]!)
+   4:	e28db000 	add	fp, sp, #0
+   8:	e24dd00c 	sub	sp, sp, #12
+   c:	e50b0008 	str	r0, [fp, #-8]
+  10:	e51b3008 	ldr	r3, [fp, #-8]
+  14:	e2833078 	add	r3, r3, #120	; 0x78
+  18:	e50b3008 	str	r3, [fp, #-8]
+  1c:	e51b3008 	ldr	r3, [fp, #-8]
+  20:	e1a00003 	mov	r0, r3
+  24:	e24bd000 	sub	sp, fp, #0
+  28:	e49db004 	pop	{fp}		; (ldr fp, [sp], #4)
+  2c:	e12fff1e 	bx	lr
+
+00000030 <_Z6calleri>:
+  30:	e92d4800 	push	{fp, lr}
+  34:	e28db004 	add	fp, sp, #4
+  38:	e24dd010 	sub	sp, sp, #16
+  3c:	e50b0010 	str	r0, [fp, #-16]
+  40:	e51b0010 	ldr	r0, [fp, #-16]
+  44:	ebfffffe 	bl	0 <_Z6calleei>
+  48:	e50b0008 	str	r0, [fp, #-8]
+  4c:	e51b1008 	ldr	r1, [fp, #-8]
+  50:	e59f000c 	ldr	r0, [pc, #12]	; 64 <_Z6calleri+0x34>
+  54:	ebfffffe 	bl	0 <printf>
+  58:	e1a00000 	nop			; (mov r0, r0)
+  5c:	e24bd004 	sub	sp, fp, #4
+  60:	e8bd8800 	pop	{fp, pc}
+  64:	00000000 	andeq	r0, r0, r0
+
+Disassembly of section .ARM.extab:
+
+00000000 <.ARM.extab>:
+   0:	81019b40 	tsthi	r1, r0, asr #22
+   4:	8480b0b0 	strhi	fp, [r0], #176	; 0xb0
+   8:	00000000 	andeq	r0, r0, r0
+
+Disassembly of section .ARM.exidx:
+
+00000000 <.ARM.exidx>:
+   0:	00000000 	andeq	r0, r0, r0
+   4:	00000001 	andeq	r0, r0, r1
+   8:	00000030 	andeq	r0, r0, r0, lsr r0
+   c:	00000000 	andeq	r0, r0, r0
+
+Disassembly of section .rodata:
+
+00000000 <.rodata>:
+   0:	000a6425 	andeq	r6, sl, r5, lsr #8
+
+Disassembly of section .comment:
+
+00000000 <.comment>:
+   0:	43434700 	movtmi	r4, #14080	; 0x3700
+   4:	5528203a 	strpl	r2, [r8, #-58]!	; 0xffffffc6
+   8:	746e7562 	strbtvc	r7, [lr], #-1378	; 0xfffffa9e
+   c:	694c2f75 	stmdbvs	ip, {r0, r2, r4, r5, r6, r8, r9, sl, fp, sp}^
+  10:	6f72616e 	svcvs	0x0072616e
+  14:	342e3520 	strtcc	r3, [lr], #-1312	; 0xfffffae0
+  18:	362d302e 	strtcc	r3, [sp], -lr, lsr #32
+  1c:	6e756275 	mrcvs	2, 3, r6, cr5, cr5, {3}
+  20:	7e317574 	mrcvc	5, 1, r7, cr1, cr4, {3}
+  24:	302e3631 	eorcc	r3, lr, r1, lsr r6
+  28:	29392e34 	ldmdbcs	r9!, {r2, r4, r5, r9, sl, fp, sp}
+  2c:	342e3520 	strtcc	r3, [lr], #-1312	; 0xfffffae0
+  30:	3220302e 	eorcc	r3, r0, #46	; 0x2e
+  34:	30363130 	eorscc	r3, r6, r0, lsr r1
+  38:	00393036 	eorseq	r3, r9, r6, lsr r0
+
+Disassembly of section .ARM.attributes:
+
+00000000 <.ARM.attributes>:
+   0:	00002941 	andeq	r2, r0, r1, asr #18
+   4:	61656100 	cmnvs	r5, r0, lsl #2
+   8:	01006962 	tsteq	r0, r2, ror #18
+   c:	0000001f 	andeq	r0, r0, pc, lsl r0
+  10:	00543505 	subseq	r3, r4, r5, lsl #10
+  14:	01080306 	tsteq	r8, r6, lsl #6
+  18:	04120109 	ldreq	r0, [r2], #-265	; 0xfffffef7
+  1c:	01150114 	tsteq	r5, r4, lsl r1
+  20:	01180317 	tsteq	r8, r7, lsl r3
+  24:	021a0119 	andseq	r0, sl, #1073741830	; 0x40000006
+  28:	Address 0x0000000000000028 is out of bounds.
+
+

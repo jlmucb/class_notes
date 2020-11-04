@@ -1,0 +1,52 @@
+2x2 rubik cube
+
+
+Dull red==red,  bright red==orange
+
+Color		wrg  wgo  wry  wyo  rgb  ogb  ryb  oby
+
+Start		ulf  ulb  ufr  urb  dlf  dlb  dfr  drb
+R		ulf  ulb  urb  drb  dlf  dlb  urf  drf
+L		dlf  ulf  ufr  urb  dlb  ulb  dfr  drb
+U		ulb  urb  ulf  urf  dlf  dlb  dfr  drb
+D		ulf  ulb  ufr  urb  drf  dlf  drb  dlb
+F		urf  ulb  dfr  urb  ulf  dlb  dlf  drb
+B		ulf  dlb  ufr  ulb  dlf  drb  dfr  urb
+
+
+Start		ulf  ulb  ufr  urb  dlf  dlb  dfr  drb
+R		ulf  ulb  urb  drb  dlf  dlb  urf  drf
+-R		ulf  ulb  dfr  ufr  dlf  dlb  drb  urb
+
+
+Start		ulf  ulb  ufr  urb  dlf  dlb  dfr  drb
+L		dlf  ulf  ufr  urb  dlb  ulb  dfr  drb
+-L		ulb  dlb  ufr  urb  ulf  dlf  dfr  drb
+
+
+Start		ulf  ulb  ufr  urb  dlf  dlb  dfr  drb
+U		ulb  urb  ulf  urf  dlf  dlb  dfr  drb
+-U		ufr  ulf  urb  ulb  dlf  dlb  dfr  drb
+
+
+Start		ulf  ulb  ufr  urb  dlf  dlb  dfr  drb
+D		ulf  ulb  ufr  urb  drf  dlf  drb  dlb
+-D		ulf  ulb  ufr  urb  dlb  drb  dlf  dfr
+
+
+Start		ulf  ulb  ufr  urb  dlf  dlb  dfr  drb
+F		urf  ulb  dfr  urb  ulf  dlb  dlf  drb
+-F		dlf  ulb  ulf  urb  dfr  dlb  ufr  drb
+
+
+Start		ulf  ulb  ufr  urb  dlf  dlb  dfr  drb
+B		ulf  dlb  ufr  ulb  dlf  drb  dfr  urb
+-B		ulf  urb  ufr  drb  dlf  ulb  dfr  dlb
+
+
+F= (ulf, urf, dfr, dlf)
+U= (ulf, ulb, urb, urf)
+B= (ulb, dlb, drb, urb)
+
+F+U-F-U= (ulf, dlf) (ufr, urb)
+R+B-R-B= (ufr, urb) (dlb, drb)

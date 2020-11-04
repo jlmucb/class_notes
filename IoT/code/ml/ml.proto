@@ -1,0 +1,8 @@
+// To compile: protoc -I=. --cpp_out=. ml.proto
+
+message data_message {
+    required string key_type                    = 1;
+    optional int32  key_bit_size                = 2;
+    optional string value                       = 3;
+  }
+

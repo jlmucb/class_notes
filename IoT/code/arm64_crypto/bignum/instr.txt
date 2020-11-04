@@ -1,0 +1,536 @@
+Load and store
+
+LDR Wt, addr
+Load Register: loads a word from memory addressed by addr to Wt.
+LDR Xt, addr
+Load Register (extended): loads a doubleword from memory addressed by addr to Xt.
+LDRB Wt, addr
+Load Byte: loads a byte from memory addressed by addr, then zero-extends it to Wt.
+LDRSB Wt, addr
+Load Signed Byte: loads a byte from memory addressed by addr, then sign-extends it into Wt.
+LDRSB Xt, addr
+Load Signed Byte (extended): loads a byte from memory addressed by addr, then sign-extends it into Xt.
+LDRH Wt, addr
+Load Halfword: loads a halfword from memory addressed by addr, then zero-extends it into Wt.
+LDRSH Wt, addr
+Load Signed Halfword: loads a halfword from memory addressed by addr, then sign-extends it into Wt.
+LDRSH Xt, addr
+Load Signed Halfword (extended): loads a halfword from memory addressed by addr, then sign-extends
+it into Xt.
+LDRSW Xt, addr
+Load Signed Word (extended): loads a word from memory addressed by addr, then sign-extends it into
+Xt.
+STR Wt, addr
+Store Register: stores word from Wt to memory addressed by addr.
+STR Xt, addr
+Store Register (extended): stores doubleword from Xt to memory addressed by addr.
+STRB Wt, addr
+Store Byte: stores byte from Wt to memory addressed by addr.
+STRH Wt, addr
+Store Halfword: stores halfword from Wt to memory addressed by addr.
+LDR Wt, label | =value
+Load Literal Register (32-bit): loads a word from memory addressed by label to Wt.
+LDR Xt, label | =value
+Load Literal Register (64-bit): loads a doubleword from memory addressed by label to Xt.
+LDRSW Xt, label | =value
+Load Literal Signed Word (extended): loads a word from memory addressed by label, then sign-extends
+it into Xt.
+MOV Wd, #simm32
+A synthetic assembler instruction which generates a single MOVZ, MOVN or MOVI instruction that loads a
+32-bit immediate value into register Wd.
+MOV Xd, #simm64
+As MOV but for loading a 64-bit immediate into register Xd.
+
+
+System
+
+MRS Xt, <system_register>
+Move <system_register> to Xt, where <system_register> is a system register name, or for
+implementation-defined registers a name of the form “S<op0>_<op1>_<Cn>_<Cm>_<op2>”, e.g.
+“S3_4_c13_c9_7”.
+MSR <system_register>, Xt
+Move Xt to <system_register>, where <system_register> is a system register name, or for
+implementation-defined registers a name of the form “S<op0>_<op1>_<Cn>_<Cm>_<op2>”, e.g.
+“S3_4_c13_c9_7”..
+MSR DAIFClr, #uimm4
+Uses uimm4 as a bitmask to select the clearing of one or more of the DAIF exception mask bits: bit 3
+selects the D mask, bit 2 the A mask, bit 1 the I mask and bit 0 the F mask.
+MSR DAIFSet, #uimm4
+Uses uimm4 as a bitmask to select the setting of one or more of the DAIF exception mask bits: bit 3
+selects the D mask, bit 2 the A mask, bit 1 the I mask and bit 0 the F mask.
+MSR SPSel, #uimm4
+Uses uimm4 as a control value to select the stack pointer: if bit 0 is set it selects the current exception
+level’s stack pointer, if bit 0 is clear it selects shared EL0 stack pointer. Bits 1 to 3 of uimm4 are reserved
+and should be zero.
+5.8.5 Barriers and CLREX
+CLREX {#uimm4}
+Clear Exclusive: clears the local record of the executing processor that an address has had a request for
+an exclusive access. The 4-bit immediate uimm4 defaults to 0xf if omitted, with all other values
+unallocated.
+DSB <option>|#uimm4
+Data Synchronization Barrier, where <option> is any barrier option, as below, or a 4-bit immediate
+uimm4 for unallocated values of option:
+DMB <option>|#uimm4
+Data Memory Barrier, where <option> is any barrier option, as below, or a 4-bit immediate uimm4 for
+unallocated values of option.
+ISB {SY|#uimm4 }
+Instruction Synchronization Barrier, where SY encoded as value 0xf is the default, or a 4-bit immediate
+uimm4 for other unallocated values of option.
+5.8.1.1 Non-debug exceptions
+SVC #uimm16
+Generate exception targeted at exception level 1 (system), with 16-bit payload in uimm16.
+HVC #uimm16
+Generate exception targeted at exception level 2 (hypervisor) , with 16-bit payload in uimm16.
+SMC #uimm16
+Generate exception targeted at exception level 3 (secure monitor), with 16-bit payload in uimm16.
+ERET
+Exception return: reconstructs the processor state from the current exception level’s SPSR_ELn register,
+and branches to the address in ELR_ELn.
+BRK #uimm16
+Monitor mode software breakpoint: exception routed to a debug monitor executing in EL1 or EL2, with 16-
+bit payload in uimm16.
+HLT #uimm16
+Halting mode software breakpoint: enters halting mode debug state if enabled, else treated as
+UNALLOCATED . With 16-bit payload in uimm16.
+DCPS1 {#uimm16}
+Debug Change Processor State to EL1 (valid in halting mode debug state only), the optional 16-bit
+immediate uimm16 defaults to zero and is ignored by the hardware.
+
+
+Move and test
+
+MOVI Wd, #bimm32
+Move bitmask (immediate): alias for ORR Wd,WZR,#bimm32, but may disassemble as MOV, see below.
+MOVI Xd, #bimm64
+Move bitmask (extended immediate): alias for ORR Xd,XZR,#bimm64, but may disassemble as MOV, see
+below.
+TST Wn, #bimm32
+Bitwise test (immediate): alias for ANDS WZR,Wn,#bimm32.
+TST Xn, #bimm64
+Bitwise test (extended immediate): alias for ANDS XZR,Xn,#bimm64
+
+
+Bit ops
+
+BFM Wd, Wn, #r, #s
+Bitfield Move: if s>=r then Wd<s-r:0> = Wn<s:r>, else Wd<32+s-r,32-r> = Wn<s:0>.
+Leaves other bits in Wd unchanged.
+BFM Xd, Xn, #r, #s
+Bitfield Move: if s>=r then Xd<s-r:0> = Xn<s:r>, else Xd<64+s-r,64-r> = Xn<s:0>.
+Leaves other bits in Xd unchanged.
+SBFM Wd, Wn, #r, #s
+Signed Bitfield Move: if s>=r then Wd<s-r:0> = Wn<s:r>, else Wd<32+s-r,32-r> = Wn<s:0>.
+Sets bits to the left of the destination bitfield to copies of its leftmost bit, and bits to the right to zero.
+SBFM Xd, Xn, #r, #s
+Signed Bitfield Move: if s>=r then Xd<s-r:0> = Xn<s:r>, else Xd<64+s-r,64-r> = Xn<s:0>.
+Sets bits to the left of the destination bitfield to copies of its leftmost bit, and bits to the right to zero.
+UBFM Wd, Wn, #r, #s
+Unsigned Bitfield Move: if s>=r then Wd<s-r:0> = Wn<s:r>
+BFI Wd, Wn, #lsb, #width
+Bitfield Insert: alias for BFM Wd,Wn,#((32-lsb)&31),#(width-1).
+Preferred for disassembly when s < r.
+BFI Xd, Xn, #lsb, #width
+Bitfield Insert (extended): alias for BFM Xd,Xn,#((64-lsb)&63),#(width-1).
+Preferred for disassembly when s < r.
+BFXIL Wd, Wn, #lsb, #width
+Bitfield Extract and Insert Low: alias for BFM Wd,Wn,#lsb,#(lsb+width-1).
+Preferred for disassembly when s >= r.
+BFXIL Xd, Xn, #lsb, #width
+Bitfield Extract and Insert Low (extended): alias for BFM Xd,Xn,#lsb,#(lsb+width-1).
+Preferred for disassembly when s >= r.
+SBFIZ Wd, Wn, #lsb, #width
+Signed Bitfield Insert in Zero: alias for) SBFM Wd,Wn,#((32-lsb)&31),#(width-1).
+Preferred for disassembly when s < r.
+SBFIZ Xd, Xn, #lsb, #width
+Signed Bitfield Insert in Zero (extended): alias for SBFM Xd,Xn,#((64-lsb)&63),#(width-1).
+Preferred for disassembly when s < r.
+SBFX Wd, Wn, #lsb, #width
+Signed Bitfield Extract: alias for SBFM Wd,Wn,#lsb,#(lsb+width-1).
+Preferred for disassembly when s >= r.
+SBFX Xd, Xn, #lsb, #width
+Signed Bitfield Extract (extended): alias for SBFM Xd,Xn,#lsb,#(lsb+width-1).
+Preferred for disassembly when s >= r.
+UBFIZ Wd, Wn, #lsb, #width
+Unsigned Bitfield Insert in Zero: alias for UBFM Wd,Wn,#((32-lsb)&31),#(width-1).
+Preferred for disassembly when s < r.
+UBFIZ Xd, Xn, #lsb, #width
+Unsigned Bitfield Insert in Zero (extended): alias for UBFM Xd,Xn,#((64-lsb)&63),#(width-1).
+Preferred for disassembly when s < r.
+UBFX Wd, Wn, #lsb, #width
+Unsigned Bitfield Extract: alias for UBFM Wd,Wn,#lsb,#(lsb+width-1).
+Preferred for disassembly when s >= r.
+UBFX Xd, Xn, #lsb, #width
+Unsigned Bitfield Extract (extended): alias for UBFM Xd,Xn,#lsb,#(lsb+width-1).
+Preferred for disassembly when s >= r.
+EXTR Wd, Wn, Wm, #lsb
+Extract: Wd = Wn:Wm<lsb+31,lsb>. The bit position lsb must be in the range 0 to 31.
+EXTR Xd, Xn, Xm, #lsb
+Extract (extended): Xd = Xn:Xm<lsb+63,lsb>. The bit position lsb must be in the range 0 to 63.
+
+Shift and rotate
+
+ASR Wd, Wn, #uimm
+Arithmetic Shift Right (immediate): alias for SBFM Wd,Wn,#uimm,#31.
+ASR Xd, Xn, #uimm
+Arithmetic Shift Right (extended immediate): alias for SBFM Xd,Xn,#uimm,#63.
+LSL Wd, Wn, #uimm
+Logical Shift Left (immediate): alias for UBFM Wd,Wn,#((32-uimm)&31),#(31-uimm).
+LSL Xd, Xn, #uimm
+Logical Shift Left (extended immediate): alias for UBFM Xd,Xn,#((64-uimm)&63),#(63-uimm)
+LSR Wd, Wn, #uimm
+Logical Shift Left (immediate): alias for UBFM Wd,Wn,#uimm,#31.
+LSR Xd, Xn, #uimm
+Logical Shift Left (extended immediate): alias for UBFM Xd,Xn,#uimm,#31.
+ROR Wd, Wm, #uimm
+Rotate Right (immediate): alias for EXTR Wd,Wm,Wm,#uimm.
+ROR Xd, Xm, #uimm
+Rotate Right (extended immediate): alias for EXTR Xd,Xm,Xm,#uimm.
+
+SXT[BH] Wd, Wn
+Signed Extend Byte|Halfword: alias for SBFM Wd,Wn,#0,#7|15.
+SXT[BHW] Xd, Wn
+Signed Extend Byte|Halfword|Word (extended): alias for SBFM Xd,Xn,#0,#7|15|31.
+UXT[BH] Wd, Wn
+Unsigned Extend Byte|Halfword: alias for UBFM Wd,Wn,#0,#7|15.
+UXT[BHW] Xd, Wn
+Unsigned Extend Byte|Halfword|Word (extended): alias for UBFM Xd,Xn,#0,#7|15|31.
+ASRV Wd, Wn, Wm
+Arithmetic Shift Right Variable: Wd = ASR(Wn, Wm & 0x1f).
+ASRV Xd, Xn, Xm
+Arithmetic Shift Right Variable (extended): Xd = ASR(Xn, Xm & 0x3f).
+LSLV Wd, Wn, Wm
+Logical Shift Left Variable: Wd = LSL(Wn, Wm & 0x1f).
+LSLV Xd, Xn, Xm
+Logical Shift Left Variable (extended register): Xd = LSL(Xn, Xm & 0x3f).
+LSRV Wd, Wn, Wm
+Logical Shift Right Variable: Wd = LSR(Wn, Wm & 0x1f).
+LSRV Xd, Xn, Xm
+Logical Shift Right Variable (extended): Xd = LSR(Xn, Xm & 0x3f).
+RORV Wd, Wn, Wm
+Rotate Right Variable: Wd = ROR(Wn, Wm & 0x1f).
+RORV Xd, Xn, Xm
+Rotate Right Variable (extended): Xd = ROR(Xn, Xm & 0x3f).
+However the “Variable Shift” machine instructions have a preferred set of “Shift (register)” aliases which match the
+Shift (immediate) aliases described elsewhere:
+CLS Wd, Wm
+Count Leading Sign Bits: sets Wd to the number of consecutive bits following the topmost bit in Wm, that
+are the same as the topmost bit. The count does not include the topmost bit itself, so the result will be in
+the range 0 to 31 inclusive.
+CLS Xd, Xm
+Count Leading Sign Bits (extended): sets Xd to the number of consecutive bits following the topmost bit
+in Xm, that are the same as the topmost bit. The count does not include the topmost bit itself, so the result
+will be in the range 0 to 63 inclusive.
+CLZ Wd, Wm
+Count Leading Zeros: sets Wd to the number of binary zeros at the most significant end of Wm. The result
+will be in the range 0 to 32 inclusive.
+CLZ Xd, Xm
+Count Leading Zeros: (extended) sets Xd to the number of binary zeros at the most significant end of Xm.
+The result will be in the range 0 to 64 inclusive.
+RBIT Wd, Wm
+Reverse Bits: reverses the 32 bits from Wm, writing to Wd.
+RBIT Xd, Xm
+Reverse Bits (extended): reverses the 64 bits from Xm, writing to Xd.
+REV Wd, Wm
+Reverse Bytes: reverses the 4 bytes in Wm, writing to Wd.
+REV Xd, Xm
+Reverse Bytes (extended): reverses 8 bytes in Xm, writing to Xd.
+REV16 Wd, Wm
+Reverse Bytes in Halfwords: reverses the 2 bytes in each 16-bit element of Wm, writing to Wd.
+REV16 Xd, Xm
+Reverse Bytes in Halfwords (extended): reverses the 2 bytes in each 16-bit element of Xm, writing to Xd.
+REV32 Xd, Xm
+Reverse Bytes in Words (extended): reverses the 4 bytes in each 32-bit element of Xm, writing to Xd.
+
+Arithmetic and logical
+
+ADD Wd, Wn, Wm{, ashift #imm}
+Add (register): Wd = Wn + ashift(Wm, imm).
+ADD Xd, Xn, Xm{, ashift #imm}
+Add (extended register): Xd = Xn + ashift(Xm, imm).
+ADDS Wd, Wn, Wm{, ashift #imm}
+Add and Set Flags (register): Wd = Wn + ashift(Wm, imm), setting condition flags.
+ADDS Xd, Xn, Xm{, ashift #imm}
+Add and Set Flags (extended register): Xd = Xn + ashift(Xm, imm), setting condition flags.
+SUB Wd, Wn, Wm{, ashift #imm}
+Subtract (register): Wd = Wn - ashift(Wm, imm).
+SUB Xd, Xn, Xm{, ashift #imm}
+Subtract (extended register): Xd = Xn - ashift(Xm, imm).
+SUBS Wd, Wn, Wm{, ashift #imm}
+Subtract and Set Flags (register): Wd = Wn - ashift(Wm, imm), setting condition flags.
+SUBS Xd, Xn, Xm{, ashift #imm}
+Subtract and Set Flags (extended register): Xd = Xn - ashift(Xm, imm), setting condition flags.
+CMN Wn, Wm{, ashift #imm}
+Compare Negative (register): alias for ADDS WZR, Wn, Wm{, ashift #imm}.
+CMN Xn, Xm{, ashift #imm}
+Compare Negative (extended register): alias for ADDS XZR, Xn, Xm{, ashift #imm}.
+CMP Wn, Wm{, ashift #imm}
+Compare (register): alias for SUBS WZR, Wn, Wm{,ashift #imm}.
+CMP Xn, Xm{, ashift #imm}
+Compare (extended register): alias for SUBS XZR, Xn, Xm{, ashift #imm}.
+NEG Wd, Wm{, ashift #imm}
+Negate: alias for SUB Wd, WZR, Wm{, ashift #imm}.
+NEG Xd, Xm{, ashift #imm}
+Negate (extended): alias for SUB Xd, XZR, Xm{, ashift #imm}.
+NEGS Wd, Wm{, ashift #imm}
+Negate and Set Flags: alias for SUBS Wd, WZR, Wm{, ashift #imm}.
+NEGS Xd, Xm{, ashift #imm}
+Negate and Set Flags (extended): alias for SUBS Xd, XZR, Xm{, ashift #imm}.
+ADD Wd|WSP, Wn|WSP, Wm, extend {#imm}
+Add (register, extending): Wd|WSP = Wn|WSP + LSL(extend(Wm),imm).
+ADD Xd|SP, Xn|SP, Wm, extend {#imm}
+Add (extended register, extending): Xd|SP = Xn|SP + LSL(extend(Wm),imm).
+ADD Xd|SP, Xn|SP, Xm{, UXTX|LSL #imm}
+Add (extended register, extending): Xd|SP = Xn|SP + LSL(Xm,imm).
+ADDS Wd, Wn|WSP, Wm, extend {#imm}
+Add and Set Flags (register, extending): Wd = Wn|WSP + LSL(extend(Wm),imm), setting the
+condition flags.
+ADDS Xd, Xn|SP, Wm, extend {#imm}
+Add and Set Flags (extended register, extending): Xd = Xn|SP + LSL(extend(Wm),imm), setting
+the condition flags.
+ADDS Xd, Xn|SP, Xm{, UXTX|LSL #imm}
+Add and Set Flags (extended register, extending): Xd = Xn|SP + LSL(Xm,imm), setting the condition
+flags.
+SUB Wd|WSP, Wn|WSP, Wm, extend {#imm}
+Subtract (register, extending): Wd|WSP = Wn|WSP - LSL(extend(Wm),imm).
+SUB Xd|SP, Xn|SP, Wm, extend {#imm}
+Subtract (extended register, extending): Xd|SP = Xn|SP - LSL(extend(Wm),imm).
+SUB Xd|SP, Xn|SP, Xm{, UXTX|LSL #imm}
+Subtract (extended register, extending): Xd|SP = Xn|SP - LSL(Xm,imm).
+SUBS Wd, Wn|WSP, Wm, extend {#imm}
+Subtract and Set Flags (register, extending): Wd = Wn|WSP - LSL(extend(Wm),imm), setting the
+condition flags.
+SUBS Xd, Xn|SP, Wm, extend {#imm}
+Subtract and Set Flags (extended register, extending): Xd = Xn|SP - LSL(extend(Wm),imm),
+setting the condition flags.
+SUBS Xd, Xn|SP, Xm{, UXTX|LSL #imm}
+Subtract and Set Flags (extended register, extending): Xd = Xn|SP - LSL(Xm,imm), setting the
+condition flags.
+CMN Wn|WSP, Wm, extend {#imm}
+Compare Negative (register, extending): alias for ADDS WZR,Wn,Wm,extend {#imm}.
+CMN Xn|SP, Wm, extend {#imm}
+Compare Negative (extended register, extending): alias for ADDS XZR,Xn,Wm,extend {#imm}.
+CMN Xn|SP, Xm{, UXTX|LSL #imm}
+Compare Negative (extended register, extending): alias for ADDS XZR,Xn,Xm{,UXTX|LSL #imm}.
+CMP Wn|WSP, Wm, extend {#imm}
+Compare (register, extending): alias for SUBS WZR,Wn,Wm,extend {#imm}.
+CMP Xn|SP, Wm, extend {#imm}
+Compare (extended register, extending): alias for SUBS XZR,Xn,Wm,extend {#imm}.
+CMP Xn|SP, Xm{, UXTX|LSL #imm}
+Compare (extended register, extending): alias for SUBS XZR,Xn,Xm{,UXTX|LSL #imm}.
+AND Wd, Wn, Wm{, lshift #imm}
+Bitwise AND (register): Wd = Wn AND lshift(Wm, imm).
+AND Xd, Xn, Xm{, lshift #imm}
+Bitwise AND (extended register): Xd = Xn AND lshift(Xm, imm).
+ANDS Wd, Wn, Wm{, lshift #imm}
+Bitwise AND and Set Flags (register): Wd = Wn AND lshift(Wm, imm), setting N & Z condition flags
+based on the result and clearing the C & V flags.
+ANDS Xd, Xn, Xm{, lshift #imm}
+Bitwise AND and Set Flags (extended register): Xd = Xn AND lshift(Xm, imm), setting N & Z
+condition flags based on the result and clearing the C & V flags.
+BIC Wd, Wn, Wm{, lshift #imm}
+Bit Clear (register): Wd = Wn AND NOT(lshift(Wm, imm)).
+BIC Xd, Xn, Xm{, lshift #imm}
+Bit Clear (extended register): Xd = Xn AND NOT(lshift(Xm, imm)).
+BICS Wd, Wn, Wm{, lshift #imm}
+Bit Clear and Set Flags (register): Wd = Wn AND NOT(lshift(Wm, imm)), setting N & Z condition
+flags based on the result and clearing the C & V flags.
+BICS Xd, Xn, Xm{, lshift #imm}
+Bit Clear and Set Flags (extended register): Xd = Xn AND NOT(lshift(Xm, imm)), setting N & Z
+condition flags based on the result and clearing the C & V flags.
+EON Wd, Wn, Wm{, lshift #imm}
+Bitwise exclusive OR NOT (register): Wd = Wn EOR NOT(lshift(Wm, imm)).
+EON Xd, Xn, Xm{, lshift #imm}
+Bitwise exclusive OR NOT (extended register): Xd = Xn EOR NOT(lshift(Xm, imm)).
+EOR Wd, Wn, Wm{, lshift #imm}
+Bitwise exclusive OR (register): Wd = Wn EOR lshift(Wm, imm).
+EOR Xd, Xn, Xm{, lshift #imm}
+Bitwise exclusive OR (extended register): Xd = Xn EOR lshift(Xm, imm).
+ORR Wd, Wn, Wm{, lshift #imm}
+Bitwise inclusive OR (register): Wd = Wn OR lshift(Wm, imm).
+ORR Xd, Xn, Xm{, lshift #imm}
+Bitwise inclusive OR (extended register): Xd = Xn OR lshift(Xm, imm).
+ORN Wd, Wn, Wm{, lshift #imm}
+Bitwise inclusive OR NOT (register): Wd = Wn OR NOT(lshift(Wm, imm)).
+ORN Xd, Xn, Xm{, lshift #imm}
+Bitwise inclusive OR NOT (extended register): Xd = Xn OR NOT(lshift(Xm, imm)).
+MOV Wd, Wm
+Move (register): alias for ORR Wd,WZR,Wm.
+MADD Wd, Wn, Wm, Wa
+Multiply-Add: Wd = Wa + (Wn × Wm).
+MADD Xd, Xn, Xm, Xa
+Multiply-Add (extended): Xd = Xa + (Xn × Xm.)
+MSUB Wd, Wn, Wm, Wa
+Multiply-Subtract: Wd = Wa – (Wn × Wm).
+MSUB Xd, Xn, Xm, Xa
+Multiply-Subtract (extended): Xd = Xa – (Xn × Xm).
+MNEG Wd, Wn, Wm
+Multiply-Negate: Wd = –(Wn × Wm).
+Alias for MSUB Wd, Wn, Wm, WZR.
+MNEG Xd, Xn, Xm
+Multiply-Negate (extended): Xd = –(Xn × Xm).
+Alias for MSUB Xd, Xn, Xm, XZR.
+MUL Wd, Wn, Wm
+Multiply: Wd = Wn × Wm.
+Alias for MADD Wd, Wn, Wm, WZR.
+MUL Xd, Xn, Xm
+Multiply (extended): Xd = Xn × Xm.
+Alias for MADD Xd, Xn, Xm, XZR.
+SMADDL Xd, Wn, Wm, Xa
+Signed Multiply-Add Long: Xd = Xa + (Wn × Wm), treating source operands as signed.
+SMSUBL Xd, Wn, Wm, Xa
+Signed Multiply-Subtract Long: Xd = Xa – (Wn × Wm), treating source operands as signed.
+SMNEGL Xd, Wn, Wm
+Signed Multiply-Negate Long: Xd = -(Wn × Wm), treating source operands as signed.
+Alias for SMSUBL Xd, Wn, Wm, XZR.
+SMULL Xd, Wn, Wm
+Signed Multiply Long: Xd = Wn × Wm, treating source operands as signed.
+Alias for SMADDL Xd, Wn, Wm, XZR.
+SMULH Xd, Xn, Xm
+Signed Multiply High: Xd = (Xn × Xm)<127:64>, treating source operands as signed.
+UMADDL Xd, Wn, Wm, Xa
+Unsigned Multiply-Add Long: Xd = Xa + (Wn × Wm), treating source operands as unsigned.
+UMSUBL Xd, Wn, Wm, Xa
+Unsigned Multiply-Subtract Long: Xd = Xa – (Wn × Wm), treating source operands as unsigned.
+UMNEGL Xd, Wn, Wm
+Unsigned Multiply-Negate Long: Xd = -(Wn × Wm), treating source operands as unsigned.
+Alias for UMSUBL Xd, Wn, Wm, XZR.
+UMULL Xd, Wn, Wm
+Unsigned Multiply Long: Xd = Wn × Wm, treating source operands as unsigned.
+Alias for UMADDL Xd, Wn, Wm, XZR.
+UMULH Xd, Xn, Xm
+Unsigned Multiply High: Xd = (Xn × Xm)<127:64>, treating source operands as unsigned.
+SDIV Wd, Wn, Wm
+Signed Divide: Wd = Wn ÷ Wm, treating source operands as signed.
+SDIV Xd, Xn, Xm
+Signed Divide (extended): Xd = Xn ÷ Xm, treating source operands as signed.
+UDIV Wd, Wn, Wm
+Unsigned Divide: Wd = Wn ÷ Wm, treating source operands as unsigned.
+UDIV Xd, Xn, Xm
+
+
+Conditionals
+
+ADC Wd, Wn, Wm
+Add with Carry: Wd = Wn + Wm + C.
+ADC Xd, Xn, Xm
+Add with Carry (extended): Xd = Xn + Xm + C.
+ADCS Wd, Wn, Wm
+Add with Carry and Set Flags: Wd = Wn + Wm + C, setting the condition flags.
+ADCS Xd, Xn, Xm
+Add with Carry and Set Flags (extended): Xd = Xn + Xm + C, setting the condition flags.
+CSEL Wd, Wn, Wm, cond
+Conditional Select: Wd = if cond then Wn else Wm.
+CSEL Xd, Xn, Xm, cond
+Conditional Select (extended): Xd = if cond then Xn else Xm.
+CSINC Wd, Wn, Wm, cond
+Conditional Select Increment: Wd = if cond then Wn else Wm+1.
+CSINC Xd, Xn, Xm, cond
+Conditional Select Increment (extended): Xd = if cond then Xn else Xm+1.
+CSINV Wd, Wn, Wm, cond
+Conditional Select Invert: Wd = if cond then Wn else NOT(Wm).
+CSINV Xd, Xn, Xm, cond
+Conditional Select Invert (extended): Xd = if cond then Xn else NOT(Xm).
+CSNEG Wd, Wn, Wm, cond
+Conditional Select Negate: Wd = if cond then Wn else -Wm.
+CSNEG Xd, Xn, Xm, cond
+Conditional Select Negate (extended): Xd = if cond then Xn else -Xm.
+CSET Wd, cond
+Conditional Set: Wd = if cond then 1 else 0.
+Alias for CSINC Wd,WZR,WZR,invert(cond).
+CSET Xd, cond
+Conditional Set (extended): Xd = if cond then 1 else 0.
+Alias for CSINC Xd,XZR,XZR,invert(cond)
+CSETM Wd, cond
+Conditional Set Mask: Wd = if cond then -1 else 0.
+Alias for CSINV Wd,WZR,WZR,invert(cond).
+CSETM Xd, cond
+Conditional Set Mask (extended): Xd = if cond then -1 else 0.
+Alias for CSINV Xd,WZR,WZR,invert(cond).
+CINC Wd, Wn, cond
+Conditional Increment: Wd = if cond then Wn+1 else Wn.
+Alias for CSINC Wd,Wn,Wn,invert(cond).
+CINC Xd, Xn, cond
+Conditional Increment (extended): Xd = if cond then Xn+1 else Xn.
+Alias for CSINC Xd,Xn,Xn,invert(cond).
+CINV Wd, Wn, cond
+Conditional Invert: Wd = if cond then NOT(Wn) else Wn.
+Alias for CSINV Wd,Wn,Wn,invert(cond).
+CINV Xd, Xn, cond
+Conditional Invert (extended): Xd = if cond then NOT(Xn) else Xn.
+Alias for CSINV Xd,Xn,Xn,invert(cond).
+CNEG Wd, Wn, cond
+Conditional Negate: Wd = if cond then -Wn else Wn.
+Alias for CSNEG Wd,Wn,Wn,invert(cond).
+CNEG Xd, Xn, cond
+Conditional Negate (extended): Xd = if cond then -Xn else Xn.
+Alias for CSNEG Xd,Xn,Xn,invert(cond).
+SBC Wd, Wn, Wm
+Subtract with Carry: Wd = Wn - Wm - 1 + C.
+SBC Xd, Xn, Xm
+Subtract with Carry (extended): Xd = Xn - Xm - 1 + C.
+SBCS Wd, Wn, Wm
+Subtract with Carry and Set Flags: Wd = Wn - Wm - 1 + C , setting the condition flags.
+SBCS Xd, Xn, Xm
+Subtract with Carry and Set Flags (extended): Xd = Xn - Xm - 1 + C , setting the condition flags.
+NGC Wd, Wm
+Negate with Carry: Wd = -Wm - 1 + C.
+Alias for SBC Wd,WZR,Wm.
+NGC Xd, Xm
+Negate with Carry (extended): Xd = -Xm - 1 + C.
+Alias for SBC Xd,XZR,Xm.
+NGCS Wd, Wm
+Negate with Carry and Set Flags: Wd = -Wm - 1 + C, setting the condition flags.
+Alias for SBCS Wd,WZR,Wm.
+NGCS Xd, Xm
+Negate with Carry and Set Flags
+
+CCMN Wn, Wm, #uimm4, cond
+Conditional Compare Negative (register):
+NZCV = if cond then CMP(Wn,-Wm) else uimm4.
+CCMN Xn, Xm, #uimm4, cond
+Conditional Compare Negative (extended register):
+NZCV = if cond then CMP(Xn,-Xm) else uimm4.
+CCMN Wn, #uimm5, #uimm4, cond
+Conditional Compare Negative (immediate):
+NZCV = if cond then CMP(Wn,-uimm5) else uimm4.
+CCMN Xn, #uimm5, #uimm4, cond
+Conditional Compare Negative (extended immediate):
+NZCV = if cond then CMP(Xn,-uimm5) else uimm4.
+CCMP Wn, Wm, #uimm4, cond
+Conditional Compare (register):
+NZCV = if cond then CMP(Wn,Wm) else uimm4.
+CCMP Xn, Xm, #uimm4, cond
+Conditional Compare (extended register):
+NZCV = if cond then CMP(Xn,Xm) else uimm4.
+CCMP Wn, #uimm5, #uimm4, cond
+Conditional Compare (immediate):
+NZCV = if cond then CMP(Wn,uimm5) else uimm4.
+CCMP Xn, #uimm5, #uimm4, cond
+Conditional Compare (extended immediate):
+NZCV = if cond then CMP(Xn,uimm5) else uimm4.
+Unsigned Divide (extended): Xd = Xn ÷ Xm, treating source operands as unsigned.
+
+LDUR Bt, [base,#simm9]
+Load (Unscaled) Register (byte): load a byte from memory addressed by base+simm9 to 8-bit Bt.
+LDUR Ht, [base,#simm9]
+Load (Unscaled) Register (half): load a halfword from memory addressed by base+simm9 to 16-bit Ht.
+LDUR St, [base,#simm9]
+Load (Unscaled) Register (single): load a word from memory addressed by base+simm9 to 32-bit St.
+LDUR Dt, [base,#simm9]
+Load (Unscaled) Register (double): load a doubleword from memory addressed by base+simm9 to 64-bit
+Dt.
+LDUR Qt, [base,#simm9]
+Load (Unscaled) Register (quad): load a quadword from memory addressed by base+simm9 and pack
+into 128-bit Qt.
+STUR Bt, [base,#simm9]
+Store (Unscaled) Register (byte): store byte from 8-bit Bt to memory addressed by base+simm9.
+STUR Ht, [base,#simm9]
+Store (Unscaled) Register (half): store halfword from 16-bit Ht to memory addressed by base+simm9.
+STUR St, [base,#simm9]
+Store (Unscaled) Register (single): store word from 32-bit St to memory addressed by base+simm9.
+STUR Dt, [base,#simm9]
+Store (Unscaled) Register (double): store doubleword from 64-bit Dt to memory addressed by
+base+simm9.
+STUR Qt, [base,#simm9]
+Store (Unscaled) Register
+

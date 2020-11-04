@@ -1,0 +1,59 @@
+
+/*
+    <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+        <ds:KeyName> jlmkey1 </ds:KeyName>
+        <ds:KeyType> aes128-ctr-raw </ds:KeyType>
+        <ds:KeyValue> NLxqhCM= </ds:KeyValue>
+        <ds:IV> IV-Value </ds:IV>
+    </ds:KeyInfo>
+ 
+
+    <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+        <ds:KeyName> jlmkey1 </ds:KeyName>
+        <ds:KeyType> aes128-ctr-raw </ds:KeyType>
+        <ds:RSAKeyValue>
+            <ds:E> Value </ds:E>
+            <ds:D> Value </ds:D>
+            <ds:Modulus>
+                xA7SEU+e0yQH5rm9kbCDN9o3aPIo7HbP7tX6WOocLZAtNfyxSZDU16ksL6W
+            </ds:Modulus>
+        </ds:RSAKeyValue>
+    </ds:KeyInfo>
+
+
+    <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+        <ds:KeyName> jlmkey1 </ds:KeyName>
+        <ds:KeyType> ecc256-ecb-raw </ds:KeyType>
+        <ds:ECCKeyValue>
+            <ds:ECCCurve curvename="Nist256">
+                <ds:P> Value /ds:P>
+                <ds:A> Value /ds:A>
+                <ds:B> Value /ds:B>
+            </ds:ECCCurve>
+            <ds:BasePoint>
+                <ds:X> </ds:X>
+                <ds:Y> </ds:Y>
+            </ds:BasePoint>
+            <ds:PublicBase>
+                <ds:X> </ds:X>
+                <ds:Y> </ds:Y>
+            </ds:PublicBase>
+            <ds:SecretMultiplier>AQAB</ds:SecretMultiplier>
+            <ds:RandomMultiplier>AQAB</ds:RandomMultiplier>
+        </ds:ECCKeyValue>
+    </ds:KeyInfo>
+
+
+    <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+        <ds:KeyName> jlmkey1 </ds:KeyName>
+        <ds:KeyType> elgamal1024-ecb-raw </ds:KeyType>
+        <ds:ElGamalKeyValue>
+            <ds:Base> Value </ds:Base>
+            <ds:SecretMultiplier>AQAB</ds:SecretMultiplier>
+            <ds:RandomMultiplier>AQAB</ds:RandomMultiplier>
+        </ds:ElGamal1024KeyValue>
+    </ds:KeyInfo>
+ */
+
+
+

@@ -1,0 +1,90 @@
+-setentropyfile \jlmtemp\cryptUtil\cryptUtil\Ent1.in
+-initrandom ctr-aes256-dbrg generic
+
+# leave generic for testing
+# -initrandom ctr-aes256-dbrg combo
+
+-test
+
+-genkey rsa1024 TKrsa1 \jlmtemp\CryptUtil\rsaTkey1.xml standard
+-printkey rsa1024 file:\jlmtemp\CryptUtil\rsaTkey1.xml
+-encrypt rsa1024 file:\jlmtemp\CryptUtil\rsaTkey1.xml \jlmtemp\CryptUtil\rsaT1.in \jlmtemp\CryptUtil\rsaT1.out
+-decrypt rsa1024 file:\jlmtemp\CryptUtil\rsaTkey1.xml \jlmtemp\CryptUtil\rsaT1.out \jlmtemp\CryptUtil\rsaT1.out2
+
+-genkey aes128-ecb-raw aesTkey1 \jlmtemp\CryptUtil\aes128Tkey1.xml
+-encrypt aes128-ecb-raw file:\jlmtemp\CryptUtil\aes128Tkey1.xml \jlmtemp\CryptUtil\aes128T1.in \jlmtemp\CryptUtil\aes128T1.out
+-decrypt aes128-ecb-raw file:\jlmtemp\CryptUtil\aes128Tkey1.xml \jlmtemp\CryptUtil\aes128T1.out \jlmtemp\CryptUtil\aes128T1.out2
+
+-encode hex \jlmtemp\CryptUtil\encodeT1.in \jlmtemp\CryptUtil\encodeT1.out2
+-decode hex \jlmtemp\CryptUtil\encodeT1.out2 \jlmtemp\CryptUtil\encodeT1.out2.out
+-encode base64 \jlmtemp\CryptUtil\encodeT1.in \jlmtemp\CryptUtil\encodeT1.out1
+-decode base64 \jlmtemp\CryptUtil\encodeT1.out1 \jlmtemp\CryptUtil\encodeT1.out1.out
+-encode hex \jlmtemp\CryptUtil\encodeT1.in \jlmtemp\CryptUtil\encodeT1.out2
+-decode hex \jlmtemp\CryptUtil\encodeT1.out2 \jlmtemp\CryptUtil\encodeT1.out2.out
+-encode base64 \jlmtemp\CryptUtil\encodeT1.in \jlmtemp\CryptUtil\encodeT1.out3 reverse
+-decode base64 \jlmtemp\CryptUtil\encodeT1.out3 \jlmtemp\CryptUtil\encodeT1.out3.out reverse
+-encode hex \jlmtemp\CryptUtil\encodeT1.in \jlmtemp\CryptUtil\encodeT1.out4 reverse
+-decode hex \jlmtemp\CryptUtil\encodeT1.out4 \jlmtemp\CryptUtil\encodeT1.out4.out reverse
+
+-hash md4-raw \jlmtemp\CryptUtil\shatest.in \jlmtemp\CryptUtil\md4T1.out
+-hash md5-raw \jlmtemp\CryptUtil\shatest.in \jlmtemp\CryptUtil\md5T1.out
+-hash sha1-raw \jlmtemp\CryptUtil\shatest.in \jlmtemp\CryptUtil\sha1.out
+-hash sha256-raw \jlmtemp\CryptUtil\shatest.in \jlmtemp\CryptUtil\sha256.out
+-hash sha512-raw \jlmtemp\CryptUtil\shatest.in \jlmtemp\CryptUtil\sha512.out
+
+-genkey aes128-cbc-raw aesTkey3 \jlmtemp\CryptUtil\aes128Tkey3.xml
+-encrypt aes128-cbc-raw file:\jlmtemp\CryptUtil\aes128Tkey3.xml \jlmtemp\CryptUtil\aes128T1.in \jlmtemp\CryptUtil\aes128cbcT1.out
+-decrypt aes128-cbc-raw file:\jlmtemp\CryptUtil\aes128Tkey3.xml \jlmtemp\CryptUtil\aes128cbcT1.out \jlmtemp\CryptUtil\aes128cbcT1.out.out
+
+-genkey aes128-ctr-raw aesTkey2 \jlmtemp\CryptUtil\aes128Tkey2.xml
+-encrypt aes128-ctr-raw file:\jlmtemp\CryptUtil\aes128Tkey2.xml \jlmtemp\CryptUtil\aes128T1.in \jlmtemp\CryptUtil\aes128ctrT1.out
+-decrypt aes128-ctr-raw file:\jlmtemp\CryptUtil\aes128Tkey2.xml \jlmtemp\CryptUtil\aes128ctrT1.out \jlmtemp\CryptUtil\aes128ctrT1.out.out
+
+-genkey aes256-ecb-raw aes256Tkey1 \jlmtemp\CryptUtil\aes256Tkey1.xml
+-encrypt aes256-ecb-raw file:\jlmtemp\CryptUtil\aes256Tkey1.xml \jlmtemp\CryptUtil\aes256T1.in \jlmtemp\CryptUtil\aes256T1.out
+-decrypt aes256-ecb-raw file:\jlmtemp\CryptUtil\aes256Tkey1.xml \jlmtemp\CryptUtil\aes256T1.out \jlmtemp\CryptUtil\aes256T1.out.out
+
+-genkey rc4 rc4Tkey1 \jlmtemp\CryptUtil\rc4Tkey1.xml 16
+-encrypt rc4 file:\jlmtemp\CryptUtil\rc4Tkey1.xml \jlmtemp\CryptUtil\aes128T1.in \jlmtemp\CryptUtil\rc4T1.out
+-decrypt rc4 file:\jlmtemp\CryptUtil\rc4Tkey1.xml \jlmtemp\CryptUtil\rc4T1.out \jlmtemp\CryptUtil\rc4T1.out2
+
+-genkey des-ecb-raw desTkey1 \jlmtemp\CryptUtil\desTkey1.xml
+-encrypt des-ecb-raw file:\jlmtemp\CryptUtil\desTkey1.xml \jlmtemp\CryptUtil\aes128T1.in \jlmtemp\CryptUtil\desT1.out
+-decrypt des-ecb-raw file:\jlmtemp\CryptUtil\desTkey1.xml \jlmtemp\CryptUtil\desT1.out \jlmtemp\CryptUtil\desT1.out2
+
+-genkey tea-ecb-raw teaTkey1 \jlmtemp\CryptUtil\teaTkey1.xml
+-encrypt tea-ecb-raw file:\jlmtemp\CryptUtil\teaTkey1.xml \jlmtemp\CryptUtil\aes128T1.in \jlmtemp\CryptUtil\teaT1.out
+-decrypt tea-ecb-raw file:\jlmtemp\CryptUtil\teaTkey1.xml \jlmtemp\CryptUtil\teaT1.out \jlmtemp\CryptUtil\teaT1.out2
+
+-genkey rsa2048 rsa2048Tkey1 \jlmtemp\CryptUtil\rsa2048Tkey1.xml standard
+-encrypt rsa2048 file:\jlmtemp\CryptUtil\rsa2048Tkey1.xml \jlmtemp\CryptUtil\rsaT1.in \jlmtemp\CryptUtil\rsa2048T1.out
+-decrypt rsa2048 file:\jlmtemp\CryptUtil\rsa2048Tkey1.xml \jlmtemp\CryptUtil\rsa2048T1.out \jlmtemp\CryptUtil\rsa2048T1.out2
+
+-genkey ecc256 ecc256Tkey1 \jlmtemp\CryptUtil\ecc256Tkey1.xml standard
+-encrypt ecc256 file:\jlmtemp\CryptUtil\ecc256Tkey1.xml \jlmtemp\CryptUtil\rsaT1.in \jlmtemp\CryptUtil\ecc256T1.out
+-decrypt ecc256 file:\jlmtemp\CryptUtil\ecc256Tkey1.xml \jlmtemp\CryptUtil\ecc256T1.out \jlmtemp\CryptUtil\ecc256T1.out2
+
+-genkey ecc521 ecc521Tkey1 \jlmtemp\CryptUtil\ecc521Tkey1.xml standard
+-encrypt ecc521 file:\jlmtemp\CryptUtil\ecc521Tkey1.xml \jlmtemp\CryptUtil\rsaT1.in \jlmtemp\CryptUtil\ecc521T1.out
+-decrypt ecc521 file:\jlmtemp\CryptUtil\ecc521Tkey1.xml \jlmtemp\CryptUtil\ecc521T1.out \jlmtemp\CryptUtil\ecc521T1.out2
+
+-pad sha1-pkcs1.5 \jlmtemp\CryptUtil\rsaT1.in \jlmtemp\CryptUtil\rsaT1pad.out
+-sign rsa1024-sha1-pkcs1.5 file:\jlmtemp\CryptUtil\rsaKey1.xml \jlmtemp\CryptUtil\rsaT1.in \jlmtemp\CryptUtil\rsaT1sign.out
+-verify rsa1024-sha1-pkcs1.5 file:\jlmtemp\CryptUtil\rsaKey1.xml \jlmtemp\CryptUtil\rsaT1.in \jlmtemp\CryptUtil\rsaT1sign.out
+
+# -initrandom sha512-drg generic
+# -derivepassword pdkdf2 password salt count
+# -genparameters RSA keyname outFile [parameters]
+
+# -split offset inFile outFile1 outFile2
+# -merge inFile1 inFile2 outFile
+# -printTable
+# -printTableEntry
+# -printTableInfo
+# -closeKeyStore
+# -saveKeyStore
+# -saveasKeyStore outfile
+# -importtotable inFile
+# -exportfromtable keyName outFile
+# -openKeyStore inFile
+# -initKeyStore

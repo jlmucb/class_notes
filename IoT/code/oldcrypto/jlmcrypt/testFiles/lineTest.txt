@@ -1,0 +1,62 @@
+
+
+# --------------------------------------------------------------
+
+
+-help
+-command
+-end
+-test
+-initKeyStore store1.bin
+-importsymkey Testkey1 aes128-ecb-raw 0x000102030405060708090a0b0c0d0e0f
+-exportsymkey Testkey1 aes128-ecb-raw 0x000102030405060708090a0b0c0d0e0f aesKeyFile1.txt
+-exportfromtable Testkey1 aesKeyFile1.txt
+-saveasKeyStore store2.bin
+-openKeyStore store2.bin
+-printTableInfo
+-printTable
+-printTableEntry Testkey1
+-importtotable aes2File.txt
+-derivepassword
+-closeKeyStore
+-saveKeyStore
+-encrypt aes128-ecb-raw -keyValue 0x000102030405060708090a0b0c0d0e0f aes128EncTest1.in aes128EncTest1.out
+-encrypt aes128-ecb-raw -keyFile aesKeyFile1.txt aes128EncTest1.in aes128EncTest1.out
+
+-hash sha512-raw shaTest.in sha512Test1.out
+-hash sha256-raw shaTest.in sha256Test1.out
+-hash sha1-raw shaTest.in sha1Test1.out
+
+-encrypt aes128-ecb-raw -keyName Testkey1 aes128EncTest1.in aes128EncTest1.out
+-decrypt aes128-ecb-raw -keyName Testkey1 aes128DecTest1.in aes128DecTest1.out
+-encode base64 base64EncTest1.in base64EncTest1.out
+-decode base64 base64DecTest1.in base64DecTest1.out
+-getEntropy generic 1024 EntropyTest1.out
+-getRandom ctr-aes256-dbrg generic 1024 RandomTest1.out
+
+
+# --------------------------------------------------------------
+
+
+-pad oaep-rsa inFile outFile
+-genPrime size outFile
+-sign rsa1024-raw [optional-args] keyName inFile outFile
+
+aes Key:     0x000102030405060708090a0b0c0d0e0f
+
+# --------------------------------------------------------------
+
+
+Hash algorithms: md4-raw md5-raw sha1-raw sha256-raw sha512-raw md4-mdpad md5-mdpad sha1-mdpad sha256-mdpad sha512-mdpad
+Encrypt algorithms: aes128-ecb-raw aes128-cbc-raw aes128-ctr-raw aes128-ecb aes128-cbc aes128-ctr
+                    es256-ecb aes256-cbc des-ecb des-cbc tea rc4 rsa1024, ecc256
+Sign algorithms: rsa1024-raw rsa1024-pad dsa1024-raw elgamal1024
+Entropy sources: generic tpm sw combo
+PRNG algorithms: sha512-dbrg ctr-aes256-dbrg
+Pad algorithms: md, oaep-rsa
+
+
+# --------------------------------------------------------------
+
+
+
