@@ -1,0 +1,1250 @@
+\subsection{Group Theory}
+{\bf Isomorphism Theorems:}  (1) If $\varphi: G \rightarrow H$ is a homomorphism,
+$G/ker(\varphi) \cong Im(\varphi)$, 
+(2)  If
+$G \triangleright H$ and $G \triangleright N$ and $N \subseteq H \subseteq G$
+then $G/H \cong (G/N)/(H/N)$, 
+(3) If $G=HN$, $G \triangleright N$ then
+$HN/N \cong H/(H \cap N)$.\\
+\\
+{\bf Derived series:} $G^{[0]}=G$, $G^{[i+1]}= [G^{i]}, G^{[i]}]$.  $G$ is solvable iff
+derived series terminates at ${1}$.  Subnormal Series: 
+$G= G_0 \rhd G_1 \rhd \ldots \rhd G_k =H$, if this happens, we say
+$G \rhd \rhd H$.  {\bf Normal series:} Subnormal series where $G \rhd G_i, \forall i$.
+{\bf Chief series:} Normal series with no repeated terms and no normal subgroup properly
+lying between two series elements.  
+{\bf Zassenhaus Butterfly Lemma:}  If
+$A \triangleleft A^{*}$ and $B \triangleleft B^{*}$ then
+$A(A^{*} \cap B) \triangleleft A(A^{*} \cap B^{*})$ and
+$B(B^{*} \cap A) \triangleleft B(B^{*} \cap A^{*})$; further,
+${\frac {A(A^{*} \cap B^{*})} {A(A^{*} \cap B) }} \cong
+{\frac {B(B^{*} \cap A^{*})} {B(B^{*} \cap A) }}$.
+Let $G$ be a finite group.  
+The following are equivalent: (1) $G$ is solvable, (2) $G$ has a normal series 
+terminating at the identity whose factor groups are abelian,
+(3) $G$ has a subnormal series with cyclic quotients.\\
+\\
+{\bf Schreier:} Two normal series for $G$ have equivalent refinements.
+Two compositions series for $G$ are equivalent.
+Proof:  By induction on length ($l$) of shortest such
+series.  If $l=1$, $G$ is simple.
+Suppose $G=G_0 \ge G_1 \ge \ldots \ge G_r = 1$ and
+$H=H_0 \ge H_1 \ge \ldots \ge H_t = 1$ and assume $l=r>t$ and that the theorem
+is true for all series of length less than $l$. If $H_1=G_1$ then we are done by induction
+on the shortened series.  Assume $G_1 \ne H_1$, $H_1 \lhd G, G_1 \lhd G$ then
+$G_1H_1 = G$ and $G/G_1 \cong H_1/K, K= G_1 \cap H_1$. Consider the two series
+$G_1 \ge G_2 \ldots \ge G_r = 1$ and
+$G_1 \ge K \ge K_1 \ldots \ge K_t = 1$.  
+By induction, $r-1=t+1$ and they are equivalent.
+Thus,
+$H_1 \ge H_2 \ldots \ge H_s = 1$ and
+$H_1 \ge K \ge K_1 \ldots \ge K_{r-2} = 1$ so $r=s$ and they
+are equivalent.\\
+\\
+$\phi$ is a {\bf normal endomorphism} iff
+$\phi(a^{-1}xa)=
+a^{-1} \phi(x)a$, $\forall x,a \in G$.
+Lemma 1: If $G$ satisfies ACC or DCC then $G$ is the direct product of indecomposable groups.
+Lemma 2: If $G$ satisfies ACC (resp. DCC) on normal subgroups 
+and $f$ is a normal endomorphism
+of $G$, then $f$ is an automorphism iff $f$ is an epimorphism (resp automorphism).
+{\bf Lemma 3 (Fitting):}
+Let $G$ satisfy both chain conditions.  If $\phi$ is a
+normal endomorphism of $G$ then $G= Ker(f^n) \times Im(f^n)$, some $n \ge 1$.
+If $G$ is an indecomposable group satisfying ACC and DCC on normal subgroups
+and if $f$ is a normal endomorphism then $f$ is nilpotent or an automorphism.
+{\bf Krull-Schmidt:}  If $G$ has both chain conditions on normal subgroups and
+$G= H_1 \times \ldots \times H_s = K_1 \times \ldots \times K_t$ are
+two decompositions into indecomposable factors then $s=t$ and, after
+reindexing, $H_i \cong K_i$ and for each $r<t$, $G= G_1 \times G_2 \times \ldots
+\times G_r \times H_{r+1} \times H_t$. Proof:  Let $P(0)$ be the statement
+$G= G_1 \times G_2 \times \ldots \times G_s$ and for $1 \le r \le min(s,t)$
+let $P(i)$ be the statement
+$G= G_1 \times G_2 \times \ldots \times G_r \times H_{r+1} \times \ldots H_t$.
+$P(0)$ is true by assumption, assume $P(r-1)$.  Let $\pi_i$ (resp $\pi_i'$ be the 
+canonical epimorphisms from
+$G_1 \times G_2 \times \ldots \times G_s$ (resp.
+$G_1 \times G_2 \times \ldots \times G_r \times H_{r+1} \times H_t$ and $\lambda_i$
+(resp $\lambda_i'$) be the inclusion maps, 
+$\varphi_i= \lambda_i \pi_i$
+and
+$\phi_i= \lambda_i' \pi_i'$.  $\varphi_r \phi_i= 0_{|G}$ for $i<r$ and
+$\varphi_1 (1_{|G})= \varphi_r \phi_1 + \ldots + \varphi_r \phi_t=
+\varphi_r \phi_r + \ldots + \varphi_r \phi_t$ so $(\varphi_r \phi_j)_{|G}$ is
+an automorphism of $G_r$.  $\varphi_j \phi_r$ must be an automorphism of $H_j$ and
+$\phi_j:G_r \rightarrow H_j$ is and isomorphism and so is $\varphi_r: H_j \rightarrow G_r$
+reindexing we have the first half of $P(r)$.  Let 
+$g=g_1 g_2 \ldots g_{r-1} h_r h_{r+1} \ldots h_t$ define 
+$\theta(g)=g_1 g_2 \ldots g_{r-1} \varphi(h_r) h_{r+1} \ldots h_t$.  
+$G=Im(\theta)=G^*= G_1 \times G_2 \times \ldots \times G_r \times H_{r+1} \times H_t$ 
+which completes the argument.\\
+\\
+{\bf Lower Central Series:} $L_1(G)=G$, $L_{n+1}(G)= [L_n(G),G]$.  $G$ is 
+{\bf nilpotent} if
+$L_n(G)=1$ for some $n$.  Note $L_n(G)/L_{n+1}(G) \subseteq Z(G/L_{n+1}(G))$.
+{\bf Upper Central series:}
+$Z_0(G)=1$; Let $H^*= H/Z_n(G)$, define $Z_{n+1}(G)^*= Z(G/Z_n(G))$.
+Upper and Lower central series have same length.
+Finite nilpotent groups are direct products of
+their Sylow subgroups.\\
+\\
+$G$ is an {\bf extension} of $K$ by $Q$ if $G \triangleright K$ and $G/K \cong Q$.
+If $1 \rightarrow N \rightarrow_{i} G \rightarrow_{\varphi} Q \rightarrow 1$, the following
+are equivalent
+(1) $\exists Q^* \subseteq G: Q^* \rightarrow Q$ and
+(2) $\exists s:Q \rightarrow G$ such that $\varphi \cdot s = id$.
+(3) $G$ is a semi-direct product of $N$ by $Q$ written $N \ltimes Q$; in this
+case, we say $G$ is a split extension of $N$ by $Q$.\\
+\\
+$G$ is {\bf complete} if it is centerless and every automorphism is inner.
+in which case $G \cong Aut(G)$. $S_n$ is complete if $n \ne 2,3$.  Proof:
+Let $T_k$ be the set of $k$ disjoint transpostions so $x \in T_k \rightarrow
+x^2=1$; note that if $\theta \in Aut(S_n), \theta(T_1)= T_k$ for some $k$. Also
+observe that $\theta$ preserves transpositions iff $\theta \in Inn(S_n)$.
+Now we can show 
+$|T_1|= {\frac {n(n-1)} {2}}$ and
+$|T_k|= {\frac {(n-2k+1)!} {(n-2k)! k! 2^k}}$.  Comparing the two $|T_1| = |T_k|$
+is possible only if $k=2 ,3$ and in fact, only if $k=3$.   If
+$\theta \in Out(S_6)$ and $\tau$ is a transposition, $\theta(\tau)$ must
+be a product of three transpositions and such an automorphism exists.
+If $G$ is a non-abelian simple group, then $Aut(G)$ is complete.  If
+$K \lhd G$ and $K$ is complete, $G= K \times Q$.  $Hol(K) \subset S_K$
+is $<K^l, Aut(K)>$, $K^l \lhd Hol(K)$, $Hol(K)/K^l \cong Aut(K)$ and
+$C_{Hol(K)}(K^l)= K^r$.  If $K$ is a direct factor whenever $K$ is a normal
+subgroup then $K$ is complete.\\
+\\
+Suppose $G$ is an extension of $N$ by $H$ and let $\phi: H \rightarrow G/N$.  Pick
+$s:G \rightarrow H$ such that $s(1)=1$ and $\phi(h) = N s(h)$, then 
+$\exists f: H \times H \rightarrow N: s(h_1 h_2)= f(h_1, h_2) s(h_1 h_2)$
+and $f(h_1, h_2) f(h_1 h_2, h_3)= f(h_2, h_3)^{s(h_1)} f(h_1 , h_2 h_3)$.  Note
+that $\theta_h: n \mapsto s(h) n s(h)^{-1}$ is in $Aut(N)$ and
+$\theta_{h_1}(\theta_{h_2}(n))= \theta_{h_1 h_2}(n)^{f(h_1, h_2)}$.
+Given $N,H$ with $\theta_h \in Aut(N)$ and $\theta_1 = 1$ and a map
+$f: H \times H \rightarrow N$ with $f(1,h)=f(h,1)=1$ and
+$f(h_1, h_2) f(h_1 h_2 , h_3)= \theta_{h_1}(f(h_2, h_3)) f(h_1, h_2 h_3)$, 
+suppose $f$ is compatible in the sense that 
+$\theta_{h_1}(\theta_{h_2}(n))= \theta_{h_1h_2}(n)^{f(h_1, h_2)}$ then the
+operation $(n_1, h_1) \cdot (n_2, h_2) = (n_1 \theta_{h_1}(n_2) f(h_1, h_2), h_1 h_2)$
+defines a group $G$ which is an extension of $N$ by $H$.\\
+\\
+Suppose $T$ is a subset consisting of a representative of each coset
+of an $G/K$ which is called a {\bf transversal}. 
+If $\pi: G \rightarrow Q$ is a surjective homomorphism with kernel
+$K$, $l: Q \rightarrow G$ is a {\bf lifting} if $\pi(l(x))=x$.
+$G$ realizes $(Q, K, \theta )$ with $K'=1$, $\theta:Q \rightarrow Aut(K)$ and
+$l:Q \rightarrow G$ if $G$ is an extension of
+$K$ by $Q$ and every transversal $l: Q \rightarrow G$ satisfies $xa = \theta_x(a)
+= l(x) +a-l(x)$.  Note additive notation for non-abelian operation.
+If $\pi: Q \rightarrow G$ is a surjective homomorphism with
+kernel $K$ and $l:Q \rightarrow G$ is a transversal with $l(1)=0$ then
+$f: Q \times Q \rightarrow K$ defined by $l(x)+l(y)= f(x,y) + l(xy)$ is
+called a {\bf factor set}.
+{\bf Cocycle identity:} $xf(y,z)-f(xy,z)+f(x,yz)-f(x,y)=0$.  Note
+$xf(y,z)= l(x)f(y,z)l(x)^{-1}$.
+Given ``data,'' $(Q, K, \theta )$, $f:Q \times Q \rightarrow K$ is a factor set
+iff it satisfies the cocycle identity and $f(1,y)=0=f(x,1)$.
+Proof: Let $G= \{(a, x): a \in K,
+x \in Q \}$.  With $(a,x) + (b, y)= (a +xb+f(x,y), xy)$.
+This is a group if the conditions hold.\\
+\\
+Let $G$ realize $(Q, K, \theta )$ and $l$ and $l'$ be transversals with
+$l(1)=l'(1)=0$ giving rise to factor sets $f$ and $f'$ then there is an
+$h:Q \rightarrow K$ with $h(1)=0$ such that 
+$f'(x,y)-f(x,y)= xh(y)-h(xy)+h(x), \forall x,h \in Q$ and $g$ is called a
+{\bf coboundary}.  The set of all coboundaries is 
+${\bf B^2 (Q,K,\theta)}$.
+${\bf Z^2 (Q, K, \theta)}$ is the set of all {\bf factor sets}.
+${\bf H^2 (Q, K, \theta) \cong Z^2 (Q, K, \theta) / B^2 (Q, K, \theta)}$.
+Two extensions are equivalent if the difference of
+their two factor sets is in $B^2 (Q, K, \theta)$.
+There is a bijection from $H^2(Q,K,\theta)$ and the set of equivalence classes
+of extensions realizing $(Q, K, \theta)$ taking $0$ to the class of the
+semidirect product.  See proof of Schur-Zassenhaus.\\
+\\
+$G$, an extension of $K$ by $Q$, is a {\bf central extension} if $K<Z(G)$.  Functorially,
+a central extension $G$ is a pair $(H, \pi)$ satisfying
+$\pi: H \rightarrow G, ker(\pi) \subseteq Z(H)$.  A cyclic extension $G$ of $N$ is
+one where $G/N$ is cyclic.  Solvable groups are built from cyclic extensions.
+$\alpha: (H_1 , \pi_1) \rightarrow (H_2, \pi_2)$ is a morphism in this category. 
+If $(\tilde{G}, \tilde{\pi})$ is universal if 
+$\forall (H, \sigma), \exists ! \alpha : (\tilde{G}, \tilde{\pi}) \rightarrow
+(H, \sigma)$.
+$G$ possesses a universal central extension iff $G$ is perfect.
+If $(\tilde{G}, \pi)$ is a universal central extension then $ker(\pi)$ is the
+Schur multiplier.
+{\bf Homological version:} If $G>N$
+and $H>K$ are normal subgroups isomorphic under $\phi$, the pullback
+is $(g, h)$ where $gN= \phi(hK)$.
+$(Q, K, \theta)$ is trivial iff every extension realizing $(Q, K, \theta)$
+is a central extension.  There's a bijection between $H^2 (Q, K, \theta)$
+and central extensions. {\bf Schur multiplier:}
+$M(Q)=H^2 (Q, {\mathbb C}^{\times})$ ($\theta$ is trivial).
+Here $f(1,y)=f(x,1)=1$, $f(x,y) f(xy,z)^{-1} f(x,yz) f(x,y)^{-1}=1$,
+$g: Q \times Q \rightarrow {\mathbb C}^{\times}$ is a coboundary
+iff $\exists h: Q \rightarrow {\mathbb C}^{\times}$ with $h(1)=1$ such that
+$g(x,y)= h(y)(h(xy))^{-1}h(x)$.  Assume $G$ is perfect then a central extension
+$(E, \phi)$ of $G$ is universal iff (a) $E$ is perfect and (b) all 
+central extensions of $E$ are trivial. In that case,
+$1 \rightarrow R \rightarrow F \rightarrow G \rightarrow 1$, $F$, free and
+$E= [F,F][F,R] \rightarrow [F,F]/R=G$.\\
+\\
+{\bf Central Product:} $G= <G_i>$, $[G_i , G_j ]=1$ for $i \ne j$.  Equivalently,
+$\rho: (x_1, x_2, \ldots , x_n) \mapsto x_1 x_2 \ldots x_n$ is a surjective homomorphism
+from $(G_1 \times G_2 \times \ldots \times G_n)$ to $G$ with $\rho(D_i) = G_i$ where
+$\pi_i (G_1, \ldots , G_n)= D_i$ and $ker(\rho) \cap D_i = 1$, $ker(\rho) \subseteq Z(G)$.
+Let $Z<Z(A)) \cap Z(B)$, $A \times B / Z$ is a central product.
+Both $D_8$ and
+$Q_8$ are central products of $Z_2$ by $Z_2 \times Z_2$.
+Let $G_i, 1 \le i \le n$ be a family of groups with $Z(g_1)=Z(G_i)$ and
+$Aut_{G_i}(Z(G_i))=Aut(Z(G_i))$.  Then up to isomorphism there is a unique
+central product with $Z(G_1)=Z(G_i)$.\\
+\\
+{\bf Wreath Product:} $G^*= G^{X}$ - maps from $X$ to $G$.  $fg(x)= f(x) g(x)$.
+Let $H$ act on $X$: $f^h(x)= f(xh^{-1})$.  Let $\phi$ be the natural action of
+$H$ induced on $G^{|H|}$, then $G \wr H = H \rtimes_{\phi} G^*$. If $G_x =
+\{f: f(y)= 1 \; if \; x \ne y \}$.  $G^* = \prod_X G_x$.
+Put $g_x (y)= g (y)$ if $x=y$, 1 otherwise.  Note that
+${g_x}^h= g_{xh}$.
+If $H$ is finite and $G/K=H$, $G$ can be embedded in the
+regular wreath product $K \wr H$:
+{\bf Universal Embedding Theorem:}  Let $G \rhd N$ and $K \equiv G/N$, 
+$\exists \phi : G \rightarrow N \; \wr \; K$ such that $\phi$ maps $N$
+onto $im(\phi) \cap \bigotimes_i N$.
+$exp(G)= min \{e: x^e = 1, \forall x \in G \}$.
+If $Q$ is finite then $M(Q)$ is a finite abelian group and
+$exp(M(Q)) \mid |Q|$.\\
+\\
+{\bf Representations:}
+If $V$ is a ${\mathbb C}G$-module, $g$ induces a linear map
+$\rho(g): V \rightarrow V$;
+if ${\cal B}$ is a basis of $V$, the matrix for the matrix representing the linear
+map $\rho(g)$ is denoted by $[g]_{\cal B}$.
+Two such \emph {representations} are equivalent if they are
+related by a similarity.
+Let $V$ be a ${\mathbb C}G$-module with basis ${\cal B}$ and $\rho: g \mapsto [g]_{\cal B}$ then
+(i) if ${\cal B}'$ is a basis of $V$ and $\phi(g)= [g]_{{\cal B}'}$ is another representation,
+$\rho$ is equivalent to $\phi$; and, (ii) if $\sigma$ is any equivalent representation to
+$\rho$, $\exists {\cal B}': \sigma(g)= [g]_{{\cal B}'}$.
+Let $V, W$ be a ${\mathbb C}G$-modules; $V \cong W$ iff there are bases 
+${\cal B}_1$, ${\cal B}_2$ of $V, W$ respectively such that
+$\forall g \in G: [g]_{{\cal B}_1}= [g]_{{\cal B}_2}$.
+Let $V, W$ be a ${\mathbb C}G$-modules, $V \cong W$ iff there are bases 
+${\cal B}_1$, ${\cal B}_2$ of $V, W$ respectively such that
+$[g_{{\cal B}_1}]$ and $[g_{{\cal B}_2}]$ are equivalent.  
+{\bf Maschke:}  If $V$ is a ${\mathbb C}G$-module and
+$U$ is a ${\mathbb C}G$-submodule, there is a 
+${\mathbb C}G$-submodule, $W$, of $V$ such that $V= U \oplus W$.
+{\bf Schur:}  If $V, W$ are irreducible ${\mathbb C}G$-modules and $\theta: V \rightarrow W$ is a 
+${\mathbb C}G$ homomorphism then either $\theta=0$ or $\theta$ is an isomorphism.
+If $V, W$ are ${\mathbb C}G$-modules and $\theta: V \rightarrow W$ is a ${\mathbb C}G$ module
+homomorphism, $\exists U$, a ${\mathbb C}G$-submodule of $V$ such that $V= ker(\theta) \oplus U$.
+$Hom_{{\mathbb C}G}(V,W)$ is a vector space over ${\mathbb C}$.  
+If $V,W$ are irreducible ${\mathbb C}G$ modules,
+$dim_{{\mathbb C}}(Hom_{{\mathbb C}G}(V, W))$ is $1$ if $V \cong W$ and $0$ otherwise.
+$dim_{{\mathbb C}}(Hom_{{\mathbb C}G}(V, W)) \ne 0$ if $V$ and $W$ have a common composition
+factor.
+Let $V$ be an ${\mathbb C}G$ module, 
+$V= U_1 \oplus U_2 \oplus \ldots \oplus U_r$ with $U_i$ irreducible; (a) if
+$W$ is an irreducible ${\mathbb C} G$ module then 
+$dim_{{\mathbb C}}(Hom_{{\mathbb C}G}(V, W))= dim_{{\mathbb C}}(Hom_{{\mathbb C}G}(W, V))$ is
+the number of $U_i \cong W$;
+(b) each $U_i$ is a composition factor in the Jordan Holder series.
+${\mathbb C}G= U_1 \oplus U_2 \oplus \ldots \oplus U_r$ with $U_i$ irreducible;
+if $G$ is finite, there are finitely many irreducible ${\mathbb C}G$ modules.
+$dim(Hom_{{\mathbb C}G}(V_1 \oplus \ldots \oplus U_r, W_1 \oplus \ldots \oplus W_s)=
+\sum_{i=1, j=1}^{r,s} dim(Hom_{{\mathbb C}G}(V_i , W_j))$. Suppose $U$ is and irreducible
+${\mathbb C}G$-module then 
+$dim(Hom_{{\mathbb C}G}({\mathbb C}G, U))= dim(U)$. [Proof: 
+Let $d=dim(U)$ and $u_1, u_2, \ldots, u_d$ be a basis for $U$.  Define
+$r \phi_i=u_i r$.  The $\phi_i$ are a basis for $Hom_{{\mathbb C}G}({\mathbb C}G, U)$].
+If $V_1, V_2, \ldots, V_r$ are a complete set of irreducible ${\mathbb C}G$-modules
+then $|G|= \sum_{i=1}^r dim(V_i)^2$.  [Proof: 
+${\mathbb C}G= U_1 \oplus U_2 \oplus \ldots \oplus U_k$, of these, $dim(V_i)$ are isomorphic
+to $V_i$ and each of these had dimension $dim(V_i)$]. 
+If $G$ is abelian, any 
+${\mathbb C}G$-module has dimension $1$.  If $G \lhd N$ and $\chi$ is a character of $G/N$,
+define $\tilde{\chi}(g)= \chi(gN)$.  $\tilde{\chi}$ is a character of $G$ and is irreducile iff
+$\chi$ is irreducible.
+\\
+\\
+{\bf Characters:} 
+$\chi_{reg}= \chi_1(1) \chi_1(g) + \chi_2(1) \chi_2(g) + \ldots + \chi_r(1) \chi_r(g)$.
+Let $U, V$ be non-isomorphic irreducible ${\mathbb C}G$ modules with 
+characters $\chi, \psi$, then $< \chi, \chi>=1$ and $<\chi, \psi>=0$. 
+$\chi(g)$ is real iff
+$\chi(g)= \chi(g^{-1}), \forall \chi$.  $N \lhd G$ iff $\exists \chi_i, i= 1, \ldots, k$
+such that $\bigcap_{i=1}^k ker(\chi_i)=N$.  $G$ is not simple iff $\exists \chi, g \ne 1:
+\chi(g)= \chi(1)$.  $G$ has $|G/G'|$ linear characters.
+If all irreducible representations of $G$ have dimension $1$, $G$ is abelian.
+Define $(\theta , \eta)= {\frac 1 {|G|}} \sum_g \theta(g) {\overline {\eta(g)}}$.
+If $U = U_{1} \otimes ... \otimes U_{s}$, the number of these similar to $U_{1}$
+is ${\frac {(\theta, \eta)} {(\eta, \eta)}}$.
+$(\theta, \rho_{G})= \theta(1)$,
+$(\chi_{i}, \chi_{j})= \delta_{ij}$,
+$\sum_{g} \chi(g) = |G| \delta_{i1}$,
+$\sum_{i} \chi_{i}^{2}(1) = |G| $.
+$\omega_{i}(R_{j})= |r_{j}|\chi_{i}(g)/\chi_{i}(1)$,
+$\omega_{t}(R_{i}) \omega_{t}(R_{j})= \sum_{s} a_{ijs} \omega_{t}(R_{s})$.
+$\sum_{t} \chi_{t}(g_{i}) {\overline \chi_{t}(g_{j})} =
+{\frac {|G|}{|R_{j}|}} \delta_{ij}$.
+The number of conjugacy classes = number of irreducible representations.
+$\omega_{i}(R_{j})$ is an algebraic integer.
+$\chi_{i} | |G|$,
+$(|R|, \chi(1))= 1, \chi^{irred} \rightarrow
+|\chi(g)|= 1$ or $\chi(g)= 0$.
+Let $H$ be the kernel of $\theta$ then (i) $|\theta(g)| \leq \theta(1)$,
+(ii) $\theta(g) = \theta(1)$, iff $g \in H$,
+(iii) $|\theta(g)| = \theta(1)$, iff $gH$ is in the center if $G/H$.
+{\bf Characters and group structure: }
+The character table determines the normal subgroups and the nilpotent groups.
+General procedure for calculating characters: (1) Derive a faithful representation,
+(2) generate group elements, (3) determine conjugacy classes, (4) determine structure
+constants ($|C_i||C_j|= \sum_k \alpha_{ijk} |C_k|$), (5) get characters from structure
+constants.
+If $G \subseteq S_n$, $\alpha: G \rightarrow {\mathbb C}$ by $\alpha(g)= |fix(g)|-1$,
+then $\alpha$ is a character of $G$. Define $ker(\rho)= \{g: \chi_{\rho}(g)= \chi_{\rho}(1) \}$.
+$\rho$ is faithful iff $ker(\rho)=1$.  $N= \{n: |\chi(n)|= \chi(1) \} \lhd G$.  If
+$N \lhd G, \exists \chi_i: \bigcap_{i=1}^r ker(\chi_i) =N$.  
+$g \sim h$ iff $\chi(g)=\chi(h), \forall  \chi$.  
+Let $x \in A_n$; if there is an odd permutation that commutes with $x$,
+$ccl_{A_n}(x)=ccl_{S_n}(x)$ otherwise
+$ccl_{S_n}(x)$ splits into two conjugacy classes in $A_n$.
+Let $C_i= \sum_{x \in ccl(y)} x$ then the $C_i$ form a basis for ${\mathbb Z}(FG)$.
+There are $|G/G'|$ inequivalent linear representations (characters) of $G$.
+\\
+\\
+{\bf Application of character theory:}
+Suppose $\chi$ is a character of a ${\mathbb C}G$-module, $V$, and $g \in G$ has order
+$m$ then (1) $\chi(1)=dim(V)$, (2) $\chi(g)$ is a sum of $m$-th roots of unity,
+(3) $\chi(g^{-1})= {\overline {\chi(g)}}$ and (4) $\chi(g)$ is real iff $g \sim g^{-1}$.
+If $\chi$ is an irreducible character, $\chi(1) \mid |G|$ 
+(If $g_i$ is in the $i$th conjugacy class,
+${\frac {|G|} {|C_G(g_i)|}} {\frac {\chi(g_i)} {\chi(1)}}$ and ${\overline {\chi(g)}}$
+are algebraic integers so
+$\sum_{i=1}^k {\frac {|G|} {|C_G(g_i)|}} {\frac {\chi(g_i)} {\chi(1)}}{\overline {\chi(g)}}
+={\frac {|G|} {\chi(1)}}$ is.) {\bf Burnside's Lemma:} 
+$|{\frac {\chi(g)} {\chi(1)}}| \le 1$ if
+$|{\frac {\chi(g)} {\chi(1)}}| \ne 1$ it is not an algebraic integer.  
+Let $p$ be a prime and $G$ a finite
+group with conjugacy class of size $p^r, r \ge 1$, then $G$ is not simple.
+{\bf Burnside's Theorem:} Every group of order $p^a q^b$ is solvable.
+Let $\chi$ be an irreducible character and $C$ a conjugacy class.
+If$(\chi(1), |C|)=1$ then either $C \subseteq Z(\chi)$ or $\chi(C)=0$.  If $G$
+is a non-abelian simple group $\{1\}$ is the only class with prime power
+order.  
+\\
+\\
+{\bf Feit's moduleless treatment.}
+Maschke: If $char(F)$ does not divide $|G|$, then $F$-representations of $G$
+are completely reducible.  For $\phi$ irreducible,
+if $\exists S: \forall g, S \phi(g) = \phi(g) S$ then S is non-singular.
+If $A(g), B(g)$ are $k$-irreducible then (i) if $A$ is not similar to $B$,
+and,
+$\sum_{g} a_{is}(g) b_{tj}(g^{-1}) = 0$; or,
+(ii) $A$, $B$ are absolutely irreducible and
+$\sum_{g} a_{is}(g^{-1}) a_{tj}(g) =
+{\frac {|G|} {n}} \delta_{ij} \delta_{st}$, where $n \times n$ is the
+dimension of $(a_{is}(g))$.
+If $A^{s}$ is absolutely irreducible then $a^{s}_{ij}(g)$ are linearly
+independent and $\sum_{s=1}^k n_{s}^{2} \leq |G|$.\\
+\\
+{\bf Induced representations:} If $H \le G$ and $\varphi$ a class function on $H$, define
+$\varphi^G(g)= {\frac 1 {|H|}} \sum_{x \in G} \varphi^* (x^{-1}gx)$. {\bf Frobenius
+Reciprocity:} $(\varphi^G , \theta)= (\varphi, \theta_{|H})$.  \\
+\\
+{\bf Brauer's Characterization of Characters:} $p$-elementary groups are the products of
+a cyclic $p'$ group and $p$ group.  Every irreducible character is an induced character
+of a linear character of a $p$ elementary subgroup for some $p$.\\
+\\
+{\bf RSK correspondence} for representations
+of the symmetric group: $\exists$ bijection between $S_n$ and the set of ordered
+tableau of the same shape $g \leftrightarrow (S,T)$, further
+$g^{-1} \leftrightarrow (T,S)$.
+{\bf Young's diagram:} $D(\lambda )$, $n= n_1 + n_2 + \ldots + n_k$,
+$n_1 \geq n_2 \geq \ldots \geq n_k$.
+Number of tableaus with shape $\lambda$:
+$f_{ \lambda } = \frac { n!} {\prod_{i,j \in D(\lambda )} {h(i, j)}}$, where
+$h(i, j)$ = number of cells in hook $H_{i,j}$.\\
+\\
+{\bf Fixed point free automorphisms:} 
+Let $G$ be a transitive permutation group on $X$ and $1 \ne g \in G$ fixes
+no more than one element then $N= \{g: X_g= \emptyset \}$ is a normal subgroup of $G$.
+Thompson showed any finite group having a fixed point free automorphism is nilpotent.\\
+\\
+{\bf Schrier and coset enumeration:}
+Let $G= < g_1 , g_2 , \ldots , g_m >$.  Let $k_1 , k_2 , \ldots ,
+k_s$ be a group of coset representatives for a subgroup $H<G$. ${\overline g}$
+is the coset representative for $g$ in $G/H$ and $k_1 = 1$ then
+$H= < (k_i g_j ) {\overline {(k_i g_j )^{-1}}} >$
+for $i= 1, 2, 3, \ldots , s$ and
+$j= 1, 2, 3, \ldots , m$.  Maintain following tables: Coset, relation table
+for each relation, subset table.  Column headers are generators, rows are
+right coset labels.
+To calculate $|G|$, calculate orbit of point.  Calculate point stabilizer by
+completing paths in Schrier tree and using the resulting relations.\\
+\\
+${\cal B}= < \beta_1 , ... , \beta_n>$ is a base for 
+$G \le Sym(\Omega)$ if $G_{\cal B} = 1$.
+If $G^{[i]} = G_{\beta_1 , ..., \beta_i}$ and
+$G=G^{[1]} \ge ... \ge G^{[m+1]}=1$ then
+$S$ is a {\bf strong generating set} relative to ${\cal B}$ if
+it is a generating set and $S \cap G^{[i]} = G^{[i]}$.  Can use this to get
+orbit sizes.
+Schrier-Sims calculates base and strong generating set.\\
+\\
+{\bf Coxeter groups:} $M= (m_{ij}), 1 \le i,j \le n, m_{ii}=1$, 
+$m_{ij} \in {\mathbb Z}, m_{ij} \ge 2$.  Associate to each
+such matrix a graph with nodes $i, 1 \le i \le n$, $(i,j)$ is an edge if $m_{ij}>0$ if
+$m_{ij}>2$, label it with $m_{ij}-2$.  The Coxeter group is $G$ generated by
+$S= \{ s_i \} , 1 \le i \le n$ with $(s_i s_j)^{m_{ij}}=1$.  Note the $s_i$'s must be
+involutions, $\theta= {\frac {\pi} {m_{ij}}}$. 
+Geometrically: If $\Delta= \{ r_1 , \ldots , r_n \}, ||r_i||=1$ 
+is a {\bf root system} with each
+$r_i$ defining a reflection along its associated hyperplane by $S_r (x) = x-2(r,x)r$ and
+$\alpha_{ij}= -cos({\frac {\pi} {p_{ij}}})= (r_i , r_j)$.  Associate a marked
+graph with edges labeled by $p_{ij}$ (unmarked edged have $p_{ij}=3$) and associated
+quadratic form $Q({\vec x})= \sum \alpha_{ij} x_i x_j$.  The Coxeter group is generated
+by the involutions $S_r$ and $S_{r_i}S_{r_j}$ has order $p_{ij}$.  The quadratic forms
+are positive definite and the associated forms are irreducible iff the graphs are
+connected.  The root system is effective iff the roots generate the underlying vector
+space.  Union of the fundamental region under each element of $G$ is the vector
+space.\\
+\\
+{\bf Classical Groups:}
+Every {\bf transvection} in $SL_n(F)$ is conjugate if $n>2$.  Group orders:
+$PSL_n(q)= {\frac 1 {(q-1)(n,q-1)}} (q^{m} -1) (q^{m} -q) (q^{m} -q^{2}) ...  (q^{m} -q^{m-1})$,
+simple if $n>2$ or $q>3$.
+$PSp_{2l}(q)= {\frac 1 {(2,q-1)}} q^{l^2}(q^{2} -1) (q^{4} -1) ...  (q^{2l} -1)$,
+simple unless $(2l,q)= (2,2), (2,3), (4,2)$.
+$PSU_n(q^2)= {\frac 1 {(n,q+1)}} (q^{\frac {n(n-1)} 2} -1) (q^{2} -1) (q^{3} +1) 
+(q^4 -1)...  (q^{n} - (-1)^n)$,
+simple unless $(2l,q)= (2,4), (2,9), (3,4)$.
+For next two, set $\Omega_n(q)= (O_n(q))' \subseteq SO_n(q)$.
+$P\Omega_{2l+1}(q)= {\frac 1 {(n,q-1)}}
+q^{l^2}(q^{2} -1) (q^{4} -1) ...  (q^{2l} -1)$,
+simple if $l>1$.  Note 
+$P\Omega_{2l+1}(q)$ is not isomorphic to $PSp_{2l}(q)$ despite having the same order.
+For $|\epsilon|=1$,
+${P\Omega^{\epsilon}}_{2l}(q)= {\frac 1 {(4,q^l - \epsilon)}}
+q^{l(l-1)}(q^{2} -1) (q^{4} -1) ...  
+(q^{2l-2} -1)
+(q^{l} - \epsilon)$,
+if $q=2^k$, simple if $l>2$.\\
+\\
+{\bf Finite Simple Group Families: }
+${\mathbb Z}_p$, Schur Multiplier: 1.
+$\Sigma_n'$ simple if $n>4$,
+Schur Multiplier: 6 if $n= 6,7$, 2 if $n=5, n>7$.
+$A_n (q) = PSL_{n+1}(q)$ simple if $ n \geq 1$, 
+Schur Multiplier: $(n+1,q-1)$ except 
+$A_1(4) [2]$,
+$A_1(9) [6]$,
+$A_2(4) [48]$,
+$A_3(2) [2]$.
+$B_n (q)= P\Omega_{2n+1}(q)$
+simple if $ n \geq 1$ , Schur Multiplier: $(2,q-1)$ except
+$B_2(2)$,
+$B_3(2) [2]$,
+$B_2(2) [6]$;
+$C_n (q)= PSp_{2n} (q)$ simple if $n > 2$ , Schur Multiplier: 
+$(2,q-1)$ except $C_3(2) [2]$.
+$D_n (q)= P\Omega_{2n}^{+}(q)$ simple if $n \geq 4$, 
+Schur Multiplier: $(2,q-1)$ except $D_4(2) [4]$.
+$E_6 (q)$ of order 
+${\frac 1 {(3,q-1)}} q^{36} (q^{12}-1)(q^{9}-1) (q^{8}-1) (q^{6}-1) (q^{5}-1) (q^{2}-1)$, 
+Schur Multiplier: $(3,q-1)$.
+$E_7 (q)$ 
+of order 
+${\frac 1 {(3,q-1)}} q^{63} (q^{18}-1) (q^{14}-1) (q^{12}-1) 
+(q^{10}-1) (q^{8}-1) (q^{6}-1) (q^{2}-1)$, 
+Schur Multiplier: $(2,q-1)$.
+$E_8 (q)$ 
+of order 
+$q^{120} (q^{30}-1) (q^{24}-1) (q^{20}-1) 
+(q^{18}-1) (q^{14}-1) (q^{12}-1) (q^{8}-1) (q^{2}-1)$, 
+Schur Multiplier: $1$.
+$F_4 (q)$ of order $q^{24} (q^{12}-1) (q^{8}-1) (q^{6}-1) (q^{2}-1)$, 
+Schur Multiplier: $1$ except $F_4(2)[4]$.
+$G_2 (q)$ simple except $G_2(2)$
+of order 
+$q^{6} (q^{6}-1)(q^{2}-1)$, 
+Schur Multiplier: $1$ except $G_2(3) [3]$, $G_2(4) [2]$.
+$^2A_n (q^2) = PSU_{n+1}(q)$ simple if $ n \geq 2$, Schur Multiplier: 
+$(n+1, q+1)$ except
+$^2A_3(2^2) [2]$,
+$^2A_3(3^2) [36]$,
+$^2A_5(2^2) [12]$ .
+$^2D_n (q)= P\Omega_{2n}^{-}(q)$
+simple if $ n \geq 4$, Schur Multiplier: $(4, q^n+1)$.
+$^3D_4 (q^3)$ 
+of order 
+$q^{12} (q^{8}+q^4+1) (q^{6}-1) (q^{2}-1)$, 
+Schur Multiplier: $1$ .
+$^2E_6 (q)$ 
+of order 
+$q^{36} (q^{12}-1) (q^{9}+1) (q^{8}-1) (q^{6}-1) (q^{2}-1)$, 
+Schur Multiplier: $(3,q+1)$ except
+$^2E_6(2^2) [12]$.
+$^2B_2 (2^{2m+1})= Sz(2^{2m+1})$
+simple if $ m > 1$ 
+of order 
+$q^{2} (q^{2}+1) (q-1)$, 
+Schur Multiplier: $1, n>2$.
+$^2F_4 (2^{2m+1})$ (Ree) simple if $ m >1$
+of order 
+$q^{12} (q^{6}+1) (q^{4}-1) (q^{3}+1) (q-1)$, 
+Schur Multiplier: $1,m>1$.
+$^2G_2 (3^{2m+1})$ (Ree) simple if $ m > 1$
+of order 
+$q^{3} (q^{3}+1) (q-1)$, 
+Schur Multiplier: $1, m>1$.\\
+\\
+{\bf Sporadic Groups:}
+$M_{11}$ ($2^4 \cdot 3^2 \cdot 5 \cdot 11$), Schur: 1.
+$M_{12}$ ($2^6 \cdot 3^3 \cdot 7 \cdot 11$), Schur: 2.
+$M_{22}$ ($2^{7} \cdot 3^2 \cdot 5 \cdot 7 \cdot 11$), Schur: 12.
+$M_{23}$ ($2^{7} \cdot 3^2 \cdot 5 \cdot 7 \cdot 11 \cdot 23$), Schur: 1.
+$M_{24}$ ($2^{10} \cdot 3^3 \cdot 5 \cdot 7 \cdot 11 \cdot 23$), Schur: 1.
+$J_1$ ($2^{3} \cdot 3 \cdot 5 \cdot 7 \cdot 11 \cdot 19$), Schur: 1.
+$J_2 = HJ$ ($2^{7} \cdot 3^3 \cdot 5^2 \cdot 7$), Schur: 2.
+$J_3 = HJM$ ($2^{7} \cdot 3^5 \cdot 5 \cdot 17 \cdot 19$), Schur: 3.
+$J_4$ ($2^{21} \cdot 3^3 \cdot 5 \cdot 7 \cdot 11^3 \cdot 23 \cdot 29 \cdot 31 \cdot 37 \cdot 43$), Schur: 1.
+$Co_1$ ($2^{21} \cdot 3^9 \cdot 5^4 \cdot 7^2 \cdot 11 \cdot 13 \cdot 23$), Schur: 2.
+$Co_2$ ($2^{18} \cdot 3^6 \cdot 5^3 \cdot 7 \cdot 11 \cdot 23$), Schur: 1.
+$Co_3$ ($2^{10} \cdot 3^7 \cdot 5^3 \cdot 7 \cdot 11 \cdot 23$), Schur: 1.
+$HS$ ($2^{9} \cdot 3^2 \cdot 5^3 \cdot 7 \cdot 11$), Schur: 2.
+$Mc$ ($2^{7} \cdot 3^6 \cdot 5^3 \cdot 7 \cdot 11$), Schur: 3.
+$Sz$ ($2^{13} \cdot 3^7 \cdot 5^2 \cdot 7 \cdot 11 \cdot 13$), Schur: 1.
+$Ly$ ($2^{8} \cdot 3^7 \cdot 5^6 \cdot 7 \cdot 11 \cdot 31 \cdot 37 \cdot 67$), Schur: 1.
+$He$ ($2^{10} \cdot 3^3 \cdot 5^2 \cdot 7^3 \cdot 17$), Schur: 1.
+$Ru$ ($2^{14} \cdot 3^3 \cdot 5^3 \cdot 7 \cdot 13 \cdot 29$), Schur: 1.
+$O'N-S$ ($2^9 \cdot 3^4 \cdot 5 \cdot 7^3 \cdot 11 \cdot 19 \cdot 31$), Schur: 3.
+$F_{22}$ ($2^{17} \cdot 3^9 \cdot 5^2 \cdot 7 \cdot 11 \cdot 13$), Schur: 6.
+$F_{23}$ ($2^{18} \cdot 3^{13} \cdot 5^2 \cdot 7 \cdot 11 \cdot 13 \cdot 17 \cdot 23$), Schur: 1.
+$F_{24}$ ($2^{21} \cdot 3^{16} \cdot 5^2 \cdot 7^3 \cdot 11 \cdot 13 \cdot 17 \cdot 23 \cdot 29$), Schur: 3.
+$F_3$ (Thompson) ($2^{15} \cdot 3^{10} \cdot 5^3 \cdot 7^2 \cdot 13 \cdot 19 \cdot 31$), Schur: 2.
+$F_5$ (Harada) ($2^{14} \cdot 3^{6} \cdot 5^6 \cdot 7 \cdot 11 \cdot 19$), Schur: 1.
+$F_2$ (Baby Monster) ($2^{41} \cdot 3^{13} \cdot 5^6 \cdot 7^2 \cdot 11 \cdot 13 
+\cdot 17 \cdot 19 \cdot 23 \cdot 31 \cdot 47$), Schur: 2.
+$F_1$ (Monster) ($2^{46} \cdot 3^{20} \cdot 5^9 \cdot 7^6 
+\cdot 11^2 \cdot 13^3 \cdot 17 \cdot 19 \cdot 23 \cdot 29 \cdot 31 \cdot 41 \cdot 47 \cdot 
+59 \cdot 71$), Schur: 1.\\
+\\
+Let $\Delta$ be an orbit of $G$ and let $\delta \in \Delta$.  For each $\gamma \in \Delta$
+let $v(\gamma ) \in G$ be such that $\delta \mapsto \gamma$.  Finally, suppose $S$
+generates $G$.  Then $G_{\delta}=<v(\gamma)sv(\gamma^{s})^{-1} | \gamma \in \Delta,
+s \in S>$.\\
+\\
+{\bf System of imprimitivity for permutation 
+group $G$:} ${\cal B}=\{ \Delta_i\}$ $|\Delta_i|>1$ with
+the property that for $\Delta \in {\cal B}, g \in G$ either 
+$\Delta \cap \Delta^g = \phi$ or
+$\Delta = \Delta^g$.  {\bf Primitive:} No set of imprimitivity.
+$\Gamma$ is $G$ invariant if $\Gamma^G= \Gamma$ so $\Gamma$ is a union of $G$ orbits.
+$G/G_{\Gamma} \equiv G^{\Gamma}$.
+If $\Delta \subseteq \Gamma$ and $\alpha \in \Omega$ then 
+$\psi = \bigcap_{\alpha \in \Delta^g} \Delta^g$ is a block of a transitive
+group $G \subseteq Sym(\Omega)$.
+A transitive group is imprimitive iff $\exists Z$: $G_{\alpha} < Z < G$.
+$G$ is primitive iff $G_{\alpha}$ is maximal.
+Let $G$ act transitively on $\Omega$, $H \lhd G$ then
+(1) The orbits of $H$ are blocks of $G$,
+(2) If $\Delta$ and $\Delta'$ are two $H$ orbits then they are permutation isomorphic,
+(3) If any point lies is fixed by all elements of $H$ then $H$
+lies in the kernel of the action on $\Omega$,
+(4) The group $H$ has at most $|G:H|$ orbits, if finite, it divides $|G:H|$,
+(5) If $G$ acts primitively on $\Omega$ then either $H$ is transitive or it
+lies in the kernel of the action.\\
+\\
+Define ${\cal G}(G, \Omega )$ as the graph of $G$ acting on $\Omega$ as follows:
+$G$ acts on $\Omega \times \Omega$.  Diagonal orbital is
+$\Delta_1 = \{ (\alpha , \alpha )\}$. If $\Delta = \{ (\alpha , \beta ) \}$,
+$\Delta^*= \{ (\beta, \alpha) \}$.  Self paired if $\Delta^* = \Delta$.
+$\Delta(\alpha)= \{ \beta : (\alpha , \beta ) \in \Delta \}$ --- corresponds to 
+orbits of $G_{\alpha}$. The {\bf rank of the permutation group} is number of orbitals.
+On a self-paired orbit $\Delta$, the graph ${\cal G}=(G, X,\Delta)$ is 
+symmetric and $G$ is transitive on edges.
+Let $G$ be a transitive permutation group of even order and rank 3 with two
+necessarily self-paired non-diagonal orbits $\Delta$ and $\Gamma$.  $G$ is primitive
+iff ${\cal G}$ is connected.\\
+\\
+A transitive permutation group is {\bf regular} if $|X|= |G^X|$ or, equivalently 
+$|G_x|=1, \forall x \in X$ and $G^X$, transitive.
+Let $X$ be a faithful primitive $G-set$ with $G_x$ simple.  The either $G$ is simple or
+every non-trivial normal subgroup $H$ of $G$ is a regular normal subgroup.
+{\bf Iwasawa:}  Let $G=G'$ and
+$X$ be a faithful primitive $G-set$.  If there is an $x \in X$ and an Abelian normal
+subgroup $K \lhd G_x$ whose conjugates generate $G$ then G is simple.  {\bf Permutation
+representation:} Let $H \le G$ and $Hg_1 , ..., Hg_n$ be the cosets; the map
+$\pi(g): <Hg_1, ..., Hg_n> \mapsto <Hg_1 g, ..., Hg_n g>$ is a map from $G$ to $\Sigma_n$
+whose kernel is the largest normal subgroup of $G$ in $H$.  Corollary:
+If $H<G$ and $G$ is simple then $|G| \mid |G:H|!$. 
+If $G^X$ is primitive and $1 \ne N \lhd G^X$ then $N^X$ is
+transitive.  If $G^X$ is primitive and $G_x$ is simple then either (1) $G$ is simple, or
+(2) $\exists N \lhd G: N^X$ is regular. If $N$ is a regular normal subgroup of
+$G^X$ then $G_x$ acts on $N^\#$.  If $A$ is transitive on $H^\#$ then $H \cong (Z_p)^n$,
+if 2-transitive, $H \cong (Z_2)^n$ or $Z_3$, if 3-transitive, $H \cong (Z_2)^2$.
+{\bf Semi-regular action:}  $C_G(a)=1, \forall a \in A^{\#}$.  Suppose $A$ acts semi-regularly
+on $G$.  Then (1) $|G| = 1 \jmod{|A|}$, (2) $A$ is semi-regular on each $A-$invariant
+subgroups factor group of $G$, (3) $\forall p \in \pi(G)$, $\exists! A-$invariant
+Sylow $p-$subgroup of $G$, (4) $\forall a \in A, g \mapsto [g,a]$ is a permutation of
+$G$, (5) if $2 | |A|, \exists t: |t|=2, t \in A: g^t = g^{-1}, g \in G$ and
+$G^{(1)}=1$.
+{\bf Frobenius group:} Transitive permutation group with non-trivial stabilizers
+but only the identity fixes more than one letter.  If $G$ is a Frobenius group
+then the set $S$ of elements which fix no points together with $e$ form a normal
+subgroup of order $|G:G_a|$; Thompson showed this normal subgroup is nilpotent.\\
+\\
+{\bf Metacyclic:} $\exists H \lhd G: G/H ,H$ are cyclic. 
+$Core_G(H)= \bigcap_{g \in G} H^g$ (Can use this to show $|G:Core_G(H)|\le |G:H|!$).
+$O^{\cal A}(G)= \bigcap_{A \lhd G, G/A \in {\cal A}} A$.
+$O_{\cal A}(G)= \prod_{A \lhd G, A \in {\cal A}} A$.
+{\bf Socle:} $soc(G)= <M>$ where $M$ is a non-trivial minimal normal subgroup of $G$.
+$O_{\pi}(G)=$ maximal normal $\pi-$subgroup of $G$.
+$O^{\pi}(G)=$ smallest normal subgroup of $G$ such that $G/O^{\pi}(G)$ is a $\pi$-group.
+$G$ is $p-$closed if $O_p(G) \in S_p(G)$.
+$SCN(P)=$ set of self centralizing normal subgroups of $P$.
+$SCN(p)= SCN(P)$ where $P \in SCN(P)$.
+${\cal N}_G(A, \pi)=$ set of all $A-$ invariant $\pi$ subgroups of $G$.
+${\cal N}_G^*(A, \pi)=$  maximal subgroups in ${\cal N}_G(A, \pi)$.  For a $p-$group, $P$,
+$\Omega_n(P)= <x \in P: x^{p^n}=1>$ and
+$\mho_n(P)= <x^{p^n}: x \in P>$.
+$H \subseteq G$ and $S$ an $H$-invariant subset of $G$, $H$ is said to control fusion
+in $S$ if for $s \in S$, $s^G \cap S = s^H$.
+Let $X \le H \le G$.  $X$ is {\bf weakly closed} in $H$ with respect to $G$ if
+$X^g \cap H = \{X\}$.
+$G$ is {\bf $p-$solvable} if it has a normal series whose factors are either
+$p-$groups or $p'$-groups.  
+$G$ is {\bf $p$-constrained} if 
+$P \in S_p ( O_{p',p} (G))$ implies $C(P) \subseteq O_{p',p} (G)$.
+$G$ is {\bf $p$-stable} if $p \ne 2$ and 
+if $A \in p(N(P))$ with $[P,A,A]= 1$ implies $A C(P)/C(P) \subseteq O_p (N(P)/C(P))$.
+$m_p(P)$ is the rank of the largest elementary abelian $p$-group in $P$.
+$O_{\infty}(G)=$ largest solvable normal subgroup of $G$.
+$F(G)$ is the unique maximal normal, nilpotent subgroup of $G$ and
+$F(G)= \prod_p O_p(G)$ .
+$E_{p^n}$ denotes the elementary abelian $p-$group of rank $n$.
+$m_{2,p}(G) = max \{ m_p (H) \}$, where $H$ is 2-local.
+$e(G) = max \{ m_{2,p} (G), p \ne 2 \}$ ($e(G)$ is a good approximation of
+the Lie rank.).
+$O_{p'}(G)$ is called the {\bf $p$-core} of $G$. $O_{2'}(G)$ is often called the
+{\bf core} of $G$ and is sometimes denoted by $O(G)$.
+Walter: Let $G$ be a group with 2 rank $\ge 5$ and $O_{2'}(G)=1$ with the property
+that the centralizer of every involution is $2-$constrained then $O_{2'}(C(x))=1$ for
+every involution $x$.\\
+\\
+{\bf Modular Property:} If $A, B, C \le G$ and $A \le C$ then $AB \cap C= A(B \cap C)$.
+$[ab,c]= [a,c]^b [b,c]$ and $[a,bc]=[a,c] [a,b]^c$.  
+{\bf Jacobi:} $ [x, y^{-1}, z] [y, z^{-1}, x] [z, x^{-1}, y]=1$.
+If $x,y \in C(z), z=[x,y]$ then
+$[x^n , y^m ]= z^{mn}$ and $(yx)^n= y^n x^n z^{\frac {n(n-1)} 2}$.  
+{\bf Three Subgroups:} $A, B, C \subseteq G$ and
+$N \lhd G$ with
+$[A,B,C] \subseteq N$ and
+$[B,C,A] \subseteq N$ then
+$[C,A,B] \subseteq N$.\\
+\\
+Let $G$ be a group with $G/Z(G)$ finite, then $G^{(1)}$ is finite.  Proof:
+Let $n= |G/Z(G)|$.  For $z \in Z(G)$ and $g,h \in G$: $[g,hz]=[g,h]=[gz,h]$ so the 
+set of commutators, $\Delta$, is of order at most $n^2$.
+Claim: $g \in G^{(1)}$ then $g= x_1 x_2 \ldots x_m$, $x_i \in \Delta$ and
+$m \le n^3$.\\
+\\
+{\bf Critical subgroup of a $p$-group:}
+$H \; char \; G$ with $\Phi(H) \le Z(H) \ge [G,H]$.
+$C_G(H)=Z(H)$.  Every $p-$group has a critical subgroup.
+A $p-$group $P$ is {\bf special} if $\Phi(G)=Z(G)=G'$ and {\bf extra-special}
+if $Z(G)$ is cyclic.
+Let $G$ be a non-abelian group of order $p^n$ with cyclic subgroup
+$H$ of index $p$ then $G \cong <p^n>, D_{2^n}, SD_{2^n}, Q_{2^n}$.\\
+\\
+{\bf O-Nan-Scott:}  Let $G$ be a finite primitive permutation group of degree $n$ and
+$H=soc(G)$.  Then either (1) $H$ is a regular elementary abelian $p$ group for
+some $p$ and $G$ is isomorphic to a subgroup of
+$AGL_m(P)$ ; or, (2) $H$ is isomorphic to $T^m$ where $T$ is a non-abelian simple group
+with a bunch of conditions.\\
+\\
+{\bf Mathieu Groups:}
+$M_{11}$: $\pi_1= (123)(456)(789), \pi_2= (147)(258)(369)$,
+$<\pi_1, \pi_2>= {\mathbb Z}_3 \times {\mathbb Z}_3$, 
+$\rho_1= (2437)(5698), \rho_2= (2539)(4876)$, $<\rho_1 , \rho_2> = Q \cong Q_8$.  Set
+$M_9= <\pi_1 , \pi_2 , \rho_1 , \rho_2>$, $|M_9|=72$.  
+Now set $\sigma= (1, 10)(4,5)(6,8)(7,9)$, $\mu= (4,7)(5,8) (6,9) (10,11)$,
+$\theta= (4,9) (5,7) (6,8)(11,12)$.  
+$M_{10}= M_9 \cup M_9 \sigma M_9$,  $(M_{10})_x= M_{9}$,
+$M_{11}= M_{10} \cup M_{10} \mu M_{10}$,  $(M_{11})_x= M_{10}$,
+$M_{12}= M_{11} \cup M_{11} \theta M_{11}$,  $(M_{12})_x= M_{11}$.  $|M_{11}|=7920$.
+$|M_{24}|= 24 \cdot 23 \cdot 22 \cdot 21 \cdot 20 \cdot 48 $.  $M_{11}$ is simple:
+Let $N$ be a non-trivial normal subgroup, it is regular and all Sylow 11 subgroups
+are contained in it (there are 144 by sylow) and $G:N$= 5.  All Sylow 3 subgroups
+of $M_{11}$ are in N and $\psi= \pi_1 \sigma \pi_2^2 \sigma^{-1}$ has order 5 which is a
+contradiction.  Note symmetries of $S(4,5,11)$ also generate it.  Note that $(M_{11})_a= PSL_2(9)$
+and $(M_{22})_a = PSL_3(4)$.\\
+\\
+{\bf Schur-Zassenhaus:}
+Let $G$ be a finite group, $H \lhd G$ and $(|H|, |G:H|)=1$ and either are
+solvable then $G$ splits over $H$ and $G$ is transitive on $H$ complements.
+Proof of existence
+by induction:  Suppose it holds for all groups of order $<G$ and that $|G|=nm;
+(m,n)=1; N \lhd G; |N|= n$.  If $\exists K \le G: |K|=m$ then the theorem is true.
+Let $P \in S_p(N)$.  (1) We may assume $P \lhd N$:  If not 
+$G=N_G(P)N, N_N(P)=N_G(P) \cap N \lhd N_G(P)$ and 
+$m=|G/N|=|N(P)N/N|=|N_G (P)/(N_G (P) \cap N|= |N_G(P)/N_N(P)|$ and $N_G(P)$ has a
+normal Hall group $N_N(P)$ so by induction $\exists K \subseteq N_G(P)$ with
+$|K|=m$ and $N_N(P)K=N_G(P)$, so $NK=G$. (2) We may assume $P=N$: If not,
+$|(G/P)/(N/P)|=m$ so $\exists L/P: (N/P)(L/P)= G/P$ and 
+$|L|=m |P|$, $|L \cap N| \mid (|L|, |N|)$;
+but $(m, |N|)=1$ so $L \cap N \subset P$ and $L<G$ and $\exists K \subset L: |K|=m$.
+(3) May assume $N=P$ is abelian:  If not $1 \ne Z=Z(N) \; char ;\ N \lhd G$ and
+$|(G/Z)/(N/Z)|=m$ so $\exists L/Z: (L/Z)(N/Z)=(G/Z)$ and $L \cap N =Z, L < G$ and
+$(|Z|, |L/Z|)=1$ and $L$ and hence $G$ has a desired subgroup $K$.
+(4) So it suffices to show the theorem if $N$ is a normal abelian Hall $p-$group.
+Let ${\overline H}= G/N$.  If $h \in {\overline H}$ and $t , u$ are two elements of
+$h$ then $t^{-1}u \in N$ so $tnt^{-1}=unu^{-1}$.  Define $^tx=txt^{-1}, t \in h$.
+$H$ acts on $N$ - i.e. $H \subset Aut(N)$.
+Select a transversal $\{t_h | h \in H \}$.
+$ t^{-1}_{h_1h_2}N = (t_{h_1h_2}N)^{-1}=
+(h_1h_2)^{-1}= {h_1}^{-1}{h_2}^{-1}, \forall h_1 , h_2 \in H$, so 
+$t_{h_1}t_{h_2} t^{-1}_{h_1 h_2} \in N$.  Define $f: H \times H \rightarrow N$ by
+$f(h_1, h_2) t_{h_1 h_2} = t_{h_1} t_{h_2}$.  Since
+$t_{h_1}(t_{h_2} t_{h_3}) = (t_{h_1}t_{h_2}) t_{h_3}$, we get
+$ {^{h_1}} f(h_2, h_3)+ f(h_1, h_2 h_3)= f(h_1, h_2)+ f(h_1 h_2 , h_3)$.  If 
+$\exists c:H \rightarrow N: f(h_1 , h_2)= c(h_1 h_2) -c(h_1) - {^{h_1}} c(h_2)$, then
+$c(h_1 h_2) t_{h_1 h_2}= c(t_1)t_{h_1} c(t_2) t_{h_2}$, this would be an isomorphism
+whose image would satisfy the requirements of $K$.  Define: $e: H \rightarrow N$ by
+$e(h) = \sum_{k \in H} f(h , k)$.
+$m f( h_1 , h_2 )=  -e(h_1 h_2) + e(h_1) + {^{h_1}}e(h_2)$.  Since $(m, |N|)=1$,
+${\frac x m}$ is well defined for $ x \in N$ and $c(x)= {\frac {-1} m} e(x)$ satisfies the
+desired properties.
+Proof of conjugacy:
+Suppose $G/N$ is solvable and $\pi$ is the set of primes dividing $m=|G:N|$ and
+$H,K \le G$ and $|H|=|K|=m$, put $R=O_{\pi}(G)$ so $O_{\pi}(G/R) = 1$.  
+Let $L/N$ be a minimal
+normal subgroup of $G/N$ then $L/N$ is an elementary abelian $p-$group for some $p$.
+$H\cap L \in S_p(L)$ and
+$S=(H \cap L)=(K \cap L)^g= K^g \cap L$.  $S \lhd <H, K^g>=J$.  If $J=G$, $S \lhd J$
+and $S \subseteq R=1$; thus $L$ is a $p'-$group which is a contradiction.  So
+$J \ne G$ and by induction $K$, $K^g$ are $J$-conjugate.  
+This concludes this case.  Suppose
+$N$ is solvable and again $|H|=|K|=m=|G:N|$.  
+$HN'/N' \cong KN'/N'$ so $h^g \subseteq KN'$ and
+again by induction, $H^{gk}= K$.\\
+\\
+{\bf Philip Hall's Theorem:} 
+Let $G$ be a solvable group and $\pi$ a set of primes then (i) $G$ has a $\pi$-Hall
+subgroup, (ii) $G$ acts transitively on its Hall $\pi$-subgroups via conjugation, 
+(3) any $\pi$ subgroup is contained in a Hall $\pi$ subgroup.
+Proof: By induction on $|G|$.  Let $N$ be a minimal normal subgroup of $G$ then
+$1 \ne N \lhd G$.  $N$ is elementary abelian for some $p$ and $p \mid mn$.   If
+$p \mid m, |G/N|= {\frac m p}$ and $\exists L: |L/N|= {\frac m p}, |L|= m$ and we're done.
+If $p \mid n, \exists H: |H/N|=m, |H|= |N|m$.  If $|H| < |G|$, we're done by induction.
+Otherwise $H=G, N \lhd G, |N|= n, |G:N|=m$ and $(m,n)=1$ so by Schur Zassenhaus,
+$\exists K: |K|=m$.\\
+\\
+{\bf Theorem: } Let $G$ be a finite group possessing a Hall $\pi'$ subgroup for each $p$, then $G$ 
+is solvable. (Proof requires Burnside $p^a q^b$ theorem.)\\
+\\
+{\bf Frattini subgroup:} $\Phi(G)$ is the intersection of all maximal subgroups of $G$.
+$\Phi(G) \; char \; G$.  If $H= <X, \Phi(H)>$ then $H= <X>$.  If $P$
+is a $p-$group $P/\Phi(P)$ is elementary abelian.
+Frattini Argument: $H \lhd G$, $P \in S_p(H)$ then $G=H N_G(P)$.\\
+\\
+If $A$ is a maximal abelian normal subgroup of $P$ and $Z=\Omega_1(A)$.  Then
+(1) $(C_P(A/Z) \cap C(Z))^{(1)} \le A$, (3) if $p$ is odd $\Omega_1(C_P(Z)) \le C_P(A/Z)$.
+If $p$ is odd and $Z$ is a maximal elementary abelian subgroup of $P$ then
+$Z \setminus \Omega_1 (C_P(Z))$.\\
+\\
+{\bf Co-prime action 1:}
+In this paragraph $A$ acts on $G$ and $(|A|, |G|)=1$ with either
+$A$ or $G$ solvable.  If $U \leq G$ is $A-$invariant and $g$ satisfies $(Ug)^A=Ug$ then
+$\exists c \in C_G(A)$: $Ug=Uc$. If $N$ is an $A-$invariant normal subgroup of $G$ then
+(1) $C_{G/N}(A)= C_G(A)N/N$ (This shows $G=[G,A]C_G(A)$.) and (2) if $A$ acts
+trivially on $N$ and $G/N$ then $G$ acts trivially on $G$. If $p \mid |G|$ (the analogous
+results hold for $\pi$) then (1) $\exists S \in S_p(G): S^A=S$, (2) all such $A-$invariant
+Sylow $p-$groups are conjugate under $C_G(A)$, (3) every $A-$invariant $p$-group of
+$G$ is contained in an $A-$invariant Sylow $p-$group.  
+If $T=\bigcap_{S \in S_p(G), S^A=S} S$,
+the $T$ is the largest $A-$invariant $p-$subgroup of $G$ normalized by $C_G(A)$.  If
+$P$ is an $A-$invariant Sylow $p-$group and $H \le G$ with $H^A=H, H^{C_G}(G)=H$ then
+$P \cap H \in S_p(H)$.  If $A= P \times Q$ acts on $M$ and $P, M$ are $p-$groups and
+$Q$ is a $p'-$group with $C_M(P) \le C_M(Q)$ then $[M,Q]=1$. If $A$ acts trivially on
+$G/\Phi(G)$ then $A$ acts trivially on $G$ and if $\Phi(G)$ is a $p-$group then
+so is $A/C_A(G)$. 
+Applying $P \times Q$: If $p \in \pi(G)$ and ${\overline G}= G/O_{p'}(G)$
+with $C_{\overline G}(O_p({\overline G})) \le O_p({\overline G})$ then 
+$\forall P \in p(G), O_{p'}(N_G(P))=O_{p'}(G) \cap N_G(P)$.
+{\bf Thompson:} Let $a$ be a $\pi'$ automorphism of a $\pi$ group $P$ and suppose
+$X \lhd \lhd P$ such that $[a,X]=1=[a,C_P(X)]$ then $a=1$.
+${\bf P \times Q}$ {\bf Lemma:} Let $A= P \times Q$, $P$ a $p-$group, $Q$ a $p'$-group.
+Suppose $M$ is a $p$-group and $C_M(P) \le C_M(Q)$.  Then $Q$ acts trivially on $M$.\\
+\\
+{\bf Co-prime action 2:}
+If $P$ is a $p-$group and $Q$ a $p'-$ group with $Q \mapsto Aut(P)$ then
+$Q$ is faithful on $P/\Phi(P)$.
+A group of automorphisms $A$ of a group $P$ stabilizes a chain
+$1=P_n \subseteq P_{n-1} \subseteq \ldots \subseteq P_0 = P$ if
+$[A,P_i] \subseteq P_{i+1}$.  If $P$ is a $\pi$ group stabilized by
+$A$ then $A$ is a $\pi$ group.  Proof: $a \in A$ is a $\pi'$ automorphism.
+$x^a =xy, y \in P_1$.  Similarly, $x^{a^{|a|}}= x y^{|a|}=x$, so $y=1$ and
+$[a,P]=1$.
+If $A$ is a $\pi'$ group of automorphisms on a $\pi$ group $P$ with
+$[P,A,A]=1$ then $[P,A]=1$.  Proof:  $A$ stabilizes
+$[P,A,A] \subseteq [P,A] \subseteq P$.
+Let $A$ be a $\pi'$ group of automorphisms of a $\pi$ group $P$.  Let $Q$ be
+an $A-$invariant normal subgroup of $P$.  Then $C_{P/Q}(A)= (C_P(A) Q)/Q$.  Proof
+uses Schur-Zassenhaus.
+$P$ is a $\pi$ group, $A$ is a $\pi'$ group.  $P= [P,A] C_P(A)$.  Proof:
+$[P,A] \subseteq P$ and $A$ centralizes $P/[P,A]$.
+$P$ is an abelian $\pi$ group, $A$ is a $\pi'$ group.  $P= [P,A] \oplus C_P(A)$.  Proof:
+$\theta= {\frac 1 {|A|}} \sum_a a$.\\
+\\
+If $G$ is solvable, (1) $C(F(G)) \subseteq F(G)$, (2) if $P$ is a $p-$group
+of $G$ then $O_{p'}(C(P)) \subseteq O_{p'}(G)$ and $O_{p'}(N_G(P)) \subseteq O_{p'}(G)$.
+If $P \in p(G)$ with $N_G(P)$ $p-$constrained then $C_G(P)$ is also $p-$constrained.
+$|A|, |H| < \infty, (|A|, |H|)=1$.  Suppose $A \rightarrow Aut(H)$ and either are
+solvable then (1) $\exists A-$invariant Sylow $p-$group of $H$, 
+(2) $C_H(A)$ is transitive on the $A-$invariant sylow $p-$subgroups of $G$,
+(3) If $K$ is an $A-$invariant normal subgroup of $H$ and $H^*=H/K$ then
+$C_{H^*}(A)= N_{H^*}(A)=(C_H(A))^*$. (5) Every $A-$invariant
+$p-$subgroup of $H$ is contained in an $A-$invariant Sylow $p-$group of $H$.\\
+\\
+{\bf Transfer:} $|G|< \infty, H \le G$ .
+$|G:H|=n$ and
+$\{ l_1 , l_2 , \ldots , l_n \}$ be a left traversal and suppose
+$gl_i= l_j x_i$ then $V(g)= \prod_{i=1}^n x_i H'$.
+$\exists h_1 , h_2 , \ldots , h_m \in H$ and  $n_1 , n_2 , \ldots , n_m$. 
+(1) $h_i \in \{ l_1 , l_2 , \ldots , l_n \}$,
+(2) $h_i^{-1} g^{n_i} h_i \in H$,
+(3) $\sum_{i=1}^m n_i = |G:H|$,
+(4) $V(g)= \prod (h_i^{-1} g^{n_i} h_i ) H'$.
+If $Q$ is an abelian subgroup of finite order $n$ in $G$ and if $Q \subseteq Z(G)$ then
+$V(g)= g^n, \forall g \in G$.  Let $Q \in S_p(G)$; if $g,h \in C(Q)$ and $g$ and $H$ are
+$G$ conjugate then they are $N(Q)$ conjugate.
+Let $Hx_i g^j, 1 \le i \le r, 0 \le j \le n_i$, cycles of $g$ 
+on $G/H$.
+$X= \{ x_i g^j \}$ 
+then (a) $(g^{n_i})^{x_i^{-1}} \in H$ for $1 \le i \le r$, (b) $\sum_{i=1}^r n_i= |G:H|$ and
+(c) $V(g) = \prod_{i=1}^r ((g^{n_i})^{x_i^{-1}})^{\alpha}$.\\
+\\
+Let $G$ be a finite group $H \le G$, $(p, |G:H|)=1, K \lhd H$, $H/K$ abelian,
+$g$ a $p-$element in $H \setminus K$: $g^{ma} \in g^m K, \forall m$, all $a \in G$ such that
+$g^{ma} \in H$ then $g \notin G^{(1)}$.\\
+\\
+${\bf p}${\bf -constraint:}  If $O_{p'}(G)=1$ then $C_G(P) \subseteq O_p(G)$.
+${\bf \pi}${\bf -solvable:}  Normal series consists of either $\pi'$-groups or a solvable
+$\pi$-groups.  {\bf Hall-Higman 1.2.3:}  Let $G$ be $\pi$-solvable and $O_{\pi'}(G)=1$, then
+$C_G(O_{\pi}(G)) \subseteq O_{\pi}(G)$.  Let $P \in S_p(G)$:
+(1) $N_G(P)$ controls fusion on $C_G(P)$.  
+(2) If $P \subseteq Z(N(P))$ then $P$ has a normal $p$-complement.
+(3) If $p$ is the smallest prime dividing $|G|$
+and $P$ is cyclic then $P$ has a normal $p$-complement.
+(4) $P$ has a normal $p$-complement iff $P$ controls its own fusion in $G$.
+If all sylow subgroups are cyclic, $P$ is solvable.  The following are equivalent:
+(a) $G$ has a normal $p$-complement; (2) $N_G(X)$ has a normal
+$p$-complement for all non-trivial $X \in p(G)$;
+(c) $N_G(X)/C_G(X)$ is a $p$-group $\forall X \in p(G)$.  If $A$ is a $p'$-group,
+then $A$ is failthful on $G/\Phi(G)$.  $X$ is weakly closed in $H$ with respect to $G$ if
+$X^G \cap H = X^H$.  {\bf Baer:} Let $X$ be a $p$-group of $G$ then either
+$X \le O_p(G)$ or $\exists g: <X, X^g>$ is not a $p$-group.
+\\
+\\
+{\bf Fusion:}
+Let $p$ be a prime, $T \in S_p(G), W \le T$ with $W$ weakly closed in $T$ with respect
+to $G$ and $D=C_G (W)$.  Then $N_G(W)$ controls fusion in $D$.
+$P \in S_p(G)$.  $X \in p(G)$ is a tame intersection of
+$Q, R \in S_p (G)$ if $X= Q \cap R$ and $N_Q (X), N_R (X) \in S_p(N(X))$.
+{\bf Alperin's Fusion Theorem:}
+If $P \in S_p(G), g \in G$ and $<A, A^g> \subseteq P$.  Then 
+for $1 \le i \le n$, $\exists Q_i \in S_p (G)$ and $x_i \in N(P \cap Q_i)$ such
+that (1) $g= x_1 x_2 ... x_n$,
+(2) $P \cap Q_i$ is a tame intersection of $P$ and $Q_i$ for each $i$,
+(3) $A \subseteq P \cap Q_1$ and
+$A^{x_1 x_2 ... x_i} \subseteq P \cap Q_{i+1}$.  Supporting lemmas:
+$R,Q \in S_p(G)$.  Say $R \rightarrow Q$ if 
+$\exists Q_i \in S_p(G), X_i \in N_G(P \cap Q_i )$
+such that (1) $P \cap Q_i$ is tame, (2) $P \cap R \le P \cap Q_1$ and
+$P \cap R)^{x_1 x_2 \ldots x_i} \le P \cap Q_i$ and (3)
+$R^x=Q, x= x_1 x_2 \ldots x_n$.  Sometimes say $R \rightarrow_x Q$.
+(1) $Q \rightarrow P, \forall Q \in S_p(G)$.  (2) $P \rightarrow P$. 
+(3) $\rightarrow$ is transitive.
+(4) $S \rightarrow_x P$, $Q^x \rightarrow P$ and $P \cap Q = P \cap S$
+then $Q \rightarrow P$.  (5) Assume $P \cap Q$ is tame and 
+$S \rightarrow P, \forall S \in S_p(G)$ with $|S \cap P| > |Q \cap P|$ and $S \rightarrow P$
+then $Q \rightarrow P$.\\
+\\
+{\bf Gaschutz:}  Let $K$ be a normal abelian p-subgroup of a finite group $G$ and let
+$P \in S_p(G)$.  Then $K$ has a complement in $G$ iff $K$ has a complement in $P$.
+If $K$ is an abelian normal subgroup of $G$ with $(|K|,|g:K|)=1$
+then $K$ has a complement.  Proof: Set $\sigma(x)= \sum_{y \in Q} f(x, y)$.\\
+\\
+{\bf Focal Subgroup Theorem:}
+$S \in S_p (G)$ then $S \cap G' = <x^{-1} y | x,y \in S, x \sim _G y>$.
+Suppose $P \in S_p(G)$ and $A_1, A_2 \lhd G$, if $A_1^g=A_2$, then $\exists y \in N_G(P):
+A_1^g=A_2$.
+{\bf Burnside Normal $p$-complement}: (proved using transfer):  
+If $P \in S_p(G)$ and $P \subseteq Z(N(P))$ then $P$
+has a normal $p$-complement.
+If $P \in S_p (G), P'=1$ then $P \cap G' = P \cap N_G(P)'$.
+{\bf Frobenius Normal $p-$complement:}  The following are equivalent:
+(1) $G$ has a normal $p-$complement, 
+(2) Each $p-$local subgroup of $G$ has a normal $p-$complement,
+(3) $Aut_G(P)$ is a $p-$group $\forall P \in p(G)$.
+If $H \le G$ and $H \cap H^g = 1, \forall g \in (G \setminus H)$ then $G=NH, N \lhd G$.
+\\
+\\
+{\bf Thompson subgroup:} $A(P)$: abelian subgroups of $P$ of maximal order.
+$J(P)= <\{ A | A \in A(P) \} >$.  If $O_p(G) \ne 1$, $G$ is $p$-stable
+and $p$-constrained, $p \ne 2$.  If $P \in S_p (G)$ then
+$G= O_{p'} (G) N(Z(J(P)))$.
+{\bf Thompson Factorization:} Let $G$ be solvable with $F(G)=O_p(G)$, $P \in S_p(G)$,
+$Z= \Omega_1 (Z(P))$, $V=<Z^G>$, $G^* \cong G/Z$.  The either (i) $G=N_G(J(P))C(Z)$; or
+(ii) $p \le 3$ and $J(G)^*$ is a direct product of copies of
+$SL_2(p)$ permuted by $G$ and $J(P)^* \in S_p(J(G)^*)$.  Note if
+$p=3$ and $G$ has an abelian Sylow $2-$subgroup, so (i) holds.
+{\bf Thompson Normal $p-$Complement:}
+Let $p \ne 2$ and $P \in S_p(G)$.  Assume $N_G(J(P))$
+and $C_G(\Omega_1(Z(P)))$ have a normal $p-$complement then so does $G$.
+By Burnside transfer, $A \in SCN(p) \rightarrow C_G(A)= A \times Q, Q \in p'(G)$.
+Property PC: If $G$ is a group in which the normalizer of every $p$ group is
+$p$-constrained we say $PC(G)$.
+{\bf Thompson Transitivity Theorem:}  If $PC(G$) 
+and if $A \in SCN_3(p)$ then $C_G(A)$ permutes all
+maximal $A$-invariant $q$ groups of $G$, $q \ne p$. Consequence:
+Under the TTT conditions, if $P \in S_p(G), A \in SCN_3(P)$ and $\forall q \ne p$,
+$P$ normalizes some $A-$invariant $q-$subgroup of $G$; so if $P$ normalizes no
+$p'$ subgroup of $G$, neither does $A$.  Used to show the 
+{\bf Maximal Subgroup Theorem:}
+If $P \in S_p(G), SCN_3(P) \ne \emptyset, p \ne 2$ and every element of $N^*(P)$
+is $p-$constrained and $p-$stable and $\exists 1 \ne H \lhd P$: $[Q,P]=1$ if $H \in p'(G)$
+and $H^P=H$ then $N^*(P)$ has a unique maximal element.\\
+\\
+{\bf Thompson (from N-group paper):} $G$ is not solvable iff 
+$\exists x, y, z \in G \setminus \{1\}$
+with $(|x|, |y|)=(|y|,|z|)=(|x|,|z|)=1$ such that $xy=z$.  If $G$ is a non-abelian
+simple group all of whose $p-$locals are solvable then $G$ is isomorphic to one
+of the following: (1) $PSL_2 (q), q>3$, (2) $Sz(q), q= 2^{2m+1}, m \ge 1$ or (3)
+$A_7$, $PSL(2(3)$, $U_3(3)$, or $M_{11}$.\\
+\\
+{\bf Quadratic action:}
+If $V$ is an abelian $p-$group then $a$ acts quadratically on $V$ if $[V,a,a]=1$ or
+$v^{(a-1)^2}=0$.  If $G$ acts quadratically on $V$ then (a) $[v^n,a]=[v,a^n]=[v,a]^n$,
+(b) $|V| \le |C_V(a)|^2$, (c) $G/C_G(V)$ is an elementary abelian $p-$group.
+If $G$ acts on an $F_q$ vector space $W \ne 0$, $q=p^m$.  Suppose $G=<a,b>$ and
+$a,b$ act quadratically on $W$, $G/C_G(W)$ is not a $p-$group, $|ab|=p^ek, k \mid (p-1)$
+then $\exists \varphi: G \rightarrow SL_2(q)$.  $G$ is {\bf $p-$stable} if $\forall a \in G,
+[V,a,a]=1$ implies $a C_G(V) \in O_p ( G/C_G(V))$.  Let $p \ne 2$ and $G$ be faithful on $V$.
+Suppose (1) $G=<a,b>$ where $a$ and $b$ act quadratically on $V$ and
+(2) $G$ is not a $p-$group then (1) the Sylow $2$ subgroups of $G$ are not abelian and
+(2) If $Q$ is a normal $p'$-subgroup of $G$ and $[Q,a] \ne 1$ then $p=3$ and there
+is a section of $G$ isomorphic to $SL_2(3)$.  If $p \ne 2$.  Suppose the action of
+$G$ on $V$ is faithful and not $p-$stable then (1) the Sylow $2$-subgroups of
+$G$ are non-Abelian and (2) if $G$ is $p-$separable ($G$ is said to be 
+{\bf $p$-separable} if two non conjugate elements of $G$ remain non-conjugate in 
+some finite $p$-group endomorphic image of $G$.) 
+then $p=3$ and there is a section of
+$G$ isomorphic to $SL_2(3)$.  Suppose $G$ acts faithfully on $V$ and $E_1 , E_2$ are
+two subnormal subgroups of $G$ 
+such that $[V,E_1 , E_2 ]=1$ then $[E_1 , E_2 ] \le O_p (G)$.  Let $G$ be a group
+and $C_G(O_p(G)) \le O_p(G)$ then $V=< \Omega(Z(S)) | S \in S_p(G)>$ is an
+elementary abelian normal subgroup of $G$ and $O_p(G/C_G(V))=1$.\\
+\\
+$Q_8= <
+\left(
+\begin{array}{cc}
+i & 0 \\
+0 & -i \\
+\end{array}
+\right),
+\left(
+\begin{array}{cc}
+0 & -1 \\
+-1 & 0 \\
+\end{array}
+\right)>$.
+Let $m= max \{ |A|, A \in {\cal E}(G) \}$, ${\cal A}(G)= \{A \in {\cal E}(G) | |A|=m \}$
+and $J(G)= < A | A \in {\cal A}(G) \}$.  Let $A \in {\cal A}(G)$ acts quadratically
+on $V$ and $A_0 = [V,A] C_A([V,A])$ then $A_0$ is in ${\cal A}(G)$ and acts quadratically
+on $V$ and if $[V,A] \ne 1$ then $[V, A_0 ] \ne 1$.  {\bf Thompson factorizable}
+with respect
+to $p$ if $G=O_{p'}(G) C_G( \Omega(Z(S))) N_G(J(S))$.  Let $O_{p'}(G)=1$ and
+$V= < \Omega (Z(S)) | S \in S_p(G)>$ then $G$ is Thompson factorizable iff
+$J(G) \le C_G(V)$.\\
+\\
+{\bf Weilandt:} If 
+$A \lhd \lhd G$ and $B \lhd \lhd G$ then $<A, B> \lhd \lhd G$; 
+if $A \lhd \lhd <A,A^g>, \forall g \in G$ then $A \lhd \lhd G$.
+{\bf Quasi-simple:} $L'=L$ and $L/Z(L)$ is simple.  $L$ is a {\bf component} of $H$ if
+$L \lhd \lhd H$ and $L$ is quasi-simple.  Let $Comp(G)= \{H: H$ is a component of $G \}$.
+$E(G)= <Comp(G)>$ where $H$ is a component of $G$.  
+If $K \in Comp(G), U \lhd \lhd G$ then $K \subseteq U$ or $[K,U]=1$.
+{\bf Generalized Fitting Subgroup:} $F^*(G)=F(G)E(G)$. $C_G(F^*) \subseteq F^*(G)$. 
+Let $X/Z(X)$ be a non-abelian simple group then $X=X'Z(X)$ and $X'$ is
+quasi-simple.  Let $L \in Comp(G)$, $H$ and $L-$ invariant subgroup, then
+(a) $L \in Comp(H)$ or $[L,H]=1$, (b) If $H$ is solvable, $[L,H]=1$.
+If $E^*=E(G)/Z(E(G))$ then (a)$Z=Z(L): L \in Comp(G)>,$ 
+(b) $E^*$ is a direct product of $<L: L \in Comp(G)>$,
+$E$ is a central product of its components.
+$G$ is of {\bf characteristic $p-$type}
+if  $F^*(H)=O_p(H)$ for every $p-$local, $H$ (Groups of Lie type over characteristic
+$p$ are, for example.).
+$G$ is of characteristic $p-$type if $P \in p(G), N= N_G(P) \rightarrow F^*(N)=O_p(N)$.
+$PSL_n(p^m)$ is of characteristic $p-$type.  Let $G$ be a non-abelian simple group,
+$G$ is of characteristic $p-$type iff $F^*(N(P))= O_p(N(P))$ for every maximal $p-$local.
+If $F^*(G)$ is a $p-$group then so is $F^*(N(P)), \forall P \in p(G)$ (use $P \times Q$).
+\\
+\\
+{\bf Amalgams:} $P_1, P_2 \le G$, $|P_i|< \infty$.  Construct a graph $\Gamma(G, P_1, P_2)=\Gamma$
+as follows: 
+$\Gamma$ has verticies consisting of right cosets of $P_1$ and $P_2$; the verticies
+$P_i g_j$ and $P_n g_m$ are
+joined by an edge if 
+$P_i g_j \ne P_n g_m$ and
+$P_i g_j \cap P_n g_m \ne \emptyset$.  $\Delta(\alpha)$ denotes the verticies
+adjacent to $\alpha$.  $G$ act on graph by right multiplication on cosets.  
+$G \rightarrow Aut(\Gamma)$.  $\Gamma$ is connected iff $G= <P_1 , P_2>$.  {\bf Theorem:}
+(a) $G$ has $2$ orbits.  Every vertex stabilizer  $G_{\alpha}$ is a $G-$conjugate of
+$P_1$ or $P_2$. (b) $G$ acts transitively on edges of $\Gamma$; every edge stabilizer
+in $G$-conjugate of $P_1 \cap P_2$.  (c) $G$ acts transitively on $\Delta(\alpha)$.
+$|\Delta(\alpha):\Delta(\alpha, \beta)|= |G_{\alpha}: G_{\alpha, \beta}|, \beta \in \Delta(\alpha)$.
+(d) $(P_1  \cap P_2)_G$ (the largest normal subgroup of $G$ in $P_1 \cap P_2$)
+is the kernal of the action of $G$ on $\Gamma$. {\bf Condition} ${\cal A}$:  Let $G$ be a
+finite group generated by 
+$P_1, P_2$,
+$T= P_1 \cap P_2$ satisfying: $C_{P_i}(O_2(P_i)) \le O_2(P_i)$, $T \in S_2(P_i)$,
+$T_G=1$, $P_i/O_2(P_i) \approx S_3$ and $[\Omega(Z(T)), P_i] \ne 1$.  {\bf Goldschmidt:}
+If ${\cal A}$ holds either (i) $P_1 \approx P_2 \approx S_4$ or 
+(ii) $P_1 \approx P_2 \approx C_2 \times S_4$.
+\\
+\\
+{\bf Classification by 
+centralizers of involutions:}
+Brauer proved if $G=PSL_3(q), q = 3 \jmod{4}$ and 
+$x \in Inv(G)$ then $C_G(t) \cong GL_2(q)$
+and that the converse is true for $q>3$; if $q=3$ other possibilities are $PSL_3(3)$ and
+$M_{11}$.  Classifications fall into two steps: (I) Given $H= C_G(t), t \in Inv(G)$, find
+$|G|$ and its structure and (II) find $C(t)$ for simple groups.   Note that all
+simple groups are determined by their character table. Step (I)
+consists of two steps:
+(A) $\forall v \in Inv(H)$, determine $C_G(v)$ and the fusion patterns of $Inv(C_G(v))$,
+(B) if $G$ has more than one conjugacy class, this determines the order, if not we must
+examine all if $H$ using characters.  
+Let $L= SL_n(q), G=PSL_n(q) = L/Z(L)$, 
+$t \in Inv(G)$ corresponds to $T \in L$ with $T^2= \lambda I_n$ putting 
+$Z= \{ \lambda I_n, \lambda^n=1 \}, d= |Z|= (n,q-1)$ and $C= \{X \in L: XT= \mu TX \}$,
+$C_G(t)= C/Z$.  Let $p \ne 2$ and the eigenvalues of $T$ be $\rho, -\rho$ then $T$
+is conjugate to
+$\left(
+\begin{array}{cc}
+\rho I_r & 0 \\
+0 & - \rho I_s \\
+\end{array}
+\right)$,
+or
+$\left(
+\begin{array}{cc}
+0 & I_m \\
+- \lambda I_m & 0 \\
+\end{array}
+\right)$,
+depending on whether the minimum polynomial is $(x+ \rho)(x- \rho)$ or $(x^2- \lambda)$
+which depends on whether the eigenvalue is in $GF(q)$ or $GF(q^2) \setminus GF(q)$.
+Let $X \in C$ with 
+$X=
+\left(
+\begin{array}{cc}
+X_1 & X_2 \\
+X_3 & X_4 \\
+\end{array}
+\right)$, so either 
+$X_2=X_3=0$ and $det(X_1) det(X_4)=1$ or
+$r=s$ and
+$X_1=X_4=0$ and $det(X_2) det(-X_3)=1$; let $\delta: X \mapsto det(X_1), K= ker(\delta)$
+then $K= SL_r(q) \times SL_s(q)$.  Put $E=KZ/Z$, $E \lhd C/Z$ and $E= K/(K \cap Z)$ and
+$E$ is a central product.\\
+\\
+{\bf Centralizers of the classical groups:}
+Let $G= PSL_n(q)$, $q$ odd, $t \in Inv(G)$,  
+(1) if $n$ is odd $\exists N \lhd C(t)$ with
+$N$ the minimal central product of $SL_r(q)$ and $SL_s(q)$, $r+s=n$ (type *) and both
+$C(t)/N$ and $Z(N)$ are cyclic groups with orders dividing $q-1$;
+(2) if $n$ is even there is a centralizer as above and centralizers of two additional
+types: 
+(A) $\exists C_0 : |C(t):C_0|=2$ and $E \lhd C(t)$ of type * with $r=s$ and
+$C(t)/E$ is {\bf dihedral} and $C_0/Z$ and $Z(E)$ are cyclic --- there is an element of
+order 2 outside $C_0$ that interchanges the factors of $E$,
+(B) $\exists C_0 : |C(t):C_0|=2$ and $E \lhd C(t)$ of type * with $r=s$ and
+$E/Z(E) \cong PSL_r(q^2)$ and $Z(E)$ is cyclic with order dividing $q+1$ and
+$C(t)/E$ is dihedral of order $q+1$ or $2(q+1)$; further, there is an element of order
+two in $C(t) \setminus C_0$ which transforms elements in $E/Z(E)$ like the element
+of order $2$ in the Galois group of $GF(q^2)/GF(q)$.
+If $G= PSp_{2m}(q)$ with $q$ odd and $t \in Inv(G)$ then either
+(1) $C(t)$ is a minimal central product of 
+$Sp_{2r}(q)$ and
+$Sp_{2s}(q)$ with $r+s=m, r \ne s$, or
+(2) $\exists C_1 \lhd C(t)$ with $C_1$ a minimal central product of two copies
+of $Sp_{2l}(q), 2l=m$ and there is an element of order two in
+$C(t) \setminus C_1$ that interchanges the two, or 
+(3) $\exists C_1 \lhd C(t)$ with $C_1 \cong GL_m(q)/\{ \pm I \}$
+and there is an element of order two in
+$C(t) \setminus C_1$ that corresponds to $A \mapsto ^tA^{-1}$ and $q= 1 \jmod{4}$, or
+(4) $\exists C_1 \lhd C(t)$ with $C_1 \cong U_m(q)/\{ \pm I \}$
+and there is an element of order two in
+$C(t) \setminus C_1$ that corresponds to $A \mapsto A^{\tau}$ and $q= 3 \jmod{4}$, 
+$\tau$ the generator of the Galois group.
+If $G= PSU_{n}(q)$ with $q$ odd and $t \in Inv(G)$ then either
+(1) $\exists N \lhd C(t)$ with $N$ a minimal central product of 
+$SU_{r}(q)$ and
+$SU_{s}(q)$ with $r+s=m, r \ne s$, both $C(t)/N$ and $Z(N)$ are cyclic with orders
+dividing $q+1$, 
+(2) if $n$ is even there is a centralizer as above and centralizers of two additional
+types: 
+(A) $\exists C_0 : |C(t):C_0|=2$ and $E \lhd C(t)$ of type * with $r=s$ and
+$C(t)/E$ is dihedral and $C_0/Z$ and $Z(E)$ are cyclic --- there is an element of
+order 2 outside $C_0$ that interchanges the factors of $E$,
+(B) $\exists C_0 : |C(t):C_0|=2$ and $E \lhd C(t)$ with $r=s$ , $Z(E)$ cyclic of order
+dividing $q-1$ and
+$E/Z(E) \cong PSL_r(q^2)$ 
+and there is an element of order two in
+$C(t) \setminus C_1$ that corresponds to $A \mapsto ^t(A^{\tau})^{-1}$ 
+$\tau$ the generator of the Galois group.
+If $G= P\Omega_{n}(q)$ with $q$ odd and $t \in Inv(G)$ then either
+(1) $\exists E \lhd C(t)$ with $C(t)/E$ solvable, $E'=E$ and $E$ is either
+$SL_{m}(q)/ \{ \pm I \}$ and
+$SU_{m}(q)/ \{ \pm I \}$  ($2m=n$ in both cases) or a central product of 
+$\Omega_r(q)$ and $\Omega_s(q)$.  For $G= A_n$, let $H_1= \Sigma_k, H_2= Z_2 \wr \Sigma_l$
+and $C(t) = H_1 \times H_2$ with $(\sigma, \rho) \in C(t), sign(\sigma)= sign(\rho)$.\\
+\\
+Since $C(F^*(G)) \subseteq F^*(G)$, $G \rightarrow Aut(G)$ has kernel $Z(F^* (G))$; 
+further, $F^*(G)$ is uncomplicated and its embedding in $G$ is well behaved.  
+Want to study relationship
+of $F^*(G)$ and its $p-$locals.  Hard when $F^*(G)$ is a $p-group$ but then we
+can use Thompson factorization.  Thompson $p-$complement
+$\rightarrow$ nilpotence of Frobenius kernel.\\
+\\
+{\bf Signalizers:} $r$, prime, $G$ finite and $A$ an abelian $r-$subgroup of $G$. An
+$A-$signalizer is a map $\theta: A^{\#} \rightarrow {\cal S}$ where ${\cal S}$ is a
+set of $r'$ $A-$invariant subgroups such that $a,b \in A^{\#}$ and $\theta(a) \le C_G (a)$
+and
+$\theta(a) \cap C(b) \le \theta(b)$.  
+$\theta$ is complete if $\exists \theta(G)$ an $r'$, 
+$A-$invariant subgroup such that
+$\theta(a)= C_{\theta(G)}(a)$ for each $a \in A^{\#}$.  $\theta(a)=C_X(a)$ is one such
+function; if $m(A)  \ge 3$ then every $A-$signalizer functor is complete.  Under these
+conditions, for a solvable $A-$signalizer, ${\cal N}_{\theta}(A)$ has a unique maximal
+element.  Goldschmidt proved this for solvable signalizer functors.\\
+\\
+Let $p,q \in \pi(A)$ then for $S \subseteq A$. (1) $p \ne 2$, $S_p(A) \rightarrow$ $S$ is
+cyclic.  (2) $S \in S_2(A)$ is cyclic or quaternion.  
+(3) $|S|=pq \rightarrow S$ is cyclic.
+(4) $|S|= 1 \jmod{2} \rightarrow S$ is metacyclic.\\
+\\
+If $x,y$ are two involutions in $G$ then $<x, y>$ is dihedral of order $2|xy|$.
+Let $G$ be even order with $Z(G)=1$, let $m$ be the number of involutions in $G$
+and $n=|G|/m$.  Then $G$ possesses a proper group of order at most $2 n^2$.\\
+\\
+Let $G$ be a simple group of even order,
+$t$ and involution and $n= |C_G (t)|$.  Then $|G| \le (2n^2)!$. From this we get:
+{\bf Brauer-Fowler:}  Let $H$ be a finite group.   There are at most a finite number
+of finite simple groups with $H \cong C_G (t)$.\\
+\\
+{\bf Feit-Thompson:}  The only finite simple groups or odd order are
+${\mathbb Z}_p, p\ne 2$. The proof follows the CN classification.\\
+\\
+{\bf Thompson Order Formula:}
+Assume $G$ has more than two congugacy classes of involutions
+$\{ {x_i}^G \}$ and let $n_i$ be the number of ordered pairs $(u, v)$ with
+$u \in {x_1}^G, v \in {x_2}^G$ and $x_i \in < uv>$ then
+$|G|= |C(x_1 )| |C(x_2 )| \sum_{i=1}^k {\frac {n_i} {|C(x_i )|}}$.\\
+\\
+Let $\Omega$ be a collection of subgroups.  Define ${\cal D} (\Omega)$ as the graph
+formed by joining $A,B \in \Omega$ if $[A,B]=1$. If $k>0$ let, 
+${\cal E}^p_k (G)$
+be the elementary abelian subgroups of $p$-rank at least $k$. $G$ is said to be
+$k-connected$ for prime $p$ if ${\cal D} ( {\cal E}^p_k (G))$
+is connected.\\
+\\
+If $G$ is a non-abelian finite simple group
+with $m_2(G) \le 2$ then either (1) a Sylow 2-group is either dihedral, semi-dihedral
+or $Z_{2^n} \; wr \; Z_2$ and
+$G \cong L_2(q)$,
+$G \cong L_3(q)$,
+$G \cong U_3(q)$ $q, $odd, or $M_{11}$; or,  (2)
+$G \cong U_3(4)$.
+Note that $Q_8 \in S_2(SL_2(3))$ and 
+$\left(
+\begin{array}{cc}
+2 &  0 \\
+0 &  2 \\
+\end{array}
+\right)$ is the unique involution.\\
+\\
+If $G$ is a non-abelian finite simple group
+with $m_2(G) > 2$ and assume $G$ has a proper 2-generated 2-core, then either
+$G$ is a group of Lie type of characteristic 2 and Lie rank 1 or $G \cong J_1$.\\
+\\
+{\bf Glauberman $ZJ$:}  If $C_G(O_p(G)) \le O_p(G)$ and the action of
+$G$ on its chief factors of $G$ is $p-$stable then $G=N_G(Z(J(S)))$. Every group
+admitting a fixed-point-free automorphism of prime order is nilpotent.
+{\bf Glauberman's $Z^*$ Theorem:}
+Let $G$ be a finite group and $t$ and involution in $G$ which is weakly closed in
+$C(t)$.  Then $t^* \in Z(G^*)$  where $G^*= G/O_{2'} (G)$.\\
+\\
+{\bf $B_p$ property:} Suppose $O_{p'}(G)=1$ and $x \in G, |x|=p$ then
+$O_{p',E}(C(x))= O_{p'}(C(x))E(C(x))$.
+A {\bf standard subgroup} for the prime $p$ is a group $H=C_G(x), |X|=p$ such that
+$H$ has a unique component, $L$, and $C_G(L)$ has a cyclic Sylow $p-$group.
+{\bf Component Theorem:}
+Let $G$ be a finite group with $F^*(G)$ satisfying the $B_2$ property and with
+in involution, $t$ such that $O_{2', E} (C(t)) \ne O_{2'} (C(t))$ then $G$ possesses
+a standard subgroup for the prime $2$.
+{\bf Standard Form} problem for $(L,r)$:   Determine all finite groups, $G$, possessing a 
+standard subgroup $H$ for the prime $r$ with $E(H) \cong L$. {\bf Aschbacher's program:}
+Let $G$ be a minimal counter-example to the classification theorem and assume $G$ 
+is generic of even characteristic.  
+Then one of the following holds: (1) $G$ possesses a standard subgroup for some
+$p \in \sigma(G)$; (2) there is an involution $t \in G$ such that $F^* (C(t))$ is a 
+2-group of symplectic type; or, (3) $G$ is in the uniqueness case.\\
+\\
+In real simple groups $O_{2'}(C(t))$ is cyclic and almost central.
+{\bf Bender's Theorem:} For any group $X$, we have $C_X(F^*(X)) \le F^*(X)$ and if
+$W \lhd X$ and $C_X(W) \le W$ then $E(X) \le W$.  If $O_{p'}(X)=1$ then
+$F(X)=O_p(X)$ and every component of $X$ has order divisible by $p$ so
+$X$ is $p$-constrained iff $E(X)=1$ or, equivalently, $C_X(O_p(X)) \le O_p(X)$.
+Let ${\overline X}= E(X/O_{p'}(X))$, 
+$L$ is a minimal normal subgroup subject to ${\overline L}= E({\overline X})$,
+${\overline {L_i}}$ is a component of $E({\overline X})$, $L_i= O^{p'}(L_i)$,
+$[L_i, L_i]= L_i$ and $[L_i, L_j] \le O_{p'}(X)$, 
+$L$ is called the {\bf $p$-layer}.  $F^*(X)$ controls embedding of $X$ of
+$p'$-cores and the $p$-layer of every $p$-local.  $O_{\pi}((X/O_{\pi}(X)))=1$.
+If $O_{\pi}(X)=1$ then $F(X)$ is divisible by $p \in \pi$ and every component is
+divisible by some $p \in \pi'$.\\
+\\
+Recall signalizers.  The idea is that
+$A-$invariant $p'$ subgroups of $G$ can be glued into a single $p'$
+subgroup $\theta(G,A)$ which is either normal or strongly $p-$embedded in $G$.
+$M \subseteq G$ is {\bf strongly $p-$embedded} if $p | |M|$ but $p$ does not divide
+$|M \cap M^g |$ for $g \in G-M$.  {\bf Tightly embedded:} $p=2$. If $M$ is strongly
+embedded, $G$ fixes one point when acting on the cosets of $M$.
+Bender identified all simple groups with strongly 2-embedded subgroups, namely,
+$SL_2(2^n), SZ(2^n), PSU_3(2^n)$.  No simple group of
+$p-rank \ge 3$ has a strongly $2-$embedded $2'$ local subgroup.\\
+\\
+{\bf Bender:} Let $G$ be a finite simple group and $S \in S_2(G)$ then one of the following holds:
+(a) $S$ is dihedral, (b) $S$ is semidihedral, (c) $G$ has a strongly embedded subgroup,
+(d) $S$ has a non-cyclic characteristic elementary abelian subgroup, $A$, and
+$E=N_G(A)$ has conjugacy classes, $<z_i^G>$, that do not fuse in $G$ such that
+$G= <E, C_G(z_i )>$.  If $G$ is a finite simple group and
+$H<G$ with ${\mathbb Z}(H)$ of even order and $h \approx C_H(z)$ then $G$ is said
+to be of $H$-type.  Note we can construct a faithful transitive permutation representation
+of $G$ given a presentation of $H$.  A group has an $H$-satellite if there are non-isomorphic
+groups of $h$-type.
+A finite simpe group, $G$, is uniquely determined by $C_H(z)$ for a $2-$central
+involution, $z$, if $G$ does not have any non-isomorphic $H$-satellites.
+\\
+\\
+{\bf Netto:}  Let $x,y \in S_n$ be selected randomly.  $Pr[<x,y>=S_n]= {\frac 3 4}$.  
+{\bf Irreducible
+characters of the symmetric group} $S_n$: $n= n-m, \mu_1, \ldots , \mu_j$, $d_{n}(\mu)$ is the dimension of the
+irreducible character determined by: $l_{j+1}= \mu_j$, $l_j= \mu_{j-1}+1$, $l_{j-1}= \mu_{j-2}+2$,
+\ldots, $l_1= n-m+j$.  $d_n(\mu)= \prod_{s>r} (l_r-l_s)$.
+

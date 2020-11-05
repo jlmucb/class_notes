@@ -1,0 +1,444 @@
+\chapter{Frobenius Groups}
+\section {Sylow analysis}
+{\bf Theorem 1:} 
+If $G$ is a finite group, $P \in S_p(G)$,  with $n_p = |G:N_G(P)| \ne 1 \jmod{p^2}$,
+then there are distinct Sylow subgroups $P, R$ of $G$ such that $P \cap R$ is of index $p$
+in both $P$ and $R$.
+\begin{quote}
+\emph{Proof:}
+Let $P$ act on $P^G$ yielding several orbits.  The orbit with $P$ has one element.
+If $p^2 \mid |P:P \cap R|$ for all $p$-Sylow subgroups $R \ne P$, $p^2$ divides the size of
+every orbit not containing $P$.  Thus $n_p = 1 + kp^2$, which is a contradiction.  So there is
+some $R$ for which $|P: P \cap R| = p$.
+\end{quote}
+{\bf Result:} If $p \ne q$ and every subgroup of order $pq$ is cyclic then $p \mid q-1$.  In this
+case, $p \mid |N_G(Q)|$ and for som $p$-group, $P$, of order $p$, $P \leq N_G(Q)$ and $PQ \leq N_G(Q)$ is
+abelian so $q \mid |N_G(P)|$.
+\\
+\\
+{\bf Application:} No group, $G$, of order $1785 = 3 \cdot 5 \cdot 7 \cdot 17$ is simple.
+\begin{quote}
+If $G$ is simple,
+$n_{17} =35$.  Let $Q \in S_{17}(G)$, $|G:N_G(Q)|=35$ and $|N_G(Q)|= 3 \cdot 17$.  Let $P \in S_3(N_G(Q))$.
+$PQ$ is abelian since $3 \nmid (17 - 1)$ so $Q \leq N_G(P)$ and $17 \mid |N_G(P)|$.  The only possibilities for $n_3$ are
+$7, 85, 595$ and the last two are eliminated because $17 \mid |N_G(P)|$.  On the other hand, if $|G:N_G(P)| =7$ it
+violates the lower bound on the index of a subgroups of $G$ by the permutation bound so we're done.
+\end{quote}
+{\bf Application:} No group, $G$, of order $3675 = 3 \cdot 5^2 \cdot 7^2$ is simple.
+\begin{quote}
+If $G$ is simple, $n_7 = 15$, $Q \in S_7(G)$, $|G:N_G(Q)|= 15$ and $|N_G(Q)|= 5 \cdot 7^2$.  Put $N = N_G(Q)$ and
+let $P \in S_5(N)$.  $P \lhd N$ and $P$ is contained in a Sylow $p$ group $P^*$. $P^* \leq N_G(P)$ and 
+$\langle N, P^* \rangle= N_G(P)$.  $3^2 \cdot 7^2 \mid |N_G(P)|$ and $n_p = 3$ but this violates
+the permutation bound on the index of subgroups in $G$.
+\end{quote}
+{\bf Application:} No gorup, $G$, of order $3159= 3^4 \cdot 13$ is simple.
+\begin{quote}
+$13 \ne 1 \jmod{3^2}$ so $\exists P, R \in S_3(G)$: $|P:P \cap R| = 3$.  Put $N= N_G(P \cap R)$, $P, R \leq N$,
+so $3^4 \mid |N|$ since $|N| > 3^4$, $G = N$ and $P \cap R \lhd G$.
+\end{quote}
+\section {Frobenius groups}
+{\bf Definition:}  
+$G$ is ${\frac 3 2}$ transitive on $A$ if $G$ is transitive on $A$ and $G_a$ has orbits of
+the same size on $A \setminus \{a\}$. 
+If further, $G_a = 1$, $G$ is called \emph{semiregular} and if, further, $G_a$ is transitive on $A \setminus \{a\}$,
+then $G$ is called \emph{regular}.  If $G$ is ${\frac 3 2}$ transitive on $A$, $G_a \ne 1$ and $G_a$ is
+semiregular on $A \setminus \{a\}$ then $G$ is called a \emph{Frobenius group}.  So $G$ is Frobenius iff
+$G_a \ne 1$ and $G_{a,b} = 1$.
+\\
+\\
+{\bf Example:} $A_4$ is a Frobenius group with kernel $V_4$. $AL(q)$ is Frobenius:
+$g = 
+\left(
+\begin{array}{cc}
+a &  b \\
+0 &  1 \\
+\end{array}
+\right)$.
+$D_{2n}$ is Frobenius with complement of order $2$.
+\\
+\\
+{\bf Theorem 2:} \\
+(1) $\sum_{g \in G} |A_g| = t |G|$, where $t$  is the number of orbits of $G$ on $A$.
+\\
+(2) If $H$ is a transitive abelian group then $H$ is regular.
+\\
+(3) If $G$ is transitive of prime degree, $G$ is primitive.
+\\
+(4) If $G$ is transitive, $G$ is primitive iff $G_a$ is maximal.
+\begin{quote}
+\emph{Proof:}
+(1) is just Burnside's theorem. (4) is Theorem 3 in the permutation chapter.
+For (2), if $a \ne b$, since $H$ is transitive, $\exists h: h(a) = b$.
+$H_b = H_{h(a)} = (H_a)^h$ so $H_b$ also fixes $a$.  Letting $b$ vary, we get $H_a$ fixes all points so
+$H_a = 1$.  For (3), if $B_1, \ldots, B_k$ is a system of imprimitivity, $|B_i| \mid |A|$ which is impossible if
+$|A|$ is a prime.
+\end{quote}
+{\bf Theorem 3:} If $G$ is ${\frac 3 2}$ transitive then $G$ is either primitive or Frobenius.
+\begin{quote}
+\emph{Proof:}
+Put $G_C = \{ g \in G: g(c)=c, \forall c \in C \}$ and $G_{\langle C \rangle}$ be the elements that fix $C$ setwise.
+Suppose $G$ has a system of imprimitivity, $B_1, \ldots, B_r$ with $|B_i|=k$.  The orbits of $G_{\alpha}$ all have the same size
+($m$) except the orbit consisting of just $\alpha$, so $k = 1 \jmod{m}$ so $(k,m)=1$.  If $\alpha \notin B_i$,
+$m \mid |B_i^{G_{\alpha}}|$ and $k \mid |B_i^{G_{\alpha}}|$ so $km \mid |B_i^{G_{\alpha}}|$ and $|G_{\alpha} : G_{\alpha, \beta}| = m$
+but then $G_{B_i} = G_{\alpha_i, \alpha_j} = G_{\alpha_j, \alpha_i} = G_{B_j}$.  Fixing $i$ and letting $j$ vary, $G_{B_i}= G_A = 1$
+for $a \ne b$.  $G_{a,b} = G_{a_i, a_j} = 1$ and $G$ is Frobenius.
+\end{quote}
+{\bf Theorem 4:} $G$ has a faithful permutation representation in which it is Frobenius iff it has a proper
+subgroup, $H$ which is a ``TI'' set with $N_G(H)=H$.
+\begin{quote}
+\emph{Proof:}
+Suppose $G$ is Frobenius and put $H=G_a$. $1 < H < G$.   If $g \in G-H$ then
+$H^g= G_a^g= G_{a^g}= G_b$ where $b= a^g \ne a$.   Thus $H^g \cap H = G_a \cap G_b= G_{a,b}=1$.
+Hence $H$ is a TI set and $N(H)=H$.  Conversely,
+given $G, H$ then $G$ permutes the right cosets of $H$ transitively by right multiplication.
+Suppose $\langle x_1, x_2, \ldots , x_n \rangle$ is a set of coset representatives of $H$ then
+we have a homomorphism $\varphi: G \rightarrow Sym(\langle Hx_i \rangle)$.  Let
+$a- H x_i$, $b= Hx_j$ with $i \ne j$.  $G_{a,b}= H^{x_i} \cap H^{x_j}$ and
+$x_j x_i^{-1} \notin H=N(H)$ and so $H^{x_i} \ne H^{x_j}$.   Since $H$ is a TI set,
+$G_{a,b} = 1$.  Thus the representation is faithful and $G$ is a Frobenius group.
+\end{quote}
+{\bf Theorem 5:} If $G$ is Frobenius, it contains a regular normal subgroup, $N$ called a Frobenius kernel.
+\begin{quote}
+\emph{Proof:}
+Put $N = \{ g \in G: g= 1 {\thinspace {\textnormal {or}} \thinspace} |A_g|=0 \}$ and $H=G_{\alpha}$. $H$ is a TI set, $N_G(H)=H$.
+Finally, put $\alpha^*(g) = (ind_H)^G(g)$.  $(\alpha^*, \beta^*)_G = (\alpha, \beta)_H$.  Let $\phi_0, \phi_1, \ldots, \phi_k$ be
+the irreducible characters of $H$ with $\phi_0 = 1_H$.  For $i \ne 0$, put $\alpha_i = f_i 1_G - \phi_i$, where $f_i = deg(\phi_i)$.
+$(\alpha_i, \alpha_i) = {f_i}^2 + 1$, but $({\alpha_i}^*, 1_G)_G = (\alpha_i, 1_H)_H = f_i$.  So, ${\alpha_i}^* = f_i + \chi_i$, where
+$\chi_i$ is a generalized character of $G$.  Since $||{\alpha_i}^*|| = {f_i}^2 +1$, ${\alpha_i}^* = f_i 1_H + \chi_i$ where $\chi_i$
+is an \emph{irreducible} character of $G$.  Further, $(\chi_i)_H = \phi_i$.  Put $K= \cap_i ker(\chi_i)$ so $K \lhd G$ and $|K| \leq |G:H|$.
+If $g \in N$, since no conjugate of an element of $H^{\#}$ lies in $H$, ${\alpha_i}^*(g) = 0$.  Thus, for $g \in N$,
+ $\chi_i(g) = f_i = \phi_i(1)$ so $g  \in ker(\chi_i)$ and $g \in K$. $|N|=|G:H| \geq |K|$ and $N=K$.  $N$ is normal and regular.
+\end{quote}
+{\bf Theorem 6:} 
+Let $G$ be a Frobenius group with $|G_a|$, even.  Then $G$ has an abelian regular normal subgroup.
+\begin{quote}
+\end{quote}
+{\bf Theorem 7:} 
+Let $G$ be a Frobenius group of degree $n$ of maximal order [$n(n-1)$].  The $n = p^k$ and $G$ has a regular normal
+abelian subgroup.
+\begin{quote}
+\emph{Proof:} Let $p \mid |N|$, where $N$ is the Frobenius kernel of $G$. $|N|= n$.  Since $|G_a| = n-1$, $p \nmid |G_a|$ for any $a$
+and $x \in N$.  Since $G$ is Frobenius, $C_G(x) \leq N$ and $|G| = |G_a| \cdot |N| geq |C_G(x)| \cdot |G_a| = n (n-1)$ and
+$|C_g(x)| \leq |N|$ and thus ${\frac {|G|} {C_G(x)}} \geq |G_a| = n-1$.  As a result, $|G:C_G(x)| \geq n-1$ and hence the conjugacy class
+containing $x$ in $G$ which is inside $N$ has at least $n-1$ elements and must be all of $N$ except for $1$.  Thus all non-identity
+elements of $N$ have order $p$ and $|N|=p^k$.  $N$ is a regular normal subgroup that acts on $ccl_G(x)$ and so it is transitive.
+So all non-identity elements of $N$ are conjugate and have common order, $p$, so $N$ is an elementary abelian subgroup.
+\end{quote}
+{\bf Note:} Frobenius groups are semi-direct products.  $N = Fit(G)$.
+\\
+\\
+{\bf Theorem 8:} 
+Let $G$ be a group.  The following are equivalent:\\
+(a) $G$ is Frobenius with kernel $N$ of order $n$ and complement $H$ of order $m$.
+\\
+(b) $G$ has a normal subgroup $N$ with $1 < N < G$.  If $C_G(g) \leq N$, $|N|=n$ and $|G| = mn$.
+\\
+(c) $|G|=mn$, $(m, n) = 1$.  If either $g \in G$ then either $g^m = 1$ or $g^n = 1$.  If $N = \{g \in G, g^n = 1 \}$,
+then $N \lhd G$ with $1 < N < G$.
+\begin{quote}
+\emph{Proof:}
+\\
+(a) $\rightarrow$ (b):
+$1 < N < G$.  Suppose, by way of contradiction, $g \in N^{\#}, C_G(g) \nsubseteq N$.
+$G = N \cup \bigcup_{x \in G} (H^{\#})^x$.  Taking conjugates, we can assume $h \in H^{\#}$
+and $h \in C_G(g)$ then $h \in H \cap H^g$ so $H \cap h^g \ne 1$, a contradiction.
+\\
+\\
+(b) $\rightarrow$ (c):
+First, we show $N$ is a Hall subgroup.  Let $P \in S_p(N)$ extend $P$ to a sylow subgroup $P^*$ of $G$.
+$ {\mathbb Z}(P^*) \subseteq C_G(P^{\#})$ and ${\mathbb Z}(P^*) \subseteq N$ also $P^* \subseteq C_G({\mathbb Z}(P^*)i^{\#})$.
+So, $P^* \subseteq N$, $P = P^*$ and $N$ is a Hall subgroup.
+$|N|=mn$, $(m, n) =1$ and $N \lhd G$ with $N = \{g: g^n = 1 \}$.  Let $g \in G$ and suppose $g^m \ne 1$.  Then
+$g^m \in N^{\#}$. By (b) $G \in C_G(g^m) \subseteq N$ and $g^n = 1$.
+\\
+\\
+(c) $\rightarrow$ (a):
+Since $N \lhd G$ is a Hall subgroup, by Schur-Zassenhaus, $\exists H, |H|=m$ with $G = HN, H \cap N = 1$.
+As $G=HN$ we can assume $g \in N$. If $1 \ne h \in H \cap H^g$, $ghg^{-1} \in H$ and so $[g, h] \in H$ but
+$[g, h] \in N$ and $[g, h] \in H \cap N = 1$, so $hg = gh$.  If $|g|= n_1$ and $|h|=m_1$ and $|hg|=m_1 n_1$.
+By (c), $m_1 \ne 1$, $n_1 =1$ and $g=1$.  So $H$ is a TU set with $N_G(H)=H$.
+\end{quote}
+{\bf Theorem 9:} 
+Let $G$ be a Frobenius group with kernel $N$, $K <G$ if $K \nleq N$ and $K \cap N \ne 1$ then $K$ is
+Frobenius with Frobenius kernel
+$K \cap N$. If $a < K <N$ and $K \lhd G$ then $G/K$
+\begin{quote}
+\emph{Proof:}
+$K > K \cap N > 1$  and $K \cap N \lhd K$.  If $g \in (K \cap N)^{\#}$, by (b) above, $C_K(g) = K \cap C_G(g) \subseteq K \cap N$
+so $K$ is Frobenius and the result follows from (c).
+\end{quote}
+{\bf Theorem 10:} 
+Thompson: Frobenius kernels are nilpotent.
+\begin{quote}
+\emph{Proof:}
+Let $G$ be a Frobenius group with kernel $N$.  We show $N$ is nilpotent by induction on $|G|$.  By
+Previous result, we can assume $|G:N|=p$ and $|H|=p$.\\
+\\
+Suppose first that ${\mathbb Z}(N) \ne 1$.  If ${\mathbb Z}(N) = N$, $N$ is nilpotent.  If  ${\mathbb Z}(N) < N$, $N/{\mathbb Z}(N)$ is
+nilpotent by induction and thre result follows.\\
+\\
+Now suppose ${\mathbb Z}(N) = 1$. For some $p \ne q$, $N$ does not have a normal $q$ complement for some $q$.  First
+lets assume $q$ is odd. If $q \ne 2$ and $p \nmid |N|$ and $H$ permutes sylow $q$-subgroups of $N$.   Since 
+$(q, p) =1, \exists Q \in S_q(N), H \subseteq N(Q)$.  If $Q_0 = {\mathbb Z}(Q)$ or $Q_0 = {\cal T}(Q)$, in either case
+$Q_0 \thinspace char \thinspace Q$ and $Q_0 \lhd Q$ and $H \subseteq N_N(Q_0)$ and by the previous result,
+$K= H N_N(Q_0)$ is Frobenius with kernel $N_N(Q_0)$.  If $N_N(Q_0) \ne N$, $N_N(Q_0)$ is nilpotent and has a normal $q$
+complement.  By Thompson's normal $p$-complement theorem, this can't be the case for both ${\mathbb Z}(Q)$ and ${\cal T}(Q)$.
+Since $G = HN$, $Q_0 \lhd G$.  By induction, $N/Q_0$ is nilpotent and $Q/Q_0 \lhd N/Q_0$ so $Q \lhd N$.  On the other
+hand, if $N$ has a normal $q$ complement for all $q$ odd dividing $|N|$, then $2 \mid |N|$ and $N$ has a normal
+Sylow-$2$ subgroup.\\
+In any case, we have, for some $q$ and $Q \in S_q(G)$, $Q \lhd N$ and ${\mathbb Z}(Q), C_G({\mathbb Z}(Q)) \lhd G$.
+Put ${\overline G} = G/C_G({\mathbb Z}(Q))$.  By a previous result,
+${\overline G} = {\overline N} \bigcup_{{\overline g} \in {\overline G}} {\overline H}^{\overline g}$ which is a disjoint
+(except for $1$) union of $|{\overline N}|+1$ subgroups.
+$G$ acts on ${\mathbb Z}(Q)$ with kernel $C_G({\mathbb Z}(Q))$, so ${\overline G}$ acts faithfully on ${\mathbb Z}(Q)$.
+Since $Q \subseteq C_G({\mathbb Z}(Q))$, $(t, q) =1$.
+By a result in the coprime action section, $\exists v \in {\mathbb Z}(Q)^{\#}$ which is centralized by either ${\overline N}$
+or ${\overline H}^{\overline g}$.  Since ${\mathbb Z}(N) = 1$, $[v, {\overline N}] \ne 1$ and by a previous result,
+$v$ cannot be centralized by any non identity element of ${\overline H}^{\overline g}$.  This contradiction establishes the result.
+\end{quote}
+{\bf Additional fact:} Frobenius groups with non abelian kernels exist.
+\\
+\\
+{\bf Theorem 11:} 
+Let $G$ be a ${\frac 3 2}$ transitive group with a regular normal subgroup, $N$.  If $G$ is not Frobenius then $N$ is an
+elementary abelian $p$-subgroup and $N$ is the unique minimal normal subgroup of $G$.
+\begin{quote}
+\emph{Proof:} $N$ is transitive and $N$ and $N'= 1$.  $N_a= 1$ and any characteristic subgroup, $T$, of $N$ is normal in $G$ and transitive
+which is impossible.
+\end{quote}
+{\bf Theorem 12:} 
+If $G$ is Frobenius with non-solvable complement $H$, $H$ has a normal subgroup of index $2$ that is isomorphic to
+$M \times SL_2(5)$ where $M$ is metacyclic and $(|M|, 30) = 1$.
+\begin{quote}
+\end{quote}
+\section {Character theory of Frobenius groups}
+{\bf Theorem 13:} 
+Let $G$ be a Frobenius group of order $q^ap$ with elementary abelian Frobenius kernel $Q$ and a cyclic
+group of $G/Q$ acts irreducibly by conjugation on $Q$, then
+\\
+(1) $G=QP$, $P \in S_p(G)$.  Every non-identity element of $G$ has order $p$ or $q$.  Every element of $P$ is conjugate to one in
+$P$ and every element of order $q$ in in $Q$.  There are $p-1$ conjugacy classes of order $p$ of size $q^a$.
+There are ${\frac {q^a-1} p}$ conjugacy classes of order $q$ of size $p$.
+\\
+(2) $G' = Q$ so the number of characters of degree 1 of $G$ is $p$ contains $Q$ in its kernel.
+\\
+(3) If $\phi$ is a non-principal irreducible character of $Q$, then ${ind_Q}^G(\phi)$ is an irredicible character of
+$G$.  Every irreducible character of of $G$ degree $>1$ is equal to  ${ind_Q}^G(\phi)$ for some non-principal
+irreducible character of $G$ has either degree $1$ or $p$ and the number of irreducible characters of
+degree $p$ is ${\frac {q^a - 1} p}$.
+\begin{quote}
+\emph{Proof:}
+$G=QP$ and $C_G(h)= Q$ if $1 \ne h \in Q$.  If $|x|=pq$, $x^p$ has oorder $q$, so $x^p \in Q$ but then $[x, x^p]=1$ and
+$x \in C_G(x^p)= Q$, which is a contradiction. Put ${\overline G} = G/Q$ and ${\overline G}$ is abelian.
+${\overline {g^{-1}xg}} = {\overline y}$. So ${\overline x} = {\overline y}$ since $P \cong {\overline P}$.
+There are $p-1$ conjugacy classes of elements of order $p$.  If $1 \ne x \in P$, $C_G(x)=Q$ and $|G:P| = q^a$.
+If $1 \ne h \in Q:$ $C_G(h)=Q$, $ccl(h) = \langle h, h^x, \ldots , h^{x^{p-1}} \rangle$.  $P = \langle x \rangle$.
+This proves (1).
+\\
+\\
+$G/Q$ is abelian so $Q \subseteq G'$ but $Q$ is a minimal normal subgroup so $Q=G'$.  Let $\psi$ be a non-principal irreducible
+character of $Q$ and $\phi = {ind_Q}^*(\psi)$.  Let $1, x, \ldots, x^{p-1}$ be coset representatives for $G/Q$.
+$||\phi||^2 = {\frac 1 {|G|}} \sum_{h \in Q} \phi(h) {\overline {\phi(h)}}=$
+${\frac 1 {|G|}} \sum_{h \in Q} \sum_{i=0}^{p-1} $ $\phi(x^i h x^{-i}) {\overline {\phi(x^i h x^{-i}})} =$
+${\frac p {|G|}} \sum_{h \in Q} \phi(h) {\overline {\phi(h)}}= {\frac {p|Q|} {|G|}} = 1$ so $\phi$ is irreducible.
+\\
+\\
+$P$ acts on irreducible characters of degree $>1$, ${\cal C}$ as follows.  For $\psi \in {\cal C}$,
+$\psi^x(h) = \psi(xhx^{-1}), h \in Q$.  Let $P= \langle x \rangle$ so ${ind_Q}^G(\psi)(h) = \psi(h) + \psi^x(h) + \ldots + \psi^{x^{p-1}}(h)$.
+If $\psi_1$ and $\psi_2$ are in two different orbits, ${ind_H}^G(\psi_1)$ and ${ind_H}^G(\psi_2)$ restrict to different $Q$-classes.
+$Q$ has $q^a-1$ irreducible, non-principal characters and so ${\cal C}|= q^a-1$, $|P|=p$ and there are ${\frac {q^q-1} p}$ $P$-orbits.
+This accounts for all non-principal irreducible characters so they all have degree $p$.
+\end{quote}
+{\bf Application:} You can use this to calculate the characters of $D_{10}$, a non-abelian group of order $57$, a non-abelian
+group of order $56$ with a normal elementary abelian Sylow $2$ subgroup.
+\\
+\\
+{\bf Lemma 13.1:} Let $1 \ne Z \subseteq {\mathbb Z}(G)$ with $|G:Z|=m$ and $\psi$ a character of $Z$, then
+${ind_Z}^G(\psi)(g) = m \psi(g), g \in Z, 0 \textnormal{ otherwise}$.
+\section {Frobenius groups in CN classification}
+The main result is that there is no simple group of order $3^3 \cdot 7 \cdot 13 \cdot 409$ using a method similar to 
+the method of Feit, Hall, Thompson to show CN groups of odd order are solvable.
+\begin{quote}
+\end{quote}
+{\bf Lemma 13.2:} Let $G$ be a Frobenius group of with kernel $Q$ and suppose $Q$ and $G/Q$ are abelian but $G$ is not abalian.
+Let $|Q|=n, |G:Q|=m$.  Then
+\begin{itemize}
+\item[(1)] $G/Q$ is cyclic and $G= QC$ for some cyclic groups $C$, $C \cap Q = 1$.
+\item[(2)] $(m, n) =1$.
+\item[(3)] $G$ has no elements of order $pq$, $q \mid n$, $p \mid m$,
+\item[(4)] The number of non-identity conjugacy classes of $G$ in $Q$ is ${\frac {n-1} m}$ and each has size $m$.
+\item[(5)] No two distinct elements of $C$ are $G$-conjugate.  So there are $m-1$ representatives of distinct conjugacy classes in $C$,
+each of size $n$.  Every element of $G \setminus Q$ is conjugate to some element of $C$.  $G$ has $m + {\frac {n-1} m}$ conjugacy classes.
+\item[(6)] $G' = Q$ and $G$ has $m$ distinct linear characters.
+\item[(7)] If $\psi$ is a non-principal irreducible character of $Q$, ${ind_Q}^G(\psi)$ is an irreducible character of $G$.
+Every irreducible character of degree $>1$ is ${ind_Q}^G(\psi)$ for some non-principal character of $Q$.  Every irreducible character has
+degree $1$ or $m$ and the number of degree $m$ is ${\frac {n-1} m}$.
+\end{itemize}
+\begin{quote}
+\emph{Proof:} 
+\\
+\\
+(1) Let $q \mid n$ and let $G/Q$ act by conjugation on the elementary abelian subgroup $\Omega_1(Q)$.  If $\phi$ is a faithful
+irreducible character then the center is cyclic
+\\
+\\
+(2) If 
+$p \mid |Q|$ and $p \mid |G:Q|$.  Let $P \in S_p(G)$, then $P \cap Q \lhd P$ and $P \cap Q$ is a Sylow subgroup of $Q$.
+$C_G({\mathbb Z}(P) \cap Q)$
+\\
+\\
+(3) and (4) Argue as in theorem 13.
+\\
+\\
+(5) If $g_1^x=g_2$; $g_1, g_2 \in C$ and we cam pick $x \in Q$.  $[g_2,x] \in C \cap C^x \cap Q = 1$.  So $g_2 \in C(x), x \in Q$ which contradicts the
+fact that $G$ is Frobenius.
+\\
+\\
+(6) $Q \leq G'$ since $G/Q$ is abelian.  Let $C = \langle x \rangle$.  $h \mapsto [x, h]$ is a homomorphism with trivial kernel.
+\\
+\\
+(7) Argue as in theorem 13.
+\end{quote}
+\section {Frobenius groups in CN classification}
+The main result is that there is no simple group of order $3^3 \cdot 7 \cdot 13 \cdot 409$ using a method similar to 
+the method of Feit, Hall, Thompson to show CN groups of odd order are solvable.
+\\
+\\
+{\bf Theorem 14:}
+Let $G$ be a simple group of order $3^3 \cdot 7 \cdot 13 \cdot 409$.
+\begin{itemize}
+\item[(1)] $q_1 =3$: $Q_1 \in S_3(G)$, $N_1 = N_G(Q_1)$.  $Q_1$ is elementary abelian. $|N_1|= 3^3 \cdot 13$ and $N_1$ is Frobenius.
+\item[(2)] $q_2 =7$: $Q_2 \in S_7(G)$, $N_2 = N_G(Q_2)$.  $Q_2$ is cyclic. $|N_2|= 3 \cdot 7$ and $N_2$ is Frobenius.
+\item[(3)] $q_3 = 13$: $Q_{3} \in S_{13}(G)$, $N_3 = N_G(Q_3)$.  $Q_3$ is cyclic. $|N_3|= 3 \cdot 13$ and $N_3$ is Frobenius.
+\item[(4)] $q_4 = 409$: $Q_4 \in S_{409}(G)$, $N_4 = N_G(Q_4)$.  $Q_4$ is cyclic. $|N_4|= 3 \cdot 409$  and $N_4$ is non-abelian.
+\item[(5)] Every non-identity element of $G$ has prime order and $Q_i \cap {Q_i}^g = 1, g \in G \setminus Q_i$.  Further, for
+$1 \leq i \leq 4$: $Q_i \cap {Q_i}^g = 1$, if $g \in G \setminus N_i$.
+\end{itemize}
+The non-identity conjugacy classes of $G$ are:
+\begin{itemize}
+\item[(a)] $2$ classes of elements of order $3$, each of size $7 \cdot 13 \cdot 409$.
+\item[(b)] $2$ classes of elements of order $7$, each of size $3^3 \cdot 13 \cdot 409$.
+\item[(c)] $4$ classes of elements of order $13$, each of size $3^3 \cdot 7 \cdot 409$.
+\item[(d)] $136$ classes of elements of order $409$, each of size $3^3 \cdot 7 \cdot 13$.
+\end{itemize}
+From here on, for any subgroup $H < G$ with generalized character $\mu$ of $H$, put
+$\mu^* = (ind_H)^G(\mu)$.
+Thus,
+\begin{itemize}
+\item[(i)] $N_1$ has $2$ irreducible characters of degree $13$.
+\item[(ii)] $N_2$ has $2$ irreducible characters of degree $3$.
+\item[(iii)] $N_3$ has $4$ irreducible characters of degree $3$.
+\item[(iv)] $N_4$ has $136$ irreducible characters of degree $3$.
+\end{itemize}
+\begin{quote}
+\emph{Proof:}
+Note that by theorem 8, $G$ is Frobenius with kernel $Q$, if $Q\lhd G$ and $C_G(x) \leq Q, 1 \ne x \in Q$.
+\\
+\\
+Let $n_i$ be the size of $S_{q_i}(G)$.
+\\
+\\
+Besides $1$ (which is impossible since $G$ is simple), $n_4 \mid 3^3 \cdot 7 \cdot 13$ and $n_4 = 1 \jmod{409}$
+leaves only $n_4 = 819$ and $|N_4| = 3 \cdot 409$.  $Q_4 \lhd N_4$ and $N_4$ is a semidirect product of $Q_4$ and a cyclic group of order $3$.
+\\
+\\
+No element of order $409$ divides $|N_3|$, so $n_3 \mid 3^3 \cdot 7 \cdot 13$ and $n_3 = 1 \jmod{13}$.  The only possibilities are
+$n_3 =27$ or
+$n_3 = 9 \cdot 7 \cdot 409$. So $n_3 = 9 \cdot 7 \cdot 409$, $|N_3|= 3 \cdot 13$.
+\\
+\\
+No element of order $13$ or $409$ can divide $|N_2|$, so $n_2 \mid 3^3 \cdot 13 \cdot 409$.
+$n_2 = 3^2 \cdot 13 \cdot 409$ and $|N_2|= 3 \cdot 7$.
+\\
+\\
+Based on what we know so far, there are $s_{409}= 408 \cdot 9 \cdot 7 \cdot 13 = 334,152$ elements of order $409$ in $G$,
+$s_{13} = 12 \cdot 9 \cdot 7 \cdot 409= 309,204$ elements of order $13$, $s_{7}=  6 \cdot 9 \cdot 7 \cdot 409 = 287,118$
+elements of order $7$ and $s_{1}= 1$ element of order $1$.  $|G|= 3^3 \cdot 7 \cdot 13 \cdot 409= 1,004,913$; there are
+$r= |G| - s_{1} - s_{7} -s_{13} - s_{409}= 74,438$ remaining elements.
+Neither $N_4$, $N_3$ nor $N_2$ can be abelian otherwise a Sylow subgroup would lie in the center of its normalizer and $G$
+would have a normal $p$ complement by Burnside.  Let $x$ be an element of order $3$ that lies in 
+the center of $Q_1$.
+$|C_G(x)|$ cannot contain a element of order $409$, $13$ or $7$ because of the structure of the normalizers of their Sylow subgroups.
+$Q_1 \subseteq C_G(x)$ so $|G:C_G(x)| = 7 \cdot 13 \cdot 409= 37,219$,
+there are also $37,219$ conjugates of $x^2$ which also has order $3$ and thus $74,438$ elements of order $3$, this
+accounts for all the remaining elements
+of $G$.  As a result, every element of $Q_1$ has order $3$ and $Q_1$ is an elementary abelian group of order $3^3$.
+$|Aut(Q_1)|= (3^3-1)(3^3 - 3)(3^3 - 3^2)= 26 \cdot 24 \cdot 18 = 2^5 \cdot 3^3 \cdot 13$.
+$|N_G(Q_1)/C_G(Q_1)|$ must be either $1$ or $13$.
+Again, Burnside rules out $1$ so $|N_G(Q_1)|= 3^3 \cdot 13$ and $N_1=N_G(Q_1)$ is nonabelian.
+For each $Q= Q_i, i = 1,2,3,4$, $x \in Q$ implies
+$C_G(x) \leq Q$ so $N_1$, $N_2$, $N_3$ and $N_4$ are all Frobenius.
+$n_1 = {\frac {|G|} {|N_1|}}= 7 \cdot 13 \cdot 409$.
+\\
+\\
+The character results follow from theorem 13, completing the proof.
+\end{quote}
+{\bf Lemma 14.1:}  For $1 \leq j \leq 4$, $q= q_i$, $Q = Q_i$, $N=N_i$, $p=|N:Q|$.
+Let $\phi_1 , \ldots , \phi_k$ be any exceptional characters of $N$ of degree $p$.
+Put $\alpha = \phi_1 - \phi_2$,
+$\beta = \phi_3 - \phi_4$, then $\alpha, \beta$ are generalized characters of $N$ with
+$\alpha(g)=0=\beta(g)$, if $g \in N, |g| \ne q$. $\alpha^*, \beta^*$ are generalized characters of $G$
+with the same property. $(\alpha^*, \beta^*)_G = (\alpha, \beta)_N$.
+\begin{quote}
+\emph{Proof:}
+$\exists \lambda_1, \ldots. \lambda_4$ irreducible, linear cahracters of $Q$, $\psi_j= {ind_Q}^G(\lambda_j)$.
+$\psi_j(x) = 0$ if $x \in N \setminus Q$ since $Q \lhd N$ and so do $\alpha$ and $\beta$.
+$\psi_j^*(1)= p$ and $\alpha(1)=\beta(1) = 0$.  ${\psi_j}^* = {ind_N}^G(\lambda_j) = {ind_Q}^N(\lambda_j)$.
+$\psi_j^*$ vanishes on all elements not conjugate to an element of $Q$ and so do $\alpha^*$ and $\beta^*$.
+$deg(\psi_j^*)= |G:Q|$. $\alpha^*(x) = \beta^*(x) = 0$  if $|x| \ne q$.   Let $\langle g_1, g_2, \ldots , g_k \rangle$
+be coset representatives for $G/N$.  $Q \cap Q^x =1, k > 1$.
+$(\alpha^*, \beta^*)_G = {\frac 1 {|G|}} \sum_{x \in G} \alpha^*(x) {\overline {\beta^*(x)}} =$
+${\frac 1 {|G|}} \sum_{x \in G, |x| = q} \alpha^*(x) {\overline {\beta^*(x)}} = $
+${\frac 1 {|G|}} \sum_{x \in N, |x| = q} |G:N| \alpha^*(x) {\overline {\beta^*(x)}} = $
+${\frac 1 {|N|}} \sum_{x \in N} \alpha(x) {\overline {\beta(x)}} = (\alpha, \beta)_N$.
+\end{quote}
+{\bf Lemma 14.2:} Under the same assumptions as Lemma 14.1, let $\psi_1, \ldots, \psi_k$ be dictinct irreducible
+characters of $N$ of degree $p$.  $\exists \chi_1, \chi_2, \ldots , \chi_k$ which are irreducible characters of
+$G$ of the same degree $\phi_1^*=\phi_j^* = \epsilon_j (\chi_1 - \chi_j)$, $\epsilon_j = \pm 1$, $2 \leq j \leq k$.
+These $\psi_j^*$ are called the exceptional representations associated with $Q_j$.
+\begin{quote}
+\emph{Proof:}
+Let $q=q_i$, $N=N_i$, $p=|N:Q|$.  Let $\psi_1, \ldots , \psi_k$ be irreducible representations of $Q$.
+Put $\alpha_j = \psi_1 - \psi_j, j = 2,\ldots,k$.  $2=||\alpha_j||^2 = (\alpha_i, \alpha_j)_N=||\alpha_j^*||^2$.
+So $\alpha_j^*$ has two irreducible characters of $G$ as constituents; since $\alpha_j^*(1)=0$, these must be characters
+of the same degree.  The lemma holds for $k= 1, 2$ so assume $k>2$.
+$\alpha_2^* = \psi_1^* -\psi_2^*= \epsilon (\chi - \chi')$ and
+$\alpha_3^* = \psi_1^* -\psi_3^*= \epsilon (\theta - \theta')$ and $\theta, \theta', \chi, \chi' \in Irred(G)$.
+$\chi \ne \chi'$ and $\theta \ne \theta'$.
+$\alpha_3^* - \alpha_2^* = \psi_2^* - \psi_3^* = \epsilon (\theta - \theta' +\chi' - \chi)$.  By 14.1, 
+$\psi_2^* - \psi_3^* = (\psi_2 - \psi_3)^*$ has two constituents and $\theta=\chi$ or $\theta'= \chi'$.
+$\alpha_2^* = (\chi - \chi')$ and
+$\alpha_3^* = (\chi - \theta')$; put $\chi_1 = \chi, \chi_2 = \chi', \chi_3 = \theta$.
+$\exists \chi_j: \alpha_j^* = \psi_1^* - \psi_j^* = \epsilon (\chi_1 - \chi_j)$.  $\chi_1, \ldots, \chi_k$ are all
+distinct, proving the lemma.
+\end{quote}
+{\bf Lemma 14.3:} The exceptional characters associated with $Q_i$ are distinct from the exceptional characters
+associated with $Q_j$.
+\begin{quote}
+\emph{Proof:}
+Let $\chi$ be an exceptional character associated with $Q_i$ and
+Let $\theta$ be an exceptional character associated with $Q_j$.
+There are distinct, irreducible characters of $Q_i$ with $\psi^* - \psi'^* = \chi - \chi'$
+and distinct, irreducible characters of $Q_j$ with $\lambda^* - \lambda'^* = \theta - \theta'$.
+Put $\alpha = \psi - \psi'$ and $\beta = \lambda - \lambda'$.
+$\alpha^*$ is $0$ on all elements with order different from $q_i$ and
+$\beta^*$ is $0$ on all elements with order different from $q_j$.  So $(\alpha^*, \beta^*)_G = 0$ and the pairwise
+constituents are pairwise orthogonal.
+\end{quote}
+{\bf Lemma 14.4:} The permutation character of the group $G$ in theorem 14 of degree $819$ with $G$ actinng on left cosets of
+$N_4$ decomposes as $\chi_0 + \gamma + \gamma'$ where $\chi_0$ is the principal character, and $\gamma, \gamma'$ are irreducible characters
+of degree 409.
+\begin{quote}
+\end{quote}
+{\bf Theorem 15:}
+Let $G$ be a group of order $3^3 \cdot 7 \cdot 13 \cdot 409$, then $G$ is not simple.
+\begin{quote}
+\emph{Proof:}
+Let $d_i$ be the common degree of the characters associated with $Q_i$.  These characters represent
+irreducible, non-principal characters of $G$; together with the principal character.  These form all
+the irreducible characters of $G$.  $1 + 2d_1^2 + 2d_2^2 + 4 d_3^2 + 136 d_4^2 = 1004913$.
+$d_1^2 + d_2^2 + 2 d_3^2 + 68 d_4^2 = 502456$ (Equation *). All of these are irredicible and faithful and the smallest
+degree is $13$, so $d_i \geq 13$ and $d_4 \leq {\sqrt {50245668}} < 86, d_4 \mid |G|$, so
+$d_4 = \langle 13, 21, 27, 39, 63 \rangle$. As a result equation * has no solution.
+\end{quote}
+

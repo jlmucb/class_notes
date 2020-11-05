@@ -1,0 +1,339 @@
+\chapter{Permutation representations}
+\section {Basic Results}
+{\bf Lemma 1:} 
+Let $H \le G$ and $Hg_1 , ..., Hg_n$ be the cosets; the map
+$\pi(g): \langle Hg_1, ..., Hg_n \rangle \mapsto \langle Hg_1 g, ..., Hg_n g \rangle $ 
+is a map from $G$ to $\Sigma_n$
+whose kernel is the largest normal subgroup of $G$ in $H$; in fact,
+$ker(\pi) = \bigcap_{i=1}^n H^{x_i}$.
+\\
+\\
+{\bf Corollary:}  If $G$ is simple and $G > H$ with $|G:H| = k$ then
+$|G| \mid k!$.
+\section {Imprimitivity}
+{\bf Definition 1:}
+A \emph{system of imprimitivity for permutation 
+group $G$:} is a set, ${\cal B} = \{ \Delta_i\}$ $|\Delta_i| > 1$, with
+the property that for $\Delta \in {\cal B}, g \in G$ either 
+$\Delta \cap g \Delta = \emptyset$ or
+$\Delta = g \Delta$.
+\\
+\\
+{\bf Theorem: 1}
+If $H<G$ and $G$ is simple then $|G| \mid |G:H|!$. 
+\begin{quote}
+\emph{Proof:}  
+Let  $\pi: G \rightarrow Perm(G/H)$ be the map from $G$ to the permutations on the right
+cosets of $H$ in $G$.  $G/ker(\pi)$ is an injection into $S_{|G:H|}$ and $ker(\pi)=1$ so
+$|G| \mid |G:H|!$.
+\end{quote}
+{\bf Definition 2:}
+A permutation is \emph{primitive} if there is no non-trivial set of imprimitivity.
+\\
+\\
+{\bf Definition 3:}
+$\Gamma$ is $G$ invariant if $\Gamma^G= \Gamma$ so $\Gamma$ is a union of $G$ orbits.
+$G/G_{\Gamma} \equiv G^{\Gamma}$.
+\\
+\\
+{\bf Normal Subgroups of Primitive Groups Theorem:}  
+Let $G$ be primitive on $\Omega$ and $1 \ne N \lhd G$.  Then either $N \subseteq G_a$ or
+$N$ acts transitively on $\Omega$.  If the action is regular, $N$ is a minimal normal subgroup.
+\begin{quote}
+\emph{Proof:}  
+Let $\Delta(a)= Na$.  If $\Delta(a)= \{ a \}$, $N \subseteq G_a$ and we're done.
+Suppose $a \ne b \in Na$.  Since $G$ is transitive, $\exists g \in G: ga=b$ so
+$g \Delta(a)= gNa= (gN g^{-1} ) ga= Nb = \Delta(b)$.  But $b \in Na$ so $Nb = Na$.
+Thus $\Delta(a)$ is an imprimitive block.  Since $G^{\Omega}$ is primitive, $\Delta(a)= \Omega$
+and $N$ is transitive.
+\end{quote}
+{\bf Iwasawa's Theorem:}  Let $G$ be a primitive permutation group and suppose (1) $G'=G$ and
+(2) $\exists A$ with $A$ solvable  and $A \lhd G_a: G=
+\langle A^G \rangle $ then $G$ is simple.
+\begin{quote}
+\emph{Proof:}  
+Let $1 < N \lhd G$.  Since $N$ is transitive by the previous result, $NG_a=G$.  Further,
+$G_a \subseteq N_G(NA)$ and $N \subseteq N_G(NA)$ and so $G= NG_a= N_G(NA)$. So $NA \lhd G$ and
+$(NA)^G =NA \lhd G$ but $ \langle A^G \rangle = G$ so $NA=G$. 
+Since $A$ is solvable, so is $G/N$ and
+$(G/N)'=(G/N)$ and so $N = G$.
+\end{quote}
+{\bf Theorem 2:}
+If $\Delta \subseteq \Omega$ and $\alpha \in \Omega$ then 
+$\psi( \alpha ) = \bigcap_{\alpha \in g \Delta} g \Delta$ is a block of a transitive
+group $G \subseteq Sym(\Omega)$.
+\begin{quote}
+\emph{Proof:}  
+Let $\beta= h \alpha$ and
+note that 
+$h \psi( \alpha ) = \bigcap_{h \alpha \in hg \Delta} hg \Delta= \psi( \beta )$ so
+$ |\psi( \alpha )|= |\psi( \beta )| $.   Now suppose $\beta \in \psi( \alpha )$ then
+$\alpha \in g \Delta \rightarrow \beta \in g \Delta$ so 
+$\bigcap_{\beta \in g \Delta} g \Delta \supseteq \bigcap_{\alpha \in g \Delta} g \Delta$ and
+so, $\psi( \beta ) = \psi ( \alpha )$ since they both have the same number of elements.  We have
+shown $\beta \in \psi( \alpha ) \rightarrow  \psi( \beta ) = \psi( \alpha )$ and thus
+$\psi( \alpha ) \cap \psi( \beta ) = \emptyset$  or 
+$\psi( \alpha ) = \psi( \beta )$.
+\end{quote}
+{\bf Theorem 3:}
+$G$ is primitive iff $G_{\alpha}$ is maximal.
+A transitive group is imprimitive iff $\exists Z$: $G_{\alpha} < Z < G$.
+\begin{quote}
+\emph{Proof:}  
+Suppose $b \ne a$.  Suppose $a, b \in \Delta_i$ with $\{ \Delta_i \}$ a set of
+imprimitivity and suppose $g a= b$.  Then $g \Delta_i = \Delta_i$ and 
+$ \langle g, G_a \rangle > G_a$
+stabilises the block containing $a$.  So if $G_a$ is not primitive then $G_a$ is not maximal.
+If $G > M > G_a$ and $M$ is maximal, $Ma$ is a set of imprimitivity so $G$ is not primitive.
+\end{quote}
+{\bf Definition 4:}
+$G$ acts \emph{regularly} on $\Omega$ if $\forall \alpha, \beta \in \Omega,
+\exists ! g: \alpha^g= \beta$.  
+\\
+\\
+{\bf Theorem 4:}  Let $G$ be $n-$fold transitive on $\Omega$, $n \ge 2$ and $N$ a regular
+normal subgroup of $G$ then $n \le 4$ and 
+(1) If $n=2$, $N$ is an elementary abelian $p-$group; 
+(2) If $n=3$, $N$ is an elementary abelian $2-$group or $N=C_3$ and $G=S_3$;
+(3) If $n=4$, $N= C_2 \times C_2$ and $G=S_4$.
+\begin{quote}
+\emph{Proof:}  
+Let $n \geq 2$ and $\alpha \in \Omega$.  $G_{\alpha}$ is $(n-1)$-fold transitive on $\Omega - \{ \alpha \}$ and
+hence on $N^{\#}$ so $\exists g: x^g=y, x,y \in N^{\#}$.  Thus every element of $N^{\#}$ has the same order, $p$.
+$N= {\mathbb Z}(N)$ and $N$ is abelian (and hence elementary abelian).
+If $n \geq 3$, $3 \leq |N|=|\Omega|$.  If $n=3$, $G=S_3$.  If $p \geq 3$, $x_1 \neq x_1^{-1}=x_2$.  Let $x_3$ be another 
+element.  Then $x_1^g= x_2, x_2^g=x_3$ for some $g$ and this is contradictory so $p=2$.
+If $n \geq 4$, $N$ is an elementary abelian $2$-group.  Let $U= \langle x_1 \rangle \times \langle x_2 \rangle$.
+If $N \neq U$, put $x_3=x_1 x_2$ and choose $x_4 \notin U$.  Then $\exists g \in G:$
+$x_1^g= x_1$,
+$x_2^g= x_2$, and
+$x_3^g= x_4$ which is again contradictory.
+\end{quote}
+{\bf Definition 5:}
+Define ${\cal G}(G, \Omega )$ as the graph of $G$ acting on $\Omega$ as follows:
+$G$ acts on $\Omega \times \Omega$.  Diagonal orbital is
+$\Delta_1 = \{ (\alpha , \alpha )\}$. If $\Delta = \{ (\alpha , \beta ) \}$,
+$\Delta^*= \{ (\beta, \alpha) \}$.  Self paired if $\Delta^* = \Delta$.
+$\Delta(\alpha)= \{ \beta : (\alpha , \beta ) \in \Delta \}$ --- corresponds to 
+orbits of $G_{\alpha}$. The \emph{rank of the permutation group} is number of orbitals.
+$\Delta^p= \{ (y,x): (x, y) \in \Delta \}$ is called the \emph{paired orbit}.
+\\
+\\
+{\bf Theorem 5:}
+On a self-paired orbit $\Delta$, the graph ${\cal G}=(G, X,\Delta)$ is 
+symmetric and $G$ is transitive on edges.
+\begin{quote}
+\emph{Proof:}  
+Since $\Delta$ is self-paired, the graph is symmetric.  
+\end{quote}
+{\bf Theorem 6:}
+$G$ is primitive iff ${\cal G}$ is connected.
+\begin{quote}
+\emph{Proof:}  
+$G$ is maximal so $G= \langle G_x , G_y \rangle , x \ne y$.
+\end{quote}
+{\bf Definition 6:}
+A transitive permutation group is \emph{regular} if $|X|= |G^X|$ or, equivalently 
+$|G_x|=1, \forall x \in X$ and $G^X$, transitive.
+\\
+\\
+{\bf Theorem 7:}
+Let $X$ be a faithful primitive $G-set$ with $G_x$ simple.  Then either $G$ is simple or
+every non-trivial normal subgroup $H$ of $G$ is a regular normal subgroup.
+\begin{quote}
+\emph{Proof:}  
+Suppose $1 \ne H \lhd G$.  Since $G$ is primitive, $H$ is transitive.  $H_x= H \cap G_x \lhd G_x$
+so, since $G_x$ is simple,  $H_x = 1$ of $H_x= G_x$.  If $H_x=1$, $H$ is a regular normal subgroup
+of $G$.  So $H_x = G_x$ and since $H$ is transitive, $|H:H_x|= |G:G_x|$, so $G$ is simple.
+\end{quote}
+{\bf Definition 7:} $A$ acts \emph{semi-regularly} on $G$ if $C_G(a)=1, \forall a \in A^{\#}$.  
+\\
+\\
+{\bf Theorem 8:}
+Suppose $A$ acts semi-regularly
+on $G$.  Then (1) $|G| = 1 \jmod{|A|}$, (2) $A$ is semi-regular on each $A-$invariant
+subgroups factor group of $G$, (3) $\forall p \in \pi(G)$, $\exists! A-$invariant
+Sylow $p-$subgroup of $G$, (4) $\forall a \in A, g \mapsto [g,a]$ is a permutation of
+$G$, (5) if $2 | |A|, \exists t: |t|=2, t \in A: g^t = g^{-1}, g \in G$ and
+$G^{(1)}=1$.
+\begin{quote}
+\emph{Proof:}  
+(1) each orbit of $A$ on $G^{\#}$ has length $|A|$.  (2) is clear (second part comes from coprime action).
+(3) By Schur, the set of $A$-invariant Sylow $p$-groups is non-empty.  Since $C_G(A)= 1$ is transitive on this
+set, the subgroup is unique. (4) $[g,a]= [h,a]$ iff $h g^{-1} \in C_G(a)$.  The commutator map is already an
+injection and since $G$ is finite, it is a bijection. (5)  Let $t \in Inv(A)$ and $g \in G$.  By previous result,
+$g= [h,t]$ for some $h \in G$ and $g^t = (h^{-1} h^t)^t= g^{-1}$.  Therefore $x^t =x^{-1}$ and $G$ is abelian.
+Finally, if $s \in Inv(A)$, $s$ inverts $G$ so $st \in C_A(G)=1$ and $t$ is unique.
+\end{quote}
+{\bf Theorem 9:}
+Let $\Delta$ be an orbit of $G$ and let $\delta \in \Delta$.  For each $\gamma \in \Delta$
+let $v(\gamma ) \in G$ be such that $\delta \mapsto \gamma$.  Finally, suppose $S$
+generates $G$.  
+Then $G_{\delta}= \langle v(\gamma)sv(\gamma^{s})^{-1} | \gamma \in \Delta, s \in S \rangle$.
+\begin{quote}
+\emph{Proof:}  
+See, Stellmacher.
+\end{quote}
+\section {Fixed point free automorphisms} 
+{\bf Fixed Point Free:}  An automorphism, $\phi$ acting on $G$ is fixed point free if $C_G(\phi) =1$.
+\\
+\\
+{\bf Lemma 1:} Let $\phi$ be a fixed point free automorphism acting on $G$ with $|\phi|=n$.  Then
+(1) $y \in G$ then $y= x^{-1}(x \phi)$ for some $x$, and 
+(2) $\forall x \in G, x(x \phi) (x \phi^2) \ldots (x \phi^{n-1}) = 1$.
+\begin{quote}
+\emph{Proof:}  
+$x^{-1}(x\phi) = y^{-1}(y\phi)$ $\rightarrow$ $y x^{-1} = (y x^{-1})\phi$, so $x=y$.  Thus
+$|{x^{-1}(x\phi): x \in G}| = |G|-1$ and (1) holds. Since $\exists y: x= y^{-1}(y\phi)$, so
+$x(x \phi) (x \phi^2) \ldots (x \phi^{n-1}) =
+y^{-1}(y \phi) (y \phi^2) \ldots (y \phi^{n-1})^{n-1}) = y^{-1}y = 1$.
+\end{quote}
+{\bf Lemma 2:} Let $\phi$ be a fixed point free automorphism acting on $G$ then $\phi$ leaves a unique
+$S_p$subgroup of $G$ invariant.
+\begin{quote}
+\emph{Proof:}  
+Let $Q \in S_p(G), (Q)\phi = y^{-1}Qy$.  $y^{-1}= (z\phi)z^{-1}$ and $y = z(z^{-1}]phi)$.
+$Q\phi = (z\phi) (z^{-1}Q z) (z^{-1}\phi)$ and $(z^{-1}Qz)\phi= z^{-1}Qz$ and thus
+$\phi$ leaves $P=z^{-1}Qz$ fixed.  If both $P, Q$ are $\phi$-invariant and 
+$Q=x^{-1}Px$ then
+$Q=(x^{-1}\phi)P(x(phi)$ and $(x\phi)x^{-1} \in N(P) = N$ but $N$ is $\phi$-invariant and
+$\phi$ is fixed point free on $N$ so $\exists z: y=(z\phi)z^{-1}$.
+$(z\phi)z^{-1}=
+(x\phi)x^{-1}$ $\rightarrow$ $x=z$.
+\end{quote}
+{\bf Lemma 3:} Let $\phi$ be a fixed point free automorphism acting on $G$, $H \lhd G$ and $H= H\phi$ then
+$\phi$ is fixed point free on $G/H$.
+\begin{quote}
+\emph{Proof:}  
+Let ${\overline G} = G/H$ and ${\overline x} = {\overline x}\phi$.  ${\overline x}^{-1}({\overline x}\phi)$
+so $y= x^{-1}(x\phi) \in H$.  Since $\phi$ induces a fixed point free automorphism on $H$, $y= z^{-1}(z\phi)$.
+So $x = z$, $x \in H$ and ${\overline x} = 1$.  Thus $\phi$ induces a fixed point free automorphism on
+${\overline G}$.
+\end{quote}
+{\bf Lemma 4:} Let $\phi$ be a fixed point free automorphism acting on $G$ of order $2$, then $G$ is abelian.
+\begin{quote}
+\emph{Proof:}  
+Since $x(x\phi) = 1$, $x^{-1} = (x\phi)$.  If 
+$x, y \in G$, $y^{-1}x^{-1} = (xy)^{-1}= ((x\phi)(y\phi))^{-1} = x^{-1} y^{-1}$, so $G$ is abelian.
+\end{quote}
+{\bf Lemma 5:} Let $\phi$ be a fixed point free automorphism acting on $G$ of order $3$, then $G$ is
+nilpotent and $[x, x\phi]=1, \forall x \in G$.
+\begin{quote}
+\emph{Proof:}  
+$x(x\phi)(x\phi^2)=1$, so $x(x\phi)= (x\phi^2)^{-1}$ and $x$ commutes with $x\phi$ for any $x \in G$.
+Let $P$ be the unique $\phi$-invariant $S_p$ subgroup of $G, \forall p \in \pi(G)$.  We show
+$P \lhd G$.
+Suppose not and
+$Q \ne P \in S_p(G)$ and pick $x \in Q \setminus P$, put $H=\langle x, x\phi \rangle$.
+$H$ is a $p$-group since $[x, x\phi]=1$ and $H'=1$ and $H \phi = H$.  So $H \subseteq P$ but then
+$x \in P$.
+\end{quote}
+{\bf Thompson:}
+Let $G$ be a transitive permutation group on $X$ and $1 \ne g \in G$ fixes
+no more than one element then $N= \{g: X_g= \emptyset \}$ is a normal subgroup of $G$.
+Thompson showed any finite group having a fixed point free automorphism of prime order is nilpotent.
+\begin{quote}
+\emph{Proof:}  
+Let $G$ be a counterexample of minimal order and $\phi$ be a fixed point free automorphism of prime order $r$.
+$G$ has a proper normal subgroup, $H \ne 1$ with $H\phi=H$.  By induction, $H$ is nilpotent and $\phi$
+is a fixed point free automorphism on $G/H$ so $G/H$ is nilpotent and $G$ is solvable.  If $G$ has no non-trivial
+normal subgroup, which is $H$-invariant.  Let $P \in S_p(G), p \ne 2$ with $P\phi=P$.  Put
+$N= N_G({\mathbb Z}(J(P)))$, $ {\mathbb Z}(J(P))) \; char \; P$.  If $N < G$, $N$ is nilpotent:
+$N$ has a normal $p$-complement, $K$.  By the Thompson $p$-complement theorem, $G=KP$, $K\phi = K$ so
+$K = 1$ and $P=G$ so $G$ is nilpotent.  We may assume $G$ is solvable.
+Suppose $H_1, H_2 \lhd G$ $H_i\phi = H_i$, $H_1 \cap H_2 = 1$.  ${\overline G_i} = G/H_i$ is nilpotent
+so ${\overline L} = {\overline G_1} \times {\overline G_2}$ is too.  $x\phi = (H_1x, H_2x)$.
+$\psi: G \rightarrow {\overline G_1} \times {\overline G_2}$.  $G\psi$ is nilpotent.
+Let $N$ a minimal normal subgroup of $G$, $N$ is elementary abelian and ${\overline G} = G/N$ is nilpotent.
+${\overline G}$ is not a $p$-group.  Let ${\overline Q} \in S_q({\overline G})$ with 
+${\overline Q} = {\overline Q} \phi$, $q \ne p$.  Let ${\overline M}$ be a minimal $\phi$-invariant
+subgroup of $\Omega_1({\mathbb Z}({\overline Q}))$.  ${\overline M} \ne 1$ and ${\overline M} \lhd {\overline G}$
+since ${\overline G}$ is nilpotent.  Let $H$ be the inverse image of ${\overline M}$ then
+$H=NM$ and $M$ is a non-trivial elementary abelian $q$-group.  $H \lhd G$, $H\phi = H$ and $M\phi=M$.
+$\phi$ acts irreducibly on $M$.  $H \subset G$ then $H$ is nilpotent.
+$M \; char \; H \lhd G$ and $M$ and $N$ are two minimal normal $\phi$-invariant subgroup and
+$M \cap N \ne 1$.  $C_M(N)\phi = C_M(N)$ since $\phi$ acts irreducibly on $M$.  Either
+$C_M(N) = 1$ or $C_M(N) = N$.
+If $C_M(N) = N$, $G$ is nilpotent so $C_M(N) = 1$.  Let $G^*$ be the semidirect product of
+$M$ by $\langle \phi \rangle$.  $G^*$ acts irreducibly on $N$ as a vector space since
+$C_M(N) = 1$ and $\phi$ is fixed point free.  But $G^*$ is a $p'$-group $C_{M^*}(M) = M$ and
+$G^*/M$ has order $q$ so $C_N(\phi) \ne 1$.
+\end{quote}
+{\bf O-Nan-Scott:}  Let $G$ be a finite primitive permutation group of degree $n$ and
+$H=soc(G)$.  Then either (1) $H$ is a regular elementary abelian $p$ group for
+some $p$ and $G$ is isomorphic to a subgroup of
+$AGL_m(P)$ ; or, (2) $H$ is isomorphic to $T^m$ where $T$ is a non-abelian simple group
+with a bunch of conditions.
+\section {Mathieu groups are simple}
+We will use one result from a future section here.
+\\
+\\
+{\bf Theorem 1:} 
+Let $N$ be a finite group $G \subseteq Aut(N)$.  Then $G$ acts as a permutation group on $N^{\#}$.  Further, \\
+(i) If $G$ is transitive, then $N$ is an elementary abelian $p$-group.
+\\
+(ii) If $G$ is $2$-transitive, then $N$ is either an elementary abelian $2$-group or $|N|=3$.
+\\
+(iii) If $G$ is $3$-transitive, then $|N|=4$.
+\\
+(iv) $G$ cannot be $4$-transitive.
+\\
+\begin{quote}
+\emph{Proof:}  These are all clear.
+\end{quote}
+{\bf Theorem 2:} 
+Let $G$ be an transitive permutation group and $N \lhd G$.  Then $N$ is ${\frac 1 2}$ transitive.  If
+$N \ne 1$ and $G$ is primitive then $N$ is transitive.
+\begin{quote}
+\emph{Proof:}
+Let $B$ be an orbit of $N$ of minimal length. $B^{Ng}= B^{gN} = B^g$, so $B^g$ is a union of orbits of $N$.
+By minimality of $|B|$, $B^g$ is a single $N$ orbit.  These form a system of imprimitivity.
+\end{quote}
+{\bf Theorem 3:} 
+Let $G$ be primitive with no regular normal subgroups.  If $G_a$ is simple then $G$ is simple.
+\begin{quote}
+\emph{Proof:}
+Let $N \lhd G$.  $N_a \leq (N \cap G_a) \lhd G_a$ so either $N_a =1$ or $N=G_a$.  If $N_a=1$, $N$
+is a regular normal subgroup.
+\end{quote}
+{\bf Theorem 4:} 
+Let $G$ be $m$-transitive on $A$, $|A|=n$ with a regular normal subgroup, $N$.\\
+(i) if $m=2$, then $n = |N|= p^k$
+\\
+(ii) if $m=3$, then $n = 3$ or $n = 2^k$ or $n = 3$.
+\\
+(iii) if $m=4$, then $n = 4$.
+\\
+(iv) We cannot have $m>4$.
+\begin{quote}
+\emph{Proof:}
+\end{quote}
+{\bf Theorem 5:}  Let $G$ be transitive and $H < G$ also be transitive.  The $G= H G_a$
+\begin{quote}
+\emph{Proof:}
+Clear.
+\end{quote}
+{\bf Theorem:}  The Mathieu groups are simple.
+\begin{quote}
+\emph{Proof:}
+\\
+Step 1: $M_{11}$ is simple.\\
+\\
+Put $G = M_{11}$ so $|G| = 11 \cdot 10 \cdot 9 \cdot 8$.  Let $P=\langle x\rangle$ be a subgroup of order
+$11$. $P$ acts transitively on $\Omega$.  If $P \subseteq A$, $A$, abelian, then $A$ is transitive and regualr so
+$A=P$.  Thus $C_G(P)=P$.  Since $|Aut(P)|=10$, $|N_G(P)/P| \mid 10$.
+If $2 \mid N_G(P)$ let $y \in N_G(P), |y|=2$. $y$ has a fixed point since $11$ is odd and $x^y = x^{-1}$.  Thus
+$y$ is a product of $5$ transpositions thus $y \notin A_{11}$ which is a contradiction.  So $|N_G(P)/P|$ is $1$ or $5$.
+Let $1 \ne H \lhd G, H \ne G$.  Since $G$ is primitive, $H$ is transitive and $11 \mid |H|, P \subseteq H$.
+$G= H G_a$ and $G_a \subseteq N_G(P)$ so $G= H N_G(P)$ and $N_G(P) \nsubseteq H$ and $N_H(P)=P$.  So, in $H$,
+$P$ is in the center of its normalizer and $H$ has a normal $11$ complement, $K$.  $K \lhd G$ and $11 \nmid |K|$ so
+$K = 1$.  Thus $H=K$ and $|G|=55$, which is a contradiction.
+\\
+Step 2:  $PSL_3(4)$ is simple. This was already shown.
+\\
+\\
+Step 3:
+By the above result, $M_{12}, M_{22}, M_{23}, M_{24}$ cannot ahve a regular normal subgroup.
+These groups are all $3$-transitive.  $M_{11} = (M_{12})_a$ so $M_{12}$ is simple.
+$PSL_3(4)  = (M_{22})_a$, $M_{22} = (M_{23})_a$, and $M_{23} = (M_{24})_a$ proving their simplicity.
+\end{quote}

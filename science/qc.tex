@@ -1,0 +1,983 @@
+\section{Quantum Field Theory}
+{\bf Reminder:} To find extrema functional $x(t)$, 
+solve $\delta \int_{t_1}^{t_2} L(x, \dot{x}) dt= 0$ by solving
+${\frac {\partial L} {\partial x}}- {\frac {d} {dt}} 
+({\frac {\partial L} {\partial {\dot x}}})= 0$.
+$L=T-V$, $H= \sum_i p_i {\dot q}_i -L$, $p_i= {\frac {\partial L}{\partial {\dot{q}_i}}}$.  
+Canonical quantization replaces
+scalars with operators (e.g. - $p$, etc).  
+\\
+\\
+{\bf Infinite degrees of freedom:}
+Quantum Field Theory describes quantum systems with an infinite number of degrees of freedom.  Here is an example:
+Consider $n$ particles of mass $m$ connected by identical springs with spring 
+constant $k$.  Let $y_i$ be the displacement of the
+particles from their equilibrium position.
+$L
+= {\frac 1 2} \sum_{i=1}^n [m \dot{y_i}-k(y_{i+1}-y_i)^2]
+= {\frac 1 2} \sum_{i=1}^n a [{\frac m a} \dot{y_i}-k {\frac {(y_{i+1}-y_i)^2} a}]
+= a \sum_{i=1}^n L_i $.  Let 
+$n \rightarrow \infty$ then ${\frac m a} \rightarrow \mu$, the linear density,
+${\frac {y_{i+1}-y_i} a}= {\frac {\partial y} {\partial x}}$ and $ka= Y$.
+$\delta \int_{t_1}^{t_2} dt \int_{x_0}^{x_1} dx ({\frac 1 2} 
+[\mu {\dot{y}}^2 - Y ({\frac {\partial y}{\partial x}})^2])= 0$ gives
+$
+{\frac {\partial} {\partial x}} {\frac {\partial {\cal L}} {\partial {\frac {\partial y} {\partial x}}}} +
+{\frac {\partial} {\partial t}} {\frac {\partial {\cal L}} {\partial {\frac {\partial y} {\partial t}}}} -
+{\frac {\partial {\cal L}} {\partial y}}$; where the term in the second integral 
+is called the Lagrangian density denoted ${\cal L}$.  The corresponding Hamiltonian density is
+${\cal H}= \dot{y} {\frac {\partial {\cal L}} {\partial {\dot{y}}}}- {\cal L}
+$.
+\\
+\\
+{\bf Maxwell's equations as four vectors:}  
+$b_{\mu}= ( {\vec b}, i b_0)$; Lorentz transform is $x_{\mu}'= a_{\mu, \nu} x_{\nu}$ and
+$\partial_{\mu}' F = \partial_{\mu}' (x_{\nu}) \partial_{\nu} (F)$.
+Let $j_{\mu}$ be the four-vector
+$j_{\mu}= ({\vec j}, ic \rho)$ and
+$$F_{\mu, \nu}=
+\left(
+\begin{array}{cccc}
+0 & B_3 & -B_2 & -iE_1 \\
+-B_3 & 0 & B_1 & -iE_2 \\
+B_2 & -B_1 & 0 & -iE_3 \\
+iE_1 & iE_2 & iE_3 & 0 \\
+\end{array}
+\right).$$  
+Maxwell's equations become ${\frac {\partial F_{\mu \nu}} {\partial x_{\nu}}} = {\frac {j_{\mu}} c}$.
+Note the matrix is anti-symmetric.
+This is also written as $\partial_{\nu} F_{\mu \nu}= {\frac {j_{\mu}} c}$.
+$F_{\mu \nu} F_{\mu \nu} = 2(|B|^2-|E|^2)$ is a scalar.  $F_{uv}= \partial_u A_v- \partial_v A_u$.
+Klein Gordon in four vector format:
+${\cal L}= {\frac 1 2} \eta^{uv} \partial_u \partial_v \phi - {\frac 1 2} m \phi^2$ where
+$\eta_{uv}=
+\left(
+\begin{array}{cccc}
+1 & 0 & 0 & 0 \\
+0 & -1 & 0 & 0 \\
+0 & 0 & -1 & 0 \\
+0 & 0 & 0 & -1 \\
+\end{array}
+\right)
+$; this is Minkowski's metric.
+A tensor, $v_i$ is \emph{covariant} if it transforms as $(v_i)'= {\frac {\partial x_j} {\partial x_i}} v_j$.
+A tensor, $v^i$ is \emph{contravariant} if it transforms as $(v^i)'= {\frac {\partial x^i} {\partial x^j}} v^j$.
+Differentials are contravariant, $\nabla$ is covariant.
+\\
+\\
+Lorentz rotation by $\theta$ followed by boost of $v$ along $x$ is
+$$
+\left(
+\begin{array}{cccc}
+\gamma & -\gamma v & 0 & 0 \\
+-\gamma v & \gamma & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1 \\
+\end{array}
+\right)
+\left(
+\begin{array}{cccc}
+1 & 0 & 0 & 0 \\
+0 & cos(\theta) &  -sin(\theta) & 0 \\
+0 &  sin(\theta) &  cos(\theta) & 0 \\
+0 & 0 & 0 & 1 \\
+\end{array}
+\right), \gamma= {\frac 1 {\sqrt {1-v^2/c^2)}}}.$$
+\\
+\\
+{\bf Yukawa potential:}  Neutral scalar field, ${\cal L}= - ({\frac 1 2} ({\frac {\partial \phi} {\partial x_{\mu}}})^2
++ \mu^2 \phi^2)$.  $E^2- |p|^2 c^2= m^2 c^4$.  
+$E \rightarrow i \hbar {\frac {\partial} {\partial t}}$ and
+$p \rightarrow - i \hbar {\frac {\partial} {\partial x_{\mu}}}$, $\mu \leftrightarrow {\frac {mc} {\hbar}}$.
+Use the usual Fourier correspondance
+$\tilde{\phi}(k)= {\frac 1 {(2 \pi)^{3/2}}} \int d^3 x (e^{- k \cdot x} \phi(x))$ and
+${\phi}(x)= {\frac 1 {(2 \pi)^{3/2}}} \int d^3 k (e^{k \cdot x} \tilde{\phi}(k))$.
+Now consider a scalar potential field, $\phi$, with a point source, $G$, satisfying the Klein-Gordon equation
+$\Box^2 \phi = G \delta^{(3)}(x)$.  Multiply both sides by
+${\frac 1 {(2 \pi)^{3/2}}} (e^{- i k \cdot x})$ 
+and integrate remembering that $\phi$ and its derivatives
+vanish at the limits of integration.  We get $(-|k|^2-\mu^2) \tilde{\phi}(k)= G {\frac 1 {(2 \pi)^{3/2}}}$,
+so $\phi(x)= {\frac {e^{- \mu r}} r}$ and ${\cal H}_{int}= - {\cal L}_{int}$.
+\\
+\\
+{\bf Transformations:}
+$
+\left(
+\begin{array}{c}
+\phi_1' \\
+\phi_2' \\
+\end{array}
+\right)
+=
+\left(
+\begin{array}{cc}
+cos(\lambda) & - sin(\lambda)\\
+sin(\lambda) &  cos(\lambda)\\
+\end{array}
+\right)
+\left(
+\begin{array}{c}
+\phi_1 \\
+\phi_2 \\
+\end{array}
+\right)
+$ for free fields of identical mass.
+Consider $n$ scalar fields $\phi_a$ with the same mass and ${\cal L}$.
+${\cal L}= {\frac 1 2} \sum_{i=1}^n \partial_{\mu} \phi_a \partial_{\mu} \phi_a - {\frac 1 2} \sum_{i=1}^n
+m^2 \phi_a^2 - g (\sum_{i=1}^n \phi_a^2)^2$,  ${\cal L}$ is invariant under $G= SO_n$.  Non-abelian symmetries
+are global symmetries.
+Translation invariance gives \emph{conservation of momentum}.
+Time invariance gives \emph{conservation of energy}.
+\emph{First quantization} promotes values (position, momentum, energy) to operators 
+($E \rightarrow i \hbar {\frac {\partial}{\partial t}}$,
+$p \rightarrow -i \hbar \nabla$) and impose commutator realtionships.
+\emph{Second quantization} position, momentum, energy etc. remain scalar but
+fields like potential and conjugate momentum become operators; commutator relations imposed on field operators.
+\\
+\\
+{\bf Invariance and conserved quantities:}  
+If $i \hbar {\frac {d O(t)}{dt}}= [O(t),H]=0$, $O$ is a constant of the motion.   Now let
+$|\Phi\rangle \rightarrow |\Phi'\rangle= U |\Phi\rangle$ so
+$O= U^{\dagger} O U$; often $U= e^{i \alpha T}$ where $\alpha$ is a continuous parameter.  For an
+infinitesimal translation, $U= I+i \delta \alpha T$ and $\delta O= i \delta \alpha [T, O]$.
+Invariance of the Lagrangian under a transformation,
+leads to 
+${\frac {\partial f^{\alpha}}{\partial x^{\alpha}}}=0$ and
+$F^{\alpha}(t)= \int d^3 x \thinspace {\frac {\partial f^{\alpha}}{\partial x^{\alpha}}}$ 
+is a conserved quantity.
+For example, suppose $\phi_r(x) \rightarrow \phi_r'(x)= \phi_r(x)+ \delta \phi_r(x)$.  The Lagrangian transforms
+as 
+$\delta({\cal L})= {\frac {\partial {\cal L}} {\partial \phi_r}} \delta \phi_r +
+{\frac {\partial {\cal L}} {\partial \phi_{r, \alpha}}} \delta \phi_{r, \alpha}$ which applying the
+minimum condition becomes
+$\delta({\cal L})= {\frac {\partial } {\partial x^{\alpha}}} 
+{\frac {\partial {\cal L}} {\partial \phi_{r, \alpha}}} \delta \phi$; here,
+$f^{\alpha}= {\frac {\partial {\cal L}} {\partial \phi_{r, \alpha}}} \delta \phi$.
+This gives $Q= {\frac {-i q}{\hbar}} \int d^3 x [\pi_r(x)\phi_r(x)-\pi^{\dagger} \phi^{\dagger}]$ as a conserved
+quantity.  $Q$ is charge.  If instead we consider translation invariance we get conservation of energy/momentum.
+Rotational invariance gives conservation of angular momentum.
+\\
+\\
+{\bf Standard script for classical $\rightarrow$ quantum field theory:}
+Promote conjugate variables to operators $\langle \phi_r, \pi_s \rangle$ and \emph{quantize} as
+$[\phi_r(j,t), \pi_s(j',t)]= i \hbar \delta_{rs} \delta_{jj'}$,
+$[\phi_r(j,t), \phi_s(j',t)]= [\pi_r(j,t), \pi_s(j',t)]= 0$, and
+$[\phi_r(x,t), \pi_s(x',t)]= i \hbar \delta_{rs} \delta(x-x')$.
+\\
+\\
+{\bf The complex potential:}  Consider two real scalar fields 
+$\phi_1$, 
+$\phi_2$ and put
+$\phi = {\frac 1 {\sqrt 2}} (\phi_1 + i \phi_2)$.  If 
+$\phi$ is the solution to the Klein Gordon
+equation in the presence of a potential $A_{\mu}$ with charge $e$, then
+$\phi^*$ is the solution to the Klein Gordon
+equation in the presence of a potential $A_{\mu}$ with charge $-e$.
+The \emph{charge current density}, $s_{\mu}= i(
+{\frac {\partial \phi^*} {\partial {x_{\mu}}}} \phi -
+\phi^*{\frac {\partial \phi} {\partial {x_{\mu}}}})$ 
+satisfies ${\frac {\partial s_{\mu}} {\partial x_{\mu}}}= 0$.
+\\
+\\
+{\bf Creation and annihilation operators:}  We look at photons.
+Let $\mu_{k, \alpha}(x)= \epsilon^{(\alpha)}(k) e^{i k \cdot x}$ where $\alpha$ is the linear polarization
+selected so that $ \epsilon^{(1)}, \epsilon^{(2)}, k $ form an oriented orthogonal triad.  Consider the
+potential bounded in space by a cube of side length $L$, $V= L^3$.
+$A(x, t)= {\frac 1 {V^{1/3}}} \sum_k \sum_{\alpha=1,2} (
+c_{k,\alpha} \mu_{k, \alpha}(x)+ c_{k,\alpha}^* \mu_{k, \alpha}^*(x))$. 
+We have $H= {\frac 1 2} \int (|B|^2+|E|^2) d^3x$, $H= \sum_k \sum_{\alpha} 
+2({\frac {\omega} c})^2 c_{k,\alpha}^* c_{k,\alpha} $.  Put
+$Q_{k, \alpha}= {\frac 1 c} 
+(c_{k, \alpha}+
+c_{k, \alpha}^*)$,
+and
+$P_{k, \alpha}= -{\frac {\omega} c} (c_{k, \alpha}- c_{k, \alpha}^*)$.
+${\frac {\partial H} {\partial Q_{k, \alpha}}}= - \dot{P}_{k, \alpha}$ and
+${\frac {\partial H} {\partial P_{k, \alpha}}}= \dot{Q}_{k, \alpha}$,
+We get
+$ {\frac 1 {V^{1/3}}} \int d^3 x 
+(\mu_{k, \alpha} \cdot
+\mu_{k', \alpha'}^*) = \delta_{k, k'} \delta_{\alpha. \alpha'}$, $k_x, k_y, k_z= {\frac {2 \pi n} L}$ and
+$\omega= |k|c$.  Make
+$P_{k, \alpha}$ and
+$Q_{k, \alpha}$ 
+operators as usual giving
+$[Q_{k, \alpha}, P_{k', \alpha'}]= \pm i \hbar \delta_{k, k'} \delta_{\alpha, \alpha'}$,
+$[Q_{k, \alpha}, Q_{k', \alpha'}]= 0$,
+$[P_{k, \alpha}, P_{k', \alpha'}]= 0$.
+The \emph{annihilation operator} is 
+$a_{k, \alpha}= {\frac 1 {\sqrt {2 \hbar \omega}}} ( \omega Q_{k, \alpha} + i P_{k, \alpha})$.
+The \emph{creation operator} is 
+$a_{k, \alpha}^{\dagger}= {\frac 1 {\sqrt {2 \hbar \omega}}} ( \omega Q_{k, \alpha} - i P_{k, \alpha})$.
+$N_{k, \alpha}= a_{k, \alpha}^{\dagger} a_{k, \alpha}$.
+$N |n \rangle= n |n \rangle$,
+$N a^{\dagger} |n \rangle= (n+1) |n \rangle$,
+$N a |n \rangle= (n-1) |n \rangle$.
+\\
+\\
+{\bf Aharonov Bohm:}
+For double slit setup with puddle of $B \neq 0$ completely inside the strip of the two slits.
+$\phi= 
+\phi_1^{(0)} exp[{\frac {ie} {\hbar c}} \int_{\small path 1} A(x') \cdot dx'] +
+\phi_2^{(0)} exp[{\frac {ie} {\hbar c}} \int_{\small path 2} A(x') \cdot dx'] $.  
+$
+\int_{\small closed \; path} A(x') \cdot dx'=
+\int_{\small surface} B \cdot n \; dS= {\frac {e \Phi} {\hbar c}}$.  For superconducting ring, with Cooper pair
+quasi-particle,
+$\phi= \phi^{(0)} exp[{\frac {2ie} {\hbar c}} \int_{\small closed \; path} A(x') \cdot dx']$.  Since $\phi$ is
+the same whether or not the path encloses the flux;
+${\frac {2e}{\hbar c}} 
+\int_{\small closed \; path} A(x') \cdot dx'
+= 2n \pi$, so $\Phi= {\frac {n \pi \hbar c}{e}}$.
+\\
+\\
+{\bf Pauli matricies and the Dirac equation:}
+$\sigma_1=
+\left(
+\begin{array}{cc}
+0 & -i\\
+i & 0\\
+\end{array}
+\right)$,
+$\sigma_2=
+\left(
+\begin{array}{cc}
+1 & 0\\
+0 & -1\\
+\end{array}
+\right)$,
+$\sigma_3=
+\left(
+\begin{array}{cc}
+0 & 1\\
+1 & 0\\
+\end{array}
+\right)$.
+\begin{center}
+\begin{tabular} {|c|c||c|c|}
+\hline
+Particle & Mass & Particle & Mass\\
+\hline
+1 & 2 & $\ldots$ & n\\
+\hline
+Neutrino & $10^{-2} eV$ & Proton/Neutron & $1 GeV$\\
+Electron & $.5 MeV$ & $\tau$ & $ 2 GeV$ \\
+Muon & $100 MeV$ & $W, Z$ Boson & $80-90 GeV$ \\
+Pion & $140 MeV$ & $W, Z$ Higgs & $120-200 GeV$ \\
+\hline
+\end{tabular}
+\end{center}
+{\bf Particles from the vacuum:}
+$ [H, a_p^{\dagger}] = \omega_p a_p^{\dagger}$,
+$ [H, a_p] = - \omega_p a_p$, $|p \rangle = a_p^{\dagger} |0 \rangle$ and
+$ H |p \rangle =  \omega_p |p \rangle$, $\omega_p^2= p^2 + m^2$.  $P|p \rangle = p | p \rangle$.
+\\
+\\
+{\bf The Dirac equation:}
+$(i \gamma^u \partial_u- {\frac {mc}{\hbar}}) \phi = 0$.
+Time reversal transformation is $T: x^0 \rightarrow -x^0$; $x^i \rightarrow x^i$.
+Parity reversal transformation is $P: x^0 \rightarrow x^0$; $x^i \rightarrow -x^i$.
+$\gamma_k=
+\left(
+\begin{array}{cc}
+0 & -i\sigma_k\\
+i \sigma_k  & 0\\
+\end{array}
+\right)$,
+$\gamma_0=
+\left(
+\begin{array}{cc}
+I & 0\\
+0  & -I\\
+\end{array}
+\right)$.
+Dirac wanted to find a field equation with linear operators:
+$E= \alpha \cdot p + \beta m$, $i {\frac {\partial \phi} {\partial t}} (-i \alpha \cdot \nabla + \beta m) \phi$
+and require $E^2 = m^2 + |p|^2$.
+$\alpha=
+\left(
+\begin{array}{cc}
+0 & \sigma\\
+\sigma  & 0\\
+\end{array}
+\right)$,
+$\beta=
+\left(
+\begin{array}{cc}
+1 & 0\\
+0  & -1\\
+\end{array}
+\right)$.  
+Under spacetime transformation, spinor transforms as $\delta \phi = \epsilon^u \partial_u \phi$.
+$T^{\mu \nu} \partial^{\mu} \phi \partial^{\nu} \phi - \eta^{\mu, \nu} {\cal L}$.
+\\
+\\
+{\bf Angular momentum:}
+$L= r \times p$.  If $[H, L]= 0$, angular momentum is conserved.
+$[H, L] = [\alpha \cdot p, r \times p]= i \alpha \times p$.
+$\Sigma= \left(
+\begin{array}{cc}
+\sigma & 0\\
+0  & \sigma\\
+\end{array}
+\right)$, $[H, \Sigma] = [\alpha \cdot p, -i\alpha_1 \alpha_2 \alpha_3 \alpha]= 2i \alpha \times p$.
+$J= L + {\frac 1 2} \Sigma$ is conserved, $[H,J]= 0$.
+Lagrangian for free Dirac field is ${\cal L}= {\overline {\phi}} (i \gamma^u \partial_u -m) \phi=
+\phi_i(i[\gamma^u]_{ij} \partial_u - m \delta_{ij}) \phi_j$.
+\\
+\\
+{\bf Solving the Dirac equation for a free scalar field:}
+$(i \gamma^0 \partial_t-m ) \phi=0$, gives
+$i \gamma^0 \partial_t \phi= i 
+\left(
+\begin{array}{cc}
+I & 0\\
+0  & -I\\
+\end{array}
+\right) $ or
+$ \left(
+\begin{array}{cc}
+{\frac {\partial u} {\partial t}} \\
+{\frac {\partial u} {\partial t}}\\
+\end{array}
+\right) =
+m
+\left(
+\begin{array}{cc}
+u \\
+v \\
+\end{array}
+\right)
+$, where
+$u=
+\left(
+\begin{array}{cc}
+\phi_1 \\
+\phi_2 \\
+\end{array}
+\right)
+$ and
+$u=
+\left(
+\begin{array}{cc}
+\phi_3 \\
+\phi_4 \\
+\end{array}
+\right)
+$.  Note $u$ and $v$ correspond to spin states;
+$ \left(
+\begin{array}{cc}
+1\\
+0\\
+\end{array}
+\right) $ is spin up and
+$ \left(
+\begin{array}{cc}
+0\\
+1\\
+\end{array}
+\right) $ is spin down.
+Thus $i {\dot{u}}= mu$ and
+$-i {\dot{v}}= mv$, so
+$u(t)= u(0)e^{-imt}$ and
+$v(t)= v(0)e^{imt}$.
+\\
+\\
+{\bf Free field solution of Klein-Gordon:}
+Here $\hbar=1$.  $\varphi(x, t) = A e^{Et-p \cdot x} = A e^{\omega_k x^0- k \cdot x}$ leading to
+$\varphi(x) = \int {\frac {d^3k}{(2 \pi)^{3/2} {\sqrt {2 \omega_k}}}}
+(\tilde{\varphi}(k) e^{\omega_k x^0- k \cdot x} +
+\tilde{\varphi}(k)^* e^{\omega_k x^0- k \cdot x} )
+$.  Promote
+$\tilde{\varphi}(k) \rightarrow \hat{a}$ and
+$\tilde{\varphi}(k)^* \rightarrow \hat{a}^{\dagger}$.
+${\cal L}= {\frac 1 2} \partial_{\mu} \partial^{\mu} \varphi - {\frac 1 2} m^2 \varphi^2$ and
+$\pi(x)= {\frac {\partial {\cal L}} {\partial ({\partial_0 \varphi)}}}$.
+$\hat{\pi}(x) = -i \int {\frac {d^3k}{(2 \pi)^{3/2}}} {\sqrt {\frac {\omega_k}{2}}}
+[(\tilde{a}(k) e^{-(\omega_k x^0- k \cdot x)} -
+\tilde{a}^{\dagger}(k)^* e^{\omega_k x^0- k \cdot x} ) $.  
+$[x_i, p_j]= i \delta_{ij}$,
+$[x_i, x_j]= 0$,
+$[p_i, p_j]= 0$.  
+$|k_1, k_2\rangle=
+\tilde{a}^{\dagger}(k_1)
+\tilde{a}^{\dagger}(k_2) |00\rangle $.
+Each $\hat{a}^{\dagger}(k_i)$ creates a single particle of
+momentum $\hbar k_i$ and energy $\hbar \omega_k$.
+$\varphi^+(x)=
+\int {\frac {d^3k}{(2 \pi)^{3/2}}} {\sqrt {\frac {\omega_k}{2}}} \hat{a}^{\dagger}(k) e^{-(\omega_k x^0 - k \cdot x)}$ 
+and positive frequency corresponds to annihilation.
+$\varphi^-(x)=
+\int {\frac {d^3k}{(2 \pi)^{3/2}}} {\sqrt {\frac {\omega_k}{2}}} \hat{a}^{\dagger}(k) e^{(\omega_k x^0 - k \cdot x)}$ 
+and negative frequency corresponds to creation.
+\\
+\\
+{\bf Normalization:}
+$\langle 0| 0 \rangle= 1$,
+$\langle k| k' \rangle= \delta(k-k')$ for bosons.
+$\langle 0| \hat{H}|0 \rangle= \langle0| \int d^3k (N(k)+ {\frac 1 2})
+|0\rangle = {\frac {\omega_k} 2} \int d^3k$.  \emph{Renormalized:}
+$\hat{H}_R= \hat{H} -\int d^3k= \int d^3k (\omega_k \hat{a}^{\dagger}(k) \hat{a}(k)$ and
+$\langle k | \hat{H}_R | k\rangle= \omega_k$.
+\\
+\\
+{\bf Propagators:}
+$\hat{P}= \int d^3k (k[\hat{a}^{\dagger}(k) \hat{a}(k) + \hat{b}^{\dagger}(k) \hat{b}(k)])$.
+$\hat{Q}= \int d^3k [\hat{a}^{\dagger}(k) \hat{a}(k) + \hat{b}^{\dagger}(k) \hat{b}(k)]$.
+$\hat{H}= \int d^3k (\omega_k [\hat{a}^{\dagger}(k) \hat{a}(k) + \hat{b}^{\dagger}(k) \hat{b}(k)])$.
+The number of particles is $\hat{N}_a= \int d^3k [\hat{a}^{\dagger}(k) \hat{a}(k)]$;
+the number of anti-particles is $\hat{N}_b= \int d^3k [\hat{b}^{\dagger}(k) \hat{b}(k)]$.
+$[\hat{\psi}(x), \hat{\psi}(h)]= i \Delta(x-y)$ is a \emph{propagator}.  Feynman propagator is
+$\Delta_F(x-y)= \langle 0 | T \psi(x) \psi(y) | 0 \rangle = D(x-y), x^0>y^0$, $T$ is the time ordering operation.
+Note that an events are \emph{causal} if $[O_1(x), O_2(y)]=0$ when $(x-y)^2<0$.
+\\
+\\
+{\bf Momentum space:}
+$\langle x' | \alpha \rangle= \psi_{\alpha}(x')$, $\langle \beta | \alpha \rangle= \int dx' \langle \beta | x' \rangle
+\langle x' | \alpha \rangle$.  
+$| \alpha \rangle = \sum_{a'}  |a'\rangle \langle a' | \alpha\rangle$,
+$\langle x'| \alpha \rangle = \sum_{a'}  \langle x'|a'\rangle \langle a' | \alpha\rangle$.
+$p | \alpha \rangle = \int dx' | x' \rangle (\langle x' | \alpha \rangle - 
+\Delta x' {\frac {\partial} {\partial x'}} \langle x' | \alpha \rangle$.
+$p | \alpha \rangle = \int dp | p' \rangle (\langle p' | \alpha \rangle$,
+$\langle p' | \alpha \rangle = \int dp \langle p | p' \rangle (\langle p' | \alpha \rangle$, $\langle p' | \alpha \rangle=
+\psi_{\alpha}(p)$.  $p' \langle x' |p \rangle \langle p' | \alpha \rangle$ and thus
+$p' \langle x' | p \rangle = - i \hbar {\frac {\partial} {\partial x'}} \langle x' | p' \rangle$
+and $\langle x' | p' \rangle = N e^{i (p' \cdot x')/ \hbar}$.
+$\psi_{a}(x')= {\frac 1 {\sqrt {2 \pi \hbar}}} \int dp' exp({\frac {i (p' \cdot x')} {\hbar}}) \phi_{a}(p')$;
+$\phi_{a}(p') \rangle)= {\frac 1 {\sqrt {2 \pi \hbar}}} \int dx' exp({\frac {-i (p' \cdot x')} {\hbar}}) \psi_{a}(x')$.
+\\
+\\
+{\bf Derivation of Hamiltonian from creation and annihilation operators:}
+$\hat{a} \hat{a}^{\dagger}= ( {\frac {m \omega}{2 \hbar}}) [ \hat{x}^2 + {\frac {\hat{p}^2} {(m \omega)^2}}
+- {\frac {i \hat{x} \cdot \hat{p}} {(m \omega)}} + {\frac {i \hat{x} \cdot \hat{p}} {(m \omega)}} ] =
+({\frac {m \omega}{2 \hbar}}) [ \hat{x}^2 + {\frac {\hat{p}^2} {(m \omega)^2}}
+- {\frac {i} {(m \omega)}} + {\frac {i \hat{x} \cdot \hat{p}} {(m \omega)}} ] =
+({\frac {m \omega}{2 \hbar}}) [ \hat{x}^2 + {\frac {\hat{p}^2} {(m \omega)^2}} + {\frac {\hbar} {(m \omega)}} ]$.  Similarly,
+$ \hat{a}^{\dagger} \hat{a} = ({\frac {m \omega}{2 \hbar}}) [ \hat{x}^2 + {\frac {\hat{p}^2} {(m \omega)^2}}
+- {\frac {\hbar} {(m \omega)}} ] $.  Combining, $\hat{H}={\frac 1 2} \hbar \omega [ \hat{a}^{\dagger} \hat{a} + \hat{a} \hat{a}^{\dagger} ] =
+\hbar \omega ( \hat{a}^{\dagger} \hat{a} + {\frac 1 2})$.  Note, $[\hat{a}, \hat{a}^{\dagger}]= 1$.
+Now, put $N= \hat{a}^{\dagger} \hat{a}$ then $[\hat{a}^{\dagger}, N]= -\hat{a}^{\dagger}$ and
+$[\hat{a}, N]= \hat{a}$.  Thus, $N \hat{a} = \hat{a}N - \hat{a}= \hat{a} (N-1)$ and
+$N \hat{a}{\dagger} = \hat{a}{\dagger} (N+1)$.  Now, $\langle \psi | N | \psi \rangle \geq 0$ and is $0$ iff
+$\hat{a} | \psi \rangle= 0$.  Now suppose $\lambda$ is an eignevalue of $N$:
+$N |\psi \rangle = \lambda | \psi \rangle$.  By the above,
+$N \hat{a}^{\dagger} | \psi \rangle = \hat{a}^{\dagger} (\lambda +1) | \psi \rangle$ and
+$N \hat{a} | \psi \rangle = (\lambda -1) \hat{a} | \psi \rangle$,
+so $\lambda+1$ and $\lambda-1$ are also an eigenvalues of $N$ corresponding with eigenvectors
+$\hat{a}{\dagger}| \psi \rangle$ and $\hat{a} | \psi \rangle$ respectively.  Repeated application yields
+$\hat{a}^n | \psi \rangle$ is an eigenvector of $N$ with eigenvalue $(\lambda -1) \ldots (\lambda -n)$
+If $\lambda \notin {\mathbb Z}^{+}$, $\lambda -n$ is eventually negative and is never $0$  but then,
+$\langle \psi | N | \psi \rangle \leq 0$ eventually which is impossible, so $\lambda \in {\mathbb Z}^{+}$.
+Putting $| n \rangle= c_n \hat{a}^{\dagger} | 0 \rangle$ with $\langle n | n \rangle = 1$.  We get
+$c_n = {\frac {c_{n-1}} {\sqrt n}}$.
+$0= \langle x | \hat{a} | 0 \rangle =
+({\frac {(m \omega)}{2 \hbar}})^{1/2} (\hat{x} + {\frac {\hbar}{m \omega}} {\frac {\partial} {\partial x}}) \langle x | 0 \rangle$.
+$\psi_0(x) = \langle x | 0 \rangle$ satisfies $({\frac {\partial} {\partial x}} +{\frac {m \omega} {\hbar}}) \psi_0(x) =0$ and
+$\psi_0(x)= N e^{{\frac {m \omega} {2 \hbar}} x^2}$ while 
+$\psi_1(x)= \langle x | 1 \rangle= ({\frac {2m \omega} {\hbar}})^{1/2} x \psi_0(x)$.
+\\
+\\
+{\bf Multiple particles:}  For a two particle SHO,
+$H= H_1 + H_2$ with $H_i= {\frac  {\hat{p}_i^2}{2m}} + {\frac 1 2} m \omega^2 \hat{x}_i^2$ with
+$H_i |n \rangle_i = \hbar \omega (n + {\frac 1 2}) |n\rangle_i$ and 
+$ |n_1, n_2\rangle= |n_1\rangle  \otimes |n_2\rangle $ and $H |n_1, n_2 \rangle= \hbar \omega (n_1 + n_2 + 1) |n_1 , n_2 \rangle$.
+\\
+\\
+{\bf Identical particles:}
+$U x_i U^{-1}= x_{\sigma(i)}$, $U p_i U^{-1}= p_{\sigma(i)}$ and $U H U^{-1}= H$ with $H= \sum_i H_i$ and
+$H_i | \psi_r \rangle = E_r | \psi_r \rangle$.  A basis for ${\cal H}_1 \otimes {\cal H}_2$ is
+$ |\psi_r\rangle_1 |\psi_s\rangle_2; {\frac 1 {\sqrt 2}} ( |\psi_r\rangle_1 |\psi_s\rangle_2 + |\psi_s\rangle_1 |\psi_r\rangle_2), r \neq s $.
+\\
+\\
+{\bf Spinless Bosons:}
+For $N$ spinless bosons, $H= \sum_i H_i$.  The symmetric basis is
+${\frac 1 {\sqrt {N!}}}  \sum_{\sigma} ( | \psi_{\sigma(1)} \rangle_1 | \psi_{\sigma(2)} \rangle_2 \ldots | \psi_{\sigma(N)} \rangle_N)$.  
+Note that spinless bosons are fully characterized by $x, p$.
+\\
+\\
+{\bf Spin ${\frac 1 2}$ Fermions:}
+State includes spin $| s \rangle$, the full state is $|x\rangle | s \rangle$ with
+$\psi(x,s)= | x, s \rangle$ and $\psi_s(x)= \langle x, s | \psi \rangle$.  The basis for two particles is
+$\chi_A(s_1 , s_2)= {\frac 1 {\sqrt {2}}} ( \chi_{1/2}(s_1) \chi_{-1/2}(s_2) - \chi_{-1/2}(s_1) \chi_{1/2}(s_2))$. 
+\\
+\\
+{\bf Bell's argument restated:}
+Consider two spin-${\frac 1 2}$ electrons.
+$|\uparrow\rangle$ and $|\downarrow\rangle$ are eigenvectors of $S_3= {\frac 1 2} \hbar \sigma_3$.
+$\chi_{\uparrow}=
+\left(
+\begin{array}{c}
+1\\
+0\\
+\end{array}
+\right)$, 
+$\chi_{\downarrow}=
+\left(
+\begin{array}{c}
+0\\
+1\\
+\end{array}
+\right)$.
+$\sigma \cdot n=
+\left(
+\begin{array}{cc}
+cos(\theta) & sin(\theta)\\
+sin(\theta) & -cos(\theta)\\
+\end{array}\right)$ and $n= ( sin(\theta), 0, cos(\theta))$.
+$ \chi_{\uparrow;n}= cos({\frac {\theta} 2}) \chi_{\uparrow}+
+sin({\frac {\theta} 2}) \chi_{\downarrow} $ and
+$ \chi_{\downarrow;n}= -sin({\frac {\theta} 2}) \chi_{\uparrow}+
+cos({\frac {\theta} 2}) \chi_{\downarrow}$, 
+set $| \Phi \rangle= {\frac 1 {\sqrt 2}} [ 
+| \uparrow \rangle_1 | \downarrow \rangle_2 + | \downarrow \rangle_1 | \uparrow \rangle_2 ]$.  If there are
+``hidden variables,'' we'd expect a distribution $0 \leq
+p(S_z^{(1)}, S_n^{(1)}, S_m^{(1)}, S_z^{(2)}, S_n^{(2)}, S_m^{(2)}) \leq 1$.  Define
+$p_{bc}(b,c)= \sum_a p(a,b,c)$, $p_{ac}(a,c)= \sum_b p(a,b,c)$, $p_{ab}(a,b)= \sum_c p(a,b,c)$.
+$ p_{bc}(1, -1) \leq p_{ab}(1, 1) + p_{ac}(-1, -1) $.  Applying this to two electrons,
+$
+P( S_n^{(1)}=1, S_m^{(2)}=1) \leq
+P( S_z^{(1)}=1, S_n^{(2)}=-1)+
+P( S_z^{(1)}=-1, S_m^{(2)}=1)
+$.
+$P( S_n^{(1)}=1, S_n^{(2)}=-1) = cos^2({\frac {\theta} 2})$ and
+$ P( S_z^{(1)}=1, S_m^{(2)}=-1)= cos^2({\frac {\phi+\theta} 2}) $ which is not generally true.
+\\
+\\
+{\bf Definition:}
+The \emph{Compton wavelength} is  $\Delta x \geq {\frac {\hbar} {mc}}$.
+\\
+\\
+{\bf Lie Groups:}
+$R(\theta, \hat{z})=
+\left(
+\begin{array}{ccc}
+cos(\theta) & sin(\theta) & 0\\
+-sin(\theta) & cos(\theta) & 0\\
+0 & 0 & 1\\
+\end{array}
+\right).$
+$v'= R(\theta, \hat{z})$.  $L_z= {\frac 1 i} {\frac {\partial R(\theta, \hat{z})} {\partial \theta}}_{|\theta= 0}$.
+$R(\theta, \hat{z})= 1 + \delta \theta L_z$.  $SO(3)$ is generated by 
+$\langle L_x , L_y , L_z \rangle$, $R(\theta, \hat{z})=
+lim_{N \rightarrow \infty} R({\frac {\theta} {N}}, \hat{z})$.  $[L_i, L_j]= i \epsilon_{ijk} L_k$.
+$J^2 | j, m\rangle= j(j+1) |j, m \rangle$, $J_z |j,m\rangle= m |j, m \rangle$.  $SU(2)$ acts on spinors.
+$A= A(\theta, \hat{n})= exp(i {\frac {\theta} 2} \sigma \cdot n)= 1+ i \theta J \cdot n$.  $J \cdot n=
+{\frac 1 i} {\frac {\partial A(\theta, \hat{n})} {\partial \theta}}_{| \theta=0}= {\frac {\sigma} 2} \cdot n$.
+$\langle {\frac {\sigma_x} 2}, {\frac {\sigma_y} 2}, {\frac {\sigma_z} 2}, \rangle$ is a basis for $SU(2)$.
+\\
+\\
+{\bf Representations of symmetry groups:}  
+Let $G$ be the symmetry group of a physical system with Hamiltonian $H$, if $g \in G$ then
+$[g,H]=0$ (Note: it is sufficient if this holds on generators.).  
+$\Phi: G \rightarrow V_n(F)$ is a representation of the system.  Given a Hermitian representation,
+$\Phi(g)$ of $G$, $\Phi'(g)= exp(i \Phi(g))$ is a unitary representation.  These are called $D$ functions.  
+$\langle j,m' | U(\phi, \theta, \chi ) | j, m \rangle= D^{(j)}_{m', m} (\phi, \theta, \chi)=
+e^{im \phi} d^{(j)}_{m', m}(\theta) e^{-i m \chi}$.  $J^2$ acts on a $2j+1$ dimensional Hilbert space.
+$J_{\pm}= J_x \pm i J_y$ and $J_{\pm} | j, m \rangle=
+{\sqrt {j(j+1)-m(m \pm 1)}} | j, m \pm 1 \rangle$.  Spin
+is a representation of $SU(2)$.  There is a homomorphism of $SU(2) \rightarrow SO(3)$ with kernel $\{ \pm 1\}$
+given by $A(\theta, \hat{n}) \mapsto R(\theta, \hat{n})$ or
+$
+\left(
+\begin{array}{cc}
+e^{-i \alpha/2} & 0\\
+0 & e^{i \alpha/2}\\
+\end{array}
+\right) 
+\mapsto
+\left(
+\begin{array}{ccc}
+cos(\alpha) & sin(\alpha) & 0\\
+-sin(\alpha) & cos(\alpha) & 0\\
+0 & 0 & 1\\
+\end{array}
+\right)$.  
+The Klein Gordon equation is invariant under the Lorentz group.  The \emph{Poincare group} is the Lorentz group plus
+translations $T(x)= \Lambda x+a$.  $|\Lambda_0^0| \ge 1$.
+\begin{center}
+\begin{tabular} {|c||c|c|}
+\hline
+Subgroup & $det$ & $\Lambda_0^0$\\
+\hline
+$L_+^{\uparrow}$ & $1$ & $\geq 1$\\
+$L_+^{\downarrow}$ & $1$ & $\leq -1$\\
+$L_-^{\uparrow}$ & $-1$ & $\geq 1$\\
+$L_-^{\downarrow}$ & $-1$ & $\leq -1$\\
+\hline
+\end{tabular}
+\end{center}
+Two fundamental transformations are ``rotations'' and ``boosts''(time change).  
+Rotations, $(J_1, J_2, J_3)$: $\Lambda_R(\theta, \hat{z})= exp(i \theta)$. 
+Boosts, $(K_1, K_2, K_3)$: $\Lambda_B(\theta, \hat{z})= exp(\theta)$. 
+$[J^i, J^j]= i \epsilon^{ijk} J^k$,
+$[J^i, K^j]= i \epsilon^{ijk} K^k$,
+$[K^i, K^j]= i \epsilon^{ijk} J^k$.
+$M= exp({\frac i 2} \theta \cdot \sigma) exp(\pm {\frac 1 2} \phi \cdot \sigma)$, 
+$\hat{\phi}= \phi \cdot n$,
+$\hat{\sigma}= \sigma \cdot n$.  
+Type I representation ($M$): $J= {\frac {\sigma} 2}$, $K= -i {\frac {\sigma} 2}$.
+Type II representation ($\overline{M}$): $J= {\frac {\sigma} 2}$, $K= -i {\frac {\sigma} 2}$.
+$
+\left(
+\begin{array}{c}
+\xi\\
+\eta\\
+\end{array}
+\right)
+\rightarrow
+\left(
+\begin{array}{cc}
+M(\Lambda) & 0\\
+0 & {\overline M}(\Lambda)\\
+\end{array}
+\right)
+\left(
+\begin{array}{cc}
+\xi\\
+\eta\\
+\end{array}
+\right)
+$, ${\overline M}(\Lambda)= \epsilon M^* \epsilon^{-1}, \epsilon= i \sigma^2$.
+\\
+\\
+{\bf Symmetries and fields:}
+$(t,x) \rightarrow (t, -x)$ is the \emph{parity} symmetry.
+$\phi \rightarrow {\overline \phi}^T$ is the \emph{charge conservation} symmetry.
+Spin $0$ scalar fields have Lagrangian ${\cal L}= {\frac 1 2} \partial_{\mu} \phi \partial_{\nu} \phi - {\frac 1 2} M^2 \phi^2$.
+Spin ${\frac 1 2}$ Dirac fields have Lagrangian ${\cal L}= {\overline \phi}(i\partial_{\mu} \partial_{\nu} - M) \phi$.
+Spin $1$ vector fields have Lagrangian 
+${\cal L}= -{\frac 1 4} F_{\mu, \nu} F^{\mu, \nu} + {\frac 1 2} m^2 V_{\mu} V^{\mu}=
+{\frac {\lambda} 2} (\partial_{mu} V^{\mu})^2$.  The \emph{Poisson Bracket} 
+is $[A, B]_P= {\frac {dA} {dq}} {\frac {dB} {dp}} - {\frac {dA} {dp}} {\frac {dB} {dq}}$.
+${\frac {dO}{dt}}= [O, H]_P$ and
+${\frac {dO}{dq}}= [O, p]_P$.
+\\
+\\
+{\bf Summary:}  
+\\
+(1) Spin $0$ boson, Klein Gordon equation.
+${\cal L}= {\frac 1 2} (\dot{\phi}_{\alpha} \dot{\phi}_{\alpha} - \mu^2 \phi^2)$,
+$\pi(x)= {\frac {\partial {\cal L}} {\partial {\dot{\phi}}}}$.
+$[\phi, \phi^+]= i \hbar c^2 \delta(x-x')$.
+$\phi^+= \sum_k ({\frac {\hbar c^2}{2 V \omega_k}})^{1/2} a+(k) e^{-ikx/\hbar}$.
+$H= \sum_k \hbar \omega_k (a^{\dagger} a(k) + {\frac 1 2})$.
+$P= \sum_k \hbar k (a^{\dagger} a(k) + {\frac 1 2})$.
+Propagator: 
+$[\phi^+, \phi]= i \hbar c \Delta(x-y)$
+$\Delta(x)= {\frac {i c}{(2 \pi)^3}} \int d^4 k \thinspace \delta(k^2-\mu^2) \epsilon(k) e^{-ikx}$.
+\\
+(2)
+Spin $1/2$ fermion, Dirac equation.
+${\cal L}= c {\overline {\phi}}[c \alpha \cdot (i \hbar \nabla) + \beta m c^2]\phi$,
+$\pi(x)= {\frac {\partial {\cal L}} {\partial {\dot{\phi}}}}$.
+$\{ a_r, a_s^{\dagger} \}= \delta_{rs}$, $\{ a_r, a_s \}= 0$.
+$H= c \int d^3x {\overline {\phi}} 
+[-i \hbar c \gamma^j {\frac{\partial}{\partial x^j}}+mc^2]
+\phi$.
+$P= -i \hbar \int  (\phi^{\dagger} \nabla \phi(k) $.
+Propagator: 
+$S_F(x)= {\frac {- \hbar}{(2 \pi \hbar)^4}} \int d^4 p \;
+e^{-ip \cdot x/ \hbar} {\frac {\gamma^{\mu} p_{\mu} + mc} {p^2-m^2c^2+1\epsilon}}$.
+\\
+(3)
+Spin $1$ photon, Maxwell's equation.
+${\cal L}= -{\frac 1 4} (F_{\mu \nu} F^{\mu \nu} - {\frac 1 c} s_{\mu}(x) A^{\mu}(x))$.
+$[ A^{\mu}(x), A^{\mu}(x')]= i \hbar x D^{\mu \nu}(x-x')$, 
+$H= \sum_{k, r} d^3 x \thinspace \hbar \omega_k \eta_r a_r^{\dagger}(k) a_r(k)$.
+\section{More on Dirac and QED}
+{\bf The equations:}  
+Spin $0$ particles are characterized by Klein-Gordon.
+Spin ${\frac 1 2}$ particles are characterized by Dirac.
+Spin $1$ particles are characterized by Proca.
+\\
+\\
+{\bf Dirac:} $(i \hbar \gamma^{\mu} {\partial}_{\mu} - mc= 0)$.  The time
+independent solution is 
+$\psi(x) = a e^{- i k \cdot x} u(k)$ for particles and 
+$\psi(x) = a e^{i k \cdot x} u(k)$ for antiparticles.
+$u u^{\dagger} = {\frac {2E} {c}}$.  $N= {\sqrt {\frac 
+{E+mc^2} {2}}}$. 
+$\gamma^0= 
+\left(
+\begin{array}{cc}
+1 & 0\\
+0 & -1\\
+\end{array}
+\right)$,
+$\gamma^i= 
+\left(
+\begin{array}{cc}
+0 & \sigma^i\\
+-\sigma^i & 0\\
+\end{array}
+\right)$.
+$\psi=
+\left(
+\begin{array}{c}
+u^{(1)}\\
+u^{(2)}\\
+v^{(1)}\\
+v^{(2)}\\
+\end{array}
+\right)$.
+$u^{(1)}= N
+\left(
+\begin{array}{c}
+1 \\
+0 \\
+{\frac {c p_z} {E+mc^2}} \\
+{\frac {c (p_x + i p_y)} {E+mc^2}} \\
+\end{array}
+\right)$.
+$u^{(2)}= N
+\left(
+\begin{array}{c}
+0 \\
+1 \\
+{\frac {c (p_x + i p_y)} {E+mc^2}} \\
+{\frac {c p_z} {E+mc^2}} \\
+\end{array}
+\right)$.
+$v^{(1)}= N
+\left(
+\begin{array}{c}
+{\frac {c (p_x - i p_y)} {E+mc^2}} \\
+{\frac {-c p_z} {E+mc^2}} \\
+0 \\
+1 \\
+\end{array}
+\right)$.
+$v^{(2)}= N
+\left(
+\begin{array}{c}
+{\frac {-c p_z} {E+mc^2}} \\
+{\frac {c (p_x - i p_y)} {E+mc^2}} \\
+1 \\
+0 \\
+\end{array}
+\right)$.
+For photon, $A_{\mu}= ae^{i p \cdot x / \hbar} \epsilon^{\mu}(p)$, $\epsilon^{\mu}$ is the polarization vector.
+$\epsilon^0 = 0$ so $\epsilon \cdot p = 0$,
+$\epsilon^1 = (1, 0, 0)$,
+$\epsilon^2 = (0, 1, 0)$.
+\begin{center}
+\begin{tabular} {|c|c|c|}
+\hline
+Spinor component & Particle & Spin\\
+\hline
+$u^{(1)}$ & $e^-$ & up\\
+$u^{(2)}$ & $e^-$ & down\\
+$v^{(1)}$ & $e^+$ & up\\
+$v^{(2)}$ & $e^+$ & down\\
+\hline
+\end{tabular}
+\end{center}
+$S= {\frac {\hbar} 2}
+\left(
+\begin{array}{cc}
+\sigma & 0 \\
+0 & \sigma\\
+\end{array}
+\right)$.
+\\
+\\
+{\bf The vacuum:}  The \emph{Casimir effect} is the force between two plates seperated 
+by $d$ due to vacuum fluctuation of the EM field.   In QFT,
+$P= \int {\frac {d^3p} {(2 \pi)^3}} p a_p^{\dagger} a_p$.
+We can recover the position operator by 
+$X= \int d^3 x (x \phi^{\dagger}(x)\phi(x)$ giving $X |x\rangle= x |x\rangle$.
+\\
+\\
+{\bf Summary:}
+\begin{center}
+\begin{tabular} {|c|c|c|c|}
+\hline
+Characteristic & Electrons & Positrons & Photons\\
+\hline
+Ket & 
+$ae^{-i p \cdot x / \hbar} u^{(s)}(p)$ & $ae^{i p \cdot x / \hbar} v^{(s)}(p)$ & $A_{\mu}= a e^{-i \epsilon \cdot x/ \hbar} \epsilon_{\mu}^{(s)}$\\
+EOS & 
+$(\gamma^{\mu} p_{\mu} -mc)u=0$ & $(\gamma^{\mu} p_{\mu} +mc)v=0$ &  $\Box^2 A^{\mu}= 0$\\
+Adjoint & ${\overline u}(\gamma^{\mu} p_{\mu} -mc)=0$ & ${\overline v}(\gamma^{\mu} p_{\mu} +mc)=0$ & - \\
+Constraints &
+${\overline u}^{(1)} \cdot u^{(2)} = 0$, ${\overline u} u = 2mc$ &
+${\overline v}^{(1)} \cdot v^{(2)} = 0$ , ${\overline v} v = -2mc$ & $p^{\mu} \epsilon_{\mu}= 0$\\
+Basis & $\sum_s {\overline u}^{(s)} \cdot u^{(s)} = (\gamma^{\mu} p_{\mu} +mc)$ &
+$\sum_s {\overline v}^{(s)} \cdot v^{(s)} = (\gamma^{\mu} p_{\mu} -mc)$ &
+$\sum_s \epsilon_i^{(s)} (\epsilon_j^{(s)})^*= \delta_{ij} - \hat{p}_i \hat{p}_j $\\
+\hline
+\end{tabular}
+\end{center}
+{\bf Feynman rules for QED:}  The rules for QED.
+To calculate ${\cal M}$: (1) To eac external line, draw directed segment labeled by momentum,(2) for electron into (out of)
+vertex use $u$ (${\overline u}$) switch for positron, (3) use vertex coupling $ig_e \gamma^{\mu}$, $g_e= e {\sqrt {\frac {4 \pi} {\hbar c}}}$,
+(4) Use propagators ${\frac {i(\gamma^{\mu} q_{\mu} + mc)} {q^2-m^2 c^2}}$ for $e^+, e^-$ and ${\frac {ig_{\mu, \nu}} {q^2}}$ for
+$\gamma$, (5) apply $\delta$ function $\delta^{(4)}(k_1+k_2+k_3)$ (inwards) at each vertex, (6) integrate over internal momentum
+${\frac {d^4 q} {(2 \pi)^4}}$, (7) cancel the $\delta$'s replacing them wiht $i$, (8) do anti-symmetrization in diagrams interchanging only
+direction.  Example: \emph{electron-electron} scattering ${\cal M}= 
+- {\frac {g_e^2}{(p_1-p_3)^2}} [{\overline u}(3) \gamma^{\mu}u(1)] [{\overline u}(3) \gamma_{\mu} u(2)]
++ {\frac {g_e^2}{(p_1-p_4)^2}} [{\overline u}(4) \gamma^{\mu}u(1)] [{\overline u}(3) \gamma_{\mu} u(2)] $.
+\chapter{Quantum Computing}
+\section{Basics}
+${\cal G}= \langle CNOT, X,Y,Z,H,T \rangle$ can be efficiently simulated on a probabalistic
+computer if there is little entanglement.  This is the theorem of \emph{Gottesman-Knill}.
+\\
+\\
+$CNOT:
+{\frac {(| 0 \rangle + |1 \rangle)} {\sqrt 2}}
+{\frac {(| 0 \rangle - |1 \rangle)} {\sqrt 2}}
+\mapsto
+{\frac {(| 0 \rangle - |1 \rangle)} {\sqrt 2}}
+{\frac {(| 0 \rangle - |1 \rangle)} {\sqrt 2}}
+$.  Note that
+${\frac {(| 0 \rangle + |1 \rangle)} {\sqrt 2}}$ and
+${\frac {(| 0 \rangle - |1 \rangle)} {\sqrt 2}}$ are eigenvectors of $CNOT$.
+$CNOT: |b \rangle
+{\frac {(| 0 \rangle - |1 \rangle)} {\sqrt 2}} = (-1)^b |b \rangle
+{\frac {(| 0 \rangle - |1 \rangle)} {\sqrt 2}}
+$
+and
+$CNOT: 
+(\alpha_0 |0 \rangle +
+(\alpha_1 |1 \rangle)
+{\frac {(| 0 \rangle - |1 \rangle)} {\sqrt 2}} = 
+(\alpha_0 |)\rangle-\alpha_1 |1\rangle)
+{\frac {(| 0 \rangle - |1 \rangle)} {\sqrt 2}}
+$.
+\\
+\\
+Let 
+$U_f: |x\rangle 
+|y\rangle \mapsto
+|x\rangle |y \oplus f(x)\rangle $.
+$U_f: |x\rangle {\frac {(| 0 \rangle - |1 \rangle)} {\sqrt 2}} = 
+|x\rangle=
+{\frac {(| 0  \oplus f(x)\rangle - |1 \oplus f(x) \rangle)} {\sqrt 2}} = 
+(-1)^{f(x)}
+|x\rangle
+{\frac {(| 0 \rangle - |1 \rangle)} {\sqrt 2}} $ and
+$U_f: 
+(\alpha_0 |0 \rangle+
+(\alpha_1 |1 \rangle)
+{\frac {(| 0 \rangle - |1 \rangle)} {\sqrt 2}} \mapsto
+((-1)^{f(0)}\alpha_0 |0\rangle-(-1)^{f(1)}\alpha_1 |1\rangle)
+{\frac {(| 0 \rangle - |1 \rangle)} {\sqrt 2}}
+$. $H$ decodes information encoded in the phase.
+\\
+\\
+{\bf Proof of no-cloning theorem:}  Suppose such a unitary transforamtion exists.
+$U(|\psi\rangle |0\rangle)= |\psi\rangle |\psi \rangle$ and
+$U(|\phi\rangle |0\rangle)= |\phi\rangle |\phi \rangle$. 
+On one hand,
+$U( a | \phi \rangle + b | \psi \rangle )= a | \phi \rangle | \phi \rangle + b | \psi \rangle \psi \rangle )$.
+On the other hand,
+$U( a | \phi \rangle + b | \psi \rangle |0\rangle )= (a | \phi \rangle + b | \psi \rangle )
+(a | \phi \rangle + b | \psi \rangle )$.  This is a contradiction.  There is no ``approximate cloning'' either.
+\\
+\\
+{\bf Phase Estimation Problem:}  
+Given 
+$|\psi\rangle= {\frac 1 {{\sqrt {2^n}}}} \sum_{|y\rangle} e^{2 \pi i \omega y} |y\rangle$.
+($\omega= \{0,1\}$.
+$QFT=
+(|0>+e^{2 \pi i 2^{n-1} \omega}|1\rangle) \otimes
+(|0>+e^{2 \pi i 2^{n-2} \omega}|1\rangle) \otimes \ldots A.$
+$R_n=
+\left(
+\begin{array}{cc}
+1 & 0\\
+0 & e^{2 \pi i/ 2^n}\\
+\end{array}
+\right)
+$.
+\\
+\\
+{\bf Hidden subgroup problem:}  Let $f: G \rightarrow X$,
+$\exists S<G$ with $f(x)=f(y)$ iff $x+S=y+S$.
+\\
+\\
+\begin{quote}
+\emph{Deutsch:}
+$G= {\mathbb Z}_2$, $X= \{ 0, 1 \}$.  
+$S= \{ 0 \}$ if $f$ is balenced.
+$S= \{ 0,1 \}$ if $f$ is constant.
+\\
+\\
+\emph{Order Finding:}
+$G= {\mathbb Z}$, $X= H<G$, $r=|a|, a \in H$.
+$S= r{\mathbb Z}$ so $S$ gets $r$.
+\\
+\\
+\emph{Discrete Log:}
+$G= {\mathbb Z}_r \times {\mathbb Z}_r$, $X= H<G$, $a:a^r=1$,
+$b=a^k$, $f(x_1, x_2) =a^{x_1} b^{x_2}$.
+$f(x_1, x_2)= f(y_1 , y_2)$ iff
+$a^{x_1-y_1}b^{x_2-y_2}=1$ iff
+$\langle z_1-y_1, x_2-y_2\rangle= (t,-tk), t= 0,1, \ldots, r-1$.
+$S=\langle 1, -k \rangle$, $k= log(b)$.
+\\
+\\
+\emph{Hidden Linear function:}
+$G= {\mathbb Z} \times {\mathbb Z}$, $g \in S_n$.
+$h:
+{\mathbb Z} \times {\mathbb Z}
+\rightarrow
+{\mathbb Z}_n
+$ by $h(x,y)= x+ya \jmod{n}$.  $f= g \circ h$,
+$G= {\mathbb Z}$, $X= \{ 0, 1 \}$.  
+$S= \langle -a, r \rangle$.
+\\
+\\
+\emph{Abelian Stabilizer:}
+$G$ acts on $X$, $f_x: g \rightarrow X$ by $f_x(g)=x^g$.  $S= G_x$.
+\\
+\\
+\emph{Graph Isomorphism:}
+$G= S_n$ and ${\cal G}_n$ is a graph on $n$ vertices.  For $\sigma \in G$,
+$f_{\cal G}(\sigma({\cal G}))$.  The hidden subgroup is the automorphisms of ${\cal G}_n$.
+\end{quote}
+${\cal G}= \langle CNOT, X,Y,Z,H,T \rangle$ can be efficiently simulated on a probabalistic
+computer if there is little entanglement.  This is the theorem of \emph{Gottesman-Knill}.
+\\
+\\
+$CNOT:
+{\frac {(| 0 \rangle + |1 \rangle)} {\sqrt 2}}
+{\frac {(| 0 \rangle - |1 \rangle)} {\sqrt 2}}
+\mapsto
+{\frac {(| 0 \rangle - |1 \rangle)} {\sqrt 2}}
+{\frac {(| 0 \rangle - |1 \rangle)} {\sqrt 2}}
+$.  Note that
+${\frac {(| 0 \rangle + |1 \rangle)} {\sqrt 2}}$ and
+${\frac {(| 0 \rangle - |1 \rangle)} {\sqrt 2}}$ are eigenvectors of $CNOT$.
+$CNOT: |b \rangle
+{\frac {(| 0 \rangle - |1 \rangle)} {\sqrt 2}} = (-1)^b |b \rangle
+{\frac {(| 0 \rangle - |1 \rangle)} {\sqrt 2}}
+$
+and
+$CNOT: 
+(\alpha_0 |0 \rangle +
+(\alpha_1 |1 \rangle)
+{\frac {(| 0 \rangle - |1 \rangle)} {\sqrt 2}} = 
+(\alpha_0 |)\rangle-\alpha_1 |1\rangle)
+{\frac {(| 0 \rangle - |1 \rangle)} {\sqrt 2}}
+$.
+\\
+\\
+Let 
+$U_f: |x\rangle 
+|y\rangle \mapsto
+|x\rangle |y \oplus f(x)\rangle $.
+$U_f: |x\rangle {\frac {(| 0 \rangle - |1 \rangle)} {\sqrt 2}} = 
+|x\rangle=
+{\frac {(| 0  \oplus f(x)\rangle - |1 \oplus f(x) \rangle)} {\sqrt 2}} = 
+(-1)^{f(x)}
+|x\rangle
+{\frac {(| 0 \rangle - |1 \rangle)} {\sqrt 2}} $ and
+$U_f: 
+(\alpha_0 |0 \rangle+
+(\alpha_1 |1 \rangle)
+{\frac {(| 0 \rangle - |1 \rangle)} {\sqrt 2}} \mapsto
+((-1)^{f(0)}\alpha_0 |0\rangle-(-1)^{f(1)}\alpha_1 |1\rangle)
+{\frac {(| 0 \rangle - |1 \rangle)} {\sqrt 2}}
+$. $H$ decodes information encoded in the phase.

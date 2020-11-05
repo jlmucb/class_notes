@@ -1,0 +1,445 @@
+\chapter{Signalizers and Thompson Transitivity}
+\section{Thompson Transitivity}
+{\bf Motivation for transitivity:}
+In ${\cal N}^*(P, q)$, very often maximal elements are conjugate.
+$Q \in {\cal N}^*(P, q) \rightarrow P \subseteq N(Q)$.  If
+$Q_1, Q_2 \in {\cal N}^*(P, q) \rightarrow \exists c \in C(P): Q_1^c = Q_2$.
+In common application, $g \in N(P)$ and $Q, Q^g \in
+{\cal N}^*(P, q)$ so $\exists c \in C(P): Q^{gc}=Q$ and thus $N(P)= C(P) (N(P) \cap N(Q))$.
+\\
+\\
+{\bf Theorem 1:}  Suppose  $A$ is an elementary abelian $p$-group such that $r(A) \ge 3$.
+If $P, Q$ are $A$-invariant $p'$-groups, $\exists a \in A^{\#}: C_P(a) \ne 1 \ne C_Q(a)$.
+\begin{quote}
+\emph{Proof:}  
+Let $V$ be a subgroup of $A$ of type $(p,p)$.  Since $P= \langle C_P(v): v \in v^{\#} \rangle $,
+$\exists v \in V^{\#}: C_P(v) \ne 1$.  Let $W \subseteq A$ be a group of type $(p,p)$ and
+$W \cap \langle v \rangle = 1$.  $\exists w \in W: C_P(w) \cap C_P(v) \ne 1$ since
+$C_P(v)$ is $W$-invariant.  $ \langle v,w \rangle $ is of type $(p,p)$ and acts on $Q$.
+$\exists a \in \langle v,w \rangle^{\#}: C_Q(a) \ne 1$.  Since 
+$C_P(a) \supseteq C_P(w) \cap C_P(v) \ne 1$, we are done.
+\end{quote}
+{\bf Definition:} 
+${\cal N}_G(E, \pi)$ is the set of all $E$-invariant $\pi$-subgroups of $G$.
+${\cal N}_G^*(E, \pi)$ is the set of all maximal elements of
+${\cal N}_G(E, \pi)$.
+${\cal SCN}(P)$ is the set of self-centralizing normal subgroups of $P$.
+${\cal SCN}_G(p)= {\cal SCN}(P)$ where $P \in S_p(G)$.
+$r(P)$ is the rank of the largest elementary abelian subgroup of $P$.
+\\
+\\
+{\bf Theorem 2:}  Let $G$ be $p$-constrained.  If $p=2$ assume further
+that the sylow subgroup has class $\le 2$.  Let $E$ be an abelian $p$ subgroup of $G$ with
+$r(E) \ge 3$ and $E$ contains every $p$-element of $C= C_G(E)$.  Then
+every $E$-invariant $p'$ subgroup $H$ of $G$ satisfies $H \subseteq O_{p'}(G)$.  In other
+words, $ \langle {\cal N}(E, p') \rangle \subseteq O_{p'}(G)$.
+\begin{quote}
+\emph{Proof:}  
+Let $G$ be a minimal counterexample.
+\\
+\\
+\emph{Step 1:} $O_{p'}(G)= 1$.
+\\
+If not, set ${\overline G}= G/O_{p'}(G)$.  Since 
+${\overline {C_G(E))}}= C_{\overline G}({\overline E}))$, ${\overline H} \subseteq O_{p'}({\overline G})=1$ and
+$H \subseteq O_{p'}(G)$.
+\\
+\\
+\emph{Step 2:} Set $R= O_p(G)$ and let $Q \ne 1$ be a minimal $E$-invariant $p'$ subgroup 
+of $G$ then $G= RQE$.
+\\
+If $RQE \subset G$ then $Q \subseteq O_{p'}(RQE)$ by induction hence
+$[R, Q] \subseteq O_{p'}(RQE) \cap R = 1$.  By $p$-constraint, $C_G(R) \subseteq R$ proving the
+result.
+\\
+\\
+Let $S$ be a $QE$-invariant $p$ subgroup of $G$ minimal with respect to $[Q, S] \ne 1$, then
+$S$ is a special $p$-group.
+\\
+\\
+If $S$ is abelian, $S= C_S(Q) \oplus [S, Q]$.  But $[S, Q]$ is an $E$-invariant $p$ group so
+$C_P(E) \cap [S,Q] \ne 1, P \in S_p(G)$.  Thus $E \cap [S,Q] \ne 1$.  But
+$[E \cap [S,Q], Q] \subseteq Q \cap S = 1$ which is a contradiction.  So $S$ must be non-abelian.
+Further, since $[S, Q] \ne 1$ and $S$ is minimal, $S= \Omega_1(S)$ has exponent $p$.
+\\
+\\
+Suppose $p$ is odd.
+Define a new group $T$ whose elements are te elements of $S$ and define the operation as follows:
+Every element of $S$ has a square root since $p$ is odd.  
+Define $x \cdot y = {\sqrt x} y {\sqrt x}$.  Then $T$ is elementary abelian and $QE$ acts
+on $T$.  $Fix(S)=Fix(T)$ and this contradicts what we just showed. So $p=2$.
+\\
+\\
+Now $p=2$ and $S$ is non-abelian.  $[E,S] \subseteq  {\mathbb Z}(S)$ since $cl(SE) \le 2$.  So
+$[S,E,Q] = 1$, and 
+$[Q, S,E] \subseteq {\mathbb Z}(S)$.
+If $[E, Q] \ne 1$, then
+$[E, Q] \subseteq Q$ stabilizes $S \supseteq {\mathbb Z}(S) \supseteq 1$ hence
+$[E, Q] \subseteq {\mathbb Z}(S)$. But 
+$[E,Q]$ is an $E$ invariant subgroup of $Q$ and by minimality, $Q= [E,Q] \subseteq {\mathbb Z}(S)$
+which is a contradiction.  So $[E, Q] =1$.
+Thus we may assume $[S, E] \subset S$ is $Q$-invariant and the minimality of $S$ gives
+$[S,E,Q]= 1$.  We also have $[E,Q,S]=1$ so $[Q,S,E]=[S,E]=1$, so $S \subseteq E$ and
+$[S,Q] \subseteq Q \cap S =1$ and this contradiction concludes the proof.
+\end{quote}
+{\bf Observation:}  If $E \in {\cal SCN}(P), P \in S_p(G)$ and $D \in S_p(C_G(E))$.  If
+$Q \in S_p(N_G(E))$ and $D \subseteq Q$, $\exists n \in N_G(E)$: $Q^n=P$ and so
+$D^n \subseteq P \cap C_G(E) = E$ so $D=E$.  Hence $D \in S_p(C_G(E)$ and by Burnside,
+$C_G(E)= E \times O_{p'}(C_G(E))$.
+\\
+\\
+{\bf Thompson Transitivity Theorem (weakened result):}  Let $G$ be a group in which the
+normalizer of every non-trivial $p$-subgroup is $p$-constrained.  If $p=2$ assume further
+that the sylow subgroup has class $\le 2$.  Let $E$ be an abelian $p$ subgroup of $G$ with
+$r(E) \ge 3$ and $E$ contains every $p$-element of $C= C_G(E)$.  Then
+$O_{p'}(C)$ acts transitively on the elements of ${\cal N}^*(E, q)$ where $q \ne p$.
+\begin{quote}
+\emph{Proof:}  
+Let $ {\cal S}_1, \ldots , {\cal S}_t$ be $O_{p'}(G)$ orbits of 
+${\cal N}^*(E,Q)$ and suppose $t > 1$; obviously, ${\cal N}^*(E,Q) \ne \{ 1 \}$.
+Let $R \ne 1$ be choosen of minimal order subject to  
+$R= S_i \cap S_j, S_i \in {\cal S}_i, S_j \in {\cal S}_j, i \ne j$.  WLOG $i=1, j=2$.
+$N= N_G(R) \supseteq E$.  Put ${\overline N}= N/R$, $T_i = N \cap S_i \supseteq R$.
+${\overline {T_i}}$ is $E$-invariant so $\exists e \in E^{\#} : C_{\overline {T_i}}(e) \ne 1$.
+Since
+$ C_{\overline {T_i}}(e) = {\overline {C_{T_i}(e)}} $,  $C_G(e) \cap T_i \supseteq R$.
+Since $H= C_G(e)$ is $p$-constrained, $E \subseteq C_G(e)$.
+\\
+\\
+Let $P_i= T_i \cap H$.  $R \subset P_i R$ and $P_i \subseteq N(R)$.
+$P_i$ is $E$-invariant so by the previous result, $P_i \subseteq O_{p'}(H)$.
+Let $L= R(N \cap H)$.  $P_i \subseteq O_{p'}(H) \cap N \subseteq O_{p'}(N \cap H)$ so
+$P_i \subseteq O_{p'}(L)$ since $R \lhd L$ and $R$ is a  $p'$ group and thus
+$R P_i \subseteq O_{p'}(L)$.
+Now let $Q_i \supseteq Q_i R$ be ab $E$-invariant Sylow $q$ subgroup of $O_{p'}(L)$.
+$\exists x \in C_G(E) \cap O_{p'}(L): Q_1^x = Q_2$.  Since $ \langle x \rangle $ is an $E$-invariant
+$p'$ subgroup of $N_G(E)$ which is $p$-constrained, another application of the previous
+result gives $x \in O_{p'}(N_G(E))$ and so $x \in O_{p'}(C_G(E))$.
+Let $U \in {\cal N}_G^*(E,q)$ so $U \supseteq Q_1$.  Then 
+$U \cap S_1 \supseteq Q_1 \cap S_1 \supseteq P_1R \supseteq R$.  But
+$U^x \cap S_2 \supseteq Q_1^x \cap S_2 \supseteq P_2R \supseteq R$.
+Since $x \in C(E)$, $U^x$ is maximal in ${\cal N}_G(E,q)$ and by the choice of $R$,
+$U^x \in {\cal S}_2$ and so
+$U \in {\cal S}_2$ and ${\cal S}_1 = {\cal S}_2$.
+\end{quote}
+\section{Signalizers}
+Let $A$ be a non-cyclic elementary abelian $p$ group acting on $G$.  $C_G(a)$ is $A$-invariant for
+$a \in A^{\#}$.  By an earlier theorem, if $U$ is an $A$-invariant $p'$ group then
+$U= \langle C_G(a) \cap U, a \in A^{\#} \rangle$.
+\\
+\\
+Let $\theta$ be a map from $A^{\#}$ into
+$p'$, $A$-invariant subgroups of $G$ contained in $C_G(a)$. Define $\theta(C_G(a)) = \theta(a)$.
+\\
+\\
+Define ${\cal N}_{\theta}(A)$ be the solvable $A$-invariant $p'$ subgroups $U \leq G$ such that
+$U \cap \theta(C_G(a)) \subseteq \theta(C_G(a)), \forall a \in A^{\#}$.
+\\
+\\
+If $U \in {\cal N}_{\theta}(A)$, $\langle U \cap \theta(C_G(a)), a \in A^{\#} \rangle = U$.
+\\
+\\
+$\theta$ is solvable if $\theta(C_G(a)) \cap C_G(b) \subseteq \theta(C_G(b)), \forall a, b \in A^{\#}$.
+Equivalently, $\theta(C_G(a)) \in {\cal N}_{\theta}(A)$.
+\\
+\\
+$\theta$ is complete if ${\cal N}_{\theta}(A)$ contains a unique maximal element $E$.
+Clearly, $E = \langle \theta(C_G(a)), a \in A^{\#} \rangle$ if it exists.  So $\theta$
+is complete iff $E \in {\cal N}_{\theta}(A)$.
+\\
+\\
+Note: If $\theta(G)$ exists and $\theta(G) \ne 1$ and $G$ is simple, $M=N_G(\theta(G))$
+contains the normalizers of many $p$-subgroups of $G$; this is a uniqueness subgroup.
+If $\theta(G) = 1$, $G$ is often of characteristic $p$-type and we can use Thompson
+factoring.
+\\
+\\
+{\bf Definition:}
+Suppose $r$, prime, $G$ finite and $A$ an abelian $r-$subgroup of $G$. An
+$A-$\emph{signalizer} is a map $\theta: A^{\#} \rightarrow 
+{\cal N}_{\theta}(A)$ 
+where ${\cal N}_{\theta}(A)$ is a
+set of $r'$ $A-$invariant subgroups such that $a,b \in A^{\#}$ and $\theta(a) \le C_G (a)$
+and $\theta(a) \cap C(b) \le \theta(b)$.  Example: $X \in r'(G)$, $X= \theta(G)$,
+$\theta(a)= C_X(a), a \in A^{\#}$.
+\\
+\\
+{\bf Example signalizer:} $X \in r'(G)$, $A \in r(G)$, $A'=1$, $X^A=X$, $\theta(a)=C_X(a), a \in A^{\#}$.
+\\
+\\
+{\bf Note:} If $P \in S_p(G)$, $A \subseteq P$ then $N_G(A)$ permutes
+${\cal N}_{G}(A, q)$ and $C_G(A)$ acts transitively so $N(P)$ normalizes some
+$Q \in {\cal N}^{*}_{G}(A, q)$.  Pushing up gives $Q \in{\cal N}^{*}_{G}(P, q)$.
+\\
+\\
+{\bf Definition:} A signalizer function is solvable if
+$\theta(C_G(a) \cap C_G(b)) \le \theta(C_G(b)), \forall a, b \in A^{\#}$.  It is
+\emph{complete} if ${\cal N}_{\theta}(A)$ contains a unique maximal element.
+\\
+\\
+{\bf Motivation for signalizers:}  Suppose $G$ has no solvable normal subgroups, what is
+$H= C_G(z), z \in Inv(G)$?  $\theta(G,A)$ is a proper $p'$-group and either (i)
+$\theta(G, A) \lhd G$ or (ii) $N_G(\theta(G,A))$ is strongly $p$-embedded.
+Below, we show $m(A) \ge 3$ then every $A-$signalizer functor is complete.  
+If $H$ is strongly $p$-embedded then the representation of $G$ on the right
+cosets of $H$ in $G$ has the property that all the $p$-elements of $G$ fixes
+exactly $1$ point.  Simple groups with strongly $p$-embedded subgroups were classified
+by Bender.
+\\
+\\
+{\bf Theorem 3:}
+Let $p$ be a prime and $\theta: a \mapsto O_{p'}(C_G(a))$. 
+(1) If $C_G(a)$ is
+solvable $\forall a \in A^{\#}$ then $\theta$ is a solvable $A$-signalizer
+functor on $G$,
+(2) Suppose $G$ is solvable then $\theta$ is complete and $\theta(G)= O_{p'}(G)$.
+\begin{quote}
+\emph{Proof:}  
+The theorem that if $O_{p'}(G)=1$ and $C_G(O_p(G)) \le O_p(G)$ means that for
+$p \in p(G)$, $O_{p'}(N_G(P)) =O_{p'}(G) \cap N_G(P)$ insures the inclusion property
+for $\theta$ holds  It also insures that 
+$O_{p'}(G)= \langle \theta(C_G(a)) : a \in A^{\#} \rangle$.
+\end{quote}
+{\bf Theorem 4:}
+Let $X, Y \in {\cal N}_{\theta}(A)$ and $XY = YX$ and suppose that either
+(1) $Y \le N_G(X)$ or (1') $XY$ is solvable, then $XY \in {\cal N}_{\theta}(A)$.
+\begin{quote}
+\emph{Proof:}  
+(1) insures $XY$ is an $A$-invariant solvable $p'$-group and so
+$C_{XY}(a)= C_X(a) C_Y(a) \le C_a , \forall a \in A^{\#}$.  This proves the result.
+\end{quote}
+{\bf Theorem 5:}
+Let $N$ be an $A$-invariant normal $p'$-subgroup of $G$ and ${\overline G}= G/N$ then
+${\overline {\theta}}: a \mapsto {\overline {\theta}}(C_{\overline G}(a))= {\overline C}_a$
+is a solvable signalizer functor  of ${\overline G}$ and 
+${\overline {{\cal N}_{\theta}(A)}} \subseteq {\cal N}_{\overline {\theta}} (A)$.
+\begin{quote}
+\emph{Proof:}  
+Let $a, b \in A^{\#}$ and $M= N C_a$ so
+$ {\overline M} = 
+{\overline {\theta}}(C_{\overline G}(a)) $
+and $ C_{\overline M}(b) = {\overline {C_M(b)}}$.  It follows that
+$C_M(b)= C_N(b) C_{C_a}(b)= C_N(b) (C_a \cap C_{G}(b)) \le 
+{\overline {\theta}}(C_{\overline G}(a)) $.
+Similarly for $U \in {\cal N}_{\theta}(A)$ 
+$C_{\overline U}(a)= {\overline {C_U(a)}}= {\overline {C_a \cap U}}
+\le {\overline {\theta}}(C_{\overline G}(a)) $.
+So ${\overline U} \in {\cal N}_{\overline {\theta}}(A)$.
+\end{quote}
+{\bf Theorem 6:}
+Assume in the previous result that $N \in
+{\cal N}_{\theta}(A)$  then $
+{\overline {{\cal N}_{\theta}(A)}} = 
+{\cal N}_{\overline {\theta}}(A)$.  In particular, $\theta$ is complete iff ${\overline {\theta}}$
+is complete.
+\begin{quote}
+\emph{Proof:}  
+Let $N \le U < G$ such that 
+${\overline U} \in {\cal N}_{\overline {\theta}}(A)$.  STS
+$U \in {\cal N}_{\theta}(A)$.  For $a \in A^{\#}$,
+$ {\overline {C_U(a)}} = C_{\overline U}(a)
+\le {\overline {\theta}}(C_{\overline G}(a))= {\overline C}_a= C_a N/N$ and thus
+$C_U(a) \le N C_a \cap C_G(a) = C_N(a) C_a \le C_a$  since $N \in
+{\cal N}_{\theta}(A) $ so
+$U \in {\cal N}_{\theta}(A)$.  Set $\pi(\theta) = \bigcup_{a \in A^{\#}} \pi(C_a)$.
+\end{quote}
+{\bf Theorem 7:} Let $U \in 
+{\cal N}_{\theta}(A)$ then $\pi(U) \subseteq \pi(C_a)$.
+\begin{quote}
+\emph{Proof:}  
+This is clear.
+\end{quote}
+{\bf Definition:} 
+$C_A = \theta(C_G(A))$.
+If $p \notin \pi$, $C_a= \theta(C_G(a))$ then $C_a$ contains a unique 
+maximal $AC_A$-invariant $\pi$-subgroup denoted by $\theta_{\pi}(C_G(a))$.
+\\
+\\
+{\bf Theorem 8:}
+The mapping
+$\theta_{\pi}: a \mapsto
+\theta_{\pi}(C_G(a))$ is a solvable $A$-signalizer functor on $G$ satisfying
+$\pi(\theta_{\pi}) \subseteq \pi$ and
+$\{ U \in
+{\cal N}_{\theta}(A, \pi): U^{C_A} = U \} \subseteq
+{\cal N}_{\theta_{\pi}}(A)$.
+\begin{quote}
+\emph{Proof:}  
+Let $a, b \in A^{\#}$ then 
+$\theta_{\pi}(C_G(a)) \cap C_G(b)$ is an $A C_A$-invariant
+$\pi$ subgroup of $C_b$  Thus
+$\theta_{\pi}(C_G(a)) \cap C_G(b)$ is contained in the unique maximal 
+$A C_A$-invariant $\pi$-subgroup 
+$\theta_{\pi}(C_G(b))$,  This shows that $\theta_{\pi}$ is a solvable
+$A$-signalizer functor on $G$.
+Clearly, $\pi(\theta_{\pi}) \subseteq  \pi$ and the other property 
+follows from the uniqueness of $\theta_{\pi}(C_G(a))$.
+\end{quote}
+{\bf Theorem 9:} Let $U \in 
+{\cal N}_{\theta}(A)$ then $\pi(U) \subseteq \pi(\theta)$.
+\begin{quote}
+\emph{Proof:}  
+For every $q \in \pi(U)$, there is an $A$-invariant Sylow $q$-subgroup
+$Q$ of $U$.  Moreover, since $A$ is non-cyclic, $\exists a \in A$ such that
+$C_Q(a) \ne 1$.  Thus $C_Q(a) \le C_U(a) \le C_a$, we get $q \in \pi(\theta)$.
+\end{quote}
+{\bf Theorem 10:}
+Let $A$ be an elementary abelian $p$-group with $r(A) \ge 3$ that acts on the
+group $X$ and let $p \ne q \in \pi(X)$.  Suppose $Q_1$
+and $Q_2$ are two $A$-invariant $q$-subgroups of $X$ such that for $D= Q_1 \cap Q_2$
+$Q_1 \ne D \ne Q_2$ then $\exists a \in A^{\#}$ such that
+$N_G(D) \cap C_{Q_i}(a) \nleq D, i= 1, 2$.
+\begin{quote}
+\emph{Proof:}  
+Since $Q_1 \ne D \ne Q_2$, we get $D < N_{Q_i}(D)= N_i , i= 1, 2$ and
+$N_i= \langle C_{N_i}(B) \rangle$, $B \le A$ and $r(A/B) \le 1$.  For $i= 1, 2$
+there is a maximal subgroup $B_i$ of $A$ such that $C_{N_i}(B_i) \nleq D$.
+Because $r(A) \ge 3$, we get $B_1 \cap B_2 \ne 1$.  Now choose $1 \ne a \in B_1 \cap B_2$.
+\end{quote}
+{\bf Transitivity Theorem:}   Let $\theta$ be a solvable $A$-signalizer functor on $G$, 
+$q \in \pi(\theta)$ and suppose $r(A) \ge 3$ then the elements in ${\cal N}^{*}_{\theta}(A, q)$
+are conjugate in $C_A$.
+\begin{quote}
+\emph{Proof:}  
+Assume the assertion is false.  Among all pairs of elements
+${\cal N}^*_{\theta}(A, q)$ that are not conjugate under $C_A$,
+we choose $Q_1$ and $Q_2$ such that $D = Q_1 \cap Q_2$ is maximal.
+Set $N= N_G(D)$ and $N_a = N \cap C_a, a \in A^{\#}$.  There is an
+$a \in A^{\#}$, such that 
+$N_a \cap Q_1 \nleq D$ and
+$N_a \cap Q_2 \nleq D$.
+$N_a$ is an $A$-invariant $p'$-group, thus $\exists c \in C_{N_a}(A) \le C_A$
+such that $E= \langle (N_a \cap Q_1)^c, N_a \cap Q_2 \rangle$ is an
+$A$-invariant $q$-subgroup.  Since $D$ and $E$ are in
+${\cal N}_{\theta}(A, q)$.  So $\exists Q_3 \in {\cal N}^*_{\theta}(A, q)$
+containing $DE$, so
+$D < D(N_a \cap Q_1)^c \le Q_1^c \cap Q_3$ and.
+$D < D(N_a \cap Q_2) \le Q_2 \cap Q_3$.  The maximal choice of $D$ implies that
+$Q_1^c$ and $Q_3$ are conjugate under $C_A$ as well as $Q_2$ and $Q_3$.  But
+then also $Q_1$ and $Q_2$ are conjugate under $C_A$, a contradiction.
+\end{quote}
+{\bf Theorem 11:}
+Let $q \in \pi(\theta)$ and
+$Q \in {\cal N}^*_{\theta}(A, q)$ and suppose $r(A) \ge 3$ then
+(1) $\forall H \in 
+{\cal N}_{\theta}(A)$  $\exists c \in C_A$ such that $Q^c \cap H$ is an $A$-invariant
+Sylow $q$-subgroup of $H$;  and (2)
+$C_Q(B)$ is an $A$-invariant Sylow $q$-subgroup of $C_B$ for every $1 \ne B \le A$.
+\begin{quote}
+\emph{Proof:}  
+Every $A$-invariant Sylow $q$-subgroup, $Q_1$ of $H$ is in
+${\cal N}_{\theta_{\pi}}(A)$ and is thus contained in an element $Q_2 \in
+{\cal N}^*_{\theta_{\pi}}(A)$.  So $\exists c \in C_A: Q_2= Q^c$ and 
+$Q^c \cap H = Q_1$.  Part 2 follows from 1 with $H= C_B$ since $C_A \le C_B$.
+\end{quote}
+{\bf Theorem 12:}
+If $|\pi(\theta)| \le 1$ and $r(A) \ge 3$ then $\theta$ is complete.
+\begin{quote}
+\emph{Proof:}  
+The case $\pi(\theta) = \emptyset$ gives $\theta(G) = 1$.
+Assume $\pi(\theta)= \{ q \}$.  Then
+$ {\cal N}_{\theta}(A) {\cal N}_{\theta}(A, q) $, and 
+$\exists Q \in {\cal N}^*_{\theta}(A) $
+such that $C_A \le Q$ and by the previous result, $Q$ is the only element in
+${\cal N}^*_{\theta}(A, q) $.
+\end{quote}
+{\bf Theorem 13:}
+Let $G$ be a solvable $p'$ group and $q \in \pi(G)$.  Suppose $U$ is a $q'$ group of
+$G$ such that $[U,C_G(B)]$ is a $q'$ group for every maximal subgroup $B$ of $A$.  Then
+$U \leq O_{p'}(G)$.
+\begin{quote}
+\emph{Proof:} See Stellmacher, p 325.
+\end{quote}
+{\bf Glauberman's Theorem:} Let $\theta$ be a solvable signalizer functor on $G$
+and $r(A) \ge 3$ then $\theta$ is complete.
+\begin{quote}
+\emph{Proof:} See Stellmacher, p 327.
+\end{quote}
+\section {Factorizations}
+{\bf Theorem 14a:}
+Suppose the action of $A$ on $G$ is coprime and $G=XY$ with $X$ and $Y$ $A$-invariant then
+$C_G(A)= C_X(A) C_Y(A)$.
+\begin{quote}
+\emph{Proof:} 
+Let $g=xy \in G$.  $xy = (xy)^a=x^a y^a$.  So $x^{-1}x^a = yy^{-a} \in X \cap Y$.
+$(xU)^a=xU$ and $(Uy)^a=Uy$, so 
+$\exists c \in C_X(A), x=cu$ and
+$\exists d \in C_Y(A), y=wu$.  $cuwd \in C_G(A) \cap X \cap Y$, so $uw \in C_X(A) C_Y(A)$.
+\end{quote}
+{\bf Theorem 14:}
+If $p \in \pi(G)$ and ${\overline G}= G/ O_{p'}(G)$ and suppose ${\overline G}$ is $p$-constrained
+then $\forall P \in p(G)$, $O_{p'}(N_G(P)) = O_{p'}(G) \cap N_G(P)$.
+\begin{quote}
+\emph{Proof:} 
+$C_G(P) \lhd N_G(P) \rightarrow O_{p'}(N_G(P))= O_{p'}(C_G(P))$ so it STS
+$O_{p'}(G) \cap C_G(P) = O_{p'}(C_G(P))$.  Assume $O_{p'}(G)=1$ and put $Q=O_{p'}(C_G(P))$.
+$C_G(O_p(G)) \subseteq O_p(G)$ and $[P,Q]=1$ so we can apply Thompson's $p \times q$ lemma
+to show $Q$ acts trivially on $C_G(P)$ and $Q \leq C_G(O_p(G)) \leq O_p(G)$ and $Q=1$.
+\end{quote}
+{\bf Theorem 15:}
+Let $P \in p(G)$ and $U \leq O_{p'}(N_G(P))$.  Suppose $U$ and $P$ are contained in some solvable group
+$L$.  Then $U \leq O_{p'}(L)$.
+\begin{quote}
+\emph{Proof:} Todo.
+\end{quote}
+{\bf Definition:} For $q \in \pi(\theta)$, put $\theta_{q'} = \theta_{\pi(\theta) \setminus Q}$.
+$\theta$ is locally complete if $\theta_{N_G(U)}$ is complete for $U \in {\cal N}_{\theta}(A)$ and
+$\theta_{q'}$ is complete for all $q \in \pi(\theta)$.
+\\
+\\
+{\bf Theorem 16:}
+Let $G$ be a $p'$-group and $X$ and $Y$ be two $A$-invariant subgroups if $G$.  Suppose further,
+(1) $C_G(a)= C_X(a)C_Y(a)$ for all $a \in A^{\#}$ and (2) $X$ is $C_G(A)$-invariant then $G=XY$.
+\begin{quote}
+\emph{Proof:} See Stellbacher, p 312.
+\end{quote}
+\section{More from Thompson}
+{\bf Thompson Transitivity Theorem:}  If $G$ is a group in which
+the normalizer of every non-identity $p$-subgroup is $p$-constrained
+and if $A \in {\cal SCN}_3(p)$ then $C_G(A)$ permutes all
+maximal $A$-invariant $q$ groups of $G$, $q \ne p$. 
+\begin{quote}
+\emph{Proof:}  
+Generalization of earlier result.
+\end{quote}
+{\bf Consequence:}
+Under the TTT conditions, if $P \in S_p(G), A \in {\cal SCN}_3(P)$ and $\forall q \ne p$,
+$P$ normalizes some $A-$invariant $q-$subgroup of $G$; so if $P$ normalizes no
+$p'$ subgroup of $G$, neither does $A$.  
+\\
+\\
+{\bf Maximal Subgroup Theorem:}
+If $P \in S_p(G), {\cal SCN}_3(P) \ne \emptyset, p \ne 2$ and every element of 
+${\cal N}^*(P)$
+is $p-$constrained and $p-$stable and $\exists H, 1 \ne H \lhd P$: $[Q,P]=1$ if $H \in p'(G)$
+and $H^P=H$ then ${\cal N}^*(P)$ has a unique maximal element.
+\begin{quote}
+\emph{Proof:}  
+Generalization of earlier result.
+\end{quote}
+{\bf Thompson (from N-group paper):} $G$ is not solvable iff 
+$\exists x, y, z \in G \setminus \{1\}$
+with $(|x|, |y|)=(|y|,|z|)=(|x|,|z|)=1$ such that $xy=z$.  If $G$ is a non-abelian
+simple group all of whose $p-$locals are solvable then $G$ is isomorphic to one
+of the following: (1) $PSL_2 (q), q > 3$, (2) $Sz(q), q= 2^{2m+1}, m \ge 1$ or (3)
+$A_7$, $PSL(2(3)$, $U_3(3)$, or $M_{11}$.
+\begin{quote}
+\emph{Proof:}  
+The proof is too long for this paper.
+\end{quote}
+{\bf Theorem 13:} If $M$ is a maximal subgroup of $G$, $p \in \pi(M)$, $O_{p'}(M) \ne 1$ 
+then all maximal primitive subgroups are conjugate to $M$.
+\begin{quote}
+\end{quote}
+{\bf Thompson Transfer Theorem:} Let $S \in S_2(G)$ and suppose $\exists U \le G$ maximal
+and $t \in Inv(S) \rightarrow t^G \cap U = \emptyset$ then $t \notin O^2(G)$.
+\begin{quote}
+\end{quote}
+\section{Bender Uniqueness}
+{\bf Observation:} The following uniqueness result is used in the simplification of the
+odd order result.
+\\
+\\
+{\bf Bender's Theorem:}
+Let $G$ be a minimal subgroup of odd order and $U$ be a elementary abelian subgroup of
+order $p^3$ then there is one maximal subgroup of $G$ containing $U$.

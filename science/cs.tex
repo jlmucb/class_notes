@@ -1,0 +1,787 @@
+\chapter{Computer Science}
+\section{Basics}
+{\bf Definitions:}
+$f \in O(g) \leftrightarrow
+g \in \Omega (f) \leftrightarrow
+L_{x \rightarrow \infty} {\frac {f(x)} {g(x)}} < \infty$.
+$f \in o(g) \leftrightarrow
+g \in \omega (f) \leftrightarrow
+L_{x \rightarrow \infty} {\frac {f(x)} {g(x)}} = 0 $.  $G_1 \subset (G,E)$ is a
+\emph{strongly connected component} iff $x,y \in G_1$ means there is a directed path
+$x \rightarrow y$ and a directed path $y \rightarrow x$.
+\\
+\\
+{\bf Recurrences:}  Suppose $T(n)= aT(n/b) + f(n)$.  
+If $f(n)= O(n^{log_b(a)-\epsilon})$ then $T(n)= \Theta(n^{log_b(a)})$.
+If $f(n)= \Theta(n^{log_b(a)})$ then $T(n)= \Theta(n^{log_b(a)}lg(n))$.
+If $f(n)= \Omega(n^{log_b(a)+\epsilon})$ and $af(n/b) \le c f(n), c<1$
+then $T(n)= \Theta(f(n))$.\\
+\\
+{\bf Binary arithmetic:}
+Adding an $m$ bit number and $n$ bit number takes $O(max(m,n))$ time and $O(m+n)$ space.
+Multiplying an $m$ bit number and $n$ bit number takes $O(mn)$ time and $O(m+n)$ space.
+The \emph{extended gcd} of an $m$ bit number and $n$ bit number takes 
+$O(mn)$ time and $O(m+n)$ space.
+$GCD(u, v)$ average running time:
+$O((1+{\frac {max(u,v)} {(u,v)}}) lg(min(u, v)))$.
+$A^E \jmod{M}$ where $M$ is an $m$ bit number and $E$ is an $n$ bit number 
+takes $O(n m^2)$ time. 
+\\
+\\
+{\bf Theorem:}
+Given $\epsilon>0$ there is a multiplication algorithm such that the number
+of elementary operation $T(n)$ needed to multiply two $n$-bit numbers
+satisfies
+$T(n) <c(\epsilon)n^{1+\epsilon}$.  Strassen: $T(n)=O(n lg(n))$.
+\\
+\\
+{\bf Floating Point Numbers:} $f \times b^{e-q}$ is represented as $(e, f)$.
+\\
+\\
+{\bf Heapsort:} For a node, $t$, the \emph{heap property} is
+$value(t) \geq value(LEFT(t))$ and $value(t) \geq value(RIGHT(t))$.  
+A heap list $A[1], A[2] , \ldots, A[n]$ can represent a heap with 
+$LEFT(A[i])= A[2i]$ and $RIGHT(A[i])= A[2i+1]$.  Note that a path 
+from a node to an edge is linearly ordered and
+so largest element is at root.  Usually the
+heap is arranged so that $value(LEFT(t)) \geq value(RIGHT(t))$.
+\begin{multicols} {2} {
+\begin{verbatim}
+heapify(A,i,j,n) 
+{
+    if(i is not a leaf) {
+        k= child of i with largest elment;
+        if(A[k]>A[i]) {
+            swap (A[i], A[k]);
+            heapify (A, k, j, n);
+        }
+    }
+}
+\end{verbatim}
+
+\begin{verbatim}
+buildheap(A,n) 
+{
+    for(i=n;i>1;i--) {
+        heapify(A,i,n,n);
+    }
+}
+
+heapsort(A,n) 
+{
+    buildheap(A,n);
+    for(i=n;i>1;i--) {
+        swap(A[1], A[i]); 
+        heapify(&A[1],i-1, i-1);
+    }
+}
+\end{verbatim}
+}
+\end{multicols}
+
+{\bf Shortest Path:} between x and y in $G=(V, E)$ where
+$l(e)>0$ is the weight of $e \in E$ is $O(e lg(n))$. d(v) contains an overestimate
+of the shortest path from s to v.
+$prev(v)$ contains the previous element in the
+shortest path from s to v.  (Ford-Bellman version works for negative weights.)
+\begin{multicols} {2} {
+\begin{verbatim}
+shortestpath(V,E,s)  {
+    for (v in V) {
+        d(v):= infinity;
+        prev(v):= empty-set;
+        }
+    H:= empty-set; 
+    d(s)= 0; 
+    mark(s);
+    while (H is not empty) {
+        h= deletemin(H);
+        for e=(v, w) in E, w unmarked) {
+            if(d(w)>(d(v)+l(e))) {
+                d(w)=d(v)+l(e);
+                prev(w)= v;
+                insert(w, H);
+                }
+            }
+        }
+    }
+\end{verbatim}
+}
+\end{multicols}
+
+{\bf Union-find:}  Link(x, y): make x and y kids of a common parent.  Parent node
+points to itself.  $m$ UNION-FIND operations on $n$ elements is $O((m+n) lg(n))$.
+
+\begin{multicols} {2} {
+\begin{verbatim}
+makeset(x) {
+    p(x)= x;
+    rank(x)= 0;
+    } 
+
+find(x) {
+    if(x != p(x))
+        p(x)=  find(p(x)); 
+   return(p(x));
+   }
+
+link(x, y) {
+    if(rank(x)>rank(y)) swap(x, y);
+    if(rank(x)==rank(y)) rank(y)++;
+    p(x)= y;
+    return(y);
+    }
+
+union(x,y) {
+    link(find(x), find(y));
+    }
+\end{verbatim}
+}
+\end{multicols}
+
+{\bf Order statistics:} The algorithm below satisfies the recurrence 
+$T(n) \leq T({\frac n 5}) + T({\frac {3n} 4} + cn)$.
+\\
+\\
+Select(k,S) \\
+\{\\
+\jt if($k<50$)
+\jt \jt sort and return k'th element;\\
+\jt Partition $S$ into $5$ sequences $S_1, \ldots , S_{\lfloor {\frac{|S|} 5} \rfloor}$, $T$,
+where $T$ contains the up to $4$ leftovers;\\
+\jt Sort each $5$ set;\\
+\jt Let $M$ be the set of the medians for the $S_i$;\\
+\jt m= Select($\lceil {\frac {|M|} 2} \rceil$;\\
+\jt let $S_1$, $S_2$, $S_3$ be the sets of elements $<, =, > m$ respectively;\\
+\jt if($|S_2|>k$)\\
+\jt \jt return Select($k, S_1$);\\
+\jt if($|S_1|+|S_2|>k$) \\
+\jt \jt return $m$;\\
+\jt return($k-|S_1|-|S_2|$, $S_3$);\\
+\}
+\\
+\\
+{\bf $2-3$ Trees:} Interior node has smallest key of 2nd and 3rd descendant.
+Insert: Do membership test stop at terminal position; id 2 kids, add one, if
+not, split into two, $(n, n')$.  Add $n'$ using insert.  
+Delete: If two kids left, done.
+Otherwise, try to move node of a siblings under common parent; if you can't,
+transfer this node to a sibling.  If this leaves a singleton, in the parent,
+recurse the transfer on parent.
+\\
+\\
+{\bf Minimal spanning trees:}  Consider a graph,
+$G= (V,E)$, each edge $e \in E$ having weight $wt(e)$.  
+\\
+\emph{Kruskal:}
+\\
+ Initialize a forest of trees consisting of $V$.\\
+while( there is more than one component) \\
+\jt 1. Remove edge from $E$ of minimum weight.\\
+\jt 2. Add it if it unites two trees.  Discard it if it creates a cycle.\\
+\\
+\emph{Prim:}\\
+1. Choose an arbitrary vertex $S= \{x\}$, $M=\emptyset$.\\
+2. while($S \ne V$) \\
+\jt 3. Choose an edge $e=(x, y), x \in S$ of minimum weight.\\
+\jt 4. If $y \in S$, discard.  Otherwise $M= m \cup \{e\}$
+\\
+\\
+{\bf NP Completeness:}
+$P \subseteq N$.  If $A \le B$ 
+\footnote{$A \le B$ means problem $A$ can be transformed to problem $B$ in polynomial time;
+this is called a reduction \emph {from} $A$ \emph{to} $B$.}
+and $B \in P$ then $A \in P$.  $L \in NPC$ if and only if 
+$L \in NP$, $A \in NP \rightarrow A \le L$.  Classical computation theory classifies
+problems by a ``certain'' solution on all instances.  The class of problems which
+can be solved in polynomial time
+``up to an arbitrary error, $\epsilon$'' is called $RP$ for ``randomized
+polynomial.''  $P \subseteq RP \subseteq NP$.
+\\
+\\
+{\bf Problems in P and NP:}
+P: MST.  Given a weighted graph, G, and a weight, K $\exists$ a tree,
+NP: TSP.  Given a weighted graph, G, and a weight, K $\exists$ a cycle,
+C, that connects all nodes  of G with weight $\leq K$.\\
+P: Circuit value.  NP: Circuit SAT.\\
+P: 2-SAT: Use $\phi= (a_1 \vee b_1  )  \wedge ... \wedge (a_n \vee b_n )$ to form graph with 
+nodes $a_i, b_i, {\overline {a_i}}, {\overline {b_i}}$ insert
+edges ${\overline {a_i}} \rightarrow b_i$
+and ${\overline {b_i}} \rightarrow a_i$.  Find strongly connected components.  If no
+strongly connected component contains a variable and its negation, it is satisfiable;
+otherwise not.  So 2-SAT is not NP hard.  NP: 3-SAT.  Note in disjunctive normal form 
+SAT is easy but translating is hard.
+\\
+P: matching.  NP: 3D matching.\\
+P: Linear Programming.   NP: Integer Programming.\\
+\\
+{\bf Ford-Fulkerson:} Augmenting path p is a simple path from s to t that
+increases the flow.
+\begin{verbatim}
+    Initialize flow, f to 0;
+    while (there is an augmenting path, p)
+        augment flow along p;
+    return f;
+\end{verbatim}
+{\bf Undecidability:} Suppose $Term(P,X)$ is a boolean function which takes a program,
+$P$, and an input $X$.
+$Term(P,X)$ returns true iff $P$ terminates on $X$.
+$Term(P,X)$ returns false iff $P$ does not terminate on $X$.
+\\
+\\
+{\bf Theorem:}  $Term(P, X)$ does not exist.  Suppose it did. Set
+\begin{verbatim}
+diag(P,X) {
+  if $Term(P,P)$==true 
+    loop
+    }
+\end{verbatim}
+$diag(diag)$ terminates iff it doesn't terminate.  Contradiction.\\
+\\
+{\bf Stable Matching} (up to $n^2$ rounds). (1) Boy goes to favorite girl
+on list.  (2) Girl tells highest choice ``maybe'', tells everyone else
+No.  (3) Boy crosses off girls that have said no.
+(4) terminate in the round when every girl has
+told one boy ``maybe'', convert ``maybe'' to yes.\\
+\\
+{\bf Linear Programming Standard Form:}
+Maximize $x= C^{T}X$, subject to $AX= B$, $X \geq 0$.  
+Problem:  There may be exponentially
+many corners. (Reason: introduce to $n$ constraint inequalities $m$ slack variables;  the
+corner points occur when $m$ variables are $0$.  There are ${{m+n} \choose m}$ ways to select
+the variables to be set to $0$.)
+Simplex idea: move along growing paths instead of trying all corners randomly.
+Dual, minimize $x= B^{T}W$, subject to $A^{T}W= C$, $W \geq 0$.\\
+\\
+{\bf Notation:} \emph{basic variables} $\ne 0$, \emph{non basic variables} $=0$.  
+A is an $m \times n$
+matrix, with $m$ variables (including slack) and $m$ constraints.
+Tableau has basic variables and their values in two first columns.  Top row is
+all variables as labels middle is matrix (A).
+Rightmost column is constants (B).  Bottom row is $C-C^{T}X$ in terms of the
+non-basic variables.  Basic algorithm is:
+\begin{enumerate}
+\item Locate most negative coefficient in bottom row, call column containing it $x_{j}$.
+\item Compute ${\frac {B_{i}} {A_{ij}}}$.  The smallest one, denoted $k$, is the pivot.
+\item Convert pivot to 1 and eliminate all coefficients in the same column.
+\item Replace $x_{k}$ row by $x_{j}$.
+\item repeat until no negative numbers in bottom row.
+\end{enumerate}
+{\bf SAT/$k$-sat reduction:}
+$l_1 \vee l_2 \vee \ldots \vee l_n \rightarrow
+l_1 \vee l_2 \vee x_1 \wedge
+{\overline {x_1}} \vee l_3 \vee x_2 \wedge \ldots
+{\overline {x_{n-3}}} \vee l_{n-1} \vee \ldots \vee l_n$.
+Phase transition for SAT: ${\frac {clauses} {variables}} \approx 4.3$.
+3-SAT $\rightarrow$ MQ.  Replace $+$ with $\vee$, $\cdot$ with $\wedge$ , 1 with true,
+0 with false.  If $c_i= x_{i_1} \vee x_{i_2} \vee x_{i_3}$ add
+$x_{i_1} + x_{i_2} + x_{i_3} x_{i_4}$ and
+$x_{i_1} \cdot x_{i_2} + x_{i_2} \cdot x_{i_3} + x_{i_1} \cdot x_{i_3} = x_{i_5}$
+and $x_{i_4} + x_{i_5} + x_{i_4} \cdot x_{i_5} =1$.
+\\
+\\
+{\bf Theorem:} The following problems are
+NP Complete: SAT, $k$-SAT ($k>2$), k-clique, Vertex Cover, Independent set,
+Subset Sum, Partition, Bin Packing, Hamilton circuit.
+\emph{Clique/SAT reduction:} Each occurrence of a variable is a vertex, edges
+between vertices if their occurrence in the clauses have same complementarity.
+$k$ is number of clauses.
+\\
+\\
+{\bf Hard core bit:} Let $f$ be a one-way function from
+$\{0,1\}^n$ to $\{0,1\}^n$,
+$x \in \{0,1\}^n$ ,
+$r \in \{0,1\}^n$ ,
+and let $G$ be a function that takes
+$\{0,1\}^n$ to $\{0,1\}^{n+1}$ by $G(x,r)= f(x), r, <x,r>$.  Let $P$ be a
+prediction function.  Goldreich-Levin: If there is an algorithm $A$ such
+that $| Prob_r [A(f(x), r) = <x,r>] - {\frac {1} {2}} | \geq \epsilon$ then
+there is an algorithm $I$ that produces a list $L$ of size $\leq
+{\frac {1} {{\epsilon^2}}}$ with $x$ in $L$, (2) $I$ runs in time
+polynomial in $n$ and ${\frac {1} {\epsilon}}$ and doesn't compute $f$.
+A function is \emph{negligible:} smaller that inverse of any polynomial.
+Witness: $w:\Sigma^* \rightarrow P( \Gamma^* )$.  \emph{Decision problem:}
+$A_w \subseteq \Sigma^*$, $A_w= \{ x \in
+\Sigma * | w(x) \ne 0 \}$.
+\emph{Example:} $x \in \Sigma^*$ is an encoding of a Boolean Form.
+$y \in \Gamma *$
+is an encoding of a truth assignment.
+$\#P$ is class of witnesses, $w$, such that: (i) there is a P-time algorithm
+to decide if $x \in w(x)$ and (ii)
+$\exists k \in N$ such that $\forall y \in
+w(x),
+|y| \leq |x|^k$.  $w \in \#P \rightarrow A_w \in NP$ and
+$A \in
+NP \rightarrow \exists w, A=A_w$.
+\\
+\\
+{\bf Theorem:}
+Counting perfect matchings of a bipartite graph is $\#P$ complete.
+\\
+\\
+{\bf Finite State Machine:} Finite alphabet, $A$, finite states, $S$, two functions:
+$\delta: S \times A \rightarrow S$ and
+$\gamma: S \times A \rightarrow A$.\\
+Finite State Automata is FSM without output.\\
+\\
+{\bf Regular expressions:}
+Language $L$ is a subset of $A^*$.
+\emph{Regular expression}, $R$ over alphabet, $A$ with letters 
+$a \in A$: (1) $ \epsilon \in R$,
+(2) $a \in A$, (3) $r^* \in R$ if $r \in T$,
+(4) $r_1 r_2 \in R$ if $r_1 , r_2 \in R$,
+(4) $r_1 \vee r_2 \in R$ if $r_1 , r_2 \in R$.
+Language associated with a regular expression: (1) $ L(\epsilon)=\{ \epsilon \}$,
+(2) $L(a)= \{a\}$, (3) $L(r^*) L(r)^*$,
+(3) $L(r_1 r_2)= L(r_1 ) L(r_2)$,
+(4) $L(r_1 \vee r_2) = L(r_1) \cup L(r_2)$.
+$L$ is a \emph{regular language} if $\exists r \in R$ with $L=L(r)$.
+\emph{Phrase structured Grammar}, 
+$G$, consists of (1) Vocabulary $V$, (2) terminals (denoted by lower case letters) 
+$T \subseteq V$, (3) variables or non-terminals $V \setminus T$ (denoted
+by upper case letters), (4) a designated non-terminal $S$, called the start symbol, (5)
+a finite set $P$ of productions: $\alpha \rightarrow \beta$.
+$w \Rightarrow w'$ iff $\exists u,v, w=u \alpha v$ and $w'= u \beta v$.
+\\
+\\
+{\bf Grammars:}
+Grammar types are defined by production rule limitation: (1) Type 0: no limitations,
+(2) Type 1: production rules of the form
+$\alpha \rightarrow \beta$, $|\alpha| \leq |\beta|$ or
+$\alpha \rightarrow \epsilon$,
+(3) Type 2: production rules of the form $A \rightarrow \beta$,
+(4) Type 3: production rules of the form
+$A \rightarrow a$ or $A \rightarrow aB$,
+(5) \emph{context free:} production rules of the form $A \rightarrow \beta$,
+(6) \emph{context sensitive:} production rules of the form
+$\alpha A \alpha' \rightarrow \alpha \beta \alpha'$,
+(7) regular: production rules of the form
+$A \rightarrow a$, $A \rightarrow aB$ or $S \rightarrow \epsilon$.
+Backus-Naur form for type 2 context free grammar:
+(i) ::= replaces $\rightarrow$,
+(ii) non-terminals enclosed in brackets $<>$ and
+(iii) all productions with the same non-terminal
+LHS are combined into a single RHS.
+\emph{Example:} 
+$\langle sentence  \rangle$ ::= 
+$\langle noun$ $phrase \rangle\langle verb$ $phrase \rangle$, 
+$\langle noun$ $phrase \rangle$ ::= 
+$\langle noun \rangle|\langle article \rangle\langle noun \rangle$,
+$\langle noun \rangle$::= boy.
+\\
+\\
+{\bf Theorem:}
+A language $L$ can be generated by a type 3 (regular) grammar iff there is a finite
+automaton $M$ that accepts $L$.
+Pushdown automata (with infinite stack) recognize $L$ iff $L$ is context free.
+$L$ is recognized by a linear bounded automata  (tape linearly bounded in length of
+input) iff $L$ is context sensitive.
+\\
+\\
+{\bf Minimizing state machines:} Two states, $s_i$, $s_j$, are $0$ equivalent if
+the states have the same output for every input.  States are $k+1$ equivalent if they
+have the same outputs for any input and their successor states are $k$ equivalent.
+Minimization procedure:  Define $\pi_0$ as all states that are $0$ equivalent.  Do until
+no further refinement happens: sub-partition $\pi_{k}$ into $\pi_{k+1}$ into subblocks are
+$k+1$ equivalent.  This terminates.  When it does, merge equivalent states.
+\\
+\\
+{\bf Pumping Lemma:}  Let $L$ be a finite state grammar accepted by a finite state
+machine, $M$, with $n$ states.
+If $\alpha$ is a string accepted by $M$ of length at least $n$, then
+$\alpha = u||v||w$ where $u||v^i||w$ is also in $L$.\\
+\\
+{\bf Definition:}
+Turing machines are FSMs with a bi-directionally infinite tape with a finite
+number of pre-marked squares and an additional transition function
+$\sigma: S \times A \rightarrow \{L, R, HALT\}$.
+\\
+\\
+{\bf Huffman algorithm:}  Label each node with frequency.  As long as more than one
+node is present, take the two nodes with the lowest frequency and combine them
+into a single node with the two combinants as children.
+New node has combined frequency.  Left subnode has lower of two frequencies,
+right the higher.  Read code by traversing from root.  Left traversal at parent is
+0, right, 1.
+\\
+Resulting code is prefix free.  Further $H(X) \leq l(x) \leq H(X)+1$.
+\subsection{Concurrency}
+\begin{verbatim}
+ECMA Consistency
+    1. Reads and writes cannot move before volatile read.
+    2. Reads and writes cannot move after volatile write.
+
+CompareExchange(ref int loc, int value, int comp) {
+    Monitor.Enter;
+    ret= loc;
+    if(ret==comp) loc= value;
+    Monitor.Exit;
+    return ret;
+}
+
+class SpinLock {
+    volatile int isEntered=0;   // 1 if lock acquired
+    int Enter() {
+        while(CompareExchange(isEntered,1,0)!=0);
+        }
+    Exit() {
+        isEntered= 0;
+    }
+}
+
+Memory Consistency Rules
+    1. Behavior of Thread in isolation is unaffected
+    2. Reads cannot move before lock
+    3. Writes cannot move after lock
+\end{verbatim}
+
+\begin{multicols} {2} {
+\begin{verbatim}
+
+DPLL(C,A) {     
+// C: clauses, A: literal assignments
+//      Termination:
+//              empty clause: unsatisfiable
+//              empty set of clauses: satisfiable
+    if(A is empty) 
+        return SATISFIED;
+    if(A has an empty clause) 
+        return UNSATISFIABLE;
+// unit clause is a clause with one literal
+    if unit clause (l) occurs in A  
+        return DPLL (assign(l,C), A + l));
+    if l occurs with same polarity throughout
+        return DPLL (assign(l,C), A + l));
+    l= choose-literal(A);
+    return DPLL (assign(l,C), A + l)) OR 
+           DPLL (assign(not l,C), A + not l));
+    }
+Note: If A, B, C are p-free, 
+(A | p) & (B|!p) &C) is inconsistent iff (A|B)&C is.
+
+Chase(C,x) {
+    set x to t;
+    delete all clauses containing x from C;
+    delete all occurences of !x from clauses in C;
+    if (empty clause) 
+        return UNSATISFIABLE;
+    if (unit clause l) 
+        return Chase(l,t);
+    if (C is empty)  
+        return SATISFIED;
+\end{verbatim}
+}
+\end{multicols}
+\begin{multicols} {2} {
+\begin{verbatim}
+Priority Queue (arrays start at 1 here)
+
+ExtractMax(A) {
+    if(heapsize(A)<1) 
+        return error;
+    max= A[1];
+    A[1]= A[heapsize(A)];
+    heapsize(A)=heapsize(A)-1;
+    Heapify(A,1);
+    return max;
+}
+
+Insert(A,k) {
+    heapsize(A)=heapsize(A)+1;
+    i= heapsize(A);
+    while(i>1 & A[parent(i)]<k) {
+        A[i]= A[parent(i)];
+        i= parent(i);
+        }
+    A[i]= k;
+    }
+\end{verbatim}
+}
+\end{multicols}
+\begin{multicols} {2} {
+\begin{verbatim}
+Select(A,k) {      
+    // select kth element from A[1,...n-1]
+    if(k==0) return min(A);
+    // For randomized, choose x in A at random
+    x= SideSelect(A);
+    Set B= < y in A: y <=x>
+    Set C= < y: y>x >
+    if(k<|B|) return Select(B,k)
+    return Select(C,|B|-k);
+    }
+
+SideSelect(A,k) {
+    for(i<=0<=n=INT(size(A)/5))
+        Sort successive 5 elements 
+        // A[5i]<=A[5i+1]<=A[5i+2]<=A[5i+3]<=A[5i+4] 
+    R= < A[5i+2] > , 0<=i<=n
+    x= SideSelect(R,Size(R)/2);       
+    // note x <= 3*INT((n-5)/10) elements.
+    }
+// Note E(T(n))= E(T(sn))+n,  x ~ 3/4
+\end{verbatim}
+}
+\end{multicols}
+\begin{multicols} {2} {
+\begin{verbatim}
+struct semaphore {
+    int count;
+    ProcessQueue queue;
+    };
+
+void P(semaphore s) {
+    if(s.count>0) {
+         (s.count)--;
+    else
+         s.queue.Insert(); // block
+    }
+void V(semaphore s) {
+    if(s.queue.empty())
+        (s.count)++;
+    else
+        s.queue.remove(); //schedule process
+    }
+
+shared semaphore s= 1;
+     P(s);
+     //critical section
+     V(s);
+\end{verbatim}
+}
+\end{multicols}
+\begin{multicols} {2} {
+\begin{verbatim}
+Map()
+Reduce()
+Scan()      // || prefix
+Scatter()
+Gather()
+
+Readers/writers
+linear sweep
+
+\end{verbatim}
+}
+\end{multicols}
+Architecture and current PCs:
+$P= C \times V^2 \times f$.  
+\emph{Big endian} word: $0, 1, 2, 3$ (descending byte address).
+\emph{Little endian} word: $3, 2, 1, 0$ (descending byte address).
+\begin{center}
+\begin{tabular} {|l|c|r|}
+\hline
+{\bf Optimization Level} & {\bf Description} & {\bf Level}\\
+\hline
+High & Procedure inlining & 3\\
+Local & common subexpression & 1\\
+Local & constant propagation & 1\\
+Local & stack height reduction (expression tree) & 1\\
+Global & global common subexpression & 2\\
+Global & global constant propagation & 2\\
+Global & code motion & 2\\
+Global & induction variable elimination & 2\\
+Global & loop unrolling & 4\\
+Global & strip mining & 4\\
+Arch specific & strength reduction & 1\\
+Arch specific & pipeline scheduling & 1\\
+Arch specific & branch offset & 1\\
+\hline
+\end{tabular}
+\end{center}
+Effect on performance of Bubblesort (100K items).  Base is 300MHz Sparc Ultra.
+\begin{center}
+\begin{tabular} {|r|r|r|r|r|}
+\hline
+{\bf Optimization level} & {\bf Relative performance} & {\bf Clocks} & {\bf Instructions} & {\bf CPI}\\
+\hline
+0 & 1.00 & 158,615 & 114,938 & 1.38 \\
+1 & 2.37 & 66,990  & 37,470 & 1.79 \\
+2 & 2.38 & 66,521 & 39,993 & 1.66 \\
+3 & 2.41 & 65,747 & 44,993 & 1.46\\
+\hline
+\end{tabular}
+\end{center}
+SRAM: $.5-1 ns$, $4,000 \$/GB$.
+DRAM: $50-70 ns$, $100 \$/GB$.
+Disk: $10^7 ns$, $1 \$/GB$.  
+Dram address setup: 1 memory cycle, access time: 15 cycles, data transfer: 1 cycle.
+4-way interleave plus multiword block gets time down to 20 cycles on average.
+Miss penalty to main: 500 cycles, to L2: 25 cycles.  TLB: 512 entries.  Miss: 100 cycles.
+Miss percentage; .5-1.
+Disk seek latency: 10 ms, rotational latency: 5 ms, transfer rate: 50 MB/s, MTTF:
+$10^6$ hours.  Bus speed: system (800 MHz), NB (266 MHz), SB (33 MHz).  Bandwidth:
+\begin{center}
+\begin{tabular} {|r|r|}
+\hline
+{\bf Device} & {\bf Bandwidth} \\
+\hline
+Memory & 3.2GB/sec \\
+Disk & 150 MB/sec\\
+AGP & 2.1 GB/sec\\
+PCI& 132 MB/sec\\
+NIC & 20 MB/sec\\
+\hline
+\end{tabular}
+\end{center}
+{\bf Dwarves:}
+Finite state machines, combinatorics, graphs, Structured/unstructured grids, dense matrix, sparse
+matrix, map-reduce, backtrack/branch-and-bound, $N$-body, FFT, Graphical models.\\
+\\
+$LU${\bf-factorization:}  Let $A \ne 0$ be an $m \times n$ matrix.  There are permutation matrices
+$P,Q$ such that $P^T A Q= LU$ where $L$ is lower triangular and $U$ is upper triangular.
+$QR$-factorization: Let $X \in {\mathbb C}^{n \times p}$ have rant $p$ then
+$x= QR$ where $Q$ is an orthogonal matrix and $R$ is an upper triangular matrix.  
+$QR$-factorization via unitary operations is used in the least square approximation problem.
+Spectral decomposition: $U^H A U= diag( \lambda_1 , \lambda_2 , \ldots , \lambda_n)$.
+The eigenvalues of $X^H X$ are the sequence of singular values of $X$.
+For a $p \times q$ matrix, row major storage is 
+$A[1,1]= a[1]$,
+$A[1,2]= a[2]$, \ldots, $A[2,1]=a[q+1]$, 
+etc., 
+and in general,
+row major storage is $A[i,j]= a[(i-1)q+j]$,
+column major storage is
+$A[1,1]= a[1]$,
+$A[1,2]= a[q+1]$, \ldots, $A[2,1]=a[2]$,  etc.,
+and in general,
+column major storage is $A[i,j]= a[(j-1)p+i]$.  One step of Gaussian Elimination:
+$$
+\left(
+\begin{array}{cc}
+\alpha_{11} & \alpha_{12}^T\\
+\alpha_{21} & A{22}\\
+\end{array}\right)=
+\left(
+\begin{array}{c}
+\beta_1\\
+b_2\\
+\end{array}
+\right)
+\rightarrow
+\left(
+\begin{array}{cc}
+\alpha_{11} & \alpha_{12}^T\\
+0 & A{22}- \alpha_{11}^{-1}\alpha_{21}\alpha_{12}^T\\
+\end{array}
+\right)=
+\left(
+\begin{array}{c}
+\beta_1\\
+b_2- \alpha_{11}^{-1} \beta_1 \alpha_{21}\\
+\end{array}
+\right)
+$$
+{\bf Definition:}
+A \emph{hard core predicate} of a one-way function, $f$ is easy to compute given $x$ but not
+given $f(x)$.  If $f$ is a one-way function, $g(x,r)= (f(x),r)$ is a hard core predicate.
+Let $B_x(y): \{0,1\}^n \rightarrow \{0,1\}$ be a probabilistic oracle with
+$\epsilon$ advantage for $(x,y)$, that
+is, $Pr(B_x(y)=(x,y))= {\frac {1+\epsilon} 2}$ and let $EQ_x(y)$ be an oracle for $x=y$.
+Define 
+$Gd_B= \{ y: B_x(y)= (x,y) \}$ and
+$Bd_B= \{ y: B_x(y) \ne (x,y) \}$ so 
+$|Gd_B|= {\frac {1 + \epsilon} 2} 2^n$ and
+$|Bd_B|= {\frac {1 - \epsilon} 2} 2^n$.
+\\
+\\
+{\bf Goldreich-Levin:}
+Let  $R= \langle r_1, \ldots, r_m \rangle$ be a random selection of elements from
+$[n]$, $z \in [n]$ and $b_j=(x,r_j)$.  Let $\langle S_j \rangle$ be a fixed
+enumeration of the subsets of $[m]$.  $R[S]= \sum_{j \in S} r_j$.
+Define the following algorithm:\\
+\\
+$STRONG-SC^{B_x}(z, r_1, \ldots, r_m, b_1, \ldots , b_m)$ \\
+\jt $sum= 0;$ \\
+\jt for($i=1; i \leq 2^m)$) \{\\
+\jt \jt $R(S_i)= \sum_{j \in S_i} r_j;$ \\
+\jt \jt $B[S_i]= \sum_{j \in S_i} b_j;$ \\
+\jt \jt $c= B_x(z+R[S_i]) -b[S_i];$ \\
+\jt \jt $sum+= c;$\\
+\jt \jt \}\\
+\jt return $sum > {\frac {2^m} 2}$;\\
+\\
+Define the following algorithm:\\
+\\
+$RECOVER^{B_x, EQ_x}(1^n)$ \\
+\jt Pick $r_1, \ldots r_m \in [n]$ at random;\\
+\jt for($i=1; i \leq 2^m)$) \{\\
+\jt \jt $(b_1, \ldots, b_m)_2 = i-2;$\\
+\jt \jt for($k=1; k \leq n$)\\
+\jt \jt \jt $y^{(k)}= STRONG-SC^{B_x}(e_k, r_1, \ldots, r_m, b_1, \ldots, b_m);$\\
+\jt \jt $y= y^{(1)}||y^{(2)} || \ldots || y^{(n)};$\\
+\jt \jt if ($EQ_x(y)==1)$ \\
+\jt \jt \jt return $y$;\\
+\jt \jt \}\\
+\\
+{\bf Notation:}
+Let 
+$q_B$ be the number of calls to $B_x$,
+$q_E$ be the number of calls to $EQ_x$,
+$\epsilon$ be the advantage for $B_x$,
+$n$ the length of the strings and $t$  the running time of
+$RECOVER^{B_x, EQ_x}(1^n)$. We have the following:
+\\
+\\
+{\bf Theorem:} Let $m$ be a parameter and $M=2^m$.  There is an algorithm, $A$ which
+makes $q_B= nM$ calls to $B_x$, $q_E= M$ calls to $EQ_x$ and runs in time
+$t=O(nM^2)$ which determines $x$ with probability 
+at least $1-\delta, \delta= {\frac n {\epsilon^2 M}}$.\\
+\\
+First some lemmas and notation.  Let $R= \langle r_1, \ldots , r_m \rangle$ and
+$X_1, X_2, \ldots , X_M: S \rightarrow R$ be a set of real valued random variables on
+the sample space $S$.\\
+\\
+{\bf Lemma 1:} If 
+$X_1, X_2, \ldots , X_M: S \rightarrow R$ are pairwise independent and
+$X= X_1 + X_2 + \ldots + X_M$ then
+$Var(X)= Var(X_1) + Var(X_2 )+ \ldots + Var(X_M)$.
+\begin{quote}
+\emph{Proof:}
+$Var(X)= E(X^2)-E(X)^2= 
+E(\sum_{i,j} X_i X_j) -
+\sum_{i,j} E(X_i) E(X_j)
+= \sum_i [E(X_i^2) - E(X_i)^2]- \sum_{i\ne j} [E(X_i X_j)- E(X_i)E(X_j)]$.  The
+final bracketed sum is $0$ by pairwise independence.
+\end{quote}
+{\bf Lemma 2:} If 
+$X_1, X_2, \ldots , X_M: S \rightarrow R$ are pairwise independent, 
+$X= X_1 + X_2 + \ldots + X_M$  and $\mu= E(X)= \sum_{i=1}^M E(X_i)$ then
+$Pr(|x-\mu| \geq A) \leq {\frac {\sum_{i=1}^M Var(X_i)} {A^2}}$.
+\begin{quote}
+\emph{Proof:}
+By Chebychev, $Pr(|X-\mu| \geq A) \leq {\frac  {Var(X)} {A^2}}$ and by the previous lemma,
+$Var(X)= Var(X_1) + Var(X_2) + \ldots + Var(X_M)$.
+\end{quote}
+{\bf Lemma 3:} Let $M=2^m$.
+For any $z \in \{0, 1\}^n$,
+$Pr(STRONG-SC^{B_x}(z, r_1, \ldots, r_m, b_1, \ldots , b_m) 
+\ne (z,x)) \leq {\frac 1 {M \epsilon^2}}$.
+\begin{quote}
+\emph{Proof:} For $R= \langle r_1, r_2, \ldots, r_m \rangle$ and $S_1, S_2, \ldots,
+S_{2^m}$ a fixed enumeration of $[m]$, define a random variable $X_i(R)=1$ if
+$B_x(z+R[S_i])= (x,z)+ b[S_i]$ and $0$ otherwise.  $X_i(R)$ and $X_j(R)$ are pairwise
+independent since there is an $r_l \in R$ that is included in \emph{either} the sum
+$R[S_i]$ or $R[S_j]$ but not both.  $E(X_i)= Pr(z+R[S_i] \in Gd_B)= {\frac {1 + \epsilon} 2}$.
+Since $E(X_i^2)= E(X_i)$, $Var(x_i)= E(X_1^2)=E(X_i)^2= E(X_i)-E(X_1)^2= E(X_1)(1-E(X_i))=
+{\frac {1+\epsilon} 2}
+{\frac {1-\epsilon} 2} =
+{\frac {1-\epsilon^2} 4} $.  Note that $\mu= {\frac {M(1+\epsilon)} 2}$ and so by the
+previous lemma,  $P(X < {\frac {M} {2}}) =
+P(|X-\mu| > {\frac {M \epsilon} {2}})  \leq
+{\frac {M(1-\epsilon^2)/4} {(M \epsilon/2)^2}} \leq {\frac 1 {M \epsilon^2}}$.
+\end{quote}
+{\bf Proof of Theorem:} Let $M=2^m$.
+For any $z \in \{0, 1\}^n$,
+$Pr(RECOVER^{B_x, EQ_x}(1^n) \ne x) \leq {\frac n {M \epsilon^2}}$.
+\begin{quote}
+\emph{Proof:}
+The loop in $RECOVER$ calls $STRONG-SC^{B_x}$ $n$ times.  Each call is wrong with 
+probability at most ${\frac 1 {M \epsilon^2}}$ so the probability that $RECOVER$ returns
+the wrong answer is at most
+${\frac n {M \epsilon^2}}$.
+\end{quote}
+Note that obtaining $x$ with $p= {\frac 1 2}$ occurs with $M= 2n\epsilon^{-2}$ and the
+running time is $O(n^3 \epsilon^{-4})$ with
+$q_B= O(n^2 \epsilon^{-2})$ and
+$q_E= O(n \epsilon^{-2})$.

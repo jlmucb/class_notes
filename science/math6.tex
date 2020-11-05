@@ -1,0 +1,1549 @@
+\section{Algebraic Geometry}
+\subsection{Basics}
+{\bf Theorem:}
+Every conic in the affine space over $R$ is equivalent under an affine transformation to
+one of the following:
+(1) $X^2 + Y^2 + P = 0$ (ellipse, point, empty set),
+(2) $X^2 - Y^2 + P = 0$ (hyperbola, intersecting lines),
+(3) $X^2 + Y + P = 0$ (parabola),
+(4) $X^2 + P = 0$ (parallel lines, point empty).  In projective space (1), (2), (3) are
+equivalent. In the projective space over ${\mathbb C}$, they are all projectively equivalent.
+\\
+\\
+{\bf Definitions:}
+Let $R=k[x_1, \ldots, x_n]$, $W= k^n= {\mathbb A}^n$ for the \emph{affine} setup and
+$R=k[x_0, x_1, \ldots, x_n]$ (where $f \in R$ is a \emph{homogeneous} polynomial),
+$W= k^{n+1} \setminus \{ {\vec 0}\}= {\mathbb P}^n$ under the usual equivalence 
+for the \emph{projective} setup.
+If $S \subseteq R$, $V(S)= \{ x \in W: f(x)=0, \forall f \in S \}$.  $V(S)$ is an
+\emph{affine} (resp \emph{projective}) \emph{algebraic set}.  An algebraic set
+is \emph{irreducible} if is cannot be expressed as the union of two non-trivial
+algebraic sets.  An affine irreducible algebraic set is an \emph{algebraic variety}.
+If $S= \{f\}$, $V(S)$ is called a \emph{hypersurface}.
+If $V \subseteq W$, $I(V)= \{ f \in R: f(x)=0, \forall x \in V \}$.
+If $\langle S \rangle= I$ as an ideal in R, $V(S)=V(I)$.
+$rad(I)={\sqrt I}= \{a: a^n \in I\}$.  $I$ is a \emph{radical} ideal if $I={\sqrt I}$.
+Roughly, radical ideals $\leftrightarrow$ varieties,
+prime ideals $\leftrightarrow$ subvarieties,
+maximal ideals $\leftrightarrow$ points.  
+If $V$ is an algebraic variety, $I(V)$ is a prime ideal (proof below)
+and $\Gamma[V]= R/I(V)$ is
+called a \emph{coordinate ring}.
+${\overline R}= k(x_1, \ldots, x_n)$ is the quotient field of $R$; members of ${\overline R}$
+induce \emph{rational} maps.
+${\mathcal O}_P(V)$ denotes the rational functions on $V$ defined on $P$.
+The \emph{Zariski} topology on $W$ is defined by identifying the $V(S)$ with
+\emph{closed sets}.
+\\
+\\
+{\bf Theorem:}
+Let $k$ be algebraically closed. 
+There is a one to one correspondence between polynomial maps $\varphi: V \rightarrow W$
+and the homomorphisms ${\tilde {\varphi}}: \Gamma[W] \rightarrow \Gamma[V]$.
+Let ${\mathcal T}(V,k)= \{f: f:V \rightarrow W \}$.  If $\varphi: V \rightarrow W$,
+$\tilde {\varphi}: {\mathcal T}(W,k) \rightarrow {\mathcal T}(V,k)$.  
+\begin{quote}
+\end{quote}
+{\bf Theorem:}
+$k \subseteq \Gamma[V)] \subseteq {\mathcal O}_P(V) \subseteq k(V)$.
+\begin{quote}
+\end{quote}
+{\bf Definitions:}
+Two affine varieties
+$V, W$ are \emph{isomorphic} if $\exists \phi, \psi: 
+\phi \circ \psi= id_W$. Suppose $F_i$ is a collection of functions. 
+The \emph{multiplicity of a root} at a point ${\vec a}$ is
+$f(t)= gcd(F_{1}({\vec a} + L(t)), \ldots , F_{m}({\vec a} + L(t)))$ where $L(t)$ is a line
+through $O={\vec 0}$.
+By transferring $P$ to ${\vec 0}$ and express $F= F_m + \ldots + F_n$, $F_m$ is
+a form of degree $m$.
+$L$ touches $X$ at $O$ if its
+intersection multiplicity is greater than 1.
+Locus of points touching $X$ at $x$ is the \emph{tangent space}, $\Theta_{x,X}$.
+Two varieties $V, W$ are \emph{birationally equivalent} if there are \emph{rational} maps
+$\varphi_1: V \rightarrow W$ and $\varphi_2: W \rightarrow V$ between them.
+$f(x,y)$ is \emph{rational} if $\exists \phi, \psi$: $f(\phi(t), \psi(t))=0$.
+Any conic (2nd order equation) in two variables has either infinitely many
+rational solutions or none.
+\\
+\\
+{\bf Theorem:}
+Two curves are birationally equivalent iff their fields of functions are isomorphic.
+\begin{quote}
+\end{quote}
+{\bf Theorem:}
+Every irreducible curve of degree 2 is rational.
+$x^{n}+y^{n}=1$ is not rational for $n>2$.
+\begin{quote}
+\end{quote}
+{\bf Definition:} Suppose $\phi: A^n(k) \rightarrow A^m(k)$, $f \in k[y_1, \ldots, y_m]$; 
+the \emph{pullback} is $\phi^*: \phi^* \circ f= f \circ \phi$.
+A \emph{discrete valuation ring (``DVR'')} is a Noetherian,
+local domain whose maximal ideal is principal.
+If a form, F, does not vanish on an irreducible projective variety
+X then $dim(X_{F})= dim(X)-1$.
+\\
+\\
+{\bf Theorem:}
+The following are equivalent: (1) The set of non-units in $R$
+form an ideal; (2) $R$ has a unique maximal ideal.  
+The following are equivalent and define a DVR: 
+(1) $R$ is Noetherian and its maximal ideal is principal; (2) 
+$\exists t \in R:
+\forall  0 \ne z \in R: z=ut^n$, where $u$ is a unit.  
+\begin{quote}
+\emph{Proof:}
+We show $1 \rightarrow 2$.  First uniqueness.  If $ut^m=vt^n$ for units $u,v$,
+$ut^{m-n}=v$ but then $t^{m-n}$ is a unit.  For existance, since ${\mathfrak m}= (t)$,
+for a non-unit, $z \in {\mathfrak m}$, 
+$z= z_1t$ and if $z_i$ is a non-unit, $z_{i+1}= z_i t$ so
+$(z_1) \subset (z_2) \subset \ldots$ and since $R$ is Noetherian eventually
+$(z_n)=(z_{n+1})$.  $z_{n+1}= vz_{n}, v \in R$ $z_n= t vz_n$ so $vt=1$ but $t$ is not a unit.
+\end{quote}
+{\bf Theorem:} The pole set is an algebraic variety.  
+$\Gamma[V]= \bigcap_{P \in V} {\mathcal O}_P(V)$.
+\begin{quote}
+\end{quote}
+{\bf Theorem:}
+If $S_1 \subseteq S_2$ then $I(S_1) \supseteq I(S_2)$.  Every algebraic set
+is the intersection of hypersurfaces.
+\begin{quote}
+\emph{Proof:}
+By the Hilbert basis theorem, $I(V)= (f_1, f_2, \ldots, f_r)$ and so
+$V= V(f_1) \cup \ldots \cup V(f_r)$.
+\end{quote}
+{\bf Theorem:}
+Every closed set is the union of finitely many irreducible ones.
+Every irreducible closed set is birationally isomorphic to a hypersurface in $A^{n}$.  
+\begin{quote}
+\end{quote}
+{\bf Theorem:}
+(1) An algebraic set, $V$, is irreducible iff $I(V)$ is prime.
+(2) If $k$ is algebraically closed, $I(V(f))= (f)$.
+(3) If $I$ is radical, $I(V(I))= I$.
+\begin{quote}
+\emph{Proof:}
+(3) follows from Nullstellensatz.
+\end{quote}
+{\bf Theorem:}
+Let $R=k[x,y]$. If $f, g \in R$ have no common factor, $V(f) \cap V(g)$ is finite.
+\begin{quote}
+\emph{Proof:}
+$k(x)[y]$ is a PID, $Af+Bg=1$ over $k(x)$; now clear denominators.
+\end{quote}
+{\bf Theorem:}
+If $I$ is prime, $V(I)$ is irreducible.  There is a $1-1$ correspondence between
+prime ideals and irreducible algebraic sets; there is a $1-1$ correspondence between
+maximal ideals and points.
+\begin{quote}
+\end{quote}
+{\bf Theorem:}
+Let $V$ be an algebraic set then $V= V_1 \cup \ldots V_r$, $V_i$, irreducible,
+$V_i \nsubseteq V_j, i \ne j$.
+\begin{quote}
+\emph{Proof:}
+We use the following (follows from axiom of choice).  Let 
+${\mathcal S}$ be a non-empty collection of ideals in a Noetherian ring, $R$,
+then 
+${\mathcal S}$ has a maximal element.  From this we conclude and collection of
+algebraic sets has a minimal element. \\
+Now let
+${\mathcal S}= \{ V:
+\textnormal{algebraic, } V
+\textnormal{ is not a finite union} 
+\textnormal{ of irreducible}
+\textnormal{ algebraic sets} \}$ .
+Let $V$ be a minimal element of
+${\mathcal S}$.  $V= V_1 \cup V_2$ and this is a contradiction.  For the second condition,
+throw out the $V_i$ violating it.
+\end{quote}
+{\bf Theorem:}
+${\mathcal O}_P(V)$ is a Noetherian local domain.  Further, the maximal ideal
+${\mathfrak M}_P(V)$ is generated elements of $f \in \Gamma[V]$ for which $f(P)= 0$.
+\begin{quote}
+\emph{Proof:}
+STS $I \subseteq
+{\mathcal O}(V)$ is finitely generated.
+Since $\Gamma[V]$ is Noetherian, $(f_1, \ldots, f_r)= I \cap \Gamma[V]$.  Claim
+$(f_1, \ldots, f_r)= I$ and an
+${\mathcal O}(V)$ ideal, for if $f \in I$, $\exists b \in \Gamma[V]: b \ne 0$ and
+$bf \in \Gamma[V]$ so $bf= \Gamma[V] \cap I$, $bf= \sum_i a_i f_i, a_i \in \Gamma[V]$ and
+$f= \sum_i {\frac {a_i} {b_i}} f_i$.
+\end{quote}
+{\bf Definition:}
+$I(P, F \cap G)= dim_k({\mathcal O}_P({\mathbb A}^2)/(F, G)$.
+\\
+\\
+{\bf Theorem:}
+$|V(I)| < \infty$ iff $R/I$ is finite dimensional over $k$.
+\begin{quote}
+\emph{Proof:}
+If $P_1, \ldots, P_r \in V$, we can fine $f_i \in R: f_i(p_j)= \delta_{ij}$ so
+$r \le dim_k(R/I)$.
+On the other hand,
+if $V(I)= \{ P_1 , P_2 , \ldots , P_r \}, P_i= (a_{i1}, a_{i2}, \ldots, a_{in})$,
+define $f_j= \prod_i (x_i - a_{ij}), F_j \in I(V(I))$ so $F_j^N \in I, {\overline F}_j= 0$
+and ${\overline X}_j^{rN}$ is a $k$-linear combination of
+$ {\overline 1}, {\overline x}_j^{1}, \ldots, {\overline x}_j^{rN-1} $ and
+$ {\overline x}_1^{m_1}, \ldots, {\overline x}_n^{m_n}; m_i < rN $ is a set of generators.
+\end{quote}
+{\bf Theorem:}
+Let $I$ be an ideal of $R$ ($k$, algebraically closed), $V(I)= \{P_1 , \ldots , P_N
+\}$ and $
+{\mathcal O}_i= {\mathcal O}_{P_i}({\mathbb A}^n) $,
+$\exists \varphi: R/I \rightarrow \prod_i 
+{\mathcal O}_i/(I{\mathcal O}_i)$ induced
+from the natural homomorphisms $\varphi_i: R \rightarrow {\mathcal O}_i/(I{\mathcal O}_i)$.
+\begin{quote}
+\end{quote}
+{\bf Theorem:} $P$ is a simple point of $f$ iff ${\mathcal O}_P(V(f))$ is a DVR.
+If $L$ is a non-tangent line $l + {\mathcal O}_P(V)$ is a uniformizing parameter.
+\begin{quote}
+\emph{Proof:}
+WLOG, $P=(0,0), L= ax$ and $y=0$ is the tangent.
+${\mathfrak M}_P(V(f))= (x,y)$ whether $P$ is simple or not.
+Suppose $f= y(1+g(x,y)) - x^2 h(x)$ and $yg= x^2h \in \Gamma(f)$ so
+$y= x^2 h g^{-1}$ since $g(P) \ne 0$ and 
+${\mathfrak M}_P(V(f))= (x)$.
+\end{quote}
+{\bf Theorem:}
+Suppose ${\mathfrak M}= {\mathfrak M}_P(F)$ denotes the maximal ideal of 
+${\mathcal O}= {\mathcal O}_P(F)$.
+$ 0 \rightarrow {\mathfrak M}^n/{\mathfrak M}^{n+1}
+\rightarrow {\mathcal O}/{\mathfrak M}^{n+1}
+\rightarrow {\mathcal O}/{\mathfrak M}^{n} \rightarrow 0$.
+$\chi(n)= dim({\mathcal O}/{\mathfrak M}^n)=$ Hilbert polynomial.  
+\\
+\\
+{\bf Theorem:}  Let $P$ be a point on an irreducible curve, $f$, for all sufficiently
+large $n$, $m_P(f)= dim_k({\mathfrak M}_P(f)^n/{\mathfrak M}_P(f)^{n+1})$.
+\begin{quote}
+\end{quote}
+{\bf Divisors:}
+Suppose $E: y^2= x^3-x$ and $f(x,y)= {\frac x y}$.  On $E: {\frac x y}= {\frac y {x^2-1}}$.
+If $u_P$ is a \emph{uniformizer}, $f= u_P^r g, r \in {\mathbb Z}, g(P) \ne 0, \infty$ and
+we define $ord_P(f)=r$.  In this example, $u_{(0,0)}= y$ is a uniformizer at $(0,0)$ of
+$E: y^2= x^3-x$.  Since $x= y^2({\frac 1 {x^2-1}})= y {\frac y {x^2-1}}= {\frac x y}y=x$,
+$ord_{(0,0)}(x)= 2$.  In general, for $P=(x_0, y_0) \in E$, $u_P$ can be taken as any line
+through $P$ not tangent to $E$, thus we can take $u_P= x-x_0$ when $y_0 \ne 0$ and
+$u_p= y$ when $y_0=0$.  For example, if $E: y^2= x^3 + 72$ then $(-2, 8) \in E$.
+Since $f(x,y)= x+y-6$ vanishes at $(-2,8)$ and
+$f(x,y)= (x+2) + (y-6) = (x+2)( 1 + {\frac {(x+2)^2 - 6(x+2) + 12)} {y-8}})$,
+$ord_P(f)=1$, $u_{\infty}= {\frac x y}$.
+\\
+\\
+{\bf Weak Bezout:} If two curves of dimension $m$ and $n$ meet at more than $mn$
+points (counting multiplicity) then they have a common component.
+\begin{quote}
+\emph{Proof:}
+Strategy of Proof: (S-1) $\#(C_1 \cap C_2 \cap {\cal A}^2) \le
+dim({\frac R {(f_1 , f_2)}}) \le n_1 n_2$, (S-2) first inequality is an equality,
+(S-3) first inequality can be strengthened to
+$I(C_1 \cap C_2,P) \le dim({\frac R {(f_1 , f_2)}})$, 
+(S-4) inequality in 4 is an equality,
+(S-5) $I$ is invariant under projective transformations --- transform so the line at
+infinity does not intersect $C_1 \cap C_2$.
+Notation: Let $f_1 (x, y)$, and $f_2 (x, y)$, defining curves
+$C_1$ and $C_2$, have dimension $m, n$ respectively.
+$R= k[x, y]$, $(f_1 (x, y), f_2 (x, y))= R f_1 + R f_2$.
+\\
+\\
+\emph{S-1:}
+$C_1 \cap C_2 \leq dim_k ({\frac {R} {(f_1 , f_2 )}}) \leq mn$. [Argument:
+If $P_1, P_2, \ldots P_r$ are distinct, $\exists h_i (x,y)$ with
+$h_i (P_j ) = \delta_{ij}$, so if there are $r$ common roots of $f_1$ and
+$f_2$,
+$\sum_{i=1}^r c_i h_i (x,y) = r_1 f_1 (x,y) + r_2 f_2 (x,y)$ implies $c_i=
+0$.] \\
+Let $R_d$ be polynomials of degree $\leq d$ then
+$dim_k (R_d )= \phi (d) = {\frac {(d+1)(d+2)} {2}}$.
+Let $W_d = R_{d-m }f_1 + R_{d-n}f_2$, for $d \geq (m+n)$.
+$R_{d-m}f_1 \cap R_{d-n} f_2 = R_{d-m-n} f_1 f_2$.
+$dim_k ( R_d ) - dim_k (W_d )= mn$.
+$g= \sum_i^l c_j g_j$ has a non-trivial dependency for $l>mn$ with
+$g \in W_d$.
+\\
+\emph{S-2:}
+Second inequality is equality if $C_1 \cap C_2$ don't meet at infinity. 
+Let $f^*$ be the homogeneous polynomial consisting of the highest degree terms
+in $f$.  If $\infty \notin C_1 \cap C_2$ then $f_1^*$, $f_2^*$ have no common factor.
+If $f_1^*$ and $f_2^*$ have no common factor then $(f_1 , f_2) \cap R_d= W_d$.
+Under the conclusion of the previous sentence, if $d \ge n_1 + n_2$ then
+$dim({\frac R {(f_1 , f_2)}}) \ge n_1 n_2$ which proves the result.
+\\
+Define ${\mathcal O}_P= \{ F \in K(x, y): F(P)$ exists $\}$, 
+${\mathfrak M}_P= \{ f \in {\mathcal O}_P: f(P)= 0 \}$.
+${\mathfrak M}_P$ is a unique maximal ideal of $O_P$.  $(f_1, f_2)_P= f_1 O_P + f_2 O_P$.
+Now define $I(C_1 \cap C_2; P)= dim( {\frac {{\mathcal O}_P} {(f_1 , f_2)_P}})$.
+\\
+\emph{S-3:} 
+${\frac {{\mathcal O}_P} {(f_1 , f_2)_P}} \le {\frac {R} {(f_1, f_2)}} < \infty$.
+${\mathcal O}_P = (f_1 , f_2)_P +R$.
+If $P \notin C_1 \cap C_2$ then $I(C_1 \cap C_2, P)=0$;
+If $P \in C_1 \cap C_2$ then $(f_1 , f_2)_P \subset {\mathfrak M}_P$;
+$I(C_1 \cap C_2; P) = 1 + dim({\frac R {(f_1 , f_2)_P}})$ iff
+$(f_1 , f_2) = {\mathfrak M}_P$.
+If $P \in C_1 \cap C_2$ and $r \ge dim({\frac {{\mathcal O}_P} {(f_1 , f_2)_P}})$ then
+${\mathfrak M}_P^r \subset (f_1, f_2)_P$.  If 
+$P, Q \in C_1 \cap C_2 \cap {\cal A}^2, \psi \in {\mathcal O}_P$
+then $\exists g \in R$: 
+$g= \psi \jmod{(f_1 , f_2)_P}$ and 
+$g= 0 \jmod{(f_1 , f_2)_Q}$ if $P \ne Q$.
+\\
+\emph{S-4:} Kernel of natural map $R \rightarrow \prod_{P \in (C_1 \cap C_2 \cap {\cal A}^2)}
+{\frac {{\mathcal O}_P} {(f_1 , f_2)_P}}$ is just $(f_1 , f_2)$ where the natural map is:
+$f \mapsto (\ldots, f \jmod{(f_1, f_2)}, \ldots)$.  
+$dim({\frac R J})
+= \sum_P dim( {\frac  {{\mathcal O}_P} {(f_1 , f_2)}})
+= \sum_P I(C_1 \cap C_2, P)$.  The last equality holds iff $J \subset (f_1 , f_2)$.
+Define $L= \{ g \in R : gf \in (f_1 , f_2) \}$ and $1 \in L$.  $L$ is an ideal
+$(f_1 , f_2) \subset L \subset R$.  
+$P \in {\cal A}^2$, $\exists g \in L: g(P) =0, P \in L$.  
+$\exists a \in k: 1 \notin L +R(x-a)$ and
+$\exists b \in k: 1 \notin L +R(x-a) + R(y-b)$.
+\\
+\emph{S-5:}
+Properties of intersection multiplicity.  $I((y-x^m), y; 0)= m$.  Show the definitions
+make sense and that there is a line $L$ which does not contain any of the intersection
+points.  The proof requires knowing there are only a finite number of points in the
+intersection.
+\end{quote}
+{\bf Genus} for non-singular curve: $g_f = {\frac {(n-1)(n-2)} {2}} - d$.
+$L(D)= \{ f: K(C)^*: div(f) \ge -D \}$.  $l(D)= dim (L(D))$.
+\\
+\\
+{\bf Reimann Roch Theorem:} Let
+$X$ be a non-singular projective plane curve.  $\exists g \ge 0: \forall D,
+dim_k(L(D)) \ge deg(D)+1-g$.  The minimum such $g$ is called the genus.
+\begin{quote}
+\end{quote}
+{\bf Resultants:} 
+The $r$ forms $f_1,f_2,...,f_r$ with indeterminate coefficients possess a resultant
+system of integral polynomials $b_k$ such that for special values of the 
+coefficients in $K$ (algebraically closed).  
+The vanishing of all resultants is a necessary and 
+sufficient condition for
+$f_1= f_2= ... =f_r= 0$ to have a solution $\ne 0$.  The $b_k$ are homogeneous
+in the coefficients of every form $f_i$ and 
+satisfy $x_k^{s_r}b_k=0 \jmod {(f_1, f_2,...,f_r)}$.  
+\\
+\\
+{\bf Bezout's Theorem.}  If $f, g$ are two curves of degree $n,m$ respectively that
+have no common component then they intersect in $mn$ points counting multiplicity.
+Notes: A homogeneous system 
+$f_1= f_2= ... =f_r= 0$ has solutions
+$(\xi_1^{(a)}, \xi_2^{(a)},...  \xi_n^{(a)}), a= 1,2,3,...,q$.  
+Set $l_x=u_1x_1+u_2x_2+...+u_nx_n$.
+Form resultant system $b_1(u), ..., b_t(u)$.  The common zeros of $b_1, ...$ are
+$\prod l_a$.  By Nullstellensatz, 
+$(\prod_a l_a)^{\tau}=0 (b_1(u),b_2(u),...,b_t(u))$
+$\rightarrow D(u)= \prod {l_a}^{\rho_a}$ and
+$(b_i(u))^{r_i}=0 (\prod l_a)$
+$\rightarrow D(u)= (f_1,...,f_r,l)$.  $R(u)$ is the same as the u-resultant so
+$\sum \rho_a$ is the degree of $R(u)= \prod deg(f_i)$.
+\\
+\\
+\emph{Example:} $F_1(x,y,z)=x^2+y^2-10z^2=0$,
+$F_2(x,y,z)=x^2+xy+2y^2-16z^2=0$, add $F_3(x,y,z)= u_0z+u_1x+u_2y$.
+$Res_{1,2,2}(F_0,F_1,F_2)=(u_0+u_1-3u_2)(u_0+2{\sqrt 2}u_1+{\sqrt 2}u_2)
+(u_0-2{\sqrt 2}u_1-{\sqrt 2}u_2)$.  
+Solutions are $(1,-3,1)$, $(-1,3,1)$, 
+$(2{\sqrt 2}, 2{\sqrt 2}, 1)$,  
+$(-2{\sqrt 2}, -2{\sqrt 2}, 1)$.
+\\
+\\
+\emph{Example proof with generics:} $F_1(X,Y,Z)=X-Y^2$, $F_2(X,Y,Z)=XY-Z$,
+$(X,Y,Z) \rightarrow (t^2,t,t^3)$ is generic because it is a solution for any
+specialization of $t$ and any solution is obtainable this way.
+\\
+\\
+Let $D$ be a domain and $\Omega=\Omega_D= {\overline {D(t_1,t_2,...)}}$ is called a universal
+field.  Note that $\Omega \leftrightarrow$ {prime ideals over} $D[X_1,...]$.
+\\
+\\
+{\bf Theorem:} $x_1, ... x_n \in \Omega$.  $I= \{ f: f(x_1,...,x_n)=0 \}$ is a prime ideal.
+If $I$ is a prime ideal and $1 \notin I$ then $I$ has a generic 0.  Any extension
+$K(\alpha_1 , ..., \alpha_m)$ can be embedded in $\Omega$.
+\\
+Hints: look at $E=D[X]/I$.  Under this homomorphism the image of $(X_1,...X_n)$ is generic.
+\\
+\\
+{\bf Theorem:} If $\xi_1 ,..., \xi_n$ are elements of an arbitrary extension of $K$ then
+If $\Re =K[X_1,...,X_n]$ and $\wp= \{ f: f(\xi_1,...,\xi_n)=0 \}$.  
+$1 \notin \Re$ and $\wp$ is a prime ideal.  Every prime ideal has a generic element.
+\begin{quote}
+\end{quote}
+{\bf Theorem:}  Any ideal $g=(f_1, ..., f_n)$ which has no zeros in $\Omega$ is the unit ideal.
+\emph{Proof:} Otherwise a maximal ideal would correspond to a non-zero generic point.
+\begin{quote}
+\end{quote}
+{\bf Extension of Nullstellensatz}:  If $p_1, ..., p_s$ all vanish at the common zeros of
+$(f_1,...,f_n)$, then $\exists q$ such that powers of the $p_i$'s of degree $q$
+are in $(f_1,...,f_n)$.
+\begin{quote}
+\emph{Proof:}  For $s=1$, this is the simple Nullstellensatz.  Let the exponent for each $i$ be
+$q_i$.  Set $q= q_1 + q_2 + ...+ q_n -n +1$.
+Nullstellensatz bound: $\rho \leq 13 d^n$ where $d$ is the degree and $n$ is the number of
+variables.
+\end{quote}
+{\bf Theorem:}  
+Let $N_q$ be the number of products $X_j$ of degree $q$.
+Suppose $F_1, F_2,..., F_r$ are forms.  $(0,...,0)$ is the only common zero
+iff all products $X_j$ can be expressed as linear combinations of the $X_{ki}F_i$ 
+with coefficients in $K$.
+Note:  This means they are linearly independent.  So there are other common zeros is
+there are fewer than $N_q$.  Note that $X_1, ..., X_n$ satisfy the extension conditions.  
+If the $X_{ki}F_i= \sum a_{kij}X_j$
+are not linearly independent, the determinant families, $R_i(a)$, form a resultant set.
+\begin{quote}
+\end{quote}
+{\bf Multivariate resultants:}  If we fix degrees 
+$d_0,d_1, \ldots d_n$ 
+then there is a unique
+polynomial $Res \in {\mathbb Z}[u_i , \alpha]$ such that (a) if $F_0, F_1, \ldots , F_n$
+are homogeneous polynomials of degrees
+$d_0,d_1, \ldots d_n$ then $F_0= \ldots = F_n=0$ has a nontrivial solution over
+${\mathbb C}$ iff 
+$Res(F_0, \ldots , F_n)=0$, (b) 
+$Res(x_0^{d_0}, \ldots , x_n^{d_n})=1$, (b) 
+, (c) $Res$ is irreducible
+in ${\mathbb C}[u_i, \alpha]$.  If $PP=PP(x_1, x_2, \ldots, x_n)$ is a set of
+power products in the $x_i$, there are $N_m= {{m+n-1} \choose {n-1}}$  $PP$'s of degree
+$m$.  \emph{Example:} 
+$A_3=a_3x^2b_3y^2+c_3z^2$,
+$A_2=a_2x+b_2y+c_2z$,
+$A_1=a_1x+b_1y+c_1z$.  $S_i= {\frac {PP_i^d} {x_i^d}}$,
+$S_1= \langle x^2, xy, xz \rangle, S_2=\langle y^2, yz \rangle, S_3= \langle z^2 \rangle$.
+\\
+\\
+$\left(
+\begin{array}{c|cccccc}
+ & x^2 & xy & xz & y^2 & yz & z^2 \\
+\hline
+xA_1 & a_1 & b_1 & c_1 & 0 & 0 & 0 \\
+yA_1 & 0 & a_1 & 0 & b_1 & c_1 & 0 \\
+zA_1 & 0 & 0 & a_1&  0 & b_1 & c_1 \\
+yA_2 & 0 & a_2 & 0 & b_2 & 0 & 0 \\
+zA_2 & 0 & 0 & a_2 & 0 & b_2 & c_2 \\
+A_3 & a_3 & 0 & 0 & b_3 & 0 & c_3 \\
+\end{array}
+\right)
+$.
+\subsection{Elliptic Curves}
+{\bf Basic Definitions:}  An \emph{elliptic curve} is a smooth projective curve of
+genus $1$ with a distinguished point $O$.  In the plane, (affine)
+elliptic curves are described by an equation of the form
+$E(F): y^2 +a_1 xy + a_3 = x^3 +a_2 x^2 + a_4 x + a_6$, $a_i \in F$ 
+called the \emph{general affine Weierstrauss form (GWF)}.
+An equation of the form
+$E(F): y^2 = x^3 + a x + b$, $a, b \in F$, is said to be in
+\emph{special affine Weierstrauss form (SWF)} and
+sometimes we denote this curve by $E_{a,b}(F)$.  
+If $P=(x_P, y_P)$ is a solution of
+the SWF, $P$ is said to be on the elliptic curve $E_{a,b}(F)$.
+\\
+\\
+{\bf Definitions:}
+\emph{Projective coordinates:}
+$(X_1 , Y_1, Z_1) \sim (X_2 , Y_2, Z_2)$, 
+$X_1 = \lambda^c X_2$, $Y_1 = \lambda^d Y_2$, $Z_1 = \lambda Z_2$, 
+$c,d \in {\mathbb Z}^{>0}$ and usually $c=d=1$.
+\emph{Jacobian projective coordinates:} $\infty= (1:1:0)$ and $-(X:Y:Z)=(X:-Y:Z)$.
+\emph{Standard projective coordinates:} $\infty= (0:1:0)$ and $-(X:Y:Z)=(X:-Y:Z)$.
+\\
+\\
+{\bf Addition Formula for SWF:}
+$Y^{2}Z= X^{3}+aXZ+bZ^{3}$, $P_{i}= (x_{i},y_{i})$, $O=(0:1:0)$.
+We want to calculate $R=P_1+P_2$.  If $P_1$ or $P_2$ is $O$, result is obvious.
+If $x_1=x_2$ and $y_1= - y_2$, $R=O$.
+If $x_1 \ne x_2$, set
+$\lambda ={\frac {y_{2}-y_{1}} {x_{2}-x_{1}}}$.  If $x_1 = x_2$ and
+$y_1 \ne - y_2$, set $\lambda= (3{x_1}^2+a)(y_1+y_2)^{-1}$.
+In either case, $x_3= \lambda^2 - x_1 -x_2$,
+$y_3= \lambda(x_1-x_3)-y_1$ and $R= (x_3 : y_3 : 1)$.
+$|\epsilon_{p}| \leq 2{\sqrt p}$.  $E_{a,b}(F)$
+defined by $f(x,y)= y^2-(x^3+ax+b)$ is \emph{non-singular}
+if there is no point $(x,y)\in E_{a,b}(F)$ such that
+${\frac {\partial f} {\partial x}} (x,y)=0$ and
+${\frac {\partial f} {\partial y}} (x,y)=0$ or equivalently
+provided
+$x^3_ax+b$ does not multiple roots.
+$f(x,y)$ has multiple roots iff $-(4a^3 + 27 b^2)=0$.  
+Usually we pick $Z$ axis tangent to
+$O$ and then $(0,1,0)$ as the point at $\infty$. 
+\\
+\\
+{\bf Theorem:}  
+If $C_1$ and $C_2$ are two non cubic curves that meet
+at eight points, they meet at nine points (counting multiplicity).
+\begin{quote}
+\emph{Proof:}
+$C_1: a_1x^x+a_2y^3+ \ldots + a_{10}xyz$.
+$C_2: b_1x^x+b_2y^3+ \ldots + b_{10}xyz$.  The set of cubics passing through eight
+points form a two parameter family: $C= \alpha C_1 + \beta C_2$.
+$C_1(P_i)=0=C_2(P_i), i \le 8 \rightarrow C(P_9)=0$.
+\end{quote}
+{\bf Observation:}  The ``eight point theorem'' gives a quick proof of associativity by
+looking at the intersection of six lines (read down and across) in the following:
+$$
+\left(
+\begin{array}{l | c c c}
+ & l: & m: & n:\\
+\hline
+r: & P & X & Q+R\\
+s: & Q & R & {\overline {QR}}\\
+t: & {\overline {PQ}} & P+Q & O\\
+\end{array}
+\right)$$
+Here, $X= {\overline {P(Q+R)}}= {\overline {R(P+Q)}}$ and the eight point theorem
+is applied to 
+$C_1: l(X,Y,Z) m(X,Y,Z) n(X,Y,Z)= 0$ and $C_2: r(X,Y,Z) s(X,Y,Z) t(X,Y,Z)= 0$.
+\\
+\\
+{\bf Definition:}  $Z=0$ is tangent to PSWF at $[0,1,0]$ but the tangent line intersects
+the curve three times. This is called a \emph{flex point}.
+\\
+\\
+{\bf Mordell's Theorem:}  If a non-singular cubic curve over $k$ has a rational point then
+the rational points are finitely generated as a $k$-module.
+Use $H({\frac m n})= max(|m|, |n|)$. Let $P=(x,y)$.  Define $H(P)= H(x)$ and
+$h(P)= log(H(P))$.  From now on assume $C$ is given by
+$y^2= x^3 + ax^2 + bx +c$.
+\begin{quote}
+\emph{Proof:} To prove it, need four lemmas:
+\\
+\\
+\emph{Lemma 1:} There are a finite number of points $P$: $h(P) < M$.
+\\
+\\
+\emph{Lemma 2:} Fix $P_0$ on $C$, $\exists K_0(P_0 , a, b, c):  h(P+P_0) \leq
+2h(P)+ k_0$.
+\\
+\jt Show that if $P$ is on $C(Q)$, $P=({\frac m {e^2}}, {\frac n {e^3}})$.  Then
+show $n \leq KH(P)^{\frac 3 2}$.  Use this to get
+$k_0$.
+\\
+\\
+\emph{Lemma 3:} Fix  $\exists K(a, b, c):  h(2P) \geq
+4h(P) - K$.
+\\
+\\
+\emph{Lemma 4:} $|\{C(Q):2C(Q)\}| < \infty$.
+\\
+\\
+For lemma 4, assume $y^2= x^3+ax^2+bx$ (so the curve
+always has a rational point), and use $\Gamma= C(Q)$ and
+$\Delta=2\Gamma$.  Define the map
+$\phi(x,y)= (x+a+{\frac b x}, y{\frac {x^2 - b} {x^2}})$.
+Define $\psi$ similarly.  Note that $\psi ( \phi (P))= 2P$ and
+$ker(\phi) = \{0, (0,0)\}$. ${Q^*}^2$ $\alpha(x,y)= x \jmod
+{{Q^*}^2}$.  $im(\phi) \subseteq ker(\alpha)$.
+Let $p_i | b$, $i= 1,2, \ldots t$ then $|\Gamma: \phi(\Gamma)| \leq
+2^{t+1}$.
+$|\Gamma:\phi(\Gamma)| \leq 2^{t+1}$.  Use the following lemma: If $A$ and
+$B$
+are abelian $A \rightarrow B \rightarrow A$ and
+$|B:\phi(A)| < \infty$,
+$|A:\phi(B)| < \infty$, then $|A:2A| \leq
+|B:\phi(A)| |A:\phi(B)|$.
+\\
+\\
+\emph{Proof given lemmas:} Let $Q_0 , \ldots, Q_{m-1}$ be the coset
+representatives.  $P-Q_{i_1}= 2P_1$ is in the subgroup, $P_1-Q_{i_2}= 2P_2$,
+repeatedly doing this yields:
+$P= Q_{i_1} + 2 Q{i_2} + \ldots + 2^{m-1}Q_{i_m} +
+2^m P_m$, $h(P_j) \leq {\frac 3 4} h(P_{j-1})$.
+Since there are a finite
+number of $Q_i$ there's a $k'$ so that $h(P-Q_i) \leq 2 h(P) + k'$ for all
+$P$.  Using the inequalities $h(P_j) \leq {\frac {h(P_{j-1})} 2} +
+{\frac {k+k'} 4}$.
+So the group is generated by the $Q_i$ and the (finite number
+of) points of $ht \leq {\frac {k+k'} 4}$.
+\end{quote}
+{\bf Theorem:}
+Let $C$ be a non-singular cubic curve $C: y^2= x^3 + ax^2 + bx +c$.  Set
+$D= -4a^3 c + a^2 b^2 + 18 abc -4b^3 -27c^2$.  Let $\Phi$ be the set of
+points of finite order.  Let $\phi$ be the reduction map mod $p$.  If
+$(p, 2D)= 1$ then $\phi$ is an injection into $C(F_p )$.
+\\
+\\
+{\bf Nagel-Lutz Theorem:} Same as above with $P(x,y)$ as a rational point of finite order
+$y=0$ or $y|d^2$.
+\begin{quote}
+\end{quote}
+{\bf Functions on Elliptic Curves:}
+$f_1(x,y) = {\frac {s(x,y)} {t(x,y)}}$ and
+$f_2(x,y) = {\frac {u(x,y)} {v(x,y)}}$ are said to be \emph{equivalent} on the
+elliptic curve $E$, denoted by $f_1 \sim_E f_2$ iff $(sv-ut)= 0 \jmod {E}$.
+Polynomials can be uniquely $x$ or $y$ reduced but not rational functions.
+\emph{Examples:}  Let $E: y^2-(x^3+x^2+x)$ then
+$ {\frac {x}{y-x}} \sim_E {\frac {y+x}{x^2+1}}$.  
+Put
+$F(X,Y,Z)= \{ {\frac x y} \}= [X, Y]$ then $F[0,1,0] =[0,1] \sim_E 0$ (a zero) while
+if $G(X,Y,Z)= \{ {\frac y x} \}= [Y, X]$ then $G[0,1,0] =[0,1] \sim_E \infty$.
+For $E: y^2= x^3-x$, $\{ {\frac y {x^2-1}} \} \sim_E \{ {\frac x y} \}$ and
+$[YZ, X^2-Z^2] \sim_E [X,Y]$.  
+For $E: y^2= x^3-x$, 
+$\{x \}$ has a $0$ at $(0,0)$,
+$\{y \}$ has a $0$ at $(-1,0), (0,0), (1,0)$,
+$\{ {\frac x y} \}$ has a $0$ at $(-1,0), (1,0)$.
+If $E(a,b)$ is non-singular, $E$ is irreducible and
+we can embed $k[x,y]/(E)$ in the field of fractions $K(E)$ 
+and we can define a map from $K(R) \rightarrow
+{\overline K} \cup \{\infty\}$.
+\\
+\\
+{\bf Definition:}
+A \emph{morphism} between two elliptic curves $C_1$ and $C_2$ is a rational map
+$\varphi: (C_1, I_1) \rightarrow (C_2 , I_2)$, 
+$\varphi(x,y)= (f(x,y), g(x,y)), g, g \in K(C_1 )$, such that
+$\varphi(P+Q)= \varphi(P)+\varphi(Q)$.  $\varphi(P)= [n]P$ is a morphism.  A
+morphism is an \emph{isomorphism} if $\exists \psi$, a morphism: $\psi \circ \varphi= [1]$.
+An \emph{isogony} is a surjective morphism with finite kernel preserving the base point.
+If $\psi: E_1 \rightarrow E_2$ induces a $\psi^*: K(E_2) \rightarrow K(E_1)$.
+$\psi^*(f)= f \circ \psi$.  $deg(\psi)= ker(\psi)$.
+\\
+\\
+\emph{Example of dual isogony:} 
+$E: y^2= x^3 + x^2 +x$,
+$E': (y')^2= (x')^3 -2 (x')^2 -3 (x')$.  
+$\psi(x,y)=
+( {\frac {y^2} {x^2}}, {\frac {y(1-x^2)} {x^2}})$,
+$\varphi(x',y')= ( {\frac {(y')^2} {4(x')^2}}, {\frac {(y')(-3-(x')^2)} {8(x')^2}},)$ 
+and $\varphi \circ \psi= [2]$.
+\\
+\\
+{\bf Definition:}
+Suppose $E= E_{a,b}(K), char(K) \ne 2,3$.  Let $x_1= \mu^2x$ and $y_1= \mu^3 y$ then
+$(x_1 , y_1) \in E_{a', b'}(K)$ with $a'= \mu^4 a$ and $b'= \mu^6b$.  Two 
+elliptic curves related in this way are said to be \emph{isomorphic}.
+\\
+\\
+{\bf Theorem:}
+If $K= F_{p^m}, p \ne 2, 3$ and 
+$E_K^{(1)}(a, b) \cong E_K^{(2)}({\overline a}, {\overline b})$ iff 
+$\exists u \in K^*$ such that $u^4 {\overline a}=a$ and
+$u^6 {\overline b}=b$ under the map $(x,y) \mapsto (u^2 x, u^3 y)$.
+\begin{quote}
+\end{quote}
+{\bf Definition:}
+$j(E)= 1728 {\frac {4a^3} {4a^3+27b^2}}$ is called the
+\emph{$j$-invariant}. 
+\\
+\\
+{\bf Theorem:}
+$j(E)$ is invariant under 
+the transformation above (i.e. - two isomorphic curves have the same
+$j$-invariant) and, conversely, two curves with the same $j$ value are related in 
+this way (and are
+thus isomorphic in the elliptic curve defined over the algebraic closure).
+\begin{quote}
+\end{quote}
+{\bf Theorem:}
+If $j(E_1)=j(E_2)$ then
+$\exists \mu \in {\overline K}, \mu \ne 0: a_2= \mu^4 a_1, b_2= \mu^6 b_2$.  
+\begin{quote}
+\end{quote}
+{\bf Homogeneous forms:}
+Let $G(u,v)$ be a homogeneous polynomial and $(u_0, v_0) \in {\mathbb P}^1_K$,
+$\exists k \ge 0$ and $H(u, v)$ with $H(u_0, v_0) \ne 0: G(u,v)= (v_0 u -u_0 v)^k H(u,v)$.
+Any line in ${\mathbb P}^2_k$ can be parameterized by 
+$(x,y,z)= (a_0 u + b_0 v, a_1 u + b_1 v, a_2 u + b_2 v)$.
+$L$ intersects $C$ to order $n$ at $P=(x_0 : y_0 : z_0)$ if ${\overline C}(u,v) =
+(v_0 u - u_0 v)^n H(u,v)$ in the foregoing theorem; denote this as $ord_{L, P}(C)=n$,
+$ord_{L, P}(C)= \infty$ if ${\overline C}$ is identically 0.  
+If $L_1, L_2$ are lines, $ord_{L_1, P}(P)= 1$
+or $\infty$.  If $C$ is a curve defined by $C(x,y,z)=0$, $C$ is non singular at $P$ if
+$(C_x, C_y, C_z) \ne 0$ in which case the tangent line is $C_x X + C_y Y + C_z Z =0$.  If
+$C$ is non-singular at $P$ there is a line in ${\mathbb P}^2_K$ that intersect $C$ to order at
+least $2$.
+\\
+\\
+{\bf Theorem:}
+The number of equivalence classes of elliptic curves over $K$ is
+$2q+6$, $2q+2$, $2q+4$, $2q$ according to $q = 1, 5, 7, 11 \jmod{12}$.
+If $K= F_{2^m}$ and $E_K(a, b): y^2 + xy = x^3 + a x^2 +b$ then
+$E_K^{(1)}(a, b) \cong E_K^{(2)}({\overline a}, {\overline b})$ iff 
+$b= {\overline b}, Tr(a)=Tr({\overline a})$ and if so $\exists s: {\overline a}= s^2+s+a$ 
+under the map $(x,y) \mapsto (x, y+sx)$.
+\begin{quote}
+\end{quote}
+{\bf Division Polynomials:}
+Let $E(K): y^2+a_1xy+a_3y= x^3 +a_2 x^2 + a_4 x + a_6$ be an elliptic curve 
+$m \in {\mathbb Z}, P = (x,y)$, 
+$b_2 = a_1^2 + 4a_2$,
+$b_4 = a_1 a_3 + 2a_4$,
+$b_6 = a_3^2 + 4a_6$,
+$b_8 =  a_1^2 a_6 + 2 a_4 a_6 - a_1 a_3 a_4 + a_2 a_3^2 -a_4^2$ then
+$\exists \psi_m(x,y), \omega_m(x,y), \theta_m(x,y) \in K[x,y]$ such that
+$[m]P=({\frac {\theta_m(x,y)} {(\psi_m(x,y))^2}}, {\frac {\omega_m(x,y)} {(\psi_m(x,y))^3}})$.
+$\psi_1 = 0$, $\psi_1 = 2$,
+$\psi_2 = 2y+a_1x+a_3$, 
+$\psi_3 = 3x^4+b_2x^2+3b_4x^2+3b_6+b_8$,
+$\psi_4 = (2x^6+b_2x^5+5 b_4 x^4 + 10 b_8 x^2 +(b_2 b_8-b_4 b_6)x+ b_4 b_8 - b_6^2) 
+\psi_2$,
+$\psi_{2m+1} = \psi_{m+2} \psi_m^3 - \psi_{m-1}\psi_{m+1}^3, m \ge 2$,
+$\psi_{2m} = 
+{\frac {\psi_m} {\psi_2}}
+(\psi_{m+2} \psi_{m-1}^2 - \psi_{m-2} \psi_{m+1}^2)$,
+$\theta_m = x \psi_m^2- \psi_{m+1} \psi_{m-1}$,
+$\omega_m = 
+{\frac {1} {4 y}} 
+(\psi_{m+2} \psi_{m-1}^2- \psi_{m-2} \psi_{m+1}^2), m>2$.
+Note that $deg(\psi_m)= O(m^2)$.
+\\
+\\
+{\bf Definition:}
+An \emph{endomorphism} is a homomorphic map between and an elliptic 
+curve and itself that is expressible as a \emph{rational function}.
+If $\alpha$ is an endomorphism and $P=(x,y),
+\alpha(X+Y) = \alpha(X) + \alpha(Y), \alpha(x,y)= (r_1(x,y), r_2(x,y))$.  Because
+$y^2= x^3+ax+b$, we may assume 
+$\alpha(x,y)= (r_1(x), y r_2(x))$; if $r_1(x)= {\frac {p(x)} {q(x)}}$, the degree of
+endomorphism is $max(deg(p(x)), deg(q(x)))$.  This endomorphism
+$\alpha$ is a \emph{separable endomorphism} if $r_1'(x) \ne 0$.
+The \emph{Frobenius endomorphism} is
+$\varphi(x,y)= (x^q , y^q)$. 
+\\
+\\
+{\bf Definition:}
+$E[n]= \{P \in E({\overline K}): nP= \infty \}$.
+\\
+\\
+{\bf Theorem:} (1) If $char(K) \ne 2$ $E[2]= {\mathbb Z}_2 \oplus {\mathbb Z}_2$; 
+if $char(K) = 2$ $E[2]= {\mathbb Z}_2$ or $0$.
+(2) If $char(K) \nmid n$ or is $0$, $E[n]= {\mathbb Z}_n \oplus {\mathbb Z}_n$.  (3)
+If $char(K)=p \mid n, n=p^r n'$ then
+$E[n]= {\mathbb Z}_n \oplus {\mathbb Z}_{n'}$ or
+$E[n]= {\mathbb Z}_{n'} \oplus {\mathbb Z}_{n'}$.  Proof
+uses division polynomials.  Let
+$E$ be an elliptic curve over $F_q$.  Then 
+$E(F_q)= {\mathbb Z}_n$ or
+${\mathbb Z}_{n_1} \oplus {\mathbb Z}_{n_2}$ with $n_1 \mid n_2$.  
+\begin{quote}
+\emph{Proof:}
+Apply the above theorem.
+$\phi_n$ induces a linear transformation on $E[n]$.
+$E[n]= Z_{n_1} \oplus \ldots \oplus Z_{n_k}$ by ther FTOAG.  Let $l \mid n_1$ so
+$l \mid n_j$. $E[l] \subseteq E[n]$, so it has order $l^k$.  But the 
+endomorphism induced by multiplication by $n$ has order $n^2$, so $k=2$.  Since
+this map, annihilates $Z_{n_1} \oplus Z_{n_2}$, $n_1, n_2 \mid n$, and since
+$n^2= \#E[n]$, $n_1=n_2=n$.
+\end{quote}
+{\bf Theorem:} If $\alpha$ be a separable endomorphism of $E_{A,B}(\overline{F_q})$, 
+$deg((\alpha)= |ker(\alpha)|$, otherwise $deg((\alpha)> |ker(\alpha)|$.
+\begin{quote}
+\emph{Proof:}
+$\alpha(x,y)= (r_1(x), yr_2(x))$, $r_1(x)= {\frac {p(x)}{q(x)}}$; since $\alpha$
+is separable, $p'q-q'p \neq 0$.  Let $S= \{x \in \overline{K}: (pq'-qp')q=0\}$.
+There are $(a,b)$ on the curve: $a \neq 0 \neq b$, $(a,b) \neq O$.
+$deg(p-aq)= deg(\alpha)$, and $a \notin r_1(S)$.  There are exactly $deg(\alpha)$
+points: $\alpha(x,y)= (a,b)$.  STS there are no nultiple roots.  If $x_0$ is a multiple
+root, $pq'-qp'(x_0) =0$.  If $\alpha$ is not separable, the same argument holds but
+the equation has at least one solution with multiple roots so it has fewer roots than
+$deg( \alpha )$.
+\end{quote}
+{\bf Theorem:} $\alpha: E_{A,B}(\overline{K}) \rightarrow E_{A,B}(\overline{K})$ is surjective.
+\begin{quote}
+\emph{Proof:}
+If $p-aq$ is not constant and $x_0$ is a root, $q(x_0) \neq 0$.  Choose $y_0^2= x_0^3+Ax_0+B$.
+$\alpha(x_0,y_0)= (a, b')$, $b'= \pm b$.  If $b'=b$, we're done.  If 
+$\alpha(x_0 , y_0 )= (a, -b')= (a, b)$.  Since $E(\overline{K})$ is infinite and
+$ker( \alpha )$ is finite, only a finite number of points map onto a points
+with a single $x$ coordinate.  Therefore either $p$ or $q$ is not constant.
+There is a unique $a$ such that $p-aq$ is constant.  So there are at most two
+points, namely, $(a, \pm b )$ not in the image.  Pick another
+$P_1$: $\alpha(P_1 )=(a_1 , b_1 )$.  $(a_1, b_1 ) + (a,b) \neq (a, \pm b )$.
+There is a unique $P_2$: $\alpha (P_2 ) =  ( a_1 , b_1 ) + (a, b)$ so
+$\alpha (P_2 - P_1 )= (a,b)$ and
+$\alpha (P_1 - P_2 )= (a,-b)$.
+\end{quote}
+{\bf Theorem:} $\phi_q^n-1$ is separable and $|ker(\phi_q^n-1)|= |\#E(F_q)|$.  
+\begin{quote}
+\emph{Proof:} 
+$\phi$ is a homomorphism.  It has degree $q$ and $(x^q)'=0$.
+\end{quote}
+{\bf Theorem:}  Let $E_{A, B}$ be an elliptic curve.  Fix $(u,v) \in E$.  Define
+$f(x,y), g(x,y)) = (x,y) + (u,v)$. Then ${\frac {\frac {df(x,y)} {dx}} {g(x,y)}}= {\frac 1 y}$.
+\begin{quote}
+Use the addition formula and the fact that $2y y'= 3x^2+A$ to get
+$(x-u)^3u({\frac {df(x,y)}{dx}}-g(x,y))=
+v(Au+u^3+v^3-Ax-x^3-y^2) + y(-Au-u^3-v^3+Ax+x^3-y^2)$.  Now use $B=y^2-x^3-Ax$ to get the result.
+\end{quote}
+{\bf Theorem:}  Let $\alpha_i, i= 1,2,3$ be endomorphisms.  
+Write $\alpha_i(x,y)= (R_{\alpha_i}, S_{\alpha_i}y)$.  Suppose $\exists c_{\alpha_1}, c_{\alpha_2}:
+{\frac {R_{\alpha_i}'} {S_{\alpha_i}}}= c_{\alpha_i}, i=1,2$.  Then
+${\frac {R_{\alpha_3}'} {S_{\alpha_3}}}= c_{\alpha_1} + c_{\alpha_2}$.
+\begin{quote}
+\emph{Proof:} 
+${\frac {\partial x_3} {\partial x_1}} = {\frac {y_3} {y_1}}$ and
+${\frac {\partial x_3} {\partial x_2}} = {\frac {y_3} {y_2}}$.
+${\frac {\partial x_j} {\partial x}} = c_{\alpha_j}{\frac {y_j} {y}}$.  Now apply the
+chain rule.
+\end{quote}
+{\bf Theorem:} Let $E_{A,B}$ be an elliptic curve, $n \in {\mathbb Z}$ and
+$n(x,y)= (R_n(x), yS_n(x))$.  Then
+${\frac {R_{n}'} {S_{n}'}}= n$.
+\begin{quote}
+\emph{Proof:} 
+From the inverse formula if it holds for $n>0$, it holds for $n<0$.  It holds for $n=1$ and the
+result above shows if it holds for $n$, it holds for $n+1$.
+\end{quote}
+{\bf Theorem:} $r, s \in \mathbb{Z}$, $r \neq 0 \neq s$ then $r\phi_n+s$ is separable iff $p \nmid s$.
+$(x,y) \in E(F_q)$ iff $\phi_p(x,y)= (x,y)$.
+\begin{quote}
+\emph{Proof:}
+$r(x,y)= (R_r(x), y S_r(x))$. 
+$(R_{r \phi_q(x)}(x), y_{r\phi_q}(x))= (R_r^q, y(x^3+Ax+B)^{\frac {q-1} 2} S_r^q(x))$.
+Thus $c_{r \phi_q}= R_{r \phi_q}'/S_{r \phi_q}=0$.
+$R_{r \phi_q +s} /S_{r \phi_1 +s} = c_{r \phi_q} + c_s = s \neq 0 \jmod{p}$.
+\end{quote}
+{\bf Theorem:} $deg(a \alpha + b \beta)= a^2 deg( \alpha ) + b^2 deg( \beta ) + ab (deg (\alpha + \beta )
+- deg( \alpha ) -deg( \beta )$.
+\begin{quote}
+\emph{Proof:}
+Consider $\alpha_n$ and $\beta_n$ given by the matricies when viewed as maps in $E[n]$.  The matrix calculation
+is straigntforward.
+\end{quote}
+{\bf Theorem:} Let $E$ be an elliptic curve over $K$ and $n$ a positive integer, $char(K) \nmid n$.  There
+is a pairing $e_n : E[n] \times E[n] \rightarrow \mu_n$ (the Weil pairing) with 
+(1) $e_n$ bilinear in each variable, (2) $e_n$, non-degenerate, (3) $e_n(T,T)=1$,
+(4) $e_n(T,S)= e(S, T)^{-1}$, $e_n( \sigma T , \sigma S)$ for $\sigma \in Aut ( \overline{K} )$, and
+(6) $e_n( \alpha (S) , \alpha (T))= e_n(s, T)^{deg( \alpha )}$, for all seperable automorphisms of $E$.
+If the coefficients are in $F_q$, the statement holds for $\phi_p$.
+\begin{quote}
+\emph{Proof:}  The proof uses divisor theory.
+\end{quote}
+{\bf Theorem:} Let $\{T_1 , T_2 \}$ be a basis in $E[n]$.  Then $e_n(T_1 , T_2 )$ is a primitive $n$-th
+root of unity.
+\begin{quote}
+\emph{Proof:}  Suppose $e_n(T_1 , T_2 )= \zeta$, $zeta^d=1$.  $e_n(T_1, d T_2)=1$ and
+$e_n(T_2, dT_2)= e_n(T_2 , T_2 )^d= 1$.  Let $S= a T_1 +b T_2$.  
+$e_n(T_1, dT_2)= e_n(T_1 , dT_2)^a e_n(T_t, dT_2)^b=1$.  This is true for all $S$ so $dT_2= \infty$.  But
+this can hold iff $n \mid d$, so $\zeta$ is  a primitive root.
+\end{quote}
+{\bf Theorem:} Let $\alpha$ be and endomorphism of $E$ over $K$ and $n$, a positive integer
+not divisible by $char(K)$.  Then $deg( \alpha_n )= deg( \alpha ) \jmod{n}$.
+\begin{quote}
+\emph{Proof:} By the previous result, $\zeta= e_n(T_1 , T_2 ) $ is primitive. So
+$\zeta^{deg( \alpha )}= e_n(T_1 , T_2 )= e_n(aT_1 + c T_2, bT_1 + d T_2)= \zeta^{ad-bc}$.
+\end{quote}
+{\bf Theorem:} $r, s \in \mathbb{Z}$, $(r,q) \neq 1$ then $deg(r\phi_n-s)= r^2q+s^2- r s a$, where
+$a= q+1-\#E(F_q)$.
+\begin{quote}
+\emph{Proof:} 
+$deg(r \phi_q - s)= r^2 deg( \phi_q ) + s^2 deg(-1) + r( deg( \phi_q - 1) -
+deg( \phi_q ) - deg(-1))$.
+\end{quote}
+{\bf Theorem:} $a= q+1-\#E(F_q)$.  $\phi_q^2-a\phi_q +q=0$ and $a=Tr((\phi)_q)_m \jmod{m}$.
+\begin{quote}
+\emph{Proof:}
+Consider $\alpha= \phi_q^2 -a \phi_q +q$ as an endomophism in $E[m]$.
+$|ker(\phi_q-1)|= deg(\phi_q-1)=det((\phi_q)_m-I)$.  By Cayley Hamilton,
+$(\phi_q^2)_m -a \phi_q +q = 0 \jmod{m}$.  This is true for infinitely many
+$m$ so $\alpha=0$.
+\end{quote}
+{\bf Hasse's Theorem:} Let $E_q$ be an elliptic curve then 
+$ q+1- 2 {\sqrt q} \le \#E_q \le q+1+ 2 {\sqrt q}$,
+$\#E_q=q+2-t$, $t$ is the Frobenius trace. 
+\begin{quote}
+\emph{Proof of Hasse:}
+Let $\psi$ be the Frobenius map.  
+$\#E_p = |ker([1]-\psi)|$.  First note that $deg([1])=1$ (in fact, $deg([n]) =n^2$).
+$deg(\psi)= p$.  Also note that $deg(a+b)-deg(a)-deg(b)=B(a,b)$ is bilinear.
+$0 \le deg([t] + [2] \psi)=t^2 -4p -2tB[1, -\psi]= 4p-t^2$; so
+$(deg([1]-\psi) - deg([1]) -deg(\psi))^2 \le 4p$ but the first term is $\#E(F_p)$.
+\end{quote}
+{\bf Theorem:}
+If $\alpha \ne 0$ is a separable endomorphism of $E$, 
+$deg(\alpha)= \#ker(\alpha)$, otherwise
+$deg(\alpha)> \#ker(\alpha)$.  
+The endomorphism $[n]P \mapsto Q$ has degree $n^2$; most endomorphisms are of this form.
+If $char(K) \nmid n$ then $E[n]= {\mathbb Z}_n \oplus {\mathbb Z}_n$. 
+If $E[n] \subseteq E({\mathbb K})$ then $\mu_n \in K$.  Given $E_q(a,b), n \ge 1$, (1)
+$ker(\phi_q^n -1)= \#E_{q^n}(a,b)$ and 
+$\phi_q^n -1$ is separable
+$\#E_{q^n}(a,b)= deg(\phi_q^n -1)$.
+If $\alpha$ is separable, then $deg(\alpha)= \#ker(\alpha)$.  
+$|E({\overline {F_p}})[m]|= m^2$ if $(m,p)=1$.
+\begin{quote}
+\end{quote}
+{\bf Theorem:}
+Let $E(F_q)$ be an elliptic curve $E(F_q) \approx {\mathbb Z}_n$ or
+${\mathbb Z}_{n_1} \times {\mathbb Z}_{n_2}, n_1 \mid n_2 $.  
+The Frobenius endomorphism has degree $q$ and is not separable.
+\begin{quote}
+\end{quote}
+{\bf Definitions:}
+If $E_q$ is an elliptic curve over
+a finite field of characteristic $p$, $E_q$ is said to be \emph{supersingular} if
+$E_q[p]= \{ \infty \}$.
+(1) $char(F) \ne 2,3$, $(x,y) \mapsto ({\frac {x-3a_1^2-12 a_2} {36}}, 
+{\frac {y - 3 a_1 x} {216}} - {\frac {a_1^3 + 4 a_a a_2 -12 a_3} {24}})$, 
+sends the general equation to 
+$E_q(a,b): y^2= x^3 + ax +b, \Delta = -16(4 a^3 + 27 b^2)$.
+(2) $char(F) = 2, a_1 \ne 0$, $(x,y) \mapsto 
+(a_1^2x+{\frac {a_3} {a_1}}, y+{\frac {a_1^2 a_4 - a_3^2} {a_1^2}})$,
+sends the general equation to 
+$E_q(a,b): y^2 + xy = x^3 + ax +b, \Delta = b$.  This is \emph{non-supersingular}.
+(3) $char(F) = 2, a_1 = 0$, $(x,y) \mapsto 
+(x+a_2, y)$, sends the general equation to 
+$E_q(a,b): y^2 + cy = x^3 + ax +b, \Delta = c^4$.  This is supersingular.
+(4) $char(F) = 3, a_1^2 \ne - a_2$, $(x,y) \mapsto 
+(x+{\frac {d_4} {d_2}}, y+ a_1 x + a_1 {\frac {d_4} {d_2}} +a_3)$, 
+$d_2= a_1^2+a_2, d_4= a_4-a_1 a_3$,
+sends the general equation to 
+$E_q(a,b): y^2= x^3 + ax +b, \Delta = - a^3 b$.  This is non-supersingular.
+(5) $char(F) = 3, a_1^2 = - a_2$, $(x,y) \mapsto 
+(x, y+ a_1 x + a_3)$, sends the general equation to 
+$E_q(a,b): y^2= x^3 + ax +b, \Delta = - a^3 $.  This is supersingular.
+\\
+\\
+{\bf Theorem:}  $q=p^m$, $\exists E_q: \#E_q= q+1-t$ iff
+(i) $t \ne 0 (p), t^2 \le 4q$; or, (ii) $m= 1(2)$ and either (a) $t=0$ or (b)
+$t^2=2q, p=2$, or (c) $t^2=3q, p=3$; or, (iii) $m=0 (2)$ and either (a)
+$t^2=4q$ or (b) $t^2=q, p \ne 1 (3)$ or (c) $t=0, p \ne 1 (4)$. $E_{p^m}$ is supersingular
+iff $p \mid t$.  $E_q = {\mathbb Z}_{n_1} \oplus {\mathbb Z}_{n_2}$ and 
+$ n_2 \mid n_1 \mid (q-1)$.  
+\begin{quote}
+\end{quote}
+{\bf Divisors:}
+Given $E(K)$, $P \in E({\overline K})$, define $D= \sum_j a_j [P_j], a_j \in {\mathbb Z}$ and
+$deg(D)= \sum_j a_j$.  $Div^0(E)$ are the \emph{divisors} of degree 0.  
+If $f$ is a function on $E$,
+$div(f) = \sum_P ord_P(f) [P] \in div(E)$.  Two divisors $D_1, D_2$ are said to be
+\emph{equivalent} if $D_1-D_2 = (D)_E$.
+\\
+\\
+{\bf Theorem:} If $P-Q$ is a divisor on an elliptic curve $E$, $P-Q= c$.
+The theorem can be applied as follows.  Suppose
+$div(\{ f \})= P_1 + P_2 + \ldots + P_n Q_1 - Q_2 - \ldots - Q_n$.  Let
+$l_1$ be the line through $P_1, P_2$ and hence $-(P_1+P_2)$ while
+$m_1$ is the line through $-(P_1+P_2)$ and $O$ and hence $P_1+P_2$ then
+$div( \{f\} {\frac {m_1}{l_1}})= (P_1+P_2) + \ldots + P_n +O - Q_1 - \ldots - Q_n$ continuing
+and doing the same for the $Q_i$, we get
+$div( \{f\} \cdot
+{\frac {m_1}{l_1}} \cdot
+{\frac {m_2}{l_2}} \cdot \ldots
+{\frac {m_{2n-2}}{l_{2n-2}}})=
+(P_1+P_2 + \ldots + P_n) + (n-1) O - (Q_1 + \ldots + Q_n)
+-(n-1)O =
+(P_1+P_2 + \ldots + P_n) - (Q_1 + \ldots + Q_n)$ so 
+$f=c ( {\frac {l_1}{m_1}} \cdot {\frac {l_2}{m_2}} \cdot \ldots
+{\frac {l_{2n-2}}{m_{2n-2}}})$ by the theorem.
+\begin{quote}
+\end{quote}
+\emph{Example of divisor calculations:}
+$div(\{x \})= 2(0,0)-2 \infty$, 
+$div(\{y \})= (-1,0)+(0,0)+(1,0) -3 \infty$, 
+$div(\{ {\frac x y} \})= (0,0)+ \infty -(-1,0)-(1,0)$. 
+Let $E: y^2= x^3 -2x -5$ and $D= (2,3)+(2,-3)+O-2(-2,1) -(29,156)$.  We
+can confirm $(2,3) + (2, -3) +O= O$ and $2(-2,1)+(29, 156)= O$ are elliptic
+curve divisors.  The line containing $(2,3), (2,-3),O$ is $x-2=0$.  The
+line containing $2(-2,1)$ and $(25,156)$ is $y-5x-11=0$, so
+$div({\frac {x-2} {y-5x-11}})= D$.
+\\
+\\
+{\bf Theorem:}
+$D= \sum_P n_P P$ is a divisor of an elliptic curve $E$ iff
+$\sum_P n_P =0$ and $\sum_P [n_P]P =0$.
+\begin{quote}
+\end{quote}
+{\bf Definition:}
+$f \circ n (P)= f(nP)$.  If $T \in E[n], \exists T' \in E[n^2]: nT'=T$ and
+$g=f \circ n, div(g)= \sum_{R \in E[n]} [T'+R] -[R]$.  $g(P+S)^n= g(P)^n$ so
+$({\frac {g(P+S)} {g(P)}})^n=1$.  
+Define the \emph{Weil pairing} as
+$e_n(S,T)= {\frac {g(P+S)} {g(P)}}$.  If $\sigma$ is an automorphism, 
+$e_n( \sigma S, \sigma T)= \sigma e_n(S,T)$.  If $\alpha$ is separable,
+$e_n( \alpha S, \alpha T)= e_n(S,T)^{deg(\alpha)}$.  
+\\
+\\
+{\bf Theorem (Siegal):}  An elliptic curve over ${\mathbb Q}$ has only finitely many
+integer points.
+\begin{quote}
+\end{quote}
+{\bf Theorem (Mazur):}  The set of torsion points $T_E({\mathbb Q})$ of
+$E/{\mathbb Q}$ is one of 
+${\mathbb Z}/n{\mathbb Z}, n= 1,2,\ldots,10,12$ or
+${\mathbb Z}/n{\mathbb Z} \times
+{\mathbb Z}/2n{\mathbb Z}$, $n= 1,2,3,4$.
+\begin{quote}
+\end{quote}
+{\bf Theorem:}
+For every isogony $\psi:E \rightarrow E'$ there is a \emph{dual} $\hat{\psi}:
+\hat{\psi} \psi= [2]_E$.  $Frob_n: 
+{\overline {F_p}} \rightarrow
+{\overline {F_p}}$ and $F_{p^n}= \{ \alpha \in {\overline {F_p}}: Frob_n( \alpha )= \alpha \}$.
+\begin{quote}
+\end{quote}
+{\bf Theorem:}
+$\#E(F_p)= p+1 + \sum_{x=0}^{p-1} ({\frac {x^3+ax+b} {p}})$.
+\begin{quote}
+\end{quote}
+{\bf Point Counting:} 
+Counting points by
+baby-step giant-step is ($O(q^{{\frac 1 4} + \epsilon})$). Set
+$N= \#E_q$ then 
+$q+1 - 2 {\sqrt q} \le N \le q+1 + 2 {\sqrt q}$; if $[m]P= \infty$ then $N=m$, probably.
+Put $m=q+1- 2{\sqrt q} +k, l= \lceil {\sqrt 4 {\sqrt q}} \rceil, k= al+b$, then
+$[m]P= [c]P + [a]S + [b] P, c= q+1-2{\sqrt q}, S= [l]P$ or $[c]P+ [a]S = - [b] P$.  Baby
+step computes LHS and stores it.  Giant step computes RHS and does a lookup.
+\\
+\\
+{\bf Schoof point counting:}
+Let $\varphi$ be the Frobenius automorphism $\varphi(x,y)= (x^q , y^q )$.  
+Schoof calculates
+$t \jmod{l}$ for a set of primes $l \in {\cal P}$ with 
+$\prod_{l \in {\cal P}} l > {4 {\sqrt q}}$ and then 
+construct $t$ using CRT finally returning $q+1-t$.
+Here's how:\\
+\jt (1) For $l=2$, $t= 0 \jmod{l}$ iff 
+$(x^3+ax+b,x^q-x) \ne 1$.  \\
+\jt (2) if $l$ is odd, set $q_l = q \jmod{l}, |q_l| < {\frac l 2}$;
+find $(x', y')= \varphi(x,y)^2 + q_l (x,y) \jmod{\psi_l (x,y))}$;
+for $j= 1,2, \ldots {\frac {l-1} 2}$:\\
+\jt \jt
+(i) Compute $(x_j , y_j)=j(x,y)$; \\
+\jt \jt
+(ii) if
+$x'-x_j^q = 0 \jmod{\psi_l}$, go to iii, if not, try next $j$, if all such
+$j$'s have been tried, go to (iv); \\
+\jt \jt
+(iii) Compute $y', y_j$, if ${\frac {y'-y_j} y} = 0 \jmod{\psi_l}$ then 
+$t= j \jmod{l}$ otherwise $t= -j \jmod{l}$; \\
+\jt \jt
+(iv) Let $w^2=q \jmod{l}$, if no such $w$ exists, 
+$t=0 \jmod{l}$;\\
+\jt \jt
+(v) if $(x^q - x_w, \psi_l )=1$ then 
+$t=0 \jmod{l}$, otherwise, set $g= numerator({\frac {y^q - y_w} y}, \psi_l)$, if
+$g \ne 1$, $t= 2w \jmod{l}$ otherwise 
+$t= -2w \jmod{l}$.
+\\
+\\
+{\bf Definition of Complex Multiplication:}
+$E: y^2= x^3 - x$, $\mu: E \rightarrow E$, $\mu(x,y)= (-x, iy)$, 
+$\mu^2= [-1]$.
+\\
+\\
+{\bf Definition:} 
+If $D= \sum_{P \in E} n_P [P]$, $deg(D)= \sum_P n_P$ and $sum(D)= \sum_P n_P P$.
+$div(f)= \sum_{P \in E({\overline K})} ord_P(f) [P] \in Div(E)$.
+\\
+\\
+{\bf Theorem:}  Let $E$ be an elliptic curve and $f$ be a function on $E$ not $0$ then 
+(1) $f$ has finitely many poles and zeros, (2) $deg(div(f))=0$ and (3) if there are no
+poles or zeros, $f$ is a constant.
+\begin{quote}
+\end{quote}
+{\bf Theorem:}  Let $E$ be an elliptic curve and $D$ a divisor on $E$ with
+$deg(D)=0$ then $\exists f$ on $E$ with $div(f)=D, sum(D)= \infty$.
+\begin{quote}
+\end{quote}
+{\bf Pairing:} $e_n: E[n] \times E[n] \rightarrow \mu_n$.  $\mu_n$ is the $n$th roots of
+unity.
+\\
+\\
+{\bf Definition:}
+For simplified case of elliptic curves in Weierstrauss form ($E: y^2=x^3+Ax+B$),
+all polynomials, $f(x,y)$, on $E$, denoted $f \in K[E]$, 
+can reduced to normal form, 
+$f(x,y)= v(x)+yw(x)$.  If
+$f(x,y)= v(x)+yw(x)$, ${\overline f}= v(x)-y w(x)$ and $N(f)= f {\overline f}$.
+$deg(f)= \textnormal{max}(2 deg_x(v), 3+2deg_x(w))$.
+\\
+\\
+{\bf Theorem:} 
+If $f \in K[E]$ then $deg(f)= deg_x(N(f))$ and $deg(f)$ has the usual properties.
+\begin{quote}
+\end{quote}
+{\bf Theorem:} 
+If $r \in K(E)$ and $P \in E$, $\exists u \in K(E)$ such that (1) $u(P)=0$ and
+(2) if $r \in K(E)$, $\exists s \in K(E): r=u^ds$.  Further, $d$ does not
+depend on the choice of $u$.
+\begin{quote}
+\emph{Proof:}
+For the SWF curve, we can specify $u$ as follows: 
+(1) For $P=(a,b) \in E, b \ne 0$, $u(x,y)= (x-a)$;
+(2) For $P=(w,0) \in E$, $u(x,y)= y$; and
+(3) For $P= \infty$, $u(x,y)= {\frac x y}$.
+\end{quote}
+{\bf Definition:}
+For the notation of the previous theorem, define $ord_P(r)= d$.
+\\
+\\
+{\bf Theorem:} 
+Let $r \in K(E)$, $\sum_P ord_P(r) = 0$.  If $f \in K[E]$ then the sum of the
+multiplicities of the zeros of $f$ equals the degree of $f$.
+\begin{quote}
+\end{quote}
+{\bf Definition:}
+$\Delta \in Div(E)$ is principal if $\Delta= div(r)$ for some $r \in K(E)$.  The
+principal divisors are denoted $Prin(E)$ and $Pic(E)= Div(E)/Prin(E)$.  
+$|\Delta|= \sum_{P \in P- \infty} |m(P)|$.
+\\
+\\
+{\bf Theorem:} 
+Let $\Delta \in Div(E), \exists \tilde{\Delta} \in Div(E)$ with
+$\Delta \sim \tilde{\Delta}$ with
+$deg(\Delta)=deg(\tilde{\Delta})$ and
+$|\tilde{\Delta}| \le 1$.  \begin{quote}
+\end{quote}
+{\bf Theorem:} 
+$\forall \Delta \in Div^0(E), \exists ! P \in E$: 
+$\Delta \sim \langle P \rangle -\langle \infty \rangle$.
+\begin{quote}
+\end{quote}
+{\bf Theorem:} 
+Let $[n]: E \rightarrow E$ be represented by the rational function 
+$[n](P)=(g_n(P), h_n(P))$ then if $(n,p)=1$, 
+${\frac {g_n} x} (O) \sim {\frac 1 {n^2}}$ and
+${\frac {h_n} y} (O) \sim {\frac 1 {n^3}}$.
+\begin{quote}
+\end{quote}
+{\bf Theorem:} 
+Let $P, Q \in E$ and suppose $u$ is a uniformizing parameter at $P$,
+define $T_Q(u)](R)=u(R+Q)$ then $T_Q(u)$ is the uniformizing
+parameter at $P-Q$.
+\begin{quote}
+\end{quote}
+{\bf Theorem:} 
+Let $E$ be an elliptic curve with $deg(D)=0$.  $\exists f \in K(E): D= div(f)$ iff
+$sum(D)= \infty$.
+\begin{quote}
+\end{quote}
+{\bf Theorem:} 
+Suppose $m>n>0$ and $m, n, m-n, m+n$ are all prime to $p$, then
+$div(g_m-g_n)= 
+\langle E[m+n] \rangle+
+\langle E[m-n] \rangle-
+\langle E[m] \rangle-
+\langle E[n] \rangle$.  
+If $(n,p)=1$, $|E[n]|= n^2$.
+\begin{quote}
+\end{quote}
+{\bf Theorem:} 
+If $(n,p)=1$, $div(\phi_n)= \langle E[n] \rangle - n^2 \langle \infty \rangle$.
+\begin{quote}
+\end{quote}
+{\bf Theorem:} 
+Suppose $r \in K(E)$ is a non-constant function, then $r$ takes on all values
+including $\infty$.
+\begin{quote}
+\end{quote}
+{\bf Theorem:} 
+Suppose $f: E \rightarrow E, K(E)$ is a non-constant then $f$ is onto.
+\begin{quote}
+\end{quote}
+{\bf Definition:} The \emph{ramification index} of $F$ at $P$ is defined by
+$e_F(P)= ord_P(u \circ F)$.
+\\
+\\
+{\bf Theorem:} 
+$ord_P(u \circ F) = ord_{F(P)}(r) \cdot e_F(P)$.
+\begin{quote}
+\end{quote}
+{\bf Definition:} 
+$F^*: Div(E) \rightarrow Div(E)$ is 
+$F^*( \langle Q \rangle)= \sum_{F(P)=Q} e_F(P) \langle P \rangle$.
+\\
+\\
+{\bf Theorem:} 
+$F^*$ is 1-1, $div(r \circ F)= F^*(div(r))$ and
+$ e_{F_1 \circ F_2}(P)= e_{F_1}(F_2(P)) \cdot e_{F_2}(P)$.
+\begin{quote}
+\end{quote}
+{\bf Theorem:} 
+Suppose $\alpha: E \rightarrow E$ is a non-zero endomorphism then
+$e_{\alpha}(P)$ is independent of $P$.
+\begin{quote}
+\end{quote}
+For $m \in {\mathbb Z}, r \in K(E)$ with $D$ the derivative then
+$D(r \circ [m])= (m \circ D(r)) \circ [m]$.
+\begin{quote}
+\end{quote}
+{\bf Theorem:} 
+If $\varphi$ is the Frobenius homomorphism over $GF(q)$ then $e_{\varphi}= q$.
+\begin{quote}
+\end{quote}
+{\bf Definition:} 
+$e_{\alpha}=1$ means $\alpha$ is separable.
+\\
+\\
+{\bf Theorem:} 
+If $(m,p)=1$ then $[m]$ is separable.
+\begin{quote}
+\end{quote}
+{\bf Theorem:} 
+If $(m,p)=1$ and $(n,p)=1$ then $[m]+[n] \varphi$ is separable.
+\begin{quote}
+\end{quote}
+{\bf Theorem:} 
+If $P \in E[m]$ then $[m]^*( \langle T \rangle - \langle \infty \rangle)$
+is principal.
+\begin{quote}
+\end{quote}
+{\bf Definition:} 
+A rational map $F: E \rightarrow E'$ that is a group homomorphism from
+$E$ into $E'$ is a \emph{morphism}.
+\\
+\\
+{\bf Theorem:} 
+Let $T_1$ and $T_2$ be a basis for $E[m]$ then $e+m(T_1 , T_2 )$ is a primitive
+$m$-th root of unity.
+\begin{quote}
+\end{quote}
+{\bf Definition:} 
+If $\alpha$ is an endomorphism then $\alpha(E[m]) \subseteq E[m]$
+\\
+\\
+{\bf Definition:} 
+Let $M$ be an algebraic extension of $L$ and $A_r$ is the linear map from $M$
+to $M$ represented by multiplication by $r$ with respect to the basis
+$r_1 , \ldots , r_n$ and $f_r(x)= det(xI-A_r)$ with constant term 
+$c_n = (-1)^n det(A_r)$.  Define $N(r)= det(A_r)$.
+\\
+\\
+{\bf Definition:} 
+Suppose $\alpha: E \rightarrow E'$ be an isogony $K'= \alpha^*(K(E')) \subseteq K(E)$.
+Define $N= N_{K(E)/K'}$ then $N(r)](P)= \prod_{\alpha(Q)= \alpha(P)} r(Q)^{e_{\alpha}}$.
+\\
+\\
+{\bf Definition:} 
+Let $r \in K(E)$ and $D \in Div(E)$.  Suppose $div(r)$ and $D$ have disjoint support
+define $r(D)= \prod_{P \in E} f(P)^{n_p}$.  For $f, g \in K(E)$ further
+define
+$\langle f, g \rangle_P= (-1)^{mn} [{\frac {f^n}{g^m}}](P)$ where 
+$m= ord_P(f)$ and
+$n= ord_P(g)$.  $\langle f, g \rangle_P$ is called the local symbol of $f$ and $g$.
+\\
+\\
+{\bf Weil Reciprocity Theorem:} $\prod_{P \in E} \langle f, g \rangle_P =1$.
+\\
+\\
+{\bf Construction of the Weil Pairing:}
+For $T \in E[n]$,
+$\exists f: div(f)= n[T]- n[\infty]$.  Choose $T' \in E[n^2]: nT'=T$ then 
+$\exists g: div(g) = \sum_{R \in E[n]} ([T'+R]-[R])$.  Put $f \circ n (P)= f(nP)$.
+This gives $f \circ n(P)= g^n(P)$.  Put
+$e_n(S,T)= {\frac {g(P+S)} {g(P)}} \in \mu_n,  S \in E[n], P \in E({\overline K})$ and
+$e_n$ satisfies the pairing properties.
+\\
+\\
+{\bf Example:}
+If $E(F_7): y^2= x^3+2$ then $E(F_7)[3]= {\mathbb Z}_3 \oplus {\mathbb Z}_3$.  To
+compute $e_3((0,3),(5,1))$, $D_{(0,3)}= [(0,3)]-[\infty]$ and
+$D_{(5,1)}= [(3,6)]-[(6,1)]$, $div(y-3)= 3 D_{(0,3)}$ and 
+$div({\frac {4x-y+1} {5x-y-1}})= 3 D_{(5,1)}$.
+$f_{(0,3)}(D_{(5,1)})= {\frac {f_{(0,3)}(3,6)} {f_{(0,3)}(6,1)}}= 
+{\frac {6-3} {1-3}}= 2 \jmod{7}$.
+$f_{(5,1)}(D_{(0,3)})= 4$, $e_3((0,3),(5,1))= {\frac 4 2}= 2 \jmod{7}$.
+\\
+\\
+{\bf Theorem:} 
+If $F= {\mathbb Q}, {\mathbb R}, {\mathbb C}$
+$E(F)= {\mathbb Z}/m{\mathbb Z} \times {\mathbb Z}/m{\mathbb Z}$;
+if $F= {\mathbb F_p}, p \nmid m, \exists k:$
+$E(F_{p^{jk}})= {\mathbb Z}/m{\mathbb Z} \times {\mathbb Z}/m{\mathbb Z}$.
+\begin{quote}
+\end{quote}
+{\bf Note:} 
+If $m[P]=O$, $m[P]-m[O]$ is a divisor of $E(F)$.
+\\
+\\
+{\bf Theorem:}  Let $P, Q \in E[m]$, 
+$div(f_P)= m[P]=m[O]$,
+$div(f_Q)= m[Q]=m[O]$ then $e_m(P,Q)= 
+{\frac {f_P(Q+S)}{f_P(S)}}/
+{\frac {f_Q(P-S)}{f_Q(-S)}}$ for $S \in E(F)$ is bilinear.
+$E[m]= \langle aP_1+bP_2 \rangle$ and suppose.
+$P= a_P P_1+b_P P_2 \rangle$, $e_m(P,Q)= \zeta^{det
+\left(
+\begin{array}{cc}
+a_P &  a_Q \\
+b_P &  b_Q \\
+\end{array}
+\right)
+}$ where
+$\zeta= e_m(P_1,P_2)$.
+\\
+\\
+{\bf Theorem (for Miller's Algorithm):}  Let $E$ be an elliptic curve and
+$P= (x_P, y_P)$ and
+$Q= (x_Q, y_Q)$ are non-zero points on $E$.  Let $\lambda$ the the slope of
+the line betwween $P$ and $Q$ and define 
+$g_{P, Q}= x-x_P$ if $\lambda= \infty$ and
+$g_{P, Q}= 
+{\frac {y-y_p - \lambda(x-x_P)} {x+x_P+x_Q+\lambda^2}} $, otherwise.  Then (a)
+$div(g_{P,Q})= [P]+[Q] -[P+Q]-[O]$ and
+(b) For $m \ge 1$ with binary representation $[m_{n-1}, \ldots, m_0]$ satisfies
+$div(f_P)= m[P]-[mP]-(m-1)[O]$ where 
+$g_{T,T}$ and
+$g_{T,P}$ are defined by Miller's algorithm.\\
+{\bf Miller's Algorithm:}\\
+\jt 1. Set $T=P$ and $f=1$;\\
+\jt 2. $\textnormal{for}(i=(n-2); i \ge 0; i--)$\\
+\jt \jt 3. $f= f^2 \cdot g_{T,T}$;\\
+\jt \jt 4. $T= 2T$;\\
+\jt \jt 5. if($m_i=1$)\\
+\jt \jt \jt 6. $f= f \cdot g_{T,P}$;\\
+\jt \jt \jt 7. $T= T+P$;\\
+\jt 8. $return(f)$.
+\\
+\\
+{\bf Definition:}  Let 
+$P, Q \in E(F_q)[l]$, choose $f_P: div(f_P)= l[P]-l[Q]$ than the \emph{Tate pairing}
+is $\tau(P,Q)= {\frac {f_P(Q+S)}{f_P(S)}}$ and the \emph{modified Tate pairing} is
+$\hat{\tau}(P,Q)= \tau(P, Q)^{\frac {q-1}{l}}$.
+\\
+\\
+{\bf Definition:}
+Let $E$ be an elliptic curve over $F_p, m \ge 1, p \nmid m$, the \emph{embedding degree}
+of $E$ with respect to $m$ is the smallest positive $k$ such that
+$E(F_{p^k})[m]= {\mathbb Z}/m{\mathbb Z} \times {\mathbb Z}/m{\mathbb Z}$.
+\\
+\\
+{\bf Theorem:}
+Let $E$ be an elliptic curve over $F_p, p \nmid m$ and suppose $E$ has an element of
+prime order $l \ne p$.  The embedding degree, $k$ is one of the following:
+(1) $k=1$ ($l \le {\sqrt p}+1$);
+(2) $k=l$ if $p=1 \jmod{l}$;
+(3) if $p \ne 1 \jmod{l}$, $k$ is the smallest positive integer such that
+$E(F_{p^k})= {\mathbb Z}/m{\mathbb Z} \times {\mathbb Z}/m{\mathbb Z}$.
+\begin{quote}
+\end{quote}
+{\bf MOV Algorithm:}  Under the same conditions as the theorem:\\
+\jt 1. Compute $N= \#E(F_{p^k})$, $l \mid N$;\\
+\jt 2. Choose, at random, $T: T \in E(F_{p^k}), T \notin E(F_{p})$;\\
+\jt 3. Compute $T'= (N/l)T$.  If $T'=O$, repeat step 2.\\
+\jt 4. $lT'= O$, compute $\alpha= e_m(P, T')$ and $\beta= e_m(Q, T')$;\\
+\jt 5. Solve $\beta= \alpha^n$ in $E(F_{p^k})$;\\
+\jt 6. $Q=nP$.
+\\
+\\
+{\bf Definition:}
+Let $l \ge 3$, $P \in E[l]$, $lP=O$, $\psi: E \rightarrow E$.  $\psi$ is a
+\emph{distortion map} for $P$ if (a) $\psi(nP)= n \psi(P)$ and (b)
+$e_l(P, \psi(P))$ is a primitive $l$-th root of unity.
+\\
+\\
+{\bf Theorem:}  If $E[l]=
+{\mathbb Z}/l{\mathbb Z} \times {\mathbb Z}/l{\mathbb Z}$, TFAE:
+(a) $P, Q$ is a basis for $E[l]$;
+(b) $p \ne O$ and there is no $\alpha: Q= \alpha P$;
+(c) $e_l(P,Q)$ is a primitive $l$-th root of unity.
+\\
+\\
+Note: the \emph{decision ECDLP problem} is in $NP \cap co-NP$.  
+Attacks (1) Exhaustive Search - 
+to avoid, make sure $\#E_q=nh$, $n$ a large prime $>2^{160}$,
+$h$, small; (2) Pohlig-Hellman/Pollard-$\rho$ 
+use Pohlig to reduce from $n= p_1^{e_1} ... p_t^{e_t}$ to
+$p$, since this step is easy, want $p$ large, Pollard costs $O({\sqrt p})$
+[For Pollard, ``random'' function is $f(X)= X+ a_j P +b_j Q \jmod{p}$.];
+(3) Isomorphism attack;
+(4) MOV for anomalous curves - to avoid make sure $q=p^m$ and $p \nmid \#E_q$; 
+(5) Weil-Tate pairing - to avoid make sure $n \nmid (q^k-1), k \le C$ and that the
+DLP problem for $F_{q^C}$ is intractable;
+(6) Weil descent - to avoid, if $q=2^m$, make sure $m$ is prime.  Index calculus attack
+is unlikely because the lifting required from $E_q(a,b)$ to 
+$E_{\mathbb Q} ({\overline a}, {\overline b})$ is unknown and the number of points of
+small height in elliptic curves over ${\mathbb Q}$ is small.
+\\
+\\
+{\bf Lenstra Elliptic Curve Factoring Method:}
+\begin{enumerate}
+\item $(n,6)= 1, n \ne m^r$.
+\item Choose random $b, x_1, y_1$ between $1$ and $n$.
+\item $c= {y_1}^2+{x_1}^3-bx_1 \jmod{n}$.
+\item $(n, 4b^3+27c^2)= 1$.
+\item $k= lcm(1,2, \ldots, K)$.
+\item Compute $KP= ({\frac {a_k} {{d_k}^2}}, {\frac {b_k} {{{d_k}^3}}})$
+\item $D= (d_k , n)$ If $D=1$, go to 5 and bump $K$ or go to 2 and select new curve.
+\end{enumerate}
+\subsection {Elliptic, Weierstrauss and Fermat} 
+{\bf Definition:} 
+Two curves $C, D$ are projectively equivalent if there is a projective
+transformation $\phi$ with $\phi(C)=D$.
+Every nonsingular cubic is equivalent to a curve which in affine coordinates is
+$y^2= 4 x^3-g_2x-g_3= 0$.  This is the \emph{Weierstauss normal form.}
+Note: To prove show that every non-singular curve has an inflexion point (triple tangent).
+Map flex to $(0,0,1)$.
+\\
+\\
+{\bf Elliptic Functions from Trigonometry:}
+$S(x)= \int {\frac {dx} {\sqrt {1- x^2}}}$.
+Let ${\frac {dx} {du}}= c(u)$,
+$s(u)^2 + c(u)^2= 1$.  $s'(u)= c(u)$, $c'(u)=-S(u)$, $s(-u)=-s(u)$ and $c(-u)=c(u)$.
+$s(x+y)= s(x)c(y)+s(y)c(x)$ and
+$c(x+y)= c(x)c(y)-s(y)s(x)$. $\Omega: R \rightarrow S^1$ ($S^1$ is the 1-sphere - circle) by
+$u \mapsto (c(u),s(u))$ is a morphism: $\Omega(x+y)= \Omega (x) \oplus \Omega (y)$.
+$\Omega$ has a non-trivial kernel $K$ since $S^1$ is compact but $R$ isn't.  
+$K= 2 \pi {\mathbb Z}$.
+These functions are periodic, satisfy the given derivatives, parameterize $S^1$ under the
+indicated morphism and provide the integration property.
+By analogy, set $F(k,v)= \int {\frac {dz} {\sqrt {(1-z^2 ) (1- k^2 z^2 )}}}$ and define
+$sn$ by $F(k,sn(u))=u$.  
+$cn(u)= {\sqrt {1 - sn^2 (u)}}$,
+$dn(u)= {\sqrt {1 - k^2 sn^2 (u)}}$.  $sn, cn, dn$ are doubly periodic with
+periods $\omega_1 , \omega_2$.  
+\\
+\\
+{\bf Weierstrauss Parameterization:} $y(t)^2= x(t)^3+a x(t) + b$.
+Let $\omega_1 , \omega_2 \in {\mathbb C}$ and 
+$\Lambda= \{ a \omega_1 + b \omega_2: a,b \in {\mathbb Z} \}$ which
+is preserved under unimodular transformations,
+$\Lambda'= \lambda - \{ {\vec 0} \}$.
+${\mathbb C}/\Lambda$ is an equivalence class of complex numbers equivalent
+to a torus.
+\\
+\\
+{\bf Theorem:}
+Any two basis of the same discrete group of an elliptic (doubly periodic)
+function are related by \emph{unimodular} transformations.
+The period module of a doubly periodic function is one of the following: (1) $0$;
+(2) $n \omega, n \in {\mathbb Z}$;
+(3) $n \omega_1+ m \omega_2, n,m \in {\mathbb Z}$.  In the latter case, there is a 
+canonical basis $(\omega_1 , \omega_2 )$ with $\tau= {\frac {\omega_2} {\omega_1}}$ such that
+(i) $Im(\tau) >0$, (ii) $-{\frac 1 2} \leq Re(\tau) \leq {\frac 1 2}$, (iii) $|\tau| \geq 1$ and
+$Re(\tau)>0$ if $|\tau|=1$.
+\begin{quote}
+\emph{Proof:}
+Suppose neither (1) or (2) hold.  Let $\omega_1$ be the element of $M$ with smallest non zero modulus and
+let $\omega_2$ be the element of $M \notin \{ m \omega_1 \}$ with the smallest non-zero modulus.  First,
+if ${\frac {\omega_2} {\omega_1}} \in {\mathbb R}, \exists n:  n < {\frac {\omega_2}{\omega_1}} < n+1$ which
+means $|n \omega_2 - \omega_1| < | \omega_1|$ which is a contradiction.  We may put
+$\omega= \lambda_1 \omega_1 + \lambda_2 \omega_2, \lambda_1, \lambda_2 \in {\mathbb R} $ 
+so $\exists m_1, m_2 \in {\mathbb Z}: | \lambda_1 - m_1 | \leq {\frac 1 2}, | \lambda_2 - m_2 | \leq {\frac 1 2}$.
+But then $\omega'= \omega - m_1 \omega_1 - m_2 \omega_2 \in M$ and
+$ |\omega'| \leq {\frac 1 2} |\omega_1|+ {\frac 1 2} |\omega_2| \leq |\omega_2| $.  To show (i, (ii), (iii) and
+(iv), pick 
+$\omega_1$ and
+$\omega_2$ as above.  We already have, 
+$ |\omega_1| \leq |\omega_2| $,
+$ |\omega_2| \leq |\omega_1+\omega_2| $,
+$ |\omega_2| \leq |\omega_1-\omega_2| $.  
+If $Im(\tau) <0$ replace $(\omega_1 , \omega_2)$ with $(-\omega_1 , \omega_2)$.
+If $Re(\tau) = - {\frac 1 2}$ replace $(\omega_1 , \omega_2)$ with $(\omega_1 , \omega_1+\omega_2)$.
+If $|\tau|=1$ and $Re(\tau) < 0$ replace $(\omega_1 , \omega_2)$ with $(-\omega_2 , \omega_1)$.
+\end{quote}
+{\bf Theorem:}  An elliptic function without poles is constant.
+\begin{quote}
+\end{quote}
+{\bf Theorem:}  If $f$ is elliptic, $\sum_{a \in {\cal P}} Res(f,a) = 0$, ${\cal P}$ is the set of \emph{poles}.
+\begin{quote}
+\end{quote}
+{\bf Theorem:}  If $f$ is elliptic,  $M$ is the module of periods,
+$\langle a_1 , \ldots, a_n \rangle$ are the zeros,
+$\langle b_1 , \ldots, b_n \rangle$ are the poles then
+$\sum_i a_i= \sum_i b_i \jmod{M}$.
+\begin{quote}
+\end{quote}
+{\bf Elliptic functions of order $2$:} $\wp(z)= z^{-2}+ a_2x^2+a_4 z^4 + \ldots $.
+$\wp(z)= {\frac 1 {z^2}} + \sum_{\omega \ne 0} {\frac 1 {(z- \omega)^2)}}- {\frac 1 {\omega)^2}}$.  If
+$|\omega| \geq 2|z|$, 
+$|{\frac 1 {(z- \omega)^2)}}- {\frac 1 {\omega)^2}}| \leq {\frac {10 |z|} {|\omega|^3}}$.
+$\wp'(z)^2= 4 \wp(z)^3 - g_2 \wp - g_3= 4 (\wp(z)-e_1) (\wp(z)-e_2) (\wp(z)-e_3) $,
+$e_1, e_2, e_3$ are distinct.  The equation can be solved by $z= \int^w {\frac {dw}
+{\sqrt{4w^3 -  g_2 w - g_3}}}$.  Since $\wp(\omega_1 -z)= \wp(z)$, 
+$ \wp'({\frac {\omega_1} {2}})= 0 $; similarly,
+$ \wp'({\frac {\omega_2} {2}})= 0 $ and
+$ \wp'({\frac {\omega_1+\omega_2} {2}})= 0 $. So
+$e_1=  {\frac {\omega_1} {2}}$,
+$e_2= {\frac {\omega_2} {2}}$, and
+$e_3= {\frac {\omega_1+\omega_2} {2}}$.  Put $\lambda( \tau )= {\frac {e_3 - e_2} {e_1- e_2}}$.
+$\lambda$ is the quotient of two analytic functions in the upper half-plane.
+\\
+\\
+{\bf Definitions:}
+If $\lambda({\frac {a \tau + b} {c \tau + d}})= \lambda(\tau)$, the linear transformation is
+an \emph{automorphism} of $\wp$.  The automorphisms
+$\lambda({\frac {a \tau + b} {c \tau + d}})= \lambda(\tau)$ for
+$
+\left(
+\begin{array}{cc}
+a & b\\
+c & d\\
+\end{array}
+\right)=
+\left(
+\begin{array}{cc}
+1 & 0\\
+0 & 1\\
+\end{array}
+\right) \jmod{2}
+$ form the \emph{modular group}.
+$\lambda(\tau + 1) = {\frac {\lambda(\tau)} {\lambda(\tau) -1}}$,
+$\lambda({\frac 1 \tau}) = 1- \lambda(\tau)$.
+$\wp(z, \Lambda)= {\frac 1 {z^2}}+ \sum_{\omega \in \Lambda'} ({\frac 1 {(z-\omega)^2}} - 
+{\frac 1 {\omega^2}})$.
+\\
+\\
+{\bf Theorem:}  
+$\wp(z, \Lambda)$ converges uniformly for ${\mathbb C}/\Lambda$, $\wp(z)= \wp(-z)$ and
+$\wp$ is doubly periodic.  As $z$ ranges over a fundamental region, $\wp$ takes on every
+complex value twice.
+$\wp(z, \Lambda)- {\frac 1 {z^2}}= 
+\sum_{\omega \in \Lambda'} ({\frac 1 {(z-\omega)^2}} - {\frac 1 {\omega^2}})=
+\sum_{n=1}^{\infty} (n+1) z^n
+(\sum_{\omega \in \Lambda'} 
+|{\frac 1 {\omega^{n+2}}}|)$. The final summation is an Eisenstein series of weight
+$n+2$, denoted $G_{n+2}$.
+$\wp(z)= {\frac 1 {z^2}} +3G_4 z^2+ 5G_6z^4 + \ldots$.
+$P(z)= (\wp'(z), \wp(z))$ is a point on $y^2=4x^3-60 G_4 x -140 G_6$.
+\begin{quote}
+\end{quote}
+{\bf Reimann surfaces:}
+Glue two copies of $C$ to get ${\sqrt z}$.  For $N \in {\mathbb Z}, N>0$ define
+$\Gamma_0 (N) \subseteq SL_2$ with $N|c$.
+$\Gamma_0 (N)$ acts on $H$ and $H/
+\Gamma_0 (N) \equiv X_0 (N) \backslash K$ where $K$ are the cusps.  
+$X_0 (N)$ is compact and
+the members are the modular functions of level $N$.
+\\
+\\
+{\bf Semi-Stable:} For all primes $l>3$, $l|Disc$ and only two of the roots are equal 
+$\jmod{l}$.
+Frey curve: $C^F_{a,b} 
+{\buildrel\rm def\over =} \; 
+y^2= x (x-a^p) (x-b^p)$.  
+If $b$ is even and $a = -1 \jmod{4}$.  Frey curve is semi-stable.
+\\
+\\ 
+{\bf Definitions:}
+Denote $E_{A,B,C,D}({\mathbb Q}) {\buildrel\rm def\over =} \; 
+y^2= Ax^3 + B x^2 + CX +D, A, B, C, D \in {\mathbb Q}$.
+Define $b_p$ to be the number of solutions to $E_{A,B,C,D}({\mathbb Q})= 0$. $E$ 
+is \emph{modular} if
+$\exists$ eigenfunction, $f(z)= \sum_n a_n e^{2 \pi i n z}$. $E/{\mathbb Q}$
+is modular if $\exists f$ and eigenfunction with $a_p=p+1-b_p$ for all but finitely many
+$p$.
+\\
+\\
+{\bf Taniyama-Shimura Conjecture:}  Every elliptic curve is modular.
+Alternate T-S: $E(A,B,C,D)$.  $\exists$ modular functions $f(z), g(z)$ such that
+$g(z)^2= Af(z)^3+Bf(z)^2+C f(z) +D$.
+\begin{quote}
+\end{quote}
+Define the \emph{conductor}
+$Cond_{a,b,c}= \prod_{p|abc} p$.  Two elliptic curves are isomorphic
+iff their \emph{$j$-invariants} are equal. The $j$-invariant of $C^F_{a,b} =
+2^8 {\frac {(a^{2p} +b^{2p} +a^p b^p)^3} {a^{2p} b^{2p} c^{2p}}}$.
+If $F({\frac {az+b} {cz+d}})= (cz+d)^2 F(z)$, $F$ is a modular form of weight $2$.
+\\
+\\
+{\bf Proof of Fermat's Last Theorem:}  Suppose it's false and that $a^p + b^p= c^p$ is
+a counterexample.  Let 
+$C^F_{a,b}$ be the Frey curve.  $Disc(C^F_{a,b})= a^{2p} b^{2p}c^{2p}$ so
+$C^F_{a,b}$ is semi-stable.
+Wiles proved every semi-stable elliptic curve is modular so
+$C^F_{a,b}$ is modular and has a cusp form of weight $2$ and level $N$ where $N$
+is the conductor.
+If $l$ is an odd prime and $l|N$,
+by Serre, we can obtain a new $F$ of
+weight 2 of level $N/l$.  By induction, keep doing this until $N=2$.  The dimension
+of the space of cusps is equal to the genus of compact Reimann surface $X_0(N)$.  
+But $Genus(X_0(2))= 0$, so there is no such cusp forms of weight $2$, level $2$.
+This contradiction establishes the theorem.  Incidentially, the restriction of semi-stability
+in Wiles Theorem has been removed.

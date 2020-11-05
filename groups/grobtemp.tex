@@ -1,0 +1,65 @@
+\section{Frobenius Groups and Permutations}
+{\bf Theorem 10:}
+Let $G$ be a transitive permutation group acting on $\Omega$ and $H= G_{\alpha}, \alpha \in \Omega$,
+then (1) $G$ is $2$-transitive iff $H$ acts transitively on $\Omega \setminus \{ \alpha \}$;
+(2) $G$ is $2$-transitive iff $G= HTH$, $|T|= 2$ and $T \nsubseteq H$;
+(3) If $G$ is $2$-transitive and $|G:H|= n$ then $G= d(n-1)n$.
+\begin{quote}
+\emph{Proof:}  
+Standard.
+\end{quote}
+{\bf Theorem 11:}
+Let $G$ be a transitive permutation group acting on $\Omega$ then 
+(1) $\sum_{g \in G} |Fix_{\Omega}(g)| = |G|$; and,
+(2) $G$ is $2$-transitive iff $\sum_{g \in G} |Fix_{\Omega}(g)|^2 = 2|G|$.
+\begin{quote}
+\emph{Proof:}  
+(1) Let $\beta(i)$ be the number of elements of $G$ fixing $i$, this is $|G_i|$.
+$\sum_{x \in G} Fix(x) = \sum_{i=1}^n \beta(i)= \sum_{i=1}^n |G_i|= |G|$.  
+For (2), note that $G$ is $2$-transitive pn $\Omega$ iff $G_{\alpha}$ is transitive on
+$\Omega- \{ \alpha \}$.
+$\sum_{x \in G_{\alpha}} Fix_i(x) = G_{\alpha}$ where $Fix_i(x)$ is the fixed points in
+$\Omega_i$,
+$\Omega_1= \{ \alpha \}$ and
+$\Omega_2= \Omega -\{ \alpha \}$.  So
+$\sum_{i=1}^n \sum_{x \in G_{\alpha}} Fix(x) = 2 \sum_{i=1}^n G_{\alpha} =2|G|$.
+\end{quote}
+{\bf Definition 10:} The class of transitive permutation groups in which only the identity fixes
+more than one element but $|G_a| > \{ 1 \}$ is called a \emph{Frobenius group}.
+\\
+\\
+{\bf Theorem 12:}
+Let $G$ be a Frobenius group acting on $\Omega$ and $H= G_{\alpha}, \alpha \in \Omega$ and
+put $K= \{ 1 \} \cup \{X \in G: |Fix_{\Omega}(x)|= 0 \}$.  Then $K$ is a normal subgroup
+of $G$ and $|K|= |G:H|$.  $K$ is called the \emph{Frobenius kernel} of $G$ and $H$ is the
+\emph{Frobenius complement}.  $G= K \rtimes H$.
+\begin{quote}
+The proof uses character theory.
+\end{quote}
+{\bf Theorem 13:}
+Let $G$ be a transitive permutation group acting on $\Omega$ and $H= G_{\alpha}, \alpha \in \Omega$.
+Then $G$ is a Frobenius group iff $\forall x \in G \setminus H: H \cap H^x = \{ 1 \}$ 
+(``TI Property'') and $N_G(H)= H$.
+\begin{quote}
+\emph{Proof:}  
+Suppose $G$ is Frobenius and put $H=G_a$. $1 < H < G$.   If $g \in G-H$ then
+$H^g= G_a^g= G_{a^g}= G_b$ where $b= a^g \ne a$.   Thus $H^g \cap H = G_a \cap G_b= G_{a,b}=1$.
+Hence $H$ is a TI set and $N(H)=H$.  Conversely,
+given $G, H$ then $G$ permutes the right cosets of $H$ transitively by right multiplication.
+Suppose $\langle x_1, x_2, \ldots , x_n \rangle$ is a set of coset representatives of $H$ then
+we have a homomorphism $\varphi: G \rightarrow Sym(\langle Hx_i \rangle)$.  Let
+$a- H x_i$, $b= Hx_j$ with $i \ne j$.  $G_{a,b}= H^{x_i} \cap H^{x_j}$ and
+$x_j x_i^{-1} \notin H=N(H)$ and so $H^{x_i} \ne H^{x_j}$.   Since $H$ is a TI set,
+$G_{a,b} = 1$.  Thus the representation is faithful and $G$ is a Frobenius group.
+\end{quote}
+{\bf Theorem 14:}
+$G= L_2(q)$ is $2$-transitive on points in $V= E_{q^2}$ and only the identity fixes
+$3$ points.  Put $N= G_a$; then, in addition,
+(1) if $q>3$, $N$ is a Frobenius group with complement $H$ of order $\epsilon (q-1)$ and
+elementary abelian kernel $K$ of order $q$ disjoint from its conjugates;
+(2) $H$ is the subgroup fixing $2$ points and $H$ is inverted by an element of order $2$
+in $G$.
+\begin{quote}
+\emph{Proof:}  
+Standard.
+\end{quote}

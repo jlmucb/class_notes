@@ -1,0 +1,30 @@
+{\bf Cube Attack:}
+For any polynomial $P$ and term $t$, write $P= tPt+Q$, where
+the variables in $P_t$ are disjoint from those in $t$
+and each term in Q misses at least one variable from $t$.
+$P_t$ is called the \emph{superpoly} of $t$ in $P$.  
+A \emph{maxterm} of $P$ is any product $t$ of variables whose superpoly has degree $1$ 
+(i.e., is a linear or affine function which is not a constant).
+Example:
+$P(x_1,x_2,x_3,x_4,x_5) =x_1x_2x_3+x_1x_2x_4+x_2x_4x_5+x_1x_2+x_2+x_3x_5+x_5+1 $.
+Let $t=x_1x_2$, $P(x_1,x_2,x_3,x_4,x_5)= x_1x_2(x_3+x_4+1)+(x_2x_4x_5+x_3x_5+x_2+x_5+1)$,
+the superpoly of $x_1x_2$ in $P$ is $(x_3+x_4+1)$.
+\\
+\\
+{\bf Theorem:} 
+$\sum_t (tP_t+Q) = P_t$
+\begin{quote}
+\emph{Proof:}
+$\sum_t Q = 0$ since every numerical value appears an even number of times.
+$\sum_t (tP_t+Q) = 
+(\sum_t t) P_t$ since the only term in the sum that is non-zero is the one where all the vareables are $1$.
+\end{quote}
+{\bf To apply in attack:}
+For each candidate maxterm $t$, choose pairs of values for all the other variables 
+$X’$ and $X”$. Verify that the numerical values of the subcube sums satisfy the linearity test:  
+$P_t(X’)+P_t(X”)= P_t(X’+X”)+P_t(0)$.
+If the test succeeds multiple times, obtain the linear superpoly by checking the 
+numeric effect of flipping each key bit $x_i$.
+\\
+\\
+

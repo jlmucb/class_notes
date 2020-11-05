@@ -1,0 +1,1143 @@
+\chapter{Stability}
+\section {Quadratic Action}
+{\bf Definition 1:} 
+$G$ is \emph{$\pi$-separable} iff every composition factor of $G$ is
+either a $\pi$-group or a $\pi'$ group.
+$G$ is \emph{$\pi$-solvable} iff every composition factor of $G$ is
+either a solvable $\pi$-group or a $\pi'$ group.
+\\
+\\
+{\bf Theorem 1:}
+(1) If $G$ is $\pi$ separable iff the upper and lower $\pi$ series of $G$ terminate at
+$G$.\\
+(2) If $G$ is $\pi$-separable ($\pi$-solvable) so are subgroups and homomorphic images.
+$G$.\\
+(3) If $G$ is $\pi$-separable a minimal normal subgroup of $G$ is either a 
+$\pi$-group or a
+$\pi'$-group.
+\begin{quote}
+\emph{Proof:}  
+For 3,
+let $K$ be a minimal normal subgroup of the $\pi$ separable group $G$.
+$K$ is characteristically simple an is thus a direct product of simple groups.
+There is a composition series in which one of the isomophic subgroups in the
+direct product is the last term and this must be a $\pi$ or $\pi'$ group.
+For 2, homomorphic and normal subgroups are sutomatically $\pi$-separable (or $\pi$-solvable).
+Let $H \le G$ and $K$ be a minimal normal subgroup of $G$, ${\overline G}= G/K$.
+By induction, ${\overline H}$ is $\pi$-separable so we only need to show $H \cap K$ is;
+this follows from 3 since $K$ is either a $\pi'$ group or a solvable $\pi$ group.
+For 1, if the upper or lower series terminate, they can be refined to a composition series and
+each of the factors is either a $\pi$ group or a $\pi'$ group. 
+In either case, $G$ is $\pi$ separable.
+Conversely, if $G$ is $\pi$-separable and the upper $\pi$ series of $G$ terminates in
+the proper subgroup $H$ of $G$, putting ${\overline G}= G/H$, we have 
+$O_{\pi}(G) = O_{\pi'}(G)= 1 $. But ${\overline G}$ is $\pi$ separable by 2 and so a minimal
+normal subgroup ${\overline K}$ is either a $\pi$ or $\pi'$ group by 3 and thus either
+${\overline K} \subseteq O_{\pi}({\overline G})$ or
+${\overline K} \subseteq O_{\pi'}({\overline G})$ and either is a contradiction establishing 1.
+\end{quote}
+{\bf Theorem 2:}
+If $G$ is $\pi$ separable and ${\overline G}= G/O_{\pi'}(G)$ then
+$C_{\overline G}(O_{\pi}({\overline G})) \subseteq O_{\pi}({\overline G})$.
+\begin{quote}
+\emph{Proof:}  
+STS this when
+$O_{\pi'}( G ) = 1$.  Set $H= O_{\pi}(G)$ and $C= C_G(H)$ so $C \cap Z = {\mathbb Z}(H)$ and
+we must show $C= {\mathbb Z}(H)$.  $O_{\pi}(C) \thinspace char \thinspace \lhd G$ so
+$O_{\pi}(C) \lhd G$ and hence
+$O_{\pi}(C) \subseteq H$.  Thus $O_{\pi}(C)= C \cap H = {\mathbb Z}(H)$.  On the other hand,
+${\mathbb Z}(H) \lhd G$ and
+${\mathbb Z}(H) \subseteq C$ so
+${\mathbb Z}(H) \subseteq O_{\pi}(C)$ and thus
+${\mathbb Z}(H) = O_{\pi}(C)$.
+Assume, by way of contradiction, that $C \supset {\mathbb Z}(H)$ then
+$C \supset O_{\pi}(C)$.  $C$ is $\pi$-separable so
+$L= O_{\pi, \pi'}(C) \subset O_{\pi}(C)$.  $L/O_{\pi}(C)$ is a $\pi'$ group, 
+${\mathbb Z}(H)= O_{\pi}(C)$ is a normal $S_p$ subgroup of $L$ and by Schur-Zassenhaus,
+${\mathbb Z}(H)$ has a normal complement, $K \ne 1$ in $L$ which is a normal $S_{\pi'}$
+subgroup of $L$.  But $K \subseteq C$ and $[C, {\mathbb Z}(H)]=1$ so
+$L= {\mathbb Z}(H) \times K$ and since $K$ is a $\pi'$ group, $K \lhd G$ and
+$K \subseteq O_{\pi'}(G)= 1$, a contradiction.
+\end{quote}
+{\bf Theorem 3:}
+If $G$ is $\pi$-solvable 
+$C_G(P \cap O_{p', p}(G)) \subseteq O_{p', p}(G)$.
+\begin{quote}
+\emph{Proof:}  
+Let ${\overline G} = G/O_{p'}(G)$.  $C_{\overline G}({\overline P}) \subseteq  O_{p}({\overline G})$.
+By coprime action, $C_{\overline G}({\overline P}) = C_G(P) O_{p'}(G)/O_{p'}(G)$.  By Theorem 2,
+$C_G(O_{p',p}(G)) \subseteq O_{p',p}(G)$ and the result follows.
+\end{quote}
+{\bf Theorem 4:}
+Let $G$ be a $p$-solvable group in which $O_{p'}(G)= 1$ and $H= O_p(G)$, then
+$G/H$ is faithfully represented on $H/\Phi(H)$.
+\begin{quote}
+\emph{Proof:}  
+Let $g$ act by conjugation on $H$. 
+If $[g, H]=1$, $g \in p(G)$ because $O_{p'}(G)=1$.  So $gH$ acts on $H$ and is a $p'$-element.
+By the result in the critical subgroups section, if $gH$ acts non-trivially on $H$ then
+$gH$ acts non-trivially on $H/\Phi(H)$.
+\end{quote}
+{\bf Definitions 2:} If $V$ is an elementary abelian $p$-group then $a$ 
+acts quadratically on $V$ if $[V,a,a]=1$, in which  case, $v^{(a-1)^2}=0$.
+$G$ is said to be 
+\emph{$p$-separable} if two non conjugate elements of $G$ remain non-conjugate in 
+some finite $p$-group endomorphic image of $G$.
+The \emph{upper $\pi$ series}  is
+$\{ 1 \} \subseteq O_{\pi}(G) \subseteq O_{\pi, \pi'}(G) \subseteq O_{\pi, \pi', \pi}(G) \ldots$
+The \emph{lower $\pi$ series} is
+$\{ 1 \} \subseteq O_{\pi'}(G) \subseteq O_{\pi', \pi}(G) \subseteq O_{\pi', \pi, \pi'}(G) \ldots$.
+\\
+\\
+{\bf Examples of quadratic action:} \\
+(a) $G$ a $p$-group acting on the elementary abelian $p$-group $V$: $|V/C_V(G)|= p$;\\
+(b) $G \in S_p(SL(V))$ acting on $V$ the vector space over $F_{p^m}$; in this case, note $x \in S_p(SL_2(p)) \rightarrow (x-1)^2 = 0$.\\
+(c) $V, G \lhd H$, $G$-abelian, since $[V,G] \subseteq V \cap G$ and $[V \cap G, G] = 1$.
+\\
+\\
+{\bf Theorem 5:}
+If $G$ acts quadratically on $V$ then (a) $[v^n,a]=[v,a^n]=[v,a]^n$,
+(b) $|V| \le |C_V(a)|^2$, (c) $G/C_G(V)$ is an elementary abelian $p-$group.
+\begin{quote}
+\emph{Proof:}  
+$[v,a^2]= [v,a] [v,a]^a$ but quadratic action gives $[v,a]^a= [v,a]$ so
+$[v,a^2]= [v,a]^2$.  $[V,G']= 1$ so $G' \subseteq C_G(V)$ and so $G/C_G(V))$ is abelian.
+Since $[v, a^p] = 1$, it is elementary abelian.  For (b), note that
+$V/C_V(G) \cong [V, a] \le C_V(a)$.
+\end{quote}
+{\bf Theorem 6:}
+Let $G$ act on an $F_q$ vector space $W \ne 0$, $q=p^m$.  Suppose $G= \langle a,b \rangle $ and
+$a, b$ act quadratically on $W$, $G/C_G(W)$ is not a $p-$group, $|ab|=p^ek, k \mid (p-1)$
+then $\exists \varphi: G \rightarrow SL_2(q)$.  
+\begin{quote}
+\emph{Proof:}  
+By induction on $|G|+ dim(W)$.  If action is not faithful, we're done by induction.
+Let $W_1$ be a maximal $G$-invariant subspace of $W$.  If $G/C_G(W_1)$ is not a
+$p$-group,then $C_G(W/W_1)$ is not a $p$-group; if $W_1 \ne 0$, again we're done by induction.
+So $G$ acts faithfully and irreducibly on $W$ and if $a, b$ 
+are $p$-elements, they act quadratically and $G$ is not abelian.
+By Schur, $< \langle ab \rangle $ acts as a scalar on a minimal 
+$ \langle ab \rangle $-invariant subspace
+of $W$.  $\exists 0 \ne W \in W, \lambda \in F_q^*: w^{ab}= \lambda w$.
+If $w^a \in F_q w$, it is $G$-invariant and $W= F_qw$ by irreducibility and $G$ is
+abelian.  Contradiction.  Thus $W_1 = F_q w + F_q w^a$ is $2$-dimensional and we
+have:
+$[w,a] \in C_{W_1}(a)$ and
+$w^{b^{-1}} -w \in C_{W_1}(b)$.  So $(w^a)^a \in W_1$, $w^b \in W_1$ and $w^{ab} \in W_1$.
+so $W_1$  is $G$-invariant and $W= W_1$.  $G \le SL(W)$ since $SL_2(q)$ is generated by
+$p$-elements $a, b$.
+\end{quote}
+{\bf Definition 3:} $G$ is \emph {$p$-stable} if $\forall a \in G, [V,a,a]=1$ implies 
+$a C_G(V) \in O_p ( G/C_G(V))$.
+\\
+\\
+{\bf Question:}  If $V/F_q$, $q= p^n$, is a faithful $G$-module, when does a $p$ element of
+$G$ have a quadratic minimal polynomial?  This is trivial for $p=1$ and is true for
+all elements of $SL_2(q)$.  Let $G$ be a group and $O_p(G)=1, p \ne 2$
+A faithful representation of $G$ on $V$, $\varphi$ is \emph{$p$-stable} if
+no $p$-element of $\varphi(G)$ has a quadratic minimal polynomial.  $G$ is $p$-stable
+if all such faithful representations of $G$ are $p$-stable.
+\\
+\\
+{\bf Lemma:} If $G$ is $p$-stable and $a$ acts trivially on $[V,a]$ then $ \langle A \rangle 
+C_G(V)/C_G(V)$ 
+is a $p$-group.
+\begin{quote}
+\emph{Proof:}  
+$[V,a,a]=1$ so $a C_G(v) 
+\in O_p(G/C_G(V))$ and $\langle a C_G(V) \rangle = \langle A \rangle
+\subseteq  O_p(G/C_G(V))$.
+\end{quote}
+{\bf Theorem 7:} Let $p \ne 2$ and $G$ be faithful on $V$.
+Suppose (1) $G= \langle a,b \rangle $ where $a$ and $b$ act quadratically on $V$ and
+(2) $G$ is not a $p-$group then (1) the Sylow $2$ subgroups of $G$ are not abelian and
+(2) If $Q$ is a normal $p'$-subgroup of $G$ and $[Q,a] \ne 1$ then $p=3$ and there
+is a section of $G$ isomorphic to $SL_2(3)$.  If $p \ne 2$.
+\begin{quote}
+\emph{Proof:}  
+Let $|ab|= p^e k$ and $q$ be a power of $p$ with $k \mid (q-1)$.  Write $V$ additively
+as a vector space over $F_p$ and choose a basis $ \langle v_1 , v_2 , \ldots , v_n \rangle $; 
+the action
+can be extended to an action of $G$ over $W$.  By the previous result,
+$\exists \varphi: G \rightarrow SL_2(q)$ with 
+$G^{\varphi}= \langle a^{\varphi}, b^{\varphi} \rangle $ and
+$G$ is not a $p$-group so it is not $p$-closed.  This gives (a).  (b) follows since
+if $Q^{\varphi}$ is an $a^{\varphi}$-invariant $p'$-subgroup
+such that $[Q^{\varphi}, a^{\varphi}] \ne 1$.
+\end{quote}
+{\bf Theorem 8:}
+Suppose $p \ne 2$ and the action of
+$G$ on $V$ is faithful and not $p-$stable then (1) the Sylow $2$-subgroups of
+$G$ are non-Abelian and (2) if $G$ is $p-$separable 
+then $p=3$ and there is a section of
+$G$ isomorphic to $SL_2(3)$.
+\begin{quote}
+\emph{Proof:}  
+$\exists a \in G \setminus O_p(G)$ such that $[V,a,a] = 1$.  Let ${\cal K}$ be the
+$G$-composition factors of $V$.  $O_p(G)= \bigcap_{W \in {\cal K}} C_G(W)$.  Hence,
+$\exists W \in {\cal K}, a \notin C_G(W)$ so a $C_G(W) \notin O_p(G/C_G(W)) = 1$.
+Thus $G/C_G(W)$ and $W$ satisfy the hypothesis and we can assume $W=V, O_p(G)=1$ by
+induction.  By Baer, $\exists b \in a^G: G_1 = \langle a,b \rangle $ is not a $p$-group.  Now
+(a) follows from the previous result.  If $G$ is $p$-seperable, put $Q= O_{p'}(G)$ then
+$[Q, a] \ne 1$ and $b$ can be chosen in $a^Q$ so we get (b).
+\end{quote}
+{\bf Theorem 9:} Suppose $G$ acts faithfully on $V$ and $E_1 , E_2$ are
+two subnormal subgroups of $G$ 
+such that $[V,E_1 , E_2 ]=1$ then $[E_1 , E_2 ] \le O_p (G)$.
+\begin{quote}
+\emph{Proof:}  
+By hypothesis, $V_1= [V, E_1]$ is invariant under $E= \langle E_1 , E_2 \rangle $ so
+$E_0 = C_E(V_1)$ and $E^0= C_E(V/V_1)$ are normal in $E$.
+$E_0 \cap E^0$ acts quadratically on $V$ and is a $p$-group by the earlier result.
+Thus $E_0 \cap E^0 \le O_p(E)$.
+$E_1 \le E^0$ and
+$E_2 \le E_0$ so $[E_1 , E_2 ] \le [E^0 , E_0] \le E^0 \cap E_0 \le O_p(E)$ so
+$E$ and $O_p(E)$ are subnormal in $G$ and hence, $O_p(E) \le O_p(G)$.
+\end{quote}
+$Q_8= \langle
+\left(
+\begin{array}{cc}
+i & 0 \\
+0 & -i \\
+\end{array}
+\right),
+\left( 
+\begin{array}{cc}
+0 & -1 \\
+-1 & 0 \\
+\end{array}
+\right) \rangle $.
+\section {Replacement Results}
+{\bf Observation:} $A^* = C_A([V,A])$ acts quadratically on $V$.
+\\
+\\
+{\bf Condition ${\cal Q}_1$:}
+$|A| |C_V(A)| \ge |A^*| C_V(A^*)|, \forall A, A^*$.
+\\
+\\
+{\bf Condition ${\cal Q}_2$:}
+$A/C_A(V)$ is an elementary abelian $p$-group.
+\\
+\\
+{\bf Definition 4:}  ${\cal A}_V(G) = \{ A \le G: A$ satisfies ${\cal Q}_1$ and ${\cal Q}_2 \}$.
+\\
+\\
+{\bf Theorem 10:}  
+Suppose $A$ acts on an elementary abelian $p$-group, $V$, with $A/C_A(V)$ abelian.
+Let $U \le V$.  Then $\exists A^* \le A$ such that one of the following holds:
+(a) $|A| |C_V(A)| \l |A^*| |C_V(A^*)|$, or 
+(b)  $A^* = C_A([U,A]), C_V(A^*)= [U,A] C_V(A), |A| |C_V(A)| = |A^*| |C_V(A^*)|$.
+\begin{quote}
+\emph{Proof:}  
+Assume ${\cal Q}_1$ does not hold.   $\forall B \le A$, so $|A| |C_V(A)| \ge |B| |C_V(B)|$.
+Put $A^* = C_A([U,A])$.  $[U, A, A^*]=1$ and $A/C_A(V)$ is abelian so
+$[A, A^*, U] =1  \rightarrow [U,A^* A] = 1$ so $[U, A^*] \le C_V(A)$.
+\\
+\\
+\emph{Claim:} $|A| |C_V(A)| \le |A^*| |[U,A] C_V(A)|$.
+\\
+\\
+Assuming claim, $|A^*| |C_V(A^*)| \le |A| |C_V(A)| \le |A^*| |[U,A] C_V(A)| \le |A^*| |C_V(A^*)|$
+and we're done.
+\\
+\\
+\emph{Proof of claim:}
+Let $Y= C_V(A), X= [U,A]$.
+We can assume $|U|= p, U= \langle u \rangle $ and $[U, A]= [u,a]$.
+Let $\varphi: A/A^* \rightarrow (XY)/Y$ by $a A^* \mapsto [u,a]Y$ is well defined.
+$\forall a^* \in A^*$.
+$[u, a^*, a]= [u,a] [u, a^*]^a \in [u,a]Y$.
+If $\varphi$ is injective, $|A/A^*| \le (XY)/Y|$ and the result follows.
+Let $a_1, a_2 \in A$ such that $[u, a_1]Y= [u, a_2 ]Y$.
+$[u, a_1] [u, a_2 ]^{-1} \in Y$ then $[u, a_1 a_2^{-1}] \in Y$ so
+$[u, A, A_1 s_2^{-1}]= 1 $
+and $a_1 a_2^{-1} \in C_A([U,A])=A^*$.  Thus $\varphi$ is injective.
+Now assume $|U| > p$, $|U:U_1|= p, U= U_1 \langle u \rangle $.
+Put $X_1= [U_1, A]$, $A_1 = C_A(X_1)$ and
+$X_2= [U_2, A]$, $A_2 = C_A(X_2)$.
+Note $X_1 X_2 C_V(A)= X C_V(A), A^* = A_1 \cap A_2$ and
+$X_1 C_V(A) \cap X_2 C_V(A) \le C_V(A_1 A_2 )$.
+By induction on $|U|$,
+$|A| |C_V(A)| = |A_i | |X_i:C_V(A)|$.  Hence,
+$|A| |C_V(A)| \ge
+|A_1 A_2| |C_V(A_1 A_2 ) | \ge
+{\frac {|A_1| |A_2| |X_1 C_V(A)| |X_2 C_V(A)|}
+{|A_1 \cap A_2| |X_1 C_V(A)| |X_2 C_V(A)|} }
+= {\frac {|A|^2 |C_V(A)|^2} {|A^*| |X C_V(A)|}}$ and this proves the claim.
+\end{quote}
+{\bf Theorem 11:} 
+$A \in {\cal A}_V(G)$ and $A^* = C_A([V,A])$ then 
+$|A/A^*| = |C_V(A^*)/C_V(A)|$ and $C_V(A^*)= [V,A] C_V(A)$.
+\begin{quote}
+\emph{Proof:}  
+By the previous result, every quadratically acting subgroup, $A$, satisifes
+${\cal Q}_2$ and the result follows from the second conclusion of that theorem, with $U=V$.
+\end{quote}
+{\bf Timmesfeld Replacement Theorem:}  
+Let $A \in {\cal A}_V(G)$ and $U \le V$ then $C_A([U,A]) \in {\cal A}_V(G)$ and
+$C_V(C_A([U,A]))= [U,A] C_V(A)$.  Moreover,
+$[V,C_A(([U,A])] \ne 1$ if $[V,A] \ne 1$.
+\begin{quote}
+\emph{Proof:}  
+Let  $A^* C_A([U,A])$.  Since $A \in {\cal A}_V(G)$, we can apply the previous
+result so
+$|A^*| |C_V(A^*)| = |A| |C_V(A)|$ and $C_V(A^*)= [U,A] C_V(A)$.
+$\forall A_0 \le A, {\cal Q}_1$ gives
+$|A_0| |C_V(A_0)| \le |A^*| |C_V(A^*)|$.
+Hence 
+$A^* \in {\cal A}_V(G)$, we may assume $[V, A^*] =1$ then $V= [U,A] C_V(A)= [V,A] C_V(A)$.
+In particular, $[V,A,A]=[V,A]$ but then $[V,A] = 1$ since $A/C_A(V)$ is a $p$-group.
+\end{quote}
+{\bf Definition 5:} ${\cal A}_V(G)_{min}= \{ A \in {\cal A}(G), [V,A] \ne 1 \}$.
+\\
+\\
+{\bf Theorem 12:}  Every element of ${\cal A}_V(G)_{min}$ acts quadratically and non-trivially on
+$V$.
+\begin{quote}
+\emph{Proof:}  
+Let $A \in 
+{\cal A}_V(G)_{min}$.  By previous result, $A^*= C_A([V,A])$ is also in
+${\cal A}_V(G)$ and $[V, A^*] \ne 1$.  Minimality forces $A=A^*$ and thus
+$[V,A,A]=1$.
+\end{quote}
+{\bf Theorem 13:}  Suppose $G$ is $p$-stable on $V$ and $O_p(G/C_G(V))=1$ then every element of
+${\cal A}_V(G)_{min}$ acts trivially on $V$.
+\begin{quote}
+\emph{Proof:}  
+Follows from previous result.
+\end{quote}
+{\bf Theorem 14:}
+Let $V= \langle C_V(S), S \in S_p(G) \rangle $ then $O_p(G/C_G(V))=1$.
+\begin{quote}
+\emph{Proof:}  
+Let $S \in S_p(G)$, $Z= C_V(S), C= C_G(V)$.  $V= \langle Z^G \rangle $.  Let $C \le D \le G$:
+$D/C \cong O_p(G/C)$ then $D \cap S \in S_p(D)$ and $D= C(D \cap S)$ and by
+Frattini: $G=C N_G(D \cap S)$.  So $V= \langle Z^{N_G(D \cap S)} \rangle $, so $[V, D \cap S]= 1$
+and $D=C$.
+\end{quote}
+{\bf Theorem 15:}
+Let $C_G(O_p(G)) \le O_p(G)$ then $V= \langle \Omega({\mathbb Z}(S)), S \in S_p(G) \rangle $ 
+is an elementary
+abelian normal subgroup of $G$ and $O_p(G/C_G(V))=1$.
+\begin{quote}
+\emph{Proof:}  
+Let $S \in S_p(G)$ then $\Omega ({\mathbb Z}(S)) \le C_G(O_p(G)) \le O_p(G) \le S$ so
+$V$ is contained in $\Omega({\mathbb Z}(O_p(G)))$ and $\Omega({\mathbb Z}(S))= C_V(S)$.  
+Now the result follows from the previous result.
+\end{quote}
+{\bf Definition 6:} Let ${\cal E}(G)$ be the set of elementary elementary subgroups of $G$ and
+$m$ the the size of the element of ${\cal E}(G)$ of maximal order.
+$J(G)= \langle A \in {\cal A}(G): |A|=m \rangle $.
+\\
+\\
+{\bf Theorem 16:}
+Let $A \in {\cal A}(G)$ act quadratically
+on $V$ and $A_0 = [V,A] C_A([V,A])$ then $A_0$ is in ${\cal A}(G)$ and acts quadratically
+on $V$ and if $[V,A] \ne 1$ then $[V, A_0 ] \ne 1$.
+\begin{quote}
+\emph{Proof:}  
+Let $X= [V,A]$ and $A^*= C_A(X)$ with $A_0= A^*X$.  $A_0$ is elementary abelian
+and $[V,A_0, A_0] \le [V, A, A_0 ] =1$.  It suffices to show $|A|= |A_0|$ to establish
+$A_0 \in {\cal A}(G)$.  The maximality of $A$ gives $C_V(A)= V \cap A= V \cap A^*$ and since 
+$X \cap A = X \cap A^*$, $|A| |A \cap V| = |A| |C_V(A)| = |A^*| |XC_V(A)|$.
+and so
+$|A| = {\frac {|A^*| |XC_V(A)|} {|C_V(A)|}} =
+{\frac {|A^*|} {|X \cap C_V(A)|}} = {\frac {|A^*| |X|} {|X \cap A^*|}} = |A_0|$.
+\end{quote}
+{\bf Theorem 17:} 
+(a) ${\cal A}(G) \subseteq {\cal A}_V(G)$ and (b) $V \nleq {\mathbb Z}(J(G))$ then
+$\exists A \in {\cal A}(G): [V,A] \ne 1$.
+\begin{quote}
+\emph{Proof:}  
+Let $ A^* \in {\cal A}(G)$ then $A^* C_V(A^*) \in {\cal E}(G)$ so
+$|A| \ge |A^* C_V(A^*)|=
+{\frac {|A^*| |C_V(A^*)|} {|A^* \cap V|}} \ge
+{\frac {|A^*| |C_V(A^*)|} {|C_V(A)|}} $ and (a) follows.  (b) is clear.
+\end{quote}
+{\bf Condition ${\cal Q}_1'$:} $|A/C_A(V)| \ge |V/C_V(A)|$.
+\\
+\\
+{\bf Theorem 18:} 
+Let ${\cal B}$ be the set of subgroups $A \le G$ satisfying 
+${\cal Q}_1'$ and
+${\cal Q}_2$.  Let $A \in {\cal B}$ and suppose that $\forall A^* \le A, A^* \in {\cal B}$,
+$|A^*/C_{A^*}(V)| |C_V(A^*)| \le |A/C_A(V)| |C_V(A)|$ then $A \in {\cal A}_V(G)$.
+\begin{quote}
+\emph{Proof:}  
+We need to verify ${\cal Q}_1$ for $A$.  Let $A^* \le A$.  If $A^*$ does not satisfy
+${\cal Q}_1'$ then $A^* \notin {\cal B}$ and
+$|A^*/C_{A^*}(V)| |C_V(A^*)| <
+|V| \le |A/C_A(V)| |C_V(A)| $.  So 
+$|A/C_A(V)| |C_V(A)| \ge |A^*/C_{A^*}(V)| |C_V(A^*)|=
+|(A^*/C_{A^*}(V))/C_A(V)| |C_V(A^*)|$.  The inequality also holds for $A^* \in {\cal B}$ since
+the inequality holds.
+Thus $\forall A^* \le A$: 
+$|A^*| |C_V(A^*)| \le |A^* C_{A}(V)| |C_V(A^*)| \le |A| |C_V(A)|$ and
+$A$ satisfies ${\cal Q}_1$.
+Assume $\exists A \in {\cal B}$ that act non-trivially on $V$.
+Among all such choose it with the property that $|A/C_A(V)| |C_V(A)|$ is
+maximal. Then the inequality in the theorem holds for $A$.  Thus
+$A \in {\cal A}_V(G)$ and ${\cal A}(G)_{min} \ne \emptyset$.  A previous result insures
+the existence that act quadratically and non-trivially on $V$.
+\end{quote}
+{\bf Theorem 19:} If ${\cal K} \in  \{N, S, \Pi\}$ then 
+$\forall G: O_{\cal K}(G)= \langle A: A \in {\cal K}, A \lhd \lhd G \rangle $.
+\begin{quote}
+\emph{Proof:}  
+Tor $A \lhd G$, this is clear.  May assume $A$ is not normal in $G$ so $\exists N \lhd G$ with
+$A \lhd \lhd N<G$.  By induction, 
+$A \leq O_{\cal K}(N)$.  
+$O_{\cal K}(N) \lhd G$ and  ${\cal K} \in \{N , S , \Pi \}$.  Hence $A \leq O_{\cal K}(N) \leq O_{\cal K}(G)$ which
+proves the result.
+\end{quote}
+\section{Stability and $SL_2(p)$}
+{\bf Hall's remark on Thompson:}  If $P \in S_p(K)$ and $K \ne XP$ for any $X \in O_{p'}(K)$, then
+there is a characteristic subgroup $D$ of $P$ of nilpotence class at most $2$ such that
+$N_K(D)/C_K(D)$ is not a $p$-group.
+\\
+\\
+{\bf Definition 7:}  Let $G$ be a $p$-constrained group with $O_{p'}(G)=1$.
+$G$ is $p$\emph{-stable} if $\forall H \lhd G, H \in p(G)$,
+$[H,x,x]=1 \rightarrow {\overline x} \in O_p(G/C_G(H))$.
+\\
+\\
+{\bf Theorem 20:}
+A group is $p$-separable iff
+$H<G$ has a non-trivial $\pi$-closed factor group or, equivalently
+$G$ has a normal series $1= A_0 < A_1 < \ldots <A_n=G$ of characteristic
+subgroups and $A_i/A_{i-1}$ is a $\pi$ or $\pi'$ group.
+\begin{quote}
+\emph{Proof:}  Sort of a definition.
+\end{quote}
+{\bf Theorem 21:}
+If $p \ne 2$, $O_{p'}(G)=1$ and $G$ is $p$-constrained or $p$-solvable and $SL_2(p)$ is
+not involved in $G$, then $G$ is $p$-stable.
+\begin{quote}
+\emph{Proof:}
+Suppose $H \lhd G$ is a $p$-group.  $G/C_G(H)$ acts on $H/\Phi(H)$.  Let $K=ker(\varphi)$
+where $\varphi: G/C_G(H) \rightarrow Aut(H/\Phi(H))$.
+\\
+\\
+\emph{Claim:} $K$ is a $p$-group.
+\\
+\emph{Proof of claim:} It suffices to show that if
+${\mathbb Z}_q < G/C_G(H)$ acts non-trivially on $H$, it acts nontrivially on
+$H/\Phi(H)$.  If ${\mathbb Z}_q$ acts trivially on $H/\Phi(H)$.  For each coset,
+$\Phi(H)x$, by counting, at least one element of the coset is fixed, say $x_i$.
+By the Burnside Basis Theorem, $ \langle x_i \rangle_i = H$.  
+Thus there is no $q$-element in $K$ and
+$|K|=p^m$.
+\\
+\\
+Put $L= G/C_G(H)/K$.  $L$ act faithfully on $H/\Phi(H)$.  Since $SL_2(p)$ is not involved,
+$K$ is $p$ stable.  Now let $x \in G$ with $[H,x,x]=1$ and let the canonical map
+$G/C_G(H) \rightarrow L$ be denoted by $\tilde {}$.  
+$[H,x,x]=1 \rightarrow [H,x,x] \in \Phi(H) \rightarrow
+(\tilde {\overline x}-1)^2=0$, so
+$\tilde {\overline x} \in O_p(\tilde{G/C_G(H)})$ we have
+$\tilde {\overline x} \in O_p(G/C_G(H))$.
+\end{quote}
+{\bf Theorem 21:}
+Let $G$ be a group with no non-trivial normal $p$-subgroup, $p \ne 2$ which satisfies one of
+the following:
+(1) $G$ has odd order;
+(2) $G$ has an abelian Sylow $2$-subgroup;
+(3) $G$ has a dihedral Sylow $2$-subgroup;
+(4) $G \cong PSL_2(q) = L_2(q)$;
+(5) $G$ is solvable and $p \ge 5$ or $p=3$ and $SL_2(3)$ is not involved in $G$
+then $G$ is $p$-stable.
+\begin{quote}
+\emph{Proof:}  
+Generalization of earlier result.
+\end{quote}
+\section{The Thompson Subgroup}
+{\bf Definition} Let ${\cal E}(G)$ be the elementary abelian subgroups of $G$ of maximal order.
+$J(G)= \langle {\cal E}(G) \rangle)$.
+\\
+\\
+{\bf $GL$ Lemma:} Let $G= GL_2(p)$, $p \neq 2$, $P \in S_p(G)$.  Suppose $L \in p'(G)$ and $P \subseteq N_G(L)$ and
+if $S \in S_2(G)$, $S'=1$.  Then $P \subseteq C_G(L)$.
+\begin{quote}
+\emph{Proof:}   Sublemma: If $q$ is odd, $-I$ is the unique involution in $SL_2(q)$.  Let $P$ be
+a $p$-group with at most one group of order $p$.  Either $P$ is cyclic or $p=2$ and
+$P$ is generalized quaternion.
+\\
+By induction on $|L|$, we can assume $P$ centralizes every proper subgroup that it stabilizes.
+Choose $q \mid |L:C_L(P)|$.  We can find a $P$ invariant Sylow $q$ subgroup $Q \subseteq L$.
+Since $Q \neq C_L(P)$, $Q=L$.  So $L$ is a $q$-group.  $[L, P] \subseteq P$.
+If $[L,P] < L$, $[L,P,P]=1$ and we're done.  So $[L,P]=P$, $L \subseteq G' \subseteq SL_2(p)$ since
+$GL_2(p)/SL_2(p)$ is abelian.  If $q = 2$, $L$ is abelian and has a unique involution.
+$L$ is a cyclic $2$-group and so is $Aut(L)$  $P$ cannot act non-trivially on $L$ so $q \neq 2$.
+$|L| \mid (p-1)p(p+1)$ so $q \mid p-1$ or $q \mid p+1$. This $|L| \leq p+1$.  If $P$ acts non-trivially on $L$
+then there must be a $p$-orbit of $L$ of size at least $p$. $|L|=p+1$ and $|L|$ is even but
+$|L|$ is a power of $q$.  Contradiction.
+\end{quote}
+{\bf Normal P-Theorem:} Let $P \in S_p(G)$ and suppose (1) $G$ is $p$-solvable, (2) $p \ne 2$, (3) if
+$R \in S_2(G)$, $R' = 1$, (4) $O_{p'}(G) = 1$, and (5) $P = C_G({\mathbb Z}(P))$ then $P \lhd G$.
+\begin{quote}
+\emph{Proof:} 
+Suppose $G$ is a minimal counter-example. $\exists Q \in S_p(G), P \neq Q: \langle P, Q \rangle G$.
+$Q= P^g$ and $C_V(Q) = C_V(P)^g$.  Put $U= C_V(Q) \cap C_V(P)$. $|V:U| \leq |V:C_V(P)| |V:C_V(Q)| = p^2$ and
+$U \lhd V$.  $G$ acts trivially on $U$: $[U, G] = 1$.  $G$ acts on $V/U$; let $K$ be the kernel of this map.
+$[V,U] \subseteq U$ and $[V, K, K] =1$ so $K$ is a $p$-group.  Note $K \subseteq O_p(G)$ so 
+$K \subseteq P$ and $K \subseteq Q$. ${\overline G} = G/K$ has Sylow subgroups ${\overline P}, {\overline Q}$
+and ${\overline G}$ acts faithfully on $V/U$ so $[{\overline P}, C_V(P)/U] = 1$.  ${\overline G}$ satisfies
+all the hypothesis of the theorem so $K=1$ and $G$ acts faithfully on $V/U$.
+Replace $V$ by $V/U$. $|V| \leq p^2$. $G \rightarrow Aut(V)$.  If $V$ is cyclic, $Aut(V)$ is abelian and
+so is $G$ therefore $P \lhd G$.  So $V$ is elementary abelian and $Aut(V) = GL_2(p)$ and $O_p(G) = 1$ since
+$|P| \leq p$ and $P$ is not normal.  Let $L = O_{p'}(G)$ and apply the previous lemma.  $[P, L]=1$ so by
+Hall-Higman, $P \subseteq C_G(L) \subseteq L$ and $P=1$.
+\end{quote}
+{\bf Normal J-Theorem:} Let $P \in S_p(G)$ and suppose (1) $G$ is $p$-solvable, (2) $p \ne 2$, (3) if
+$R \in S_2(G)$, $R' = 1$, (4) $G$ acts faithfully on some $p$-group, $V$ and (5) $|V:C_P(V)| \leq p$,
+then $J(P) \lhd G$.
+\begin{quote}
+\emph{Proof:} 
+Let $G$ be a minimal counterexample.  $U=O_{p}(G) > 1$, ${\overline G} = G/U$,
+${\overline L} = O_{p'}({\overline G})$, where $U \subseteq L$. \\
+\\
+\emph{Step 1:} (a) ${\mathbb Z}(P) \subseteq U$, (b) $U \subseteq H \subseteq G$ implies $O_{p'}(H)=1$ and
+(c) $C_{{\overline G}}({\overline L}) \subseteq {\overline L}$.\\
+\emph{Proof:} 
+Since $G$ is $p$-solvable and $O_{p'}(G)=1$,
+by 1.2.3, $C_G(U) \subseteq O_p(G) = U$ but $U \subseteq P$ so
+${\mathbb Z}(P) \subseteq C_G(U)$, proving (a).
+Since $U = O_p(G)$ and $O_p({\overline G}) = 1$, so 
+$C_{{\overline G}}({\overline L}) \subseteq {\overline L}$ by 1.2.3,
+proving (c).  For (b), let
+$U \subseteq H \subseteq G$, and put $M= O_{p'}(H)$.  $M, U \lhd H$. $M \cap U =1$, since
+$U$ is a $p$-group and $M$ is a $p'$-group, so $M \subseteq C_G(U) \subseteq U$ and thus $O_{p'}(H)=1$
+and $M= M \cap U =1$ proving (b).
+\\
+\\
+\emph{Step 2:} $\exists A \in {\cal E}(P): A \not\subseteq U$.\\
+\emph{Proof:} If not, all members of ${\cal E}(P)$ are contained in $U$ and so $J(P) \subseteq U$.
+By the $GL$ Lemma, $J(U) = J(P)$ is characteristic in $U$ and since $U \lhd G$, $J(P) \lhd G$,
+which contradicts the fact that $G$ is a counterexample.
+\\
+\\
+\emph{Step 3:} Let $UA \subseteq H \subset G$ and $H \cap P \in S_p(H)$ then ${\overline A}$ centralizes
+${\overline {H \cap L}}$.\\
+\emph{Proof:}  $H$ satisfies the first four hypothesis of the theorem.  A Sylow $2$-group of $H$ is abelian so
+it meets condition (3).  $O_{p'}(H) = 1$ by 1(b).
+Put $S = H \cap P \in S_p(H)$.  Since ${\mathbb Z}(P) \subseteq U \subseteq S \subseteq P$ by 1(a).
+${\mathbb Z}(P) \subseteq {\mathbb Z}(S)$ and thus $C_H({\mathbb Z}(S)) \subseteq C_G({\mathbb Z}(P)) = P$.
+So $C_H({\mathbb Z}(S)) = S$ is a $p$-group of $H$ containing the Sylow $p$ group $S$.
+So $C_H({\mathbb Z}(S)) = S$ and $H$ satisfies the fifth hypothesis.  Since $H < G$, the theorem holds
+for $H$ and so $J(S) \lhd H$.  Since $A \in {\cal E}(P)$ and $A \subseteq S \subseteq P$ and $A \in {\cal E}(S)$ so
+$A \subseteq J(S)$.  Thus $[H \cap L, A] \subseteq [H \cap L, J(S)] \subseteq (H \cap L) \cap J(S) = L \cap J(S) \subseteq U$
+(Reason: $H \cap L$ and $J(S)$ are normal in $H$ and $U$ is the unique Sylow $p$-subgroup of $L$).
+$1 = [{\overline {H \cap L}}, {\overline {A}}]$.
+\\
+\\
+\emph{Step 4:} $G = LA$, $P=UA$.\\
+\emph{Proof:}  $H=LA$ and $UA \in p(H)$.  Further,  $|H:UA|= |L(UA):UA| = |L:L \cap UA|$ which divides the $p'$-number
+$|L:Y|$.  So, $UA \in S_p(H)$, $UA = H \cap P$.  
+If $H < G$
+then since $L \subseteq H$, step 3 gives 
+${\overline A} \subseteq C_{\overline G}({\overline L}) \subseteq {\overline L}$ (by step 1(c)).  Since ${\overline A}$ is
+a $p$-group and ${\overline L}$ is a $p'$-group, ${\overline A} = 1$ and $A \subseteq U$.  This contradicts the choice of $A$
+so $H = G$.  Finally, $UA = H \cap P = G \cap P = P$.
+\\
+\\
+\emph{Proof:} Put $H=LA$, $UA \in p(H)$.  $|H:UA| = |LUA:UA|= |L:L \cap UA|$ so $UA \in S_p(H)$ and
+$UA = H \cap P$.
+so $UA \in S_p(H)$.  If $H \subseteq G$, since $L \subseteq H$, step 3 gives
+${\overline A} \subseteq C_{{\overline G}}({\overline L}) \subseteq {\overline L}$.  Since
+$A$ is a $p$-group and ${\overline L}$ is a $p'$-group, ${\overline A} =1$ and $A \subseteq U$.
+This contradicts the choice of $A$ so $H=G$.  Finally, $UA = H \cap P = G \cap P = P$.
+\\
+\\
+\emph{Step 5:} $|{\overline A}| = p$.\\
+\emph{Proof:}  
+${\overline A} \ne 1$ since $A \not\subseteq U$.  ${\overline A}$ is elementary abelian, it STS ${\overline A}$ is cyclic.
+${\overline A}$ acts coprimely on ${\overline L}$ and the action is faithful since $C_{\overline L}({\overline L}) \subseteq {\overline L}$
+and ${\overline L} \cap {\overline A} = 1$.  A previous result shows ${\overline A}$ is cyclic so STS ${\overline A}$ acts trivially
+on every ${\overline A}$-invariant proper subgroup of ${\overline L}$.
+Suppose
+${\overline M}$ is ${\overline A}$-invariant, ${\overline M} < {\overline L}$, we can assume
+$U \subseteq M$. $A \subseteq N_G(M)$ so $MA$ is a group $P = UA \subseteq MA$.  Since $A$ is a $p$-group,
+the $p'$ part of $|MA|$ is equal to the
+$p'$ part of $|M|$ which is less than the $p'$-part of $|L|$ since
+the $p'$ part of$|L:M| >1$.
+It follows $MA < G$.  Apply step 3 to show ${\overline A}$ centralizes
+${\overline {MA \cap L}} \supseteq M$, proving 5.
+\\
+\\
+\emph{Step 6:}  Let $V= \{ z: z \in {\mathbb Z}(U) | z^p = 1\}$.  $V$ is an elementary abelian normal subgroup of $G$ so $G$ acts by
+conjugation on $V$.  Since $V \subseteq {\mathbb Z} (U)$, the action by $U$ is trivial, so ${\overline G} = G/U$ on $V$.
+Now we prove:
+The action of ${\overline G}$ on $V$ is faithful. \\
+\emph{Proof:}  
+Let $K = C_G(V)$ so ${\overline K}$ is the kernel of the action of ${\overline G}$ on $V$.
+We argue $K$ is a $p$-group.
+Let $Q \in S_q(K)$, $q \ne p$.  $Q$ acts coprimely on ${\mathbb Z}(U)$, so
+and $Q$ fixes all elements of order $p$ in ${\mathbb Z}(U)$, these make up $V$. 
+$Q \subseteq K =C_G(V)$.   By Fitting, $Q$ acts trivially on ${\mathbb Z}(U)$ but
+${\mathbb Z}(P) \subseteq U$ so ${\mathbb Z}(P) \subseteq {\mathbb Z}(U)$ and so $Q \subseteq C_G({\mathbb Z}(P)) = P$.
+Thus $Q = 1$ and $K$ is a $p$-group, as claimed.   But $K \lhd G$.  So $K \subseteq O_p(G)=U$ and ${\overline K} = 1$ as needed.
+\\
+\\
+\emph{Step 7:} $|V: V \cap A| \leq p$.\\
+\emph{Proof:}  Put $D = U \cap A$ and $E = V \cap A$.  $|V:E| = |V:V \cap D| = |VD:D|$.  $D$ is an elementary abelian
+subgroup of $U$ and $V$ is a central elementary abelian subgroup of $U$ and so $VD$ is elementary abelian.
+Since ${\cal E}(P)$, $|VD| \leq |A|$ and so $|VD:D| \leq |A:D| = |{\overline A}| = p$.  We get $|V:E|= |VD:D| \leq p$
+as required.
+\\
+\\
+\emph{Step 8:} Contradiction. \\
+\emph{Proof:}
+We apply the Normal-P theorem to the action of ${\overline G}$ on $V$.
+$|V: V \cap A| \leq p$. Now, $P=UA$ so ${\overline P} = {\overline A}$.
+$[{\overline A}, V \cap A] = 1$ since $A' = 1$.  
+So $|V:C_V({\overline P})| \leq | V: V \cap A| \leq p$.  Now we can apply the Normal P theorem,
+${\overline P} \lhd {\overline G}$ so $P \lhd G$ and $A \subseteq P \subseteq O_p(G)=U$, which is not
+the case.
+\end{quote}
+{\bf Theorem 22:} 
+(1) $J(G) \; char \; G$ and $J(G) > 1$ if $p \in \pi(G)$;
+(2) If $J(G) \le U \le G$ then $J(G) = J(U)$; 
+(3) $J(G)= \langle J(S): S \in S_p(G) \rangle $;
+(4) If $x \in C_G(J(G))$ and $|x|=p$, then $x \in {\mathbb Z}(J(G))$.
+(5) If ${\cal B} \subseteq {\cal A}(G)$ then 
+$J( \langle {\cal B} \rangle) =  \langle {\cal B} \rangle $.\\
+\begin{quote}
+\emph{Proof:}   This is straightforward.
+\end{quote}
+{\bf Definition 8:}
+$G$ is Thompson factorizable
+with respect
+to $p$ if $G=O_{p'}(G) C_G( \Omega(Z(S))) N_G(J(S))$.  
+Note that $G$ is Thompson factorizable iff $G/O_{p'}(G)$ is.
+\\
+\\
+{\bf Thompson Factorization:} 
+Let $O_{p'}(G)=1$ and $V= \langle \Omega({\mathbb Z}(S)): S \in S_p(G) \rangle $.
+Then $G$ is Thompson factorizable iff $J(G) \le C_G(V)$.
+\begin{quote}
+\emph{Proof:}  
+Let $S \in S_p(G)$ and $C= C_G(V)$.  Assume that $G$ is Thompson factorizable.
+$\Omega({\mathbb Z}(S)) \le {\mathbb Z}(J(S))$ and so $V \le {\mathbb Z}(J(S))$ and
+$C \le J(G)$.
+Assume $C \le J(G)$.  The $J(G) \le C \cap S$.  Since $J(S) \; char \; C \cap S \in S_p(C)$
+and
+$\Omega({\mathbb Z}(S)) \le {\mathbb Z}(J(S))$, Frattini yields
+$G= C N_G(C \cap S) =
+C_G( \Omega(Z(S))) N_G(J(S))$.
+\end{quote}
+{\bf Alternate Thompson subgroup:} 
+$P$ a $p$-group and set $d(P)= sup\{ |A| : A \le P, A'=1 \}$.  Let
+${\cal A}(P)= \{ A: |A|=d(P), A'=1 \}$ then $J(P)= \langle A : A \in {\cal A}(P) \rangle $.
+\\
+\\
+{\bf Lemma:}
+(1) $A \in {\cal A}(P) \rightarrow A=C_P(A)$;
+(2) $C_P(J(P))= {\mathbb Z}(J(P)) = \bigcap_{A \in {\cal A}(P)} A$;
+(3) $H \le P$ and $d(H)=d(P) \rightarrow J(H) \le J(P)$ and
+${\mathbb Z}(J(H)) \le {\mathbb Z}(J(P))$;
+(4) Suppose $J(P) \subseteq H \subseteq P$ then $J(H)=J(P)$.
+\begin{quote}
+\emph{Proof:}
+If $x$ centralizes $A$, $ \langle x, A \rangle $ is abelian but then 
+$| \langle x,A \rangle | > |A|$ so $x \in A$; this proves
+(1).  $C_P(J(P))= \bigcap_{A \in {\cal A}(P)} C_P(A)$ since $ \langle A \rangle =J(P)$.  Thus
+$C_P(J(P)) = \bigcap_{A \in {\cal A}(P)} A \subseteq J(P)$ so
+$C_P(J(P))= {\mathbb Z}(J(P))$; this proves (2).  (3) and (4) are clear.
+\end{quote}
+{\bf Theorem 23:}
+Suppose $O_{p'}(G)=1$, $G$ is $p$-stable and $P \in S_p(G)$.  If $H \in {\cal SCN}(P)$ then
+$H \subseteq O_p(G)$.
+\begin{quote}
+\emph{Proof:}
+Put $L=O_p(G)$.  Since $L \le P$, $[L, H] \subseteq H$ and so $[L, H, H]=1$ so
+$x \in H \rightarrow [L,x,x]=1$ and thus $H/C_G(L) \subseteq O_p(G/C_G(L)$.  Since
+$L$ is $p$-constrained, $C_G(L) \subseteq L$ and thus $H \subseteq L$.
+\end{quote}
+\section{Glauberman's $Z(J)$ Theorem:}
+{\bf Glauberman Replacement Lemma:}  If $p \ne 2$, $P$, a $p$-group, $B \lhd P$,
+$A \subseteq P$, $A'=1$, $B \nsubseteq N_P(A)$ and $A \cap B \supseteq B'$ then
+$\exists A^* \subseteq P, (A^*)'=1$ with
+(1) $A^* \cap B > A \cap B$;
+(2) $|A^*|= |A|$;
+(3) $A^* \subseteq N_P(A) \rightarrow [A^*, A, A]=1$.
+\begin{quote}
+{\bf Outline of proof:} 
+(1) Reduce to $P=AB$, $N_P(A) \lhd P$; 
+(2) $x \in B-N \ne \emptyset, A \cap B \subseteq A \cap A^x$;
+(3) $u=A A*$, $V=A \cap A^*, W=U \cap B$;
+(4) $[x, A]$ is abelian;
+(5) $VW$ is abelian;
+(6) $VW$ works.
+\\
+\\
+\emph{Proof:}
+Proof is by induction $|P|$.  If $|P|>|AB|$, we are done by induction,
+so $P=AB$.  Suppose $N=N_P(A)$, $\exists M$ such that $N \le M \lhd P$ since
+the maximal subgroups of $P$ are normal.  Let $B_1= B \cap M$ then by
+Dedekind, $A B_1= M$ and $B_i \nsubseteq N_M(A)$.  Applying induction,
+we find an $A^*$ such that $A^*$ satisfies (1), (2) and (3) in $A B_1$.  This
+$A^*$ works in $P=AB$.  So we may assume, $N \lhd P$.\\
+\emph{Claim:} $x \in B-N \rightarrow A \cap B \subseteq A \cap A^x$ and
+$A^x \le N$.  Proof of claim:
+$A \cap B \supseteq B'$ $\rightarrow A \cap B \lhd B$ $ \rightarrow A \cap B= (A \cap B)^x$
+$\rightarrow A \cap B \subseteq A^x \cap B \rightarrow A \cap B \subseteq A \cap A^x$.
+Now, $A<N$ so $A^x < N^x=N$ by the above and this proves the claim.
+\\
+\\
+Let $U=A A^x<N$, $V=A \cap A^x$, $W= U \cap B$.  $A^x \subseteq  N_P(A)$ so $U$ is a
+group and $Z \lhd U$.\\
+Claim:  $U' \subseteq V \subseteq {\mathbb Z}(U)$ and $W= [x,A](A \cap B)$.  Proof of claim:
+$A^x \subseteq N, A \subseteq N$ so $A^xA \subseteq N$ and $A^xA, A^xA] \subseteq A \cap A^x$,
+which proves the claim.\\
+Continuing, $A \cap B \subseteq U \cap B$ and $[x,a]= (a^{-1})^xa \in U$ and 
+$[x,a]= x^{-1} x^a \in B$ so $[x,A](a \cap B) \subseteq W$.    If $y=a_1 a_2^x \in W$,
+$a_1 , a_2 \in A \rightarrow a_1 a_2 [a_2,x]= a_1 a_2^x \in B$ so
+$a_1 a_2 \in B$ and $y \in [x,A](A \cap B)$.
+\\
+\\
+\emph{Major claim:} $[x, A]$ is abelian.
+\\
+Subclaim: $U$ has nilpotence class $\le 2$ ($U' \subseteq {\mathbb Z}(U)$) implies
+$[ac,b] [a,b][c,b]$.  This is a calculation.\\
+Let $a, a_1 \in A$.  $[x,a,a_1]= [[x, [x,a]^{-1} [x,a], a_1^x]$ but since $[x,a] \in B$,
+$[x, [x,a]^{-1}] \in B \subseteq A \cap B \subseteq {\mathbb Z}(U)$,
+$[x,a,a_1]^x = [[x,a],a_1^x]$ by the subclaim.
+Now, $[[x,a],a_1^x]= [a,a_1^x]= [x,a_1,a]$.
+So $\forall a, a_1 \in A: [x,a,a_1]^x=[x,a_1,a] \rightarrow [x,a,a_1]^{x^2}=[x,a,a_1]$ 
+(Equation **).  Since $x$ has odd order, this becomes $[[x,a],a_1^x]= [x,a,a_1][[x,a],[a_1,x]]$.
+So $[[x,a],[a_1,x]]=1$; these two generators of $[x,A]$ commute so $[x,A]$ is abelian.
+\\
+\\
+Claim: $VW$ is abelian: $[x,A] \subseteq U$ is abelian and $A \cap B \subseteq {\mathbb Z}(U)$,
+so $W= [x,A] (A \cap B)$ is abelian.  Finally, $V \subseteq {\mathbb Z}(U)$, so $VW$ is
+abelian.
+\\
+$A^*=VW$ satisfies the theorem:\\
+(1) $[x,A] \nsubseteq A$ since $x \notin N_P(A)$.
+$A \cap B < W <B$ so $A^* \cap B > A \cap B$.\\
+(2) $|A^*|= 
+{\frac {|V| |W|} {|V \cap W|}} =
+{\frac {|A \cap A^x| |U \cap B|} {|U \cap B \cap A \cap A^x|}} =
+{\frac {|A \cap A^x| |U \cap B|} {|A \cap B|}}$.
+$|P|=|AB|=
+{\frac {|A| |B|} {|A \cap B|}} =
+{\frac {|U| |B|} {|U \cap B|}}$.  So
+$
+{\frac {|U|} {|A|}}=
+{\frac {|U \cap B|} {|A \cap B|}}$ and $|A^*|= {\frac {|A \cap A^x| |U|} {|A|}}$.
+$|A^*| = {\frac {|A \cap A^x||A A^x|} {|A|}}= {\frac {|A| |A^x|} {|A|}}= |A|$.\\
+(3)
+$A^* \subseteq U$ since $V, W \subseteq U$ and $U \subseteq N$ since $A, A^x \subseteq N$.
+\end{quote}
+{\bf Glauberman's $Z(J)$ Theorem:}  Assume $p \ne 2$ is prime and that $G$ is a
+$p$-stable, $p$-constrained group with $O_{p'}(G)=1$ and $P \in S_p(G)$ then
+${\mathbb Z}(J(P)) \lhd G$.
+\begin{quote}
+\emph{Proof:}
+Let $Z= {\mathbb Z}(J(P))$ and $H= O_p(G)$.  $J(P) \; char ;\ P$ and $Z \; char \; P$ so
+$Z \subseteq H$.  Let $H_0$ be a minimal normal $p$-subgroup of $G$ such that $Z \cap H_0$ is not
+normal in $G$.  Put $Z_0= H_0 \cap Z$ and let $K/C_G(H_0)= O_p(G/C_G(H_0))$ so $K \lhd G$.
+Also put $P_0=P \cap K \in S_p(K)$.
+\\
+\\
+(1) $K= P_0 C_G(H_0)$. Reason: Since $K/C_G(H_0)$ is a $p$-group and $P_0C_G(H_0) \subseteq K$,
+$K \ne P_0 C_G(H_0)$ implies that $|K/C_G(H_0)| \ge p |(P_0C_G(H_0))/C_G(H_0)= p {\frac {|P_0 |}
+{|P_0 \cap C_G(H_0)|}}$. Thus $|P_0| \mid p \cdot |K|$ which contradicts the fact that
+$P_0 \in S_p(K)$.
+\\
+(2)  By Frattini, $G= KN_G(P_0)$.
+\\
+(3) $J(P) \nsubseteq P_0$.  Reason: If not, $J(P) < J(P_0) \lhd N_G(P_0)$ so
+$Z_0 \lhd G$, a contradicton.
+\\
+(4) $H_0' \subseteq Z_0$. Proof: Since $H_0$ is a $p$-group $H_0' < H_0$ so by
+maximality, $Z \cap H_0' \lhd G$ and $H_0 = \langle Z_0^g \rangle $.  
+$[Z_0, H_0] \subseteq Z_0 \cap H_0' \lhd G$,
+so $[Z_0, H_0]^g = [H_0, H_0] \subseteq Z_0 H_0'$ and $H_0' \subseteq Z_0 \cap H_0'$.
+\\
+(5) $H_0 \nsubseteq N_G(A)$ otherwise, $[H_0,A] \subseteq A$ and
+$[H,A,A]=1$ which implies $A \subseteq K$ by $p$-stability.
+\\
+(6)  $H_0 \subseteq {\mathbb Z}(J(P_0))$.
+\\
+\\
+Conclusion:
+By (1) and (2), $G= N_G(P_0) C_G(H_0)$ so $Z_0^g=Z_0^n, n \in N_G(P_0)$ and
+$H_0= \langle Z_0^g \rangle \subseteq {\mathbb Z}(J(P_0)), \forall g \in G$.  Therefore
+$H_0 \subseteq A^*$ and $A^* \subseteq N_G(A)$ so $H_0 \subseteq N_G(A)$ which is
+a contradiction.
+\end{quote}
+\section{Alperin-Lyons Proof of Baer}
+{\bf Theorem 24:}  Suppose $x$ is a $p$-element of $G$.  
+$x \in O_p(G)$ iff $ \langle x, x^g \rangle $ is a $\forall g \in G$.
+\begin{quote}
+\emph{Proof:}
+Let $K= \langle x^G \rangle $ and suppose $z, y \in K \rightarrow \langle z, y \rangle $ 
+is a $p$-group.  Suppose $K \nsubseteq O_p(G)$.
+\\
+\\
+(1) $\exists P, Q \in S_p(G): P \cap K \ne Q \cap K$.  
+Reason: If $K \subset R, \forall R \in S_p(G)$ then $K \subseteq  \bigcap R^g \lhd G$ so
+$K \subseteq O_p(G)$.
+\\
+\\
+(2) $|P \cap K| = |Q \cap K|$.  Reason: $Q= P^g$ so $Q \cap K= P^g \cap K^g= (P \cap K)^g$
+so $|Q \cap K|= |P \cap K|$.
+\\
+\\
+(3) $K \cap P \nsubseteq Q$ and $K \cap Q \nsubseteq P$ for $P, Q$ chosen such that
+$P \cap K \ne Q \cap K$.  If $K \cap P \subseteq Q$, $K \cap P \subseteq K \cap Q$ if
+since the cardinalities are the same, $K \cap P = K \cap Q$.
+\\
+\\
+(4) We can choose $P$ and $Q$ such that $|K \cap P \cap Q|$ is maximal with respect to
+$K \cap P \ne K \cap Q$.  Put $W=P_0< P_1< \ldots < P_n=p$ with $|P_i:P_{i-1}|=p$.
+Now $P \cap K \nsubseteq W$ (otherwise $ \langle P \cap K \rangle \subset P \cap Q$ so 
+$P \cap K \subset Q$
+which is a contradiction).
+Let $j$ be the smallest $j$ such that $P_j \cap K \nsubseteq W \cap K$ ($ j \ge 1$).  Pick
+$x \in K\cap P_j-W$.
+\\
+\\
+(5) Claim: $x \in N(W)$.  Proof of claim: $x$ normalizes $P_{j-1}$ so $P_{j-1} \cap K$
+is normalized by $x$.  By the choice of $j$, $P_{j-1} \cap K \subseteq W \cap K$ so
+$P_{j-1} \cap K = W \cap K$.  
+Thus $W= \langle P_{j-1} \cap K \rangle = P_{j-1} \cap K \rangle^x= W^x$ which
+proves the claim.\\
+For the same reason, $\exists y \notin W: y \in K, y \in N(W)$ and 
+$ \langle x, y \rangle $ is a $p$-group.
+Thus if $R \in S_p(G)$ with $ \langle x, y \rangle W  \subset R$,
+$K \cap P \cap R \supseteq K \cap W \cap \langle x \rangle $ and 
+$|K \cap P \cap R| > |K \cap P \cap Q|$
+and symmetrically,
+$|K \cap Q \cap R| > |K \cap P \cap Q|$ thus $P \cap K = R \cap K= K \cap Q$ concluding the proof.
+\end{quote}
+\section{Goldschmidt's Proof of Burnside's Theorem for $p \ne 2$}
+{\bf Burnside's Theorem:}  If $|G|= p^a q^b$ for $p \ne 2 \ne q$ then $G$ is solvable.
+\begin{quote}
+\emph{Proof:}
+Let $G$ be a minimal counterexample, $r \in \{ p , q \}$.
+\\
+\\
+\emph {Lemma 1:}  If $R \in S_r(G)$ then if $1 \ne S \in r'(G)$, $R \nsubseteq N_G(S)$.\\
+Proof: Let $Q \in S_{r'}(G)$ with $S \subseteq Q$.  Since $G=RQ$, $\forall g, Q^g=Q^r$ for some
+$r \in R$.  Now suppose $R \subseteq N_G(S)$ then $S \subseteq Q^r$ and thus
+$1 \ne \bigcap_{r \in R} Q^r = \bigcap_{g \in G} Q^g \lhd G$ which is impossible since $G$
+is simple.
+\\
+\\
+\emph {Lemma 2:}  If $M$ is a maximal subgroup of $G$ then $F(M)$ is an $r$-group.\\
+Proof:
+From now on, let $F=F(M)= F_p \times F_q$, and $Z={\mathbb Z}(F) = Z_p \times Z_q$.
+Observe that if $M$ is maximal, $M$ is solvable and so
+$O_{p'}(N_M(P)) \subseteq O_{p'}(M)$.
+\\
+\\
+\emph{Claim 1:}  $F$ is not cyclic.\\
+Assume, by way of contradiction, that $F$ is cyclic.
+Suppose $q > p$ and $Q \in S_q(M)$.  Since $Q$ acts on $F_p$ and $q \nmid Aut(F_p)$, $[Q, F_p]=1$.
+$Q$ also acts on $F_q$ and
+$Q/C_Q(F) \rightarrow Aut(F_q)$.
+$C_M(F) \subseteq F$, since $M$ is solvable so $C_M(F) \subseteq F$ and $C_Q(F) \subseteq F_q$.  Clearly,
+$F_q \subseteq C_Q(F)$ since $F_q$ is cyclic. So $Q/F_q \subseteq Aut(F_q)$.  Further, $F_q \thinspace char \thinspace Q$ and
+$N_G(Q) \subseteq N_G(F_q)$.  $N_G(Q) \subseteq N_G(F_q) = M $.  Examining $N_M(F_q)/C_M(F_q) \subseteq Aut(F_q)$, we see $|N_M(F_q)|_q = |Q|$ so
+$|N_M(F_q)|_q = |N_G(F_q)|_q$.
+Thus, $Q \in S_q(G)$, contradicting Lemma 1.
+\\
+\\
+\emph{Claim 2:}  $M$ is the unique maximal subgroup containing $Z$.
+\\
+Suppose $Z \subseteq M_1 \ne M$. $M_1$ a maximal subgroup of $G$.
+$M= N_G(Z_p)= N_G(Z_q)$, $Z_p \subseteq O_{q'}(N_{M_1}(Z_q))$ and
+$Z_q \subseteq O_{p'}(N_{M_1}(Z_p))$.
+Because $M$, is solvable, $O_{p'}(N_M(F)) \subseteq O_{p'}(M)$,
+$Z_p \subseteq F(M_1)_p \subseteq C(Z_q) \subseteq M$ and
+$Z_q \subseteq F(M_1)_q \subseteq C(Z_p) \subseteq M$ so
+$F(M_1) \subseteq F(M)$.  Since
+the argument also applies to $M_1$, $F(M) \subseteq F(M_1)$. So
+$F(M)= F(M_1)$.  This $M= N_G(F(M)) = M_1$, proving the claim.
+\\
+\\
+Now, since $F$ is not cyclic, there is an Abelian subgroup
+$V \subseteq F$ of type $(r,r)$.  $\forall x \in V^{\#}$, $Z \subseteq C(x)$
+and by the uniqueness of $M$, $C(x) \subseteq M$.  Let $V \subseteq R \in S_r(M)$.
+If $Q_0 \in r'(G)$  with $R \subseteq N(Q_0)$.  $Q_0 = \prod_{x \in V^{\#}} C_{Q_0}(x) \subseteq M$.
+It follows that $F_{r'}$ is the unique maximal $r'$-subgroup of $G$ normalized by $R$, so
+$N(R) \subseteq N(F_{r'}) = M$ so $R \in S_r(G)$, contradicting Lemma 1.  This proves Lemma 2.
+\\
+\\
+\emph {Lemma 3:}  If $R \in S_r(G)$ then $R$ is contained in a unique maximal subgroup of
+$G$.  Every maximal subgroup, $M \subseteq G$, contains a Sylow subgroup of $G$.
+\\
+\emph{Proof:} $R \subseteq M$ so $O_{p'}(M)=1$ by lemma 1.  Since $M$ is
+$r$-constrained, $O_{r'}(M)=1$ and $M$ is solvable, $M$ is $r$-constrained.  Once
+we know $M$ is $r$-stable, by Glauberman's $Z(J)$ theorem, we have: $M=N_G({\mathbb Z}(J(R)))$.
+$p^aq^b$ is odd and $|SL_2(r)|= (r^2-1)r$ which is even, so $G$ is $p$-stable and $M=N_G({\mathbb Z}(J(R)))$.
+So $M$ is unique.
+Let $M_1$ be any maximal subgroup of $G$, we can choose $r$, such that $O_{r'}(M_1)=1$.
+If $R_1 \in S_r(M)$, we have
+$M_1 =N_G({\mathbb Z}(J(R_1)))$.
+Since ${\mathbb Z}(J(R_1)) \; char \; R_1$,
+$N_G(R_1) \subseteq M_1$, so $R_1 \in S_r(G)$ ,proving the second statement.
+\\
+\\
+\emph {Lemma 4:}  If $R \in S_r(G)$ then ${\mathbb Z}(R)$ is contained in a 
+unique maximal subgroup of $G$.
+\\
+\emph{Proof:}  Suppose ${\mathbb Z}(R) \subseteq M \cap M_1, M \ne M_1$ with $M, M_1$ maximal in $G$.
+We may assume $M_1$ is chosen such that $|M \cap M_1|_r$ is maximal.  Now, let
+$R_1 \in S_r(M \cap M_1)$ such that ${\mathbb Z}(R) \subseteq R_1$.  By the maximality of $|M \cap M_1|_r$,
+$N_G(R_1) \subseteq M$ and $R_1 \in S_r(M_1)$
+Conjugating $R$ by something in $M$, we may assume, by lemma 1,
+$R_1 \subset R$ and $M_1$ contains a $r'$ sylow subgroup of $G$.
+Thus $G=RM_1$ and
+$1 \ne {\mathbb Z}(R) \subseteq \bigcap_{r \in R} M_1^r= \bigcap_{g \in G} M_1^g \lhd G$,
+a contradiction.
+\\
+\\
+\emph {Lemma 5:}  $\exists R_1, R_2 \in S_r(G)$ such that $R_1 \cap R_2 = 1$.
+\\
+\emph{Proof:}  Let $R_1 \in S_r(G)$ and let $M$ be a unique maximal subgroup containing
+$R_1$.  Pick $R_2 \nsubseteq M$.  We can do this since $G$ is simple.\\
+\\
+Claim: $R_2 \cap M=1$.
+\\
+If not, choose $R_2$ such that $|R_2 \cap M|$ is as large as possible.  Put
+$R_0 = (R_2 \cap M)$.
+We can assume, possibly after conjugation in $M$, $R_0 \subseteq R_1$.  ${\mathbb Z}(R_1) \subseteq N(R_0)$.
+By lemma 4, $N(R_0) \subseteq M$.  $R_0 < R_2$ so $N_{R_2}(R_0) > R_0$ and $|R_2 \cap M| > |R_0|$,
+which is a contradiction.  So $R_2 \cap M=1$.
+\\
+\\
+Conclusion: WLOG, assume $q^b > p^a$ and let $Q_1, Q_2 \in S_q(G)$ with $Q_1 \cap Q_2=1$.
+Then $|G| \ge |Q_1| \cdot |Q_2| > |G|$ which is just plain wrong.
+\end{quote}
+\section{Thompson Complements}
+{\bf Thompson Normal $p-$Complement:}
+Let $p \ne 2$ and $P \in S_p(G)$.  Assume $N_G(J(P))$
+and $C_G(\Omega_1({\mathbb Z}(P)))$ have a normal $p-$complement then so does $G$.
+\begin{quote}
+\emph{Proof:}  
+Let $G$ be a counterexample of minimum order.
+\\
+\\
+\emph{Step 1:}  Let ${\cal H}= \{ H \in p(G): N(H)$ does not have a normal $p$-complement $\}$.
+If $H, K \in {\cal H}$.  We say $H \le K$ if one of the following holds:
+(1) $|N(H)|_p < |N(K)|_p$;
+(2) $|N(H)|_p = |N(K)|_p$ and $|H| < |K|$; or,
+(3) $|H| = |K|$.  Choose $H$ minimal with respect to the ordering and set
+$N=N(H)$.  Let $Q \in S_p(N)$ and $H \subseteq Q \subseteq P$.
+\\
+\\
+\emph{Step 2:} $H \ne P$
+\\
+If $H=P$, $N \subseteq N(J(P))$ which is a contradiction.
+\\
+\\
+\emph{Step 3:} ${\overline N}= N/H$ has a normal $p$-complement.
+\\
+Let ${\overline Q}= P/H$ and ${\overline Q} \in S_p({\overline N})$.  Suppose
+${\overline N}$ does not have a
+normal $p$-complement.
+Since $|{\overline N}| < |{\overline G}|$, either 
+$C_{\overline N}({\mathbb Z}({\overline P}))$ or
+$N_{\overline N}(J({\overline Q}))$ does not have a 
+normal $p$-complement.  Let $K$ be the inverse image of the one that fails to have a
+normal $p$-complement.  $K \in p(G)$ and $N(K)$ has no
+normal $p$-complement.  Since $Q \subseteq N(K)$, either
+$|N(K)|_p > |N(H)|_p$ or
+$|N(K)|_p = |N(H)|_p$ and $|H| < |K|$.  Hence, $K \ge \ge K$.  But $K \ne H$ and this
+contradicts maximality of $H$ in ${\cal H}$.
+\\
+\\
+\emph{Step 4:} $N=G$.
+\\
+$N$ satisfies the hypothesis of the theorem $H \subseteq Q \subseteq P$ so
+${\mathbb Z}(P) \subseteq  N(H) =N$.
+$Q {\mathbb Z}(P) \subseteq N \cap P$ so $Q {\mathbb Z}(Q) = Q$ and
+${\mathbb Z}(P) \subseteq Q$ thus $
+{\mathbb Z}(P) \subseteq
+{\mathbb Z}(Q)$ and $C_N({\mathbb Z}(Q)) \subseteq 
+C_G({\mathbb Z}(Q)) \subseteq C_G({\mathbb Z}(P))$.
+If $P= Q$, $N(J(Q)) \subseteq N(J(P))$ has a
+normal $p$-complement.
+Suppose $Q < P$  so $N_P(Q) > Q$ and $|N_G(J(Q))|_p > |N|_p = |N_G(H)|_p$.
+By the maximality of $H$ in ${\cal H}$, $J(Q) \notin {\cal H}$ and so
+$N(J(Q))$ has a
+normal $p$-complement and
+so does $N_N(J(Q))$.  If $ N \ne G$, then by the minimality of $|G|$, $N$ has a
+normal $p$-complement and so $N=G$.
+\\
+\\
+\emph{Step 5:}  $O_{p'}(G)=1$.
+\\
+Let $J= O_{p'}(G)$ and ${\overline X} = X/L$.  If $K \subset P$,
+$ {\overline {N(K)}} = N({\overline K})$,
+${\overline {J(P)}} = J({\overline P})$,
+${\overline {C(P)}} = C({\overline P})$, and
+${\overline {{\mathbb Z}(P)}} = {\mathbb Z}({\overline P})$.  So 
+$N({\mathbb Z}(P))$ has a 
+normal $p$-complement.  If $|{\overline G}| < |G|$, ${\overline G}$ and the inverse image is
+a normal $p$-complement of $G$.
+\\
+\\
+\emph{Step 6:}  $H= O_p(G)$ and $G$ is $p$-solvable of $p$-length at most $2$.
+\\
+Set $K= O_p(G), K \subseteq H$.  Since $G$ has no
+a normal $p$-complement,  $N(K)=G$ and $K \in {\cal H}$, by steps 3, 4,
+$G/H$ has a
+normal $p$-complement so $G$ has $p$-length $\le 2$.
+\\
+\\
+\emph{Step 7:}  If ${\overline G}= G/H= {\overline P}{\overline M}$ where ${\overline M}$
+is a normal $p$-complement
+and ${\overline M}$ contains no $P$-invariant subgroup.
+\\
+Suppose ${\overline M} > {\overline M}_0 >1$ and
+${\overline M}_0$ is $P$-invariant.  Let $M_0$ be the inverse image and set
+$G_0= P M_0$.  $G_0 < G$ so $G_0$ has a
+normal $p$-complement 
+and $K_0 \lhd G_0, K_0 \cap P = 1$.  $[H, K_0] \subseteq K_0 \cap H =1$ so
+$K_0 \subseteq C(H)$.  But then $K_0 \subseteq {\mathbb Z}(O_p(G))$ by Hall-Higman which is
+a contradiction.
+\\
+\\
+\emph{Step 8:} ${\overline M} = {\overline R}$ is an elementary abelian $r$-group for some
+$r \ne p$ and $P$ acts irreducibly on ${\overline R}$. Hence, $P$ is maximal in $G$.
+\\
+Let $r \mid |{\overline M}|$.  $P$ permutes Sylow $r$-subgroups and by Sylow, the conjugacy
+class has size $1$.   So ${\overline R} \in S_r({\overline M})$ is $P$-invariant and since
+${\overline R}$ has no non-trivial characteristic subgroups, it is elementary abelian.
+Since ${\overline M}$ has no proper ${\overline P}$ invariant subgroups, ${\overline P}$
+acts irreducibly.
+If $G > L >P$, $1 \le {\overline L} \cap {\overline R} < {\overline R}$
+and ${\overline L} < {\overline R}$ is a proper ${\overline P}$-invariant subgroup of
+${\overline R}$ which is a contradiction.
+\\
+\\
+\emph{Step 9:} $\exists 1 \ne A \in P$ with $A$ abelian such that $m_p(A)= d(P)$ and
+$A \nsubseteq H$.
+\\
+Let $A$ be a fixed one of minimal order.  If $A_0= A \cap H$,
+$A/A_0$ is elementary abelian.  If $J(P) \subseteq H$ then $J(P) \; char \; H$ and
+$J(P) \lhd G$ which is a contradiction.  So $J(P) \nsubseteq H$ and such an $A$ exists.
+Choose $A$ as mentioned and set $A_0= A \cap H$,  $A_1= \Omega_1(A/A_0)$, $A_1 \nsubseteq H$
+and $m(A)= m(A_1)$ so $A= A_1$ and $A/A_0$ is elementary abelian.
+\\
+\\
+\emph{Step 10:}  Let ${\overline A}= (AH)/H$ then $
+{\overline G} = {\overline A} {\overline Q} $ and
+$|{\overline A} |=p$.
+\\
+${\overline G}= {\overline P} {\overline R}$ and
+${\overline P}$ normalizes
+${\overline R}$.  The action is faithful since $H=O_p(G)$ and the kernel would be a normal
+$p$-subgroup of $G$.  Note ${\overline A}= (AH)/H \cong A/A_0 \ne 1$.
+${\overline A}$ acts nontrivially on
+${\overline R}$ by the previous result an we can find
+$ {\overline R}_1 \subseteq {\overline R}$ on which ${\overline A}$ acts non-trivially and
+irreducibly.  Let $G_1$ be the inverse image of
+$ {\overline A} {\overline R} $ and $P_1 \in S_p(G_1)$.   $A \subseteq P_1 \subseteq P$.
+Since $H \subseteq P_1$ and
+$C_G(H) \subseteq H$, 
+${\mathbb Z}(P) \subseteq C_G(H) \subseteq H \subseteq P$, and
+${\mathbb Z}(P) \subseteq {\mathbb Z}(P_1)$ and the latter has a 
+normal $p$-complement.  Since
+$A \subseteq P_1$ and $m(A)= d(P)$, $d(P_1)=  d(P)$ and
+$A \subseteq J(P_1 )$.  Let $R_1 \in S_r(N_G(J(P_1 )))$, then
+$[A, R_1 ]= [J(P_1 ), Q_2] \subseteq J(P_1 )$ so
+$[A, R_1]$ is a $p$ group.  Since
+$ {\overline R}_2 \subseteq {\overline R}_1 $,
+$ [A, {\overline R}_2] \subseteq {\overline R}_1 $ is an $r$-group
+and so
+$ [A, {\overline R}_2] =1$.   Thus, $R_2$ is an ${\overline A}$-invariant
+subgroup of ${\overline R}_1$ centralized by
+${\overline A}$ and ${\overline R}_2 =1$ and $R_2=1$.  So $N_{G_1}(J(P_1 ))$ is a 
+$p$-group and has a
+normal $p$-complement. If $G_1 < G$ then $G_1$ has a 
+normal $p$-complement and would centralize $H$.   Contradiction.  Hence,
+$G = G_1$ and
+$ {\overline G} = {\overline A} {\overline R} $
+and
+$ {\overline A} $ acts faithfully and irreducibly on
+${\overline R}$.
+$ {\overline A} $ is elementary abelian and hence cyclic so $|A|= p$.
+\\
+\\
+\emph{Step 11:}  Set $W= {\mathbb Z}(H), Z= \Omega_1(W)$.  If $R \in S_r(G)$ then
+$[R, Z] \subseteq Z$ but $[R, Z] \ne 1$.
+\\
+${\mathbb Z}(P) \subseteq C_G(H) \subseteq H$ so ${\mathbb Z}(P) \subseteq W$.
+If $[R, W] = 1$, $[R, {\mathbb Z}(P)] = 1$, hence
+${\mathbb Z}(P)$ would be central in $G$ which is impossible.
+\\
+\\
+\emph{Step 12:} Contradiction
+\\
+$Z \lhd G$ and $G$ acts by conjugation so the kernel of the action is $C(Z) \supset H$
+and so ${\overline G}$ acts on $Z$.
+Since ${\overline R}$ is the unique minimal normal subgroup of ${\overline G}$ and
+${\overline G}$ acts nontrivially,
+${\overline G}$ acts irreducibly on $Z$ by step 11.
+By a previous result, $Z= C_Z({\overline R}) + V$ where $V$ is
+${\overline R}$-invariant.
+Moreover,
+$ {\overline R} \lhd {\overline G} $ and so $V$ is
+$ {\overline G} $ invariant and 
+$ {\overline G} $ acts faithfully on $V$.
+Since $|A|=p$, $m(A_0) \ge d(P) -1$.  Set $V_0= V \cap A_0$ and let $t= m(V_0 )$ and
+$r= m(A/A_0)$.  $V \subseteq {\mathbb Z}(H)$ so $ \langle V, A_0 \rangle $ is abelian.
+Since $V$ is elementary, $d(P) \ge m( \langle V, A_0 \rangle) = m(V)+m(A_0)- m(V \cap A_0)= t+r +
+m(A_0)-t= d(P)-1+r$.  Hence, $r=0$ or $r=1$ and $V_0=V$ or $V_0$ is maximal.
+Choose $a \in A \setminus A_0$, ${\overline b} \in {\overline R}^H$
+such that
+$[a, {\overline b}] \ne 1$,
+$[{\overline a}, V_0] = 1$ and
+$[{\overline a}^{\overline b}, V_0^{\overline b}] = 1$ then
+$[\langle {\overline a}, {\overline a}^{\overline b} \rangle , V_0 \cap V_0^{\overline b}] = 1$ 
+and $V_0 \cap V_0^{\overline b} \le p^2$.  Since $A= \langle a \rangle $ is maximal in $Z$ and
+${\overline a}^{\overline b} \notin {\overline A}$, 
+${\overline G}_1, V_0 \cap V_0^{\overline b} = 1$ hence $|V| \le p^2$.
+So ${\overline G} \subseteq GL_2(p)$ and since
+${\overline G}$ is generated by $2$ elements of order $p$, ${\overline G} \subseteq SL_2(p)$.
+So we have an abelian $p'$ group, ${\overline R}$, which is normalized but not centralized by
+${\overline A} \subseteq SL_2(p)$ of order $p$ and this is impossible. 
+\end{quote}
+{\bf Theorem (Frobenius):}  If $G$ is solvable and $|G| > 1$, 
+$\exists p, P \in p(G): 1 \ne P \lhd G$.
+\begin{quote}
+\emph{Proof:}  
+The proof is by induction.  It is clearly true for all $p$-groups.   Since $G$ is solvable,
+$exists N \lhd G$ and we can assume $|G:N|= p \mid |G|$.  By induction, $exists q:  Q \in q(N), Q \lhd N$.
+So $1 \ne O_q(N) \thinspace char \thinspace N \lhd G$.
+\end{quote}
+{\bf Theorem 25:}
+If $P \in S_p(G)$, $G$ contains a normal $p$-complement iff
+whenever two elements in $P$ are $G$-conjugate, they are $P$ conjugate.
+\begin{quote}
+\emph{Proof:}  
+See the section on transfer.
+\end{quote}
+{\bf Theorem 26:}
+If $G$ has a maximal subgroup, $M$, which is nilpotent of odd order, then $G$ is solvable.
+\begin{quote}
+\emph{Proof:}  
+See Passman.
+\end{quote}
+{\bf Theorem 27:}
+Let $p \ne 2$, $P \in S_p(G)$ and suppose for any $H<G: H \; char ;\ P$, $N_G(H)/C_G(H)$ is
+a $p$-group, then $G$ has a normal $p$ complement.
+\begin{quote}
+\emph{Proof:}  
+By induction on $|G|$.  $N_G(H)$ has a normal $p$-complement by induction.
+If $a \in p'(H)$ then $[a,H]=1$.  So $H$ has  normal $p$-complement.  
+The result follows from Thompson's
+normal $p$-complement theorem.
+\end{quote}
+{\bf Theorem 28:}
+Let $p \ne 2$, $G= SL_2(p)$.  The only abelian $p'$-subgroups of $G$ which are normalized
+by an $S_p$ subgroup of $G$ lie in ${\mathbb Z}(G)$.
+\begin{quote}
+\emph{Proof:}  
+See earlier.
+\end{quote}

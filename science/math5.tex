@@ -1,0 +1,1127 @@
+\section{Probability}
+\subsection{General Probability}
+{\bf Definitions:}
+$\mu_X=E(X)$,
+${\sigma_X}^2=Var[X] =  E[(X - E[X])^2]$.
+\emph{Covariance:} $\mu_{XY}=E((X-\mu_X)(Y-\mu_Y))$.
+\emph{Correlation:} $\rho(X,Y)= {\frac {E((X-\mu_X)(Y-\mu_Y))}
+{\sigma(X) \sigma(Y)}}$.
+\emph{Moment generating function:}
+$G(e^t) = \sum_{k \geq 0} \Pr[X = k] e^{tk} = E[e^{tX}]$.
+\emph{Example:} The moment generating function for Poisson distribution 
+($f(x)= e^{-\lambda x}$) is
+$\phi(t)= E(e^{tx})= \int^{\infty}_0 e^{tx} \lambda e^{- \lambda x} dx=
+{\frac {\lambda} {\lambda - t}}$.  
+$E(X^2)= {\frac d {dt}} \phi(t) = {\frac 2 {\lambda^2}}$.
+$Var(X)= {\frac 1 {\lambda^2}}$.
+\\
+\\
+{\bf Theorem(Stirling approximation):}
+$n! \approx {\sqrt {2 \pi n}} ({\frac {n} {e}})^{n}$.
+\begin{quote}
+\emph{Proof:} $M_n= ln(n!)= \sum_{i=1}^n ln(i)$. 
+$\int_0^n ln(x) dx < M_n < \int_1^{n+1} ln(x) dx$. So
+$(n) ln(n) - n < M_n < (n+1) ln(n+1) - n$.  
+Set $d_n= ln(n!)-(n+{\frac 1 2})ln(n)+n$.
+$d_n-d_{n+1}=(n+{\frac 1 2})ln({\frac {n+1} n})-1$.  Writing
+${\frac {n+1} n}= {\frac {1+{\frac 1 {2n+1}}} {1-{\frac 1 {2n+1}}}}$,
+expanding the log, and comparing to the geometric series in 
+$2n+1$, we find $d_n-d_{n+1}= 
+{\frac 1 {3(2n+1)^2}} +
+{\frac 1 {5(2n+1)^4}} + \ldots < {\frac 1 3} {\frac 1 {(2n+1)^2-1}} = {\frac 1 {12}} 
+({\frac 1 n} - {\frac 1 {n+1}})$.  
+So, $0 < d_n-d_{n+1} < {\frac 1 {12n}}- {\frac 1 {12(n+1)}} $ and
+$\langle d_n \rangle$ is decreasing while
+$\langle d_n - {\frac 1 {12n}} \rangle$ is increasing.
+Thus, $d_n$ converges to, say, $C$.  So,
+$n! \approx e^C n^{n+{\frac 1 2}} e^{-n}$.  To find $e^C = {\sqrt {2 \pi}}$, 
+use Wallis' formula:
+$lim_{n \rightarrow \infty} {\frac {(n!)^2 2^{2n}} {(2n)! {\sqrt n}}}= {\sqrt {\pi}}$.  
+To get this, show
+$\int_{0}^{\frac \pi 2} sin^n (x)= {\frac {n-1} n}
+\int_{0}^{\frac \pi 2} sin^{n-2} (x)$.
+\end{quote}
+{\bf Bayes Theorem:} $ P(B_{i}|A)= {\frac {P(A|B_{i})P(B_{i})} {\sum
+P(A|B_{j})P(B_{j})}}$.
+\\
+\\
+{\bf Normal Distribution:} $N(x) = {\frac {1} {\sigma {\sqrt {2 \pi }}} }
+e^{-{\frac {{(x- \mu)}^{2}} {2 \sigma^{2}}}}$,
+$Z={\frac {(X-np)} {\sqrt {npq}}}$.
+\\
+\\
+{\bf Binomial Distribution:} $B(N, n, p) = {N \choose n} p^{n}(1-p)^{N-n}$,
+$E(B)=Np, \sigma^2= Np(1-p)$.
+\\
+\\
+{\bf Poisson Distribution:} $P(x)= e^{- \lambda} {\frac {\lambda^{x}} {x!}}$, 
+$\mu= \lambda, \sigma^2= \lambda$, probability of count in time $\Delta t$ is
+$\lambda \Delta t$.  
+$$f(x,y)= {\frac 1 {2 \pi \sigma_1 \sigma_2 {\sqrt {1- \rho^2}}}}
+e^{- ({\frac {(x-\mu_1)^2} {\sigma_1^2}} +
+(2 \rho){\frac {(x-\mu_1)(y- \mu_2)} {\sigma_1 \sigma_2}} +
+{\frac {(y-\mu_2)^2} {\sigma_2^2}})/(2 {\sqrt {1-\rho^2}})}$$ 
+$\rho$ is the cross correlation between $x$ and $y$.
+\\
+\\
+{\bf Poisson approximation to binomial distribution:}  
+When $p<<1$ Poisson approximates binomial with
+$np= \lambda$, $E(X)= \lambda$.
+\\
+\\
+{\bf Zipf distribution:}  $P(k)= {\frac c {k^{1+\alpha}}}$.
+\\
+\\
+{\bf Central Limit Theorem:}  If $X_i$ are independent, identically distributed
+random variables with mean $\mu$ and
+$S_{n}= X_{1}+ \ldots + X_{n}$, then $\lim_{n \rightarrow \infty}
+P(a \leq  {\frac {(S_{n}-n \mu)} {\sigma {\sqrt n}}} \leq b) =
+{\frac {1} {\sqrt {(2 \pi)}}} \int_{a}^{b} e^{-(u^{2}/2)}$.
+\begin{quote}
+\emph{Proof:} $E(S_n)= n \mu$, $\sigma^2=Var(S_n)= n\sigma_{X_i}$.  Define
+$S^*_n= {\frac {S_n -n\mu} {\sigma {\sqrt n}}}$.  So
+$E[e^{tS^*_n}]=E[
+e^{\frac {t(X_1-\mu)} {\sigma {\sqrt n}}}
+e^{\frac {t(X_2-\mu)} {\sigma {\sqrt n}}} \ldots
+e^{\frac {t(X_n-\mu)} {\sigma {\sqrt n}}}]=
+E[e^{\frac {t(X_1-\mu)} {\sigma {\sqrt n}}}]^n$.
+Expanding the exponential in the taylor series, we get
+$E[e^{tS^*_n}]=E[1+
+{\frac {t(X-\mu)} {1! {\sqrt n} \sigma}}+
+{\frac {(t(X-\mu))^2} {2! {({\sqrt n} \sigma})^2}}+
+\ldots]^n = e^{\frac {-t^2} 2}$.  This is the same moment generating function
+as the normal distribution, so were done.  \\
+\\
+$\chi^{2}= {\frac {(Y_{2}- n p_{2})^{2}} {( n p_{2})}} +...+
+{\frac {(Y_{12}- n p_{12})^{2}} {(n p_{12})}},$
+$P(\chi^{2} \leq x)= {\frac {1} {2^{\frac {\nu} {2}} \Gamma({\frac {\nu}
+{2}})}} \int_{0}^{x} u^{{\frac {\nu} {2}}-1} e^{-{\frac {u} {2}}} du$.
+\end{quote}
+{\bf Markov Inequality:} Let $X$ be a random variable assuming only non-negative values, and
+with expected value $E[X]$ convergent.  Then
+for any $t>0$,
+$ \Pr[X \geq t] \leq \frac{E[X]}{t}.$
+\begin{quote}
+\emph{Proof:}
+Let $f(x)$ be the density function. Let $I_E$ be the indicator function of the
+set of events $E$ ($I_E(e)= 1$, if $e \in E$, $0$ otherwise).
+$E(aI_{|X| \geq a}) \leq E(|X|)$, so $aPr(|X| \geq a) \leq E(|X|)$.
+\end{quote}
+{\bf Chebyshev Inequality:} Let $Y$ be a random variable
+with expected value $\mu = E[Y]$ and variance, $Var(Y)$.  Then
+for any $t>0$,
+$\Pr[| Y - \mu | \geq t] \leq {\frac {Var(Y)}{t^2}}.$
+\begin{quote}
+\emph{Proof:}
+Let $g(y)$ be the density function. 
+$Var(Y)= \int_{-\infty}^{\infty} (Y-E(Y))^2 g(y) dy$.
+$Var(Y) \geq 
+\int_{|Y-E(Y)| \geq \epsilon} (Y-E(Y))^2 g(y) dy \geq \epsilon^2 
+\int_{|Y-E(Y)| \geq \epsilon} g(y) dy = \epsilon^2 P(|Y-E(Y)| \geq \epsilon)$.
+\end{quote}
+{\bf Chernoff:} Let $T_1 , T_2 , \ldots , T_N$ be mutually independent Bernoulli
+variables
+$T= \sum_i^N T_i$.  Then $\forall c \geq 0$,
+$Pr( T \geq c E(T)) \leq e^{\alpha E(T)}$ where
+$\alpha = ln(c) + {\frac 1 c} -1$.
+\\
+\\
+{\bf Wald:} Let Q be a random variable that takes on only non-negative integer
+values such
+that $E(Q) < \infty$.  Let $R_1 , R_2 , \ldots$ be a sequence of random
+variables
+with the same distribution and let $T= R_1 + R_2 + \ldots + R_Q$.  Suppose
+$R_k$ is independent of the event that it is included in the sum, that is
+$\forall
+k \geq 1$, $R_k$ is independent of an indicator variable for the event
+$Q \geq k$ then $E(T)= E(Q) E(R_1 )$.
+\\
+\\
+{\bf Occupancy:} Let $X_i$ be an indicator for a ball falling into $i$. $E(X_i ) =
+1$.
+Let $Z_i$ be the probability that the bin is empty. $E(Z_i )= {\frac {n}
+{e}}$.
+Let $p_m (r, n)$ be the probability of finding $r$ balls in $n$ cells with exactly
+$m$ empty cells.
+$p_m (r, n)= {n \choose m} (1- {\frac m n})^r p_0 (r, n-m)$.  Further,
+$p_0 (r, n)= \sum_{i=0}^{n} (-1)^i {n \choose i} (1- {\frac i n})^r$.
+\\
+\\
+{\bf Lovasz Local Lemma:}  Let $G= (V,E)$ be a dependency graph for events $e_1 ,
+e_2 , ... , e_n$
+in a probability space.  Suppose $\exists x_i \in
+[0, 1]$ for $1 \leq i \leq n$, such that
+$Pr[e_i ] \leq x_i \Pi_{(i, j) \in E} (1 - x_j )$.  Then
+$Pr[\cap {\overline {e_i}}] \geq  \Pi_{i}^{n} (1- x_i )$.
+\\
+\\
+{\bf Theorem:}
+If $\{p_i \}$ and $\{ q_i \}$ are probability distributions and
+$G(q_1 , q_2 , \ldots , q_n ) = - \sum p_i ln(q_i )$. Then $G$ is minimum
+when
+$p_i = q_i$.
+\subsection {Statistical Inference and Hidden Markov Models}
+{\bf Sample statistics:} Suppose a population has mean $\mu$ and variance $\sigma$. 
+If we
+take a sample of size $n$ consisting of observations $\langle X_1 , \ldots , X_n \rangle$ and
+let $\mu_{\overline X}$ denote the sample mean, then 
+$E((\mu_{\overline X} - \mu)^2) = {\frac {\sigma^2} n}$.  
+The \emph{chi-squared}
+random variable for normally distributed random variables $\langle X_1, \ldots , X_n \rangle$
+with mean $0$ and variance $1$ is
+is defined as $\chi^2(\langle X_1, \ldots , X_n \rangle )= X_1^2 + \ldots + X_n^2$;
+$P(\chi^2 \leq x) = {\frac {1} {2^{\frac {\nu} {2}} \Gamma({\frac {\nu} {2}})}} \int_0^x u^{{\frac {\nu} {2}} -1} e^{-{\frac {u} {2}}} du$ where $\nu$ is the number of degrees of freedom.
+Now let $S^2= {\frac {(X_1 - \mu_{\overline X})^2 + \ldots + (X_n - \mu_{\overline X})^2} {n}}$.
+If the distributions are normal, the distribution of $S^2$ is \emph{chi-squared} with $n-1$
+degrees of freedom. 
+$\chi^2= {\frac {nS^2} {\sigma^2}}$.  Thus if $H_0$ is a hypothesis from a normal distribution,
+we accept at $.05$ level if $\chi^2(.025) \leq {\frac {n s^2} {\sigma^2}} \leq \chi^2(.975)$.
+Finally, put $T= {\frac {\mu_{\overline X} - \mu} {{\frac {S} {\sqrt {n-1}}}}}$.  This is
+Student $t$-distributed with $n-1$ degrees of freedom.
+\\
+\\
+Let $Y=Pred(L)$, $\sigma^2(Y,L)= E((Y-L)^2)$.  Value of predictor:
+$W(Y,L)= {\frac {\sigma^2(Y,L) -E(L-Y)^2} {\sigma^2(Y,L)}}$. 
+$0=W(E(L),L) \le W(Y,L) \le W(L,L)=1$.  $E((X-t)^2)$ is minimized $t=E(Y)$.
+Let $cov(X,Y)= E(XY)=E(X)E(Y)$.
+Best linear predictor: $Y=aX+b$, $a= {\frac {cov(X,Y)} {cov(X,X)}}$ (and solve for $b$).
+Worth of best predictor (using mean square error) is
+$\rho(X,Y)^2= {\frac {cov(X,Y)^2} {cov(X,X) cov(Y,Y)}}$.  Posterior models.
+$P(|Y- \mu| \ge t) \le {\frac {var(Y)} {t^2}}$.
+\\
+\\
+{\bf Maximum likelihood re-estimation:}
+Let $S= \{ 1,2,3, \ldots, n\}$ be the $n$ possible
+states of a hidden markov process with $T-1$ transitions and $T$ outputs.
+Suppose the output vector of the process
+is ${\vec O} \in ({\mathbb Z}_m)^{(T)}$.  Finally, suppose the following distributions
+are given:
+initial state distribution - $\pi(i), i \in {\mathbb Z}_m$;
+output distribution - $q_{ij}= q(j|i)= Pr(O_t=j | {\vec S_t}= i), \forall t$;
+state transition distribution: 
+$p_{ij}=P(j|i)= Pr({\vec S}_t=j | {\vec S}_{t-1}= i), \forall t$.
+\begin {itemize}
+\item \emph{Problem 1:} Given
+$O= O_0, O_1, O_2, ..., O_{T-1}$, $\lambda=(P, q, \pi)$, how do we compute $Pr(O| \lambda)$
+efficiently?
+\item \emph{Problem 2:} Given
+${\vec O}= O_0, O_1, O_2, ..., O_{T-1}$ and $\lambda$, how do we choose an
+${\vec q}$ which is optimal?
+\item \emph{Problem 3:} How do we adjust the model parameters $\lambda=(P, q, \pi)$, 
+to optimize $Pr({\vec O} | \lambda)$, given the observed sequence: ${\vec O}$?
+\end {itemize}
+{\bf Solution to Problem 1:}
+Assuming the foregoing, the probability of the output ${\vec O}$ is:
+$$
+Pr[{\vec O} | \lambda] = 
+\sum_{{\vec s} \in {\vec S}^{(T)}}
+\pi({\vec s}_0) q(O_0 | {\vec s}_0)
+\prod_{i=1}^T P({\vec s}_{i}|{\vec s}_{i-1}) 
+\prod_{i=1}^T q(O_{i}|{\vec s}_{i})
+$$
+The following recursion greatly improves the calculation cost.
+Let $\alpha_0(i)= \pi(i) q(O_0 | i), \forall i$ and 
+$\alpha_t(i)= (\sum_{j=1}^n \alpha_{t-1} (j) P(S_t=i | S_{t-1}=j)) q(O_t|i), \forall i$.
+This is called the ``forward recursion''.
+Then $\alpha_t(i) =
+\sum_{{\vec s} \in {\vec S}^t, {\vec s}_t=i}
+\pi({\vec s}_0) q(O_0 | {\vec s}_0)
+\prod_{j=1}^t P({\vec s}_{j}|{\vec s}_{j-1}) 
+\prod_{j=1}^t q(O_{j}|{\vec s}_{j})$,
+the probability of the observation of
+the sequence up to time $t$ given ${\vec s}_t=i$.
+$Pr({\vec O} | \lambda) = \sum_{i=1}^n \alpha_{T-1}(i)$;
+computing $\{ \alpha_T(i) \}$ takes 
+$O(n^2(T))$ rather than $O(2(T)n^{T})$.  This solves problem 1.
+\\
+\\
+{\bf Solution to Problem 2:}
+Slightly abusing the notation from above define
+$\beta_t(i) = Pr(O_{t+1}, \ldots, O_T | S_t=i, \lambda)$.  The ``backwards
+recursion'' is: $\beta_T(i)=1, \forall i$, 
+$\beta_t(i)= \sum_{j=1}^n P(S_t=i|S_{t+1}=j) \beta_{t+1}(j)q(O_{t+1}|j)$.
+Now define 
+$\gamma_t(j)=P(s_t=1| {\vec O}, \lambda)$ so
+$\gamma_t(j)= {\frac {\alpha_t(j) \beta_t(j)} {P({\vec O}| \lambda)}}$.  
+The most likely state at time $t$ is the one that maximizes
+$\gamma_t(i)$.
+\\
+\\
+{\bf Solution of Problem 3:}
+Define $\gamma_t(i,j)= P(S_t=i, S_{t+1}=j| {\vec O}, \lambda)$ so
+$\gamma_t(i,j)= {\frac {\alpha_t(i) P(S_t=j | S_{t+1}=i) q(O_{t+1}|j) \beta_{t+1}(j)}
+{P({\vec O} | \lambda)}}$ and $\gamma_t(i)= \sum_{j=1}^n \gamma_t(i,j)$.  $\gamma_t(i,j)$
+is the probability of being in state $i$ at $t$ and transitioning to state $j$.
+Now, suppose the model, $\lambda= (\pi, P, q)$, is unknown, the MLE of the
+model, given observations ${\vec O}$ is determined by:
+\begin {itemize}
+\item
+$0= {\frac {\partial} {\partial \pi(i)}}
+[Pr({\vec O}=(O_0, \ldots, O_T))-\lambda_1(\sum_{k=0}^{m-1} \pi(k) -1)]$.
+\item
+$0= {\frac {\partial} {\partial P(j|i)}}
+[Pr({\vec O}=(O_0, \ldots, O_T))-\lambda_2(\sum_{k=0}^{m-1} P(k|i)-1)]$.
+\item
+$0= {\frac {\partial} {\partial q(j|i)}}
+[Pr( {\vec O}=(O_0, \ldots, O_T))-\lambda_3(\sum_{k=0}^{m-1} q(k|i)-1)]$.
+\end {itemize}
+Solving gives the following \emph{re-estimation formulas:}
+\begin {itemize}
+\item
+${\hat {\pi}}(i) = \gamma_0(i)
+= {\frac {\alpha_0(i) \beta_0(i)} {\sum_{k=1}^{n} \alpha_0(k) \beta_0(k)}}$, 
+$\sum \pi(i)=1$.
+\item
+${\hat {P}}(j|i)= 
+{\frac {\sum_{t=0}^{T-1} \gamma_t(i,j)} {\sum_{t=0}^{T-1} \gamma_t(i)}}=
+{\frac {\sum_{t=0}^{T-1} \alpha_t(i) q(O_{t+1}|j) P(j|i) \beta_t(j)} 
+{\sum_{t=0}^{T} \alpha_t(i) \beta_t(i)}}$,
+$\sum_j P(j|i)=1$.
+\item
+${\hat {q}}(j|i)=  
+{\frac {\sum_{t \in \{0,1,\ldots, T-1 \}, O_t=j} \gamma_t(i)} 
+{\sum_{t=0}^{T-1} \gamma_t(i)}}=
+{\frac {\sum_{t=0, O_t=j}^{T-1} \alpha_t(i) \beta_t(i)} 
+{\sum_{t=1}^{T} \alpha_t(i) \beta_t(i)}}$,
+$\sum_j q(j|i)=1$.
+\end {itemize}
+Baum showed that if $Q(\lambda, {\overline {\lambda}})= 
+\sum_{s \in S} P_{\lambda}(O,s) log(P_{\overline {\lambda}}(O,s)$ and
+$Q(\lambda, {\overline {\lambda}}) >
+Q(\lambda, \lambda)$  then $P_{\overline {\lambda}}(O,s)> P_{\lambda}(O,s)$.
+Optimizing $Q$ instead of $P$ gives the Baum EM algorithm.  Note that optimizing
+using dynamic programming may give a different result: $\delta_0(i)= \pi(i) q(i|O_0)$,
+$\delta_t(i)= max_{j \in \{1, \ldots, n\}} (\delta_{t-1}(j) p_{ji} q_{i O_t})$ since
+it optimizes the overall path.  You can deal with underflow by taking logs or (in the
+HMM case) scaling in a way that maintains the re-estimation result.
+\\
+\\
+{\bf Scaling:} 
+$\alpha_t(i)= \sum_{j=1}^{n} \alpha_{t-1}(j) a_{ji}b_i(o_t)$.
+$\tilde{\alpha}_0(i)= \alpha_0(i), 0 \le i <n$, 
+$c_0= (\sum_{j=0}^{n} \tilde{\alpha}_0(j))^{-1}$ and
+$\hat{\alpha}_0(i)= c_0 \tilde{\alpha}_0(i)$.  Recursively,
+$\tilde{\alpha}_t(i)= \sum_{j=1}^{n} \hat{\alpha}_{t-1}(j) a_{ji}b_i(o_t),
+0 \le i <n$,
+$c_t= (\sum_{j=1}^{n} \tilde{\alpha}_0(j))^{-1}$ and
+$\hat{\alpha}_t(i)= c_t \tilde{\alpha}_0(i)$.
+Using the above, $\hat{\alpha}_t(i)= c_0 c_1 \ldots c_t \alpha_t(i)= {\frac {\alpha_t(i)}
+{\sum_{j=1}^{n} \alpha_t(j)}}$ and $P(O|\lambda)= (\prod_{j=0}^{T-1} c_j)^{-1}$,
+the $\beta$ scale the same way.
+\\
+\\
+{\bf EM as Gaussian mixture problem:}
+$p({\vec x})= \sum_{k=1}^K N({\vec x} | {\vec {\mu_k}}, {\vec {\Sigma_k}})$,
+let ${\vec z}$ be a $K$ dimensional random variable from the
+sample space all of whose components are $0$ but a single one which is 1 (i.e.- $z_k=1$) under
+the Gaussian model $(\pi_k, \mu_k, \Sigma_k)$.
+$p({\vec x}| z_k=1)= N({\vec x} | {\vec {\mu_k}}, {\vec {\Sigma_k}})$, $p(z_k=1)= \pi_k$ and
+$p({\vec x})=
+p({\vec x} | {\vec z}) p({\vec z})$.  $\pi_k$ is the prior estimate of
+$z_k=1$ and $\gamma(z_k)$ is the posterior estimate.
+$\gamma(z_k)= p(z_k=1| {\vec x})= {\frac {p(z_k=1) p({\vec x} | z_k=1)}
+{\sum_j p(z_j=1) p({\vec x}| z_j=1)}}$.  For mixing, let 
+$\langle {\vec {x_1}}, \ldots , {\vec {x_N}} \rangle$ be a sample.
+The log likelihood is
+$p({\vec x} | {\vec {\pi}}, {\vec {\mu}}, {\vec {\Sigma}}) =
+\sum_{n=1}^N ln( \sum_{k=1}^K \pi_k N({\vec {x_n}}| \mu_k, \Sigma_k))$ and EM
+maximizes this.  Maximizing equations come from taking derivatives with
+respect to $\mu_k$ and setting them to $0$ --- 
+$0= - \sum_{n=1}^N  {\frac {\pi_k N({\vec {x_n}}| \mu_k, \Sigma_k}
+{\sum_j \pi_j N({\vec {x_j}}| \mu_j, \Sigma_j)}} \cdot 
+\Sigma_k ({\vec {x_n}}- \mu_k)$.  The term in the denominator is 
+$\gamma(z_{nk})$, $N_k= \sum_{n=1}^N \gamma(z_{n,k})$ and 
+$\mu_k = {\frac 1 {N_k}} \sum_{n=1}^N \gamma(z_{n,k})$.  Taking the derivatives with respect
+to $\Sigma_k$ give the remaining equations (Note: $\mu_k= {\frac {N_k} {N}}$).
+An alternative (Bayesian) 
+view is to regard ${\vec z}$ as latent, $\Theta$ as the model parameters
+and $ln(p({\vec X} | \Theta))= ln(\sum_z p({\vec X} | {\vec Z}, \Theta))$.  We use
+this to estimate the likelihood from $\Theta^{old}$ for general $\Theta$:
+${\cal Q}(\Theta, \Theta^{old})= \sum_z p(Z| X, \Theta^{old}) ln(p(X,Z| \Theta))$; the
+``M'' step corresponds to finding 
+$\Theta^{new}= arg \; max_{\Theta} ({\cal Q} (\Theta, \Theta^{old})$.
+\\
+\\
+{\bf Dichotomy problem:} ${\vec x}= (x_1 , x_2 , \ldots, x_n)$ is observed stream generated
+by process with underlying model $P(0)= \theta_0$.  Suppose $a$ $0$'s are observed and $b$ $1$'s,
+$P({\vec x}| \theta) = \theta^a (1-\theta)^b$.  The inverse problem in it's simplest form is
+choose between two sources of ${\vec x}$ with probabilities $\theta_0 , \theta_1$, where
+$P(\theta_0)+P(\theta_1)=1$.  
+$P(\theta_i | {\vec x})= {\frac {P({\vec x} | \theta_i) P(\theta_i)} {P({\vec x})}}$ and thus
+$P(\theta_i | {\vec x})= {\frac {\theta_i^a (1- \theta_i)^b P(\theta_i)} {P({\vec x})}}$.
+Note that
+$P({\vec x})= P({\vec x}|\theta_0) P(\theta_0)+ P({\vec x}|\theta_1) P(\theta_1)$.
+The posterior odds ratio is
+${\frac {P(\theta_1|{\vec x})} {P(\theta_0|{\vec x})}}=
+({\frac {\theta_1} {\theta_0}})^a 
+({\frac {(1-\theta_1)} {(1-\theta_0)}})^b 
+({\frac {P(\theta_1)} {P(\theta_0)}})$.  Let the ``benefit'' of guessing $\theta_i$ if the
+correct answer is $\theta_j$ be $m_{ji}$ (negative if $i \ne j$).  We maximixe 
+the mean outcome by picking $\theta_1$ iff 
+${\frac {P({\vec x}|\theta_1)} {P({\vec x}|\theta_0)} } \ge {\frac {m_{00}-m_{01}} {m_{11}-m_{10}}}$.
+The log posterior odds is
+$log({\frac {P(\theta_1|{\vec x})} {P(\theta_0|{\vec x})}})=
+log({\frac {P({\vec x}|\theta_1)} {P({\vec x}|\theta_0)}})+
+log({\frac {\theta_1} {\theta_0}})
+$.  What is PDF for
+$log({\frac {P(\theta_1|{\vec x})} {P(\theta_0|{\vec x})}})$?
+$E_{\theta_i}(
+log({\frac {P(\theta_1|{\vec x})} {P(\theta_0|{\vec x})}})
+= n( \theta_i log({\frac {\theta_i} {\theta_0}}) + 
+(1-\theta_i)
+log({\frac {1-\theta_i} {1-\theta_0}})) + c$. 
+Call $\mu= \theta_i log({\frac {\theta_i} {\theta_0}}) + (1-\theta_i)
+log({\frac {1-\theta_i} {1-\theta_0}})
+$ the {\emph scoring or information rate}.  Note that this is irrelevant once ${\vec x}$ is
+evaluated.
+Given two distributions 
+$\{p_i \}$
+$\{q_i \}$, define $H({\vec p}, {\vec q})= \sum_{j=1}^n p_j log({\frac {p_i} {q_i}})$.
+$H({\vec p}, {\vec q}) \ge 0$ and
+$H({\vec p}, {\vec q}) = 0$ iff 
+$\{p_i \}= \{q_i \}$.  
+Using a Taylor expansion if $\theta_0 \approx \theta_1 \approx {\frac 1 2}$,
+$ H(\theta_1:\theta_0) \approx H(\theta_0:\theta_1)$.
+Claim: For large $n$, 
+$log({\frac {P(\theta_1|{\vec x})} {P(\theta_0|{\vec x})}})$ is approximately 
+Gaussian distributed.  Apply CLT:
+$
+{\frac 1 {\sqrt n}} (log({\frac {P(\theta_1|{\vec x})} {P(\theta_0|{\vec x})}})- \mu n)=
+\sum_{j=1}^n {\frac 1 {\sqrt n}} (log({\frac {P(\theta_1|{\vec x}_j)} {P(\theta_0|{\vec x}_j)}})= \mu$.
+$\mu$ is the scoring or information rate.
+\\
+\\
+{\bf Data analysis:} \emph{$k$-means}: put $\mu_j=x_n$, for $k$ random $x_n$.  
+Repeat until $S_1 , S_2 , \ldots , S_k$ don't change.  Put $x_i$ in the 
+$S_j$ where $x_i$ is closest to $\mu_j$.  For $j= 1, \ldots, k$,
+$\mu_j= |S_j|^{-1} \sum_{x \in S_j} x$. \emph{Naive Bayes for spam:} Get training set
+$S$, $H$ of spam and ham messages.  $w_i$, a word is $i$-th feature.  Get 
+$P(\textnormal{spam})$ and $P(\textnormal{ham})$ from training set.  
+Calculate $P(w_1, w_2, \ldots, w_m|\textnormal{spam})$.  Now use Bayes theorem to get
+estimator.
+\\
+\\
+{\bf Cryptographic application:}
+Model incorrect decipherments as random stream $P(0)=P(1)= {\frac 1 2}$ while correct decipher
+$P(0)=\theta_1 \ne  {\frac 1 2}$.  For one time pad, we want to distinguish between
+$P(\cdot | {\frac 1 2})$ and
+$P(\cdot | \theta_1)$.  We compute 
+${\frac 
+{P(\theta_1| {\vec z} \oplus {\vec y})}
+{P( {\frac 1 2} | {\vec z} \oplus {\vec y})}}$ using prior 
+$P({\frac 1 2})= {\frac {K-1} {K}}$ and
+$P(\theta_1)= {\frac 1 2}$.  
+Consider an $l-$gram, $P({\vec y})= 2^{-l}$ for small $l$ but this cannot be true for
+$l \approx n$.  Define
+$L({\vec x})= log({\frac {P({\vec x}|\theta_1)} {P({\vec x}|\theta_0)}})$.  
+``Type I'' errors reject $\theta_0$ when it is correct.
+``Type II'' errors accept $\theta_0$ when it is incorrect.
+\\
+\\
+{\bf Principal Component Analysis:}
+Suppose $x_1 , x_2 , \ldots , x_N \in {\mathbb R}^D$ and
+we project this space onto\\
+$\langle u_1 , u_2, \ldots , u_M \rangle$ where $u_k \in {\mathbb R}^D$
+and $u_i u_i^T =1$.  For example, for $M=1$, the
+variance of the projection is
+${\frac 1 N} \sum_{n=1}^N (u_1^T x_n -u_1^T {\overline x})= u_1^T S u_1$ where
+${\overline x} = {\frac 1 N} \sum_{i=1}^N x_i$ and $S$ is the co-variance matrix.  
+Finding the first principal component requires us to
+to maximize $u_1^T S u_1$ subject to  $u_1^t u_1 =1$.  Using Lagrange multipliers,
+this is equivalent to maximizing $f(u_1)= u_1^T S u_1 + \lambda_1 (1- u_1^T u_1)$.  Taking
+derivative, we get $S(u_1) = \lambda_1 u_1$ with $\lambda_1$ the largest eigenvalue
+of $S$.  Can also find $\lambda_1$ with EM.  For general $M$,
+$u_i^T u_j= \delta_{ij}$, ${\vec {x_n}}= \sum_{i=1}^D \alpha_{ni} u_i$,
+$\alpha_{nj}= (x_n^T u_j)$, 
+$x_n= \sum_{i=1}^D (x_i^Tu_i \cdot u_i)$ and
+we want to minimize $J= {\frac 1 N} \sum_{n=1}^N ||x_n-{\overline x}||^2$
+which reduces to an eigenvalue problem.
+\subsection{Information and Coding Theory}
+{\bf Shannon conditions for entropy:} (a) continuous in probability,
+(b) monotonically increasing in
+number of messages, additive with respect to refinement:
+$H(\frac {1} {2}, \frac {1} {4}, \frac {1} {4})=
+H(\frac {1} {2}, \frac {1} {2} ) +
+\frac {1} {2} H(\frac {1} {2}, \frac {1} {2})$.
+Number of bits of information obtained in observing event that occurs
+with probability $p$ is $lg(p)$.
+$H(P) = \sum - p_{i} lg ( p_{i})$, $lg(|X|) \ge H(X) \ge 0$.
+$I(X, Y)= H(X)-H(X | Y )= H(X)+H(Y)-H(X,Y)$.
+$H(X,Y) \leq H(X) + H(Y)$.  $H(U|V)= 0$ iff $U=g(V)$.
+\\
+\\
+{\bf Notation:}
+$D(p||q)= \sum_x p(x) lg({\frac {p(x)} {q(x)}}) \ge 0$.  Markov chain
+denoted by $X \rightarrow Y \rightarrow Z$.
+If $X \rightarrow Y \rightarrow Z$ then $I(X;Y) \le I(X;Z)$.  Let $T(X)$ be
+any statistic and $F= \langle f_{\theta}(x) \rangle$ and $X$ a sample from $F$ then
+$I(\theta; T(X)) \le I(\theta; X)$.  $T$ is a {\bf sufficient statistic} if equality
+holds.  $T(X)$ is a minimal sufficient statistic relative to $F$ if
+it is a statistic of every other sufficient statistic $U(X)$.
+$\theta \rightarrow T(X) \rightarrow U(X) \rightarrow X$.  A stochastic
+process $X= \langle X_1 , X_2 , \ldots \rangle$ is {\bf stationary} if the
+joint distribution of any subsequence is invariant with respect to time shifts.
+The \emph{entropy} of a stochastic process is 
+$H(X)= \lim_{n \rightarrow \infty} {\frac 1 n} H(X_1 , X_2 , \ldots , X_n)$.  For
+a stationary Markov chain, the entropy rate is given by $H(X)= H(X_2 | X_1)$.
+If $X$ is a stationary markov chain then so is the process 
+$\langle Y_i= \phi(X_i) \rangle$ and 
+$ H(Y_n | Y_{n-1}, \ldots, Y_1, X_1) \le H(Y) \le H(Y_n | Y_{n-1}, \ldots, Y_1)$
+equality holds by taking the limit across the inequalities.
+\\
+\\
+{\bf Theorem on Asymptotic Equipartition:} 
+$H_{\delta}(X)= lg( min \{ |T|: T \subseteq A_X, Pr(x \in T ) \geq (1- \delta ) \}$
+and $n$, independent identically distributed random variables $X_i$,
+if $X^{n}=(X_1 , X_2 , \ldots , X_n )$ is almost certain to belong to
+$B \subseteq A^{n}_X $ having about $2^{NH}$ members, each with
+probability ``close'' to $2^{-NH}$.  This is equivalent to 
+{\bf Shannon's Source coding Theorem:} 
+The $n$ r.v.'s can be encoded by $NH$ bits with negligible
+information loss.
+To show this, show for any $\delta$ there's an $n$ such that $H_{\delta}
+(X^{(n)}) \approx NH$.
+Hint: Define $Y = {\frac {1} {n}} lg({\frac {1} {p(x)}})$.  Let
+$T_{n, \beta}= \{ y \in A^{n}_X :
+{[{\frac {1} {n}} lg({\frac {1} {p(x)}}) -H]}^2 < \beta^2 \}$.
+\\
+\\
+{\bf Definition:}
+The \emph{channel capacity} is $C= max_{P(x)} (H(I|J)-H(I))$.  For a DMC, BSC with error
+rate $p$, this implies $C_{BSC}(p)= 1+p lg(p) + q lg(q)$.  So for BSC
+$R=1-H(P)$.
+\\
+\\
+{\bf Observations:}
+To \emph{detect} $t$ errors $d(C) \geq t+1$.
+To \emph{correct} $t$ errors $d(C) \geq 2t+1$.
+A \emph{perfect code} satisfies $M (\sum_k^t {n \choose k} (q-1)^k)= q^n$.
+\\
+\\
+{\bf Shannon Source Coding:}  If a memoryless source has entropy $H$ then any
+uniquely decipherable
+code over an alphabet $\Sigma$ with $D$ symbols must have length $\geq
+{\frac H {lg(D)}}$.  Further,
+$\exists$ a uniquely decipherable code with average length $\leq 1+ {\frac H
+{lg(D)}}$.
+\\
+\\
+{\bf Shannon's Theorem Channel Coding:}
+If $0 \leq R \leq 1+ p lg(p)+ q lg(q)$, $M_n = 2^{\lceil Rn \rceil}$,
+then $P^{*} (M_n , n, p) \rightarrow 0$ as $n \rightarrow \infty$.
+Notation: Each codeword has $n$ bits.
+Let $P_i$ be the probability of making an error in
+decoding if $x_i$ is transmitted. Then
+$P_C = {\frac 1 M} \sum_i P_i$ is the probability of making a decoding error
+if a randomly chosen codeword is transmitted and
+every codeword is equiprobable.
+$P^{*} (M_n , n, p) = min_{C} (P_C )$, with
+$BlockLength(C)=n$,  $R= {\frac {lg(|C|)} {n}}$
+and $M_n= 2^{\lfloor Rn \rfloor}$.
+\begin{quote}
+\emph{Proof:}
+Define the following terms: $f(u, v) = 0$, if $d(u,x) > \rho$ and
+$f(u, v) = 1$, if $d(u,x) \leq \rho$,
+$g_{i}(y)= 1- f(y, x_{i} ) + \sum_{i \ne j} f(y, x_{i})$. Then
+$P_{i}= \sum_{y} P(y | x_{i}) g_{i}(y) =
+\sum_{y} P(y|x_i ) [1- f(y, x_{i} )] + \sum_{y} \sum_{i \ne j}
+P(y | x_i ) f(y, x_{i})$. So,
+$P_{C}= min_{C} [{\frac {1} {M}}  \sum_{i} (\sum_{y}
+\sum_{y} P(y|x_i ) [1- f(y, x_{i} )] + \sum_{y} \sum_{i \ne j}
+P(y | x_i ) f(y, x_{i}))]$. Now,
+taking expectations over all eligible $C$
+and using the fact that at least one particular $C$ must have $P_C \leq$
+the expected value of $P_C$  over all $C$, we get
+$P_{C} \leq  [{\frac {1} {M}} \sum_{i}
+\sum_{y} E(P(y|x_i ) [1- f(y, x_{i})]) + \sum_{y} \sum_{i \ne j}
+E(P(y | x_i )) E(f(y, x_{i}))]$. Now,
+let $N_e$ be the number of received bits in error in
+a string of length $n$,
+then $E(N_{e})= np$ and $Var(N_{e})= {\sqrt {npq}}$.  Set
+$b= {\sqrt {\frac {npq} {\frac \epsilon 2}}}$ then
+$P(n_e > np + b ) \leq {\frac \epsilon 2}$ by Chebychev. If $B_{\rho}(x)$
+is the set of words of distance $\leq \rho$.  So, we get
+$ P_C \leq {\frac {\epsilon} 2} + M^{-1} \sum_i \sum_y \sum_{i \ne j}
+E(P(y | x_i )) E(f(y, x_i )) \leq {\frac {\epsilon} {2}} +
+(M-1) 2^{-n} {|B_{\rho})|}$.
+Now $\rho = pn$ and $B_{\rho}(x)= \sum_{i \leq \rho} { n \choose i}$.  But
+$1= [\lambda +( 1- \lambda )]^{n}= \sum_{k=0}^{pn} {n \choose k} \leq
+\lambda^{pn} (1-\lambda)^{n(1-p)} \sum_{k=0}^{pn} {n \choose k}$.  So,
+$2^{-nH(p)} \geq \sum_{k=0}^{pn} {n \choose k}$.  Putting this back in the
+equation for $P_C$
+we get
+$P_C \leq {\frac \epsilon 2} + (M-1) 2^{-n(1+H(p))} \leq
+2^{n(R-1-H(p))}$ which goes to 0 if $R < 1+H(p)$.
+\end{quote}
+{\bf Definitions:} $(n,M,d)$ \emph{codes} $M$ is number of codewords, $d$ is minimum distance,
+$n$ is dimension.
+An $[n,k,d]$ \emph{linear code} is an $k-$subspace of an
+$n-$ space over $F$ with minimum distance $d$.  The \emph{standard form for a generator} is
+$G= (I_k | A)$ with
+$k$ message bits, $n$ codeword bits.  Codeword $c=mG$ and
+$d=min_{u \ne 0, u \in C} \{ wt(u) \}$.
+The \emph{parity check matrix}, $H$, of
+a code is the generator of its dual code. $C^{\perp} = \{x: (x,y)))= 0,
+\forall y \in C \}$.  
+Note that $GH=0$.
+If $C$ is a code, $C^{\perp}$ is a code (the \emph{dual code}).  
+$H=(-A^T, I_{n-k})$, $GH^T=0$.  Consider a table with the codewords forming the first
+row, subsequent rows add error $e$ until all $2^n$ blocks are in the table.  
+Each row is a coset and the element of minimum weight in each row is called the
+coset leader. To decode received word $r=c+e$: (1) compute syndrome $s(r)= rH^T$,
+(2) find coset leader with $s(r)$ and locate the codeword, $c_0$ in that column,
+(3) decode as $r-c_0$.
+\\
+\\
+Define $V(n,r)= \sum_{j=1}^r {n \choose j}$.
+{\bf Hamming Bound:} $| C | \leq {\frac {2^n} {V(n,e)}}$.
+{\bf Sphere Packing Bound:} If $d=2e+1$, $A_{q}(n,d) \sum_{k=0}^e {n \choose k}
+(q-1)^{k} \leq q^{n}$.
+{\bf GSV Bound:} $A(n,d) \geq {\frac {2^n} {V(n, d-1)}}$, where
+$A(n,d)$ is the largest code with minimum distance $d$.
+\\
+\\
+{\bf Hamming Codes:}
+A \emph{Hamming code} is a $[n,k,d]$ linear code with
+$n= 2^m -1$, $k= 2^m -1 -m$ and $d=3$.  To decode, if $r=c+e$ is received
+(1) calculate $s(r)= rH^T$, (2) find $j$ which is the column of $H$ with syndrome
+$s(r)$, correct position $j$.  The $[7,4]$ code has encoding matrix
+$$
+C=
+\left(
+\begin{array}{ccccccc}
+1 & 0 & 0 & 0 & 0 & 1 & 1\\
+0 & 1 & 0 & 0 & 1 & 0 & 1\\
+0 & 0 & 1 & 0 & 1 & 1 & 0\\
+0 & 0 & 0 & 1 & 1 & 1 & 1\\
+\end{array}
+\right)
+$$
+with check equations
+$y_1+y_3+y_5+y_6 =0$,
+$y_2+y_3+y_6+y_7 =0$,
+$y_4+y_5+y_6+y_7 =0$.
+For Hamming, $n= 2^m -1$, $m$ parity checks identify error position.  Motivation
+for BCH is to use another $m$ parity checks which identify $f(j)= j^3$ positions.
+Rows of Hadamard matrix $H H^{T}=nI$ forms a $(n, 2n, {\frac n 2})$ code.
+Let $A_{i}$ be the number of codewords of weight $i$ for a code $C$, then
+$A(z)= \sum_i A_{i} z^{i}$ is the weight enumerator.
+\\
+\\
+{\bf Cyclic Codes:}
+A \emph{cyclic code,} $C$, has the property that 
+$(c_1, c_2, \ldots , c_n) \in C \rightarrow
+(c_n, c_1, \ldots , c_{n-1}) \in C$.  Denoting $U_n(x)= x^n -1$ we have the following 
+theorem:  $C$ is a cyclic code of length $n$ iff its generator 
+$g(x)= a_0 + a_1 x + \ldots + a_{n-1}x^{n-1} \mid U_n(x)$ where codewords $c(x)$
+have the form $m(x) g(x)$.  Further, if $U_n(x)= h(x) g(x)$, $c(x) \in C$ iff
+$h(x)c(x) = 0 \jmod{U_n(x)}$.
+\emph{Example:} $g(x)= 1+x^2+x^3$ generates $(7,4)$ code.
+$g(x)m(x)=c(x)$, $a=(1010), a(x)= 1+x^2$; $g(x) a(x) = c(x)= x^5 + x^4 + x^3 +1$,
+$c= (1001110)$.  In shift register implementations, bits come out of $0$-degree
+term, recurrence is shifted into high-degree.
+Cyclic codes ideals in ${\mathbb Z}_2 / (x^n - 1)$.  Codewords are multiples
+of the generator polynomial $g(x)$. Let $\alpha$ be a primitive element
+of $GF(2^m )$.  $[n=2^m -1, k= n-m, d=3]$ hamming code has parity check
+$H= (1, \alpha , \alpha^2 , \alpha^3 , \ldots , \alpha^{2^m - 2})$.
+If $g(x)$ is the generator for $\alpha$, generator matrix is
+$$
+C=
+\left(
+\begin{array}{ccc}
+g(x) & 0 & 0\\
+0 & xg(x) & 0\\
+0 & 0 & x^2 g(x)\\
+...\\
+\end{array}
+\right)
+$$
+For BCH with $[n=2^m -1, k= n-2m, d\geq 5]$, $g(x)= M^{(1)}(x)M^{(3)}(x)$
+where $M^{(3)}(x)$, is the minimum polynomial for $\alpha^3$.
+\\
+\\
+{\bf BCH codes:}
+If $g(x) | x^n - 1$, the ideal generated by $g(x)$ is a cyclic code.
+If $g(x)$ factors into linear factors in $GF(2^n)$ with roots
+$A= \{ \alpha_1 , \ldots , \alpha_r \}$,  the
+set $C$ defined by $f(x)  \in
+C$ iff $f(\alpha)= 0, \forall \alpha \in A$ is a
+cyclic code.  For BCH, pick $g(x)= m_1 (x) m_2 (x) \ldots m_r (x)$ of degree
+$d$ with each factor irreducible. Let $n-d$ message bits be the high order
+coefficients $C_I (x)$ of an $n-1$ degree polynomial whose remaining terms
+are $C_R (x)$ with $C_I (x)= g(x) q(x) + C_R (x)$.  For
+a 2-ECC, pick $g(x)=  m_1 (x) m_2 (x)$ with
+$m_1 (x)$ the irreducible monic polynomial
+for a primitive $n$th root of 1, $\alpha$ and
+$m_2 (x)$ the irreducible monic polynomial for $\alpha^3$. Alternatively,
+suppose $g(x)$ is a cyclic code and
+$\alpha$ is a primitive $n$th root of $g(x)$ and 
+$g(\alpha^l)= g(\alpha^{l+1})= \ldots = g(\alpha^{l+\delta})=0$ then
+$d \ge \delta+2$ and the resulting BCH code has weight $d$.  Decoding
+BCH for $r=c+e$: (1) compute $(s_1 , s_2)= rH^T$, (2) if $s_1=0$, no error,
+(3) if $s_1 \ne 0$ put ${\frac {s_2} {s_1}} = \alpha^{j-1}$, error is in
+position $j$ (of $p \ne 2, e_j = {\frac {s_1} {\alpha^{(j-1)(k+1)}}}$), 
+(3) $c=r-e$.
+\\
+\\
+{\bf Reed-Solomon} code is BCH code over $F_q$ with $n= q-1$. Let $\alpha$ be a
+primitive root of 1 and choose $d: 1 \le d < n$ with
+$g(x)= (x- \alpha) (x-\alpha^2) \ldots (x- \alpha^{d-1})$.  The BCH code
+generated by $g(x)$ is a Reed Solomon code (an MDS code too).
+\\
+\\
+{\bf Building codes and Reed Muller:} If $C_1 : (n, M_1, d_1 )$ and
+$C_2 : (n, M_2, d_2 )$, $C_3 = C_1 * C_2$ denotes the code where codewords
+in $C_3$ are $(u, u+v),
+u \in  C_1 , v \in  C_2 $.  It is a
+$(2n, M_1 M_2 , min(2 d_1 , d_2 ))$ code.
+$RM(0,m)= \{ 0 , 1 \}$, $RM(r+1, m+1)=  RM(r+1, m) * R(r, m)$. $R(r, m)$ is
+a $(n_r , M_r , d_r )$ code, with $n_r = 2^m$, $d_r = 2^{m-r}$ and
+$M_r = 2^a$, $a= 1 + {m \choose 1} + \ldots + {m \choose r}$.  $R(r,m)$
+has parameters
+$[n=2^m , k= 1 + {m \choose 1} + \ldots + {m \choose r}, d=2^{m-r}]$,
+it consists of boolean functions
+whose polynomials are of degree 
+$\leq m$. $RM(r,m)^{\perp} = RM(m-r-1,
+m)$.
+\\
+\\
+$R= \frac {1-H_2 (p)} {1- H_2 (p_e )}$ (4,7) code.
+$ U= {\frac {H(K)} {D}}$, $2^{RN}$ messages $2^{rN}$ meaningful ones,
+$2^{H(K)}$ keys.  $2^{H(K)}-1$ keys have probability, q, of spurious
+decryption $R-r=D$. $F$= number of false ones.
+$F=(2^{H(K)}-1)q= 2^{(H(K)-D)N}$.  The correct key maps cipher into
+meaningful class always.  False keys map cipher into meaningful/meaningless
+randomly.  After how many message is the expected number of spurious keys
+which map all the samples into meaningful less than 1?
+Shannon: $M_{C}$: total message length, $M$: meaningful part,
+$p$: probability of error.  $p M_{C}= k$, $2^{M_{C}-M} \geq
+{{M_{C}} \choose {k}}.$\\
+\\
+{\bf Hadamard Code:}  Let $h_{ij}= (-1)^{a_0 b_0 + \ldots + a_4 b_4}$,
+where $a$ and $b$ index the rows and columns respectively.  This gives a
+$32 \times 32$ entry matrix, $H$.  Let generators be $G= [H |  -H]^T$.
+For each of the $0 \le i <2^6$ possible messages, send the row corresponding to 
+$i$.
+To \emph {decode Hadamard}, for the $32$ bit received word, $r$, compute $d_i= r \cdot R_i$,
+where $R_i$ is the $32$ bit row $i$.  If there are no errors, the correct row will
+have $d_i=32$ and all other rows will have $d_i=0$.  If one error, $d_i=30$, etc.
+\\
+\\
+{\bf Definition:} The
+\emph{Golay Code} ${\cal G}_{24}$ is a $[24, 12,8]$ linear code. 
+$G= [I_{12} | C_0 | N] = [I | B]$ 
+where $C_0= (1,1,1,1,1,1,1,1,1,1,1,0)^T$
+and $N$ is formed by circulating $(1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0)$
+$11$ times and appending an row of $11$ 1's.
+The first row of $N$ corresponds to the quadratic residues $\jmod{11}$.
+Note that $wt(r_1 + r_2) = wt(r_1) + wt(r_2) - 2 [r_1 \cdot r_2]$,
+all codewords have weight divisible by $4$ and $d(C)=8$.  
+${\cal G}_{24} = {\cal G}_{24}^{\perp}$.
+\\
+\\
+{\bf Decoding the Golay code:} Let
+$G=[I_{12} | B]$ and $B^T= (b_1 , b_2 , \ldots, b_{12})$ with $b_i$ a column vector.
+Suppose $r=c+e$ is received and $wt(e) \le 3$.  Put $s= rG^T$ and compute
+$sB$, $s+c_i^T$, $1 \le i \le 24$ and $sB+b_j^T$, $1 \le j \le 12$. If
+$wt(sB) \le 3$, there is a non-zero entry in the $k$-th position of $sB$ if
+the $k+12$-th position of $e$ is non-zero.   If $wt(s) \le 3$ a non-zero entry in
+$s$ at position $k$ corresponds to a non-zero entry in position $k$ of $e$.  
+If $wt(s+c_j^T) \le 2$, for some $j$, $13 \le j \le 24$ then $e_j=1$ and non-zero
+entries of $s+e_j^T$ are in the same positions as non-zero entries of $e$.
+If $wt(sB+b_j^T) \le 2$, for some $j$, $1 \le j \le 12$ then $e_j=1$ and non-zero
+entries of $sB+b_j^T$ at position $k$ correspond to non-zero entries of $e_{k+12}$.
+\\
+\\
+{\bf Reed-Solomon construction:} 
+Fix $n$ elements, $\langle \alpha_1 , ..., \alpha_n \rangle$, 
+$|F| \geq n$, $E(m)= \langle M\alpha_1 , ..., M\alpha_n \rangle$, $d(E(m_1,m_2)) \leq n+k-1$.
+\subsection{The Leech Lattice and the Conway groups}
+{\bf Background:} 
+Volume of $n$-sphere is $V_n r^n$ where $V_n= {\frac {\pi^{n/2}} {\Gamma({\frac n 2}+1)}}$.
+\emph{Rogers Bound} is obtained by forming convex hull of $n+1$-simplex with spheres on
+vertices; volume interior to simplex and spheres forms upper bound.
+$RB(n)=
+{\frac {{\sqrt {(n+1)}} (n!)^2 \pi^{\frac n 2}} {2^{\frac {3n} {2}} \Gamma({\frac n 2}+1)}}
+f_n(n)$,
+$F_{n+1}(\alpha) = 
+{\frac 2 {\pi}} \int^{\alpha}_{\frac {arcsec(n)} 2} F_{n-1}(\beta) d \theta$,
+$sec(2 \beta) = sec( 2 \theta ) - 2$, $F_1(\alpha) = F_0 ( \alpha ) = 1$, 
+$f_n (sec (2 \alpha))=
+F_n(\alpha)$.  $RB(3)= .7404$.  $A_1 = 0$, $A_{2n}=
+\left( \begin{array}{cc}
+A_n & A_n \\
+A_n & {\overline {A_n}}
+\end{array}
+\right)$.
+\\
+\\
+$L_8$:  $v \in L_8$ iff $v \in {\mathbb Z}^8$ and $v_i = a_i \jmod{2}$ or
+$v_i = {\overline a_i} \jmod{2}$.\\
+Generator matrix:
+$\left(
+\begin{array}{cccccccc}
+1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
+2 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+0 & 2 & 0 & 0 & 0 & 0 & 0 & 0 \\
+\ldots & \ldots & \ldots & \ldots & \ldots & \ldots & \ldots & \ldots \\
+0 & 0 & 0 & 0 & 0 & 0 & 2 & 0 \\
+\end{array}
+\right)$.
+\\
+\\
+$L_8 \rightarrow \Lambda_8$:  $v \in \Gamma_8$ iff
+$v \in L_8$ and $\sum_{i=1}^{8} v_i = 4m$.  Contact number: $112+128=240$, radius: ${\sqrt 2}$.
+\emph{Alternate definition} of $\Lambda_8$: $8$-tuples whose spheres are congruent $\jmod{2}$ to
+rows of $A_8$ or ${\overline {A_8}}$.
+Density is ${\frac {\pi^4}{4!2^4}}$.
+\\
+\\
+{\bf Definition:}
+Let $R(C)$ be the row space of ${\cal G}_{24}$ over $GF(2)$.  
+Define the \emph{Leech Lattice}, $\Lambda_{24}$,
+as the vectors that satisfy the following conditions:
+Express coordinates in $E_{24}$ in binary and retain the ones that satisfy
+the following conditions (a) the $24$ $1$'s bits are either all $0$ or all $1$, (b)
+the $2$'s bits form a row in $R(C)$, (c) $4$'s bits rows have even parity for points
+with $1$'s bits that are all $0$ and odd otherwise. This is equivalent to the following:
+Suppose ${\vec c} \in R(C)$ and for $m \in {\mathbb Z}$, define
+${\vec c}(m)= \{  
+v \in {\mathbb Z}^{24}:  \sum_i v_i = 4m, 
+c_i = 0 \rightarrow v_i = m \jmod{4},
+c_i = 1 \rightarrow v_i = m+2 \jmod{4}
+\}$,
+$\Lambda = \Lambda_{24}= \cup_m {\vec c}(m)$.
+\\
+\\
+{\bf Theorem:}   In $\Lambda$, lattice points are seperated by a minimum
+distance of $4 {\sqrt 2}$.  Lattice points a minumum distance from the origin
+have shapes: $(0^{16}, (\pm 2)^8)$, $(0^{22}, (\pm 4)^2)$, $((\pm 1)^{23}, (\pm 3))$.  
+Hence the contact number is $98256$ (lattice point with even parity) + $98304$ 
+(lattice point with odd parity) $= 196,560$;  
+the density is $.001929$.  Each pair of adjacent lattice points is adjacent to $4600$
+others. \emph{Example:} $(4,4, 0, \ldots, 0)$
+is adjacent to $(4,0, \ldots , 0)$ - there are $88$ of these,
+$(2,2, \ldots , 0)$ - there are $77 \times 2^7$ of these and
+$(1,3, \ldots , 0)$ - there are $2048$ of these.
+For the first Leech packing,
+the density is ${\frac {2^{24}} { 2 \times 2^{12}}}= 2^{-11}$, 
+first factor of $2$ in 
+denominator is from condition that the sum of the
+coordinates $= 0 \jmod{4}$ and so the packing density is $.0009647$.  The
+Leech lattice doubles this which is about $.8$ of the Rogers bound.
+\\
+\\
+Noting that there must be an even number of $-2$'s,
+for the Leech packing, lattice points with even coordinates are:
+\begin{center}
+\begin{tabular} {|r|r|}
+\hline
+{\bf Shape} & {\bf Number} \\
+\hline
+$0^{16}, (-2)^8$ & $759$ \\
+$0^{16}, (-2)^6, 2^2$ & $759 \cdot {8 \choose 2}=21252$ \\
+$0^{16}, (-2)^4, 2^4$ & $759 \cdot {8 \choose 4}=53130$ \\
+$0^{16}, (-2)^2, 2^6$ & $759 \cdot {8 \choose 2}=21252$ \\
+$0^{16}, 2^8$ & $759$ \\
+$0^{22}, (-2)^2$ & ${24 \choose 2}=276$ \\
+$0^{22}, -2, 2$ & $ 24 \cdot 23 =552$ \\
+$0^{22}, 2^2$ & ${24 \choose 2}=276$ \\
+\hline
+{\bf Total} & $98256$\\
+\hline
+\end{tabular}
+\end{center}
+The lattice points with odd coordinates are:
+\begin{center}
+\begin{tabular} {|r|r|}
+\hline
+{\bf Shape} & {\bf Number} \\
+\hline
+$(-1)^{23}, 3$ & $24$ \\
+$(-1)^{16}, (1)^{7}, -3$ & $759 \cdot 8= 6,072$ \\
+$(-1)^{15}, (1)^{8}, 3$ & $759 \cdot 16= 12,144$ \\
+$(-1)^{12}, (1)^{11}, -3$ & $2576 \cdot 12= 30,912$ \\
+$(-1)^{11}, (1)^{12}, 3$ & $2576 \cdot 12= 30,912$ \\
+$(-1)^{8}, (1)^{15}, -3$ & $759 \cdot 16= 12,144$ \\
+$(-1)^{7}, (1)^{16}, 3$ & $759 \cdot 8= 6,072$ \\
+$(1)^{23}, -3$ & $24$ \\
+\hline
+{\bf Total} & $98304$\\
+\hline
+\end{tabular}
+\end{center}
+There are 
+$4600$ vertices adjacent to $2$ adjacent simplex,
+$891$ vertices adjacent to $3$ adjacent simplex,
+$336$ vertices adjacent to $4$ adjacent simplex and
+$170$ vertices adjacent to $5$ adjacent simplex.  
+This gives a dihedral like estimate on the size of the symmetry group.
+\\
+\\
+{\bf Definition of
+Conway's group:} ${\bf .O}$ is the set of rotations in ${\mathbb R}^{24}$ fixing $O$ 
+pointwise and $\Lambda$ setwise.
+\\
+\\
+{\bf Notation:}
+$v_S= \sum_{i \in S} v_i$. 
+$Q= \{ x^2: x \in F_{23} \}, N= \Omega \setminus Q$.
+$A+B= A \setminus B \cup B \setminus A$.  $N_i= \{ n-i, n \in N \}$.  Golay code,
+${\cal C}$, is
+generated by $N_i, N_{\Omega}$.  $N_A = \sum_{a \in A} N_a$.  $C \in {\cal C}$ iff $N_C=0$.
+$\Omega= PL(23)$, $\alpha: x \mapsto x+1$, $\beta: x \mapsto 2x$,
+$\gamma: x \mapsto {\frac {-1} x}$, 
+$\delta: x \mapsto 9 x^3, x \notin Q$ and
+$\delta: x \mapsto {\frac {x^3} 9}, x \in Q$.  
+$L_2(23)= PSL_2(23)= \langle \alpha, \gamma \rangle$,
+$M_{24}= \langle \alpha, \gamma, \delta \rangle$.  If $\pi \in S_{\Omega}$, define
+$(v_i)^{\pi} = v_{\pi(i)}$.  
+$\epsilon_S(v_i) = -v_i, i \in S$ and
+$\epsilon_S(v_i) = v_i, i \notin S$.
+\\
+\\
+{\bf Theorem:}
+The set $G \Lambda = \{ 2 v_K, K \in R(C) \} \cup
+\{ v_{\Omega} - 4 v_{\infty} \}$ generates $\Lambda$.  If $v, w \in G \Lambda$, then
+$v \cdot v= 16n$ and $v \cdot w = 0 \jmod{8}$.  
+$\Lambda_n= \{ x  \in \Lambda, x \cdot x = 16n \}$.  $\Lambda_1 = \emptyset$,
+$\Lambda_2$ consists of 
+$\Lambda_2^2$ of shape $(0^{16}, (\pm 2)^8)$ - there are $97152$ of these,
+$\Lambda_2^3$ of shape $((\pm 1)^{23}, (\pm 3)^1)$ - there are $98,304$ of these,
+$\Lambda_2^4$ of shape $(0^{22}, (\pm 4)^2)$ - there are $1104$ of these.
+In tabular form:
+\begin{center}
+\begin{tabular} {|r|r|r|}
+\hline
+{\bf Name} & {\bf Shape} & {\bf Number} \\
+\hline
+$\Lambda_2^2$ & $0^{16}, \pm 2^8$ & $759 \cdot 2^7$\\
+\hline
+$\Lambda_2^3$ & $\pm 1^{23}, \pm 3$ & $24 \cdot 2^{12}$\\
+\hline
+$\Lambda_2^4$ & $0^{22}, \pm 4^2$ & ${24 \choose 2} \cdot 2^2$\\
+\hline
+\end{tabular}
+\end{center}
+{\bf Notation:}
+If $S \in R(C)$, $\epsilon_S \in .O$.
+$E= \langle \epsilon_S \rangle_{S \in R(C)}$, $M= M_{24}$.  $N= EM$.
+$T_0= \{0, 3, 15, \infty \}$,
+$T_1= \{ 1,12,21,22 \}$,
+$T_2= \{ 2,7,11,13 \}$,
+$T_3= \{ 4,10,16,17 \}$,
+$T_4= \{ 5,6,9,19 \}$,
+$T_5= \{ 8, 14,18,20 \}$,
+$B= \{ T_0, T_1, T_2, T_3, T_4, T_5 \}$.
+\\
+\\
+{\bf Theorem:}
+$\lambda \in .O$ and $\lambda$ fixes $v_i$ (some $i$) iff $\lambda \in N$.
+\begin{quote}
+\emph{Proof of $\rightarrow$:}
+Suppose $\lambda \in .O$ and $\lambda(v_i)= v_i$.  If $\lambda(v_j)= w_j, i \ne j$ then
+$(v_i, w_j)= 0$.  Since $4 v_i + 4 v_j \in \Lambda_2$,
+$4 v_i + 4 w_j \in \Lambda_2$.  Examining the elements of $\Lambda_2$, we see
+$w_j= \pm v_k$ for some $k \in \Omega$ since $8w_j \in \Lambda$ and $4w_j \notin \Lambda$.
+Distinct values of $j$ yield distinct values of $k$.  Thus $\lambda= \pi \epsilon_S$,
+$S \subseteq \Omega, \pi \in S_{24}$.  The non-zero coordinates of
+$\lambda( 2 v_K ), K $ an octet are in the coordinate postions $\pi(K)$, so
+$\pi(K)$ is an octet and  $\pi \in M_{24}=M$.  $\lambda( v_{\Omega} - 4 v_{\infty})$ is
+a lattice point of the same shape and the coordinates are $=1 \jmod{4}$.
+$\epsilon_S: v_i \mapsto -v_i, i \in S$ so the coordinates of
+$\lambda( v_{\Omega} - 4 v_{\infty})$ which are $= 3 \jmod{4}$ are in the places
+$\pi(S)$ and so $S \in R(C)$.  So $\lambda = \pi \epsilon_S \in N$.
+\end{quote}
+{\bf Theorem:}
+If $\lambda(\Lambda_2^4)= \Lambda_2^4$ then
+$\lambda \in N$.
+\begin{quote}
+\emph{Proof:}
+We use the following lemma:
+\\
+\emph{Lemma:} If $\lambda \in .O$ and $|\lambda|= p$, a prime then $p \le 23$ further,
+no element of $.O$ has order $13 \cdot 23$.
+\\
+\\
+Let $H$ be the symmetries fixing $\Lambda_2^4$ as a whole and $x= 4v_i +4v_j$
+and $N_x$ is the subgroup fixing $x$.  $N$ only changes signs and permutes
+coordinates so $N: \Lambda_2^4 \rightarrow \Lambda_2^4$ and fixes
+$\Lambda_2^4(x)$ as a whole.  There are $2^2 {22 \choose 2}= 924$ vectors
+of the form $\pm 4 v_h \pm 4 v_k$ are perpendicular to 
+$\pm(4 v_i - 4 v_j)$ with
+$h, i, j,k$ distinct and so are
+$\pm(4 v_i - 4 v_j)$.  These $926$ vectors form
+$\Lambda_2^4(x)$.  $N_x$ is $2$-transitive so $\exists \sigma: 
+(4 v_i - 4 v_j) \mapsto \pm (4 v_i - 4 v_j) $ and no other elements are in this orbit.
+Thus $\{ (4 v_i - 4 v_j), -(4 v_i - 4 v_j) \} $ form a single orbit.
+$N_x \subseteq H_x$ and the orbits of $H_x$ are a union of $N_x$ orbits.  As a result,
+it is either all $926$ orbits or the $N_x$ orbits.  In the latter case,
+$|H_x: H_{x,y}| = 926= 2 \cdot 463$ which contradicts the lemma.
+So we know $H_x$ has $2$ orbits on $\Lambda_2^4(x)$ and maps 
+$(4 v_i - 4 v_j)$ to itself or it's negative.  In the first case, $\lambda(v_i)= v_i$ and
+$\lambda \in N$ by the
+previous theorem.  In the second case, $\lambda( v_i)= v_j$ and hence
+$ (4 v_i + 4 v_h)  \mapsto (\pm 4 v_j \pm 4 v_k) , h \ne j $ and again $\lambda \in N$.  Thus
+$H_x \subseteq N$ and $H_x \subseteq N_x$ and therefore $H \subseteq N$.
+\end{quote}
+{\bf Theorem:}
+There is a subgroup isomorphic to $L_2(23)$ which is
+transitive on octads. 
+\begin{quote}
+\emph{Proof:} 
+There is a copy of $L_2(23)$ in $M_{24}$.
+\end{quote}
+{\bf Definition:} $\epsilon(v_i) = 
+v_i \textnormal{ if } i \notin Q \textnormal{ and } -v_i \textnormal{ if } i \in Q $.
+\\
+\\
+{\bf Theorem:} $N= \langle \alpha, \beta, \gamma, \delta, \epsilon \rangle$.
+\begin{quote}
+\emph{Proof:} 
+Applying permutations from the right, note $\epsilon_K= 
+\epsilon \alpha  \delta \alpha  \epsilon \alpha^{-1} \delta^{-1} \alpha^{-1}$, 
+$K= \{ 0,1,4,5,11,12,14,22 \}$.  If $L$ is another $8$-set and $\theta: K \rightarrow L$ then
+$\epsilon_L = \theta^{-1} \epsilon_K \theta$.
+\end{quote}
+{\bf Theorem:}
+$N$ is a proper subgroup of $.O$.
+\begin{quote}
+\emph{Proof:} 
+Let $T=T_0$ be any $4$-set of $\Omega$.  $T$ lies in $5$, $8$ sets
+$ T+T_1, T+T_2, \ldots, T+T_5$, where $T_i$ is the complement of
+$T$ in the $i$-th $8$-set.  $\Omega$ is the disjoint union of
+$6$, $4$-sets.  $B= \{ T_0 , T_1 , \ldots , T_5 \}$.
+$\eta= \eta_B: v_i \mapsto v_i- {\frac 1 2} v_{T_j}$ and
+$\zeta_T= \eta \epsilon_T$.  $\zeta_T^2=1$.  $\zeta_T \in .O$ and
+$\zeta_T \notin N$.
+\end{quote}
+{\bf Theorem:}
+$H_x$ is transitive on $\Lambda_2(x)$.
+\begin{quote}
+\emph{Proof:} 
+Let $x= v_{\Omega}- v_{\infty}$.  The order of each orbit of $H_x$ on $\Lambda_2(x)$
+has order divisible by $23$.
+\end{quote}
+{\bf Theorem:}
+If $H>N$, $H$ is transitive on $\Lambda_2$ and $H=.O$.  $|.O|=
+2^{22} \cdot 3^{9} \cdot 5^4 \cdot 7^2 \cdot 11 \cdot 13 \cdot 23= 8,315,553,613,086,720,000$.
+\begin{quote}
+\emph{Proof:} 
+(1) $\Lambda_2^2$, $\Lambda_2^3$, $\Lambda_2^4$ are all $N$-orbits.  
+A counting argument shows that the union of two
+of them can't be an $H$ orbit (otherwise, $p \mid |.O|$ for $p>23$).  Now define
+$\Lambda_2 (x)= \{ y: y \in \Lambda_2, y \perp x \}$.
+Recall $H_x$ is transitive on $\Lambda_2(x)$.
+Since $M_{24}$ is $5-$transitive $|H_x : H_{x,y}|= 926$ and
+$|.O|= |H| = 196560 \cdot |H_x|$; further,  $H_x$ is transitive on 
+$\Lambda_2 (x)= \{ y: y \perp x \}$.  An orbit of $H_x$ has $93150$ elements so
+$|H_x|= (93150) |H_{x,y}|$ and $H_{x,y} = E_{10} M_{22}$.  This gives the order of
+$H$ and shows $H=.O$.
+\end{quote}
+{\bf Definition:}
+For $x \in \Lambda_2$, define $\{ x , -x \}$ is called a diameter.
+${\overline {\Lambda_2}}$ is the set of $98280$ diameters.
+$.1= .O_d, d= \{x, -x \}, x \in \Lambda_2$ 
+\\
+\\
+{\bf Theorem:} $N$ is maximal in $.O$.  $.O= \langle N, \zeta \rangle$.
+\begin{quote}
+\emph{Proof:} 
+By the theorem, if $H>N$, $H=.O$.  The second statement follows from $\zeta \notin N$ and $\zeta \in .O$.
+\end{quote}
+{\bf Theorem:} 
+$.O$ is transitive on ordered pairs of points of vectors of $\Lambda_2$ with a
+given scalar product.
+\begin{quote}
+\emph{Proof:} 
+$\Lambda_2= \{ v \in \Lambda: v \cdot v= 16 \cdot 2 \}$.  By looking at products of
+vectors of standard type, the possible products are
+$0, \pm 8, \pm 16, \pm 32$.  Put $\Lambda_2(x,m)= \{y: (x,y)= m \}$.
+We find orbits of $N_x$ on $\Lambda_2(x,16)$ and show 
+$\Lambda_2(x,16)$ is a single orbit of $.O_x$.
+\end{quote}
+{\bf Observation:}
+Let $\varphi$ be an octad, say $\{ 0,1,2,3,4,7,10,12 \}$,
+and $i \notin \varphi$; suppose $K$ is the subgroup fixing $\varphi$,
+setwise and $H= K_i$.  The subset fixed is of codimension $8$ so it has dimension $4$.  $K$
+acts naturally on this $4$-dimensional subspace.  $K \approx 2^4 L_4(2)$.
+\\
+\\
+{\bf Theorem:} 
+$.1 \cong .O/{\mathbb Z}(.O)$ and
+$|{\mathbb Z}(.O)|= 2$.
+\begin{quote}
+\emph{Proof:} 
+Suppose $\lambda \notin \{\pm1\} \in {\mathbb Z}(.O)$.
+$\theta_i= \alpha^{23-i} \gamma \alpha  \gamma \alpha^i $ fixes $i$ and moves all other
+points of $\Omega$.  
+(1) $\lambda$ cannot send $v_j \mapsto \pm v_j, \forall j$ since
+$(v_j)\lambda \alpha = - v_{j+1}$ and
+$(v_j)\alpha \lambda= v_{j+1}$.  
+(2) $\lambda$ cannot map $v_i \mapsto \pm v_j, i \ne j$, 
+$(v_i) \lambda \theta_i= \pm (v_j) \theta_i= \pm v_k \ne \pm  v_j$, but
+$(v_i) \theta_i \lambda= \pm (v_j)$.
+(3) Remaining case, namely, $\lambda: v_i \mapsto w \ne \pm v_j, j \in \Omega$ is impossible too.
+If $(v_j)\lambda = w \ne \pm v_k$, any $k$.  $(8v_i)\lambda \in \Lambda_4$ and has one of the following
+form $(0^{23},\pm 8^{1})$, $(\pm 0^{20},\pm 4^{4})$, $(\pm 0^{16},\pm 2^{7}, \pm 6^{1})$,
+$(\pm 0^{14},\pm 2^{8}, \pm 4^{2})$, $(\pm 0^{11},\pm 2^{12}, \pm 4^{1})$, $(\pm 0^{8},\pm 2^{16})$,
+$(\pm 1^{21},\pm 3^{2}, \pm 5^{1})$, $(\pm 1^{19},\pm 3^{5})$.  The only one fixed by $\theta_i$ is
+$8v_i$.  Thus
+$(v_i) \lambda \theta_i = (w)\theta_i \ne w$ but
+$(v_i) \theta_i \lambda= w$ and the theorem holds.
+\end{quote}
+{\bf Theorem:}
+$.1$ acts primitively on ${\overline {\Lambda_2}}$.
+\begin{quote}
+\emph{Proof:} 
+Each element of $.1$ permutes $98280$ diameters.  Since $.O$ is transitive on
+$\Lambda_2$, $.1$ is transitive for diameters.  Suppose
+$.1$ is imprimitive.  $|S_1| \mid 98280$.  Let ${\overline x} \in S_1$.
+Since $|S_1| \ge 1, \exists y \in S_1$ whose orbit under $.1_{\overline x}$
+has order $4600, 47104, 46575$.  Since $.1$ fixes ${\overline x}$,
+$.1: S_1 \rightarrow S_1$ and $|S_1| \ge 4601$.  None divide
+$98280$ so $\exists {\overline z} \ne {\overline x}$ outside $S_1$.
+But then $S_1$ which has at least $1+4600+46575=51176$ and thus must be all of
+${\overline {\Lambda_2}}$.  This contradicts the assumed imprimitivity of $.1$.
+\end{quote}
+{\bf Theorem:}
+$.1= .O/{\mathbb Z}(.O)$ is simple.
+\begin{quote}
+\emph{Proof:} 
+Suppose ${\mathbb Z}(H) \subsetneq H \subsetneq .O$.  
+(1) $H$ is transitive on ${\overline {\Lambda_2}}$.
+If not $\exists {\overline x}= \{x, -x\}$
+and $y \in \Lambda_2: \eta(x)= y, \eta \in H$.  $.O$ is transitive on
+${\overline {\Lambda}}_2$.  Orbits of $H$ in ${\overline {\Lambda}}_2$ are of
+equal size.
+(2) $N$ is not normal in $.0$.  This is proved by looking at $B$, the $4$-subsets defined above.
+(3) $H=N$.  $|H:H_x|= 13 \cdot 7560$.  Let $P \in S_{13}$.  Since $H$ is normal, all the sylow $13$
+subgroups of $.O$ are in $H$ so
+$|>O:N_{.O}(P)= |ccl_{.O}(P)|=
+|ccl_{H}(P)|= |H:N_H(P)|$ and $|.O:H|= |N_{.O}(P):N_H(P)|$ with $N_H(P)= N_{,O}(P) \cap H$.
+Thus $|.O|= |N_{.O}(P)H|= {\frac
+{|N_{.O}(P)| \cdot |H|}
+{|N_{.O}(P) \cap H|}}$ and
+$23 \mid |N_{.O}(P)|$ or $23 \mid |H|$.  In the former case, put
+$K= \langle \lambda \rangle$,
+$P= \langle \mu \rangle$, $|\lambda|= 13$, but then $|PK|=13 \cdot 23$ which contradicts an
+earlier lemma.  In the latter case,  $23 \mid |H|$ so $H \cap N = N$ but $N$ is maximal so
+$H=N$.
+Now we have $H \lhd .O$ and $H=N$ but $N$ is not normal and this establishes the result.
+$\zeta \in .1: x \mapsto z$,
+$\lambda \in H: x \mapsto w$.
+$\zeta(w)= \zeta(\lambda(x))= \zeta \lambda \zeta^{-1}(z)$ is in orbit of $z$
+since $\zeta \lambda \zeta^{-1} \in H$.  $.1$ preserves orbits in
+$\Lambda_2$ and the orbits are sets of imprimitivity for $.1$ on
+${\overline {\Lambda}}_2$ which contradicts the previous result.
+For $x \in {\overline {\Lambda}}_2$, 
+$|H:H_x|=|{\overline {\Lambda}}_2| = 98280= 13 \cdot 7560$.
+Let $P \in S_{13}(H)$ all such are $H$ conjugate and
+$|.O:N_{.O}(P)|= |H:N_H(P)|$.
+\end{quote}
+{\bf Conway's other simple groups:} 
+$.2= \{ x \in .O$, $x$ stabilizes
+$2$ points $v,w \in \Lambda_2: |v-w|= 4 {\sqrt 2} \}$.
+$.3= \{ x \in .O$, where $x$ stabilizes
+$2$ points $v,w \in \Lambda_2: |v-w|= 4 {\sqrt 3} \}$.

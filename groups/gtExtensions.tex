@@ -1,0 +1,387 @@
+\chapter{Extensions}
+\section {Transversals} 
+{\bf Definition 1:}
+$G$ is an \emph{extension} of $K$ by $Q$ if $G \triangleright K$ and $G/K \cong Q$
+or equivalently $1 \rightarrow K \rightarrow G \rightarrow Q \rightarrow 1$.
+\\
+\\
+{\bf Theorem 1:}
+If $1 \rightarrow N \rightarrow_{i} G \rightarrow_{\varphi} Q \rightarrow 1$, the following
+are equivalent
+(1) $\exists Q^* \subseteq G: Q^* \rightarrow Q$ and
+(2) $\exists s:Q \rightarrow G$ such that $\varphi \cdot s = id$.
+(3) $G$ is a semi-direct product of $N$ by $Q$ written $N \ltimes Q$; in this
+case, we say $G$ is a split extension of $N$ by $Q$.
+\begin{quote}
+\emph{Proof:}  See the chapter on constructions.
+\end{quote}
+{\bf Extending a group:}
+Suppose $G$ is an extension of $N$ by $H$ and let $\phi: H \rightarrow G/N$.  Pick
+$s:G \rightarrow H$ such that $s(1)=1$ and $\phi(h) = N s(h)$, then 
+$\exists f: H \times H \rightarrow N: s(h_1) s(h_2)= f(h_1, h_2) s(h_1 h_2)$
+and $f(h_1, h_2) f(h_1 h_2, h_3)= f(h_2, h_3)^{s(h_1)} f(h_1 , h_2 h_3)$.  Note
+that $\theta_h: n \mapsto s(h) n s(h)^{-1}$ is in $Aut(N)$ and
+$\theta_{h_1}(\theta_{h_2}(n))= \theta_{h_1 h_2}(n)^{f(h_1, h_2)}$.
+\\
+\\
+{\bf Theorem:}
+Given $N,H$ with $\theta_h \in Aut(N)$ and $\theta_1 = 1$ and a map
+$f: H \times H \rightarrow N$ with $f(1,h)=f(h,1)=1$ and
+$f(h_1, h_2) f(h_1 h_2 , h_3)= \theta_{h_1}(f(h_2, h_3)) f(h_1, h_2 h_3)$, 
+suppose $f$ is compatible in the sense that 
+$\theta_{h_1}(\theta_{h_2}(n))= \theta_{h_1h_2}(n)^{f(h_1, h_2)}$ then the
+operation $(n_1, h_1) \cdot (n_2, h_2) = (n_1 \theta_{h_1}(n_2) f(h_1, h_2), h_1 h_2)$
+defines a group $G$ which is an extension of $N$ by $H$.  
+$1 \rightarrow N \rightarrow G \rightarrow H \rightarrow 1$ holds with the obvious
+embedding $n \mapsto (n,1)$ and $h \mapsto (1,h)$.
+\begin{quote}
+\emph{Proof:}  Put $(n,h)^{-1}= \theta^{-1}[n^{-1} f(h,h^{-1})^{-1}], h^{-1})$.
+$(n,h)^{-1} \cdot (n,h)= (1,1)$.   $(n,h) \cdot (1,1)= (n,h)$.  Associativity is a long
+calculation but works.
+\end{quote}
+{\bf Definition 2:}
+A subset ${\cal T}$ consisting of a representative of each coset
+in $G/K$ is called a \emph{transversal}. 
+\\
+\\
+{\bf Definition 3:}
+If $\pi: G \rightarrow Q$ is a surjective homomorphism with kernel
+$K$, $l: Q \rightarrow G$ is a \emph{lifting} if $\pi(l(x))=x$.
+If $\pi: Q \rightarrow G$ is a surjective homomorphism with
+kernel $K$ and $l:Q \rightarrow G$ is a transversal with $l(1)=0$ then
+$f: Q \times Q \rightarrow K$ defined by $l(x)+l(y)= f(x,y) + l(xy)$ is
+called a \emph{factor set}.  An ordered triple, $(Q, K, \theta)$ is called \emph{data}
+if $K$ is an abelian group, $\theta: Q \rightarrow Aut(K)$; a group $G$ is said to
+\emph{realize} the data if $G$ is and extension of $K$ by $Q$ and for every transversal,
+$l: Q \rightarrow G$ satisfies $xa = \theta_x(a)
+= l(x) +a-l(x)$.  Note additive notation for non-abelian operation.
+\\
+\\
+{\bf Theorem 2:}
+Let $G$ be an extension of $K$ by $Q$ and
+$l: Q \rightarrow G$ a transversal.  If $K$ is abelian there is a homomorphism
+$\theta: Q \rightarrow Aut(K)$ with $\theta(a)= l(x)+a-l(x), \forall a \in K$;
+If $l_1: Q \rightarrow G$ is another transversal then
+$ l(x)+a-l(x)= l_1(x)+a-l_1(x)$.
+\begin{quote}
+\emph{Proof:} 
+$K \lhd G$ so $\gamma_{g|K}$ is an automorphism of $K$ ($\gamma_g$ is conjugation by $g$).
+$\mu: G \rightarrow Aut(K)$ given by $\mu(g)= \gamma_g$ is a homomorphism with
+$K \leq ker(\mu)$.  $\mu$ induces a homomorphism $\mu_{\#}: G/K \rightarrow Aut(K)$ given by
+$\mu_{\#}(Kg)= \mu(g)$.
+The first isomorphism theorem gives the isomorphism $\lambda: Q \rightarrow G/K$ and if
+$l:Q \rightarrow G$ is a transversal $\lambda(x)=K+l(x)$.
+If $l_1: Q \rightarrow G$ is another transversal then $l(x) - l_1(x) \in K$ so
+$ K+l(x)= K+l_1(x), \forall x \in Q $.  Thus $\lambda$ does not depend on the choice of transversal.
+Put $\theta= \mu_{\#} \lambda$.  $\theta_x = \mu_{\#}(K+l(x))= \mu(l(x)) \in Aut(K)$ so for $a \in K:
+\theta_x(a)= \mu(l(x))(a)= l(x)+a-l(x)$.
+\end{quote}
+{\bf Theorem 3:}
+Let $\pi: G \rightarrow Q$ be a surjective homomorphism with kernel $K$ and
+$l:Q \rightarrow G$ be a transversal with $l(1)=0$ and $f: Q \times Q \rightarrow K$ the corresponding
+factor set.  $f(1,y)=0=f(x,1), \forall x,y \in Q$ and 
+the \emph{cocycle identity} $xf(y,z)-f(xy,z)+f(x,yz)-f(x,y)=0$ holds $\forall x,y,z \in Q$.
+\begin{quote}
+\emph{Proof:}  
+Definition gives $l(x)+l(y)= f(x,y)+l(xy)$.
+So $l(1)+l(y)= f(1,y)+l(y)$ and since $l(1)=0$, $f(1,y)= 0$.  Similarly, $f(x,1)=0$.
+$[l(x)+l(y)]+l(z)= f(x,y)+f(xy,z)+l(xyz)$ and
+$l(x)+[l(y)+l(z)]= xf(y,z)+f(x,yz)+l(xyz)$.
+\end{quote}
+{\bf Theorem 4:}
+Let $G$ realize $(Q, K, \theta )$ and $l$ and $l'$ be transversals with
+$l(1)=l'(1)=0$ giving rise to factor sets $f$ and $f'$ then there is an
+$h:Q \rightarrow K$ with $h(1)=0$ such that 
+$f'(x,y)-f(x,y)= xh(y)-h(xy)+h(x), \forall x,h \in Q$.
+The \emph{cocycle identity} $xf(y,z)-f(xy,z)+f(x,yz)-f(x,y)=0$ holds $\forall x,y,z \in Q$.
+\begin{quote}
+\emph{Proof:}  
+By definition, 
+$l(x) + l(y)= f(x,y) + l(xy)$
+and
+$l(1) + l(y)= f(1,y) + l(xy)$; since $l(1)=0$, this gives $f(1,y)=0$ similarly $f(x,1)=0$.
+$[l(x)+l(y)]+l(z) = f(x,y)+f(xy,z)+l(xyz)$ and
+$l(x)+[l(y)+l(z)] = xf(y,z)+l(xy)+l(z)= xf(y,z)+f(xy,z)+l(xyz)$ so the result follows from associativity.
+\end{quote}
+{\bf Definition:}  Given data $(Q, K, \theta)$ a \emph{coboundary} is a function
+$g: Q \times Q \rightarrow K$ for which $\exists h: Q \rightarrow K$ such that
+$h(1)=0$ and $g(x,y)= xh(x)-h(xy)+h(x)$.
+The set of all coboundaries is $B^2 (Q,K,\theta)$.
+$Z^2 (Q, K, \theta)$ is the set of all \emph{ factor sets}.
+$H^2 (Q, K, \theta) \cong Z^2 (Q, K, \theta) / B^2 (Q, K, \theta)$.
+\\
+\\
+{\bf Theorem 5:} 
+Given data $(Q, K, \theta)$ a function $f: Q \times Q \rightarrow K$ is a factor set iff it satisfies the
+cocycle identity.
+\begin{quote}
+\emph{Proof:}  
+The $\rightarrow$ direction is the previous theorem.  For $\leftarrow$, let $G$ be the set of all ordered pairs,
+$(a,x) \in K \times Q$ with the operation
+$(a,x)+(b,y)= (a+xb+f(x,y), xy)$.  This is a group with the cocycle identity required for associativity.
+\end{quote}
+{\bf Notation:} Denote the $G$ constructed in the previous proof as $G_f$ realizing
+$(Q, K, \theta )$ with factor set $f$ arising from $l(x)= (0,x)$.
+\\
+\\
+{\bf Definition:}
+Two extensions $G, G'$ realizing
+$(Q, K, \theta )$ with factor sets $f, f'$ are \emph{equivalent} if $f'-f \in B^2(Q, K, \theta)$.
+\\
+\\
+{\bf Theorem 6:}
+Two extensions are equivalent if the difference of
+their two factor sets is in $B^2 (Q, K, \theta)$.
+\begin{quote}
+\emph{Proof:}  
+For each $x \in Q$, $l(x)$ and $l'(x)$ are representatives of the same coset
+of $K$ in $G$.  Thus $\exists h(x) \in K$ with $l'(x)= h(x) + l(x)$.  Since
+$l'(1)= 0 = l(1)$, $h(1) = 0$.  We have
+$l'(x) + l'(y) =
+(h(x) + l(x)) +
+(h(y) + l(y)) =
+h(x) + x h(y) + f(x, y) + l(xy) =
+h(x) + x h(y) + f(x, y) - h(xy) + l'(xy)$.  Therefore
+$f'(, y)= h(x) + x h(y) + f(x, y) - h(xy)$.  The conclusion follows since each term
+is in an abelian group.
+\end{quote}
+{\bf Theorem 7:}
+There is a bijection from $H^2(Q,K,\theta)$ to the set, $E$, of 
+all equivalence classes realizing the data
+$(Q, K, \theta )$ taking the identity to the class of the semidirect product.
+\begin{quote}
+\emph{Proof:}  
+Let  the
+equivalence classes of the extensions realizing the data
+$(Q, K, \theta )$ be denoted by 
+$[G]$.  Define $\varphi: H^2(Q, K, \theta ) \rightarrow E $ by $\varphi(f+B^2(Q, K, \theta))= G_f$.
+$\varphi$ is well defined since if $f,g$ are factor sets, $f-g \in
+B^2(Q, K, \theta )$ and $[G_f]=[G_g]$. $\varphi$ is a surjection since if
+$[G] \in E$ and $f$ is a factor set, $[G]=[G_f]$ and $[G]= \varphi(f+B^2)$.  Finally, an extension is a
+semidirect product off its factor set is in $B^2(Q,K,\theta)$.
+\end{quote}
+{\bf Definition:}
+A \emph{projective representation} of a group $Q$ is a homomorphism
+$\tau: Q \rightarrow PGL_n({\mathbb C})$.
+We say $U$ has the \emph{projective lifting property} if every projective representation
+of $Q$ can be lifted to $U$.
+If $Q$ is a group then a \emph{cover} (or \emph{representation group}) of $Q$ is a
+central extension of $U$ of $K$ by $Q$ (for some abelian $K$) with the projective lifting property
+and $K \le U'$.
+\\
+\\
+{\bf Definition:}
+The \emph {Schur multiplier} is
+$M(Q)=H^2 (Q, {\mathbb C}^{\times})$ ($\theta$ is trivial).
+Here $f(1,y)=f(x,1)=1$, $f(x,y) f(xy,z)^{-1} f(x,yz) f(x,y)^{-1}=1$,
+$g: Q \times Q \rightarrow {\mathbb C}^{\times}$ is a coboundary
+iff $\exists h: Q \rightarrow {\mathbb C}^{\times}$ with $h(1)=1$ such that
+$g(x,y)= h(y)(h(xy))^{-1}h(x)$.
+\\
+\\
+{\bf Schur's Theorem:} Every finite group, $Q$, has a cover $U$ which is a central extension
+of $M(Q)$ by $Q$.
+\begin{quote}
+\emph{Proof:} See Rotman.
+\end{quote}
+{\bf Definition:}
+$exp(G)= min \{e: x^e = 1, \forall x \in G \}$.
+\\
+\\
+{\bf Theorem 8:} If $Q$ is finite then $M(Q)$ is a finite abelian group and
+$exp(M(Q)) \mid |Q|$.
+\begin{quote}
+\emph{Proof:}  
+See Rotman, p 201-211
+\end{quote}
+{\bf Theorem 9:} If $Q$ is finite $p$-group then $M(Q)$ is a finite abelian $p$-group.
+\begin{quote}
+\emph{Proof:}  
+See, Rotman, p 202
+\end{quote}
+{\bf Theorem 10:} Let $G$ be a group with $G/{\mathbb Z}(G)$ finite, then $G^{(1)}$ is finite.
+\begin{quote}
+\emph{Proof:}
+Let $n= |G/{\mathbb Z}(G)|$.  For $z \in {\mathbb Z}(G)$ and $g,h \in G$: $[g,hz]=[g,h]=[gz,h]$ so the 
+set of commutators, $\Delta$, is of order at most $n^2$.
+Claim: $g \in G^{(1)}$ then $g= x_1 x_2 \ldots x_m$, $x_i \in \Delta$ and
+$m \le n^3$.
+\end{quote}
+{\bf Observation:}
+A cyclic extension $G$ of $N$ is
+one where $G/N$ is cyclic.  Solvable groups are built from cyclic extensions.
+\\
+\\
+{\bf Definition:} 
+$G$, an extension of $K$ by $Q$, is a \emph{central extension} if $K<{\mathbb Z}(G)$.  Functorially,
+a central extension $G$ is a pair $(H, \pi)$ satisfying
+$\pi: H \rightarrow G, ker(\pi) \subseteq {\mathbb Z}(H)$.  
+$\alpha: (H_1 , \pi_1) \rightarrow (H_2, \pi_2)$ is a morphism in this category. 
+The universal object in this category (if it exists) is called a 
+\emph{universal central extension}.
+It follows that $(\tilde{G}, \tilde{\pi})$ is universal if 
+$\forall (H, \sigma), \exists ! \alpha : (\tilde{G}, \tilde{\pi}) \rightarrow
+(H, \sigma)$.
+\\
+\\
+{\bf Theorem 11:} Up to isomorphism, there is at most one universal central extension.
+\begin{quote}
+\emph{Proof:} 
+If $(G_1, \pi_i), i= 1, 2$ are universal central extensions of $G$, 
+$\exists \alpha_1:(G_i, \pi_i) \rightarrow (G_{3-i}, \pi_{3-i})$.
+$\alpha \alpha_{3-i} = 1$ and by the uniqueness $\alpha_1 \alpha_2 = 1 = \alpha_2 \alpha_1$.
+Thus the $\alpha_i$ is an isomorphism.
+\end{quote}
+{\bf Theorem 12:}   If $(\tilde{G}, \pi)$ is a universal central extension of $G$ then
+both $G$ and $\tilde{G}$ are perfect.
+\begin{quote}
+\emph{Proof:} 
+Let $H = \tilde{G} \times (\tilde{G}/\tilde{G}')$ and define $\alpha: H \rightarrow G$ by
+$\alpha(x,y)= \pi(x)$.   Then $(H, \alpha)$ is a central extension of $G$ and
+$\alpha_i: (\tilde{G}, \pi) \rightarrow (H, \alpha)$ are morphisms
+where $\alpha_1(x)= (x,1)$ and $\alpha_2(a)= (x, x \tilde{G}')$.  By uniqueness,
+$\alpha_1= \alpha_2$, hence $\tilde{G} = \tilde{G}'$.  Thus $\tilde{G}$ is perfect and so
+$G= \pi(\tilde{G})$.
+\end{quote}
+{\bf Theorem 13:}  Let $G$ be perfect and $H, \pi$ be a central extension of $G$ then
+$H=ker(\pi)H'$ with $H'$ perfect.
+\begin{quote}
+\emph{Proof:} $\pi: H \rightarrow G$, $\pi(H')= \pi(H)'=G'=G$ and $ker(\pi) \le {\mathbb Z}(H)$.
+$H/H^2 = {\mathbb Z}(H/H^2)= H'/H^2$ is abelian and $H'=H^2$ so $H'$ is perfect.
+\end{quote}
+{\bf Theorem 14:}
+$G$ possesses a universal central extension iff $G$ is perfect.
+If $(\tilde{G}, \pi)$ is a universal central extension then $ker(\pi)$ is called
+the \emph{Schur multiplier}.
+\begin{quote}
+\emph{Proof:}  $\rightarrow$ is easy.  For the converse, suppose $G$ is perfect
+$g \mapsto {\overline g}$ is a bijection, $F$ the free group on the symbols of $G$,
+$\Gamma= \{ {\overline x} {\overline y} {\overline x}^{-1} {\overline y}^{-1}$.
+$M= \langle \Gamma \rangle \lhd F$, $\Delta= \{ [w,z], w \in \Gamma, z \in G \}$, 
+$N= \langle \Delta \rangle \lhd F$.
+$N=[M,F] \lhd M$, $M/N \le {\mathbb Z}(F/N)$.. $\exists \pi: F/N \rightarrow G$
+$\pi({\overline x}N)= x$, $ker(\pi) \le {\mathbb Z}(F/N)$.  Now let $H, \sigma$ be any
+central extension.  $w= h(x) h(y) H(xy)^{-1} \in ker(\sigma)$.  $ker(\sigma) \le C_H(h(z))$
+and $[w,h(z)]=1$.  $\tilde{G} =(F/N)'$ and $F/N = ker(\pi) \tilde{G}$; further,
+$\tilde{G}' = \tilde{G}$.  $(\tilde{G}, \pi)$ is a universal central extension.
+\end{quote}
+{\bf Note:} Quasisimple groups are exactly the central extensions of simple groups.  
+$H_2(G,{\mathbb Z}) = {\frac {(R \cap F')} {[F,R]}}$, further, if $Q$ is
+perfect then  $F'/[F,R]$ is a cover of $Q$. $SL_k(p)$ is a central extension of
+$PSL_k(p)$.
+\\
+\\
+{\bf Theorem 15:}
+Let $(H, \alpha)$ be a central extension of a group $G$ and $(K, \beta)$ is a perfect
+central extension of $H$ then $(K, \alpha \beta )$ is a perfect central extension of
+$G$.
+\begin{quote}
+\emph{Proof:}  
+$\alpha \beta : K \rightarrow G$ is surjective.  Let $x \in ker(\alpha \beta)$ and
+$y \in K$.  $\beta(x) \in ker( \alpha ) {\mathbb Z}(H)$, so 
+$\beta([x,y]) = [\beta(x), \beta(y)] =1$ and $[x,y] \in ker ( \beta ) \le {\mathbb Z}(K)$.
+Thus $[ker( \alpha \beta ), K, K] = 1$ so $ker( \alpha \beta ) \le  {\mathbb Z}(K)$.
+\end{quote}
+{\bf Theorem 16:}
+Let $(H, \alpha)$ and $(K, \beta)$ be central extensions of $G$ with $K$ with
+$K$ perfect and $\gamma: (H, \alpha) \rightarrow (K, \beta)$ a morphism of central
+extensions, then $(H, \alpha)$ is a central extension of $K$.
+central extension of $H$ then $(K, \beta \alpha)$ is a perfect central extension of
+\begin{quote}
+\emph{Proof:}  
+$\gamma: H \rightarrow K$ is a homomorphism with $\alpha = \beta \gamma$.
+$ker( \gamma ) \le {\mathbb Z}(H)$ so all we have to show is that $\alpha$ is surjective.
+$K= \gamma (H) ker( \beta )$.  $ker( \beta ) \le {\mathbb Z}(H)$,
+$\gamma(H) \lhd K$ and $K/ {\mathbb Z}(H)$ is abelian and thus $K= \gamma(H)$ is perfect.
+\end{quote}
+{\bf Theorem 17:}
+Let $\tilde{G}$ be the covering group of a perfect group $G$ and let $(H, \alpha)$ be
+a perfect central extension of $\tilde{G}$, then $\alpha$ is an isomorphism.
+\begin{quote}
+\emph{Proof:}  
+$\pi : \tilde{G} \rightarrow G$ be the universal covering.  By previous result,
+$H( \pi \alpha)$ is a perfect central extension of $G$.  By universality,
+$\exists \beta: ( \tilde{G}, \pi) \rightarrow (H, \pi \alpha )$.  By uniqueness,
+$\pi \alpha \beta = \pi$, $\alpha \beta = 1$ and $\beta: \tilde{G} \rightarrow H$ is
+an injection.  By previous result, $\beta$ is surjective.  Thus $\beta$ is an isomorphism,
+$\alpha \beta = 1$, $\alpha = \beta^{-1}$ is an isomorphism too.
+\end{quote}
+{\bf Theorem 18:}
+Let $G$ be perfect and $(\tilde{G}, \pi)$ the universal central extension of $G$ and
+$(H, \sigma)$ a perfect central extension of $G$.  Then:
+(1) There exists a covering $\alpha: \tilde{G} \rightarrow H$ with $\pi = \alpha \sigma$;
+(2) $(\tilde{G}, \alpha)$ is the universal central extension of $H$;
+(3) The Schur multiplier of $H$ is a subgroup of the Schur multiplier of $G$;
+(4) if ${\mathbb Z}(G)=1$ then ${\mathbb Z}(\tilde{G})$ is the Schur multiplier of $G$
+and ${\mathbb Z}(H) \cong ker(\pi)/ker(\alpha)$ is the quotient of the Schur multiplpier of
+$G$ by the Schur multiplier of $H$.
+\begin{quote}
+\emph{Proof:}  
+By the universal property, $\exists \alpha: (\tilde{G}, \pi) \rightarrow (H, \sigma)$.
+$\alpha$ is a covering by previous result.  Let $(\tilde{H}, \beta )$ be the universal covering
+of $H$.  By the universal property, 
+$\exists \gamma: (\tilde{H}, \beta ) \rightarrow (\tilde{G}, \alpha)$.  By previous result,
+$\gamma$ is an isomorphism so (2) holds.  (3) and (4) are routine.
+\end{quote}
+{\bf Theorem 19:}
+Let $G$ be a group with $G/{\mathbb Z}(G)$ finite then $G'$ is finite.
+\begin{quote}
+\emph{Proof:}  
+Let $n=|G/{\mathbb Z}(G)|$, $z \in {\mathbb Z}(G)$, $g, h \in G$.
+$[g, hz]= [g,h]= [gz, h]$ so the set $\Delta$ of commutators has order $\le n^2$.
+\\
+\emph{Claim:} If $g \in G'$ then $g= x_1 x_2 \ldots x_m$, $x_i \in \Delta$ then $m \le n^3$. 
+This and the previous statement proves the theorem.
+\\
+\emph{Proof of Claim:} Pick expression of minimal length, $m$.  If $m > n^3$ then,
+since $|\Delta| \le n^2$, $\exists d \in \Delta$ with $\Gamma= \{i: x_i=d \}$
+of order $k > n$.
+$x_i x_{i+1}= x_{i+1} x_i^{x_{i+1}}$
+$x_i^{x_{i+1}} \in \Delta$ and $\Gamma= \{ 1 \le i \le n \}$.
+Now it STS, $d^{n+1}$ is  a product of $n$ commutators which contradicts the minimality of
+$m$.  Let $d= [x,y]$, $|G/{\mathbb Z}(G)|=n$, $d^n \in {\mathbb Z}(G)$ so
+$d^{n+1}= (d^n)^x d= (d^{n-1})^x d^x d = (d^x)^{n-1} [x^2 , y]$ so $d$ is a product of $n$
+ commutators.
+\end{quote}
+{\bf Theorem 20:}
+Let $G$ be a perfect finite group then the universal covering group of $G$ and the Schur
+multiplier are both finite.
+\begin{quote}
+\emph{Proof:}  
+Follows from previous result.
+\end{quote}
+{\bf Theorem 21:}
+Let $(H, \sigma)$ be a perfect central extension of a finite group, $G$,
+and $M$ the Schur multiplier of $G$, $p$,
+a prime and $P \in S_p(H)$ then $P \cap ker(\sigma) \le \Phi(P)$.
+\begin{quote}
+\emph{Proof:}  
+By looking at $H / (\Phi(P) \cap ker( \sigma )$, we can assume $\Phi(P) ker( \sigma )=1$
+and show $X= P \cap ker( \sigma ) = 1$.  ${\overline P}= P/\Phi(P)$ is elementary
+abelian so $\exists {\overline Y}: {\overline Y} {\overline X}= {\overline P}$,
+$P = X \times Y$ and $P$ splits by Gaschutz, $H$ splits over $X$ hence, $H$ is perfect,
+$X \le {\mathbb Z}(H)$, $X=1$.
+\end{quote}
+{\bf Theorem 22:}
+Let $(H, \sigma)$ be a perfect finite group and $M$ the Schur multiplier of $G$,
+then $\pi(M) \subseteq \pi(G)$.
+\begin{quote}
+\emph{Proof:}  
+Follows from previous result.
+\end{quote}
+{\bf Homological version:} If $G>N$
+and $H>K$ are normal subgroups isomorphic under $\phi$, the pullback
+is $(g, h)$ where $gN= \phi(hK)$.
+$(Q, K, \theta)$ is trivial iff every extension realizing $(Q, K, \theta)$
+is a central extension.  There's a bijection between $H^2 (Q, K, \theta)$
+and central extensions. 
+\\
+\\
+{\bf Theorem 23:}
+Assume $G$ is perfect then a central extension
+$(E, \phi)$ of $G$ is universal iff (a) $E$ is perfect and (b) all 
+central extensions of $E$ are trivial. In that case,
+$1 \rightarrow R \rightarrow F \rightarrow G \rightarrow 1$, $F$, free and
+$E= [F,F][F,R] \rightarrow [F,F]/R=G$.
+\begin{quote}
+\end{quote}

@@ -1,0 +1,48 @@
+\documentclass{report}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{multicol}
+\usepackage{graphicx}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\topmargin}{-.5in}
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{9.5in}
+
+\begin{document}
+\section{Orbits}
+$r^2 \dot{\theta} =h$.
+$r = {\frac {h^2}{k(1+e \cdot cos( \theta ))}}$.
+$r_{min}= {\frac {h^2}{k^3}} {\frac {1} {1+e}}$,
+$r_{max}= {\frac {h^2}{k^3}} {\frac {1} {1-e}}$.
+$\dot{\theta} = {\frac {k^2}{h^3}} (1+ e \cdot cos(\theta ))^2$.
+$\int {\frac {h^3}{k^2}} {\frac {1} {(1+e \cdot cos( \theta ))^2}}= t$.
+$S$ is the satellite and $O$ is the observer.
+\\
+\\
+1. Compute $\theta(t), r(t)$ from integral above in orbital plane.  At $t_0$,
+$S$ is at ascending node position.
+\\
+2. Rotate orbital parameters by the inclination, $i$, in the line formed by the
+ascending node and descending node.
+\\
+3. Rotate around $z$ by the angle of the ascending node to get to ecliptic coordinates.
+$S$ is at ascending node when $t=0$.
+\\
+4. Get $\delta$, $RA$ of $S$.
+\\
+5. Get $\lambda$, $L$ of $O$.
+\\
+6. Find $\delta '$ and $RA '$, from $O$'s point of view.
+\\
+\\
+$S$ is at at $( \delta , RA )$, $O$ is at $( \lambda , L)$. $\overline{x}$ means
+$90-x$.
+$cos ( \overline{ \delta ' }) =
+cos( RA+L ) sin(\overline{\delta}) sin(\overline{\lambda}) +
+cos(\overline{\delta}) cos(\overline{\lambda})$.
+${\frac {\overline{\delta}} {sin(RA')}} =
+{\frac {\overline{\delta'}} {sin(RA+L)}} $.  $RA$ is measured from the arc $ON$ to the arc
+$OS$.
+\end{document}
+

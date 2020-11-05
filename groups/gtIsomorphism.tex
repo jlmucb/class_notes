@@ -1,0 +1,367 @@
+\chapter{Isomorphism Theorems and Series}
+\section {Isomorphism Theorems:} 
+{\bf Isomorphism Theorem:} (1) If $\varphi: G \rightarrow H$ is a homomorphism,
+$G/ker(\varphi) \cong Im(\varphi)$, 
+(2)  If
+$G \triangleright H$ and $G \triangleright N$ and $N \subseteq H \subseteq G$
+then $G/H \cong (G/N)/(H/N)$, 
+(3) If $G=HN$, $G \triangleright N$ then
+$HN/N \cong H/(H \cap N)$.
+\begin{quote}
+\emph{Proof of 1:}  Let $N= ker(\phi)$ and define $\psi(Nx)= \phi(x)$.  $\psi$ is 
+well defined since $Nx=Ny \rightarrow y=nx$ and $\phi(y)= \phi(nx)= \phi(n) \phi(x)= \phi(x)$
+and is a homomorphism since $\phi$ is.
+If $\psi(Nx)=\psi(Ny)$ then $\phi(xy^{-1}) \in N$ so $Nx=Ny$ and $\psi$ is 1-1.  The image
+of $\psi$ is $Im(\phi)$. So $\psi$ is an isomorphism.
+\\
+\\
+\emph{Proof of 2:}  Define $\psi(Kx)= Hx$.  $\psi$ is well defined and is a homomorphism.
+$ker(\psi)= Kh, h \in H$ so $(G/K)/(H/K) \cong G/H$ by the previous result.
+\\
+\\
+\emph{Proof of 3:}  Define $\psi(Nh)= (H \cap N) h$.  $\psi$ is well defined and is a homomorphism.
+$ker(\psi)=  \{ h \in H: h \in H \cap N \}$ so $HN/N \cong H/(H \cap N)$ by (1).
+\end{quote}
+{\bf Definition 1:}
+A \emph{derived series} is a sequence $G^{[0]}=G$, $G^{[i+1]}= [G^{[i]}, G^{[i]}]$.  
+$G$ is \emph{solvable} iff
+derived series terminates at ${1}$.  
+\\
+\\
+{\bf Definition 2:} The sequence of homomorphisms $A \rightarrow_{\alpha} B \rightarrow_{\beta} C$ is
+\emph{exact} if $im(\alpha )= ker( \beta)$.  The sequence
+$1 \rightarrow N \rightarrow_{id} G \rightarrow_{\varphi} H \rightarrow_{\epsilon} 1 $ is a 
+\emph{short exact sequence} if the map $id$ is inclusion and $\epsilon$ is the trivial homomorphism and
+each subsequence is exact; in this case, 
+$G/N \approx H$ by the above.
+\\
+\\
+{\bf Definition 3:}
+A \emph{subnormal series} is a sequence of groups $G_i$ such that
+$G= G_0 \rhd G_1 \rhd \ldots \rhd G_k =H$, if this happens, we say
+$G \rhd \rhd H$.
+\\
+\\
+{\bf Definition 4:}
+A \emph{normal series} is a subnormal series where $G \rhd G_i, \forall i$.
+\\
+\\
+{\bf Definition 5:}
+A \emph{chief series} is a normal series with no repeated terms and no normal subgroup properly
+lying between two series elements.  
+\\
+\\
+{\bf Definition 6:}
+A \emph{composition series} is a subnormal series 
+terminating at $1$ in which $G_i/G_{i-1}$ is simple.
+\\
+\\
+{\bf Lemma 1:} If $K \lhd H <G$ and $N \lhd G$ then $NK \lhd NH$.
+\begin{quote}
+\emph{Proof:}  
+Suppose $a, b \in N, h \in H, k \in K$.
+$[ak,bh]= 
+k^{-1} a^{-1}h^{-1}b^{-1} ak bh= 
+k^{-1} a^{-1} (h^{-1}b^{-1} a h) 
+(h^{-1}kh) (h^{-1} bh) \in K N N K N = NK$.  So $[NK,NH] \subseteq NK$ and $NK \lhd NH$.
+\end{quote}
+{\bf Lemma 2:}
+$A(A^* \cap B) \cap A^* \cap B^*= B(B^* \cap A) \cap A^* \cap B^*$.
+\begin{quote}
+\emph{Proof:}  
+It suffices to show
+$A(A^* \cap B) \cap B^*= B(B^* \cap A) \cap A^*$.
+Suppose $x=at \in A(A^* \cap B) \cap B^* , a \in A, t \in (A^* \cap B) \subseteq B^*$.
+$x= t (t^{-1}at) \in BA \cap B^*$; since $x \in B^*, t^{-1} x \in B^*$
+and $t^{-1} a t \in B^* \cap A$. Thus 
+$A(A^* \cap B) \cap B^* \subseteq B(B^* \cap A) \cap A^*$.
+Symmetrically, $A(A^* \cap B) \cap B^* \supseteq B(B^* \cap A) \cap A^*$.
+\end{quote}
+{\bf Zassenhaus Butterfly Lemma:}  If
+$A \triangleleft A^{*}$ and $B \triangleleft B^{*}$ then
+$A(A^{*} \cap B) \triangleleft A(A^{*} \cap B^{*})$ and
+$B(B^{*} \cap A) \triangleleft B(B^{*} \cap A^{*})$; further,
+${\frac {A(A^{*} \cap B^{*})} {A(A^{*} \cap B) }} \cong
+{\frac {B(B^{*} \cap A^{*})} {B(B^{*} \cap A) }}$.
+\begin{quote}
+\emph{Proof:}  
+Apply lemma 1 with $N=A$, $K=A^* \cap B$, $H= A^* \cap B^*$, $G=A^*$ to get
+$A(A^* \cap B) \lhd A(A^* \cap B^*)$.  Symmetrically,
+$B(B^* \cap A) \lhd B(A^* \cap B^*)$.  
+Set $K_1= A(A^* \cap B)$ and $K_2= B(B^* \cap A)$.  Let 
+$t_1 \in {\frac {A(A^{*} \cap B^{*})} {A(A^{*} \cap B) }}, 
+t_2 \in {\frac {B(A^{*} \cap B^{*})} {B(B^{*} \cap A) }}$, $t_1=ayK_1, t_2=bzK_2$ where
+$a \in A, b \in B, y, z \in (A^* \cap B^*)$.
+$ay= y (y^{-1}ay)= ya'$ so $t_1= yK_1$.  Similarly, $t_2= zK_2$.
+Define $h:
+{\frac {A(A^{*} \cap B^{*})} {A(A^{*} \cap B) }} \rightarrow
+{\frac {B(B^{*} \cap A^{*})} {B(B^{*} \cap A) }}$ by $h(yK_1)= y K_2$.  The map is
+well defined since $yK_1=zK_1$ iff $z^{-1}y \in A(A^* \cap B^*) \cap A^* \cap B^*$
+iff
+$z^{-1}y \in B(A^* \cap B^*) \cap A^* \cap B^*$ by lemma 2.
+\end{quote}
+{\bf Theorem 1:}
+Let $G$ be a finite group.  
+The following are equivalent: (1) $G$ is solvable, (2) $G$ has a normal series 
+terminating at the identity whose factor groups are abelian,
+(3) $G$ has a subnormal series with cyclic quotients.
+\begin{quote}
+\emph{Proof:} $1 \rightarrow 2 \rightarrow 3$ is trivial.  
+Suppose $S: 1=G_r \lhd G_{r-1} \lhd \ldots \lhd G_1 \lhd G_0=G$ has abelian factors.
+Claim: $G^{(j)} \le G_j$.  Note that $G' \subseteq G_1$ since $G/G_1$ is abelian.  
+The claim follows
+from by an easy induction.
+\end{quote}
+{\bf Definition:} Two normal series, 
+$G_0 \geq G_1 \geq G_2 \geq \ldots \geq G_n$ and
+$H_0 \geq H_1 \geq H_2 \geq \ldots \geq H_m$, are \emph{equivalent} if $m = n$ and
+$G_i/G_{i+1} \cong H_{\pi(i)}/H_{\pi(i)+1}$ for some permutation, $\pi$.
+\\
+\\
+{\bf Schreier's Theorem:} Two normal series for $G$ have equivalent refinements.
+Two compositions series for $G$ are equivalent.
+\begin{quote}
+\emph{Proof:}  By induction on length ($l$) of shortest such
+series.  If $l=1$, $G$ is simple.
+Suppose $G=G_0 \ge G_1 \ge \ldots \ge G_r = 1$ and
+$H=H_0 \ge H_1 \ge \ldots \ge H_t = 1$ and assume $l=r>t$ and that the theorem
+is true for all series of length less than $l$. If $H_1=G_1$ then we are done by induction
+on the shortened series.  Assume $G_1 \ne H_1$, $H_1 \lhd G, G_1 \lhd G$ then
+$G_1H_1 = G$ and $G/G_1 \cong H_1/K, K= G_1 \cap H_1$. Consider the two series
+$G_1 \ge G_2 \ldots \ge G_r = 1$ and
+$G_1 \ge K \ge K_1 \ldots \ge K_t = 1$.  
+By induction, $r-1=t+1$ and they are equivalent.
+Thus,
+$H_1 \ge H_2 \ldots \ge H_s = 1$ and
+$H_1 \ge K \ge K_1 \ldots \ge K_{r-2} = 1$ so $r=s$ and they
+are equivalent.
+\end{quote}
+{\bf Jordan-Holder Theorem:} If $G$ has a composition series, $S$,  then any
+subnormal series $S^*$ can be refined to a composition series and any two composition series
+are equivalent.
+\begin{quote}
+\emph{Proof:} $S$ and $S^*$ have equivalent refinements by Schreier.  Remove any repetitions to
+produce new equivalent refinements.  Since a composition series does not have proper refinements,
+the series are equivalent.
+\end{quote}
+{\bf Butterfly Lemma:} If $U, V  \subseteq G$, $u \lhd U$, and $v \lhd V$ then
+$u(U \cap v) \lhd u(U \cap V)$,
+$(u \cap V)v \lhd (U \cap V)v$ and 
+$u(U \cap V)/u(U \cap v) \cong (U \cap V)v/(u \cap V)v$.
+\begin{quote}
+\emph{Proof:}
+Let $H= (U \cap V)$ [resp. $(U \cap V)v$] and $N= u(U \cap v)$ [resp. $(u \cap V)v$].
+We show $N \lhd HN$.
+Let $x= a_1 b_1 \in HN$ and $y = a_2 b_2 \in N$, $a_1, a_2 \in u, b_1 \in (U \cap V), b_2 \in (U \cap v)$.
+$x^{-1} y x = b_1^{-1} a_1^{-1} a_2 b_2 a_1 b_1 = b_1^{-1} a_1^{-1} a_2 b_1 b_1^{-1} b_2 b_1 b_1^{-1} a_1 b_1 =$
+$a_3 b_3 a_4 b_3^{-1} a_1 b_3 = a_3 b_3 a_4 $, $a_3, a_4 \in u, b_3 \in (U \cap v)$.  So $x^{-1} y x =
+= a_3 b_3 a_4 b_3^{-1} b_3$.  Thus $x^{-1} y x \in u(U \cap v)$ and $N \lhd H$.
+$HN =(U \cap V)u(U \cap v) = u(U \cap V)$.  $u(U \cap V)/u(U \cap v) = HN/N \cong H/(H \cap N) = (U \cap V)/(U \cap V \cap u(U \cap v)$.
+Now we show, $U \cap V \cap u(U \cap v) = (U \cap v) (V \cap u)$.  Let $a_1 b_1 \in u(U \cap v), a_1 \in u, b_1 \in (U \cap v)$.
+If $a_1 b_1 \in V$, $a_1 \in V$ (since $b_1 \in v \subseteq V$), thus $a_1 \in (u \cap V)$ and $a_1 b_2 \in (u \cap V) (U \cap v)$.
+We've shown, $u(U \cap V)/u(U \cap v) \cong (U \cap V)/(u \cap V)(U \cap v)$.  A symmetric aargument shows
+$(U \cap V)v/(u \cap V)v \cong (U \cap V)/(u \cap V)(U \cap v)$.  So $u(U \cap V)/u(U \cap v) \cong (U \cap V)v/(u \cap V)v$,
+which is what we wanted.
+\end{quote}
+{\bf Another proof of Schrier:} Let 
+$1 \lhd G_r \lhd \ldots \lhd G_1 = G$ and
+$1 \lhd H_s \lhd \ldots \lhd H_1 = H$ be normal towers, they have equivalent refinements.
+\begin{quote}
+\emph{Proof:}
+Put $G_{ij} = G_{i+1}(H_j \cap G_i)$ and $H_{ji} = H_{j+1}(G_i \cap H_j)$.  Use the butterfly to show
+$G_{ij}/G_{i,j+1} \cong H_{ji}/H_{j, i+1}$.
+\end{quote}
+\section {Indecomposible Groups and Krull Schmidt}
+{\bf Definition 7:}
+$\phi$ is a \emph{normal endomorphism} iff
+$\phi(a^{-1}xa)=
+a^{-1} \phi(x)a$, $\forall x,a \in G$.
+A group, $G$, is \emph{indecomposible}, if $G \ne 1$, and if $G = H \times K$ then either
+$H = 1$ or $K = 1$.
+\\
+\\
+{\bf Lemma 1:} 
+If $\phi$ and $\psi$ are normal endomorphisms of a group $G$ then so is their composition
+and so is $\phi^{-1}$..
+If $\phi$ is a normal endomorphism of $G$ and if $H \lhd G$ then $\phi(H) \lhd G$.
+\begin{quote}
+\emph{Proof:}  Routine.
+\end{quote}
+{\bf Lemma 2:}  Let $G = H_1 \times \ldots \times H_m$ have projections $\pi_i : G \rightarrow H_i$
+and inclusions $\lambda_j : H_i \rightarrow G$ then the sum of any $k$ distinct $\lambda_i \pi_i$
+is a normal endomorphism of $G$.
+\begin{quote}
+\emph{Proof:}  Routine.
+\end{quote}
+{\bf Lemma 3:} 
+If $H \lhd G$ and both $H$ and $G/H$ have both chain conditions then $G$ has both chain conditions.
+If $G= H \times K$ and $G$ has both chain conditions then so do $H$ and $K$.
+\begin{quote}
+\emph{Proof:}  
+If 
+$G_1 \ge G_2 \ge \ldots$ is a chain of normal subgroups of $G$ then
+$H \cap G_1 \ge H \cap G_2 \ge \ldots$ 
+is a chain of normal subgroups of $H$ and
+$HG_1 /H \ge HG_2 /H \ge \ldots$ 
+is a chain of normal subgroups of $G/H$.  
+$\exists t,s: H \cap G_t= H \cap G_{t+1} = \ldots$
+$HG_s /H= HG_{t+1} /H = \ldots$; let $l= max(t,s)$.  $G_l=G_{l+1} = \ldots$ so
+$G$ has ACC.  A similar argument holds for DCC.\\
+\\
+If $G = H \times K$ then every normal subgroup of $H$ is a normal subgroup of $G$ and
+every chain of normal subgroups  of $H$ is a chain of normal subgroups of $G$.
+\end{quote}
+{\bf Theorem 2:} 
+If $G$ satisfies ACC or DCC then $G$ is the direct product of indecomposable groups.
+\begin{quote}
+\emph{Proof:}  
+Call $G$ ``good'' if it satisfies the conclusion of the theorem.  If $G$ is indecomposible,
+$G$ is good and if $A$ and $B$ are good so is $A \times B$.  So if $G= U \times V$ is bad
+either $U$ is bad or $V$ is bad.  Supposed $G$ is bad.  Define $H_0=G$ and by induction,
+$\exists H_1 , H_2 , \ldots , H_n$ with $H_i$ a bad proper factor of $H_{i+1}$.
+so, $G=H_0 > H_1 > \ldots$.  If $G$ has DCC, this must terminate at a bad indecomposible group
+which is a contradiction.
+\end{quote}
+{\bf Lemma 3:} 
+If $G$ satisfies ACC (resp. DCC) on normal subgroups 
+and $f$ is a normal endomorphism
+of $G$, then $f$ is an injection iff $f$ is an surjection.
+\begin{quote}
+\emph{Proof:}  
+Suppose $\phi$ is an injection and $g \in \phi(G)$.   We prove by induction
+that $\phi^n(g) \notin \phi^{n+1}(G)$.   If not, $\exists h \in  G: \phi^n(g)= \phi^{n+1}(h)$ 
+so $\phi(\phi^{n-1}(g)) = \phi(\phi^{n}(h))$.  Since
+$\phi$ is injective, $\phi^{n-1}(g)= \phi^n(h)$ which contradicts the inductive hypothesis.
+Thus $\exists$ a chain $G > \phi(G) > \phi^2(G) > \ldots$.  $\phi$ is normal so
+$\phi^n$ is normal and by a previous lemma $\phi^n(G) \lhd G, \forall n$.  This violates
+the DCC condition.
+\\
+\\
+Now assume $\phi$ is surjective.  Define $K_n= ker(\phi^n(G))$ with each $K_n \lhd G$.
+$1 = K_0 \le K_1 \le \ldots $.  This chain stops because of ACC.  Let $t$ be the smallest integer
+such that $K_t= K_{t+1} = \ldots$.  We claim $t=0$.  If $t \ge 1$ then $\exists x \in K_t$ with
+$x \notin K_{t-1}$ so 
+$\phi^{t}(x) \ne 1$ but $\phi^{t+1}(x)=1$.
+Since $\phi$ is a surjection, $\exists g \in G$ with $x= \phi(g)$.  Hence
+$1 = \phi^{t}(x) = \phi^{t+1}(g)$ so $g \in K_{t+1}= K_t$ and thus
+$a= \phi(g)= \phi^{t-1}(g) ( \phi(g))= \phi^{t-1}(g)$ which is a contradiction so $\phi$
+is injective.
+\end{quote}
+{\bf Definition 8:} An endomorphism $\phi$ of $G$ is nilpotent if $\exists k>0: \phi^j=0$;
+note $0: g \mapsto 1$.
+\\
+\\
+{\bf Fitting Lemma:}
+Let $G$ satisfy both chain conditions.  If $\phi$ is a
+normal endomorphism of $G$ with $\phi(H)=H$ and $\phi(K)=K$ then
+$G= H \times K$ and
+$\phi_{|K}$ is nilpotent and $\phi_{|H}$ is surjective.
+\begin{quote}
+\emph{Proof:}
+Let $K_n= ker(\phi^n(G))$ and $H_n= im(\phi^n(G))$.
+$G \ge H_1 \ge \ldots $ and 
+$1 \le K_1 \ge \ldots $.  Suppose $H_i$ stops at $t$ and $K_i$ stops at $s$, $l= max(r,s)$.
+Let $x \in H \cap K$.  Since $x \in H, \exists g \in G$ with $x= \phi^l(g)$.
+$\phi^l(x)=1$ so $\phi^{2l}(g)=1$ and $g \in K_{2l}= K_l$.  $x \in \phi^l(g)=1$ and
+so $H \cap K=1$.
+If $g \in G$ then $\phi^l(g) \in H_l = H_{2l}$ so
+$\exists y \in G: \phi^l(g)= \phi^{2l}(y)= 1$ and
+$\phi^l(g \phi^l(y^{-1}))=1$ so
+$g \phi^l(y^{-1}) \in K_{l}=K_{2l}$ so $g=(g \phi^l(y^{-1}))\phi^l(y) \in KH$ and $G= K \times H$.
+Now, $\phi(H)=\phi(H_l)= \phi(\phi^l(G))= \phi^{l+1}(G)= H_{l+1}=H_j=H$ so
+$\phi$ is surjective.  Finally, if $x \in K$ then $\phi^l(x) \in K \cap H=1$ and so
+$\phi_{|K}$ is nilpotent.
+\end{quote}
+{\bf Theorem 3:}
+If $G$ is an indecomposable group satisfying ACC and DCC on normal subgroups
+and if $f$ is a normal endomorphism then $f$ is nilpotent or an automorphism.
+\begin{quote}
+\emph{Proof:}  
+By Fitting Lemma, $G= K \times H$ with $\phi_{|K}$ and $\phi_{|H}$ surjective.
+Since $G$ is indecomposible, then either $G=H$ or $G=K$.  In the first case,
+$\phi$ is nilpotent.  In the second case, $\phi$ is surjective and so by the previous Lemma,
+$\phi$ is an automorphism.
+\end{quote}
+{\bf Lemma:} Let $G$ be an indecomposible group with both chain conditions and
+suppose $\phi, \psi$ are two normal, nilpotent endomorphisms of $G$.  If $\phi+\psi$ is
+an endomorphism of $G$ then it is nilpotent.
+\begin{quote}
+\emph{Proof:}  
+By the previous result, 
+$\phi+\psi$ is either an automorphism or nilpotent.
+If it is an automorphism, there is an inverse, $\gamma$, normal.
+For each $x \in G$, $x= (\phi+\psi) \gamma(x))= \phi(\gamma(x)) + (\psi(\gamma(x))$. 
+If $\lambda= \phi \gamma$  and $\mu= \psi \lambda$,
+$1_G= \lambda+\mu$.  In particular,
+$x= \lambda(x) \mu(x)$ and so $\lambda+\mu= \mu+\lambda \rightarrow \lambda \mu = \mu \lambda$.
+$End(G)$ is generated by $\mu, \lambda$ and 
+$(\lambda + \mu)^m = \sum {m \choose i} \phi^i \psi^{m-i}$.  Since both
+$\phi$ and $\psi$ are nilpotent so are $\lambda$ and $\mu$ and they are not automorphisms.
+So, $\exists r, s: \lambda^r=\mu^s=0$.  If $m=r+s-1$ then either
+$i \ge r$ or $m-i \ge s$ so $1_G^m =0$ and $G=1$.
+\end{quote}
+{\bf Corollary:}  Let $G$ be an indecomposible group having both chain conditions.
+If $ \varphi_1, \ldots, \varphi_n $
+is a set of normal, nilpotent endomorphisms of $G$ such that every sum of distinct
+$\varphi$'s is an endomorphism, then
+$ \varphi_1 + \ldots + \varphi_n $ is nilpotent.
+\begin{quote}
+\emph{Proof:}  By induction on $n$.
+\end{quote}
+{\bf Krull-Schmidt Theorem:}  If $G$ has both chain conditions on normal subgroups and
+$G= H_1 \times \ldots \times H_s = K_1 \times \ldots \times K_t$ are
+two decompositions into indecomposable factors then $s=t$ and, after
+reindexing, $H_i \cong K_i$ and for each $r<t$, $G= G_1 \times G_2 \times \ldots
+\times G_r \times H_{r+1} \times H_t$. 
+\begin{quote}
+\emph{Proof:}  
+Let $P(0)$ be the statement
+$G= G_1 \times G_2 \times \ldots \times G_s$ and for $1 \le r \le min(s,t)$
+let $P(i)$ be the statement
+$G= G_1 \times G_2 \times \ldots \times G_r \times H_{r+1} \times \ldots H_t$.
+$P(0)$ is true by assumption, assume $P(r-1)$.  Let $\pi_i$ (resp $\pi_i'$ be the 
+canonical epimorphisms from
+$G_1 \times G_2 \times \ldots \times G_s$ (resp.
+$G_1 \times G_2 \times \ldots \times G_r \times H_{r+1} \times H_t$ and $\lambda_i$
+(resp $\lambda_i'$) be the inclusion maps, 
+$\varphi_i= \lambda_i \pi_i$
+and
+$\phi_i= \lambda_i' \pi_i'$.  $\varphi_r \phi_i= 0_{|G}$ for $i<r$ and
+$\varphi_1 (1_{|G})= \varphi_r \phi_1 + \ldots + \varphi_r \phi_t=
+\varphi_r \phi_r + \ldots + \varphi_r \phi_t$ so $(\varphi_r \phi_j)_{|G}$ is
+an automorphism of $G_r$.  $\varphi_j \phi_r$ must be an automorphism of $H_j$ and
+$\phi_j:G_r \rightarrow H_j$ is and isomorphism and so is $\varphi_r: H_j \rightarrow G_r$
+reindexing we have the first half of $P(r)$.  Let 
+$g=g_1 g_2 \ldots g_{r-1} h_r h_{r+1} \ldots h_t$ define 
+$\theta(g)=g_1 g_2 \ldots g_{r-1} \varphi(h_r) h_{r+1} \ldots h_t$.  
+$G=Im(\theta)=G^*= G_1 \times G_2 \times \ldots \times G_r \times H_{r+1} \times H_t$ 
+which completes the argument.
+\end{quote}
+\section {Inner Automorphisms}
+{\bf Definitions 9:} $G$ is \emph{complete} if it is centerless and every automorphism is inner
+in which case $G \cong Aut(G)$.
+\\
+\\
+{\bf Theorem 4:} $S_n$ is complete if $n \ne 2,3$.
+\begin{quote}
+\emph{Proof:}
+Let $T_k$ be the set of $k$ disjoint transpostions so $x \in T_k \rightarrow
+x^2=1$; note that if $\theta \in Aut(S_n), \theta(T_1)= T_k$ for some $k$. Also
+observe that $\theta$ preserves transpositions iff $\theta \in Inn(S_n)$.
+Now we can show 
+$|T_1|= {\frac {n(n-1)} {2}}$ and
+$|T_k|= {\frac {(n-2k+1)!} {(n-2k)! k! 2^k}}$.  Comparing the two $|T_1| = |T_k|$
+is possible only if $k=2 ,3$ and in fact, only if $k=3$.   If
+$\theta \in Out(S_6)$ and $\tau$ is a transposition, $\theta(\tau)$ must
+be a product of three transpositions and such an automorphism exists.
+\end{quote}
+{\bf Theorem 5:}
+If $G$ is a non-abelian simple group, then $Aut(G)$ is complete.  If
+$K \lhd G$ and $K$ is complete, $G= K \times Q$.  $Hol(K) \subset S_K$
+is $ \langle K^l, Aut(K) \rangle $, $K^l \lhd Hol(K)$, $Hol(K)/K^l \cong Aut(K)$ and
+$C_{Hol(K)}(K^l)= K^r$.  If $K$ is a direct factor whenever $K$ is a normal
+subgroup then $K$ is complete.
+\begin{quote}
+\emph{Proof:}
+See, Scott.
+\end{quote}

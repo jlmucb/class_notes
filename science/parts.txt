@@ -1,0 +1,9 @@
+74hc595 Shift register
+74hc00	Nand
+74hc02	Nor
+74hc04	Inverter
+74hc06	Inverter
+74hc08	And
+74hc42	Or
+74hc86	Xor
+

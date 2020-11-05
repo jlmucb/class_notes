@@ -1,0 +1,386 @@
+\chapter{Solvable Groups}
+\section {Schur-Zassenhaus}
+{\bf Schur-Zassenhaus Theorem:} Let $G$ be a finite group,
+$N \lhd G$ with $(|N|, |G:N|)=1$.  Suppose further
+that either $N$ or $G/N$ is
+solvable. Then $G$ splits over $N$; that is,
+$\exists Q < G$ such that $G= QN$.
+Further, $G$ is transitive on $N$ complements, $Q$.
+\begin{quote}
+\emph {Proof of existence:}
+By induction on $|G|$, suppose it holds for all groups of order $<|G|$. Put $|G|=nm$,
+$(m,n)=1$, $N \lhd G$ and $|N|= n$.  If $\exists K \le G: |K|=m$ then the theorem is true.
+For the remainder of the proof, put $P \in S_p(N)$.  
+\\
+\\
+\emph{Claim 1:} Either $P \lhd N$ or the theorem holds by induction.
+\\
+\emph{Proof of Claim 1:} 
+If first condition does not hold,
+$G=N_G(P)N, N_N(P)=N_G(P) \cap N \lhd N_G(P)$ and 
+$m=|G/N|=|N(P)N/N|=|N_G (P)/(N_G (P) \cap N)|= |N_G(P)/N_N(P)|$.
+Then $N_G(P)$ has a
+normal Hall group $N_N(P)$ so by induction $\exists K \subseteq N_G(P)$ with
+$|K|=m$ and $N_N(P)K=N_G(P)$, so $NK=G$. 
+\\
+\\
+\emph{Claim 2:} Either $P = N$ or the theorem holds by induction.
+\\
+\emph{Proof of Claim 2:} 
+If first condition does not hold,
+$|(G/P)/(N/P)|=m$ so $\exists L/P: (N/P)(L/P)= G/P$ and 
+$|L|=m |P|$, $|L \cap N| \mid (|L|, |N|)$.
+But $(m, |N|)=1$ so $L \cap N \subset P$ and $L<G$ and $\exists K \subset L: |K|=m$.
+\\
+\\
+\emph{Claim 3:} Either $P = N$ is abelian or the theorem holds by induction.
+\\
+\emph{Proof of Claim 3:} 
+If first condition does not hold,
+$1 \ne Z= {\mathbb Z}(N) \; char \; N \lhd G$ and
+$|(G/Z)/(N/Z)|=m$ so $\exists L/Z: (L/Z)(N/Z)=(G/Z)$. Then $L \cap N =Z, L < G$ and
+$(|Z|, |L/Z|)=1$ and $L$ and hence $G$ has the desired subgroup $K$.
+\\
+\\
+By claims 1-3, we need only prove the result for $P=N \lhd G$, $P$ abelian.
+\\
+\emph{Proof in remaining case:} 
+Let $\overline{G}= G/N$.  If $t, u$ are two elements in
+the same $G$-coset of $N$.
+Then $t^{-1}u \in N$ for all such $t, u$
+so $tnt^{-1}=unu^{-1}$, $\forall n \in N$.
+Thus $\overline{G}$ acts on $N$ - i.e. $\overline{G} \subset Aut(N)$.
+Define $^tx=txt^{-1}, t \in G, x \in N$.
+Select a transversal $\{t_{h} | h \in \overline{G}\}$.
+$t^{-1}_{h_1 h_2}N = (t_{h_1h_2}N)^{-1}=
+(h_1h_2)^{-1} = {h_1}^{-1}{h_2}^{-1}, \forall h_1 , h_2 \in \overline{G}$, so 
+$t_{h_1}t_{h_2} t^{-1}_{h_1 h_2} \in N$.
+Define $f: G \times G \rightarrow N$ by
+$f(h_1, h_2) t_{h_1 h_2} = t_{h_1} t_{h_2}$.  Since
+$t_{h_1}(t_{h_2} t_{h_3}) = (t_{h_1}t_{h_2}) t_{h_3}$, we get
+$ {^{h_1}} f(h_2, h_3)+ f(h_1, h_2 h_3)= f(h_1, h_2)+ f(h_1 h_2 , h_3)$.
+Put $m= |\overline{G}|$.  If 
+$\exists c:\{t_{h_1}, \ldots , t_{h_m}\} \rightarrow N: 
+f(h_1 , h_2)= c(h_1 h_2) -c(h_1) - {^{h_1}} c(h_2)$, then
+$c(h_1 h_2) t_{h_1 h_2}= c(t_1)t_{h_1} c(t_2) t_{h_2}$, this is an isomorphism
+whose image satisfies the requirements for $Q$.  
+\emph{Define:} $e: G \rightarrow N$ by
+$e(h) = \sum_{k \in \overline{G}} f(h , k)$ and put $m= |\overline{G}|$.
+$m f( h_1 , h_2 )=  -e(h_1 h_2) + e(h_1) + {^{h_1}}e(h_2)$.  Since $(m, |N|)=1$,
+${\frac x m}$ is well defined for $ x \in N$ and
+$c(x)= {\frac {-1} m} e(x)$ satisfies the desired properties.
+\\
+\\
+\emph{Proof of conjugacy:}
+Suppose $\overline{G}=G/N$ is solvable. Suppose $\pi$ is the set of primes 
+dividing and $m=|G:N|$. Let $H,K \le G$ with $|H|=|K|=m$.  
+Set $R=O_{\pi}(G)$ so that $O_{\pi}(G/R) = 1$.  
+Let $L/N$ be a minimal
+normal subgroup of $G/N$.
+Then $L/N$ is an elementary abelian $p-$group for some $p \in \pi'$.
+$H\cap L \in S_p(L)$ and
+$S=(H \cap L)=(K \cap L)^g= K^g \cap L$.
+$S \lhd \langle H, K^g \rangle = J$.  
+If $J = G$, $S \lhd J$ and
+$S \subseteq R$ but then $L$ is a $p'-$group which is a contradiction,
+concluding the proof in this case.  So
+$J \ne G$ and by induction $K$, $K^g$ are $J$-conjugate.  
+\\
+Instead, suppose
+$N$ is solvable.  Again $|H|=|K|=m=|G:N|$.  
+$HN'/N' \cong KN'/N'$ so $H^g \subseteq KN'$ and
+again by induction, $H^{gk}= K$.
+\end{quote}
+\section {Alternative proof of abelian case}
+{\bf Definition 1:} $\varphi$ is a crossed homomorphism if $\varphi(xy)= \varphi(x)^y \varphi(y)$.
+Fix $n \in N$ and define $\varphi: g \mapsto [g, n]$.\\
+\\
+{\bf Lemma:}  If $\varphi$ is a crossed homomorphism and $ker(\varphi)=K$ then (1) $\varphi(1)=1$,
+(2) $K<G$, (3) $\varphi(x)=\varphi(y)$ iff $Kx=Ky$ and (4) $|\varphi(G)|=|G:K|$.
+\begin{quote}
+\emph{Proof:}  Routine calculation.
+\end{quote}
+{\bf Definition 2:}  Let ${\cal T}$ be the set of transversals of $N$ in $G$.  If
+$S, T \in {\cal T}$, define $d(S,T)= \prod_{s=t \jmod{N}} s^{-1}t$.
+\\
+\\
+{\bf Lemma:}  If $N$ is a normal abelian subgroup of $G$ and $S, T, U \in {\cal T}$
+then (a) $d(S,T)d(T,U)=d(S,U)$, (b) $d(S,T)^g=d(Sg,Tg)$, and (c) $d(S, Sn)= n^{|G:N|}$,
+$n \in N$.
+\begin{quote}
+\emph{Proof:}  
+Let $T \in {\cal T}$ and $\theta(g)= d(T,Tg)$ then $\theta$ is a crossed
+homomorphism.  $n \mapsto n^{|G:N|}$ is a permutation of $N$ and $ker(\theta)$ is a complement.
+Finally, we show $K^n=H$.  It suffices to show $K^n \subseteq H$ of $\theta(k^n)=1$.
+$m=d(K,T)^k=d(Kk, Tk)=d(K,Tk)=d(K, T) d(T, Tk)=m \theta(k)$.  Thus
+$1= (m^k)^{-1} m \theta(k)=(m^k)^{-1} \theta(k)m$ so
+$\theta(k^n)=(m^{-1})^k \theta(k)m$.
+\end{quote}
+{\bf Abelian Schur-Zassenhaus Theorem:}  Let $N \lhd G$, $N$, abelian and $(|N|,|G:N|)=1$ then $N$ is complemented in
+$G$ and all complements are conjugate.
+\begin{quote}
+\emph{Proof:}  
+Fix a transversal, $T$ for $N$ in $G$ and define $\theta(g)= d(T, TG)$.
+$\theta$ is a crossed homomorphism.  For $n \in N$, $\theta(n)= n^{|G:N|}$ and by
+coprimality, $x \mapsto x^{|G:N|}$ is a permutation of the elements of $N$.  Let
+$H= ker(\theta)$.  $H <G$ by the foregoing and $|H|= |G:N|$; this shows $H$ is a complement.
+\\
+\\
+Let $K$ be an arbitrary complement for $N$ in $G$.  $K$ is a transversal.  Let $m= d(K,T) \in N$.
+$\exists n \in N: \theta(n)= m$ and so $\theta(n^{-1})= m^{-1}$.  It suffices to show
+$K^n \subseteq H$ which is equivalent to $\theta(k^n)=1, \forall k \in K$.
+If $k \in K$,
+$m^k = d(K, T)^k = d(Kk, Tk) = d(K, Tk) = d(K, T) d(T, Tk)= m \theta(k)$,
+so $1= (m^k)^{-1} \theta(k) m$ and
+$\theta(k^n)= \theta(n^{-1}k)^n \theta(n) = \theta(n^{-1}k) m = 
+\theta(n^{-1})^k \theta(k) m = (m^k)^{-1} \theta(k) m = 1$ and we're done.
+\end{quote}
+\section {Philip Hall's Theorem} 
+{\bf Hall's Theorem:} 
+Let $G$ be a solvable group and $\pi$ a set of primes then (i) $G$ has a $\pi$-Hall
+subgroup, (ii) $G$ acts transitively on its Hall $\pi$-subgroups via conjugation, 
+(3) any $\pi$ subgroup is contained in a Hall $\pi$ subgroup.
+\begin{quote}
+\emph{Proof:} By induction on $|G|$.  Let $N$ be a minimal normal subgroup of $G$ then
+$1 \ne N \lhd G$.  $N$ is elementary abelian for some $p$ and $p \mid mn$.   If
+$p \mid m, |G/N|= {\frac m p}$ and $\exists L: |L/N|= {\frac m p}, |L|= m$ and we're done.
+If $p \mid n, \exists H: |H/N|=m, |H|= |N|m$.  If $|H| < |G|$, we're done by induction.
+Otherwise $H=G, N \lhd G, |N|= n, |G:N|=m$ and $(m,n)=1$ so by Schur-Zassenhaus,
+$\exists K: |K|=m$.
+\end{quote}
+{\bf Theorem 1: } Let $G$ be a finite group possessing a Hall $\pi'$ subgroup for each $p$, then $G$ 
+is solvable. 
+\begin{quote}
+\emph{Proof:}  
+This is proved below.
+\end{quote}
+{\bf Theorem 2:}
+If $A$ is a maximal abelian normal subgroup of $P$ and $Z=\Omega_1(A)$, then
+(1) $(C_P(A/Z) \cap C(Z))^{(1)} \le A$, and (2) if $p$ is odd $\Omega_1(C_P(Z)) \le C_P(A/Z)$.
+\begin{quote}
+\emph{Proof:}  
+Let $C= C_G(A)$, $A \le C \lhd G$.  $(C_P(A/Z) \cap C(Z)^{(1)} \le C(A)=A$.  Let 
+$p \ne 2$.  $|x|=p$, $x \in C_G(Z)$.  $X= \langle x, A \rangle $.  Let 
+$Y= \langle X, C_A( \langle X,Z \rangle) \rangle /Z$,
+$cl(Y) \le 2$.  $W= \Omega_1(Y)$ has exponent $p$ and thus $W= \langle X, Z \rangle $ but
+$W \; char \; Y$ so $N_X(Y) \le N_X(W)= Y$ so $X=Y$.
+\end{quote}
+{\bf Definition 3:} 
+$P_1, \ldots , P_n$ is a \emph{Sylow System} if $\forall i, P_i \in S_{p_i}(G)$,
+$P_i P_j = P_j P_i, \forall i \ne j$ and $\prod_i P_i = G$.  
+$\Omega_1(P)= \langle x \in P: x^{p^i}=1 \rangle $.
+\\
+\\
+{\bf Theorem 3:}
+The following are equivalent:\\
+(1) $G$ is solvable.\\
+(2) Every $\pi$-subgroup of $G$ is contained in an $S_{\pi}$ subgroup of $G$.\\
+(3) $G$ has a Hall $S_{p'}$ subgroup for each $p$.\\
+(4) $G$ has a Sylow System.
+\begin{quote}
+\emph{Proof:}  
+\\
+\\
+$1 \rightarrow 2$ (Existence): 
+By induction on $|G|$.  Let $K$ be a $\pi$-subgroup of $G$ and
+$U$ be a non-trivial minimal normal subgroup of $G$.  $U$ is an elementary abelian
+$p$-group.  $KU/U$ is a $\pi$-subgroup of $G/U$.  If $KU=G$ we are done by induction,
+so, we can assume $KU \subseteq L$ and $L/U$ is an $S_{\pi}$ subgroup of $G/U$.
+If $p \in \pi$, again we are done by induction.  So we assume, $p \notin \pi$.  $U$ is a
+normal Hall subgroup of $L$ so $\exists S<L: SU=L, S \cap L = 1$.  $S$ is a Hall subgroup of
+$L$ and hence of $G$.  $K$ and $K \cap SU$ are complements for $U$ in $KU$, so 
+$\exists g \in U: K=(K \cap SU)^g$ and $K \subseteq S^g$ is an $S_{\pi}$-subgroup of $G$.
+\\
+\\
+$1 \rightarrow 2$ (Conjugacy): 
+Again, the proof is by induction on $|G|$.
+Let $S, T \in S_{\pi}(G)$ and $U$ be a non-trivial minimal normal $p$-subgroup of $G$.
+$SU/U$ and $TU/U$ are conjugate in $G/U$ by induction so $\exists g \in G: (SU/U)^g= TU/U$.
+If $p \in \pi$, $SU=S$ and $TU=U$ so $S^g=T$ and we're done.
+If $p \notin \pi$, $S^gU = TU$ and $S^g$ and $T$ are normal $p$-complements to $U$ in $TU$
+so $\exists u \in U: S^{gu}= T$.  This completes the proof.
+\\
+\\
+$2 \rightarrow 3$ is clear.
+\\
+\\
+\emph{Claim:} If $(|G:H|,|G|K|)= 1$, then $|G: H \cap K|= |G:H| |G:K|$.
+\\
+\emph{Proof of claim:} 
+$|G:H \cap K|= |G:H| \cdot |H: H \cap K| = |G:H| |G:K| |K|$ and $K=1$.
+\\
+\\
+Let $G_{p_i'}$ be an $S_{p_i}$-subgroup of $G$, put $G_{\pi'}= \bigcap_{p \in \pi} G_{p_i'}$.
+\\
+\\
+\emph{Claim:} $G_{\pi'}$ is a Hall $S_{\pi'}$-subgroup of $G$.
+\\
+\emph{Proof of claim:} 
+By induction on $|\pi|$.
+$G_{\pi'}= G_{\pi \setminus \{ p_1 \}} \cap G_{p_1'}$.  Applying the previous claim, we get
+the result.
+\\
+\\
+Put $G_{p_i}= \bigcap_{j \ne i} G_{p_j'}$  then $G_{p_i}$ is a $p_i$-Sylow subgroup of $G$ and
+$g_{p_i} G_{p_j}= G_{(\pi \setminus \{ p_i , p_j \})'} = G_{p_i} G_{p_j}$.
+\\
+\\
+$4 \rightarrow 1$:
+Let $P_1, P_2 , \ldots , P_n$ be a Sylow System.  Proof goes by induction on $|G|$.
+\\
+\\
+For $n=1$, $G$ is nilpotent, hence solvable.
+\\
+For $n=2$, this follows from Burnside's Theorem.
+\\
+For $n \ge 3$, set $H= P_1 P_3 \ldots P_n$, $H \ne G$ and $H$ is solvable by
+induction.  Let $N$ be a minimal normal subgroup of $H$, $N$ is a $p_i$-group,
+$i \ge 2$.  $G= H P_1$.  Let $g= hx, g \in G, h \in H, x \in P_1$.
+$N \subseteq P_i$ by Sylow and $N P_i$ is a group.  $N^g= N^{hx}= N^x$,
+so $N^x \subseteq P_1 P_i$.   Put $M= \langle N^g : g \in G \rangle \le P_1 P_i$.
+$M \lhd G$ and $M$ is solvable.  By induction, so is $G/N$ and so $G$ is solvable.
+\end{quote}
+{\bf Note on Sylow systems:}  If 
+$P_1, \ldots, P_n$ and
+$Q_1, \ldots, Q_n$ are two Sylow Systems, $\exists x \in G: P_i^x= Q_j$.  Further,
+if $H \subseteq G$, $G$, solvable, and
+$P_1, \ldots, P_n$ is a Sylow System for $H$ then there is a Sylow system
+$Q_1, \ldots, Q_n$ for $G$ such that $Q_i \cap H = P_i$.
+\\
+\\
+{\bf Theorem 4:}
+Suppose $A$ is a group of operators on a solvable group, $X$: $(|X|, |A|) = 1$, then
+(1) Any $A$-invariant $\pi$-subgroup of $X$ is contained in an $A$-invariant Hall $\pi$ subgroup of $H$; 
+(2) any two $A$-invariant Hall $\pi$ subgroups of $X$ are conjugate by an element
+of $C_X(A)$.
+\begin{quote}
+\emph{Proof:}
+By induction on $|X|$.
+Let $N$ be a minimal normal subgroup of $AX$.  $N$ is elementary abelian.  Set
+${\overline X}= X/N$.  $\exists {\overline H}$ a Hall subgroup of ${\overline H}$.
+Let $H$ be the inverse image under the natural homomorphism.
+If $p \in \pi$, $H$ is an $A$-invariant Hall subgroup.
+If $p \notin \pi$, $|X:H|$ is a $\pi'$ number and any Hall $\pi$ subgroup of $H$
+is a Hall $\pi$ subgroup of $X$ and so by induction, we can assume $X=H$.
+By Schur, $\exists H_0: X= H_0N, N \cap H = 1$.  By Frattini,
+$AX= X N_{AX}(H_0)$ and
+$N_{AX}(H_0)= A_1 N_{AX}(H_0), A_1 \cap X = 1$.  So $A_1X= AX$ and $\exists x: A_1^x=A$,
+$A \subseteq N(H_0^x)$.  Thus $A^x, A \subseteq N(H_0^x)$ and $\exists y: A^{xy}=A_1$
+but $[xy, A] \subseteq A \cap X$ so $xy \in C_X(A)$ and we're done.
+
+\end{quote}
+{\bf Theorem 5:}
+Suppose $V$ is a non-cyclic abelian group $r$-group of operators on a $p$-constrained
+group $X$.  For $r \ne p$ both prime, 
+$\bigcap_{v \in V^{\#}} O_{p'}(C_X(V)) \subseteq O_{p'}(X)$.
+\begin{quote}
+\emph{Proof:}
+Put ${\overline X}= X/O_{p'}(X)$, $V$-invariant.
+$C_{\overline X}(V)= {\overline {C_X(V)}}$ and we may assume $O_{p'}(X)=1$.
+Let $M \lhd X$.
+$C_M(V)= M \cap C_X(V) \lhd C_X(V)$ so  $C_M(V) \subseteq O_p(C_V(X))$.
+$[C_M(V), Q]= 1, \forall v \in V^{\#}$ so $[M, Q] =1$ and $Q=1$.
+\end{quote}
+{\bf Theorem 6:}
+Let $L= \langle x \in G, x \in p'(G) \rangle $ and $M=G'L$, $S \in S_p(G)$ then
+(1) $G/L$ is a $p$-group; (2) $G=SM$, $S \cap M = S \cap G'$;
+(3) $G/M= S/(S \cap G')$; (4) $G$ has a factor group of order
+$p'$ iff $S \cap G' \nsubseteq S$.
+\begin{quote}
+\emph{Proof:}
+\\
+(a) Let $S \in S_p(G)$.  By counting, observe $SL=G$.  $L \; char \; G$ so
+$(SL)/L= G/L \cong S/(S \cap L)$ which is a $p$-group.
+\\
+(b) As in (a) $G= SL = S(G'L) = SM$ clearly, $S \cap G' \subseteq S \cap M$.
+Suppose $x \in M$ and ${\overline x} = xL/L$.  ${\overline x}$ is generated
+by $p'$-elements in the abelian group ${\overline M}$ so ${\overline x}$ is
+a $p'$-element but since $x \in S$ has $p$ order so${\overline x} =1$ and
+$x \in G'$ but $G/M = (SM)/M \cong S/(S \cap M) = S/(S \cap G')$ which proves (c).
+\\
+(d) 
+Suppose $S \cap G' \nsubseteq S$ then $G/M= {\overline G} \cong S/(S \cap G')$ is a 
+$p$-group.  Let ${\overline H} \lhd {\overline G}$ and let $N$ be the inverse image
+of ${\overline H}$ then $G/N$ has order $p$.  Conversely,
+if $G/N$ have order $p$ then $G' \subseteq N$ and every $p'$-element of $G$ is in
+$N$ so $M \subseteq N$ thus $S/(S \cap G') \cong (SM)/N = (SN)/N \cong G/N$
+since $S/(S \cap G')$ has order $p$.
+$S \cap G' \ne S$.
+\end{quote}
+{\bf Corollary:} $G$ has a factor group of order $p^{\alpha}, \alpha \ge 1$ iff
+$S \cap G \nsubseteq S$.
+\section {Hall-Higman}
+{\bf Hall-Higman 1.2.3:}  
+Let $G$ be $\pi$-solvable and $O_{\pi'}(G)=1$, then
+$C_G(O_{\pi}(G)) \subseteq O_{\pi}(G)$.
+\begin{quote}
+\emph{Proof:}  
+Set $H= C_G(O_p(G)) O_p(G)$.  $H \lhd G$ 
+and $O_p(G)=O_p(H)$.
+Suppose $H > O_p(G)$ then $H/O_p(G)$ is $p$-solvable 
+and since $O_p(G)=O_p(H)$, if $K$ is the inverse image of $O_{p'}(H/O_p(H)) > O_p(H)$.
+$O_p(H) \in S_p(K)$ and $K \lhd G$.
+By Schur-Zassenhaus, $K=L O_p(G)$, $L \; char \; K$.  
+If $l \in L$, $[l, O_p(G)] \subseteq O_p(G) \cap K =1$.  Hence $O_{p'}(G)= K >1$, contradiction!
+\end{quote}
+{\bf Hall-Higman:} If $G$ is $p$-solvable, $X= O_{p'}(G)$, $P \in S_p(G)$ with
+$XP/X= O_p(G/X)$, then $H=G/XP$ acts as faithful $p$-solvable group of linear
+operators on $V= P/\Phi(P)$ and $H$ has no non-trivial normal $p$-subgroups.
+\section{Maximal subgroups of solvable groups}
+{\bf Theorem 7:}
+Let $M$ be a maximal subgroup of a solvable group $G$ and set $L = \bigcap_{x \in G} M^x$.  Set 
+${\overline G}= G/L$, ${\overline F} = F({\overline G})$, then either ${\overline F} = 1$
+or the following holds:
+(1) ${\overline F}$ is a minimal normal subgroup of ${\overline G}$,
+(2) ${\overline F}$ is an elementary abelian $p$-subgroup for some $p$;
+(3) $C_{\overline G}({\overline F}) = {\overline F}$;
+(4) ${\overline F} \cap {\overline M} =1$;
+(5) $|{\overline G} : {\overline M}|= p^n$.
+\begin{quote}
+\emph{Proof:}  
+Assume ${\overline F} \ne 1$ so ${\mathbb Z}({\overline F}) \ne 1$.   Let
+${\overline P} \ne 1$ be an $S_p$ subgroup of $\Omega_1({\mathbb Z}({\overline F}))$
+and ${\overline P} \lhd {\overline G}$, ${\overline P}$, elementary abelian.
+\emph{Claim:} ${\overline G}= {\overline P} {\overline M}$. 
+\\
+\emph{Proof of Claim:}
+Since ${\overline M}$ is maximal, the result will follow if ${\overline P} \nsubseteq
+{\overline M}$.  We show ${\overline M}$ has no non-trivial normal subgroup.
+If ${\overline N} \lhd \overline{M}$
+${\overline N} \subseteq {\overline M}^x$ whence
+$N \subseteq \bigcap_{x \in G} M^x = L$.  So 
+$\overline{G}= \overline{P} \overline{M}$. 
+\\
+\\
+Now set ${\overline C}= C_{\overline G}({\overline P})$, then
+${\overline F} \subseteq {\overline C}$ and ${\overline C} \lhd {\overline G}$ and so
+${\overline C} \cap {\overline M} \lhd {\overline M}$.   But since
+${\overline G}= {\overline P} {\overline M}$. 
+${\overline P}$ centralized ${\overline C} \cap {\overline M}$
+${\overline C} \cap {\overline M} \lhd {\overline G}$ and
+${\overline C} \cap {\overline M} = 1$.
+Since 
+${\overline P} \subseteq  {\overline F} \subseteq {\overline C}$ and we have
+${\overline G}= {\overline C} {\overline M}$
+with
+${\overline C} \cap {\overline M} = {\overline P} \cap {\overline M}  = 1$.  Then
+$|{\overline G}| =  |{\overline C}| |{\overline M}| =  |{\overline P}| |{\overline M}| $
+so
+${\overline P} =  {\overline F} = {\overline C}$ and this gives 1-4.
+\end{quote}
+{\bf Theorem 8:}
+If $M$ is a maximal subgroup of a solvable group $G$, $|G:M|= p^n$.
+\begin{quote}
+\emph{Proof:}  
+${\overline F} \ne 1$ so
+conclusion (5) from the previous result holds.
+\end{quote}
+{\bf Theorem 9:}
+In a solvable group the factors of a chief series are elementary abelian of prime power order.
+\begin{quote}
+\emph{Proof:}  
+Let $H \supseteq K$ be a term in the series.  Since $G$ is solvable, $H' \subseteq K$ so
+$H/K$ is abelian.  Suppose there are elements of order $q$ and $p$ with $q \neq p$ then the $p$ elements
+$H/K$ form a characteristic subgroup (since $H/K$ is abelian) which lies properly between $H/K$ and $1$.
+This is a contradiction.
+\end{quote}

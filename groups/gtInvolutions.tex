@@ -1,0 +1,352 @@
+\chapter{Involutions and special $p$-groups}
+\section{Dihedral Groups and Involutions}
+{\bf Theorem 1:}
+If $x, y \in Inv(G)$ then $ \langle x, y \rangle $ is a dihedral group of order $2|xy|$.
+\begin{quote}
+\emph{Proof:}
+Let $u=xy$, $U= \langle u \rangle $ and $|xy|=n$. $U^x=U^y=U$ so $U \lhd D$.  $D= U \cup Ux$.
+\end{quote}
+{\bf Theorem 2:}
+If $x, y \in Inv(G)$, $n=|xy|$ and $D= \langle x, y \rangle $ then 
+(1) $z \in D \setminus \langle xy \rangle $ is an
+involution; (2) if $n$ is odd, $D$ is transitive on involutions;  
+(3) if $n$ is even,
+exactly one of $x, y$ is conjugate to the unique involution in $ \langle xy \rangle $;
+(4) if $n$ is even
+and $z$ is the unique involution in $ \langle xy \rangle $ then $xz$ is conjugate to 
+$x$ in $D$ iff
+$n= 0 \jmod{4}$.
+\begin{quote}
+\emph{Proof:}
+Let $u=xy$, $U= \langle u \rangle $, and $|xy|=n$.  $u^x=u^{-1}$ and, 
+in fact, $v \in U \rightarrow v^x= v^{-1}$.
+\\
+(1) If $z \in D \setminus U$, $z= vx$ and $(vx)^2=vv^x=1$.
+\\
+(2) For $w \in U$, $(vx)^w = v x^w = v w^{-1} w^x x =v v w^{-2} x$ so
+$x^D= \{ v^2x: v \in U \}$.
+If $n$ is odd, $U$ has no involutions, so $x^D = Inv(D)= D \setminus U$.\\
+(3) If $ux=y$, $D \setminus U = \{v^2x: v \in U\} \cup \{v^2ux: v \in U \}= x^D \cup y^D$\\
+(4) $zx \in x^D$ when $z$ is a square in $U$ that is when $n=0 \jmod{4}$.
+\end{quote}
+{\bf Theorem 3:}
+Let $G$ have even order with ${\mathbb Z}(G)=1$ and suppose
+that $G$ has $m$ involutions with $n=|G|/m$ then
+$G$ has a proper subgroup of index at most $2n^2$.
+\begin{quote}
+\emph{Proof:}
+Let $I= Inv(G)$, $R= \{ g \in G: g^x=g^{-1}, x \in I \}$ and $\{x_i \}$ representatives of
+the conjugacy classes of $G$ in $R$ for $0 \le i \le k$ and pick $x_0=1$.  Set $m_i= |x_i^G|$
+and $B_i= \{ (u, v), u,v \in I: uv= x_i \}$, put $b_i= |B_i|$.  If $u,v \in I$ then either
+$u=v, uv=1$ or $ \langle u,v \rangle $ is dihedral.  
+In either case, $(uv)^u= u^{-1}$ so $uv \in R$.
+$m^2 = |I \times I| = \sum_{i=0}^k m_i b_i$.
+\\
+\\
+Now, $\exists t_i \in Inv(G): (x_i)^{t_i}=x_i^{-1}$.  If $u,v \in B_i, (x_i)^u=x_i^{-1}$
+and $(u,v) \mapsto u$ is an injection from $B_i$ into $t_iC_G(t_i)$; thus 
+$b_i \le |C_G(t_i)$ and $m_ib_i \le |G|$, in fact, $m_0=1$ and $b_0=m$ so
+$m^2 \le m + k|G|$.  Let $H<G$ be a subgroup of minimal index, $s=|G/H|$.
+If $i > 0$ then $x_i \notin {\mathbb Z}(G)$ and $m_i =|G:C_G(x_i)| \ge s$.
+$|G| \ge \sum_{i=0}^k m_i \ge 1+ks$ and $k \le {\frac {(|G|-1)} {s}}$.  This gives
+$m^2 \le (|G|{\frac {(|G|-1)} {s}})+m$.  But $n={\frac {|G|} {m}}$ and $m \ge 2$ so
+$s \le {\frac {n(n-m^{-1})} {(1-m^{-1})}}$ and $s \le (2 n^2)!$.
+\end{quote}
+{\bf Theorem 4:}
+The $G$ be a finite simple group of even order and $t \in Inv(G)$ with $n=|C_G(t)|$ then
+$|G| \le (2 n^2 )!$.
+\begin{quote}
+\emph{Proof:}
+By the previous result, $\exists H <G$ such that $|G:H| \le 2 n_0^2, n_0=|G|/m$ where
+$m=|Inv(G)|$ and $m \ge |t^G|=|G:C_G(t)|$ and so $n_0 \le {\frac {|G|} {|G:C_G(t)|}}=n$.
+Representing $G$ as a permutation group on the cosets $\{ Hx \}$, $k=|G/H| \le 2n^2$.  Since
+$G$ is simple, this representation is faithful and $G$ is isomorphic to a subgroup of
+$S_k$ and so $|G| \le k! \le (2n^2)!$.
+\end{quote}
+{\bf Brauer-Fowler Theorem:}  Let $H$ be a finite group.   There are at most finitely many
+finite simple groups with an involution $t$ such that $H \cong C_G(t)$.
+\begin{quote}
+\emph{Proof:}
+Follows from previous result.
+\end{quote}
+{\bf Thompson Order Formula:}  Let $G$ be a finite group with $k \ge 2$ conjugacy classes of
+involutions $\{x_i^G\}$, $i= 1, 2, \ldots , k$.  Let $n_i$ be the number of ordered pairs
+$u \in x_1^G, v \in x_2^G$ and $x_i \in \langle uv \rangle $ then 
+$|G|= |C_G(x_1)| |C_G(x_2)| \sum_{i=1}^k {\frac {n_i} {C_G(x_i)}}$.
+\begin{quote}
+\emph{Proof:}
+Again let $I= Inv(G)$, $\Omega= x_1^G \times x_2^G$.
+$|\Omega|= |x_1^G| |x_2^G|= |G:C_G(x_1)||G:C_G(x_2)|$.
+For $(u,v) \in \Omega, u \notin v^G$, there is a unique involution $z(u,v) \in \langle uv \rangle $.
+Let $\Omega_z= \{ (u,v): z=z(u,v) \}$.  $\Omega= \bigcup_{z \in I} \Omega_z$ and
+$|\Omega_z|= |\Omega_{x_i}|$ for $z \in x_i^G$.  So $\sum_{z \in I} |\Omega_z| = |G:C_G(x_i)| n_i$
+and $|\Omega|= \sum_{i=1}^k |G:C_G(x_i)|n_i$.
+\end{quote}
+{\bf Remark:} $n_i$ can be calculated if $x_i^G \cap C_G(x_i)$ is known so $|G|$ can be
+calculated by the fusion of involutions in local subgroups.
+\section{Critical subgroup of a $p$-group:}
+{\bf Definition 1:}
+$H \; char \; G$ is a \emph {critical subgroup} if $\Phi(H) \le {\mathbb Z}(H) \ge [G,H]$.
+$C_G(H)=Z(H)$.  
+\\
+\\
+{\bf Definition 2:}  
+$Mod(p^n)= \langle x \rangle \ltimes \langle y \rangle $, $|x|= p^{n-1}$, $|y|=p$.
+$D(2^n)= \langle x \rangle \ltimes \langle y \rangle $, $x^y = x^{-1}$.
+$SD(2^n)= \langle x \rangle \ltimes \langle y \rangle $, $x^y = x^{2^{n-2}-1}$.
+$Q(2^n)= G/ \langle x^{2^{n-2}}, y \rangle $, where $|y|=4$, $x^y= x^{-1}$, note that
+${\mathbb Z}(G)= \langle x^{2^{n-2}}, y \rangle $.
+\\
+\\
+{\bf Theorem:}  Let $G$ be a non-abelian group of order $p^n$ with a cyclic normal subgroup
+of order $p^{n-1}$ 
+$G \cong Mod(p^{n+1})$,
+$G \cong D(2^{n+1})$,
+$G \cong SD(2^{n+1})$, or
+$G \cong Q(2^{n+1})$.
+\begin{quote}
+\emph{Proof:} Since $G$ is non-abelian, $n \ge 3$.  Let $X$ be a cyclic subgroup: $|G:X|=p$.
+$X=C_G(X)$ and $\exists y \in G \setminus X$ such that $y$ acts non-trivially on $X$.
+$y^p \in X$ so $y$ induces an automorphism of order $p$.  $Aut(X)$ has a unique subgroup
+of order $p$ (case 1) unless $p=2$ and $n \ge 4$ and in that case $Aut(X)$ has $3$ involutions
+(case 2).  In case 1, $x^y=xz$ for some $z$ of order $p$ in $X$.  In case 2,
+$x^y=x^{-1} z^{\epsilon}$ where $\epsilon= 0, 1$ and $z \in Inv(X)$.  If $G$ splits over $X$,
+$G=X \rtimes \langle y \rangle $ and $G \cong Mod(p^n),  D(2^n), SD(2^n)$.  Otherwise,
+$C_X(y)= \langle x^p \rangle $ if $x^y=xz$ while $C_X(y)= \langle z \rangle $ otherwise.  
+$y^p \in C_X(y)$ and since $G$ does
+not split over $X$,  $ \langle y, C_X(y) \rangle $ does not split over 
+$C_X(y)$ and hence it is abelian and
+$C_X(y)= \langle y^p \rangle $ and $y^p = x^p$ if $x^y=xz$ and $y^2 = z$ otherwise.  
+Suppose $x^y=xz$,
+$z=[y,x] \in C( \langle x,y \rangle)$.  So, $y x^{-1})^p= y^p x^{-p} z^{\frac {p(p-1)} {2}}$
+but $z^{\frac {p(p-1)} {2}}=1, p \ne 2$, thus $p=2$ and $z=x^{2^{n-2}}$
+and if $n \ge 4$ then setting $i= 2^{n-3}-1$ so $(y x^i)^2=1$; if $n=3$, $x^y= x^{-1}$.
+We're left with $p=2$, $x^y= x^{-1}z^{\epsilon}$ and $y^2=z$.  If $\epsilon=0$,
+$G \cong Q(2^n)$ but $z \in {\mathbb Z}(G)$, $(yx)^2= y^2 x^y x = z x^{-1} z x = 1$ so
+the extension does split.
+\end{quote}
+{\bf Theorem 5:} If $G = \langle x \rangle $, $|x|=q=p^n$, $A=Aut(G)$.
+(1) $a \mapsto m(a) \subseteq U(q)$ is an isomorphism on the units of $q$;
+(2) the cyclic subgroup of order $p-1$ is faithful on $\Omega_1(G)$; and,
+(3) $P \in S_p(A)$ is cyclic and faithful.
+\begin{quote}
+\emph{Proof:}  Elementary.
+\end{quote}
+{\bf Theorem 6:}  
+Let $G$ be a non-abelian group with a cyclic normal subgroup, $U$,
+of order $p^{n}$ and $C_G(U)=U$.  Then either
+(1)
+$G \cong D(2^{n+1})$, $G \cong SD(2^{n+1})$, or $G \cong Q(2^{n+1})$; or, 
+(2) $M=C_G(\mho^1(U)) \cong Mod(p^{n+1})$ and $E_{p^2}= \Omega_1(M)$ char $G$.
+\begin{quote}
+\emph{Proof:}  
+Let ${\overline G}= G/U \rightarrow Aut(U)$.  ${\overline G} \ne 1$ and $n \ge 2$ if
+$|G|=p$.  If ${\overline G} > p$ the conclusion holds by the previous result.
+$\exists {\overline y} \in {\overline G}$, $|{\overline y}|=p$, $u^y= u^{p^{n-1}+1}$, 
+$U= \langle u \rangle $.
+$M= < \langle y,u \rangle $.  
+$M=Mod_{p^{n+1}}$, $E= \Omega_1(M)= E_{p^2}$, $E \; char \; G$.  Since
+${\overline G}'=1$, ${\overline G}$ is cyclic or $p=2$ and $u^g= u^{-1}$.   In the first case,
+$\Omega_1({\overline G})= {\overline M}$, $E= \Omega_1(M)= \Omega_1(G) \; char \; G$.
+In second case, $\mho^1(U)= \langle u^2 \rangle = \langle [u,g] \rangle $ 
+and $G' \subseteq U$.  So
+$G' = \mho^1(U)$ or $U \; char \; G' \; char \; G$.  
+Thus $E= \Omega_1(C_G(\Omega^1(U))) \; char \; G$.
+\end{quote}
+{\bf Definition:}  A \emph{critical} subgroup of $G$ is a characteristic subgroup
+$H \; char \; G$ such that $\Phi(H) \le {\mathbb Z}(H) \ge [G, H]$ and $C_G(H)= {\mathbb Z}(H)$
+A $p$-group is \emph{special} if $\Phi(G)= {\mathbb Z}(G) = G^{(1)}$, \emph{extra-special}
+if the center is cyclic.
+\\
+\\
+{\bf Theorem 7:}
+Every $p-$group has a critical subgroup.
+\begin{quote}
+\emph{Proof:} Let $S$ be the set of characteristic subgroups, $H$, of $G$ with
+$\Phi(H) \le {\mathbb Z}(H) \ge [G, H]$ and $C_G(H)= {\mathbb Z}(H)$ and $H$ be a maximal
+element.  Claim: $H$ is critical.  If not, set $K= C_G(H)$, $Z= {\mathbb Z}(H)$ and
+define $X$ by $X/Z= \Omega_1({\mathbb Z}(G/Z)) \cap K/Z$.  The $K \nleq H$ and
+$Z= H \cap K$; since $K \lhd G$, $X \ne Z$ but then $XH \in S$ violating the maximality.
+\end{quote}
+{\bf Definition:}
+A $p-$group $P$ is {\bf special} if $\Phi(G)=Z(G)=G'$ and {\bf extra-special}
+if $Z(G)$ is cyclic.
+\\
+\\
+{\bf Theorem 8:}
+If $G$ is special, ${\mathbb Z}(G)$ is elementary abelian.
+\begin{quote}
+\emph{Proof:}
+$g^p \in \Phi(G)= {\mathbb Z}(G)$ $1= [g^p,h]= [g,h]^p$ so $G^{(1)}$ is elementary
+so ${\mathbb Z}(G)= G^{(1)}$.
+\end{quote}
+{\bf Theorem 9:}
+Let $E$ be an extra-special subgroup of $G$ $[G, E] \le {\mathbb Z}(G)$, then
+$G=E C_G(E)$.
+\begin{quote}
+\emph{Proof:}  
+$Z=\langle z \rangle= Z(E)$.  $E/Z \leq Aut_G(E) \leq C= C_{Aut(E)}(E/Z)$.  Suffices to show
+$E/Z=C$.  Let $\alpha \in C$ and $\langle x_iZ \rangle$ is a basis for $E/Z$.  Then $[x_i , \alpha ]= z^{m_i}$,
+$0 \leq m_i <p$ and $E= \langle x_i, 1 \leq i \leq n \rangle$ and thus $|C| \leq p^n =|E/Z|$.
+\end{quote}
+{\bf Definition:}
+A $p$-group is of symplectic type if it has no non-cyclic characteristic abelian subgroups.
+\\
+\\
+{\bf Theorem 10:}
+If $G$ is of symplectic type, $G= E*R$ where (1) $E=1$ or is extra-special;
+(2) either $R$ is cyclic or $R$ is dihedral;, semi-dihedral or quaternion of order
+$\ge 16$.
+\begin{quote}
+\emph{Proof:}  
+$G$ has a critical subgroup $H$, $U= {\mathbb H}$, let $Z$ be a cyclic subgroup of $U$ of order $p$.
+$G^*= G/Z$.  Put $K^* = \Omega_1(H^*)$ and let $E^*$ be the complement to ${mathbb Z}(K)^*$ in $K^*$.
+We can show $K$ is extraspecial.  See Aschbacher p 109 for the rest of the argument.
+\end{quote}
+{\bf Theorem 11:}
+Let $E$ be an extra-special $p$-group with $Z={\mathbb Z}(G)$, ${\overline E}= E/Z$.  Identify
+$Z$ with ${\mathbb Z}_p$ and ${\overline E}$ as a vector space over $Z$ then
+(1) $f: {\overline E} \times {\overline E} \rightarrow Z$
+by $f({\overline x}, {\overline y}) = [x, y]$ is a symplectic form;
+(2) $m({\overline E})= 2n$;
+(3) if $p=2$, then $Q(x)= x^2$ is the associated quadratic form;
+(4) if $Z \le U \le E$,  $U$ is extra-special or abelian iff ${\overline U}$ is
+non-degenerate or totally isotropic, respectively.  If $p=2$, then $U$ is elementary abelian
+iff ${\overline U}$ is totally singular.
+\begin{quote}
+\emph{Proof:}  
+Aschbacher, p 111.
+\end{quote}
+{\bf Theorem 12:}
+$G$ a $p$ group, $A$, a $p'$-group.
+Let $A$ be a maximal abelian normal subgroup of $G$, $Z= \Omega_1(A)$ then
+(1) $A=C_G(A)$,
+(2) $(C_G(A/Z) \cap C(Z))' \le A$,
+(3) if $p \ne 2$, $\Omega_1(C_G(Z)) \le C_G(A/Z)$.
+\begin{quote}
+\emph{Proof:}  
+Let $C= C_G(A)$ and $a \le C \lhd G$.  If $C \ne A$, $\exists D: |D/A|= p$ and
+$D/A \subseteq {\mathbb Z}(G/A) \cap C/A$.  Then $D \lhd G$ and $D$ is abelian
+contradicting the maximality of $A$.  $(C_G(A/Z) \cap C(Z)^{(1)} \le C(A)$ so
+1 implies 2.  Let $P \ne 2$, $|x|= p$, $x \in C_G(Z)$ and $X= \langle x, A \rangle$
+and $Y= \langle x C_A(\langle x, Z \rangle)/Z \rangle$.  $cl(Y) \le 2$ so
+$W=\Omega_1(Y)$ is of exponent $p$.  Thus $W= \langle x, Z \rangle$.  But
+$W \; char \; Y$ so $N_X(Y) \le N_X(W)=Y$ so $Y= X$ and 3 holds.
+\end{quote}
+{\bf Theorem 13:}
+$G$ a $p$ group.
+If $p \ne 2$ and $cl(G) \le 2$ then $\Omega_1(G)$ is of exponent $p$.
+\begin{quote}
+\emph{Proof:}  
+Let $x, y$ be elements of order $p$.  $[x, y]= z \in {\mathbb Z}(G)$ so
+$(xy)^p = x^p y^p z^{\frac {p(p-1)} 2}= 1$.
+\end{quote}
+{\bf Theorem 14:}
+$G$ a $p$ group, $A$, a $p'$-group.
+Let $p \ne 2$ and $Z$ be an elementary abelian normal subgroup of $G$ then $Z= \Omega_1(C_G(Z))$.
+\begin{quote}
+\emph{Proof:}  
+Let $X= \Omega_1(C_G(Z))$.  \emph{Claim:} $exp(X)=p$.  If claim is true,
+and $X \ne Z$, $\exists D: |D/A|=p$ and $D$ is elementary abelian, contradicting
+maximality.  \emph{Proof of claim:}
+Let $A$ be a maximal  abelian normal subgroup of $G$ containing $Z$, then $Z= \Omega_1(A)$.
+$[X, A] \le Z$ and so $X^{(1)} \le A$.   Choose $U \le X$ of minimal order subject to
+$U= \Omega_1(U)$ and $U$ not of exponent $p$.  $\exists x, y \in U: U= \langle x, y \rangle$
+$V= \langle x^U \rangle \ne U$ and so $exp(V)=p$.  Hence $z=[x,y]$ has order at most $p$ so
+$X^{(1)} \le A, z \in Z$.  As $X \le C(Z)$, $exp(U)=p$ contrary to the choice of $U$.
+\end{quote}
+{\bf Theorem 15:}
+$G$ a $p$ group, $A$, a $p'$-group.
+If $G$ is abelian then $A$ is faithful on $\Omega_1(G)$.
+\begin{quote}
+\emph{Proof:}  
+WLOG, $A$ centralizes $\Omega_1(G)$.  Let $|X|= p$ in $G$ and ${\overline G}= G/X$.
+$A$ is faithful on $\Omega_1({\overline G})$ and so WLOG, ${\overline G}= \Omega_1({\overline G})$.
+We may take, $C_{\overline G}(A)=1$ so $X= \Omega_1(G)$ so $G$ is cyclic.  But this contradicts
+the known structure of the automorphism group.
+\end{quote}
+{\bf Theorem 16:}
+Let $H$ be a critical subgroup of $G$, then (1) $A$ is faithful on $H$
+(2) if $p \ne 2$ then $A$ is faithful on $\Omega_1(H)$ and there is a critical subgroup
+of $G$ such that $\Omega_1(H)$ contains each element of order $p$ in
+$C_G(\Omega_1(H))$.
+\begin{quote}
+\emph{Proof:}  
+$C_G(H) \leq H$ so by the $p \times q$ lemma (with $P=H, Q = C_A(H)$), $C_A(H)=1$,
+proving (1).  For (2), see Aschbacher p114.
+\end{quote}
+\section{More on special $p$-groups}
+{\bf Lemma:}
+If $M$ is a normal subgroup of a $p$-group, $P$, maximal subject to being
+abelian then $M= C_P(M)$.
+\begin{quote}
+\emph{Proof:}  
+$M \subseteq H = C_P(M)$ since $M$ is abelian.  Supose $H \supset M$ and set
+${\overline P}= P/M$.  ${\overline H} \subset {\overline P}$, $H \lhd P$ and
+${\overline H} \ne 1$ so ${\overline H} \cap {\mathbb Z}({\overline P}) \ne 1$.
+If ${\overline X}$ is a subgroup of ${\overline H} \cap {\mathbb Z}({\overline P})$,
+$X \lhd P$ and $X \subseteq H$.  Since $H$ centralizes $M$, $M \subseteq {\mathbb Z}( X)$.
+$X/M$ is cyclic of order $p$ and so $X$ is abelian, this is a contradiction.
+\end{quote}
+{\bf Theorem 17:}
+A $p$-group, $P$, possesses a characteristic subgroup, $C$, with the following properties:
+(1) $cl(C) \le 2$;
+(2) $[P, C] \subseteq {\mathbb Z}(C)$;
+(3) $C_P(C)= {\mathbb Z}(C)$;
+(4) Every nontrivial $p'$ automorphism of $P$ induces a non-trivial
+automorphism of $C$.
+\begin{quote}
+\emph{Proof:}  
+Suppose that such a characteristic subgroup $C$ exists.  Let $\phi$ be a $p'$ automorphism
+of $P$ which acts trivially on  $C$ and put $A= \langle \phi \rangle$.
+$[C, A] = 1$ so $[C, A, P] =1$ and $[P, C, A]= 1$ so
+$[A, P, C] = 1$.  $[A,P] \subseteq C_P(C)$ and $A$ stabilizes
+$P \supseteq [A, P] \supseteq 1$ and $A = 1$ so $\phi= 1$ and 3 implies 4.
+Let $M$ 
+be a normal subgroup of a $P$, maximal subject to being abelian so $C_P(M)=P$.
+If $M \; char \; P$, $C= M$ satisfies the theorem because $C_P(C) \subseteq C$ and
+$C$ is of class $1$ further $C/{\mathbb Z}(C)$ is trivial and $[P,C] \subseteq C = {\mathbb Z}(C)$
+and so 1 and 2 hold.
+\\
+\\
+Let $D$ be a maximal characteristic abelian subgroup of $P$ containing $D$ so $D \subset M$.
+$M \subseteq H=C_P(D)$ and so $D \subset H$ and $H \; char \; P$.  Set ${\overline P}= P/D$
+then ${\overline H} \ne 1$ so 
+${\overline C} = {\overline H} \cap \Omega_1({\mathbb Z}({\overline P}) \ne 1$
+We claim the preimage, $C$, has the required properties.  First the inverse image,
+$K$ of $\Omega_1({\mathbb Z}({\overline P}))$ is characteristic in $P$ and so
+$C = H \cap K \; char \; P$.  Since $C \subseteq H= C_P(D)$, $D \subseteq {\mathbb Z}(C)$ but
+this is characteristic in $P$ so ${\mathbb Z}(C)=D$ by maximality of $D$.
+But then $C/{\mathbb Z}(C)$ is elementary abelian and $cl(C)=2$.  Further,
+since ${\overline C} \subseteq {\mathbb Z}({\overline P})$, $[{\overline C}, {\overline P}]= 1$
+whence $[P, C] \subseteq D$ and $C$ satisfies 1 and 2.
+Now set $Q= C_P(C)$ and suppose $Q \nsubseteq C$.  $Q \cap C = D$ and $Q \subseteq H$ since
+$Q$ centralizes $D$.  Thus
+${\overline Q} \subseteq \cap {\overline C} = 1$, ${\overline Q} \lhd {\overline P}$ and
+${\overline Q} \ne 1$.  
+But $1 \ne {\overline Q} \cap \Omega_1({\mathbb Z}({\overline P}))= {\overline C}$ and thus
+${\overline Q} \cap {\overline C} \ne 1$, a contradiction.  So $Q \subseteq C$ and 
+$Q= {\mathbb Z}(C)$ and 3 holds.
+\end{quote}
+{\bf Theorem 18:} If $P$ is a $p$-group then $\Phi(P)$ is the smallest subgroup, $H$, such that
+$G/H$ is elementary abelian.
+\begin{quote}
+\emph{Proof:}  
+If $M$ is maximal then $M \lhd G$ and $|G:H|=p$ and $P' \leq M$ so $P' \leq \Phi(P)$ so
+$P/ \Phi(P)$ is abelian.  $g^p \in M$ so $g^p \Phi(P)$ hence $P/ \Phi(P)$ is elementary abelian.
+\end{quote}
+{\bf Theorem 19:}
+Let $A$ be a $p'$ group of  automorphisms of a $p$ group $P$ and let $\phi \in A^{\#}$,
+then $P$ possesses an $A$-invariant special subgroup $Q$ such that $Q$ acts irreducibly
+on $Q/\Phi(Q)$, $\phi$ acts non-trivially on  $Q/\Phi(Q)$ and $\phi$ act trivially on
+$\Phi(Q)$.
+\begin{quote}
+\emph{Proof:}  
+Suppose $b \in A$, $[b,G/\Phi(G)]=1$.  WTS $b=1$.  If not, there is a power of $b$ that
+is a $q$-element.  Put $B= \langle b \rangle$ and $g \in G$.  $B$ acts on the coset
+$X= g \Phi(G)$ and the fixed points, $m= |X| \jmod{p}$, $|X|= |\Phi(G)|$ is a power of $p$.
+$|X| \neq 0 \jmod{q}$ so $[B,x]=1$ for some $x \in X$ so $B$ centralizes a set, $Y$ of
+coset representatives for $\Phi(G)$ in $G$ so $G= \langle Y \rangle \leq C_G(B)$
+so $B=1$.
+\end{quote}
+

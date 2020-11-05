@@ -1,0 +1,229 @@
+\chapter{CN groups}
+\section {Basic Results}
+{\bf Definition:} $G$ is a $CN$-group if $1 \ne x \in G$ then $C_G(x)$ is nilpotent.
+\\
+\\
+{\bf Theorem:} If $H$ is a non trivial $CN$-group then $H>g$ is a $CN$-group and $C_G(H)$ is nilpotent.
+\begin{quote}
+\emph{Proof:} Subgroups of nilpotent groups are nilpotent.
+\end{quote}
+{\bf Theorem:} 
+If $G$ is a $CN$-group and 
+$P \in S_p(G)$ and
+$Q \in S_q(G)$, $p \ne q$.  If 
+$x \in P^{\#}$ and $y \in Q^{\#}$ and $[x,y]=1$ then $[P,Q]=1$.
+\begin{quote}
+\emph{Proof:}  If $H$ is nilpotent and $a, b$ are $p$ and $q$ elements with $p \neq q$ then $[a,b] =1$.
+$\langle y, {\mathbb Z}(P) \rangle \subseteq C(x)$.  Since $C(x)$ is nilpotent, $[y, {\mathbb Z}(P)] =1$.
+Let $t \in {\mathbb Z}(P)^{\#}$. $\langle y, P \rangle \subseteq C(t)$ so $[P,y]=1$.  Analogously,
+$[Q,x]=1$.  Now, let $u \in {\mathbb Z}(Q)^{\#}$, $\langle y, Q \rangle \subseteq C(u)$ so $[y, Q] = 1$.
+Thus $\langle P, Q \rangle \subseteq C(y)$ and $[P, Q]=1$.
+\end{quote}
+{\bf Theorem:} 
+If $G$ is a $CN$-group and $H \lhd G$ is solvable then $G/H$ is a $CN$-group.
+\begin{quote}
+\emph{Proof:} First, prove it for $H$ elementary abelian.  If $L$ is a characteristically simple subgroup
+of $H$, $L$ is elementary abelian since $H$ is solvable.  $G/L$ is nilpotent by the previous result.
+$(G/L)/(H/L) = G/H$ and the result holds by induction.
+\end{quote}
+{\bf Definition:} $G$ is a $3$-step group with respect to $p$ provided:\\
+(1) $O_{p, p'}(G)$ is Frobenius with kernel $O_p(G)$ and a cyclic complement;\\
+(2) $G= O_{p,p',p}(G)$ \\
+(3) $G/O_p(G)$ is Frobenius.
+\\
+\\
+{\bf Theorem:}  A $3$-step group is a solvable $CN$-group.
+\begin{quote}
+\emph{Proof:}
+$H=O_p(G)$, $O_{p,p'}(g)=HA$.  $G/HA$ is a $p$-group.
+\end{quote}
+{\bf Theorem:} If $G$ is a solvable $CN$-group then one of the following holds:
+(1) $G$ is nilpotent;
+(2) $G$ is Frobenius whose complement is either cyclic or a direct product of a cyclic group of
+odd order and a generalized quaternion group;
+(3) $G$ is a $3$-step group.
+\begin{quote}
+\emph{Proof:}
+$F=F(G)$ so $C_G(F) \subseteq F$.
+\end{quote}
+{\bf Theorem:} 
+If $G$ is a $CN$-group and $O_p(G) \ne 1$ then either $O_p(G)$ is an $S_p$ group
+of $G$ or $G$ is a $3$-step group.
+\begin{quote}
+\emph{Proof:}
+\end{quote}
+{\bf Theorem:} If $G$ is a non-solvable $CN$-group of
+minimal order, then $G$ is simple and all its proper subgroups are solvable.
+\begin{quote}
+\emph{Proof:}
+By induction.  If $H \lhd G$ and $M/H$ is maximal so $G/H$ is solvable.  If $M=1$ then $|G|=p$ so
+$M \ne 1$ and let $P \in S_p(M)$, $N= N_G(P)$.  $M \subseteq N$ so $M=N$ and $P \in S_p(G)$.
+Similarly, $M = N_G({\mathbb Z}(J(P)))$, so $M=O^p(M)P, \forall p$.  Put $\bigcap_p O^p(M)$.
+$K \lhd G$ and $G = PO^p(M)$ with $O^p(M) \cap P = 1$ so $K$ contains all $p'$ elements
+so $G=KM$ and $K \cap M =1$.  If $K$ is nilpotent, were done. Choose $x \in {\mathbb Z}(P)$.
+$M \subseteq C_G(x)$ so $C=M$ and $x$ centralizes np $p'$-element and $x$ induces by conjugation
+a fixed point free automorphism and $G$ is nilpotent by Thompson.
+\end{quote}
+{\bf Theorem:} If $G$ is a non-solvable $CN$-group of minimal odd order
+then no proper subgroup of $G$ is a $3$-step group.
+\begin{quote}
+\end{quote}
+{\bf Theorem:} If $G$ is a non-solvable $CN$-group of minimal odd order then no proper
+subgroup of $G$ is a $3$-step group.
+\begin{quote}
+\end{quote}
+{\bf Definition:}  Let $G$ be a $CN$-group ${\cal H}$ is the set of subgroups $H < G$ which are
+maximal with respect to being nilpotent.
+\\
+\\
+{\bf Theorem:} 
+Let $G$ be a minimal simple $CN$-group of odd order, $H \in {\cal H}$, then (1)
+$H$ is a Hall group of $G$ and is disjoint from its conjugates, (2) $N_G(H)$ is Frobenius with
+kernel $H$ and is maximal.  Conversely, every maximal subgroup of $G$ is a Frobenius whose
+kernel is in ${\cal H}$.
+\begin{quote}
+\end{quote}
+{\bf Theorem:} Let $G$ be a minimal simple $CN$-group of odd order, $H,_1, H_2 \in {\cal H}$ then
+$(|H_1|, |H_2|) = 1$.
+\begin{quote}
+\end{quote}
+{\bf Definition:}
+Let $G$ be a minimal simple $CN$-group of odd order.
+$p~q$ if $\exists x \in p(G), y \in q(g): [x,y] = 1$.
+\\
+\\
+{\bf Theorem:} Let $G$ be a minimal simple $CN$-group of odd order
+then (a) $~$ is an
+equivalence relation, (b) if $\pi_i$ is an equivalence class under $~$ then $G$ possesses
+nilpotent $S_{\pi_i}$ subgroups $H_i$, $H_i \in {\cal H}$ which is disjoint from its conjugates,
+(c) every maximal subgroup of $G$ is conjugate to $N_G(H_i)$ for some $i$,
+(d) every element of $G$ lies in a conjugate of $H_i$ for some $1 \leq i \leq r$.
+\begin{quote}
+\end{quote}
+{\bf Theorem:} Let $G$ be a minimal simple $CN$-group of odd order and $H \in {\cal H}$
+then
+(1) $H$ is a Hall group of $G$;
+(2) If $|H|$ is not a of prime power order then $H$ is disjoint from its conjugates;
+(3) If $H$ is disjoint from its conjugates then $C_G(x) \subseteq H, \forall x \in H^{\#}$;
+(4) If $H$ is disjoint from its conjugates and $H$ has even order then 
+$C_G(x) \subseteq H, \forall x \in H^{\#}$.
+\begin{quote}
+\end{quote}
+{\bf Theorem:} 
+Let $G$ be a minimal simple $CN$-group of odd order, $H_i$ are representatives of
+the conjugacy classes of the elements of ${\cal H}$.  Put $h_i= |H_i|$ and
+$|N(H_i)|=n_i h_i$. Then (1) $n_i > 1$, $n_i \mid (h_i - 1)$, $n_ih_i \mid |G|$, $(h_i, h_j)=1$
+if $i \ne j$, and (2) $\sum_{i=1}^{r} {\frac {h_i - 1} {h_i n_i}} = 1 - {\frac 1 {|G|}}$.
+\begin{quote}
+\end{quote}
+{\bf Hall-Feit-Thompson:} $CN$-groups of odd order are solvable.
+\begin{quote}
+\emph{Proof:}  
+By induction. Let $G$ be a minimal simple $CN$-group of odd order.
+Set $M_i = N_G(H_i), 1 \leq i \leq r$.  We derive properties of the irreducible characters of
+the $M_i$.
+These properties show that $|G|=p^a q^b$ and so $G$ is solvable by Burnside's theorem.
+\end{quote}
+\section {More on $SL_2(p)$}
+{\bf Lemma:}
+$|SL_2(5)|= 2^3 3 5$,
+$|SL_2(7)|= 2^4 3 7$,
+$|SL_2(17)|= 2^5 3^2 17$.  In $SL_2(17)$, let
+$u= \left(
+\begin{array}{cc}
+1 &  1 \\
+0 &  1\\
+\end{array}
+\right)$,
+$v= \left(
+\begin{array}{cc}
+3 &  0 \\
+0 &  6\\
+\end{array}
+\right)$,
+$w= \left(
+\begin{array}{cc}
+1 &  1 \\
+5 &  6\\
+\end{array}
+\right)$. Then $|u|=17$, $|v|=16$ and $|w|= 3^2$.
+$
+\left(
+\begin{array}{cc}
+14 &  0 \\
+0 &  11\\
+\end{array}
+\right)^{16} =
+\left(
+\begin{array}{cc}
+3 &  0 \\
+0 &  6\\
+\end{array}
+\right)^{16} =
+\left(
+\begin{array}{cc}
+5 &  0 \\
+0 &  7\\
+\end{array}
+\right)^{16} = 1$
+\section {Role in classification}
+The induction step in a classification (in particular the odd order theorem) for $G$ can use the following (1) minimal normal subgroups of a maximal
+subgroup of $G$ are $p$-groups so (2) every proper subgroup is a $p$-local.  Thus maximal subgroups are actually maximal
+$p$-locals and we can use ``local methods" to push up to a maximal subgroup.  Then we can study the embedding of the maximal subgroups
+(often using Thompson transitivity) to get a contradiction.  The maximal subgroups usually have a Bruhat structure fixed by character
+theory.  The final contradiction can often be obtained from generators and relations.
+\\
+\\
+Sometimes important subgroups are Frobenius and we can use the following:
+{\bf Frobenius:} $G$ has Frobenius kernel, $K$, consisting of fixed point free automorphisms.  $A$ is the Frobenius complement
+and $|A| \mid (|K|-1)$.  $K$ is nilpotent.  Frobenius groups allow an action on congugates od $A$ since $A \cap A^g=1$ if $g \in G \setminus A$.
+In fact, $G$ is Frobenius if $G$ act transitively on $\Omega$, $G_{\alpha} \neq 1$ but $G_{\alpha} \cap G_{\beta} = 1$ for
+$\alpha \neq \beta$, $A = G_{\alpha}$ and $|\Omega| = |K| = |G:A| =1 \jmod{|H|}$.
+\\
+\\
+{\bf Bruhat structure:} $P \in S_p(G)$ and $B = N_G(P)$ (This is the Borel group.)  Let $H$ be a complement of $P$ in $B$.
+$B \cap N =H \lhd N$ and $W = N/H$ is generated by reflections ($W$ is the Weyl group).  $G =BNB$.  We often construct a
+strongly embedded subgroup $M$ of $G$ and can determine the structure of the $p$-locals of $M$ and use this to determine the
+Bruhat structure of $M$.
+\\
+\\
+{\bf Example:} Put $G=GL_2(5)$, $|G|= 2^5 \cdot 3 \cdot 5$.  $P = \{
+\left(
+\begin{array}{cc}
+1 &  x \\
+0 &  1\\
+\end{array}
+\right)
+ : x \in F_5 \}$.
+$N(P) = \{
+\left(
+\begin{array}{cc}
+a &  x \\
+0 &  b\\
+\end{array}
+\right) : x \in F_5, a, b \in {F_5}^* \}$.
+$|N(P)| = 5 \cdot 16$. $O_5(N(P))=P$.
+$H = \{
+\left(
+\begin{array}{cc}
+a &  0 \\
+0 &  b\\
+\end{array}
+\right) : a, b \in {F_5}^* \}$, $|H|=16$.  $N(P)=HP$.  $G$ has other $2$-elements like
+$
+\left(
+\begin{array}{cc}
+0 &  1 \\
+1 &  0\\
+\end{array}
+\right)
+$ and a $3$-element,
+$g=
+\left(
+\begin{array}{cc}
+1 &  2 \\
+1 &  3\\
+\end{array}
+\right)
+$.
+

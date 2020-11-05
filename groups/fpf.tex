@@ -1,0 +1,88 @@
+{\bf Fixed Point Free:}  An automorphism, $\phi$ acting on $G$ is fixed point free if $C_G(\phi) =1$.
+\\
+\\
+{\bf Lemma 1:} Let $\phi$ be a fixed point free automorphism acting on $G$ with $|\phi|=n$.  Then
+(1) $y \in G$ then $y= x^{-1}(x \phi)$ for some $x$, and 
+(2) $\forall x \in G, x(x \phi) (x \phi^2) \ldots (x \phi^{n-1})$.
+\begin{quote}
+\emph{Proof:}  
+$x^{-1}(x\phi) = y^{-1}(y\phi)$ $\rightarrow$ $y x^{-1} = (y x^{-1})\phi$, so $x=y$.  Thus
+$|{x^{-1}(x\phi): x \in G}| = |G|-1$ and (1) holds. If
+$x(x \phi) (x \phi^2) \ldots (x \phi^{n-1}) =
+y(y \phi) (y \phi^2) \ldots (y \phi^{n-1})^{n-1})$.
+\end{quote}
+{\bf Lemma 2:} Let $\phi$ be a fixed point free automorphism acting on $G$ then $\phi$ leaves a unique
+$S_p$subgroup of $G$ invariant.
+\begin{quote}
+\emph{Proof:}  
+Let $Q \in S_p(G), (Q)\phi = y^{-1}Qy$.  $y^{-1}= (z\phi)z^{-1}$ and $y = z(z^{-1}]phi)$.
+$Q\phi = (z\phi) (z^{-1}Q z) (z^{-1}\phi)$ and $(z^{-1}Qz)\phi= z^{-1}Qz$ and thus
+$\phi$ leaves $P=z^{-1}Qz$ fixed.  If both $P, Q$ are $\phi$-invariant and 
+$Q=x^{-1}Px$ then
+$Q=(x^{-1}\phi)P(x(phi)$ and $(x\phi)x^{-1} \in N(P) = N$ but $N$ is $\phi$-invariant and
+$\phi$ is fixed point free on $N$ so $\exists z: y=(z\phi)z^{-1}$.
+$(z\phi)z^{-1}=
+(x\phi)x^{-1}$ $rightarrow$ $x=z$.
+\end{quote}
+{\bf Lemma 3:} Let $\phi$ be a fixed point free automorphism acting on $G$, $H \lhd G$ and $H= H\phi$ then
+$\phi$ is fixed point free on $G/H$.
+\begin{quote}
+\emph{Proof:}  
+\end{quote}
+{\bf Lemma 4:} Let $\phi$ be a fixed point free automorphism acting on $G$ of order $2$, then $G$ is abelian.
+\begin{quote}
+\emph{Proof:}  
+\end{quote}
+{\bf Lemma 5:} Let $\phi$ be a fixed point free automorphism acting on $G$ of order $3$, then $G$ is
+nilpotent and $[x, x\phi]=1, \forall x \in G$.
+\begin{quote}
+\emph{Proof:}  
+\end{quote}
+{\bf Lemma 6:} Let $\phi$ be a fixed point free automorphism acting on $G$ and let $P \in S_p(G)$ be the
+unique $\phi$-invariant subgroup of $G$ then $P \lhd G$..
+\begin{quote}
+\emph{Proof:}  
+Suppose $Q \ne P \in S_p(G)$ and pick $x \in Q \setminus P$, put $H=\langle x, x\phi \rangle$.
+$H$ is a $p$-group since $[x, x\phi]=1$ and $H'=1$ and $h \phi = H$.  So $H \subseteq P$ but then
+$x \in P$.
+\end{quote}
+
+\begin{quote}
+\emph{Proof:}  
+Let $G$ be a counterexample of minimal order and $\phi$ be a fixed point free automorphism of prime order $r$.
+$G$ has a proper normal subgroup, $h \ne 1$ with $H\phi=H$.  By induction, $H$ is nilpotent and $\phi$
+is a fixed point free automorphism on $G/H$ so $G/H$ is nilpotent and $G$ is solvable.  If $G$ has no non-trivial
+normal subgroup, which is $H$-invariant.  Let $P \in S_p(G), p \ne 2$ with $P\phi=P$.  Put
+$N= N_G({\mathbb Z}(J(P)))$, $ {\mathbb Z}(J(P))) char P$.  If $N < G$, $N$ is nilpotent:
+$N$ has a normal $p$-complement, $K$.  By the Thompson $p$-complement theorem, $G=KP$, $K\phi = K$ so
+$K = 1$ and $P=G$ so $G$ is nilpotent.  We may assume $G$ is solvable.
+Suppose $H_1, H_2 \lhd G$ $H_i\phi = H_i$, $H_1 \cap H_2 = 1$.  ${\overline G_i} = G/H_i$ is nilpotent
+so ${\overline L} = {\overline G_1} \times {\overline G_2}$ is too.  $x\phi = (H_1x, H_2x)$.
+$\psi: G \rightarrow {\overline G_1} \times {\overline G_2}$.  $G\psi$ is nilpotent.
+Let $N$ a minimal normal subgroup of $G$, $N$ is elementary abelian and ${\overline G} = G/N$ is nilpotent.
+${\overline G}$ is not a $p$-group.  Let ${\overline Q} \in S_q({\overline G})$ with 
+${\overline Q} = {\overline Q} \phi$, $q \ne p$.  Let ${\overline M}$ be a minimal $\phi$-invariant
+subgroup of $\Omega_1({\mathbb Z}({\overline Q}))$.  ${\overline M} \ne 1$ and ${\overline M} \lhd {\overline G}$
+since ${\overline G}$ is nilpotent.  Let $H$ be the inverse image of ${\overline M}$ then
+$H=NM$ and $M$ is a non-trivial elementary abelian $q$-group.  $H \lhd G$, $H\phi = H$ and $M\phi=M$.
+$\phi$ acts irreducibly on $M$.  $H \subset G$ then $H$ is nilpotent.
+$M char H \lhd G$ and $M$ and $N$ are two minimal normal $\phi$-invariant subgroup and
+$M \cap N \ne 1$.  $C_M(N)\phi = C_M(N)$ since $\phi$ acts irreducibly on $M$.  Either
+$C_M(N) = 1$ or $C_M(N) = N$.
+If $C_M(N) = N$, $G$ is nilpotent so $C_M(N) = 1$.  Let $G^*$ be the semidirect product of
+$M$ by $\langle \phi \rangle>$.  $G^*$ acts irreducibly on $N$ as a vector space since
+$C_M(N) = 1$ and $\phi$ is fixed point free.  But $G^*$ is a $p'$-group $C_{M^*}(M) = M$ and
+$G^*/M$ has order $q$ so $C_N(\phi) \ne 1$.
+\\
+\\
+{\bf Theorem:} If a maximal subgroup of $G$ is nilpotentof odd order then $G$ is solvable.
+\begin{quote}
+\emph{Proof:}  
+By induction.  If $H \lhd G$ and $M/H$ is maximal so $G/H$ is solvable.  If $M=1$ then $|G|=p$ so
+$M \ne 1$ and let $P \in S_p(M)$, $N= N_G(P)$.  $M \subseteq N$ so $M=N$ and $P \in S_p(G)$.
+Similarly, $M = N_G({\mathbb Z}(J(P)))$, so $M=O^p(M)P, \forall p$.  Put $\bigcap_p O^p(M)$.
+$K \lhd G$ and $G = PO^p(M)$ with $O^p(M) \cap P = 1$ so $K$ contains all $p'$ elements
+so $G=KM$ and $K \cap M =1$.  If $K$ is nilpotent, were done. Choose $x \in {\mathbb Z}(P)$.
+$M \subseteq C_G(x)$ so $C=M$ and $x$ centralizes np $p'$-element and $x$ induces by conjugation
+a fixed point free automorphism and $G$ is nilpotent by Thompson.
+\end{quote}

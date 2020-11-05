@@ -1,0 +1,1318 @@
+\chapter{Math}
+\section{Number Theory, Inequalities and Combinatorics}
+\subsection{Basic Number Theory}
+{\bf Theorem:}
+$\pi$ is irrational.
+\begin{quote}
+\emph{Proof (Niven):}
+Assume to the contrary that $\pi = {\frac a b}, a,b \in {\mathbb Z}$.
+Define $f_n(x)= {\frac {x^n(a-bx)^n} {n!}}$ and
+$F_n(x) = f_n(x) - f_n^{(2)}(x) + f_n^{(4)}(x) - \ldots
+\ldots + (-1)^n f_n^{(2n)} (x)$. 
+If $x= 0 \textnormal{ or } \pi$, 
+$f_n^{(i)}(x) \in {\mathbb Z}, \forall i$ so
+$F_n(0), F_n(\pi) \in {\mathbb Z}$.
+$(F'(x) sin(x) - F(x) cos(x))'= (F''(x)+F(x))sin(x)=
+f_n(x) sin(x)$ so
+$\int_0^{\pi} f_n(x) sin(x) dx = F_n(\pi)-F_n(0) \in {\mathbb Z}$.  
+Now suppose, $0<x<\pi={\frac a b}$. Then $0<bx<a$, $0<a-bx<a$,
+$0 < (a-bx) x < a x < a \pi $ and thus 
+$0 < x^n(a-bx)^n < a^n \pi^n$,
+$0 < f_n(x) sin(x) \le f_n(x)={\frac {x^n(a-bx)^n} {n!}} < {\frac {a^n \pi^n}{n!}}$.
+Pick $n$ large enough that ${\frac {\pi^n a^n} {n!}} < {\frac 1 {\pi}}$ then
+$0< \int_0^{\pi} f_n(x) sin(x) dx < 1$.  But
+$\int_0^{\pi} f_n(x) sin(x) dx = F_n(\pi)-F_n(0) \in {\mathbb Z}$ and this 
+contradiction proves the result.
+\end{quote}
+{\bf Theorem:} $e$ is transcendental.
+\begin{quote}
+\emph{Proof:}
+If $f(x)$ is a polynomial of degree $r$, set
+$F(x)= f(x) + f'(x) \ldots + f^{(r)}(x)$.  Then
+$F(i)-e^{i}F(0)= -i e^{i(1-\theta_{i})}f(i \theta_{i})= \epsilon_{i}$.
+Suppose $e$ satisfies
+$g(e)= c_{n}e^{n} + \ldots + c_{0}= 0$. Then
+$c_{n}F(n) + \ldots + c_{0}F(0)= c_1 \epsilon_{1} +
+c_2 \epsilon_{2} + \ldots + c_n \epsilon_{n}$.
+Put $f(x)= {\frac {1} {(p-1)!}}
+x^{p-1} (1-x)^{p} (2-x)^{p} \ldots (n-x)^{p}$.
+$p \mid F(i), i>0$ but $p \nmid F(0)$.
+So, $c_{n}F(n) + \ldots + c_{0}F(0)$ is an integer not divisible by $p$ but
+$c_{n}F(n) + \ldots + c_{0}F(0)= c_1 \epsilon_{1} + c_2
+\epsilon_{2} + \ldots + c_n \epsilon_{n}$.  Now,
+let $p \rightarrow \infty$.
+\end{quote}
+{\bf Wilson:} $(p-1)! = (-1) \jmod{p}$.
+\begin{quote}
+\emph{Proof:}  There are only two solutions to 
+$x^2=1 \jmod{p}$, namely, $\pm 1$.  Thus, 
+if we multiply all non-$0$ elements of ${\mathbb Z}_p$ together,
+except for $\pm 1$, each multiplicative element can 
+be paired with its inverse leaving $(1)(-1)$.
+\end{quote}
+{\bf Theorem:} $\exists x$: 
+$x^2= -1 \jmod{p}$ iff $p=2$ or $p= 1 \jmod{4}$.
+\begin{quote}
+\emph{Proof:}
+$(p-1)!= -1= (-1)^{\frac {p-1} 2} 
+\prod_{j \in \{ 1,2, \ldots, {\frac {p-1} 2} \} } j^2 \jmod{p}$,
+if $p = 1 \jmod{4}$, first factor is $1$ and thus
+$(\prod_{j \in \{ 1,2, \ldots, {\frac {p-1} 2} \} } j)^2 = -1 \jmod{p}$.
+\end{quote}
+{\bf Theorem:} 
+If $p= 1 \jmod{4}: \exists a,b: a^2+b^2=p$.  
+\begin{quote}
+\emph{Proof:} 
+$\exists x: x^2+1= rp$.   Set
+$k= \lfloor {\sqrt p} \rfloor, k \leq {\sqrt p} < k+1$.  Set $f(u,v)= ux+v$; consider
+$S= \{(u,v): 0 \le u \le k, 0 \le v \le k \}$.  $|S|= (k+1)^2>p$, so 
+$\exists u_1, u_2, v_1, v_2 : f(u_1,v_1)=f(u_2, v_2)$ and
+$a= u_1-u_2, b= v_1-v_2$ then $a+bx=0 \jmod{p}$.  Now $a^2+b^2 = a^2 + a^2 x^2 = 0 \jmod{p}$.
+$|a| < {\sqrt p}$ and
+$|b| < {\sqrt p}$ so
+$0<a^2 + b^2<2p$ and $a^2 + b^2= p$.
+\end{quote}
+{\bf Theorem:} 
+If $q \mid (a^2 + b^2)$ and $q = 3 \jmod{4}$ then $q \mid a$ and $q \mid b$.  
+\begin{quote}
+\emph{Proof:} 
+Suppose $(a,q)=1$, pick ${\overline a}: a {\overline a} = 1 \jmod{q}$.
+$a^2 = -b^2 \jmod{q}$ so $-1= (b {\overline a})^2 \jmod{q}$.
+\end{quote}
+If $n= 2^{\alpha} \prod_{p = 1 \jmod{4}} p^{\beta} \prod_{q = 3 \jmod{4}} q^{\gamma}$ then
+$n= a^2 + b^2$ iff all $\gamma$ are even.
+\begin{quote}
+\emph{Proof:} Use $(a^2 + b^2)(c^2 + d^2)=
+(ac-db)^2 + (ad-bc)^2$.
+\end{quote}
+{\bf Theorem (representing integers as sums of squares):}
+There are no solutions to $x^2 + y^2 =n$ if
+$n= 3 \jmod{4}$.  There are solutions to $x^2 + y^2 =p$, $p$, prime if
+$p= 1 \jmod{4}$.  
+\begin{quote}
+\emph{Proof:} $\exists m,a,b: a^2+b^2=mp$ if $p= 1 \jmod{4}$; for
+example, $\exists a: a^2+1 = 0 \jmod{p}$ by Euler's criteria.  Note that
+$(ua+vb)^2 + (va-ub)^2 = (u^2+v^2)(a^2+b^2)$.  Now apply Fermat's descent,
+suppose $a^2+b^2=mp$.  Choose $u=a \jmod{m}, v=b \jmod{m}, -{\frac m 2} \le u,v \le {\frac m 2}$
+then $a^2+b^2=u^2+v^2= 0 \jmod{m}$.  $u^2+v^2= mr$ and
+$(ua+vb)^2 + (va-ub)^2= m^2 rp$. $m \mid (ua+vb)$ and $m \mid (va-ub)$ so
+$({\frac {ua+vb} {m}})^2 + ({\frac {va-ub} {m}})^2 =rp, r<p$.
+If $a$ has $A$ divisors $a_1 , \ldots , a_A$ with $a_i = 1 \jmod{4}$
+and $B$ divisors $b_1 , \ldots , b_B$ with $b_i = 3 \jmod{4}$ then
+$x^2 + y^2 =n$ has $4(A-B)$ solutions in the integers.
+\end{quote}
+{\bf Chinese Remainder Theorem}: If $(m_1 , m_2 )=1$, for any $a, b$,
+there is an $n$ such that
+$n= a \jmod{m_1}$ and
+$n= b \jmod{m_2}$.  Further, if $n'$ is another such number,
+$n= n' \jmod{m_1 m_2}$.
+\\
+\\
+{\bf Solving Linear Equations over ${\mathbb Z}$:}
+$ax=b \jmod{m}$ has a solution iff $(a,m) \mid b$.  If such a solution exists,
+there are ${\frac m {(a,m)}}$
+solutions.
+\\
+\\
+{\bf Theorem:} 
+If $(m_1, m_2)=1$ then $\phi(m_1 m_2)= \phi(m_1) \phi(m_2)$.  If 
+$N_f(m)$ is the number of solutions of $f(x) = 0 \jmod{m}$ and $(m_1 , m_2)=1$
+then $N(m_1 m_2) = N(m_1) N(m_2)$.
+\begin{quote}
+\emph{Proof:}
+Let $x_1 , x_2 , \ldots , x_j$ be the solutions to $f(x) = 0 \jmod{m_1}$
+and $y_1 , y_2 , \ldots , y_k$ be the solutions to $f(x) = 0 \jmod{m_2}$.
+By the Chinese remainder theorem there is a unique $z_{i,l} \jmod{m}$ such
+that $z_{i,l} = x_i \jmod{m_1}$ and
+$z_{i,l} = y_l \jmod{m_2}$ for each $1 \leq i \leq j$ and $1 \leq l \leq k$.
+The $z_{i,l}$ constitute all the solutions to $f(x) = 0 \jmod{m}$.
+\end{quote}
+{\bf Theorem:} 
+If $R= R_1 \times R_2 \times \ldots \times R_n$ then
+$U(R)= U(R_1) \times U(R_2) \times \ldots \times U(R_n)$. 
+\\
+\\
+{\bf Corollary:} 
+If $(m_i , m_j)=1$
+and $m= m_1 m_2 \ldots m_n$ then
+${\mathbb Z}/(m)= {\mathbb Z}/(m_1) \times {\mathbb Z}/(m_2) \times 
+\ldots \times {\mathbb Z}/(m_n)$.  Applying this to
+$n= 2^{e_0} {p_1}^{e_1}{p_2}^{e_2} \ldots {p_n}^{e_n}$ we find $n$ has a primitive root
+iff $n= 2, 4, p^{e}$.  $p$ has $\phi(p-1)$ primitive roots.
+\\
+\\
+{\bf Artin's conjecture:}
+$2$ is a
+primitive root for infinitely many primes.  The
+extended Riemann Hypothesis implies Artin's
+conjecture.
+\\
+\\
+{\bf Lucas' Theorem:} If $(a,m)=1$ and $a^{p-1} = 1 \jmod{m}$ and $p-1$
+is the smallest such exponent then $m$ is prime.
+\\
+\\
+{\bf Definition:} For $0 \leq a \leq b \leq n$ with $(a,b)=1$, the Farey sequence
+$F_n$ is the ordered list of ${\frac a b}$.  $F_3= \{0, 
+{\frac 1 3}, {\frac 1 2}, {\frac 2 3}, 1 \}$.
+\\
+\\
+{\bf Theorem:} If 
+$ {\frac {p_1} {q_1}}, {\frac {p_2} {q_2}}, {\frac {p_3} {q_3}}$ are three successive terms
+of a Farey sequence then $p_1 q_1 - p_1 q_2 =1$ and 
+${\frac {p_1 + p_3} {q_1 + q_3}}= {\frac {p_2} {q_2}}$.
+\\
+\\
+{\bf Chevalley's Theorem:} Suppose $f \in k[x_1, \ldots, x_n]$ , $k= F_q, q=0 \jmod{p}$ and
+$deg(f)=d<n$
+then (1) if $f(x)= 0 \jmod{p}$ has a solution, it has at least two; and (2) if $f(0)=0$,
+$f$ has at least one non-trivial solution.
+\begin{quote}
+\emph{Proof:}
+\\
+\\
+\emph{Lemma 1:}  If $u \in {\mathbb Z}, u \geq 0$ and $S(u)= \sum_{x \in k} x^u$ then $S(u)= -1 \jmod{p}$, 
+if $(q-1) \mid u$ and $0$ otherwise.
+\\
+\emph{Proof of lemma:} If $u=0$, $S(0) = q = 0 \jmod{p}$.  If $(q-1) \nmid u, \exists y \in k: y^u \neq 1$, so
+$S(u)= \sum_{x \in k} x^u = \sum_{x \in k} y^u x^u$ and $S(u)= y^u S(u)$ and thus $(1-y^u)S(u)= 0$ and $S(u)= 0$.
+Finally, if $(q-1) \mid u$, $x^u = 1$ if $x \neq 0$ and $x^u= 0$ if $x=0$; thus $S(u)= q-1 = -1 \jmod{p}$.
+\\
+\\
+Put $p(x)= 1-f(x)^{q-1}$, and let $N$ be the number of zeros of $f$.
+$p(x)= 1$ if $x$ is a zero of $f$ and $p(x)= 0$ if $x$ is not a zero of $f$, so $N= \sum_{x \in k} p(x) $.
+$p(x)$ is a sum of monomials in $n$ variables and since $deg(p)= d(q-1)$, at least one variable in the monomial appears
+to a power $<q-1$.   
+By the lemma, the sum over $k$ of each of these monomials is $0$ and so $\sum_{x \in k^n} p(x)= 0 \jmod{p}$ so
+$N= 0 \jmod{p}$ and the two assertions follow.
+\end{quote}
+{\bf Theorem:}
+Solutions of $f(x)= 0 \jmod{p}$ are solutions of $(f(x), x^p-x)$.
+If $deg(f(x)) = n$ with leading coefficient $1$ then $f(x)$ has $n$ solutions
+iff $f(x) \mid (x^p - x)$.  If $d \mid (p-1)$ then $x^d = 1 \jmod{p}$ has $d$ solutions.
+\\
+\\
+{\bf Hensel Lemma:}  Suppose $f(x) \in {\mathbb Z} [x]$.  If $f(a) = 0 \jmod{p^j}$ and
+$f'(a) \ne 0 \jmod{p}$, there is a unique $t: f(a+tp^j)= 0 \jmod{p^{j+1}}$.
+\begin{quote}
+\emph{Proof:} 
+$f(x+h)= f(x)+ h f'(x)+ \textnormal{ terms in } h^2 \textnormal{ or higher}$.  $f(a)= rp^j$, so
+$f(a+tp^j)= f(a)+ tp^j f'(a) + \textnormal{ terms in } p^{2j} \textnormal{ or higher}$.  Thus
+$f(a+t p^j)= (r+t f'(a)) p^j \jmod{p^{j+1}}$.   Find $t: r+t f'(a) = 0 \jmod{p}$.  Then
+$f(a+tp^j)= 0 \jmod{p^{j+1}}$.
+\end{quote}
+{\bf Theorem:} 
+If $(m,n)=1$ then $\phi(mn)= \phi(m) \phi(n)$.
+$ \sum_{d \mid n} \phi(d)= n$.
+$ \phi(n)=  n \prod_{p \mid n} (1- {\frac {1} {p}})$.
+$ 0=  \sum_{d \mid n} \mu(d)$, if $n>1$; $\mu(1)=1$.
+\begin{quote}
+\emph{Proof:}
+If $r_1, \ldots, r_a$ is a reduced residue set $\jmod{m}$,
+$s_1, \ldots , s_b$ is a reduced residue set $\jmod{n}$ and
+$x= s_i r_j$ then $(x,mn)=1$.  Further, by the CRT, if
+$(x, mn)=1$ then $\exists ! i, j: x= r_i \jmod{m}$ and $x= s_j \jmod{n}$.  This proves
+the first statement.  If $n= p^e$ then
+$\sum_{d|n} \phi(d)= \phi(1) + \phi(p) + \phi(p^2) + \ldots + \phi(p^e)=
+1 + (p-1) + (p^2-p) + \ldots + (p^e - p^{e-1})= p^e = n$.  Applying the prior result,
+completes the proof of the second result.  If $n= p_1^{e_1} p_2^{e_2} \ldots p_t^{e_t}$,
+define $\mu(n)=0$, if $e_j > 1$ for any $j$, otherwise $\mu(n)= (-1)^t$.  $\mu$ is
+multiplicative and the result follows.
+\end{quote}
+{\bf Moebius Formula:} If $f(n)$ is multiplicative and 
+$F(n)=  \sum_{d \mid n} f(d)$ then
+$f(n)= \sum_{d \mid n} \mu(d) F({\frac {n} {d}})$;  if
+$f(n)= \sum_{d \mid n} \mu(d) F({\frac {n} {d}})$ for every $n>0$ then
+$F(n)=  \sum_{d \mid n} f(d)$.
+$\phi(n)=  \sum_{d \mid n} \mu(d) {\frac {n} {d}}$.
+\begin{quote}
+\emph{Proof:}
+$\sum_{d \mid n} \mu(d) F({\frac {n} {d}})
+\sum_{d \mid n} \mu(d) \sum_{\delta  \mid  {\frac n d}} f(\delta)$
+$=\sum_{\delta  \mid n} \sum_{d  \mid  {\frac n \delta}} \mu(d) f(\delta)=
+\sum_{\delta  \mid n} f(\delta) \sum_{d  \mid  {\frac n \delta}} \mu(\delta) = f(n)$.
+\end{quote}
+{\bf Theorem:} If $(x,n)=1$ then $x^{\phi(n)}= 1 \jmod{n}$.  Counterexample to converse
+(first \emph{Carmichael Number}): 561.
+\\
+\\
+{\bf Theorem:}
+The multiplicative group of a finite field is cyclic.
+$({\frac {a} {p}}) = a^{\frac {p-1} {2}}$.
+\begin{quote}
+\emph{Proof:}
+$x^p-x = \prod_{a \in F_p} (x-a) = x \prod_{a \in F_p^*} (x-a) = x (x^{p-1} -1) $.
+If $F_p^*$ does not have an element of order $m=p-1$ then $\forall x \in F_P^*, x^k = 1$
+for some $k < m$. But $x^k-1 \ne x^m -1$ so $F_p^*$ has an element of order
+$m = |F_p^*|$ and so the multiplicitive group is cyclic.  Let $g$ be a generator for
+$F_p^*$, and suppose $a = g^n$.  $a$ is a square iff $n$ is even (and $(g^{\frac n 2})^2 = a$).
+In this case, 
+$a^{\frac {p-1} {2}}= ((g^{\frac n 2})^2)^{\frac {p-1} 2} = (g^{\frac n 2})^{p-1} = 1$.
+\end{quote}
+{\bf Gauss' Lemma:} 
+For any odd prime, $p$ with $(a,p)=1$.  Consider the integers
+$a, 2a, 3a, \ldots, {\frac {p-1} 2}a$.  If $\mu$ is the number of
+these whose least positive residue modulo $p$ greater than ${\frac p 2}$,
+then $({\frac a p})= (-1)^{\mu}$.
+\begin{quote}
+Suppose $r_1 , r_2 , \ldots , r_{\mu}$ be the residues that exceed ${\frac p 2}$
+and $s_1, s_2 , \ldots , s_{\nu}$ are the residues that are less
+than ${\frac p 2}$.  Taken together the set, $s_1, \ldots, s_{\nu},
+(p-r_1), \ldots (p-r_{\mu})$ is just
+$1, 2, \ldots , {\frac {p-1} 2}$.  Thus,
+$(p-r_1 ) \ldots (p-r_{\mu})s_1 s_2 \ldots s_{\nu} =
+{\frac {p-1} 2}! a^{\frac {p-1} 2} = (-1)^{\mu} {\frac {p-1} 2}!$.
+\end{quote}
+{\bf Theorem:} 
+If $p$ is an odd prime and $(a,2p)=1$ then $({\frac a p}) = (-1)^t$ where
+$t= \sum_{j=1}^{\frac {p-1} 2} \lceil {\frac {ja} p} \rceil$ and $({\frac 2 p})=
+(-1)^{\frac {p^2 -1} 8}$.
+\begin{quote}
+\emph{Proof:}
+$\sum_{j=1}^{\frac {p-1} 2} ja =
+\sum_{j=1}^{\frac {p-1} 2} p \lceil {\frac {ja} p} \rceil + \sum_{j=1}^{\mu} r_j +
+\sum_{j=1}^{\nu} s_j$.
+\end{quote}
+{\bf Law of quadratic reciprocity:} If $p, q$ are odd primes,
+$({\frac {p} {q}}) ({\frac {q} {p}})
+= (-1)^{\frac {p-1} {2} \frac {q-1} {2}}$,
+$({\frac {2} {p}}) = (-1)^{\frac {p^2 - 1} 8}$.
+\begin{quote}
+\emph{Proof (Gauss):} 
+Let $Dx = g_x p + r_x$.  Set $\rho_x= r_x$, if $r_x < {\frac p 2}$,
+$\rho_x= r_x-p$, if $r_x > {\frac p 2}$.  Let $n$ be the number
+of $\rho_x$ that are less than $0$.  Multiplying $D, 2D, 3D \ldots
+{\frac {p-1} 2} D$ together, we get:
+$D^{\frac {p-1} 2} {\frac {p-1} 2}!= ({\frac D p}) {\frac {p-1} 2}!$
+and since
+$D^{\frac {p-1} 2} {\frac {p-1} 2}!= (-1)^n {\frac {p-1} 2}!\jmod{p}$,
+$D^{\frac {p-1} 2}= ({\frac D p})= (-1)^n$.  
+Let $D=q \ne p$ then either $x= \rho_x + g_x \jmod{2}$ or
+$x= \rho_x + g_x +1 \jmod{2}$, depending on whether $\rho_x>0$ or $\rho_x<0$.
+Fix $D=q$. $\sum_{x=1}^{\frac {p-1} 2} x = n+ \sum_{x=1}^{\frac {p-1} 2} \rho_x +
+\sum_{x=1}^{\frac {p-1} 2} g_x \jmod{2}$.  Since 
+$\sum_{x=1}^{\frac {p-1} 2} x =  \sum_{x=1}^{\frac {p-1} 2} |\rho_x| \jmod{p}$,
+$\sum_{x=1}^{\frac {p-1} 2} x =  \sum_{x=1}^{\frac {p-1} 2} \rho_x \jmod{2}$.  Thus,
+$n= \sum_{x=1}^{\frac {p-1} 2} g_x \jmod{2}$.
+Now $g_x= \lfloor {\frac {qx} p \rfloor}$,
+so $({\frac q p})= (-1)^{\sum_{x=1}^{\frac {p-1} 2} g_x}=
+(-1)^{\sum_{x=1}^{\frac {p-1} 2} \lfloor {\frac {qx} p} \rfloor}$.  Thus 
+$({\frac p q}) ({\frac q p}) = 
+(-1)^ {{\sum_{x=1}^{\frac {p-1}2} \lfloor {\frac {qx} p} \rfloor}
++ {\sum_{y=1}^{\frac {q-1} 2} \lfloor {\frac {py} q} \rfloor}}$.  
+Now use the fact that
+$\sum_{x=1}^{{\frac {p-1} 2}} \lfloor {\frac {xq} {p}} \rfloor +
+\sum_{y=1}^{{\frac {q-1} 2}} \lfloor {\frac {yp} {q}} \rfloor =
+{\frac {(p-1)(q-1)} 4}$.  This can be derived by looking at the number
+of lattice points not on the $x$ or $y$ axis
+in a ${\frac p 2} \times {\frac q 2}$ rectangle
+with diagonal verticies at $(0, 0)$ and $({\frac p 2}, {\frac q 2})$.  
+Let $S= \{ (x, y): 1 \leq x \leq {\frac {p-1} 2}, 1 \leq y \leq {\frac {q-1} 2} \}$,
+so $|S|= {\frac {p-1} 2} \cdot {\frac {q-1} 2}$.  
+$S_1= \{ (x,y) \in S: qx>py \}$ and
+$S_2= \{ (x,y) \in S: qx<py \}$.  
+$|S_1|= \sum_{x=1}^{\frac {p-1} 2} \lfloor {\frac {qx} p} \rfloor$.  Similarly,
+$|S_2|= \sum_{y=1}^{\frac {q-1} 2} \lfloor {\frac {py} q} \rfloor$ and
+$S= S_1 \cup S_2$.
+\\
+\\
+\emph{Another Proof of QR using Gauss Sums:} $g_a (\zeta) = \sum_{t=0}^{p-1} \zeta(t)
+\varsigma^{at}$.  Set $g(x)= g_1 (x)$.
+Number of solutions to $x^2 = t \jmod{p}$ is $1+({\frac t p})$.
+$g_a(\zeta)= \zeta(a^{-1}) g(\zeta)$ if $a \ne 0 \jmod{p}$ otherwise
+it's $0$.
+$\sum ({\frac t p}) \varsigma^{at}= ({\frac a p}) \sum ({\frac t p})
+\varsigma^{t}$.
+If $\zeta$ is the principal character, $g(\zeta)= {\sqrt p}$.  If $\zeta$ is
+real
+and $g^k(\zeta)= (g(\zeta))^k$ then $g^2(\zeta)= (-1)^{\frac {p-1} 2} p$.
+Look at $|g(\zeta)|^2 = T = \sum_a
+g_a (\zeta) {\overline g_a (\zeta)}$.  On one hand,
+it's
+$\sum_t ({\frac t p}) ({\frac {-t} p}) g^2 = ({\frac {-1} p}) (p-1) g^2$.
+On the other, it's
+$\sum_x \sum_y \sum_a g_a(\zeta(x)) g_{-a}(\zeta(y))=
+\sum_a \sum_x \sum_y (\zeta(xy)) \varsigma^{(x-y)a} =(p-1)p$.
+\\
+\\
+Now set $p^*= (-1)^{\frac {p-1} 2} p$.
+$g^{q-1}= (g^2)^{\frac {q-1} 2}= ({\frac {p^*} q})$.
+So $g^q= ({\frac {p^*} q}) g$.  On the other hand,
+$g^q
+= (\sum_t ({\frac t p}) \varsigma^{t})^q \jmod{q}=
+(\sum_t ({\frac t p})^q \varsigma^{qt}) \jmod{q} =
+({\frac q p}) g$.  So $({\frac {p^*} q}) = ({\frac q p})$.
+\end{quote}
+{\bf Theorem:}
+$b^{n}+1$ is prime only if $n$ is a power of 2.
+If $M_{p}= 2^{p}-1$ is prime, $\Delta_{M} = \frac {1}{2} M (M+1)$ is
+perfect.
+\\
+\\
+{\bf Beatty:} If ${\frac {1} {\alpha}} + {\frac {1} {\beta}} = 1$ and
+$A= \{ \lfloor m \alpha \rfloor \}$,
+$B= \{ \lfloor m \beta \rfloor \}$ then $A \cup B = Z$ and $A \cap B =
+\emptyset$.
+\\
+\\
+{\bf Pell's Equation:} $x^2 -d y^2 = 1$ is solvable
+(if $d$ is not a perfect square) using
+continued fractions.
+Let ${\frac p q}<{\frac r s}$ be two rationals such that $ps-rq = -1$
+then $\forall \lambda, \mu, {\frac p q} \leq
+{\frac {\lambda p + \mu r} {\lambda q + \mu s}}
+\leq {\frac r s}$.
+Let ${\frac p q} \leq {\frac a b} \leq {\frac r s}$
+with $ps-rq = -1$
+then $a= {\lambda p + \mu r}$ and
+$b= {\lambda q + \mu s}$.
+\\
+\\
+{\bf Primes in arithmetic progressions:} There are infinitely many primes of the form $4n+3$.
+{\bf Dirichlet:}  If $a>0$ and $(a,n)=1$, then there are infinitely many primes
+$p$, such that $p = a \jmod{n}$.
+Largest power of $p$ dividing $n!$ is
+$\sum_{l \geq 0} \lfloor {\frac {n} {p^l}} \rfloor$.
+\\
+\\
+{\bf Bertrand's Postulate:} For any $n$ there is a prime $p$: $n < p < 2n$.
+\begin{quote}
+\emph{
+Outline of Erdos' proof:} \\
+\\
+(1) Prove for $n<4000$.
+\\
+\\
+(2) $\prod_{p \leq n} p \leq 4^{n}$.\\
+\\
+This is true for $n\le 4$.  If $n>3$ is even,
+$\prod_{p \leq n-1} p \leq \prod_{p \leq n} p \leq 4^{n-1}$ by induction.  Suppose
+$n>3$ is odd and put $k= {\frac {n \pm 1} 2}$ choosing the odd outcome.
+$\prod_{k < p \leq n} p \leq {n \choose k}$.  Since 
+${n \choose k}= {n \choose {n-k}}$ and both appear in the expansion of $(1+1)^n$, 
+${n \choose k} \leq 2^{n-1}$ and
+$\prod_{p \leq n} p = (\prod_{p \leq k} p ) (\prod_{k < p \leq n} p ) < 4^k \cdot 2^{n-1}=4^n$.
+\\
+\\
+(3) 
+Let $\mu_p$ be the exponent of the largest power of $p$ that divides
+${{2n} \choose {n}}$ and $\nu_p: p^{\nu_p} \leq 2n < p^{1+\nu_p}$.
+Suppose the result is false for some $n \geq 4000$ then
+${{2n} \choose {n}}=
+\prod_{p \leq 2n} p^{\mu_p} = \prod_{p \leq n} p^{\mu_p}$,
+$\mu_p \leq \nu_p$.
+If ${\frac {2n} 3} < p \leq n$, we have $p \geq 3, p^2 > {\frac 2 3} np \geq 2n$ and
+$1 \leq {\frac n p} < {\frac 3 2}$ and $2 \leq {\frac {2n} p} <3$ so
+$\mu_p= \lfloor {\frac {2n} {p}} \rfloor - 2 \lfloor {\frac {n} {p}} \rfloor = 0$.
+If ${\sqrt {2n}} < p \leq {\frac {2n} 3}$, we have 
+$p^2 > 2n$ and $\nu_p=1, \mu_p \leq 1$.
+For $p < {\sqrt {2n}}$, $p^{\mu_p} \leq p^{\nu_p} \leq 2n$ and all together we have
+${{2n} \choose {n}}=
+(\prod_{p \leq {\sqrt {2n}}} p^{\mu_p})
+(\prod_{{\sqrt {2n}}< p \leq {\frac {2n} 3}} p^{\mu_p})
+(\prod_{{\frac {2n} 3} < p \leq 2n} p^{\mu_p}) \leq
+(\prod_{p \leq {\sqrt {2n}}} 2n)
+(\prod_{p \leq {\frac {2n} 3}} p)$.  
+So ${{2n} \choose {n}} \leq (2n)^{{\sqrt {2n}}-2} 4^{{\frac {2n} 3}}$,
+$2^{\frac {2n} 3} < (2n)^{\sqrt {2n}}$.
+\\
+\\
+(4)  Since ${2n \choose n}$ is the largest term in $(1+1)^{2n}$,
+$(2n+1){2n \choose n} > 2^{2n}$ and since $4n^2>2n+1$,
+$4n^2 {2n \choose n} > 2^{2n}$ and
+${2n \choose n} > 2^{2n} (2n)^{-2}$.  Thus
+$2^{\frac {2n} 3} < 2^{\sqrt {2n}}$ which can only happen if 
+$n \leq 450$ and the theorem holds.
+\end{quote}
+{\bf Theorem:}
+The following moduli have \emph{primitive roots} for $p>2$, $2,4, p^k , 2p^k$.
+Fact for {\bf Miller-Rabin:} $n-1= 2^s r$, $r \ne 0 \jmod{2}$,
+$(a,n)=1$.  If $n$ is prime, either $a^r = 1 \jmod{n}$ or
+$a^{2^j r} = -1 \jmod{n}$ for some $j: 0 \leq j \leq (s-1)$.
+\\
+\\
+{\bf Definitions:}  The 
+\emph{Reimann zeta function} is $\zeta (s)= \sum {\frac {1} {n^s}}$
+which converges for $Re(s)>1$.
+Note: $\zeta (2) = {\frac {\pi^2} {6}}$.
+\emph{Riemann hypothesis:} If $s= a+bi$,
+all the zeros of $\zeta (s)$ have $a= {\frac 1 2}$.
+\\
+\\
+{\bf Prime Number Theorem:}  Let $\Pi(x)$ be the number of primes $\leq x$.
+$\Pi(x) \approx ({\frac {x} {ln(x)}})$.
+\begin{quote}
+\emph{Proof of weaker result:}  $\exists a, b \in {\mathbb R}: 
+a{\frac x {ln(x)}} < \pi(x) < b{\frac x {ln(x)}}, 
+a= {\frac {ln(2)} 4}, b= 9 ln(2) $.
+\\
+\\
+Let $\mu_p$ and $\nu_p$ be defined as in Bertrand's postulate.
+$\lfloor {\frac {2n} {p^j}} \rfloor - 2 \lfloor {\frac {n} {p^j}} \rfloor = 0, j \ge \nu_p$
+further,
+$\lfloor {\frac {2n} {p^j}} \rfloor - 2 \lfloor {\frac {n} {p^j}}\rfloor \leq 1, j \geq 1$ so
+$\mu_p \le \nu_p$ and ${2n \choose n} \mid \prod_{p \leq 2n} p^{\nu_p}$.
+If $n < p \leq 2n$, $p \mid (2n)!$ but $p \nmid n!$ so
+$\prod_{n<p \leq 2n} p \leq {2n \choose n} \leq \prod_{n<p \leq 2n} p^{\nu_p} \leq
+\prod_{p \leq 2n} 2n$.   So
+$n^{\pi(2n)-\pi(n)} \leq {2n \choose n} \leq (2n)^{\pi(2n)}$.  Taking logs,
+$\pi(2n) - \pi(n) \leq {\frac {2n ln(2)} {ln(2n)}}$ and 
+$\pi(2n) \geq {\frac {n ln(2)} {ln(n)}}, n>1$.  Let $2n$ be the greatest even integer
+in $x$ then the second inequality gives
+$\pi(x) \geq \pi(2n) \geq {\frac {n ln(2)}{ln(2n)}} 
+\geq {\frac {n ln(2)}{ln(x)}} \geq
+{\frac {(2n+2) ln(2)} {4 ln(x)}} > {\frac {ln(2)} 4} {\frac x {ln(x)}}$.
+For the reverse inequality, $y \geq 4$, let $2n$ be the smallest even integer $\geq y$ so
+$y \leq 2n, \pi(y) \leq \pi(2n), y+2 > 2n, {\frac y 2}>n-1$.  Thus
+$\pi({\frac y 2}) \geq \pi(n-1) \geq \pi(n)-1$ and
+$\pi(y) - \pi ({\frac y 2}) \leq \pi(2n)-\pi(n)+1 
+\leq {\frac {2n ln(2)}{ln(y)}}+1 \leq {\frac {2(y+2) ln(2)}{ln(y)}}+1
+\leq {\frac {3y ln(2)}{ln(y)}}+1 \leq {\frac {4y ln(2)}{ln(y)}}$.
+So $\pi(y) - \pi ({\frac y 2}) \leq {\frac {4y ln(2)}{ln(y)}}$ for $y \geq 2$.
+For $2 \leq y <4$,
+$\pi(y)-\pi({\frac y 2}) \leq \pi(4)$ and so
+$\pi(y)-\pi({\frac y 2}) \leq {\frac {2/e)y} {ln(y)}}, y \geq 2$.
+Hence,
+$
+\pi(y) ln(y) -\pi({\frac y 2}) ln({\frac y 2})=
+\pi(y) - \pi({\frac y 2}) ln(y)+ \pi({\frac y 2}) ln(2) <
+4y ln(2) + {\frac y 2} ln(2) = {\frac 9 2} y ln(2)$ and this proves the upper bound.
+\end{quote}
+{\bf Euler's Formula:} $\sum_{y <n \leq x} f(n)= \int_y^x f(t) dt +
+\int_y^x (t- \lfloor t \rfloor) f'(t) dt +
+(x- \lfloor x \rfloor) f(x) - (y- \lfloor y \rfloor) f(y)$.
+\\
+\\
+{\bf Theorem:} 
+$\sum_{n \leq x} {\frac 1 n} = ln(x) + C + O({\frac 1 x})$.
+$\sum_n {\frac {\mu(n)} {n^2}}= {\frac 1 {\zeta(2)}}= {\frac {6} {\pi^2}}$.
+\\
+\\
+{\bf Dirichlet:}  Let $\alpha$ be a real number and $Q$ a positive integer.
+There is a rational number ${\frac p q}$ with $1 \leq q \leq Q$ such that
+$|\alpha - {\frac p q}| \leq {\frac 1 {qQ}}$.
+\begin{quote}
+\emph{Proof:}  Let $B_q= \{ {\frac {q-1} Q} \leq x < {\frac q Q} \}$.  Let
+$c_q = q \alpha - \lfloor q \alpha \rfloor$.  By the pigeon hole principle,
+at least 2 $c_q$'s must lie in a single $B_k$.  This completes the proof.
+It's easy to extend this to show that if $\alpha$ is irrational,
+there are infinitely many rational numbers ${\frac p q}$ such that
+$|\alpha - {\frac p q}| \leq {\frac 1 {q^2}}$, which was sharpened by
+Hurwitz.
+\end{quote}
+{\bf Hurwitz:}  If $\alpha$ is irrational,
+there are infinitely many
+rational numbers ${\frac p q}$ such that
+$|\alpha - {\frac p q}| \leq {\frac 1 {{\sqrt 5} q^2}}$.
+\\
+\\
+{\bf Liouville:}  Let $\alpha$ be an algebraic number of degree $d \geq 2$.
+There is a constant $c(\alpha)>0$ such that for all ${\frac p q}$,
+$|\alpha - {\frac p q}| > {\frac {c(\alpha)} {q^d}}$ has only finitely
+many solutions.
+\begin{quote}
+\emph{Proof:}  
+Suppose $f(\xi)= a_n \xi^n+ a_{n-1} \xi^{n-1} + \ldots + a_0$.  
+$\exists M: |f'(y)|<M, \forall y: \xi-1 < y < \xi+1$.
+If $\xi-1 < {\frac p q} < \xi+1$ and $f({\frac p q}) \ne 0$ so
+$|f({\frac p q})|= {\frac {|a_n p^n + a_{n-1} p^{n-1}q + \ldots + a_0 q^n|}
+{q^n}} \geq {\frac 1 {q^n}}$.
+$f({\frac p q})= f({\frac p q})-f(\xi)= ({\frac p q} - \xi) f'(\eta)$.
+Therefore, $|{\frac p q} - \xi|= {\frac {|f({\frac p q})|} {|f'(\eta)|}} > {\frac 1 {M q^n}}$,
+proving the theorem.
+\end{quote}
+{\bf Roth:}  Let $\alpha$ be an algebraic number of degree $d \geq 2$ and
+$\epsilon >0$.
+There is a constant $c(\alpha, \epsilon)>0$ such that for all ${\frac p q}$,
+$|\alpha - {\frac p q}| > {\frac {c(\alpha, \epsilon)} {q^{2+\epsilon}}}$.
+Consequence: $z = \sum_i^\infty 10^{-i!}$ is transcendental.
+\\
+\\
+{\bf Theorem:} 
+$(2^a -1, 2^b -1)= 2^{(a,b)} -1$.
+\begin{quote}
+\emph{Proof:} Let $a=bq+r$, $x^a -1 = (x^b -1) (x^{a-b} + x^{a-2b} + \ldots +
+x^{a-qb})+ x^r -1$.  This parallels the construction of $(a,b)$ in the
+Euclidean algorithm.  
+\end{quote}
+{\bf Definition:}
+If $x= p^k {\frac a b}, (a,b)=(a,p)=(b,p)=1$ then $\nu_p (x) = k$
+is a \emph{$p$-adic valuation}.
+If $f(x,y,z)$ over ${\mathbb Z}$ is quadratic, then $f$ has a solution 
+over ${\mathbb Z}$ iff it
+has a solution in the $p$-adics over for all $p$.
+\emph{
+Counterexample for higher order equations:}
+$3x^3 +4y^3+5z^3=0 \jmod{p}$
+is solvable for $p$ but
+$3x^3 +4y^3+5z^3=0$ has no solutions.
+\\
+\\
+{\bf Lemma:} $2$ is a QR $\jmod{p}$ if $p= 1,7 \jmod{8}$, $2$ is not
+a QR $\jmod{p}$ if $p= 3,5 \jmod{8}$. $({\frac {2}{p}})= (-1)^{\frac {p^2-1} 8}$.
+\begin{quote}
+\emph{Proof:} Second part follows from first.
+\end{quote}
+{\bf Lemma:} Suppose $\zeta= \zeta_n= e^{\frac {2 \pi i} {n}}$.  If $n$ is odd,
+$x^n-y^n= \prod_{k=0}^{n-1} (\zeta^k x - \zeta^{-k} y)$.
+\begin{quote}
+\emph{Proof:} 
+$x^n-y^n= 
+\prod_{k=0}^{n-1} (x- \zeta^{-2k}y)=
+\zeta^{1+2+\ldots+n-1}\prod_{k=0}^{n-1} (x \zeta^k- \zeta^{-k}y)$.
+Since $n|(1+2+\ldots+n-1)$, the result follows.
+\end{quote}
+{\bf Lemma:} If $n$ is odd and $f(x)= e^{2 \pi i} - e^{-2 \pi i}$,
+${\frac {f(nz)} {f(z)}}= \prod_{k=1}^{\frac {n-1} 2} f(z+ {\frac l n})
+f(z- {\frac l n})$.
+\begin{quote}
+\emph{Proof:} 
+Put $f(z)= e^{2 \pi i z}-e^{-2 \pi i z}$. Let 
+$x=e^{2 \pi i z}$ and
+$y=e^{-2 \pi i z}$ in the Lemma above.
+${\frac {f(nz)} {f(z)}} = \prod_{k=1}^{n-1} f(z+{\frac k n})=
+\prod_{k=1}^{\frac {n-1} 2} f(z+{\frac k n}) f(z-{\frac k n}) $.
+\end{quote}
+{\bf Lemma:}If $p$ is odd prime, $a \in \mathbb Z$ and $p \nmid a$ then
+$\prod_{l=1}^{\frac {p-1} 2} f({\frac {la} {p}})= ({\frac a p}) \prod_{l=1}^{\frac {p-1} 2}
+f({\frac l p})$. 
+\begin{quote}
+\emph{Proof:} 
+If $1 \leq l <p$, $la= \pm m_l \jmod{p}$, so
+$f({\frac {la} p})= f({\frac {\pm m_l} p})$.  Take the product over all $l$ from
+$1$ to ${\frac {p-1} 2}$ and apply Gauss' lemma ($({\frac a p})= (-1)^{\mu}$ where $\mu$
+is the number of negative least residues.
+\end{quote}
+{\bf Yet another proof of QR:}
+\begin{quote}
+\emph{Proof:} 
+So $({\frac q p})= {\frac
+{\prod_{l=1}^{\frac {p-1} 2} f({\frac {la} {p}})}
+{\prod_{l=1}^{\frac {p-1} 2} f({\frac {l} {p}})} }= 
+\prod_{m=1}^{\frac {q-1} 2} \prod_{l=1}^{\frac {p-1} 2} 
+f({\frac {l} {p}}+ {\frac m q})f({\frac {l} {p}}- {\frac m q})$
+and
+$({\frac p q})= 
+\prod_{m=1}^{\frac {q-1} 2} \prod_{l=1}^{\frac {p-1} 2} 
+f({\frac {m} {q}}+ {\frac l p})f({\frac {m} {q}}- {\frac l p})$.
+Since $f(-t)=-f(t)$,
+$({\frac p q})({\frac q p}) =
+(-1)^{{\frac {p-1} 2} {\frac {q-1} 2}}$.
+$\prod_{l=1}^{\frac {p-1} 2} f({\frac {lq} {p})= (\frac q p} \prod_{l=1}^{\frac {p-1} 2}
+f({\frac l p})$.
+\end{quote}
+{\bf Lemma:} $\sum_{t=0}^{p-1} \zeta_p^{at} = p$, if $a=0 \jmod{p}$ and $0$ otherwise.
+\begin{quote}
+\emph{Proof:}  $x^p - 1 = (x - 1) (x^{p-1} + x^{p-2} + \ldots + 1)$.  Substituting
+$x = \zeta_p^{at}$ gives the result.
+\end{quote}
+{\bf Definition:} $Z_f(u)= exp(\sum_{s=1}^{\infty} {\frac {N_s} s} u^s)$ where
+$N_s$ is the number of solutions of $f(u)= 0$ in ${\mathbb P}^n(F_{q^s})$.
+\subsection{Inequalities}
+{\bf Arithmetic-Geometric:}
+${\frac {1} {n}} {\sum_n {a_i}} \geq (\prod_n {a_i})^{\frac 1 n}$.
+\begin{quote}
+\emph{Proof:}
+\\
+\\
+{\bf Lemma 1:} ${\frac {a+b} 2} \geq {\sqrt {ab}}$.
+\\
+\emph{Proof of Lemma 1:} $({\sqrt a} - {\sqrt b})^2 \geq 0$.  
+So $a + b - 2{\sqrt {ab}} \geq 0$ and the result follows.
+\\
+\\
+{\bf Lemma 2:} If $n= 2^k$ then 
+${\frac {\sum_{i=1}^{n} a_i} n}  \geq (\prod_{i=1}^{n} a_i)^{\frac 1 n}$.
+\\
+\emph{Proof of Lemma  2:} Proof by induction on $k$.  True for $k=1$, trivially and
+true for $k=2$ by Lemma 1.  Suppose $n= 2^{k+1}$ and the lemma is true for $n= 2^k$.
+$ {\frac {\sum_{i=1}^{n} a_i} n}=
+{\frac 1 2}  [ {\frac {\sum_{i=1}^{n/2} a_i } {n/2}} + {\frac {\sum_{i=n/2+1}^{n} a_i } {n/2}} ]
+\geq {\frac 1 2} 
+[(\prod_{i=1}^{n/2} a_i)^{2/n} + (\prod_{i=n/2+1}^{n} a_i)^{2/n} ]$ by the induction hypothesis. 
+Now $ {\frac 1 2} [ (\prod_{i=1}^{n/2} a_i)^{2/n} + (\prod_{i=n/2+1}^{n} a_i)^{2/n} ]
+\geq {\sqrt {(\prod_{i=1}^{n/2} a_i)^{2/n}}} {\sqrt {(\prod_{i=n/2+1}^{n} a_i)^{2/n}}}$
+by Lemma 1 and ${\sqrt {(\prod_{i=1}^{n/2} a_i)^{2/n}}} {\sqrt {(\prod_{i=n/2+1}^{n} a_i)^{2/n}}}=
+(\prod_{i=1}^{n} a_i)^{1/n}$ concluding the proof of Lemma 2.
+\\
+\\
+For the case when $n$ is not a power of $2$, let $2^k < n < 2^{k+1}= m$ and
+let $ \alpha = {\frac {\sum_{i=1}^{n} a_i} n}$.
+$ \alpha = {\frac {\sum_{i=1}^{n} a_i} n}  =
+{\frac {\sum_{i=1}^{n} ({\frac m n} a_i)} {m}} =
+({\frac 1 m}) ({\frac {\sum_{i=1}^{n} a_i} {n}} +
+{\sum_{i=n+1}^{m} } \alpha) \geq
+((\prod_{i=1}^{n} a_i) (\prod_{i=n+1}^{m} \alpha))^{\frac 1 m} $ where the last inequality follows from
+Lemma 2.  Thus we have
+$\alpha = {\frac {\sum_{i=1}^{n} a_i} n}  \geq
+((\prod_{i=1}^{n} a_i) (\prod_{i=n+1}^{m} \alpha))^{\frac 1 m} =
+((\prod_{i=1}^{n} a_i) \alpha^{m-n})^{\frac 1 m} $.  Raising both sides to the $m$-th power and
+dividing by $\alpha^{m-n}$, we get
+$\alpha^n \geq (\prod_{i=1}^{n} a_i)$ and the theorem follows.
+\end{quote}
+{\bf Triangle Inequality:} $|x|+|y| \geq |x+y|$.
+\\
+\\
+{\bf Cauchy-Schwartz:} $|u \cdot v|  \leq ||u|| ||v||$.
+\begin{quote}
+\emph{Proof:} Look at
+$\sum (a_i x + b_i )^2$.  Get $(\sum {a_i}^2)x^2 + 2 (\sum a_i b_i) x +
+\sum {b_i}^2$.  Complete square. Constant is always $\geq 0$.
+\end{quote}
+{\bf Holder's inequality:}
+If ${\frac {1} {p}} + {\frac {1} {q}} = 1$ then
+${\frac {a^p} {p}} + {\frac {b^q} {q}} \geq ab$ and
+$(\sum_{i} {a_i}^p )^{\frac 1 p} \cdot (\sum_{i} {b_i}^q )^{\frac 1 q}  \geq
+\sum_{i} a_i b_i $.
+\begin{quote}
+\emph{Proof:} If $f$ is
+monotonically increasing, $f(0)= 0$, then $\int_0^a f + \int_0^b f^{-1} \geq
+ab$.
+\\
+\\
+\emph{Another proof:}  You can prove first part using Arithmetic-Geometric inequality.
+Apply this inequality repeatedly with
+$a= {\frac {a_{i}} {(\sum_{i=1}^n {a_i}^p)^{\frac 1 p}}}$ and
+$b= {\frac {b_{i}} {(\sum_{i=1}^n {b_i}^q)^{\frac 1 q}}}$.  Adding these we get
+$(\sum_{i=1}^n {{a_i}^p})^{\frac 1 p}
+(\sum_{i=1}^n {{b_i}^q})^{\frac 1 q} \geq
+\sum_{i=1}^n a_i b_i$.
+\end{quote}
+{\bf Minkowski's inequality:}
+$(\sum {a_i}^p )^{\frac 1 p} +
+(\sum {b_i}^p )^{\frac 1 p} \geq (\sum (a_i + b_i )^p )^{\frac 1 p}$.
+\begin{quote}
+\emph{Proof:}  Write
+$(x_1+x_2)^p +(y_1+y_2)^p
+= [(x_1+x_2)^{p-1}x_1 +(y_1+y_2)^{p-1} y_1]
++ [(x_1+x_2)^{p-1}x_2 +(y_1+y_2)^{p-1} y_2]$.  Apply Holder to each term to
+get
+$(x_1^p+y_1^p)^{\frac 1 p}
+[(x_1+x_2)^{(p-1)q}
++(y_1+y_2)^{(p-1)q}]^{\frac 1 q} \geq
+x_1(x_1+x_2)^{p-1} +
+y_1(y_1+y_2)^{p-1}$ and
+$(x_2^p+y_2^p)^{\frac 1 p}
+[(x_1+x_2)^{(p-1)q}
++(y_1+y_2)^{(p-1)q}]^{\frac 1 q} \geq
+x_2(x_1+x_2)^{p-1} +
+y_2(y_1+y_2)^{p-1}$.  Since ${\frac 1 p} + {\frac 1 q} = 1$, $(p-1)q=p$.
+Adding the two inequalities and dividing by
+$[(x_1^p+x_2^p) + (y_1^p+y_2^p)]^{\frac 1 q}$ while noting that
+$1 - {\frac 1 q} = {\frac 1 p}$, we get Minkowski.
+\end{quote}
+{\bf Chebyshev's inequality:}
+If $a_1 \leq a_2 \ldots \le a_n$, $b_1 \leq b_2 \ldots \le b_n$.
+$({\frac {1} {n}} \sum a_i )
+({\frac {1} {n}} \sum b_i ) \leq
+({\frac {1} {n}} \sum a_i b_i)$. 
+\begin{quote}
+\emph{Proof:}
+$\sum_{i,j} (a_i b_i - a_i b_j )=
+n \sum_i a_i b_i -(\sum_i a_i ) (\sum_i b_i )$
+$\sum_{i,j} (a_j b_j - a_j b_i )=
+n \sum_i a_i b_i -(\sum_i a_i ) (\sum_i b_i )$
+so
+$n \sum_i a_i b_i -(\sum_i a_i ) (\sum_i b_i )= {\frac {1} {2}}
+\sum (a_j - a_i) (b_i - b_j) \leq 0$.
+\end{quote}
+{\bf Observation:} $\sum_i a_i b_i$ is max when $a_i$ and $b_i$ are in order, $a_, b_i \geq 0$.
+$min(a,b) \leq {\frac {2ab} {a+b}} \leq
+{\sqrt ab} \leq {\frac {a+b} 2} \leq
+{\sqrt {\frac {a^2 + b^2} 2}} \leq max(a,b)$.
+\\
+\\
+{\bf Definitions:}
+\emph{Concave (convex downwards, convex cap --- like $-x^2$):}
+$f( tx+(1-t)y) \geq tf(x)+(1-t)f(y)$.  
+\emph{Convex (convex upwards, convex cup--- like $x^2$):}
+$f( tx+(1-t)y) \leq tf(x)+(1-t)f(y)$.
+\\
+\\
+{\bf Jensen's Theorem:} If $f$ is convex, $E(f(X)) \leq f(E(X))$.
+If $f$ is concave, $E(f(X)) \geq f(E(X))$.
+Consequence:
+$log(x) \leq (x-1)$, equality iff $x=1$.
+\begin{quote}
+\emph{Proof:} Let $\lambda_1 + \lambda_2 = 1$ then $f(\lambda_1 x + \lambda_2 y) \leq
+\lambda_1 f(x) + \lambda_2 f(y)$, by definition. Now apply induction.
+\end{quote}
+{\bf Hadamard inequality:}
+$|D(a_1 , a_2 , a_3 , \ldots , a_n )| \leq ||a_1 || \cdot ||a_2 || \ldots
+\cdot ||a_n ||$.
+$a^2 + b^2 + c^2 \geq ab + ac + bc$ and
+${\frac {b} {a+c}} + {\frac {a} {b+c}} + {\frac {c} {b+c}} \geq {\frac {3}
+{2}}$.
+\begin{quote}
+\end{quote}
+{\bf Weighted AM-GM:}  If
+$\lambda_1, \ldots , \lambda_n >0$ and
+$\sum_{i=1}^n \lambda_i= 1$, then
+$\sum_{i=1}^n \lambda_i x_i \geq \prod_{i=1}^n x_i^{\lambda_i}$.
+\subsection{Combinatorics and Sets}
+Let $f(x)= c_k x^k + \ldots + c_0$ be a polynomial
+with $c_0 c_k \ne 0$ which factors as
+$f(x)= c_k {(x- r_1 )}^{m_1} \ldots {(x- r_l )}^{m_l}$, then a sequence
+$\{a_n \}$ satisfies a \emph{linear recurrence} with characteristic polynomial
+$f(x)$ iff $\exists : g_1 (x) , \ldots , g_l (x)$ such that
+$a_n = g_1 (n) {r_1}^n + \ldots + g_l (n) {r_l}^n$ where
+$deg(g_{i})<m_{i}$.
+\begin{quote}
+\emph{Proof:} Put $a_n = a_j {\alpha_j}^n$ where $f(\alpha_j)=0$.
+Then $c_k {\alpha_j}^k + \ldots + c_0 = 0$.  These solutions are linearly independent for $1 \leq j \leq k$, so the general solution
+is a linear combination of these solutions.
+\end{quote}
+{\bf Power Means:}  If $k_1 \geq k_2$ and $a_i \geq 0$ then 
+$ (\sum_{i=1}^n {\frac {a_i^{k_1}} {n}})^{k_2} \geq (\sum_{i=1}^n {\frac {a_i^{k_2}} {n}})^{k_1} $.
+\begin{quote}
+\emph{Proof:}
+$(\sum_{i=1}^n {\frac {a_i^{k_1}} n})^{\frac 1 {k_1}} \leq (\sum_{i=1}^n {\frac {a_i^{k_2}} n})^{\frac 1 {k_2}}$,
+so $(\sum_{i=1}^n {\frac {a_i^{k_1}} n})\leq (\sum_{i=1}^n {\frac {a_i^{k_2}} n})^{\frac {k_1} {k_2}}$.
+$f(x) = x^{\frac {k_2} {k_1}}$ is concave, so applying Jensen:
+$(\sum_{i=1}^n {\frac {a_i^{k_1}} n})^{\frac {k_2} {k_1}} \geq (\sum_{i=1}^n {\frac {a_i^{k_2}} n})$. So
+\end{quote}
+{\bf Linear congruential generator:}
+$x_{n+1} = (a x_{n} + c) \jmod{m}$
+has period $n$ if $(c,m)=1$.  $b=a-1$, $b=0 (p)$ if $p|m, b=0 (4)$
+if $m=0 (4)$.
+\\
+\\
+{\bf Burnside counting:}  Let a permutation group $G$ act on $A$ inducing an equivalence
+relation $S$.  Let $n$ be the number of equivalence classes.
+$n= {\frac 1 {|G|}} \sum_{g \in G} |A_g|$.
+\begin{quote}
+\emph{Proof:}  Count
+$S= \{ (a,g), a \in A, g \in G: a^g=a \}$ two different ways.
+\end{quote}
+{\bf Notation:}
+Let $D$ be a set of elements permuted by
+a group $G$ and $R$ be a set of colors.  A \emph{coloring} is a map $f:D \rightarrow R$.
+The set of colorings is denoted by $R^D$.
+Two colorings, $f_1 , f_2$, are \emph{equivalent}
+if $f_1(d) = f_2 (d^g ), \forall d$.  Let $w$ be a map from $R$ to a set of \emph{weights}.
+The term $\sum_{r \in R} w(r)$ is called the \emph{store}.  If $f: D \rightarrow R$ then
+$W(f)= \prod_{d \in D} w(f(d))$ is called the weight of $f$.  If $F$ is a set of
+functions from $D \rightarrow R$, ${\cal I}(F)= \sum_{f \in F} W(f)$.  If
+$F_G$ consists of a representative of each equivalence class under $G$ of $F$,
+${\cal I}(F_G)$ is called the \emph{pattern inventory}.
+Suppose $F= \bigcup_i F_i$ where $F_i$ are a set of functions of
+weight $i$ and suppose $\pi \mapsto \pi^{(i)}$ is the homomorphisms that
+take permutations of $D$ to the
+action induced by equivalent coloring on the functions of $F_i$.  
+Let $cyc(\pi)$ be the number of cycles in $\pi$.
+Finally, define
+$P_{G}(x_{1}, x_{2}, \ldots , x_{n})= {\frac {1} {|G|}} \sum_{g \in G}
+x_{1}^{\pi_{1}(g)} x_{2}^{\pi_{2}(g)} \ldots x_{n}^{\pi_{n}(g)}$, where $\pi_i$ is the number
+of cycles of length $i$ in $g$.
+\emph{Example:}  Consider a string of three beads colored either $r$ or $b$.  
+$D= \{1,2,3\}$ and $R= \{r, b\}$.  
+$G= \langle (13) \rangle$ so that the order of beads on a string doesn't matter.
+$P_G(x_1, x_2)= {\frac 1 2} (x_1^3 + x_1 x_2)$.  Let $F$ be a set of representatives
+of colorings from each equivalence class.
+${\cal I}(F_G)= {\frac 1 2}[(r+b)^3+(r+b)(r^2 + b^2)]= b^3 + 2r^2b + 2 b^2r + r^3$, so there are
+six distinct (under the action of $G$) patterns.
+\\
+\\
+{\bf Observation:}
+Let $D_1, D_2, \ldots, D_k$ be a partition of $D$ into disjoint sets.
+Since $\sum_{r \in R} w(r)^{|D_i|}$ is a
+representation of the number of ways to distribute the objects
+in $D_i$ so they will end up in the same color,
+$\prod_{i=1}^k [\sum_{r \in R} w(r)^{|D_i|}]$ is the inventory of
+$D^R$ in which elements of each $D_i$ have the same color.
+\\
+\\
+{\bf Polya's Theorem:} Let $F$ be a set of functions from $D \rightarrow R$,
+${\cal I}(F_G)= P_G(\sum_r w(r), \sum_r w(r)^2, \ldots , \sum_r w(r)^k, \ldots)$.
+\begin{quote}
+\emph{Proof:}
+Let $F= \bigcup_i F_i$ and $m_i$ be the number of equivalence classes of 
+weight $W_i$ in $F_i$ then, by Burnside, 
+${\cal I}(F_G)= \sum_i m_i W_i= \sum_i {\frac 1 {|G|}} \sum_{g \in G} \psi(g^{(i)}) W_i=
+{\frac 1 {|G|}} \sum_{g \in G} (\sum_i \psi(g^{(i)})) W_i$ where
+$\psi(g^{(i)})$
+is the number of colorings fixed by $g^{(i)}$.
+Note that $(\sum_i \psi(g^{(i)}))W_i$ is the inventory 
+of all equivalent $f$ and so
+$\sum_i \psi(g^{(i)}) W_i = \prod_j (\sum_r w(r)^j)^{b_j}$ 
+where $b_j$ is the number of cycles of
+length $j$ in $g$.  This completes the proof.
+\end{quote}
+\emph{Example (Vertices on cube):}
+$P_G= {\frac {1} {24}}
+(x_{1}^{8}+ 9x_{2}^4+ 6x_{4}^{2} + 8x_{1}^{2} x_{3}^2)$.  For two colors,
+the number of patterns is $23$.
+\emph{Example (Faces on cube):}
+$P_G= {\frac {1} {24}}
+(x_{1}^{6}+ 6x_{1}^{2}x_{4}+ 3x_{1}^{2}x_{2}^2 + 6x_{2}^{3} + 8x_{3}^{2})$.
+For $f \in R^{D}$, store: $\sum w(r)$, inventory: $W(f)= \prod_{d} f(d)$,
+pattern inventory of $R^{D}= \sum_{f} W(f)$.
+\\
+\\
+{\bf Corollary:}
+Number of equivalence classes= $P_{G}(|R|,|R|, \ldots |R|)$.
+\begin{quote}
+\emph{Proof:}
+Assign a weight of $1$ to each element of $R$ and apply Polya.
+\end{quote}
+${\bf (v, k, t, \lambda )}$ {\bf design:}
+$|X|= v$, $B$ is a set of $k$ subsets of
+$X$ is a design if each $t$ subset $T$ of $X$,
+the number of blocks containing $T$ is
+$\lambda$ and $|B|=b$.
+$r$, the incidence number, is the number of blocks incident
+with one point.  These designs are denoted $t-(v,k, \lambda )$ or
+$S_{\lambda}(t, k, v)$.
+$b_i = \lambda
+{\frac
+{{{v-i} \choose {t-i}}}
+{{{k-i} \choose {t-i}}}
+}$,
+$b_0 =b$,
+$b_1 = r$.
+${\frac {(vr)} {k}} \leq {{v} \choose {k}}$.
+\\
+\\
+{\bf Hall's Theorem:} $J(A)= \{ y \in Y, (x,y) \in E, x \in A \}$
+and $|J(A)| \geq |A|$ if and only if there is a complete matching.
+\\
+\\
+{\bf Inclusion-Exclusion:}  Let $A_1 , A_2 , \ldots , A_n$ be a family of 
+subsets of $X$.  The elements
+of X that are not in $\bigcup_i^n A_i$ is
+$\sum_{I \subseteq [n]} (-1)^{| I | } |A_I |$ where
+$A_I = \bigcap_{i \in I} A_i$. (Note:
+$A_{\phi}= X$.)  For classical statement, let $A_i = \{ x: c_i (x)
+\; is \; true\}$.  Somtimes this is written
+$N({\overline {a_1}}, {\overline {a_2}}, \ldots ,{\overline {a_n}})= N - \sum_i N(a_i) + \sum_{i,j} N(a_i , a_j) + \sum_{i,j,k} N(a_i , a_j , a_k) - 
+\ldots +(-1)^n N(a_1, a_2,\ldots, a_n)$.
+\\
+\\
+{\bf Ramsay:} Let $P_{r}(S)$ be the $r$-subsets of $S$.
+Let $P_{r}(S)= A_{1} \cup \ldots \cup A_{t}$ and $1 \leq r \leq q_{1},\ldots
+q_{t}$.
+$\exists N(r, q_{1},\ldots q_{t})$ such that for $n \geq N$, S contains a
+$(q_{i},A_{i})$.
+$R(m,n) \leq R(m-1, n) + R(m, n-1)$ and $R(s,t) \leq {(s+t-2) \choose
+(s-1)}$.
+\\
+\\
+{\bf Generating Functions:} Let $12$ objects be distributed to $A, B, C$ subject
+to: $A$ gets at least 4, $B$ and $C$ get at least 2 and $C$ gets no more
+that 5.  The coefficient of $x^{12}$ in
+$(x^4 + \ldots x^8 ) (x^2 + \ldots x^8 ) (x^2 + \ldots x^5 )$ is the number
+of ways this can happen.
+For selections with repetitions note that:
+$({\frac {1} {1-x}})^n = \sum_i {{n+i-1} \choose {i}} x^i$.  For partitions,
+examine
+$ {\frac {1} {1-x}}({\frac {1} {1-x}})^2 \ldots$.
+Exponential generating functions:
+$f(x)= a_0 + a_1 x +
+{\frac {1} {2!}} a_2 x^2 + \ldots
+{\frac {1} {k!}} a_k x^k  + \ldots$.
+Difference calculus: $\sum_i i^n = (1+ \Delta )^n u_0$.
+\\
+\\
+{\bf Counting results:}
+\emph{Dearrangements:} $n! ( 1 - {\frac 1 {1!}} +{\frac 1 {2!}} -{\frac 1 {3!}}
+\ldots + (-1)^{n} {\frac 1 {n!}})$. 
+\emph{Menages ($i$ is not in $i+1$ $\jmod{n}$):}
+$\sum_{r=0}^{n} (-1)^{r} (n-r)! {(2n-r) \choose r} {\frac {2n} {2n-r}}$.
+Number of solutions of 
+$n_1 + n_2 + \ldots + n_r = r$ is ${(n+r-1) \choose r}$.
+\emph{Restricted permutation positions:}
+$N(a_1 ', a_2 ' , \ldots , a_{n-1} ')= n! -
+{{n-1} \choose 2} (n-2)!  +{{n-1} \choose 3} (n-3)! -
+\ldots + (-1)^{n} {{n-1} \choose {n-1}} (n-1)!$.
+For permutations of a, b, c, d, e, f which don't contain ace or fd:
+$N(a_1 ', a_2 ')= 6!-4!-5! + 3!$.
+\emph{Rook polynomials:}
+$R(x, C)= xR(x,C_i ) + R(x, C_e )$.
+\emph{Forbidden positions:}
+$N(a_i ', a_2 ', \ldots , a_n ') = e_0 =
+n! - r_1 (n-1)! + r_2 (n-2)! - \ldots = \sum (-1)^j r_j (n-j)!$.
+\emph{Exactly $m$ with property:}
+$e_m =  \sum_{j=0}^n (-1)^j {{m+j} \choose {j}} s_{m+j}$.
+\emph{Fixed points in a random permutation:}  
+Let $h: GF(2)^n \rightarrow GF(2)^n$ be a random
+permutation.  The limit as $n \rightarrow \infty$ that $h$ has $p$ fixed points is
+${\frac 1 {pe}}$.
+\\
+\\
+{\bf Theorem:}
+If the number of surjective maps from $[m] \rightarrow [n]$ is denoted $S(m,n)$,
+$S(m,n)= \sum_{k=0}^n {(-1)^{n-k}} {n \choose k} k^m$.
+$n!= \sum_{i=0}^n {(-1)^i} {n \choose i} (n-i)^n$.
+\begin{quote}
+\emph{Proof:}
+By induction on $n$.  If $n > m$, $S(m,n)=0$ and $S(m,0)=4$ always.  If $m \ge n \ge 1$, there
+are ${n \choose k}$ distinct $k$-subsets of $[n]$; any map is surjective on some $k$-subset so
+$n^m= \sum_{k=0}^n {n \choose k} S(m,k)$.  Now use the following \\
+\emph{Lemma:} If $B_n= \sum_{k=0}^n {n \choose k} A_k$ then 
+$A_k= \sum_{k=0}^n {n \choose k} (-1)^{n+k} B_k$.\\
+\\
+\emph{Proof of Lemma:}
+$
+\sum_{k=0}^n {n \choose k} (-1)^{n+k} B_k=
+\sum_{k=0}^n {n \choose k} (-1)^{n+k} 
+(\sum_{r=0}^k {k \choose r} A_r)=
+\sum_{k=0}^n \sum_{r=0}^k 
+{n \choose k} {k \choose r} A_r) (-1)^{n+k}$.  
+The coefficient of $A_n$ in this sum is $1$ and the coefficient of $A_r, r<n$, denoted
+$\lambda_r$ in this sum is $0$.  
+$\lambda_r= \sum_{k=r}^n {n \choose k} {k \choose r} (-1)^{n+k} $ and the second term in the sum
+is equal to ${(n-r) \choose (k-r)}$, so
+$\lambda_r= (-1)^{n+k}  {n \choose r} \sum_{j=0}^{n-r} {(n-r)\choose j} (-1)^{r+j} = 0 $.
+\end{quote}
+{\bf Multinomial coefficients:} ${ {a+b+c} \choose {a, b, c}}$ and
+$(x+y+z)^{a+b+c}$.
+${ {ne} \choose k} \leq ({\frac {ne} {k}})^k$,
+${n \choose k} \geq ({\frac n k})^k$.  Identities:
+$
+{r \choose k} = {\frac {r} {k}}{r-1 \choose k-1},
+{n \choose k} = {n-1 \choose k} + {n-1 \choose k-1},
+{r \choose k} = {{(-1)}^{k}}{k-r-1 \choose k},
+{r \choose m} {m \choose k} = {r \choose k} {r-k \choose m-k} ,
+\sum_{k=0}^{n}{r+k \choose k} = {{r+n+1} \choose {n}},
+\sum_{k=0}^{n}{k \choose m} = {n+1 \choose m+1},
+\sum_{k=0}^{n}{r \choose k}{s \choose n-k}  = {r+s \choose n},
+\sum_{k=a}^{b-1} f(k)= \int_{k=a}^{b-1} f(x) dx +
+\sum_{k=1}^m {\frac {B_{k}} {m!}} f^{(k-1)}(x)^{b}_{a}+ R_{m},
+a_{n} T_{n} = b_{n} T_{n-1} + c_{n} \rightarrow
+s_{n} a_{n} T_{n} = s_{n} b_{n} T_{n-1} + s_{n} c_{n} ,
+s_{n} b_{n} = s_{n-1} a_{n-1},
+R_{n} = s_{n} a_{n} T_{n},
+R_{n} = R_{n-1} +s_{n} c_{n},
+{-n \choose r}= (-1)^r {n+r-1 \choose r},
+(1+x)^{-n} = 1 + {-n \choose 1} x^{-1} + \ldots + {-n \choose n} x^{-n}$.
+\\
+\\
+{\bf Definition:} $S(n,k)$, or  
+\emph{Stirling numbers of the first kind}, is the number permutations in
+$S_n$ with exactly $k$-cycles.
+$T(n, k)$, or \emph{Stirling numbers of the second kind}, is the number of ways of
+grouping $n$ objects into $k$ groups.
+The \emph{Bell numbers}, $B_n$, are the number of ways to divide $n$ things into groups.
+$B_{n+1}= \sum_{k=0}^n {n \choose k} B_n $.
+$ \sum_{k=0}^{n} S(n,k) = b_{n} , S(n+1, k) = k S(n,k) + S(n, k-1)$
+$ \sum_{k=0}^{n} T(n,k) = n! , T(n+1, k) = n T(n,k) + T(n, k-1)$.
+Let $B_{n}$ denote the $n$-th \emph{Bernoulli number} then
+$\sum_{j=0}^m {{m+1} \choose j} B_j = 0$
+and $B_0=1$.  ${\frac x {e^x-1}} = \sum_{n=0}^{\infty} B_n {\frac {x^n} {n!}}$.
+\emph{Catalan numbers:}
+$c_{n} = \frac {1} {n+1} {2n \choose n} , c_n = \sum_{k=0}^{n-1} c_k c_{n-k-1}$.
+\\
+\\
+{\bf Partitions:} Let $p(n)$ be the number of partitions of $n$.  Then,
+$p(n) \approx \frac{1}{4n \sqrt{3}} e^{\sqrt{\frac {2n} {3}}}$.
+The number of partitions of $n$ into $k$ things is the number of partitions
+of $n$ with largest partition $k$.
+\\
+\\
+{\bf A Theorem of Erdos:}
+A sequence of $(n-1)(m-1) + 1$ different numbers has either an increasing
+sub-sequence of length $n$ or a decreasing sub-sequence of length $m$.
+\begin{quote}
+\emph{Proof:} 
+Let $x \in B_r$ if the longest increasing sequence beginning with
+$x$ has length $n$.  If any $B_r$, with $r \geq n$ is non empty, we're done.
+Otherwise, there must be a $B_k$ with $k<n$ containing at least $m$ elements.
+These $m$ elements form a decreasing sequence.
+\\
+\\
+Similarly, if $1 \leq a_1 , \ldots , a_n \leq m$ and
+$1 \leq b_1 , \ldots , b_n \leq m$ ,  $\exists p,q,r,s$ with
+$a_{p+1} + \ldots + a_{p+q} = b_{r+1} + \ldots + b_{r+s}$.
+\emph{Proof:} Let $j=j(k)$ be the smallest integer with
+$a_1 + \ldots + a_j \geq
+b_1 + \ldots + b_k$.  Let $c_k = \sum_{i=1}^{j(k)} a_i - \sum_{i=1}^k b_i$.
+At least two $c_l$'s (say $c_u$ and $c_v$, $u>v$) are equal.  $c_u-c_v$
+provides the right sequence.
+\end{quote}
+In permutation, $i<j$ and $a_i > a_j$ is \emph{inversion}.  Inversion table is
+$( b_j )$ where $b_j =$ number of elements left of $j$ that are $>j$.
+For 5 9 1 8 2 6 4 7 3, it's 2 3 6 4 0 2 2 1 0.  Inversion table uniquely
+determines permutation.  Inverse has same number of inversions.
+\\
+\\
+{\bf Generating permutations of $[1,n]$:}\\
+\jt Set $\pi = 123 \ldots n$.  Output $\pi$.\\
+\jt If $\pi_i > \pi_{i+1}$, $\forall i$, stop.\\
+\jt Get largest $i$: $\pi_i < \pi_{i+1}$.\\
+\jt Find smallest $j$: $i<j$ such that $\pi_i < \pi_j$.\\
+\jt $\pi_i \leftrightarrow \pi_j$.\\
+\jt Reverse the order of the numbers following, $\pi_j$, denote this
+by $\pi$.\\
+\jt Output $\pi$.  Go to 2.\\
+Another algorithm: Steinhaus weaving generator (by recursion).
+\\
+\\
+{\bf Definition:}  
+The \emph{permanent}, $per( a_{ij} )$, $m \times n$ matrix, is
+$\sum_{\sigma} a_{1 i_1} a_{2 i_2} \ldots a_{m i_m}$ where
+$\sigma$ runs through $m$ permutations of $[n]$.
+$ n!= per(J) = \sum_{r=0}^{n-1} {n \choose r} (-1)^{r} (n-r)^{n}$.
+Let $A_r$ be the matrix obtained by replacing $r$ specified
+columns of $A$ by $0$.  Let $S(A_r )$ be the product of row sums of
+$A_r$.  Let $\sum_r S(A_r )$ over all choices of r:
+$ per(A)= \sum S(A_{n-m}) - {n-m+1 \choose 1} S(A_{n-m+1}) +
+\ldots (-1)^{m-1} {n-1 \choose m-1} S(A_{m-1}) $.  \\
+\\
+{\bf Graph theory definitions:}  
+${\cal G}(V,E)$ a graph with vertex set $V$ and edge set $E$.
+$g({\cal G})$ - girth - length of minimum cycle.
+$\omega ({\cal G})$- clique number.
+$\alpha ({\cal G})= \omega (\overline {{\cal G}})$- independence number.
+$\chi ({\cal G})$ - chromatic number.
+$\delta({\cal G})$ - minimum degree.
+$\Delta ({\cal G})$ - maximum degree.
+$d (x,y)= $ number of edges between x and y.
+$D_{\cal G} (x,y)= max_{x, y} d(x, y)$.
+Cayley graph.  Strongly regular graphs. Expander graphs and short paths.
+\\
+\\
+{\bf Theorem:}
+A graph is \emph{bipartite} iff it contains no cycles of odd length.
+$\alpha ({\cal G}) \chi ({\cal G}) \geq n$.
+\\
+\\
+{\bf Theorem:} There are $n^{n-2}$ labeled trees with $n$ nodes.  
+\begin{quote}
+\emph{Proof:} Use \emph{Prufer code} for tree $T$: remove leaf with smallest
+label, add the label of the vertex it's connected to at end of sequence.
+\end{quote}
+{\bf Graph counting:}
+$G(n, M), N= {n \choose 2}$.  Random graph selecting  $M$ of the $N$ edges.
+$Pr[G=H]= p^{e(H)} q^{N-e(H)}$.
+$X_s (G)= $ number of complete graphs of order $s$.
+$E(X_s )=  \sum_{\alpha \in S}  E( Y_{\alpha} (G)$, where
+$Y_{\alpha} (G) = 1$, if $G[ \alpha ] = K_{\alpha}$, $0$ otherwise.
+$E_M (Y_{\alpha} )= P_M (G_p [ \alpha ]= K_{\alpha})= p^S =
+{{N-S} \choose {M-S}} {N \choose M}^{-1}$.
+$E_p ( X_s )= {n \choose s} p^s$.
+If $a$ is the order of the automorphism group of $F$ then $K_k$ has
+${\frac {k!} {a}}$ subgraphs isomorphic to $F$.
+$N_F = {n \choose k} {\frac {k!} {a}}= {\frac {(n)_k} {a}}$.
+For cycles, $a= 2k$.
+\\
+\\
+{\bf Another Theorem of Erdos:}  There is a graph, $G$, with $g(G) \geq n$ and
+$\chi (G) \geq n$.  Another formulation:  Given natural numbers 
+$g \geq 3$,
+$k \geq 2$, $\exists G$, with $|G| k^{3g}$, $g(G) \geq g$
+and $\chi (G) \geq k$.
+\begin{quote}
+Fact 1: If $G \in G(n, p)$, $q= 1-p$ then
+$Pr[ \alpha (G) \geq k ] \leq  {{n} \choose {k}} q^{{k} \choose {2}}$
+Fact 2: Markov's inequality.
+Fact 3: Let X be a r.v. representing the number of $k$-cycles.
+$E(X) = {\frac {(n)_k} {2k}} p^k$.
+Fact 4: If $k>3$ and $p(n)$ is a function with
+$p(n) \geq {\frac {6 k ln(n) } {n} }$ then
+$lim_{n \rightarrow \infty} Pr [ \alpha \geq {\frac {n} {2k}} = 0$:
+${{n} \choose {r}} q^{{r} \choose {2}} \leq n^n q^{{r} \choose {2}} \leq
+{(n e^{- p {\frac {r-1} {2}}})^r}$ inside expression is
+$\leq {\sqrt {\frac {e} {n}}} \rightarrow 0$.
+\\
+\\
+Argument:  Fix $ 0 < \epsilon < {\frac {1} {k}}$, $p= n^{1- \epsilon}$,
+$X(G)$ is the number of cycles $\leq k$.  $E(X) \leq \sum
+{\frac {(n)_i} {2i}} p^i \leq {\frac {1} {2}} (k-2) (np)^k$.
+$Pr[X \geq {\frac {n} {2}}] = {\frac {E(X)} {\frac {n} {2}}} \leq
+(k-2) n^{k \epsilon - 1}$.  Pick $n$ big enough so that
+$Pr[X \geq {\frac {n} {2}}] > {\frac {1} {2}}$ and
+$Pr[ \alpha \geq {\frac {n} {2k}}] < {\frac {1} {2}}$.  So $\exists G$ with
+$<{\frac {n} {2}}$ short cycles and $\alpha(G) < {\frac {n} {2k}}$ delete up
+to
+${\frac {n} {2}}$ points to eliminate the short cycles producing a graph
+$H \subseteq G$.  $\chi (H) \geq {\frac {H} {\alpha (H)}} \geq
+{\frac {\frac {n} {2}} {\alpha (G)}} > k$.
+\end{quote}
+{\bf Definition:}
+$\epsilon$-regular: $(A,B)$ with $X \subseteq A$ and $Y \subseteq B$ such that
+$|X| \geq \epsilon |A|$ and
+$|Y| \geq \epsilon |B|$ satisfy $|d(X,Y)-d(A,B)| \leq \epsilon$.
+$\epsilon$ regular partition: (1) $| V_0 | < \epsilon |V|$, (2) $|V_i | = |
+V_1 |$,
+for $i \geq 1$, (3) all but $\epsilon k^2$ of the pairs $(V_i , V_j )$ are
+$\epsilon$ regular.
+\emph{Szemeredi Regularity Lemma:} For every $\epsilon >0$ and every $m \geq 0$,
+$\exists M$ such that every graph of order at least m admits an $\epsilon$
+regular partition $\{ V_0 , V_1 , \ldots , V_k \}$ with $m \leq k \leq M$.
+\\
+\\
+{\bf Theorem:} There is a \emph{giant component} in $G(n,p)$ 
+when $p={\frac {1+ \epsilon } {n}}$.\\
+\\
+{\bf Sunflower Lemma:} Let $T= \{ S_1 , S_2 , \ldots , S_k \}$ be a system over a
+set $U$, such that (1) $| S_i | \leq l$ and (2) $k> {(p-1)}^l l!$.  Then
+$\exists F \subseteq T$, $F= \{ S_{i_1} , S_{i_2} , \ldots ,
+S_{i_p} \}$ such that $\forall A,B \in F,
+A \cap B = F$.
+\\
+\\
+{\bf Random function statistics:}
+Tail, cycle, predecessor length: ${\sqrt {\frac {\pi n} {8}}}$,
+Tree Size: ${\frac {n} {3}}$,
+Number of components: ${\frac {lg(n)} {2}}$,
+Component Size: ${\frac {2n} {3}}$.  \\
+\\
+{\bf Sperner's Lemma:}  A collection $F$ of non-empty subsets of a set $X$
+is called an antichain
+if no set in $F$ is properly contained in another set of $F$.  If $|X|=n$,
+$|F| \leq {n \choose n'}$, where $n' = \lfloor {\frac {n+1} {2}} \rfloor$.
+If $|X|$ is even there are exactly 2 maximal antichains,
+the collection of $\lfloor {\frac {n-1} {2}} \rfloor$ subsets of $X$ and
+the collection of $\lfloor {\frac {n+1} {2}} \rfloor$ subsets of $X$.
+If $n$ is even, there is exactly one maximal antichain, namely, the
+collection of $\lfloor {\frac {n} {2}} \rfloor$ subsets of $X$.
+\\
+\\
+{\bf Definitions:}
+Posets, chains (totally ordered subset) and antichains (set in which all
+subsets are incomparable).
+\\
+\\
+{\bf Dilworth's Theorem:} The cardinality of a maximal antichain
+is equal to the minimum number of disjoint chains into which a poset can be
+partitioned. In a chain of $mn+1$ elements there is a chain of $m+1$
+elements or there are $n+1$ incomparable elements.  
+\\
+\\
+{\bf Symmetry group of Rubik's cube:} $|G_R|= 2^{27}3^{14}5^3 7^2 11$.
+\\
+\\
+{\bf Some Relations:}
+If $f(x) \in {\mathbb Z} \rightarrow x \in {\mathbb Z}$ then
+$\lfloor f(x) \rfloor = \lfloor f(\lfloor x \rfloor) \rfloor$.
+$\lfloor {\frac {x+m} n} \rfloor=
+\lfloor {\frac {\lfloor x \rfloor + m} n} \rfloor$.
+$\sum_{i=0}^{m-1} \lceil {\frac {n-i} m} \rceil= n$.
+$ \sum_{k=0}^{m-1} \lfloor {\frac {nk+x} m} \rfloor=
+\sum_{k=0}^{n-1} \lfloor {\frac {mk+x} n} \rfloor$.
+\\
+\\
+{\bf Theorem:}
+The following are equivalent: (1) \emph{[Axiom of choice]}  If $I \ne \emptyset$ and
+$\forall i \in I, A_i \ne \emptyset$ then $\prod_{i \in I} A_i \ne \emptyset$;
+(2) \emph{[Zorn's Lemma]} If $A \ne \emptyset$ is partially ordered and if every chain
+(including infinite chains!) has an upper bound in $A$ then $A$ contains a
+maximal element; (3) \emph{[Well ordering]}  If $A \ne \emptyset$ has a linear order,
+$\le$, then $(A, \le)$ is has a least element.  Transfinite Induction: if
+$B \subseteq A$ and $A$ is well ordered under $\le$ and if 
+$\{ c \in A: c<a \} \subseteq B \rightarrow a \in B$ then $A=B$.
+\begin{quote}
+\emph{Proof:}
+\\
+\\
+\emph{AC $\rightarrow$ Zorn:}  Map the partial order into inclusion by
+${\overline s}(x)= \{ y: y \leq x \}$.  ${\overline s}: X \rightarrow {\cal P}(X)$ and
+${\overline s}(x) \subseteq {\overline s}(y)$ iff $x \leq y$.  Let ${\cal X}$ be the collection of
+all totally ordered subsets of $X$.  If ${\cal C}$ is a totally ordered set (under inclusion) in
+${\cal X}$ then $\bigcup_{A \in  {\cal C}} A \in {\cal X}$.
+\\
+\\
+\emph{Claim:} Let ${\cal X}$ be a collection of subsets of $X$ such that (1) 
+$Y \subseteq X \in {\cal X} \rightarrow Y \in {\cal X}$ and (2) if ${\cal Y}$ is a totally ordered sets
+in ${\cal X}$ then $\bigcup {\cal Y} \in {\cal X}$.  Then there is a maximal set in ${\cal X}$.
+\\
+\\
+By the axiom of choice for $X$, pick an $f: f(A) \in A, A \subseteq X$ and $\forall A \in {\cal X}$,
+put $\hat{A}= A \cup \{ f(A) \}$.  Further, define $g: {\cal X} \rightarrow {\cal X}$ by
+$g(A)= A \cup \{f(\hat{A}-A) \}$ if $\hat{A} - A \neq \emptyset$ and $g(A)=A$, otherwise.  Note that
+$\hat{A}-A = \emptyset$ iff $A$ is maximal and that $g(A)$ contains at most one more element than $A$.
+\\
+\\
+We say ${\cal J} \subseteq  {\cal X}$ is a \emph{tower} if (i) $\emptyset \in {\cal J}$, (ii) if
+$A \in {\cal J}$ then $g(A) \in {\cal J}$, (iii) if ${\cal C}$ is a totally ordered collections of sets
+in ${\cal J}$ then $\bigcup_{A \in {\cal C}} A \in {\cal J}$.
+\\
+\\
+The intersection of all towers (denoted ${\cal J}_0$) is a minimal tower.
+\\
+\\
+We say $C \in {\cal J}_0$ is if $A \subseteq C$ or $C \subseteq A$ for all $A \in {\cal J}_0$.
+${\cal J}_0$ is totally ordered iff all sets are comparable.  Now fix $C$.
+\\
+\\
+If $A \in {\cal J}_0$, $A \subseteq C$ and $A \neq C$ then $g(A) \subseteq C$ and either
+$g(A) \subseteq C$ or $C \subseteq g(A), C \neq g(A)$ but $A \subseteq C \subseteq g(A)$ and
+$A \neq C$ which contradicts the fact that $g(A)$ has only one more element than $A$.
+Consider ${\cal U}= \{ A: A \subseteq C \textnormal{ or } g(C) \subseteq A \}$.  We claim
+${\cal A}$ is a tower.  Properties (i) and (iii) are clear.  For (ii), there are three cases:
+if $A \subseteq C, A \neq C$ then $g(A) \subseteq C$;
+if $A=C$, $g(A)=g(C)$ so $g(A) \in {\cal U}$;
+if $g(C) \subseteq A$, then $g(C) \subseteq g(A)$ and $g(A) \in {\cal U}$.  Finally, since
+${\cal J}_0$ is the smallest tower, ${\cal J}_0 = {\cal U}$.  This shows that if $C$ is comparable,
+so is $g(C)$.
+\\
+\\
+Note that $\emptyset$ is comparable and $g$ maps comparable sets into comparable sets.  Thus comparable
+sets form a tower.  Thus ${\cal J}_0$ is a totally ordered and $A= \bigcup_{X \in {\cal J}_0} X \in {\cal J}_0$.
+$g(A) \subseteq A$ and $A \subseteq g(A)$ so $g(A)=A$ and $A$ is maximal.
+\\
+\\
+\emph{Zorn $\rightarrow$ Choice:}  Given $X$, consider $f: \textnormal{dom}(f) \subseteq {\cal P}(X),
+\textnormal{range}(f) \subseteq X$ and $f(A) \in A, \forall A \in \textnormal{dom}(f)$.  Order these functions
+by extension.  By Zorn, there is a maximal one with $\textnormal{dom}(f)= {\cal P}(X) - \{ \emptyset \}$.
+\end{quote}
+{\bf Theorem:}
+$|P(A)| > |A|$. 
+\begin{quote}
+\emph{Proof:} $f: a \mapsto \{a\}$ shows
+$|P(A)| \ge |A|$. Suppose
+$|P(A)| = |A|$, then there is a bijection $f$ between
+$P(A)$ and $A$.  Let $B= \{ a: a \notin f(a) \}$.  If $b \in B$ and $b \mapsto f(b)$
+then $b \notin B$, this is a contradiction.
+\end{quote}
+{\bf Schroeder-Bernstein:}  If $A,B$ are two sets and there are injections 
+$f: A \rightarrow B$ and
+$g: B \rightarrow A$ then there is a bijection
+$h: A \rightarrow B$.  
+\begin{quote}
+\emph{Lemma:} If there is a subset $A' \subseteq A$ satisfying the
+hypothesis of the theorem with $A'=B$ then there is a bijection
+$h: A \rightarrow A'$.  
+\\
+\emph{The lemma implies the theorem:} Let $A'=g(f(A))$ 
+then by the lemma, $\exists h: A \rightarrow A'$ and $g^{-1} \circ h$ is the desired
+bijection.  
+\\
+\emph{Proof of Lemma:}  Set $X= \bigcap_{n \ge 0} f^{(n)} (A \setminus A')$ and
+define $h(x)= f(x), x \in X, h(x)=x, x \notin X$; this is a bijection.  
+First note $f(X) \subseteq X$.  If $x,y \in X$ or $x,y \notin X$ it is clear that
+$h(x)=h(y) \rightarrow x=y$ and by construction, there is no $x \in X, y \notin X$
+with $h(x)=h(y)$.  If $y \in A'$ and $y \in X$, then $y \in f^{(n)}(A \setminus A')$
+for some $n$ in which case $\exists x \in X: h(x)=y$ otherwise 
+$y \notin X$ and $h(y)=y$.
+\end{quote}
+{\bf Arrangements:}  Arrange $n$ objects into $k$ containers. $S(a,b)$- Stirling number
+of second kind, $p_k(b)$ - number of $k$ partitions of $b$ things.
+\begin{figure} [h]
+\begin{center}
+\begin{tabular} {|r|r||r|r|r|}
+\hline
+Objects & Containers & Any & At most one & At least one \\
+distinguishable?& distinguishable?& & per container & per container \\
+\hline
+Yes & Yes & $n^k$ & ${\frac {n!} {(n-k)!}}$ & $k! S(n,k)$ \\
+\hline
+No & Yes & ${ {n+k-1} \choose {n}}$ & ${n \choose k}$ & ${{n-1} \choose {k-1}}$\\
+\hline
+Yes & No & $\sum_{i=1}^k S(n,i)$ & $1$ if $n \le k$, & $S(n,k)$ \\
+& & & $0$ if $n > k$ & \\
+\hline
+No & No & $\sum_{i=1}^k p_i(n)$ & $1$ if $n \le k$, & $p_k(n)$\\
+& & & $0$ if $n > k$ & \\
+\hline
+\end{tabular}
+\end{center}
+\end{figure}
+\\
+Select $n$ elements from $r$ distinct objects, with repetition allowed: ${{n+r-1} \choose {r}}$.
+Correspondence: $\langle s_0, s_1, \ldots , s_n \rangle \rightarrow \langle s_1+0, s_2+1, \ldots, s_n+n-1 \rangle$.]
+\\
+Number of ways to distribute $r$ non-distinct objects into $n$ distinct cells: ${{n+r-1} \choose {(n-1)}}$.
+\\
+Number of ways to distribute $r$ distinct objects into $n$ distinct cells (more than one element in cell allowed): ${\frac {(n+r-1)!} {(n-1)!}}$.
+

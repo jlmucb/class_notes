@@ -1,0 +1,434 @@
+\chapter{Components}
+\section{Subnormal Subgroups}
+{\bf Definition:} $G$ is \emph{semi-simple} if it is the direct product of non-abelian simple groups.
+\\
+\\
+{\bf Theorem 1:} If $G= \prod K_i$ is semisimple and $N \lhd G$ then $N$ is  aproduct of some of the $K_i$.
+\\
+\\
+{\bf Theorem 2:} If $G_1 , G_2 \lhd G$ are semi-simple, so is $G_1 G_2$ and $G_1 \cap G_2$.
+\\
+\\
+{\bf Theorem 3:} If  $H$ is a minimal normal subgroup of $G$ then $H$ is either semi-simple or an elementary abelian
+$p$-group.
+\\
+\\
+{\bf Theorem 4:} If 
+$A \lhd \lhd G$ and $B \lhd \lhd G$ then $ \langle A, B \rangle \lhd \lhd G$. 
+\begin{quote}
+\emph{Proof:}  
+The proof is by induction on $|G|$.  We have:
+$A=A_1 \lhd A_2 \lhd \ldots \lhd A_n \lhd G$
+and
+$B=B_1 \lhd B_2 \lhd \ldots \lhd B_m \lhd G$.  
+$A_n B_m \lhd G$.  If
+$A_n B_m < G$.  $ \langle A, B \rangle \lhd \lhd \langle A_n , B_m \rangle \lhd G$
+where the subnormality in the product group follows by induction and the result follows.
+If $ \langle A, B \rangle = G$ the result is trivial.  Let $B_l$ be the first 
+subgroup in the subnormal
+sequence for $B$ in $G$: $B_lA_n=G$.  The $N=B_{l-1}A_n \lhd B_l A_m =G$.
+$ \langle A,B \rangle \lhd N \lhd G$ and the result follows.
+\end{quote}
+{\bf Theorem 5:}
+Let $\Sigma$ be a set of subnormal subgroups of $G$ satisfying
+$\Sigma^G=\Sigma$ and $\exists \Sigma: \Sigma > \Sigma_0$ then
+$\exists X \in \Sigma \setminus \Sigma_0$ such that $\Sigma_0^X=\Sigma_0$.
+\begin{quote}
+\emph{Proof:}
+By the previous result $ \langle \Sigma_0 \rangle \lhd \lhd G$.  
+Assume $ \langle \Sigma_0 \rangle \ne G$ then 
+$\exists G_1 \lhd G: \langle \Sigma_0 \rangle \subseteq G_1$, hence the induction claim applies to
+$G_1$ provided $\Sigma_1 = \{ U: U \le G_1 \} \ne \Sigma_0$.  We can assume
+$\Sigma_1= \Sigma_0$.  Then $\Sigma_1^G = \Sigma_1$, $G_1^G = G_1$ and $\Sigma_G = \Sigma$ and
+so $ \langle \Sigma_0 \rangle = \langle \Sigma_1 \rangle \lhd G$.
+\end{quote}
+{\bf Theorem 6:}
+Let $A < G$ and ${\cal U}$ be a collection of non-empty subsets of $G$
+For $U \in {\cal U}$, $\emptyset \ne 
+\Sigma_U:
+\Sigma_U = \{ A^g : g \in G, A^g \lhd \lhd U \}$.  Suppose that $\forall U, \tilde{U} \in {\cal U}$
+such that (1) $A \in \Sigma_U$, 
+(2) $\{ B: B \in \Sigma{\tilde{U}} : B \le U \} \subseteq \Sigma_U$,
+(3) $\exists \hat{U} \in {\cal U}: N_G( \langle \Sigma_U \cap \Sigma{\tilde{U}} \rangle)$
+then ${\cal U}$ contains a unique maximal element.
+\begin{quote}
+\emph{Proof:}
+Set $\Sigma= \bigcup_{U \in {\cal U}} \Sigma_U, U \in {\cal U}$.  Assume $U_1 \ne U_2$
+are two maximal elements of ${\cal U}$ and $\Sigma_0 = \Sigma_{U_1} \cap \Sigma_{U_2}$
+is maximal.  According to (3), 
+$N_G( \langle \Sigma_0 \rangle) \subseteq U_3^{max}, <\Sigma_{U_i} \lhd U_i$
+and the maximality of $U_i$ gives $U_i= N_G( \langle \Sigma_{U_i} \rangle)$.
+Suppose $\Sigma_0 \subseteq \Sigma_{U_i}$.  By the previous result, 
+$\exists X \in \Sigma_{U_i} \setminus \Sigma_0$ 
+with $ \langle \Sigma_0 \rangle^X = \langle \Sigma_0 \rangle $.  So
+$X \in \Sigma_{U_3}$ and $\Sigma_0 \subset \Sigma_{U_3} \cap \Sigma_{U_i}$ and
+$U_2 \ne U_1 = U_3$.  Then $\Sigma_0 = \Sigma_{U_1}$ and since
+$U_i= N_G( \langle \Sigma_{U_i} \rangle)$,
+$U_1= N_G( \langle \Sigma_{U_i} \rangle) \le U_3$.  This is a contradiction.
+\end{quote}
+{\bf Theorem 7:}
+If $A \lhd \lhd \langle A,A^g \rangle , \forall g \in G$ then $A \lhd \lhd G$.
+\begin{quote}
+\emph{Proof:}
+$A \lhd \lhd \langle A , A^{gx^{-1}} \rangle $ so
+$A^x \lhd \lhd \langle A^x , A^{g} \rangle $.  
+Proceed by induction on $|G|$ and assume $A$ is not
+subnormal in $G$.  Let ${\cal U}$ be the proper subgroups of $G$ containing $A$.
+$ \langle A, A^g \rangle \in {\cal U}, \forall g \in G$.  By induction,
+$\Sigma_U= \{ A^x: A^x \le U, x \in G \} \lhd \lhd U$.  $\Sigma_0 \subseteq \Sigma_U$
+and $A \in \Sigma_0$, $A \lhd \lhd \langle \Sigma_0 \rangle $.  So
+$ \langle \Sigma_0 \rangle $ is not normal in $G$ and 
+$N_G( \langle \Sigma_0 \rangle) \in {\cal U}$ and ${\cal U}$
+satisfies the hypothesis of the previous theorem.  Let $M$ be the unique maximal subgroup.
+that contains 
+$ \langle A, A^g \rangle , \forall g \in G$.  $A \lhd \lhd , \langle \Sigma_M \rangle \lhd G$ and
+thus $A \lhd \lhd G$.
+\end{quote}
+\section {Basic Results and definitions}
+{\bf Generalized Fitting Subgroup Motivation:}
+Since $C(F^*(G)) \subseteq F^*(G)$, $G \rightarrow Aut(G)$ has kernel $Z(F^* (G))$; 
+further, $F^*(G)$ is uncomplicated and its embedding in $G$ is well behaved.  
+Want to study relationship
+of $F^*(G)$ and its $p-$locals.  Hard when $F^*(G)$ is a $p-group$ but then we
+can use Thompson factorization.  
+\\
+\\
+{\bf Definition:} 
+$L$ is \emph{quasi-simple} if $L'=L$ and $L/Z(L)$ is simple.  
+\\
+\\
+{\bf Definition:} 
+$L$ is a \emph{ component} of $H$ if
+$L \lhd \lhd H$ and $L$ is quasi-simple.
+\\
+\\
+{\bf Definition:} 
+$Comp(G)= \{H: H$ is a component of $G \}$.
+\\
+\\
+{\bf Definition:} 
+$E(G)= \langle Comp(G) \rangle $ where $H$ is a component of $G$.  $E(G) \lhd G$.
+\\
+\\
+{\bf Definition:} 
+$F^*(G)=F(G)E(G)$ is called the \emph{Generalized Fitting Group}.
+\\
+\\
+{\bf Theorem 8:} Let $H \lhd \lhd G$ then $Comp(H)= Comp(G) \cap H$.
+\begin{quote}
+\emph{Proof:}
+If $L \in Comp(H)$, $L \lhd \lhd H \lhd \lhd G$ so $L \in Comp(G)$.  If
+$L \lhd \lhd G$ and $L \in Comp(G) \cap H$, $L \lhd \lhd H$ and the result follows.
+\end{quote}
+{\bf Theorem 9:} Let $L \in Comp(G)$ and $H \lhd \lhd G$ then either $L \in Comp(H)$ or
+$[L,H]= 1$.
+\begin{quote}
+\emph{Proof:}
+If $L \notin Comp(H)$, $L \cap H < L$ and $L \ne [L, H] \lhd L$, so 
+$[L,H] \subseteq {\mathbb Z}(L)$.  $[L,H,L]=1= [H,L,L]$ so $[L, L, H]= [L, H]=1$ by 
+the three subgroups lemma.
+\end{quote}
+{\bf Theorem 10:} Distinct components commute.
+\begin{quote}
+\emph{Proof:}
+$[L_1, L_2] \le L_1 \cap L_2$.  Since $L_1 \ne L_2$
+$[L_1 \cap L_2] \subseteq {\mathbb Z}(L_1) \cap {\mathbb Z}(L_2)$.
+So
+$[L_1, L_2, L_2] =1$ and
+$[L_2, L_1, L_2] =1$ so $[L_2, L_2, L_1]= [L_2, L_1]=1$.
+\end{quote}
+{\bf Theorem 11:} Let $L \in Comp(G)$ and $H$ be an $L$-invariant subgroup of $G$ then
+(1) either $L \in Comp(H)$ or $[L,H]=1$ and (2) if $H$ is solvable, $[L,H]=1$
+\begin{quote}
+\emph{Proof:}
+$H \lhd \langle H, L \rangle$.  If $L \subseteq H$, $L \in Comp(H)$, otherwise,
+$[L, H] = 1$ by the earlier result.  If $H$ is solvable, it cannot have a simple 
+non-abelian subgroup, $L$ so $L \notin Comp(H)$.
+\end{quote}
+{\bf Lemma:} If $K_1$ and $K_2$ are components either $K_1= K_2$ or $[K_1, K_2 ] = 1$.
+\begin{quote}
+\emph{Proof:}
+By previous result, if $[K_1 , K_2] \ne 1$, 
+$K_1 \le K_2$ symmetrically,
+$K_1 \ge K_2$ and $K_1 = K_2$,
+\end{quote}
+{\bf Theorem 12:} Let $E=E(G)$, $Z={\mathbb Z}(E)$, ${\overline E}= E/Z$.  Then
+(1) $Z= \langle {\mathbb Z}(L): L \in Comp(G) \rangle $
+(2) ${\overline E}$ is the direct product of the groups ${\overline L}, L \in Comp(G)$,
+(3) $E$ is a central product of its components.
+\begin{quote}
+\emph{Proof:}
+$Z_0 = \prod_{i=1}^n Z_i$.  $E(G)= \prod_{i=0}^n (Z_0 K_i)$.  
+$K_i Z_0 \cap \prod_{i \ne j} K_j Z_0 = Z_0$.
+\end{quote}
+{\bf Theorem 13:} $O_{\infty}(C_G(F(G)))= {\mathbb Z}(F(G))$.
+\begin{quote}
+\emph{Proof:}
+Let $Z={\mathbb Z}(F(G))$, ${\overline G}= G/Z$ and $H=O_{\infty}(C_G(F(G)))$.
+Assume ${\overline H} \ne 1$ and ${\overline X}$ a minimal normal subgroup of
+${\overline H}$.  ${\overline X}$ is a $p$-group so $X=PZ$, $P \in S_p(X)$ and $X$
+centralized $Z$ so $P \lhd X$.  Thus $P \le O_p(G) \le F(G)$ so $P \le C_G(F(G))=Z$,
+a contradiction.
+\end{quote}
+{\bf Theorem 14:} Let $Z={\mathbb Z}(F(G))$, ${\overline G}= G/Z$, ${\overline S}= soc(C_G(F(G)))$
+then $E= S^{(1)}$ and $S=E(G)Z$.
+\begin{quote}
+\emph{Proof:}
+Let $H=C_G(F(G))$.  $O_{\infty}({\overline H}) = 1$ so each minimal normal subgroup
+of ${\overline H}$ is the direct product ofnonabelian simple subgroups and these are
+components of ${\overline H}$.  So ${\overline S} \le E({\overline H})$.
+Let ${\overline K}$ be a component of ${\overline H}$.  So $K= K^{(1)}Z$ with
+$K^{(1)}$ quasisimple.  $K \in Comp(G)$ so
+$S \le E(G)Z$ and $S \le E(G)Z$, thus $E(G) \le H$.  
+Let $L \in Comp(G)$ and $M= \langle L^H \rangle $
+then ${\overline M}$ is a minimal normal simple subgroup of ${\overline H}$ so
+$M \le S$.  Thus $S=E(G)Z$ so $E(G)=S^{(1)}$.
+\end{quote}
+{\bf Definition:} $F^*(G)= E(G)F(G)$.
+\\
+\\
+{\bf Theorem 15:} $C_G(F^*(G)) \le F^*(G)$.
+\begin{quote}
+\emph{Proof:}
+Let $H=C_G(F^*(G)), K= C_G(F(G)), Z= {\mathbb Z}(F(G))$ and ${\overline G}= G/Z$.
+${\overline H} \lhd {\overline K}$, so if ${\overline H} \ne 1$ then
+$1 \ne {\overline H} \cap soc({\overline K})$ and thus $H \cap E(G) \ne Z$,
+a contradiction.
+\end{quote}
+{\bf Definition:} $O_{p', E}(G)$ is defined by
+$O_{p', E}(G)/O_{p'}(G)= E(G/O_{p'}(G))$.
+\\
+\\
+{\bf Theorem 16:} $P \in p(G)$ then 
+(1) $O_{p', E}(N_G(P)) \le C_G(O_p(G))$ and
+(2) if $P \le O_p(G)$ then $O^p(F^*(N_G(P))= O^p(F^*(G))$.
+\begin{quote}
+\emph{Proof:}
+Todo.
+\end{quote}
+{\bf Theorem 17:} If $G$ is solvable and $p \in p(G)$ then $O_{p'}(N_G(P)) \le O_{p'}(G)$.
+\begin{quote}
+\emph{Proof:} This was proved in the Coprime section.
+\end{quote}
+{\bf Theorem 18:}
+Let $X/Z(X)$ be a non-abelian simple group then $X=X'Z(X)$ and $X'$ is
+quasi-simple.
+\begin{quote}
+\emph{Proof:}
+Let $Y=X'$ and $X^*= X/Z(X)$.  $Y^* \lhd X^*$ and $X^*$ is simple so $Y^*=1$ or
+$Y^*=X^*$.  In the latter case, $X=YZ(X)$ and in the former $X^*$ is abelian which is a contradiction.
+So $X=Y Z(X)$ and $X/Y'$ is abelian thus $Y=Y'$.  Further, $Y/Z(Y)= X^*$ is simple so $Y^*$ is quasi-simple.
+\end{quote}
+{\bf Definition:} $G$ is of 
+\emph{ characteristic $p-$type}
+if  $F^*(H)=O_p(H)$ for every $p-$local, $H$ (Groups of Lie type over characteristic
+$p$ are, for example).
+\\
+\\
+{\bf Theorem 19:} $E(G)= \langle K | K$ is a component of $G \rangle $.  
+$F^*(G) F(G)E(G)$, $[F(G), E(G)]=1$.
+$F^*(G)$ contains every minimal subgroup of $G$; in particular, $ \langle K^G \rangle $ is the
+direct product of components conjugate to $K$.
+\begin{quote}
+\emph{Proof:}
+See section on components.
+\end{quote}
+{\bf Theorem 20:} $E(G) \ne 1$ and $K_1 , K_2 , \ldots , K_n$ be components of $G$. Set
+$Z=Z(E(G)), Z_i= Z(K_i), E_i K_i Z /Z$.  $E(G)$ is the central product of $K_i$,
+$Z= Z_1 Z_2 \ldots Z_n$.  $E(G)/Z= E_1 \times E_2 \times \ldots \times E_n$.
+\begin{quote}
+\emph{Proof:}
+See section on components.
+\end{quote}
+{\bf Theorem 21:}  Let $L \lhd \lhd G$ then 
+(1) if $L \le F^*(G)$ then $L= (L \cap F(G)) (L \cap E(G))$,
+(2) $F^*(L) = F^*(G) \cap L$,
+(3) $E(L) C_{E(G)}(L) =E(G)$, $E(L) \lhd E(G)$.
+\section {Characteristic $p-$type}
+{\bf Definition:}
+$G$ is of characteristic $p-$type if $P \in p(G), N= N_G(P) \rightarrow F^*(N)=O_p(N)$.
+$PSL_n(p^m)$ is of characteristic $p-$type.  
+\\
+\\
+{\bf Theorem 22:} Let $G$ be a non-abelian simple group,
+$G$ is of characteristic $p-$type iff $F^*(N(P))= O_p(N(P))$ for every maximal $p-$local.
+If $F^*(G)$ is a $p-$group then so is $F^*(N(P)), \forall P \in p(G)$ (use $P \times Q$).
+\begin{quote}
+\end{quote}
+{\bf Definition:}
+Let $\Omega$ be a collection of subgroups.  Define ${\cal D} (\Omega)$ as the graph
+formed by joining $A,B \in \Omega$ if $[A,B]=1$. If $k > 0$ let, 
+${\cal E}^p_k (G)$
+be the elementary abelian subgroups of $p$-rank at least $k$. $G$ is said to be
+$k-connected$ for prime $p$ if ${\cal D} ( {\cal E}^p_k (G))$
+is connected.
+\\
+\\
+{\bf Theorem 23:}
+If $G$ is a non-abelian finite simple group
+with $m_2(G) \le 2$ then either (1) a Sylow 2-group is either dihedral, semi-dihedral
+or $Z_{2^n} \wr Z_2$ and
+$G \cong L_2(q)$,
+$G \cong L_3(q)$,
+$G \cong U_3(q)$ $q$, odd, or $M_{11}$; or,  (2)
+$G \cong U_3(4)$.
+Note that $Q_8 \in S_2(SL_2(3))$ and 
+$\left(
+\begin{array}{cc}
+2 &  0 \\
+0 &  2 \\
+\end{array}
+\right)$ is the unique involution.
+\begin{quote}
+\end{quote}
+\section {Strongly Embedded Groups}
+{\bf Definition:}  $M$ is \emph{strongly-embedded} if
+$|M|_2 > 1$ and $|M \cap M^g|_2=1, \forall g \in G \setminus M$.
+\\
+\\
+{\bf Theorem 24:}
+$C_L(O_2(L)) \le O_2(L)$ for all
+$2$-locals, $L$.
+\begin{quote}
+\end{quote}
+{\bf Bender's Theorem:} For any group $X$, we have $C_X(F^*(X)) \le F^*(X)$ and if
+$W \lhd X$ and $C_X(W) \le W$ then $E(X) \le W$.  If $O_{p'}(X)=1$ then
+$F(X)=O_p(X)$ and every component of $X$ has order divisible by $p$ so
+$X$ is $p$-constrained iff $E(X)=1$ or, equivalently, $C_X(O_p(X)) \le O_p(X)$.
+\begin{quote}
+\end{quote}
+{\bf Definition:}
+Let ${\overline X}= E(X/O_{p'}(X))$, 
+$L$ is a minimal normal subgroup subject to ${\overline L}= E({\overline X})$,
+${\overline {L_i}}$ is a component of $E({\overline X})$, $L_i= O^{p'}(L_i)$,
+$[L_i, L_i]= L_i$ and $[L_i, L_j] \le O_{p'}(X)$, 
+$L$ is called the \emph{ $p$-layer}. 
+\\
+\\
+{\bf Theorem 25:}
+$F^*(X)$ controls embedding of $X$ of
+$p'$-cores and the $p$-layer of every $p$-local.  $O_{\pi}((X/O_{\pi}(X)))=1$.
+\begin{quote}
+\end{quote}
+{\bf Theorem 26:}
+If $O_{\pi}(X)=1$ then $F(X)$ is divisible by $p \in \pi$ and every component is
+divisible by some $p \in \pi'$.
+\begin{quote}
+\end{quote}
+{\bf Signalizer Motivation:}  The idea is that
+$A-$invariant $p'$ subgroups of $G$ can be glued into a single $p'$
+subgroup $\theta(G,A)$ which is either normal or strongly $p-$embedded in $G$.
+$M \subseteq G$ is \emph{ strongly $p-$embedded} if $p | |M|$ but $p$ does not divide
+$|M \cap M^g |$ for $g \in G-M$.
+\\
+\\
+{\bf Tightly embedded:} $p=2$. If $M$ is strongly
+embedded, $G$ fixes one point when acting on the cosets of $M$.
+Bender identified all simple groups with strongly 2-embedded subgroups, namely,
+$SL_2(2^n), SZ(2^n), PSU_3(2^n)$.
+\\
+\\
+{\bf Definition:}
+No simple group of
+$p-rank \ge 3$ has a strongly $2-$embedded $2'$ local subgroup.\\
+\\
+{\bf Bender's Theorem:} 
+Let $G$ be a finite simple group and $S \in S_2(G)$ then one of the following holds:
+(a) $S$ is dihedral, (b) $S$ is semidihedral, (c) $G$ has a strongly embedded subgroup,
+(d) $S$ has a non-cyclic characteristic elementary abelian subgroup, $A$, and
+$E=N_G(A)$ has conjugacy classes, $ \langle z_i^G \rangle $, that do not fuse in $G$ such that
+$G= \langle E, C_G(z_i ) \rangle $.
+\begin{quote}
+\end{quote}
+{\bf Definition:}
+If $G$ is a finite simple group and
+$H<G$ with ${\mathbb Z}(H)$ of even order and $h \approx C_H(z)$ then $G$ is said
+to be of $H$-type.  Note we can construct a faithful transitive permutation representation
+of $G$ given a presentation of $H$.  A group has an $H$-satellite if there are non-isomorphic
+groups of $h$-type.
+\\
+\\
+{\bf Definition:}
+A finite simple group, $G$, is uniquely determined by $C_H(z)$ for a $2-$central
+involution, $z$, if $G$ does not have any non-isomorphic $H$-satellites.
+\\
+\\
+{\bf Definition:} $G$ is of characteristic $2$-type, $F^*(H)$ is a $2$-group for all $2$-locals,
+$H$.
+\\
+\\
+{\bf Definition:} $G$ is balenced, if for every $2$-local, $H$, $L_{2'}(h) \leq  L_{2'}(G)$.
+\\
+\\
+{\bf L-Balence Theorem:} (Walter). Every finite group is balenced.
+\\
+\\
+{\bf B-Theorem:} $L_{2'}(C_G(z)) = E(C_G(z))$.
+\\
+\\
+{\bf Bender:} $H/Z(F(H))$ acts faithfully as a group of automorphisms of $F^*(H)$ and, 
+in particular $|H| \leq |F^*(H)|!$.
+
+\begin{quote}
+\emph{Proof:} Follows from properties of $F^*(G)$.
+\end{quote}
+
+{\bf Problem} Suppose that $G$ is a finite group containing an involution $t$ such that
+$C_G(t) = \langle t \rangle \times L$, with $L \cong  S_n$, $n \ge  5$. Suppose
+further that if $t_i$ is a transposition in $L$, 
+then $C_G(t_i) = \langle t_i \rangle \times L_i \cong  C_G(t)$. Prove
+that $G \cong  S_{n+2}$.
+\\
+\\
+{\bf Problem} Show that if $S$ is a Sylow $2$-subgroup of $N_G(D)$ with $S<U$, then
+there exists a nonidentity characteristic subgroup $C$ of $S$ with $C \lhd N_G(D)$.
+If this is the case, then we can “push up” $N_G(D)$ to $N_G(C)$ which contains a
+larger $2$-group than $S$, namely $N_U(C)$.
+\\
+\\
+{\bf Global $C(G, T)$ Theorem} Let $G$ be a finite simple group of characteristic $2$-type
+having $2$-rank at least $3$. Let $T$ be a Sylow $2$-subgroup of $G$ and let $C(G, T)$ denote
+the subgroup of $G$ generated by the normalizers of all nonidentity characteristic
+subgroups of $T$. If $C(G, T) < G$, then $C(G, T)$ is a strongly embedded subgroup of
+$G$ and so $G \cong  SL(2, 2n), Sz(2n), PSU(3, 2n)$.
+\\
+\\
+{\bf Gorenstein-Lyons Trichotomy Theorem} Let $G$ be a simple group of 
+characteristic $2$-type with $e(G) \ge  4$ in which all proper subgroups have known simple
+composition factors. Then one of the following alternatives holds:
+\\
+1. There is an odd prime $p$ and an element $x$ of $G$ of order $p$ such that $C_G(x)$
+has a normal quasisimple subgroup $L$ with $L/Z(L)$ a group of Lie type in
+characteristic $2$; or
+\\
+2. $G$ has a maximal $2$-local subgroup $M$ which is a $p$-uniqueness subgroup for
+some odd prime $p$ such that $M$ has $p$-rank at least $4$; or
+\\
+3. $G$ is of $GF(2)$-type.
+\\
+\\
+{\bf The Feit-Thompson Uniqueness Theorem} Let $G$ be a finite group of odd order in which 
+every proper subgroup is solvable. Suppose that $K$ is a proper subgroup
+of $G$ such that either $r(K) \geq 3$ or $r(C_G(K)) \ge 3$. Then $K$ is contained in a unique
+maximal subgroup of $G$. (Here $r(K)$ denotes the maximum rank of an abelian $p$-subgroup of 
+$K$, as $p$ ranges over all prime divisors of $|K|$.)
+\\
+\\
+{\bf Theorem 27:} Let $G$ be $2$-transitive on $\Omega$, $|\Omega| = 1 \jmod{2}$ and for
+$\alpha, \beta \in \Omega$, $|G_{\alpha \beta}|$ is odd and $G_{\alpha \beta}$ has a normal
+complement, $Q$, in $G_{\alpha}$ which acts regularly on $\Omega \setminus \{ \alpha \}$.
+Then $G = PSL_2(s^n), SZ(2^{2n+1}, PSI_3(2^n)$.
+\\
+\\
+{\bf Theorem 28:} Let $G$ be a finite simple group and every element of $G$ is either an involution
+or is of odd order.  Then $G \cong SL_2(2^n)$.
+\\
+\\
+$G$ is a CA group if $1 \ne g \in G$ then $C_G(g)$ is abelian.
+\\
+\\
+{\bf Aschbacher's Component Theorem:} Let $G$ be a finite simple group and suppose the
+$B$-theorem holds.  Suppose $E(C_G(t)) \ne 1$ for some $t \in Inv(G)$.  Then there is
+an involution, $z$ and a quasi-simple standard component, $K$ of $C=C_G(z)$ such that
+$C_G(K)$ either has $2$-rank $1$ or is solvable with and elementary abelian or dihedral
+Sylow $2$-subgroup.  So $G$ has at most two components and $K \lhd G$ or $K$  has $2$-rank $1$.

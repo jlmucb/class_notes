@@ -1,0 +1,12 @@
+{\bf Padding attack:}
+$b$ words in a block.  Word is a byte, number of values in a word is $W$.
+Padding appends $n>0$ words.  Construct fake two block message
+$r||y$, $r= r_1, r_2, \ldots, r_b$.  $C^{-1}(y) \oplus r$ must end with
+correct padding.  If valid, $C_^{-1}(y) \oplus r_b$ must be correct padding.
+So $C^{-1}(y)= r_b \oplus 1$.  Assume $a= a_1, a_2, \ldots, a_b= C^{-1}(y)$.
+Assume $a_j, \ldots, a_b$ is known.  Pick $r_1, \ldots, r_{j-1}$ at random.
+Bump $i$ until success: $r= r_1, \ldots, r_{j-2}, (r_{j-1} \oplus i), r_{j},
+\ldots, r_b$.  Answer is $r_{j-1} \oplus i \oplus (b-j+2)$.  Requires
+$O(NbW/2)$.
+
+

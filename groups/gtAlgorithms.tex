@@ -1,0 +1,80 @@
+\chapter{Algorithms}
+\section {Generators and relations}
+{\bf Notation:} $X$ are the generators, $R$ are the relations.  Each $R \in R$ is
+of the form $u_1 u_2 \ldots u_k =1$ where each $u_1= x, x^{-1}, x \in X$.  Write
+$G= \langle X|R \rangle $ for the generated group.  
+If $H$ is a group and $\varphi: X \rightarrow H$,
+$\varphi$ can be extended to an homomorphism between $H$ and $G$.
+\\
+\\
+{\bf Definition:} $F$ is \emph{free} on $X$ if $i: X \rightarrow F$ and
+$\forall g: X \rightarrow G$, $\exists ! f:F \rightarrow G$ such that
+$i(f(x))=g(x)$.
+\\
+\\
+{\bf Theorem:} Free groups exist.  Any group is a homomorphic image of a free group.
+\section {Coset enumeration}
+Let $G= \langle g_1 , g_2 , \ldots , g_m \rangle $.  Let $k_1 , k_2 , \ldots ,
+k_s$ be a group of coset representatives for a subgroup $H < G$. ${\overline g}$
+is the coset representative for $g$ in $G/H$ and $k_1 = 1$ then
+$H= \langle (k_i g_j ) {\overline {(k_i g_j )^{-1}}} \rangle $
+for $i= 1, 2, 3, \ldots , s$ and
+$j= 1, 2, 3, \ldots , m$.
+\\
+\\
+{\bf Coxeter:}
+Maintain following tables: Coset, relation table
+for each relation, subset table.  Column headers are generators, rows are
+right coset labels.
+To calculate $|G|$, find cosets of $H<G$ and calculate $|G:H|$.
+\\
+\\
+{\bf Definition:}
+${\cal B}= \langle \beta_1 , ... , \beta_n \rangle $ is a base for 
+$G \le Sym(\Omega)$ if $G_{\cal B} = 1$.
+If $G^{[i]} = G_{\beta_1 , ..., \beta_i}$ and
+$G=G^{[1]} \ge ... \ge G^{[m+1]}=1$ then
+$S$ is a \emph{strong generating set} relative to ${\cal B}$ if
+it is a generating set and $S \cap G^{[i]} = G^{[i]}$.  Can use this to get
+orbit sizes.
+Schrier-Sims calculates base and strong generating set.\\
+\\
+{\bf Theorem:}
+Let $G$ be a group with $G/Z(G)$ finite, then $G^{(1)}$ is finite.
+\begin{quote}
+\emph{Proof:}
+Let $n= |G/Z(G)|$.  For $z \in Z(G)$ and $g,h \in G$: $[g,hz]=[g,h]=[gz,h]$ so the 
+set of commutators, $\Delta$, is of order at most $n^2$.
+Claim: $g \in G^{(1)}$ then $g= x_1 x_2 \ldots x_m$, $x_i \in \Delta$ and
+$m \le n^3$.
+\end{quote}
+{\bf Todd Coxeter example:} $G= \langle x,y| x^3=y^3=(xy)^2=1 \rangle $.  $H= \langle x \rangle $.
+\begin{center}
+\begin{tabular} {|l||r|r|r|r||r|r|r||r|r|r|r|r|}
+\hline
+Line & Coset & $x$ & $x$ & $x$ & $y$ & $y$ & $y$ & $x$ & $y$ & $x$ & $y$\\
+\hline
+1 & $1$ & $1$ & $1$ & $1$ & $2$ & $3$ & $1$ & $1$ & $2$ & $3$ & $1$\\
+\hline
+2 & $2$ & $3$ & $5$ & $2$ & $3$ & $1$ & $2$ & $3$ & $1$ & $1$ & $2$\\
+\hline
+3 & $3$ & $5$ & $2$ & $3$ & $1$ & $2$ & $3$ & $5$ & $6$ & $7$ & $3$\\
+\hline
+\end{tabular}
+\end{center}
+Line 1 coincidence: $1y=2$, $4y=1$, $4=1y^{-1}=3$.
+Line 3 coincidence: $7=3y^{-1}=2$, $6=2x^{-1}=5$.\\
+\\
+This yields:
+\begin{center}
+\begin{tabular} {|r||r|r|r|r|}
+\hline
+Element & $1$ & $2$ & $3$ & $5$ \\
+$x$ & $1$ & $3$ & $5$ & $2$\\
+\hline
+$y$ & $2$ & $3$ & $1$ & $5$\\
+\hline
+\end{tabular}
+\end{center}
+Line 1 coincidence: $1y=2$, $4y=1$, $4=1y^{-1}=3$.
+Line 3 coincidence: $7=3y^{-1}=2$, $6=2x^{-1}=5$.\\

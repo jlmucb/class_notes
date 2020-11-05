@@ -1,0 +1,365 @@
+High Mem        Stack
+                  |
+                  |
+                  V
+
+                  ^
+                  |
+                  |
+                Heap
+                BSS
+                Data
+Low Address     Text
+
+
+int foo(int a, int b, int c, int d, int e, int f) {
+    int   bar[2];
+    bar[0]= (int)'A';
+    return bar[0]+7;
+}
+
+int main(void) {
+    int i= 1;
+    int j= 0;
+    j= foo(1,2,3,4,5,6);
+    i+= j;
+    return i;
+}
+
+
+	.text
+.globl _foo
+_foo:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	movl	%edi, -20(%rbp)
+	movl	%esi, -24(%rbp)
+	movl	%edx, -28(%rbp)
+	movl	%ecx, -32(%rbp)
+	movl	%r8d, -36(%rbp)
+	movl	%r9d, -40(%rbp)
+	movl	$65, -16(%rbp)
+	movl	-16(%rbp), %eax
+	addl	$7, %eax
+	leave
+	ret
+
+
+.globl _main
+_main:
+	pushq	%rbp
+	movq	%rsp, %rbp
+	subq	$16, %rsp
+	movl	$1, -4(%rbp)
+	movl	$0, -8(%rbp)
+	movl	$6, %r9d
+	movl	$5, %r8d
+	movl	$4, %ecx
+	movl	$3, %edx
+	movl	$2, %esi
+	movl	$1, %edi
+	call	_foo
+	movl	%eax, -8(%rbp)
+	movl	-8(%rbp), %eax
+	addl	%eax, -4(%rbp)
+	movl	-4(%rbp), %eax
+	leave
+	ret
+
+
+
+int main(void) {
+    int i = 1; 
+    foo(1, 2, 3); 
+    return 0;
+}
+
+
+sfp <-- ebp
+1
+3
+2
+1
+rip <--- esp
+
+
+main:
+    pushl %ebp 
+    movl %esp,%ebp 
+    subl $4,%esp 
+    movl $1,-4(%ebp) 
+    pushl $3 
+    pushl $2 
+    pushl $1 
+    call foo 
+    addl $12,%esp 
+    xorl %eax,%eax 
+    leave ret
+
+
+
+void foo(int a, int b, int c) {
+    int bar[2]; 
+    char qux[3]; 
+    bar[0] = 'A'; 
+    qux[0] = 0x42;
+}
+
+
+foo:
+    pushl %ebp 
+    movl %esp,%ebp 
+    subl $12,%esp 
+    movl $65,-8(%ebp) 
+    movb $66,-12(%ebp) 
+    leave ret
+
+leave:
+    movl %ebp,%esp
+    popl %ebp
+
+Stack
+
+sfp         <--- ebp
+1           <--- esp
+3
+2
+1
+rip
+sfp
+
+Pharma phishing:  1/(12x10^6) return rate
+
+In the following example, Mallory posts the following in a comment on 
+a chat forum:
+    <img src="http://patsy-bank.com/transfer?amt=1000&to=mallory"/>
+Of course, Patsy-Bank won't let just anyone request a transaction on 
+behalf of any given account name. Users first need to authenticate 
+with a password.  However, once a user has authenticated, Patsy-Bank 
+associates their session ID with an authenticated session state.
+
+(a) Explain what could happen when Victim Vern visits the chat 
+forum and views Mallory's comment.
+(b) What are possible defenses against this attack?
+
+Solution:
+(a) The img tag embedded in the form causes the browser to make 
+a request to http://patsy-bank.com/transfer?amt=1000&to=mallory with 
+Patsy-Bank's cookie.  If Victim Vern was previously logged in 
+(and didn't log out), Patsy-Bank might assume Vern is authorizing 
+a transfer of 1000 USD to Mallory.
+(b) CSRF is caused by the inability of Patsy-Bank to differentiate 
+between requests from arbitrary untrusted pages and requests from 
+Patsy-Bank form submissions.  The best way to fix this today is to 
+use a token to bind the requests to the form. For example, if a 
+request to http://patsy-bank.com/transfer is normally made from a 
+form at http://patsy-bank.com/askpermission, then the form in the 
+latter should include a random token that the server remembers. 
+The form submission to http://patsy-bank.com/transfer includes the 
+random token and Patsy-Bank can then compare the token received 
+with the one remembered and allow the transaction to go through 
+only if the comparison succeeds.
+
+It is also possible to check the Referer header sent along with 
+any requests.  This header contains the URL of the previous, or 
+referring, web page.  Patsy-Bank can check whether the URL is 
+http://patsy-bank.com and not proceed otherwise. A problem with 
+this method is that not all browsers send the Referer header, 
+and even when they do, not all requests include it.  Another problem 
+is that when Patsy-Bank has a so-called “open redirect”
+
+http://patsy-bank.com/redirect?to=url, the referrer for the 
+redirected request will be http://patsy-bank.com/redirect?to=.... 
+An attacker can abuse this functionality by causing a victim's 
+browser to fetch a URL like 
+http://patsy-bank.com/redirect?to=http://patsy-bank.com/transfer..., 
+and from patsy-bank.com's perspective, it will see a subequent 
+request http://patsy-bank. com/transfer... that indeed has a 
+Referer from patsy-bank.com.
+
+The modern and more flexible way to protect against CSRF is via 
+the Origin header.  This works by browsers including an Origin 
+header in the requests they send to web servers. The header lists 
+the sites that were involved in the creation of the request. 
+So in the example above, the Origin header would include the chat 
+forum in the Origin header. Patsy-Bank will then drop the request, 
+since it did not originate from a site trusted by the bank (an 
+instance of default deny).  This approach is more flexible because 
+unlike the token solution above, you can allow multiple sites to 
+cause the transaction. For example, Patsy-Bank might trust 
+http://www.trustedcreditcardcompany.com to directly transfer money 
+from a user's account. This is a use-case that the token-based 
+solution doesn't support cleanly. Currently, many modern browsers 
+support the Origin header, but there is still a sizeable chunk of 
+users with browsers that don't support it.
+
+Some web application frameworks allow cookies to be set by the URL. 
+For example, visiting the URL
+http://foobar.edu/page.html?sessionid=42. will result in the server 
+setting the sessionid cookie to the value "42".
+(a) Can you spot an attack on this scheme?
+(b) Suppose the problem you spotted has been fixed as follows. 
+foobar.edu now establishes new sessions with session IDs based on 
+a hash of the tuple (username, time of connection). Is this secure? 
+If not, what would be a better approach?
+
+The main attack is known as session fixation. Say the attacker 
+establishes a session with foobar.edu, receives a session ID of 42, 
+and then tricks the victim into visiting 
+http://foobar.edu/browse.html?sessionid=42 (maybe through an img 
+tag). The victim is now browsing foobar.edu with the attacker's account. 
+Depending on the application, this could have serious implications. 
+For example, the attacker could trick the victim to pay his bills 
+instead of the victim's (as intended).
+
+Another possibility is for the attacker to fix the session ID and 
+then send the user a link to the log-in page. Depending on how the 
+application is coded, it might so happen that the application allows 
+the user to log-in but reuses uhe previous (attacker-set) session ID. 
+For example, if the victim types in his username and password at 
+http://foobar.edu/login.html?sessionid=42, then the session
+
+GET /login.html?user=alice&pass=bigsecret 
+HTTP/1.1 Accept: image/gif, image/x-bitmap, image/jpeg, */* 
+Accept-Language: en 
+Connection: Keep-Alive
+User-Agent: Mozilla/1.22 (compatible; MSIE 2.0; Windows 95) 
+Host: mybank.com Referer: http://www.mybank.com/hello-customer.html
+
+HTTP/1.0 200 OK 
+Date: Sat, 23 Feb 2013 02:20:42 GMT 
+Server: Microsoft-Internet-Information-Server/5.0 
+Connection: keep-alive Content-Type: text/html 
+Last-Modified: Fri, 22 Feb 2013 17:39:05 GMT 
+Set-Cookie: session=44ebc991 
+Content-Length: 2543
+
+GET /moneyxfer.cgi?account=alice&amt=50&to=bob 
+HTTP/1.1 Accept: image/gif, image/x-bitmap, image/jpeg, */* 
+Accept-Language: en 
+Connection: Keep-Alive
+User-Agent: Mozilla/1.22 (compatible; MSIE 2.0; Windows 95) 
+Host: mybank.com 
+Cookie: session=44ebc991 
+Referer: http://mybank.com/login.html?user=alice&pass...
+
+<HTML>
+ <HEAD>
+  <TITLE>Test Page</TITLE> 
+ </HEAD>
+ <BODY> 
+   <H1>Test Page</H1> 
+   <P> This is a test!</P> 
+   <IMG SRC="http://anywhere.com/logo.jpg">
+ </BODY> 
+</HTML>
+
+
+             ---> www.google.com A?
+Client resolver                           k.root-servers.net
+             com. NS a.gtld-servers.net 
+             a.gtld-servers.net A 192.5.6.30
+
+
+             ---> www.google.com A?
+Client resolver                            a.gtld-servers.net
+             google.com. NS ns1.google.com 
+             ns1.google.com A 216.239.32.10
+
+
+             ---> www.google.com A?
+Client resolver                           ns1.google.com
+             www.google.com. A 74.125.24.14
+
+
+Problem 3   Web security    
+EasyWeb Inc.'s web server functions as follows: Whenever it 
+receives a URL of the following form:
+http://www.easyweb.com/login.do?user=username &pass=password 
+it logs in users assuming that the provided password indeed matches 
+the one associated with the provided username.
+
+Note: for this problem, do not concern yourself with network 
+eavesdroppers, nor with whether users pick strong passwords. In 
+addition, you can do the last three parts, (c) through (e), separately 
+from the first two, (a) and (b) (in case you get stuck on the first two).
+(a) (8 points) Name and briefly describe a vulnerability in EasyWeb Inc.'s 
+use of this approach. Briefly sketch a scenario in which an attacker would 
+exploit the vulnerability.
+
+Solution: Cross-Site Request Forgery (CSRF). The attacker can trick 
+a victim into logging in as the attacker by providing the victim with 
+a URL containing the attacker's login information (a form of Session 
+Fixation). After logging in as the attacker, the victim can then be 
+tricked into divulging credit card information, paying the attacker's 
+bill, or other such nastiness.
+
+Solution: Any of the following answers are correct.
+
+  CSRF Tokens. Require users to obtain a token from the server before 
+  logging in (such as by visiting a login page that will include tokens 
+  in it when returned from the server) and to include that token in 
+  their login request.
+
+  Referer header check. Require users to submit the login information 
+  from another page on EasyWeb Inc.'s website, and verify that the 
+  Referer header is a URL from EasyWeb Inc.
+
+  Origin header check. Very similar to the Referer header check. 
+  Require users to submit the login information from another page 
+  on EasyWeb Inc.'s website, and verify that the Origin header is 
+  www.easyweb.com.
+
+
+An astute Berkeley student has submitted a bug report to EasyWeb Inc. 
+and they have changed the way their website works. EasyWeb Inc. now 
+requires that all login requests go through a specific login form page. 
+However, to make the approach somewhat backwards-compatible, they 
+designed the mechanism as follows. When a user of the service first 
+surfs to the URL http://www.easyweb.com/login.do?user=username, the 
+website returns a web page that conveniently pre-fills part of the 
+login form for the user, like this:
+
+The text username will be replaced with the literal (exact) value 
+from the URL. The form also contains hidden fields that will be 
+sent to the web server upon clicking Sign in. These fields contain, 
+among other things, the username from the URL.
+
+(c) (8 points) In using this approach, EasyWeb Inc. has introduced 
+a new vulnerability while fixing the previous one. Name the 
+vulnerability and briefly describe it.
+(d) (10 points) Explain how an attacker can use this new 
+vulnerability to perform an attack. Briefly sketch how the attacker 
+sets up the attack and what happens when the attack occurs.
+(e) (10 points) Briefly sketch a potential defense that will 
+prevent at least some in
+
+  Username: username
+  Password: Sign in
+
+Solution: Reflected Cross-Site Scripting (XSS). Whatever is supplied 
+as the username will get included on the response page. An attacker 
+can prepare a URL containing a script as the username, which will 
+then get executed by the victim's browsers in the context of EasyWeb 
+Inc.'s website.
+
+Solution: Either of the following answers is correct.
+
+  An attacker can now log in a victim using XSS. The user parameter 
+  in the URL would contain a script that changes the hidden user 
+  field to the attacker's username, fills in the password field with 
+  the attacker's password, and automatically submits the form. 
+  (Because the request is coming from the original login form, the 
+  defense from part (b) is circumvented.)
+
+  The attacker can include a script in the user parameter in the URL 
+  that monitors what's typed into the password field and sends off the 
+  field's value to the attacker.
+
+
+#rets>#calls
+indirect calls
+virt p tables and indirect jumps
+double free attack
+pop eax/ret gaget
+

@@ -1,0 +1,2458 @@
+\chapter{Representations}
+\section {${\mathbb C}G$-modules}
+{\bf Definition:} A \emph{representation} of $G$ is a group
+homomorphism $\rho: G \rightarrow GL_n({\mathbb C})$, 
+$n$ is called the \emph{degree} of $\rho$.
+The representation $\rho: G \rightarrow GL_n({\mathbb C})$ is
+called \emph{faithful} if $ker(\rho) =\{1\}$.
+Thus $\rho$ is faithful if the only element $g\in G$ with $\rho(g)=I_n$ is the
+identity of $G$. 
+\\
+\\
+{\bf Theorem 1:} A representation $\rho$ of $G$ is faithful if
+and only if $im(\rho) \cong G$.
+\begin{quote}
+\emph{Proof:}
+We have $G/ker(\rho) \cong im(\rho)$ so if $ker(\rho)=\{1\}$, the
+isomorphism theorem gives 
+$G \cong im(\rho)$.
+Conversely if $G \cong im(\rho)$ then these two finite groups
+have the same order, and so $|ker(\rho)|=1$.
+\end{quote}
+{\bf Definition:} A finite-dimensional vector space $V$ over ${\mathbb C}$ is a
+\emph{${\mathbb C}G$-module} if a multiplication $gv$ (for all $g\in G$ and $v\in V$) is
+defined, satisfying the following conditions for all
+$u,v\in V$, $\lambda \in {\mathbb C}$ and $g \in G$:
+\begin{itemize}
+\item[(i)] $gv\in V$;
+\item[(ii)] $(gh)v=g(hv)$;
+\item[(iii)] $1v=v$;
+\item[(iv)] $g(\lambda v)=\lambda(gv)$;
+\item[(v)] $g(u+v)=gu+gv$.
+\end{itemize}
+{\bf Definition:}
+If $V$ is a ${\mathbb C}G$-module, $g$ induces a linear map
+$\rho(g): V \rightarrow V$;
+if ${\cal B}$ is a basis of $V$, the matrix for the matrix representing the linear
+map $\rho(g)$ is denoted by $[g]_{\cal B}$.
+\\
+\\
+{\bf Theorem 2:} Let $G$ be a finite group.
+\begin{itemize}
+\item[(i)] Given a representation
+$\rho: G \rightarrow GL_n({\mathbb C})$, the vector space $V= {\mathbb C}^n$ is a
+${\mathbb C}G$-module
+if we define the multiplication by $gv=\rho(g)v$ for all $g\in G$ and
+$v \in V$. Moreover, there is a basis ${\cal B}$ of $V$ such that
+$\rho(g)=[g]_{\cal B}$ for all $g\in G$.
+\item[(ii)] Given a ${\mathbb C}G$-module $V$ of dimension $n>0$ with basis ${\cal B}$, the
+function $\rho: G \rightarrow GL_n({\mathbb C})$ defined by $\rho(g)=[g]_{\cal B}$ is a
+representation of $G$.
+\end{itemize}
+\begin{quote}
+\emph{Proof:}
+\\
+\\
+(i) For all $u,v\in {\mathbb C}^n$, $\lambda\in{\mathbb C}$ and
+$g,h\in G$ we have
+\begin{eqnarray*}
+\rho(g)v\!\!\!\!&\in&\!\!\!\!{\mathbb C}^n,\\
+\rho(gh)v\!\!\!\!&=&\!\!\!\!\rho(g)\rho(h)v,\\
+\rho(1)v\!\!\!\!&=&\!\!\!\!v,\\
+\rho(g)(\lambda v)\!\!\!\!&=&\!\!\!\!\lambda\rho(g)v,\\
+\rho(g)(u+v)\!\!\!\!&=&\!\!\!\!\rho(g)u+\rho(g)v.
+\end{eqnarray*}
+Defining $gv=\rho(g)v$ for all $g\in G$ and $v\in {\mathbb C}^n$ makes
+${\mathbb C}^n$ into a ${\mathbb C}G$-module. Moreover, if we let ${\cal B}$ be the basis
+$$\begin{matrix}1\\0\\0\\\vdots\\0\end{matrix},\qquad
+\begin{matrix}0\\1\\0\\\vdots\\0\end{matrix},\qquad\cdots,\qquad
+\begin{matrix}0\\0\\0\\\vdots\\1\end{matrix}$$
+of ${\mathbb C}^n$, then we have $\rho(g)=[g]_{\cal B}$ for all $g\in G$.
+\\
+\\
+(ii) Let $V$ be a ${\mathbb C}G$-module with basis ${\cal B}$. Since
+$(gh)v=g(hv)$ for all $g,h\in G$ and all $v$ in the basis ${\cal B}$, it follows that
+$[gh]_{\cal B}=[g]_{\cal B}[h]_{\cal B}$. In particular, 
+$[1]_{\cal B}=[g]_{\cal B}[g^{-1}]_{\cal B}$ for all
+$g\in G$. Now we have $1v=v$ for all $v\in V$, so $[1]_{\cal B}$ is the identity
+matrix $I_n$; thus each matrix $[g]_{\mathbb B}$ is invertible (with inverse
+$[g^{-1}]_{\cal B}$). Hence the function $g\mapsto [g]_{\cal B}$ is a homomorphism from
+$G$ to $GL_n({\mathbb C})$, i.e., a representation of $G$.
+\end{quote}
+{\bf Theorem 3:} Let $V$ be a ${\mathbb C}G$-module with basis ${\cal B}$, and
+let $\rho$ be the representation of $G$ defined by $\rho(g)=[g]_{\cal B}$ for all
+$g\in G$. Then
+\begin{itemize}
+\item[(i)] if ${\cal B}'$ is a basis of $V$, the representation $\phi$ of
+$G$ defined by $\phi(g)=[g]_{{\cal B}'}$ for all $g\in G$ is equivalent to $\rho$;
+\item[(ii)] if $\sigma$ is a representation of $G$ which is equivalent to
+$\rho$, there is a basis ${\cal B}''$ of $V$ such that $\sigma(g)=[g]_{{\cal B}''}$ for all
+$g\in G$.
+\end{itemize}
+\begin{quote}
+\emph{Proof:}
+\\
+\\
+(i) Let $T$ be the change of basis matrix from ${\cal B}$ to ${\cal B}'$; then
+$$\phi(g)=[g]_{{\cal B}'}=T^{-1}[g]_{\cal B} T=T^{-1}\rho(g)T\qquad\hbox{for all }g\in G,$$
+and so $\phi$ is equivalent to $\rho$.
+\\
+\\
+(ii) If $\sigma$ is equivalent to $\rho$, then there is an
+invertible matrix $T$ such that we have $\sigma(g)=T^{-1}\rho(g)T$ for all
+$g\in G$. If we let ${\cal B}''$ be the basis of $V$ such that the change of basis
+matrix from ${\cal B}$ to ${\cal B}''$ is $T$, then
+$$\sigma(g)=T^{-1}\rho(g)T=T^{-1}[g]_{\cal B} T=[g]_{{\cal B}''}
+\qquad\hbox{for all }g\in G$$
+as required.
+\end{quote}
+{\bf Lemma:} If $V$ and $W$ are ${\mathbb C}G$-modules, then
+$V\cong W$ if and only if there exist bases ${\cal B}_1$ of $V$ and ${\cal B}_2$ of
+$W$ such that $[g]_{{\cal B}_1}=[g]_{{\cal B}_2}$ for all $g\in G$.
+\begin{quote}
+\emph{Proof:}
+Suppose that $\theta: V\rightarrow W$ is a ${\mathbb C}G$-isomorphism, and let
+$v_1,\dots,v_n$ be a basis ${\cal B}_1$ of $V$; then
+$\theta(v_1),\dots,\theta(v_n)$ is a basis ${\cal B}_2$ of $W$. Given
+$g\in G$, write $gv_i=\sum a_{ji}v_j$; then
+$$g\theta(v_i)=\theta(gv_i)=\theta\biggl(\sum a_{ji}v_j\biggr)
+=\sum a_{ji}\theta(v_j),$$
+and so $[g]_{{\cal B}_2}=(a_{ij})=[g]_{{\cal B}_1}$. Conversely, if $v_1,\dots,v_n$ and
+$w_1,\dots,w_n$ are bases ${\cal B}_1$ of $V$ and ${\cal B}_2$ of $W$ such that
+$[g]_{{\cal B}_1}=[g]_{{\cal B}_2}$ for all $g\in G$, let $\theta:V\rightarrow W$ be the
+invertible linear map given by $\theta(v_i)=w_i$ for all $i$. Given
+$g\in G$, let $[g]_{{\cal B}_1}=(a_{ij})$, so that $gv_i=\sum a_{ji}v_j$; then
+because $[g]_{{\cal B}_2}=(a_{ij})$ as well, for all $i$  we have
+$$g\theta(v_i)=gw_i=\sum a_{ji}w_j=\sum a_{ji}\theta(v_j)
+=\theta\biggl(\sum a_{ji}v_j\biggr)=\theta(gv_i),$$
+and so $\theta$ is a ${\mathbb C}G$-isomorphism.
+\end{quote}
+{\bf Theorem 4:} Let $V$ and $W$ be ${\mathbb C}G$-modules with bases
+${\cal B}$ and ${\cal B}'$; let $\rho$ and $\sigma$ be the representations of $G$ given by
+$\rho(g)=[g]_{\cal B}$ and $\sigma(g)=[g]_{{\cal B}'}$ for all $g\in G$. Then $V\cong W$ if
+and only if $\rho$ and $\sigma$ are equivalent.
+\begin{quote}
+\emph{Proof:}
+Assume that $V$ and $W$ are isomorphic ${\mathbb C}G$-modules. By the Lemma,
+there exist bases ${\cal B}_1$ of $V$ and ${\cal B}_2$ of $W$ such that
+$[g]_{{\cal B}_1}=[g]_{{\cal B}_2}$ for all $g\in G$. Define a representation $\tau$ of
+$G$ by $\tau(g)=[g]_{{\cal B}_1}$; then by the Theorem (i), $\tau$ is equivalent to
+both $\rho$ and $\sigma$, and so $\rho$ and $\sigma$ are equivalent. Conversely,
+if $\rho$ and $\sigma$ are equivalent, by the Theorem (ii) there is a basis
+${\cal B}''$ of $V$ such that $\sigma(g)=[g]_{{\cal B}''}$ for all $g\in G$, i.e.,
+$[g]_{{\cal B}'}=[g]_{{\cal B}''}$ for all $g\in G$; thus $V\cong W$ by the Lemma.
+\end{quote}
+\section {${\mathbb C}G$-submodules}
+{\bf Definition:} Let $V$ be a ${\mathbb C}G$-module. A subset $U$ of
+$V$ is a \emph{${\mathbb C}G$-submodule} of $V$ if $U$ is a subspace of the vector
+space $V$ which satisfies $gu\in U$ for all $g\in G$ and $u\in U$.
+Thus a ${\mathbb C}G$-submodule of the ${\mathbb C}G$-module $V$ is a subspace $U$ of $V$ such
+that $U$ is itself a ${\mathbb C}G$-module.
+\\
+\\
+{\bf Definition:}
+A non-zero ${\mathbb C}G$-module $V$ is called
+\emph{irreducible} if it has no ${\mathbb C}G$-submodules apart from
+$\{0\}$ and $V$, and
+\emph{reducible} otherwise. A representation $\rho:G\rightarrow GL_n({\mathbb C})$ is
+called \emph{irreducible} if the corresponding ${\mathbb C}G$-module ${\mathbb C}^n$, given by
+$gv=\rho(g)v$ for $g\in G$ and $v \in {\mathbb C}^n$, is \emph{irreducible}, and is
+\emph{reducible} otherwise.
+\\
+\\
+{\bf Theorem 5:} If $U$ is a subspace of the complex vector
+space $V$ with complex inner product $(\ ,\ )$, then $U^\perp$ is a subspace of
+$V$, and $U\oplus U^\perp=V$.
+\begin{quote}
+\emph{Proof:}
+If $v,w \in U^\perp$ and $\lambda \in {\mathbb C}$, then for all $u \in U$ we have
+$(v,u)=(w,u)=0$, so
+$$(v+w,u)=(v,u)+(w,u)=0+0=0,\qquad (\lambda v,u)=\lambda(v,u)=\lambda.0=0;$$
+thus $v+w,\lambda v\in U^\perp$, and so $U^\perp$ is a subspace of $V$.
+\\
+\\
+If $u \in U \cap U^\perp$, then $(u,u)=0$, so 
+$u=0$ -- thus the sum $U+U^\perp$ is direct. To show that $U+U^\perp=V$,
+take a basis $v_1,\dots,v_r$ of $U$, and extend to a basis
+$v_1,\dots,v_r,v_{r+1},\dots,v_n$ of $V$. Apply the Gram-Schmidt process to
+obtain an orthonormal basis $e_1,\dots,e_r,e_{r+1},\dots,e_n$ of $V$; then
+$e_1,\dots,e_r$ form an orthonormal basis of $U$, and so
+$e_{r+1},\dots,e_n\in U^\perp$ -- given $v\in V$ we may write
+$$v=\sum_{i=1}^n\lambda_ie_i
+=\sum_{i=1}^r\lambda_ie_i+\sum_{i=r+1}^n\lambda_ie_i\in U+U^\perp.$$
+\end{quote}
+{\bf Maschke's Theorem:}  If $V$ is a ${\mathbb C}G$-module and
+$U$ is a ${\mathbb C}G$-submodule, there is a 
+${\mathbb C}G$-submodule, $W$, of $V$ such that $V= U \oplus W$.
+\begin{quote}
+\emph{Proof:}  
+Let $\langle\ ,\ \rangle$ be the inner product on $V$ 
+and take the orthogonal complement $U^\perp$ with respect to it then
+$V=U\oplus U^\perp$.
+Given $g\in G$ and $v\in U^\perp$, for all $u\in U$ we have $g^{-1}u\in U$
+as $U$ is a ${\mathbb C}G$-submodule, so that
+$$\langle gv,u\rangle=\langle gv,g(g^{-1}u)\rangle=\langle v,g^{-1}u\rangle=0;$$
+thus $gv\in U^\perp$. This shows that $U^\perp$ is a ${\mathbb C}G$-submodule of $V$; so
+taking $W=U^\perp$ gives the ${\mathbb C}G$-module direct sum $V=U\oplus W$ as
+required.
+\\
+\\
+\emph{Alternate Proof:} $V= U \oplus W_0$ where $W_0$ is some
+not necessarily ${\mathbb C}G$-invariant subspace.
+Let $\pi_U$ be the projection operator onto $U$ so $\pi_U(u + w)= u$.
+Put $\varphi(x)= {\frac 1 {|G|}} \sum_{g \in G} g^{-1} \pi_U g (x)$.
+$U = \varphi(U)$ and $\varphi$ is a ${\mathbb C}G$-invariant projection.
+$V= im( \varphi ) \oplus ker( \varphi )$.  But $im(\varphi)= U$ so
+$V= U \oplus W$ where $W= ker( \varphi )$.
+\end{quote}
+{\bf Definition:} A ${\mathbb C}G$-module $V$ is called
+\emph{completely reducible} if $V=U_1\oplus\cdots\oplus U_r$ where
+each $U_i$ is an irreducible ${\mathbb C}G$-submodule of $V$.
+\\
+\\
+{\bf Theorem 6:} If $V$ is a non-zero ${\mathbb C}G$-module, then $V$ is
+completely reducible.
+\begin{quote}
+\emph{Proof:}
+We use induction on $n= dim(V)$: the result is clear if $n=1$, as then
+$V$ is itself irreducible, so assume $n>1$. The result holds if $V$ is
+irreducible, so assume $V$ is reducible; then $V$ has a ${\mathbb C}G$-submodule
+$U \neq \{0\},V$.  Theorem a previous result, $V$ has a
+${\mathbb C}G$-submodule $W$ with $V=U\oplus W$; as $dim(U),dim(W)<n$, by
+induction we have
+$$U= U_1 \oplus \cdots \oplus U_r,\qquad W= W_1 \oplus \cdots \oplus W_s,$$
+where each $U_i$ and $W_j$ is an irreducible ${\mathbb C}G$-module. It follows that
+$$V= U_1 \oplus \cdots \oplus U_r \oplus W_1 \oplus \cdots \oplus W_s$$
+as required.
+\end{quote}
+{\bf Schur's Theorem:}  
+If $V, W$ are irreducible ${\mathbb C}G$-modules and $\theta: V \rightarrow W$ is a 
+${\mathbb C}G$ homomorphism then either $\theta=0$ or $\theta$ is an isomorphism.
+\begin{quote}
+\emph{Proof:}  
+(i) Suppose there exists $v\in V$ with $\theta(v)\neq0$. Then
+$im(\theta) \neq \{0\}$; because $im(\theta)$ is a ${\mathbb C}G$-submodule of $W$, which
+is irreducible, we must have $im(\theta)=W$. Also $ker(\theta) \neq V$; as
+$ker(\theta)$ is a ${\mathbb C}G$-submodule of $V$, which is irreducible, we must have
+$ker(\theta)=\{0\}$. Thus $\theta$ is invertible, and so it is a
+${\mathbb C}G$-isomorphism.
+\\
+\\
+(ii) Because $V$ is a vector space over ${\mathbb C}$, the endomorphism
+$\theta$ has an eigenvalue $\lambda\in{\mathbb C}$, and so
+$ker(\theta-\lambda1_V) \neq \{0\}$. Since $\theta-\lambda1_V$ is clearly a
+${\mathbb C}G$-homomorphism, $ker(\theta-\lambda1_V)$ is a ${\mathbb C}G$-submodule of
+$V$; because $V$ is irreducible, we must have $ker(\theta-\lambda1_V)=V$. Thus
+$(\theta-\lambda1_V)(v)=0$ for all $v\in V$, and so $\theta-\lambda1_V=0$,
+i.e., $\theta=\lambda1_V$ as required.
+\end{quote}
+{\bf Theorem 7:} If $V$ is a non-zero ${\mathbb C}G$-module such that
+every ${\mathbb C}G$-homomorphism from $V$ to $V$ is a scalar multiple of $1_V$, then
+$V$ is irreducible.
+\begin{quote}
+\emph{Proof:}
+Suppose that $V$ is reducible; then it has a ${\mathbb C}G$-submodule $U$ not equal
+to $\{0\}$ or $V$. There is a ${\mathbb C}G$-submodule $W$ of $V$ with
+$V=U\oplus W$. The map $\pi:V\rightarrow V$ defined by
+$\pi(u+w)=u$ for all $u\in U$ and $w\in W$ is a ${\mathbb C}G$-homomorphism; since it is
+not a scalar multiple of $1_V$, this is a contradiction. Thus $V$ must be
+irreducible.
+\end{quote}
+{\bf Corollary:} Let $\rho: G\rightarrow GL_n({\mathbb C})$ be a
+representation of $G$; then $\rho$ is irreducible if and only if every
+$n\times n$ matrix $A$ with complex entries which satisfies
+$$A\rho(g)=\rho(g)A\qquad\hbox{for all }g\in G$$
+has the form $A=\lambda I_n$ with $\lambda\in{\mathbb C}$.
+\begin{quote}
+\emph{Proof:}
+Regard ${\mathbb C}^n$ as a ${\mathbb C}G$-module by defining
+$gv=\rho(g)v$ for all $g\in G$ and $v\in{\mathbb C}^n$. Let $A$ be an $n\times n$ matrix
+over ${\mathbb C}$. The endomorphism $v\mapsto Av$ of 
+${\mathbb C}^n$ is a ${\mathbb C}G$-homomorphism
+if and only if
+$$A(gv)=g(Av)\qquad\hbox{for all }g\in G,\ v\in{\mathbb C}^n;$$
+i.e., if and only if
+$$A\rho(g)=\rho(g)A\qquad\hbox{for all }g\in G.$$
+The result now follows from the Lemma and an earlier theorem.
+\end{quote}
+{\bf Theorem 8:} If $V, W$ are ${\mathbb C}G$-module and
+$\varphi: V \rightarrow W$ is a ${\mathbb C}G$-homomorphism
+then $ker(\varphi)$ and $im(\varphi)$ are 
+${\mathbb C}G$-modules. 
+\begin{quote}
+\emph{Proof:}  
+Straightforward.
+\end{quote}
+{\bf Theorem 9:} If $V$ is a non-zero ${\mathbb C}G$-module 
+and $\theta: V \rightarrow W$ is a ${\mathbb C}G$ module
+homomorphism, $\exists U$, 
+a ${\mathbb C}G$-submodule of $V$ such that $V= ker(\theta) \oplus U$.
+$Hom_{{\mathbb C}G}(V,W)$ is a vector space over ${\mathbb C}$.  
+\begin{quote}
+\emph{Proof:}  
+$ker(\theta)$ is a ${\mathbb C}G$-module, so by 
+Maschke, there is a ${\mathbb C}G$-module, $U$ such that $V= ker(\theta) \oplus U$.
+The map ${\overline  \theta}(u) = \theta(u)$ is a ${\mathbb C}G$-isomorphism from $U$ into $IM(\theta)$.
+If $u \in ker({\overline \theta})$, $u \in ker(\theta) \cap U$.  If $v \in V$ and $\theta(v)= w$, $v = k + u$,
+$k \in ker(\theta), u \in U$.  $w= \theta(v)= \theta(k) + {\overline \theta}(u) = \theta(u)$ and $Im(\theta)= Im({\overline \theta})$.
+$U \cong Im(\theta)$.
+\end{quote}
+\section {${\mathbb C}G$-homomorphisms}
+{\bf Definition:}
+Let $V$ and $W$ be ${\mathbb C}G$ modules.  $\theta$ is a ${\mathbb C}G$ homomorphism if $\theta$ is a ${\mathbb C}$ linear map $\theta: V \rightarrow W$
+with $\theta(gv) = g \theta(v), \forall v \in V$.  The set (group) of ${\mathbb C}G$ homomorphisms 
+from $V$ into $W$ is denoted $Hom_{{\mathbb C}G}$.
+\\
+\\
+{\bf Theorem 10:} If $V$ and $W$ are ${\mathbb C}G$-modules,
+$\theta,\phi: V \rightarrow W$ are ${\mathbb C}G$-homomorphisms and $\lambda \in {\mathbb C}$, then
+$\theta+\phi,\lambda\theta: V \rightarrow W$ are also ${\mathbb C}G$-homomorphisms.
+\begin{quote}
+\emph{Proof:}
+We know that $\theta+\phi$ and $\lambda\theta$ are linear maps; and for
+all $g\in G$ and $v\in V$ we have
+\begin{eqnarray*}
+(\theta+\phi)(gv)\!\!\!\!&=&\!\!\!\!\theta(gv)+\phi(gv)=g\theta(v)+g\phi(v)
+=g(\theta(v)+\phi(v))=g((\theta+\phi)(v)),\\
+(\lambda\theta)(gv)\!\!\!\!&=&\!\!\!\!\lambda.\theta(gv)
+=\lambda.g\theta(v)=g(\lambda.\theta(v))=g(\lambda\theta)(v)
+\end{eqnarray*}
+as required.
+\end{quote}
+{\bf Definition:} If $V$ and $W$ are ${\mathbb C}G$-modules, the vector space
+of all ${\mathbb C}G$-homomorphisms $\theta:V\rightarrow W$ is written
+$Hom_{{\mathbb C}G}({\mathbb C}G(V,W))$.
+\\
+\\
+{\bf Theorem 11:} If $V$ and $W$ are irreducible
+${\mathbb C}G$-modules, then
+$dim(Hom_{{\mathbb C}G}(V,W)) = 1$, if $V \cong W$, and
+$dim(Hom_{{\mathbb C}G}(V,W)) = 0$, if $V \ncong W$.
+\begin{quote}
+\emph{Proof:}
+If $V \not \cong W$ this is immediate from Schur's Lemma. If $V \cong W$,
+let $\theta: V \rightarrow W$ be a ${\mathbb C}G$-isomorphism; if $\phi\in Hom_{{\mathbb C}G}(V,W)$,
+then $\theta^{-1}\phi\in Hom_{{\mathbb C}G}(V,V)$. There exists
+$\lambda \in {\mathbb C}$ with $\theta^{-1}\phi=\lambda1_V$; thus $\phi=\lambda\theta$,
+and so we have $Hom_{{\mathbb C}G}(V,W)=\{\lambda\theta: \lambda \in {\mathbb C}\}$,
+which is a $1$-dimensional vector space.
+\end{quote}
+{\bf Theorem 12:} Let $V$, $V_1$, $V_2$, $W$, $W_1$ and
+$W_2$ be ${\mathbb C}G$-modules: then
+\begin{itemize}
+\item[(i)] $dim(Hom_{{\mathbb C}G}(V,W_1\oplus W_2))
+=dim(Hom_{{\mathbb C}G}(V,W_1))+dim(Hom_{{\mathbb C}G}(V,W_2))$;
+\item[(ii)] $dim(Hom_{{\mathbb C}G}(V_1\oplus V_2,W))
+=dim(Hom_{{\mathbb C}G}(V_1,W))+dim(Hom_{{\mathbb C}G}(V_2,W))$.
+\end{itemize}
+\begin{quote}
+\emph{Proof:}
+\\
+\\
+(i) Define the maps $\pi_1:W_1\oplus W_2\rightarrow W_1$ and
+$\pi_2:W_1\oplus W_2\rightarrow W_2$ by
+$$\pi_1(w_1+w_2)=w_1,\qquad\pi_2(w_1+w_2)=w_2\qquad\hbox{for all }w_1\in W_1,\
+w_2\in W_2;$$
+then we see that $\pi_1$ and $\pi_2$ are
+${\mathbb C}G$-homomorphisms. Given
+$\theta\in Hom_{{\mathbb C}G}(V,W_1\oplus W_2)$, it is easy to see that
+$\pi_i\theta\in Hom_{{\mathbb C}G}(V,W_i)$ for $i=1,2$. We may
+thus define a map $f$ from the vector space
+$Hom_{{\mathbb C}G}(V,W_1\oplus W_2)$ to the vector space direct sum
+$Hom_{{\mathbb C}G}(V,W_1)\oplus Hom_{{\mathbb C}G}(V,W_2)$ by
+$$f(\theta)=(\pi_1\theta,\pi_2\theta)\qquad\hbox{for all }\theta\in
+ Hom_{{\mathbb C}G}(V,W_1\oplus W_2).$$
+It is clear that $f$ is a linear map; we shall show that it is bijective.
+\\
+\\
+Given $\phi_i\in Hom_{{\mathbb C}G}(V,W_i)$ for $i=1,2$, the map
+$\phi: V\rightarrow W_1\oplus W_2$ defined by
+$\phi(v)=\phi_1(v)+\phi_2(v)$ for all $v\in V$ lies in
+$Hom_{{\mathbb C}G}(V,W_1\oplus W_2)$, and satisfies
+$f(\phi)=(\phi_1,\phi_2)$; thus $f$ is surjective. If $f(\theta)=0$, then
+$\pi_1\theta=0$ and $\pi_2\theta=0$, so for all $v\in V$ we have
+$\theta(v)=\pi_1\theta(v)+\pi_2\theta(v)=0$; thus $\theta=0$, and so
+$f$ is injective. Thus $f$ is an invertible linear map from
+$Hom_{{\mathbb C}G}(V,W_1\oplus W_2)$ to the vector space direct sum
+$Hom_{{\mathbb C}G}(V,W_1)\oplus Hom_{{\mathbb C}G}(V,W_2)$, and so these two spaces have the same
+dimension as required.
+\\
+\\
+(ii) Given $\theta\in Hom_{{\mathbb C}G}(V_1\oplus V_2,W)$, define
+$\theta_i: V_i \rightarrow W$ for $i=1,2$ to be the restriction of
+$\theta$ to $V_i$, i.e., the map defined by $\theta_i(v)= \theta(v)$ for all
+$v \in V_i$; then $\theta_i \in Hom_{{\mathbb C}G}(V_i,W)$ for $i=1,2$. Now define a
+map $h$ from the vector space $Hom_{{\mathbb C}G}(V_1\oplus V_2,W)$ to the vector space
+$Hom_{{\mathbb C}G}(V_1,W) \oplus Hom_{{\mathbb C}G}(V_2,W)$ by
+$$h(\theta)=(\theta_1,\theta_2)\qquad\hbox{for all }\theta\in
+Hom_{{\mathbb C}G}(V_1\oplus V_2,W).$$
+Clearly $h$ is a linear map, and is injective. Given
+$\phi_i\in Hom_{{\mathbb C}G}(V_i,W)$ for $i=1,2$, the map 
+$\phi: V_1 \oplus V_2 \rightarrow W$ defined by
+$\phi(v_1+v_2)= \phi_1(v_1)+\phi_2(v_2)$ for all
+$v_1\in V_1$, $v_2\in V_2$ lies in $Hom_{{\mathbb C}G}(V_1\oplus V_2,W)$, and
+$h(\phi)=(\phi_1,\phi_2)$; thus $h$ is surjective. Thus $h$ is a
+bijective linear map from $Hom_{{\mathbb C}G}(V_1\oplus V_2,W)$ to the vector space
+direct sum $Hom_{{\mathbb C}G}(V_1,W)\oplus Hom_{{\mathbb C}G}(V_2,W)$, and so these two spaces
+have the same dimension as required.
+\end{quote}
+{\bf Corollary:} If $V_1,\dots,V_r,W_1,\dots W_s$ are
+${\mathbb C}G$-modules, then
+$$dim(Hom_{{\mathbb C}G}(V_1\oplus\cdots\oplus V_r,W_1\oplus\cdots\oplus W_s))
+=\sum_{i=1}^r\sum_{j=1}^s dim(Hom_{{\mathbb C}G}(V_i,W_j)).$$
+\begin{quote}
+\emph{Proof:}
+For convenience write $W=W_1\oplus\cdots\oplus W_s$; then by induction,
+we have
+\begin{eqnarray*}
+dim(Hom_{{\mathbb C}G}(V_1\oplus\cdots\oplus V_r,W))
+\!\!\!\!&=&\!\!\!\!\sum_{i=1}^r dim(Hom_{{\mathbb C}G}(V_i,W))\\
+\!\!\!\!&=&\!\!\!\!\sum_{i=1}^r dim(Hom_{{\mathbb C}G}(V_i,W_1\oplus\cdots\oplus W_s))\\
+\!\!\!\!&=&\!\!\!\!\sum_{i=1}^r\sum_{j=1}^s dim(Hom_{{\mathbb C}G}(V_i,W_j))
+\end{eqnarray*}
+as required.
+\end{quote}
+{\bf Corollary:} Let $V$ be a ${\mathbb C}G$-module with
+$V=U_1\oplus\cdots\oplus U_r$ where each $U_i$ is irreducible, and $W$ be any
+irreducible ${\mathbb C}G$-module; then both $ dim(Hom_{{\mathbb C}G}(V,W))$ and
+$ dim(Hom_{{\mathbb C}G}(W,V))$ are equal to the number of terms $U_i$ with $U_i\cong W$.
+\begin{quote}
+\emph{Proof:}
+By the Corollary, we have
+\begin{eqnarray*}
+ dim(Hom_{{\mathbb C}G}(V,W))\!\!\!\!&=&\!\!\!\!\sum_{i=1}^r dim(Hom_{{\mathbb C}G}(U_i,W)),\\
+ dim(Hom_{{\mathbb C}G}(W,V))\!\!\!\!&=&\!\!\!\!\sum_{i=1}^r dim(Hom_{{\mathbb C}G}(W,U_i));
+\end{eqnarray*}
+we have
+$$ dim(Hom_{{\mathbb C}G}(U_i,W))= dim(Hom_{{\mathbb C}G}(W,U_i))=
+1,  \textnormal { if } U_i \cong W;
+0  \textnormal{ if } U_i \ncong W.
+$$
+The result follows.
+\end{quote}
+{\bf Theorem 13:} Let $V$ be a ${\mathbb C}G$-module, and write
+$V=U_1\oplus\cdots\oplus U_r$ where each $U_i$ is an irreducible
+${\mathbb C}G$-submodule of $V$. If $U$ is any irreducible ${\mathbb C}G$-submodule of $V$, then
+$U \cong U_i$ for some $i$.
+\begin{quote}
+\emph{Proof:}
+Given $u\in U$ we may write $u=u_1+\cdots+u_r$ for unique vectors
+$u_i\in U_i$. Define $\pi_i:U\rightarrow U_i$ by $\pi_i(u)=u_i$ for
+$1\leq i\leq r$; then each $\pi_i$ is a
+${\mathbb C}G$-homomorphism. If we choose $i$ such that $u_i\neq0$ for some
+$u\in U$, we have $\pi_i\neq0$. $\pi_i$ is a
+${\mathbb C}G$-isomorphism, and so $U\cong U_i$.
+\end{quote}
+\section {Decomposition of ${\mathbb C}G$}
+{\bf Definition:} If $V$ is a ${\mathbb C}G$-module and $U$ is an irreducible
+${\mathbb C}G$-module, we say that $U$ is a \emph{composition factor} of $V$ if $V$ has
+a ${\mathbb C}G$-submodule which is isomorphic to $U$.
+\\
+\\
+{\bf Definition:} Two ${\mathbb C}G$-modules $V$ and $W$ are said to have a
+\emph{common composition factor} if there is an irreducible ${\mathbb C}G$-module which
+is a composition factor of both $V$ and $W$.
+\\
+\\
+{\bf Theorem 14:} The ${\mathbb C}G$-modules $V$ and $W$ have a common
+composition factor if and only if $ Hom_{{\mathbb C}G}(V,W)\neq\{0\}$.
+\begin{quote}
+\emph{Proof:}
+Write $V=V_1\oplus\cdots\oplus V_r$, $W=W_1\oplus\cdots\oplus W_s$ with
+each $V_i$ and $W_j$ irreducible. By the corollary,
+$\dim( Hom_{{\mathbb C}G}(V,W))=\sum\sum\dim( Hom_{{\mathbb C}G}(V_i,W_j))$, and, 
+$\dim( Hom_{{\mathbb C}G}(V_i,W_j))$ is $1$ if $V_i\cong W_j$, and $0$ if
+$V_i \not\cong W_j$. Thus $ Hom_{{\mathbb C}G}(V,W) \neq \{0\}$ if and only if some $V_i$ is
+isomorphic to some $W_j$.
+\end{quote}
+{\bf Definition:} The vector space ${\mathbb C}G$, with multiplication defined
+by
+$$\biggl(\sum_{g\in G}\lambda_gg\biggr)\biggl(\sum_{h\in G}\mu_hh\biggr)
+=\sum_{g,h\in G}\lambda_g\mu_h(gh)\qquad\hbox{for all }\lambda_g,\mu_h\in{\mathbb C},$$
+is called the  \emph{group algebra} of $G$.
+\\
+\\
+{\bf Theorem 15:} For all $r,s,t\in{\mathbb C}G$ and $\lambda\in{\mathbb C}$, we
+have the following:
+\begin{itemize}
+\item[(i)] $rs\in{\mathbb C}G$;
+\item[(ii)] $r(st)=(rs)t$;
+\item[(iii)] $r1=1r=r$;
+\item[(iv)] $(\lambda r)s=\lambda(rs)=r(\lambda s)$;
+\item[(v)] $r(s+t)=rs+rt$;
+\item[(vi)] $(r+s)t=rt+st$;
+\item[(vii)] $r0=0r=0$.
+\end{itemize}
+\begin{quote}
+\emph{Proof:}
+We prove (ii).  Let
+$$r=\sum_{g\in G}\lambda_gg,\qquad s=\sum_{h\in G}\mu_hh,\qquad
+t=\sum_{k\in G}\nu_kk,$$
+where $\lambda_g,\mu_h,\nu_k\in{\mathbb C}$ for all $g,h,k\in G$; then
+$$(rs)t=\sum_{g,h,k\in G}\lambda_g\mu_h\nu_k(gh)k
+=\sum_{g,h,k\in G}\lambda_g\mu_h\nu_kg(hk)=r(st).$$
+\end{quote}
+{\bf Definition:}
+We now define a ${\mathbb C}G$-module using the group algebra. Let $V={\mathbb C}G$, so that
+$V$ is a vector space of dimension $n=|G|$ over ${\mathbb C}$. Given $g\in G$, we may
+regard $g$ as an element of ${\mathbb C}G$, and so may form the product $gv$ for any
+$v \in V$; by properties (i), (ii), (iii), (iv) and (v) of an earlier result,
+for all $g,h \in G$, $\lambda \in {\mathbb C}$ and $u,v \in V$ we have
+$$gv \in V,\quad (gh)v=g(hv),\quad 1v=v,\quad g(\lambda v)=\lambda gv,\quad
+g(u+v)=gu+gv.$$
+Thus $V$ is a ${\mathbb C}G$-module.
+The ${\mathbb C}G$-module ${\mathbb C}G$ is called the \emph{regular}
+${\mathbb C}G$-module. The corresponding representation $g\mapsto[g]_{\cal B}$, where ${\cal B}$ is
+the natural basis of ${\mathbb C}G$, is called the {\emph{regular representation} of
+$G$.
+Note that the regular ${\mathbb C}G$-module has dimension $|G|$.
+\\
+\\
+{\bf Theorem 16:} The regular ${\mathbb C}G$-module is faithful.
+\begin{quote}
+\emph{Proof:}
+If $g\in G$ with $gv=v$ for all $v\in{\mathbb C}G$, then $g1=1$, and so $g=1$; 
+thus ${\mathbb C}G$ is faithful.
+\end{quote}
+{\bf Theorem 17:} If $V$ is a ${\mathbb C}G$-module, the following
+properties hold for all $r,s\in{\mathbb C}G$, $\lambda\in{\mathbb C}$ and $u,v\in V$:
+\begin{itemize}
+\item[(i)] $rv\in V$;
+\item[(ii)] $(rs)v=r(sv)$;
+\item[(iii)] $1v=v$;
+\item[(iv)] $r(\lambda v)=\lambda(rv)=(\lambda r)v$;
+\item[(v)] $r(u+v)=ru+rv$;
+\item[(vi)] $(r+s)v=rv+sv$;
+\item[(vii)] $r0=0v=0$.
+\end{itemize}
+\begin{quote}
+\emph{Proof:}
+We prove only (ii), leaving the rest as easy
+exercises (some of whose results we shall assume). Let $r,s\in{\mathbb C}G$ and
+$v\in V$, and set
+$$r=\sum_{g\in G}\lambda_gg,\qquad s=\sum_{h\in G}\mu_hh\qquad\hbox{with }
+\lambda_g,\mu_h\in{\mathbb C}\hbox{ for all }g,h\in G.$$
+We then have
+
+\begin{eqnarray*}
+(rs)v
+\!\!\!\!&=&\!\!\!\!\left(\sum_{g,h}\lambda_g\mu_h(gh)\right)v
+\qquad\hbox{by definition of the multiplication in }{\mathbb C}G\\
+\!\!\!\!&=&\!\!\!\!\sum_{g,h}\lambda_g\mu_h((gh)v)
+\qquad\hbox{by (iv) and (vi)}\\
+\!\!\!\!&=&\!\!\!\!\sum_{g,h}\lambda_g\mu_h(g(hv))
+\qquad\hbox{by definition of a ${\mathbb C}G$-module}\\
+\!\!\!\!&=&\!\!\!\!\left(\sum_g\lambda_gg\right)\left(\sum_h\mu_h(hv)\right)
+\qquad\hbox{by (iv), (v) and (vi)}\\
+\!\!\!\!&=&\!\!\!\!r(sv)\qquad\hbox{by (iv) and (vi)}
+\end{eqnarray*}
+as required.
+\end{quote}
+{\bf Theorem 18:} Write the regular ${\mathbb C}G$-module as
+$${\mathbb C}G=U_1 \oplus \cdots \oplus U_r,$$
+a direct sum of irreducible ${\mathbb C}G$-submodules; then any irreducible
+${\mathbb C}G$-module is isomorphic to one of the $U_i$.
+\begin{quote}
+\emph{Proof:}
+Let $W$ be an irreducible ${\mathbb C}G$-module, and choose a non-zero vector
+$w\in W$. Define $\theta:{\mathbb C}G\rightarrow W$ by
+$$\theta(r)=rw\qquad\hbox{for all }r\in{\mathbb C}G;$$
+then clearly $\theta$ is a linear map. For all $g\in G$ and $r\in{\mathbb C}G$ we have
+$$\theta(gr)=(gr)w=g(rw)=g\theta(r);$$
+thus $\theta$ is a ${\mathbb C}G$-homomorphism. We know that
+$im(\theta)$ is a ${\mathbb C}G$-submodule of $W$; since
+$0\neq w=1w=\theta(1)\in im(\theta)$ and $W$ is irreducible, we must have
+$im(\theta)=W$. There is a ${\mathbb C}G$-submodule $U$ of
+${\mathbb C}G$ with
+$${\mathbb C}G=ker(\theta) \oplus U\qquad\hbox{and}\qquad U \cong im(\theta)=W.$$
+We have $U\cong U_i$ for some $i$, and so it follows that
+$W\cong U_i$ as required.\
+\end{quote}
+{\bf Corollary:} Up to isomorphism, there are only finitely many
+irreducible ${\mathbb C}G$-modules.
+\begin{quote}
+\emph{Proof:}
+Follows immediately from previous result. 
+\end{quote}
+{\bf Theorem 19:} If $U$ is a ${\mathbb C}G$-module, then
+$ dim(Hom_{{\mathbb C}G}({\mathbb C}G,U))= dim(U)$.
+\begin{quote}
+\emph{Proof:}
+Let $dim(U)=d$, and choose a basis $u_1,\dots,u_d$ of $U$. For
+$1\leq i\leq d$ define $\phi_i:{\mathbb C}G\rightarrow U$ by $\phi_i(r)=ru_i$ for all
+$r\in{\mathbb C}G$. Clearly each $\phi_i$ is a linear map, and for all $g\in G$ and
+$r\in{\mathbb C}G$ we have
+$$\phi_i(gr)=(gr)u_i=g(ru_i)=g\phi_i(r),$$
+so that $\phi_i\in Hom_{{\mathbb C}G}({\mathbb C}G,U)$. We shall prove that $\phi_1,\dots,\phi_d$ is
+a basis of $Hom_{{\mathbb C}G}({\mathbb C}G,U)$. Given $\phi\in Hom_{{\mathbb C}G}({\mathbb C}G,U)$, write
+$\phi(1)=\lambda_1u_1+\cdots+\lambda_du_d$ for some $\lambda_i\in{\mathbb C}$. For all
+$r\in{\mathbb C}G$ we then have
+
+\begin{eqnarray*}
+\phi(r)\!\!\!\!&=&\!\!\!\!\phi(r1)=r\phi(1)=r\lambda_1u_1+\cdots+r\lambda_du_d
+=\lambda_1\phi_1(r)+\cdots+\lambda_d\phi_d(r)\\
+\!\!\!\!&=&\!\!\!\!(\lambda_1\phi_1+\cdots+\lambda_d\phi_d)(r);
+\end{eqnarray*}
+
+thus $\phi=\lambda_1\phi_1+\cdots+\lambda_d\phi_d$. Hence
+$\phi_1,\dots,\phi_d$ span $Hom_{{\mathbb C}G}({\mathbb C}G,U)$. Now if
+$\lambda_1\phi_1+\cdots+\lambda_d\phi_d=0$ for some $\lambda_i\in{\mathbb C}$, we have
+$$0=(\lambda_1\phi_1+\cdots+\lambda_d\phi_d)(1)
+=\lambda_1u_1+\cdots+\lambda_du_d,$$
+so $\lambda_i=0$ for all $i$. Thus $\phi_1,\dots,\phi_d$ is
+a basis of $Hom_{{\mathbb C}G}({\mathbb C}G,U)$; it follows that $dim(Hom_{{\mathbb C}G}({\mathbb C}G,U))=d$.
+\end{quote}
+{\bf Theorem 20:} Suppose that ${\mathbb C}G=U_1 \oplus \cdots \oplus U_r$ is a
+direct sum of irreducible ${\mathbb C}G$-submodules. If $U$ is any irreducible
+${\mathbb C}G$-module, then the number of terms $U_i$ isomorphic to $U$ is equal to
+$dim(U)$.
+\begin{quote}
+\emph{Proof:}
+$ dim(U)= dim(Hom_{{\mathbb C}G}({\mathbb C}G,U))$, and by the last theorem,
+this is equal to the number of terms $U_i$ with $U_i\cong U$.
+\end{quote}
+{\bf Definition:} If $V_1,\dots,V_k$ are irreducible ${\mathbb C}G$-modules
+such that no two are isomorphic and any irreducible ${\mathbb C}G$-module is isomorphic
+to some $V_i$, we say that the $V_i$ form a \emph{complete set of
+non-isomorphic irreducible ${\mathbb C}G$-modules\/}.
+\\
+\\
+{\bf Theorem 21:} If $V_1,\dots,V_k$ form a complete set of
+non-isomorphic irreducible ${\mathbb C}G$-modules, then
+$$\sum_{i=1}^k( dim V_i)^2=|G|.$$
+\begin{quote}
+\emph{Proof:}
+Let ${\mathbb C}G=U_1\oplus\cdots\oplus U_r$, a direct sum of irreducible
+${\mathbb C}G$-modules; set $dim(V_i) =d_i$ for $1 \leq i \leq k$. For
+each $i$ the number of terms $U_j$ isomorphic to $V_i$ is equal to $d_i$. Thus
+$$dim({\mathbb C}G)= dim(U_1)+\cdots+ dim(U_r) =\sum_{i=1}^k d_i( dim(V_i))
+= \sum_{i=1}^k {d_i}^2.$$
+As $ dim({\mathbb C}G)=|G|$, the result follows.
+\end{quote}
+{\bf Theorem 22:}
+$dim(Hom_{{\mathbb C}G}(U_1 \oplus \ldots \oplus U_r, W_1 \oplus \ldots \oplus W_s))=
+\sum_{i=1, j=1}^{r,s} dim(Hom_{{\mathbb C}G}(V_i , W_j))$. Suppose $U$ is an irreducible
+${\mathbb C}G$-module then 
+$dim(Hom_{{\mathbb C}G}({\mathbb C}G, U))= dim(U)$.
+\begin{quote}
+\emph{Proof:}  
+Let $d=dim(U)$ and $u_1, u_2, \ldots, u_d$ be a basis for $U$.  Define
+$r \phi_i=u_i r$.  The $\phi_i$ are a basis for $Hom_{{\mathbb C}G}({\mathbb C}G, U)$.
+\end{quote}
+{\bf Theorem 23:}
+Let $V$ be an ${\mathbb C}G$ module, 
+$V= U_1 \oplus U_2 \oplus \ldots \oplus U_r$ with $U_i$ irreducible; (a) if
+$W$ is an irreducible ${\mathbb C} G$ module then 
+$dim_{{\mathbb C}}(Hom_{{\mathbb C}G}(V, W))= dim_{{\mathbb C}}(Hom_{{\mathbb C}G}(W, V))$ is
+the number of $U_i \cong W$;
+(b) each $U_i$ is a composition factor in the Jordan Holder series.
+\begin{quote}
+\emph{Proof:}  
+$dim(Hom_{{\mathbb C}G}(U_1 \oplus \ldots \oplus U_r, W)
+\sum_{i=1}^{r} dim(Hom_{{\mathbb C}G}(V_i , W))$. 
+$dim(Hom_{{\mathbb C}G}(V_i , W))= 1$ when $U_i \cong W$ and is $0$ otherwise.  So the
+sum is just the number of $U_i \cong W$ so is the sum where the $U_i$ and $W$ are reversed.
+\end{quote}
+\section{Representations of Abelian Groups}
+{\bf Theorem 24:} If $G$ is abelian, then every irreducible
+${\mathbb C}G$-module has dimension $1$.
+\begin{quote}
+\emph{Proof:}
+Let $V$ be an irreducible ${\mathbb C}G$-module, and take any $x\in G$.
+Because $G$ is abelian, we have
+$$x(gv)=g(xv)\qquad\hbox{for all }g\in G,\ v\in V,$$
+and hence the endomorphism $v\mapsto xv$ of $V$ is a ${\mathbb C}G$-homomorphism. 
+This endomorphism must be a scalar multiple of the identity map
+$1_V$, say $\lambda_x1_V$; thus $xv=\lambda_xv$ for all $v\in V$. Since this is
+true for all $x\in G$, we see that every subspace of $V$ is a ${\mathbb C}G$-submodule;
+so as $V$ is irreducible we must have $ dim(V)=1$.
+\end{quote}
+{\bf Theorem 25:} Let $G$ be the abelian group
+$C_{n_1}\times\cdots\times C_{n_r}$. There are $|G|$ irreducible
+representations of $G$, and any such is of the form
+$\rho_{\lambda_1,\dots,\lambda_r}$; no two of these representations are
+equivalent.
+\begin{quote}
+\emph{Proof:}
+The above has shown that any irreducible representation of $G$ must be of
+the form $\rho_{\lambda_1,\dots,\lambda_r}$; conversely if $\lambda_i$ is an
+$n_i$th root of unity for $1\leq i\leq r$, the map
+$\rho:G\rightarrow GL_1({\mathbb C})$ given by
+$$\rho({g_1}^{i_1}\dots{g_r}^{i_r})=
+({\lambda_1}^{i_1}\dots{\lambda_r}^{i_r})$$
+is clearly an irreducible
+representation. Since there are $n_i$ choices for each $\lambda_i$, the number
+of representations of the form $\rho_{\lambda_1,\dots,\lambda_r}$ is
+$n_1\dots n_r=|G|$; no two are equivalent, as
+$T^{-1}AT=A$ for any $1\times 1$ invertible matrices $A$ and $T$.
+\end{quote}
+{\bf Theorem 26:} If every irreducible ${\mathbb C}G$-module has
+dimension $1$, then $G$ is abelian.
+\begin{quote}
+\emph{Proof:}
+Let $V$ be a faithful ${\mathbb C}G$-module. We can write
+$V=V_1\oplus\cdots\oplus V_r$ with each $V_i$ irreducible. By assumption,
+$\dim(V_i) =1$ for all $i$; let $V_i=\langle v_i\rangle$, so that
+$v_1,\dots,v_r$ is a
+basis ${\cal B}$ of $V$. Since each $V_i$ is a ${\mathbb C}G$-submodule, we have
+$gv_i\in V_i$ for all $g\in G$; thus each matrix $[g]_{\cal B}$ is diagonal. As
+diagonal matrices commute, for all $g,h\in G$ we have
+$$[gh]_{\cal B}=[g]_{\cal B}[h]_{\cal B}=[h]_{\cal B}[g]_{\cal B}=[hg]_{\cal B},$$
+and so as the representation is faithful we have $gh=hg$ -- so $G$ is
+abelian.
+\end{quote}
+\section{Characters}
+{\bf Definition:} Let $\rho:G\rightarrow GL_n({\mathbb C})$ be a representation
+of $G$; then the \emph{character} of $\rho$ is the function
+$\chi:G\rightarrow{\mathbb C}$ given by $\chi(g)=Tr(\rho(g))$ for all $g\in G$.
+\\
+\\
+{\bf Remark:}
+Clearly the character of a representation $\rho$ of degree $n$ is ``simpler''
+than $\rho$ itself, in that it involves only $|G|$ values rather than
+$n^2|G|$ matrix entries. Our next result shows that this ``loss of detail''
+means that we fail to distinguish between equivalent representations.
+\\
+\\
+{\bf Theorem 27:} Equivalent representations of $G$ have the
+same character.
+\begin{quote}
+\emph{Proof:}
+Let $\rho,\sigma: G \rightarrow GL_n({\mathbb C})$ be equivalent representations of
+$G$; then there is an invertible matrix $T$ such that for all $g\in G$ we have
+$\sigma(g)=T^{-1}\rho(g)T$. Thus by the corollary, we have
+$Tr(\sigma(g))=Tr((T^{-1}\rho(g)T)=Tr(\rho(g))$.
+\end{quote}
+{\bf Definition:} Let $V$ be a ${\mathbb C}G$-module, with basis ${\cal B}$; then the
+\emph{character} of $V$ is the function $\chi:G\rightarrow{\mathbb C}$ given by
+$\chi(g)=Tr([g]_{\cal B})$ for all $g\in G$.
+\\
+\\
+{\bf Theorem 28:} Isomorphic ${\mathbb C}G$-modules have the same
+character.
+\begin{quote}
+\emph{Proof:}
+Combine the two previous results.
+\end{quote}
+{\bf Definition:} A function $\chi: G \rightarrow {\mathbb C}$ is called a
+\emph{character} if it is the character of some ${\mathbb C}G$-module. A character is
+called \emph{irreducible} if it is the character of an
+irreducible ${\mathbb C}G$-module, and \emph{reducible} otherwise.
+\\
+\\
+{\bf Theorem 29:} If $\chi$ is the character of a
+${\mathbb C}G$-module $V$, then $\chi(1)= dim(V)$.
+\begin{quote}
+\emph{Proof:}
+Let $n= dim (V)$; then the matrix $[1]_{\cal B}$ is the identity matrix $I_n$, and
+so we have $\chi(1)=Tr([1]_{\cal B})=Tr( I_n)=n$ as required.
+\end{quote}
+{\bf Definition:} If $\chi$ is the character of the ${\mathbb C}G$-module $V$,
+the dimension of $V$ is called the \emph{degree} of $\chi$.
+\\
+\\
+{\bf Example:} (a) $G = D_8 = \langle a, b| a^4=b^2=1, a^b = a^{-1}\rangle$.
+$\rho(a) =
+\left(
+\begin{array}{cc}
+0&1\\
+-1&0\\
+\end{array}
+\right)$,
+$\rho(b) =
+\left(
+\begin{array}{cc}
+1&0\\
+0&-1\\
+\end{array}
+\right)$.\\
+(b) $G = D_6 = S_3 = \langle a, b| a^3=b^2=1, a^b = a^{-1}\rangle$.  Basis is
+$v_0 = 1 + a + a^2$, $w_0= b v_0$,
+$v_1 = 1 + \omega^2a + \omega a^2$, $w_1= b v_1$,
+$v_2 = 1 + \omega a + \omega^2 a^2$, $w_2= b v_2$.
+$sp(v_0, w_0)$ is reducible as $sp(v_0 + w_0) \oplus sp(v_0 - w_0)$.
+$sp(v_1, w_2) \cong sp(v_2, w_1)$ and they are irreducible.
+The characters of $D_8$ have degree $1$, $1$, $1$, $1$, and $2$.
+The characters of $S_3$
+have degrees $1$, $1$ and $2$.
+\\
+\\
+{\bf Theorem 30:} If $\chi$ is a character of $G$, and
+$g,h\in G$ are conjugate, then $\chi(g)=\chi(h)$.
+\begin{quote}
+\emph{Proof:}
+If $g$ and $h$ are conjugate, we have $h=x^{-1}gx$ for some $x\in G$;
+thus if $\chi$ is the character of
+the ${\mathbb C}G$-module $V$ and ${\cal B}$ is a basis for $V$, we have
+$$[h]_{\cal B}=[x^{-1}gx]_{\cal B}=[x^{-1}]_{\cal B}[g]_{\cal B}[x]_{\cal B}=([x]_{\cal B})^{-1}[g]_{\cal B}[x]_{\cal B}.$$
+By the corollary,
+we then have $\chi(h)=Tr([h]_{\cal B})=Tr([g]_{\cal B})=\chi(g)$ as
+required.
+\end{quote}
+{\bf Theorem 31:} If $V$ is a ${\mathbb C}G$-module, then for each
+$g\in G$ there is a basis ${\cal B}$ of $V$ such that the matrix $[g]_{\cal B}$ is
+diagonal; if $g$ has order $m$, the diagonal entries of $[g]_{\cal B}$ are $m$th
+roots of unity.
+\begin{quote}
+\emph{Proof:}
+Given $g\in G$, let $H=\langle g\rangle$; then $H$ is a cyclic subgroup of
+$G$. By restricting the multiplication on $V$ to the elements of $H$, we may
+consider $V$ as a ${\mathbb C} H$-module. We may write
+$$V=U_1\oplus\cdots\oplus U_n,$$
+where each $U_j$ is an irreducible ${\mathbb C} H$-submodule of $V$.
+Each $U_j$ has dimension $1$; let $u_j$ be a vector spanning $U_j$.
+If we set $\omega=e^{2\pi i/m}$, then for all $j$ there is an integer
+$r_j$ with $gu_j=\omega^{r_j}u_j$. Thus if we let ${\cal B}$ be the basis
+$u_1,\dots,u_n$ of $V$, we have
+$[g]_{\cal B}=\left(\begin{array} {ccc}
+\omega^{r_1} & \ldots & 0\\
+\ldots & \ldots & \ldots\\
+0 & \ldots & \omega^{r_n}\\
+\end{array}\right)$
+as required.
+\end{quote}
+{\bf Example:} Let $G=S_3$, and $g=(1\;2\;3)\in G$, so that $g$ has
+order $3$; take $V$ to be the permutation module. We have seen that the
+matrix of $g$ with respect to the natural basis $v_1,v_2,v_3$ is not diagonal.
+However, if we write $\omega=e^{2\pi i/3}$ and set
+$$w_1=v_1+v_2+v_3,\qquad w_2=v_1+\omega^2v_2+\omega v_3,\qquad
+w_3=v_1+\omega v_2+\omega^2v_3,$$
+then $w_1,w_2,w_3$ is a basis ${\cal B}$ of $V$, and we have
+$$[g]_{\cal B}=\left(\begin{array}{ccc}
+1&0&0\\0&\omega&0\\0&0&\omega^2\end{array}\right).$$
+{\bf Theorem 32:} If $\chi$ is a character of $G$ of degree
+$n$, and $g\in G$ has order $m$, then:
+\begin{itemize}
+\item[(i)] $\chi(g)$ is a sum of $n$ $m$th roots of unity;
+\item[(ii)] $|\chi(g)|\leq n$;
+\item[(iii)] $\chi(g^{-1})=\overline{\chi(g)}$;
+\item[(iv)] if $g$ is conjugate to $g^{-1}$ then $\chi(g)  \in {\mathbb R}$.
+\end{itemize}
+\begin{quote}
+\emph{Proof:}
+Let $V$ be a ${\mathbb C}G$-module having $\chi$ as character.
+There is a basis ${\cal B}$ of $V$ such that
+$$[g]_{\cal B}=\left(\begin{array}{ccc}\omega_1&\cdots&0\\
+\vdots&\ddots&\vdots\\0&\cdots&\omega_n\end{array}\right)$$
+where each $\omega_j$ is an $m$th root of unity; this proves (i). The
+triangle inequality gives
+$$|\chi(g)|=|\omega_1+\cdots+\omega_n|\leq|\omega_1|+\cdots+|\omega_n|
+=1+\cdots+1=n,$$
+which proves (ii). Also we have
+$$[g^{-1}]_{\cal B}=\left(\begin{array}{ccc}\omega_1^{-1}&\cdots&0\\
+\vdots&\ddots&\vdots\\0&\cdots&{\omega_n}^{-1}\end{array}\right),$$
+and so $\chi(g^{-1})={\omega_1}^{-1}+\cdots+{\omega_n}^{-1}$. As
+$\overline{\omega}=\omega^{-1}$ for each root of unity $\omega$, we have
+$\chi(g^{-1})=\overline{\omega_1}+\cdots+\overline{\omega_n}
+=\overline{\chi(g)}$, giving (iii). Finally if $g$ is conjugate to
+$g^{-1}$ then by Theorem 30 we have
+$\chi(g)=\chi(g^{-1})=\overline{\chi(g)}$; thus $\chi(g)\in{\mathbb R}$, giving (iv).
+\end{quote}
+{\bf Corollary:} If $g\in G$ has order $2$, and $\chi$ is a
+character of $G$, then $\chi(g) \in {\mathbb Z}$, and $\chi(g)\equiv\chi(1)\jmod{2}$.
+\begin{quote}
+\emph{Proof:}
+$$\chi(g)=\omega_1+\cdots+\omega_n,$$
+where $n=\chi(1)$ and each $\omega_j$ is a square root of unity. Suppose
+$r$ terms $\omega_j$ are equal to $-1$; then the remaining $n-r$ are equal to
+$1$, and so
+$$\chi(g)=(n-r)-r=n-2r.$$
+Hence $\chi(g)\in{\mathbb Z}$, and $\chi(g)\equiv\chi(1)\jmod{2}$ as required.
+\end{quote}
+{\bf Theorem 33:} Let $\rho:G\rightarrow GL_n({\mathbb C})$ be a
+representation with character $\chi$. Then:
+\begin{itemize}
+\item[(i)] for $g\in G$ we have $|\chi(g)|=\chi(1)$ if and only if
+$\rho(g)=\lambda I_n$ for some $\lambda\in{\mathbb C}$;
+\item[(ii)] $ker(\rho)=\{g\in G:\chi(g)=\chi(1)\}$.
+\end{itemize}
+\begin{quote}
+\emph{Proof:}
+\\
+\\
+(i) Let $g\in G$ have order $m$. If $\rho(g)=\lambda I_n$ with
+$\lambda\in{\mathbb C}$, then $\lambda$ is an $m$th root of unity, and
+$\chi(g)=n\lambda$; thus $|\chi(g)|=n=\chi(1)$. Conversely, suppose that
+$|\chi(g)|=\chi(1)$. We know by Theorem 31 that there is a basis ${\cal B}$ of
+${\mathbb C}^n$ such that
+$$[g]_{\cal B}=\left(\begin{array}{ccc}\omega_1&\cdots&0\\
+\vdots&\ddots&\vdots\\0&\cdots&\omega_n\end{array}\right),$$
+where each $\omega_i$ is an $m$th root of unity; thus
+$\chi(g)=\omega_1+\cdots+\omega_n$. Since by assumption we have
+$$|\omega_1+\cdots+\omega_n|=|\chi(g)|=\chi(1)=n
+=|\omega_1|+\cdots+|\omega_n|,$$
+each term must have the same argument; so $\omega_i=\omega_j$ for
+all $i,j$, and thus
+$$[g]_{\cal B}=\left(\begin{array}{ccc}\omega_1&\cdots&0\\
+\vdots&\ddots&\vdots\\0&\cdots&\omega_1\end{array}\right)= \omega_1I_n.$$
+Hence if ${\cal B}'$ is any basis of ${\mathbb C}^n$, there is a change of basis matrix
+$T$ such that $[g]_{{\cal B}'}=T^{-1}[g]_{\cal B} T=T^{-1}\omega_1 I_n T=\omega_1 I_n$; so
+$\rho(g)=\omega_1I_n$ as required.
+\\
+\\
+(ii) Clearly if $g\in ker(\rho)$ then $\rho(g)=I_n$ so that
+$\chi(g)=n=\chi(1)$. Conversely if $g\in G$ satisfies $\chi(g)=\chi(1)$, then
+by (i) we have $\rho(g)=\lambda I_n$ for some $\lambda\in{\mathbb C}$; hence
+$\chi(g)=\lambda\chi(1)$, and so $\lambda=1$, giving $\rho(g)=I_n$ and so
+$g \in ker(\rho)$ as required.
+\end{quote}
+{\bf Example:} Let $G=D_8$, and let $\chi$ be the character given
+above, with values as follows.
+$$
+\begin{array}{|c|cccccccc|}
+\hline
+g&1&a&a^2&a^3&b&ba&ba^2&ba^3\\
+\hline
+\chi(g)&2&0&-2&0&0&0&0&0\\
+\hline
+\end{array}
+$$
+{\bf Definition:} The \emph{kernel} of the character $\chi$ of
+$G$ is the set $ker(\chi)=\{g\in G:\chi(g)=\chi(1)\}$.
+\\
+\\
+{\bf Theorem 34:} If $\chi$ is a character of $G$ then so is
+$\bar\chi$; if $\chi$ is irreducible then so is $\bar\chi$.
+\begin{quote}
+\emph{Proof:}
+Let $\chi$ be the character of a representation
+$\rho:G\rightarrow GL_n({\mathbb C})$; thus $\chi(g)=Tr((\rho(g))$ for all $g\in G$.
+Now given an $n\times n$ matrix $A=(a_{ij})$ over ${\mathbb C}$, we set
+$\bar A=(\overline{a_{ij}})$; then if $A=(a_{ij})$ and $B=(b_{ij})$ are
+$n\times n$ matrices over ${\mathbb C}$ we have
+$\overline{AB}=\overline{A}.\overline{B}$, because
+$$(\overline{A}.\overline{B})_{ij}
+=\sum_{k=1}^n\bar a_{ik}\bar b_{kj}=\sum_{k=1}^n\overline{a_{ik}b_{kj}}
+=\overline{\sum_{k=1}^na_{ik}b_{kj}}=(\overline{AB})_{ij}.$$
+Thus the function $\bar\rho:G\rightarrow GL_n({\mathbb C})$ defined by
+$\bar\rho(g)=\overline{\rho(g)}$ for all $g\in G$ is a representation of $G$;
+as $$Tr((\bar\rho(g))=Tr((\overline{\rho(g)})=\overline{Tr((\rho(g))}
+=\overline{\chi(g)}=\bar\chi(g)\qquad\hbox{for all }g\in G,$$
+the character of the representation $\bar\rho$ is $\bar\chi$. Clearly if
+$\rho$ is reducible then so is $\bar\rho$; thus $\chi$ is irreducible if and
+only if $\bar\chi$ is.
+\end{quote}
+{\bf Theorem 35:} If $V$ is a ${\mathbb C}G$-module and we have
+$V=U_1\oplus\cdots\oplus U_r$ with the $U_i$ ${\mathbb C}G$-submodules of $V$, then the
+character of $V$ is the sum of the characters of the $U_i$.
+\begin{quote}
+\emph{Proof:}
+Let ${\cal B}_i$ be a basis of $U_i$ for $1\leq i\leq r$, and amalgamate the
+bases ${\cal B}_i$ to form a basis ${\cal B}$ of $V$; then for all $g\in G$ we have
+$$[g]_{\cal B}=\left(\begin{array}{ccc}[g]_{{\cal B}_1}&\cdots&0\\
+\vdots&\ddots&\vdots\\0&\cdots&[g]_{{\cal B}_r}\end{array}\right).$$
+Thus $Tr([g]_{\cal B}) =Tr([g]_{{\cal B}_1}) +\cdots+Tr([g]_{{\cal B}_r}) $, i.e., the character of
+$V$ is the sum of those of the $U_i$ as required.
+\end{quote}
+{\bf Example:} Let $G=S_3$, and $V$ be the permutation module, with
+character $\chi$. We saw in section 1.4 that $V=U_1\oplus U_2$, where
+$U_1=\langle v_1+v_2+v_3\rangle$ and $U_2=\langle v_1-v_2,v_2-v_3\rangle$.
+If we let ${\cal B}_1$ and ${\cal B}_2$ be the bases $v_1+v_2+v_3$ of $U_1$ and
+$v_1-v_2,v_2-v_3$ of $U_2$, then the matrices $[g]_{{\cal B}_i}$ are as follows.
+
+$$
+\begin{array}{|c|c|c|c|c|c|c|}
+\hline
+g&1&(1\;2)&(1\;3)&(2\;3)&(1\;2\;3)&(1\;3\;2)\\
+\hline
+[g]_{{\cal B}_1}&(1)&(1)&(1)&(1)&(1)&(1)\\
+\hline
+[g]_{{\cal B}_2}&
+\left(\begin{array}{cc}1&0\\0&1\end{array}\right)&
+\left(\begin{array}{cc}-1&1\\0&1\end{array}\right)&
+\left(\begin{array}{cc}0&-1\\-1&0\end{array}\right)&
+\left(\begin{array}{cc}1&0\\1&-1\end{array}\right)&
+\left(\begin{array}{cc}0&-1\\1&-1\end{array}\right)&
+\left(\begin{array}{cc}-1&1\\-1&0\end{array}\right)\\
+\hline
+\end{array}
+$$
+Thus if we write $\chi_i$ for the
+character of $U_i$ for $i=1,2$, the character values are as follows.
+$$
+\begin{array}{|c|cccccc|}
+\hline
+g&1&(1\;2)&(1\;3)&(2\;3)&(1\;2\;3)&(1\;3\;2)\\
+\hline
+\chi_1(g)&1&1&1&1&1&1\\
+\chi_2(g)&2&0&0&0&-1&-1\\
+\hline
+\chi(g)&3&1&1&1&0&0\\
+\hline
+\end{array}
+$$
+By applying this result when each $U_i$ is irreducible, we see that any
+character is a sum of irreducible ones. As with representations and
+${\mathbb C}G$-modules, this concentrates attention on the irreducible characters.
+\\
+\\
+{\bf Definition:} A character of degree $1$ is called a \emph{linear
+character}.
+\\
+\\
+{\bf Examples:}
+\begin{itemize}
+\item[(i)] The three irreducible characters of $C_3$ are all linear.
+\item[(ii)] Of the three irreducible characters of $D_6$, the first two are
+linear but the third is not, since it has degree $2$.
+\end{itemize}
+{\bf Remark:}
+If $V$ is a $1$-dimensional ${\mathbb C}G$-module, then for all $g\in G$ there exists
+$\lambda_g\in{\mathbb C}$ such that $gv=\lambda_gv$ for all $v\in V$; the linear
+character $\chi$ of $V$ is given by $\chi(g)=\lambda_g$ for all $g\in G$.
+Any irreducible character of an abelian group is linear.
+Note that a linear character of any group is certainly irreducible; also a
+linear character is in fact a homomorphism from $G$ to the multiplicative
+group of non-zero complex numbers. (It is easy to see that the only characters
+which are homomorphisms in this way are the linear ones: if $\chi$ is a
+character of degree $d$ which is a homomorphism, we must have
+$\chi(1)\chi(1)=\chi(1)$, i.e., $d^2=d$, and so $d=1$.)
+\\
+\\
+{\bf Definition:} The character of the trivial representation of
+$G$ is called the \emph{trivial character} of $G$, and is written $1_G$.
+\\
+\\
+{\bf Definition:} The character $\chi$ is called \emph{faithful} if
+$ker(\chi)=\{1\}$.
+\\
+\\
+{\bf Examples:}
+\begin{itemize}
+\item[(i)] The irreducible characters of degree $2$ of $D_6$ and
+$D_8$ above are both faithful.
+\item[(ii)] The two linear characters of $D_6$ are not faithful, since their
+kernels are $D_6$ and $\langle a\rangle\cong C_3$ respectively.
+\end{itemize}
+{\bf Definition:} The character of the regular ${\mathbb C}G$-module ${\mathbb C}G$ is
+called the \emph{regular character} of $G$, and is written $\chi_{reg}$.
+\\
+\\
+{\bf Theorem 36:} Let $V_1,\dots,V_k$ be a complete set of
+non-isomorphic irreducible ${\mathbb C}G$-modules, and for $1\leq i\leq k$ let
+$\chi_i$ be the character of $V_i$ and $d_i$ the dimension of $V_i$; then
+$\chi_{reg}=d_1\chi_1+\cdots+d_k\chi_k$.
+\begin{quote}
+\emph{Proof:}
+$${\mathbb C}G=\underbrace{(V_1\oplus\cdots\oplus V_1)}_{d_1\ \mathrm{terms}}\oplus
+\cdots\oplus\underbrace{(V_k\oplus\cdots\oplus V_k)}_{d_k\ \mathrm{terms}};$$
+the result now follows.
+\end{quote}
+{\bf Theorem 37:} $\chi_{reg}(1)=|G|$, while $\chi_{reg}(g)=0$ if
+$1\neq g \in G$.
+\begin{quote}
+\emph{Proof:}
+Let $G=\{g_1,\dots,g_n\}$, and let ${\cal B}$ be the natural basis of ${\mathbb C}G$.
+We have $\chi_{reg}(1)=n=|G|$. Given $1\neq g\in G$, for all
+$1\leq i\leq n$ we have $gg_i=g_j$ for some $j\neq i$; thus the $i$th column of
+$[g]_{\cal B}$ has zero everywhere except in the $j$th row, and in particular the
+$(i,i)$-entry of $[g]_{\cal B}$ is zero for all $i$. Thus
+$\chi_{reg}(g)=Tr([g]_{\cal B}=0$ as required.
+\end{quote}
+{\bf Example:} 
+Consider $G=D_6$. The irreducible characters are
+$\chi_1$, $\chi_2$ and $\chi_3$, of degrees $1$, $1$ and $2$.
+Calculating the values of $\chi_1+\chi_2+2\chi_3$, we get:
+$$
+\begin{array}{|c|cccccc|}
+\hline
+g&1&a&a^2&b&ba&ba^2\\
+\hline
+\chi_1(g)&1&1&1&1&1&1\\
+\chi_2(g)&1&1&1&-1&-1&-1\\
+\chi_3(g)&2&-1&-1&0&0&0\\
+\hline
+(\chi_1+\chi_2+2\chi_3)(g)&6&0&0&0&0&0\\
+\hline
+\end{array}
+$$
+$\chi_{reg}=\chi_1+\chi_2+2\chi_3$ and
+$\chi_{reg}$ takes the value $|G|$ at the element $1$ and $0$ elsewhere.
+\\
+\\
+{\bf Definition:} If $G$ is a subgroup of $S_n$, the character of the
+permutation module for $G$ is called the \emph{permutation character} of $G$.
+\\
+\\
+{\bf Theorem 38:} If $G$ is a subgroup of $S_n$, the function
+$\nu:G\rightarrow{\mathbb C}$ defined by $\nu(g)=|Fix(g)|-1$ is a character of $G$.
+\begin{quote}
+\emph{Proof:}
+Let $V$ be the permutation module for $G$, and let $v_1,\dots,v_n$ be the
+natural basis of $V$; set $u=v_1+\cdots+v_n$, and let $U$ be the
+$1$-dimensional subspace of $V$ spanned by $u$. Since $gu=u$ for all $g\in G$,
+we see that $U$ is a trivial ${\mathbb C}G$-submodule of $V$, with character $1_G$.
+There is a ${\mathbb C}G$-submodule $W$ of $V$ such that $V=U\oplus W$;
+let $\nu$ be the character of $W$. We have
+$$\pi=1_G+\nu,$$
+and so $|Fix(g)|=1+\nu(g)$ for all $g\in G$; thus $\nu(g)=|Fix(g)|-1$ for all
+$g\in G$.
+\end{quote}
+{\bf Example:} Let $G=A_4$, a subgroup of $S_4$; then
+$G$ has four conjugacy classes, represented by $1$, $(1\;2)(3\;4)$,
+$(1\;2\;3)$ and $(1\;3\;2)$. The values of the character $\nu$ are as follows.
+$$
+\begin{array}{|c|cccc|}
+\hline
+g&1&(1\;2)(3\;4)&(1\;2\;3)&(1\;3\;2)\\
+\hline
+\nu(g)&3&-1&0&0\\
+\hline
+\end{array}
+$$
+\section{The space of functions $G \rightarrow {\mathbb C}$}
+{\bf Definition:} Given $\theta:G\rightarrow{\mathbb C}$ and
+$\phi: G \rightarrow {\mathbb C}$, we define
+$$\langle\theta,\phi\rangle
+=\frac{1}{|G|}\sum_{g \in G} \theta(g) \overline{\phi(g)}.$$
+\\
+\\
+{\bf Theorem 39:} If $G$ has precisely $\ell$ conjugacy
+classes $C_1,\dots,C_\ell$, with representatives $g_1,\dots,g_\ell$, and
+$\chi$ and $\psi$ are characters of $G$, then
+$$\!\langle\chi,\psi\rangle=\langle\psi,\chi\rangle
+=\frac{1}{|G|}\sum_{g\in G}\chi(g)\psi(g^{-1})
+=\frac{1}{|G|}\sum_{i=1}^\ell|C_i|\chi(g_i)\overline{\psi(g_i)}
+=\sum_{i=1}^\ell\frac{\chi(g_i)\overline{\psi(g_i)}}{|C_G(g_i)|}\in{\mathbb R}.\!$$
+\begin{quote}
+\emph{Proof:}
+We have five things to prove. First note that because
+$\overline{\psi(g)}=\psi(g^{-1})$ for all $g\in G$ by Theorem 32 (iii),
+we have
+$$\langle\chi,\psi\rangle=\frac{1}{|G|}\sum_{g\in G}\chi(g)\psi(g^{-1}).$$
+Because $g^{-1}$ runs through $G$ as $g$ does, we also have
+$$\langle\chi,\psi\rangle=\frac{1}{|G|}\sum_{g\in G}\chi(g^{-1})\psi(g)
+=\langle\psi,\chi\rangle.$$
+Since $\langle\chi,\psi\rangle=\langle\psi,\chi\rangle
+=\overline{\langle\chi,\psi\rangle}$, we must have
+$\langle\chi,\psi\rangle\in{\mathbb R}$. Next, because characters are constant on
+conjugacy classes, we have
+$$\sum_{g\in C_i}\chi(g)\overline{\psi(g)}
+=|C_i|\chi(g_i)\overline{\psi(g_i)};$$
+thus as $G$ is the disjoint union of the conjugacy classes $C_i$, we have
+$$\langle\chi,\psi\rangle
+=\frac{1}{|G|}\sum_{g\in G}\chi(g)\overline{\psi(g)}
+=\frac{1}{|G|}\sum_{i=1}^\ell\sum_{g\in C_i}\chi(g)\overline{\psi(g)}
+=\frac{1}{|G|}\sum_{i=1}^\ell|C_i|\chi(g_i)\overline{\psi(g_i)}.$$
+Finally, as $|C_i|=|G|/|C_G(g_i)|$, we have
+$$\langle\chi,\psi\rangle
+=\sum_{i=1}^\ell\frac{|C_i|}{|G|}\chi(g_i)\overline{\psi(g_i)}
+=\sum_{i=1}^\ell\frac{1}{|C_G(g_i)|}\chi(g_i)\overline{\psi(g_i)}$$
+as required.
+\end{quote}
+{\bf Example:} Let $G=A_4$ then 
+$G$ has four conjugacy classes, with
+representatives 
+$$g_1=1,\qquad g_2=(1\;2)(3\;4),\qquad g_3=(1\;2\;3),\qquad g_4=(1\;3\;2).$$
+The conjugacy class sizes $|C_i|$ are as follows:
+$$
+\begin{array}{rlrl}
+C_G(g_1)\!\!\!\!&=G&\quad |C_1|\!\!\!\!&=|G|/|C_G(g_1)|=1,\\
+C_G(g_2)\!\!\!\!&=\{1,(1\;2)(3\;4),(1\;3)(2\;4),(1\;4)(2\;3)\},&
+|C_2|\!\!\!\!&=|G|/|C_G(g_2)|=3,\\
+C_G(g_3)\!\!\!\!&=\{1,(1\;2\;3),(1\;3\;2)\},&|C_3|\!\!\!\!&=|G|/|C_G(g_3)|=4,\\
+C_G(g_4)\!\!\!\!&=\{1,(1\;3\;2),(1\;2\;3)\},&|C_4|\!\!\!\!&=|G|/|C_G(g_4)|=4.
+\end{array}
+$$
+Let $\omega=e^{2\pi i/3}$, then $G$ has characters $\chi$ and
+$\psi$ and:
+$$
+\begin{array}{|c|cccc|}
+\hline
+g&g_1&g_2&g_3&g_4\\
+\hline
+|C_G(g)|&12&4&3&3\\
+\hline
+|C_g|&1&3&4&4\\
+\hline
+\chi&1&1&\omega&\omega^2\\
+\psi&4&0&\omega^2&\omega\\
+\hline
+\end{array}
+$$
+Since $g_2$ has a total of $3$ conjugates, and $g_3$ and $g_4$ have
+$4$ each, we may calculate
+$$\langle\chi,\psi\rangle
+=\frac{1}{12}(1.4+1.0+1.0+1.0+\omega.\overline{\omega^2}
++\omega.\overline{\omega^2}+\omega.\overline{\omega^2}
++\omega.\overline{\omega^2}+\omega^2.\overline{\omega}
++\omega^2.\overline{\omega}+\omega^2.\overline{\omega}
++\omega^2.\overline{\omega})=0;$$
+however, it is simpler to compute
+$$\langle\chi,\psi\rangle
+=\sum_{i=1}^\ell\frac{\chi(g_i)\overline{\psi(g_i)}}{|C_G(g_i)|}
+=\frac{1.4}{12}+\frac{1.0}{4}+\frac{\omega.\overline{\omega^2}}{3}
++\frac{\omega^2.\overline{\omega}}{3}=0.$$
+Note that we also have
+$$\langle\psi,\chi\rangle
+=\sum_{i=1}^\ell\frac{\psi(g_i)\overline{\chi(g_i)}}{|C_G(g_i)|}
+=\frac{4.1}{12}+\frac{0.1}{4}
++\frac{\omega^2.\overline{\omega}}{3}+\frac{\omega.\overline{\omega^2}}{3}=0,$$
+so that $\langle\chi,\psi\rangle=\langle\psi,\chi\rangle\in{\mathbb R}$. Similarly we
+find that
+\begin{eqnarray*}
+&\langle\chi,\chi\rangle
+=\frac{1.1}{12}+\frac{1.1}{4}+\frac{\omega.\overline{\omega}}{3}
++\frac{\omega^2.\overline{\omega^2}}{3}=1,&\\
+&\langle\psi,\psi\rangle
+=\frac{4.4}{12}+\frac{0.0}{4}+\frac{\omega^2.\overline{\omega^2}}{3}
++\frac{\omega.\overline{\omega}}{3}=2.&
+\end{eqnarray*}
+\\
+\\
+{\bf Remark:} 
+Sometimes it is possible to obtain information about
+class sizes from knowledge of characters and their inner products. Here it
+tends to be more convenient to use the inner product formula in the form
+$$\langle\chi,\psi\rangle
+=\frac{1}{|G|}\sum_{i=1}^\ell c_i\chi(g_i)\overline{\psi(g_i)},$$
+where $g_1,\dots,g_\ell$ are representatives of the conjugacy classes, and
+$c_i=|C_i|$ for $1\leq i\leq\ell$.
+\\
+\\
+{\bf Theorem 40:}
+If $G \lhd N$ and $\chi$ is a character of $G/N$,
+define $\tilde{\chi}(g)= \chi(gN)$.  $\tilde{\chi}$ is a character of $G$ and is irreducile iff
+$\chi$ is irreducible.
+\begin{quote}
+\emph{Proof:}  
+This follows from the natural homomorphism $G \rightarrow G/N$.
+\end{quote}
+\subsection{Orthonormality}
+{\bf Theorem 41:} For all $w_1\in W_1$ and
+$w_2\in W_2$ we have
+$$e_1w_1=w_1,\qquad e_1w_2=0,\qquad\qquad e_2w_1=0,\qquad
+e_2w_2=w_2.$$
+\begin{quote}
+\emph{Proof:}
+Given $w_2\in W_2$, the map $\theta:W_1\rightarrow W_2$ defined by
+$\theta(w_1)=w_1w_2$ for all $w_1\in W_1$ is clearly a ${\mathbb C}G$-homomorphism. 
+Since $W_1$ and $W_2$ have no common composition factor we
+have $ Hom_{{\mathbb C}G}(W_1,W_2)=\{0\}$, and so $\theta=0$. Thus $w_1w_2=0$ for all
+$w_1\in W_1$ and $w_2\in W_2$; in particular, $e_1w_2=0$ for all $w_2\in W_2$.
+Similarly $e_2w_1=0$ for all $w_1\in W_1$. Since we then have
+\begin{eqnarray*}
+&w_1=1w_1=(e_1+e_2)w_1=e_1w_1\qquad\hbox{for all }w_1\in W_1,&\\
+&w_2=1w_2=(e_1+e_2)w_2=e_2w_2\qquad\hbox{for all }w_2\in W_2,&
+\end{eqnarray*}
+the result follows.
+\end{quote}
+{\bf Corollary:} ${e_1}^2=e_1$, ${e_2}^2=e_2$ and
+$e_1e_2=e_2e_1=0$.
+\begin{quote}
+\emph{Proof:}
+Take $w_1=e_1$ and $w_2=e_2$ in the previous result.
+\end{quote}
+{\bf Definition:}
+An element $e$ with $e^2=e$ is called an \emph{idempotent},
+from the Latin for ``same power''.
+\\
+\\
+{\bf Theorem 42:} If $\chi$ is the character of $W_1$, then
+$$e_1=\frac{1}{|G|}\sum_{g\in G}\chi(g^{-1})g.$$
+\begin{quote}
+\emph{Proof:}
+Let $x \in G$; then the map $\theta: {\mathbb C}G \rightarrow {\mathbb C}G$ given by
+$\theta(w)=x^{-1}e_1w$ is linear. We shall calculate the trace of
+$\theta$ (i.e., the trace of the matrix of $\theta$ with respect to
+any basis of ${\mathbb C}G$) in two ways; comparing the two answers will give the
+result.
+\\
+\\
+First, for any $w_1\in W_1$ and $w_2\in W_2$ we have
+$$\theta(w_1)=x^{-1}e_1w_1=x^{-1}w_1,\qquad\theta(w_2)=x^{-1}e_1w_2=0$$.
+Writing elements of $W_1\oplus W_2$ as
+ordered pairs $(w_1,w_2)$, we have
+$\theta(w_1,w_2)=(\theta_1(w_1),\theta_2(w_2))$ where
+$\theta_1(w_1)=x^{-1}w_1$ and $\theta_2=0$. Hence
+$$Tr(\theta=Tr(\theta_1+Tr(\theta_2=Tr(\theta_1=\chi(x^{-1}).$$
+Secondly, write $e_1=\sum_{g\in G}\lambda_gg$. 
+The endomorphism of ${\mathbb C}G$ which sends any element $w$ to $x^{-1}gw$ has trace
+$|G|$ if $x^{-1}g=1$, i.e., if $g=x$, and $0$ otherwise. Thus as
+$\theta(w)=\sum_{g\in G}\lambda_gx^{-1}gw$ for all $w\in{\mathbb C}G$, we see that
+$$Tr(\theta)=\lambda_x|G|.$$
+Comparing the two expressions gives $\lambda_x=\frac{1}{|G|}\chi(x^{-1})$,
+and so
+$$e_1=\frac{1}{|G|}\sum_{g\in G}\chi(g^{-1})g.$$
+\end{quote}
+{\bf Example:} With $G=C_3$ and $W_1$, $e_1$ as above, the character
+$\chi$ of $W_1$ is given by $\chi(1)=1$, $\chi(a)=\omega$ and
+$\chi(a^2)=\omega^2$; thus $\frac{1}{|G|}\sum_{g\in G}\chi(g^{-1})g
+=\frac{1}{3}(1+\omega^2a+\omega a^2)=e_1$.
+\\
+\\
+{\bf Corollary:} If $\chi$ is the character of $W_1$, then
+$\langle\chi,\chi\rangle=\chi(1)$.
+\begin{quote}
+\emph{Proof:}
+We calculate the coefficient of the basis element $1$ in ${e_1}^2$.
+We have
+$${e_1}^2=\frac{1}{|G|^2}\sum_{g,h\in G}\chi(g^{-1})\chi(h^{-1})gh$$
+and so the coefficient of $1$ is
+$$\frac{1}{|G|^2}\sum_{g\in G}\chi(g^{-1})\chi(g)
+=\frac{1}{|G|}\langle\chi,\chi\rangle.$$
+On the other hand, we have ${e_1}^2=e_1$ 
+and again the coefficient of $1$ in $e_1$ is $\frac{1}{|G|}\chi(1)$. Thus
+$\langle\chi,\chi\rangle=\chi(1)$ as required.
+\end{quote}
+{\bf Theorem 43:} Let $U$ and $V$ be non-isomorphic irreducible
+${\mathbb C}G$-modules, with characters $\chi$ and $\psi$; then
+$\langle\chi,\chi\rangle=1$ and $\langle\chi,\psi\rangle=0$.
+\begin{quote}
+\emph{Proof:}
+We know that ${\mathbb C}G=U_1\oplus\cdots\oplus U_r$ with the $U_i$ irreducible
+${\mathbb C}G$-submodules of ${\mathbb C}G$; let $dim (U)=m$ and $dim(V)=n$, so 
+there are precisely $m$ terms $U_i$ which are isomorphic to $U$ and
+$n$ which are isomorphic to $V$. We shall apply the corollary to two different
+decompositions ${\mathbb C}G=W_1\oplus W_2$ in which $W_1$ and $W_2$ have no
+common composition factor.
+\\
+\\
+First, let $W_1$ be the sum of the $U_i$ which are isomorphic to
+$U$, and $W_2$ be the sum of the rest. The character of $W_1$ is
+$m\chi$, since $W_1$ is the direct sum of $m$ ${\mathbb C}G$-submodules each having
+character $\chi$. Thus by the corollary,  we have
+$$m\chi(1)=\langle m\chi,m\chi\rangle=m^2\langle\chi,\chi\rangle;$$
+since $\chi(1)=dim(U) =m$ we have $\langle\chi,\chi\rangle=1$.
+\\
+\\
+Next, let $W_1$ be the sum of the $U_i$ which are isomorphic
+to either $U$ or $V$, and $W_2$ be the sum of the rest. The
+character of $W_1$ is $m\chi+n\psi$. The corollary gives
+$$m\chi(1)+n\psi(1)=\langle m\chi+n\psi,m\chi+n\psi\rangle
+=m^2\langle\chi,\chi\rangle+n^2\langle\psi,\psi\rangle
++mn(\langle\chi,\psi\rangle+\langle\psi,\chi\rangle).$$
+Since $\langle\chi,\chi\rangle=\langle\psi,\psi\rangle=1$ by the above, and
+$\chi(1)=m$ and $\psi(1)=n$, we have
+$$\langle\chi,\psi\rangle+\langle\psi,\chi\rangle=0;$$
+as $\langle\chi,\psi\rangle=\langle\psi,\chi\rangle$,
+we must have $\langle\chi,\psi\rangle=0$.
+\end{quote}
+{\bf Example:} Let $G=D_6$, so that the irreducible characters 
+$\chi_1,\chi_2,\chi_3$ are as follows.
+$$
+\begin{array}{|c|ccc|}
+\hline
+g&1&a&b\\
+\hline
+|C_G(g)|&6&3&2\\
+\hline
+\chi_1&1&1&1\\
+\chi_2&1&1&-1\\
+\chi_3&2&-1&0\\
+\hline
+\end{array}
+$$
+Thus we have
+$$
+\begin{array}{ll}
+\langle\chi_1,\chi_1\rangle=\frac{1.1}{6}+\frac{1.1}{3}+\frac{1.1}{2}=1,
+&\langle\chi_1,\chi_2\rangle=\frac{1.1}{6}+\frac{1.1}{3}+\frac{1.(-1)}{2}=0,\\
+\langle\chi_2,\chi_2\rangle=\frac{1.1}{6}+\frac{1.1}{3}+\frac{(-1).(-1)}{2}=1,
+&\langle\chi_1,\chi_3\rangle=\frac{1.2}{6}+\frac{1.(-1)}{3}+\frac{1.0}{2}=0,\\
+\langle\chi_3,\chi_3\rangle=\frac{2.2}{6}+\frac{(-1).(-1)}{3}+\frac{0.0}{2}=1,
+&\langle\chi_2,\chi_3\rangle=\frac{1.2}{6}+\frac{1.(-1)}{3}+\frac{(-1).0}{2}=0.
+\end{array}
+$$
+{\bf Theorem 44:} If $\chi$ is any character of $G$, then
+$\chi=d_1\chi_1+\cdots+d_k\chi_k$ for some non-negative integers
+$d_1,\dots,d_k$; moreover $d_i=\langle\chi,\chi_i\rangle$ for $1\leq i\leq k$,
+and $\langle\chi,\chi\rangle=\sum_{i=1}^k{d_i}^2$.
+\begin{quote}
+\emph{Proof:}
+Let $V$ be a ${\mathbb C}G$-module with character $\chi$.
+$V$ is a
+direct sum of irreducible ${\mathbb C}G$-submodules, each of which is isomorphic to some
+$V_i$; thus there exist non-negative integers $d_1,\dots,d_k$ such that
+$$V\cong\underbrace{(V_1\oplus\cdots\oplus V_1)}_{d_1\ \mathrm{terms}}\oplus
+\cdots\oplus\underbrace{(V_k\oplus\cdots\oplus V_k)}_{d_k\ \mathrm{terms}}.$$
+Thus the character $\chi$ is given by $\chi=d_1\chi_1+\cdots+d_k\chi_k$. Taking
+inner products now gives
+\begin{eqnarray*}
+\langle\chi,\chi_i\rangle
+\!\!\!\!&=&\!\!\!\!\langle d_1\chi_1+\cdots+d_k\chi_k,\chi_i\rangle
+=\sum_{j=1}^kd_j\langle\chi_j,\chi_i\rangle=d_i,\\
+\langle\chi,\chi\rangle
+\!\!\!\!&=&\!\!\!\!\langle d_1\chi_1+\cdots+d_k\chi_k,
+d_1\chi_1+\cdots+d_k\chi_k\rangle
+=\sum_{i=1}^k\sum_{j=1}^kd_id_j\langle\chi_i,\chi_j\rangle
+=\sum_{i=1}^k{d_i}^2
+\end{eqnarray*}
+as required.
+\end{quote}
+{\bf Remark:}
+Thus if we are given any character $\chi$, we can write it as a linear
+combination of the irreducible characters, and the coefficients can be found
+simply by calculating inner products. This result motivates the following
+definition.
+\\
+\\
+{\bf Burnside's Algorithm:} Let the conjugacy classes of a finite group $G$ be
+$C_1, C_2, \ldots , C_r$. $C_i C_j = \sum_{s=1}^r c_{ijs} C_s$.  Thus
+$({\frac {|C_i| \chi_k(g_i)} {\chi_k(1)}}) ({\frac {|C_j| \chi_k(g_j)} {\chi_k(1)}}) =
+\sum_{s=1}^r c_{ijs} ({\frac {|C_s| \chi_k(g_s)} {\chi_k(1)}})$.  Multiply this
+equation by $a_{ki}$ and sum over $i$ to get:
+$(\sum_{i=1}^r a_{ki} {\frac {|C_i| \chi_k(g_i)} {\chi_k(1)}})
+({\frac {|C_j| \chi_k(g_j)} {\chi_k(1)}}) =
+\sum_{s=1}^r (\sum_{i=1}^r a_{ki} c_{ijs}) {\frac {|C_s| \chi_k(g_s)} {\chi_k(1)}}$
+Put $Y_{ki} = {\frac {|C_i| \chi_k(g_i)} {\chi_k(1)}}$,
+$A_k = \sum_{i=1}^r a_{ki} Y_{ki}$ and
+$B_{js}^{(k)} = \sum_{i=1}^r c_{ijs} a_{ki}$, for $k = 1,2, \ldots, r$.
+Then, 
+\\
+$
+\left(\begin{array} {ccc}
+B_{11}^{(k)} & \ldots  &  B_{1r}^{(k)}\\
+\ldots & \ldots & \ldots \\
+B_{r1}^{(k)} & \ldots  &  B_{rr}^{(k)}\\
+\end{array}\right) 
+\left(\begin{array} {c}
+Y_{k1} \\
+Y_{k2} \\
+\ldots \\
+Y_{kr} \\
+\end{array}\right) =
+A_k
+\left(\begin{array} {c}
+Y_{k1} \\
+Y_{k2} \\
+\ldots \\
+Y_{kr} \\
+\end{array}\right)$\\
+So, we can solve for the $Y_{kj}$ by computing the eigenvalues of 
+$det(B_{is}^{(k)} - \lambda I)$ and finding the corresponding eigenvectors.
+\\
+\\
+\emph{Example, $S_3$}:\\
+\\
+Let $C_1 = (1)$, $C_2 = (123) + (132)$ and $C_3 = (12) + (13) + (23)$.
+$C_1 C_1 = C_1$,
+$C_1 C_2 = C_2 C_1 = C_2$,
+$C_1 C_3 = C_3 C_1 = C_3$,
+$C_2 C_3 = C_3 C_2 = 2 C_3$,
+$C_2 C_2 = C_2 C_2 = 2 C_1 + C_2$, and
+$C_3 C_3 = C_3 C_3 = 3 C_1 + 3C_3$.
+\\
+The matricies $m_1 = (C_{1ij})$, $m_2 = (C_{2ij})$, and
+$m_3 = (C_{3ij})$ are:\\
+$m_1 = \left(\begin{array} {ccc}
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+\end{array}\right)$\\\\
+$m_2 = \left(\begin{array} {ccc}
+0 & 1 & 0 \\
+2 & 1 & 0 \\
+0 & 0 & 2 \\
+\end{array}\right)$\\
+\\
+$m_3 = \left(\begin{array} {ccc}
+0 & 0 & 1 \\
+0 & 0 & 2 \\
+3 & 3 & 0 \\
+\end{array}\right)$\\
+\\
+$S_3$ character table is
+$\left(\begin{array} {ccc}
+1 & 1 & 1 \\
+1 & 1 & -1 \\
+2 & -1 & 0 \\
+\end{array}\right)$\\
+\\
+This is computed as follows:  The eigenvalues of the respective matrix are $1$; $2, 1, -1$; and
+$3, -3, 0$.  The respective eigenvectors are
+$\left(\begin{array} {c}
+1 \\
+0 \\
+0 \\
+\end{array}\right)$,
+$\left(\begin{array} {c}
+0 \\
+1 \\
+0 \\
+\end{array}\right)$, and
+$\left(\begin{array} {c}
+0\\
+0\\
+1\\
+\end{array}\right)$;
+$\left(\begin{array} {c}
+0\\
+0\\
+1\\
+\end{array}\right)$,
+$\left(\begin{array} {c}
+1\\
+-1\\
+0\\
+\end{array}\right)$, and,
+$\left(\begin{array} {c}
+1\\
+2\\
+0\\
+\end{array}\right)$; and, finally,
+$\left(\begin{array} {c}
+1\\
+2\\
+3\\
+\end{array}\right)$,
+$\left(\begin{array} {c}
+1\\
+2\\
+-3\\
+\end{array}\right)$.\\
+Consider three of the eigenvalues
+$
+\left(\begin{array} {c}
+{\frac {|C_1| \chi_1(1)} {\chi_1(1)}}\\
+{\frac {|C_2| \chi_1((123))} {\chi_1(1)}}\\
+{\frac {|C_3| \chi_1((12))} {\chi_1(1)}}\\
+\end{array}\right) =
+\left(\begin{array} {c}
+1\\
+2\\
+3\\
+\end{array}\right)
+$,
+$
+\left(\begin{array} {c}
+{\frac {|C_1| \chi_2(1)} {\chi_2(1)}}\\
+{\frac {|C_2| \chi_2((123))} {\chi_2(1)}}\\
+{\frac {|C_3| \chi_2((12))} {\chi_2(1)}}\\
+\end{array}\right) =
+\left(\begin{array} {c}
+1\\
+2\\
+-3\\
+\end{array}\right)
+$, and,
+$
+\left(\begin{array} {c}
+{\frac {|C_1| \chi_3(1)} {\chi_3(1)}}\\
+{\frac {|C_2| \chi_3((123))} {\chi_3(1)}}\\
+{\frac {|C_3| \chi_3((12))} {\chi_3(1)}}\\
+\end{array}\right) =
+\left(\begin{array} {c}
+1\\
+-1\\
+0\\
+\end{array}\right)
+$.  Remembering 
+$|C_1| = 1$,
+$|C_2| = 2$, and
+$|C_3| = 3$, we can
+solve for the $\chi_k(g_i)$ giving the character table entries.
+\\
+\\
+{\bf Definition:} If $\chi$ is a character of $G$ and we write
+$\chi=d_1\chi_1+\cdots+d_k\chi_k$, then we call the irreducible character
+$\chi_i$ a \emph{constituent} of $\chi$ if the coefficient $d_i$ is
+non-zero.
+Thus $\chi_i$ is a constituent of $\chi$ if and only if
+$\langle\chi,\chi_i\rangle>0$.
+\\
+\\
+{\bf Theorem 45:} If $V$ is a ${\mathbb C}G$-module with character $\chi$,
+then $V$ is irreducible if and only if $\langle\chi,\chi\rangle=1$.
+\begin{quote}
+\emph{Proof:}
+If $V$ is irreducible, then $\langle\chi,\chi\rangle=1$.
+Conversely, assume that $\langle\chi,\chi\rangle=1$; write
+$$V\cong\underbrace{(V_1\oplus\cdots\oplus V_1)}_{d_1\ \mathrm{terms}}\oplus
+\cdots\oplus\underbrace{(V_k\oplus\cdots\oplus V_k)}_{d_k\ \mathrm{terms}},$$
+so that $\chi=d_1\chi_1+\cdots+d_k\chi_k$, and then we have
+$$1=\langle\chi,\chi\rangle={d_1}^2+\cdots+{d_k}^2.$$
+As the $d_i$ are non-negative integers, one (say $d_j$) must be $1$ and the
+remainder $0$; then $V\cong V_j$ and so $V$ is irreducible.
+\end{quote}
+{\bf Theorem 46:} If $V$ and $W$ are ${\mathbb C}G$-modules, with
+characters $\chi$ and $\psi$ respectively, then $V\cong W$ if and only if
+$\chi=\psi$.
+\begin{quote}
+\emph{Proof:}
+We know that if $V\cong W$ then
+$\chi=\psi$; it is the converse which we must show. Thus we assume that
+$\chi=\psi$, and seek to show that $V\cong W$. There are non-negative integers
+$c_1,\dots,c_k$ such that
+$$V\cong\underbrace{(V_1\oplus\cdots\oplus V_1)}_{c_1\ \mathrm{terms}}\oplus
+\cdots\oplus\underbrace{(V_k\oplus\cdots\oplus V_k)}_{c_k\ \mathrm{terms}},$$
+and similarly $d_1,\dots,d_k$ such that
+$$W\cong\underbrace{(V_1\oplus\cdots\oplus V_1)}_{d_1\ \mathrm{terms}}\oplus
+\cdots\oplus\underbrace{(V_k\oplus\cdots\oplus V_k)}_{d_k\ \mathrm{terms}}.$$
+Since $\chi=\psi$, for $1\leq i\leq k$ we have
+$$c_i=\langle\chi,\chi_i\rangle=\langle\psi,\chi_i\rangle=d_i,$$
+and so $V\cong W$ as required.
+\end{quote}
+{\bf Theorem 47:} The irreducible characters
+$\chi_1,\dots,\chi_k$ are linearly independent vectors in the vector
+space of functions $G\rightarrow{\mathbb C}$.
+\begin{quote}
+\emph{Proof:}
+Assume that $\lambda_1,\dots,\lambda_k\in{\mathbb C}$ with
+$$\lambda_1\chi_1+\dots+\lambda_k\chi_k=0.$$
+Taking inner products with $\chi_i$ gives
+$$0=\langle\lambda_1\chi_1+\dots+\lambda_k\chi_k,\chi_i\rangle=\lambda_i;$$
+since this is true for all $1\leq i\leq k$, we see that the $\chi_i$ are
+linearly independent.
+\end{quote}
+{\bf Theorem 48:} If $V$ and $W$ are ${\mathbb C}G$-modules with characters
+$\chi$ and $\psi$, then we have
+$dim( Hom_{{\mathbb C}G}(V,W))=\langle\chi,\psi\rangle$.
+\begin{quote}
+\emph{Proof:}
+As before there exist non-negative integers $c_1,\dots,c_k$ and
+$d_1,\dots,d_k$ such that
+
+\begin{eqnarray*}
+&V\cong\underbrace{(V_1\oplus\cdots\oplus V_1)}_{c_1\ \mathrm{terms}}
+\oplus\cdots\oplus
+\underbrace{(V_k\oplus\cdots\oplus V_k)}_{c_k\ \mathrm{terms}},&\\
+&W\cong\underbrace{(V_1\oplus\cdots\oplus V_1)}_{d_1\ \mathrm{terms}}
+\oplus\cdots\oplus
+\underbrace{(V_k\oplus\cdots\oplus V_k)}_{d_k\ \mathrm{terms}}.&
+\end{eqnarray*}
+So
+\begin{eqnarray*}
+dim( Hom_{{\mathbb C}G}(V,W))
+\!\!\!\!&=&\!\!\!\!\sum_{i=1}^k\sum_{j=1}^kc_id_j dim( Hom_{{\mathbb C}G}(V_i,V_j))\\
+\!\!\!\!&=&\!\!\!\!\sum_{i=1}^k\sum_{j=1}^kc_id_j\delta_{ij}
+=\sum_{i=1}^kc_id_i.
+\end{eqnarray*}
+
+On the other hand, we have $\chi=\sum_{i=1}^kc_i\chi_i$ and
+$\psi=\sum_{j=1}^kd_j\chi_j$, and so
+$$\langle\chi,\psi\rangle
+=\sum_{i=1}^k\sum_{j=1}^kc_id_j\langle\chi_i,\chi_j\rangle
+=\sum_{i=1}^k\sum_{j=1}^kc_id_j\delta_{ij}=\sum_{i=1}^kc_id_i.$$
+The result follows.
+\end{quote}
+
+\subsection{Center of the group algebra}
+{\bf Definition:} The \emph{center} of the group algebra ${\mathbb C}G$ is the
+subspace
+$${\mathbb Z}({\mathbb C}G)=\{z\in{\mathbb C}G:zr=rz\hbox{ for all }r\in{\mathbb C}G\}.$$
+\\
+\\
+{\bf Definition:} Let $C_1,\dots,C_\ell$ be the distinct conjugacy
+classes of $G$, and for $1\leq i\leq\ell$ define
+$$\bar C_i=\sum_{g\in C_i}g\in{\mathbb C}G;$$
+the elements $\bar C_1,\dots,\bar C_\ell$ of ${\mathbb C}G$ are called the \emph{class
+sums}.
+\\
+\\
+{\bf Theorem 49:} The class sums
+$\bar C_1,\dots,\bar C_\ell$ form a basis of ${\mathbb Z}({\mathbb C}G)$.
+\begin{quote}
+\emph{Proof:}
+We first show that each $\bar C_i$ lies in ${\mathbb Z}({\mathbb C}G)$. Let $g\in C_i$, and
+set $|C_i|=r$; write
+$$C_i=\{{y_1}^{-1}gy_1,{y_2}^{-1}gy_2,\dots,{y_r}^{-1}gy_r\}$$
+for some $y_1,\dots,y_r\in G$, so that
+$\bar C_i=\sum_{j=1}^r{y_j}^{-1}gy_j$. For all $h\in G$, we have
+$$h^{-1}\bar C_ih=\sum_{j=1}^rh^{-1}{y_j}^{-1}gy_jh
+=\sum_{j=1}^r(y_jh)^{-1}g(y_jh).$$
+This is a sum of $r$ conjugates of $g$; and they are distinct, since
+$$h^{-1}{y_j}^{-1}gy_jh=h^{-1}{y_k}^{-1}gy_kh
+\iff{y_j}^{-1}gy_j={y_k}^{-1}gy_k.$$
+Thus $h^{-1}\bar C_ih=\bar C_i$, and so $\bar C_ih=h\bar C_i$; since this is
+true for all $h\in G$, we see that $\bar C_i$ commutes with all $r\in{\mathbb C}G$,
+i.e., $\bar C_i\in {\mathbb Z}({\mathbb C}G)$.
+\\
+\\
+Now for $1\leq i\leq\ell$ let $g_i$ be a representative of $C_i$.
+It is clear that the $\bar C_i$ are linearly independent,
+since if $\sum_{i=1}^\ell\lambda_i\bar C_i=0$ then considering the
+coefficient of $g_i$ shows that $\lambda_i=0$ for all $i$. Thus we must
+show that the $\bar C_i$ span ${\mathbb Z}({\mathbb C}G)$. Let
+$z=\sum_{g\in G}\lambda_gg\in {\mathbb Z}({\mathbb C}G)$. For
+all $h\in G$ we have $zh=hz$, and so $h^{-1}zh=z$, i.e.,
+$$\sum_{g\in G}\lambda_gh^{-1}gh=\sum_{g\in G}\lambda_gg.$$
+Since the coefficient of $g$ in the sum on the left is $\lambda_{hgh^{-1}}$,
+we must have
+$$\lambda_{hgh^{-1}}=\lambda_g\qquad\hbox{for all }g,h\in G;$$
+i.e., the coefficients in $z$ of two conjugate elements $g$ and $hgh^{-1}$ are
+equal. Thus we have $z=\sum_{i=1}^\ell\lambda_{g_i}\bar C_i$; so the
+$\bar C_i$ do indeed span ${\mathbb Z}({\mathbb C}G)$ as required.
+\end{quote}
+{\bf Examples:}
+\begin{itemize}
+\item[(i)] Let $G=S_3$, then a basis of ${\mathbb Z}({\mathbb C}G)$ is
+$$1,\qquad(1\;2)+(1\;3)+(2\;3),\qquad(1\;2\;3)+(1\;3\;2).$$
+\item[(ii)] Let $G=D_8$, then a basis of ${\mathbb Z}({\mathbb C}G)$ is
+$$1,\qquad a^2,\qquad a+a^3,\qquad b+ba^2,\qquad ba+ba^3.$$
+\end{itemize}
+{\bf Theorem 50:} If $V$ is an irreducible ${\mathbb C}G$-module
+and $z\in {\mathbb Z}({\mathbb C}G)$, then there exists $\lambda\in{\mathbb C}$ such that
+$zv=\lambda v$ for all $v\in V$.
+\begin{quote}
+\emph{Proof:}
+For all $r\in{\mathbb C}G$ and $v\in V$, we have
+$$z(rv)=r(zv);$$
+thus the map $\theta:V\rightarrow V$ defined by $\theta(v)=zv$ is a
+${\mathbb C}G$-homomorphism. By a previous Lemma (ii), $\theta=\lambda1_V$ for some
+$\lambda\in{\mathbb C}$, i.e., $zv=\lambda v$ for all $v\in V$.
+\end{quote}
+{\bf Observation:}
+We may now give our second basis of ${\mathbb Z}({\mathbb C}G)$.
+Recall that we have the complete set of non-isomorphic
+irreducible ${\mathbb C}G$-modules $V_1,\dots,V_k$. We write
+$${\mathbb C}G=W_1\oplus\cdots\oplus W_k,$$
+where each $W_i$ is isomorphic to a direct sum of copies of $V_i$; the summands
+$W_i$ are called the \emph{homogeneous components} of ${\mathbb C}G$. We set
+$$1=e_1+\cdots+e_k,$$
+where $e_i\in W_i$ for $1\leq i\leq k$.
+\\
+\\
+{\bf Theorem 51:} The elements $e_1,\dots,e_k$ form a basis
+of ${\mathbb Z}({\mathbb C}G)$.
+\begin{quote}
+\emph{Proof:}
+We begin by showing that each $e_i\in {\mathbb Z}({\mathbb C}G)$; it clearly suffices to
+consider the case $i=1$. If we set $X=W_2\oplus\cdots\oplus W_k$, we have
+$${\mathbb C}G=W_1\oplus X,$$
+and $W_1$ and $X$ have no common composition factor; thus,
+we see that $w_1x=0=xw_1$ for all $w_1\in W_1$ and $x\in X$.
+Thus if we set $e=e_2+\cdots+e_k\in X$, for all $w_1\in W_1$ we have
+$$w_1=w_11=w_1(e_1+e)=w_1e_1+w_1e=w_1e_1.$$
+It follows that we have $e_1w_1=w_1=w_1e_1$ for all $w_1\in W_1$, and
+$e_1x=0=xe_1$ for all $x\in X$;
+since ${\mathbb C}G=W_1\oplus X$ we see that $e_1\in {\mathbb Z}({\mathbb C}G)$ as required.
+\\
+\\
+Now the $e_i$ are certainly linearly independent, as the sum
+of the $W_i$ is direct. To show that they span ${\mathbb Z}({\mathbb C}G)$, take
+$z\in {\mathbb Z}({\mathbb C}G)$; then for $1\leq i\leq k$ there
+exists $\lambda_i\in{\mathbb C}$ such that
+$$zv=\lambda_iv\qquad\hbox{for all }v\in V_i.$$
+Hence $zw=\lambda_iw$ for all $w\in W_i$, and in particular
+$ze_i=\lambda_ie_i$, for $1\leq i\leq k$; thus
+$$z=z1=z(e_1+\cdots+e_k)=ze_1+\cdots+ze_k=\lambda_1e_1+\cdots+\lambda_ke_k.$$
+Therefore $z$ is a linear combination of the $e_i$, so $e_1,\dots,e_k$ do
+indeed span ${\mathbb {\mathbb {\mathbb {\mathbb Z}}}}({\mathbb C}G)$; 
+thus they form a basis of ${\mathbb Z}({\mathbb C}G)$ as required.
+\end{quote}
+{\bf Corollary:} The number of irreducible characters of $G$ is
+equal to the number of conjugacy classes of $G$.
+\begin{quote}
+\emph{Proof:}
+We have $k= dim({\mathbb Z}({\mathbb C}G))= \ell$.
+\end{quote}
+{\bf Example:} Let $G=D_6$; we have
+${\mathbb C}G=U_1\oplus U_2\oplus U_3\oplus U_4$ with $U_1$ the trivial ${\mathbb C}G$-module,
+$U_2$ the other $1$-dimensional ${\mathbb C}G$-module, and $U_3\cong U_4$ with
+$dim (U_3)= dim(U_4) = 2$. We therefore have $W_1=U_1$, $W_2=U_2$ and
+$W_3=U_3\oplus U_4$; the elements $e_i$ are
+$$e_1={\ts\frac{1}{6}}(1+a+a^2+b+ba+ba^2),\quad
+e_2={\ts\frac{1}{6}}(1+a+a^2-b-ba-ba^2),\quad
+e_3={\ts\frac{1}{3}}(2.1-a-a^2).$$
+If we consider $e_3$, we have
+$$e_3a={\ts\frac{1}{3}}(2a-a^2-1)=ae_3,\qquad
+e_3b={\ts\frac{1}{3}}(2b-ab-a^2b)={\ts\frac{1}{3}}(2b-ba^2-ba)=be_3;$$
+as $a$ and $b$ generate $G$ we see that $e_3\in {\mathbb Z}({\mathbb C}G)$.
+\subsection{The space of class functions}
+{\bf Definition:} A \emph{class function} on $G$ is a function
+$\psi:G\rightarrow{\mathbb C}$ with the property that $\psi(g)=\psi(h)$ if
+$g,h\in G$ are conjugate.  The set of class functions on $G$ is written $ cl$. 
+It is clear that $ cl$ is
+a subspace of the vector space of all functions $G\rightarrow{\mathbb C}$. Moreover, it
+is easy to provide a basis of $ cl$.
+\\
+\\
+{\bf Definition:} If $C$ is a conjugacy class of $G$, the function
+$\psi_C:G\rightarrow{\mathbb C}$ defined by
+$\psi_C(g)=1, g\in C$,
+$\psi_C(g)=0, g \notin C$
+is called the \emph{characteristic function} of the class $C$.
+\\
+\\
+{\bf Example:} Let $G=D_6$, and write $C_1=\{1\}$,
+$C_2=\{a,a^2\}$ and $C_3=\{b,ba,ba^2\}$ as before; then the
+characteristic functions $\psi_{C_i}$ are as follows.
+$$
+\begin{array}{|c|cccccc|}
+\hline
+&1&a&a^2&b&ba&ba^2\\
+\hline
+\psi_{C_1}&1&0&0&0&0&0\\
+\psi_{C_2}&0&1&1&0&0&0\\
+\psi_{C_3}&0&0&0&1&1&1\\
+\hline
+\end{array}
+$$
+\\
+\\
+{\bf Theorem 52:} The characteristic functions
+$\psi_{C_1},\dots,\psi_{C_\ell}$ form a basis of $ cl$.
+\begin{quote}
+\emph{Proof:}
+It is clear that $\psi_{C_i}\in cl$ for $1\leq i\leq\ell$. If
+$\lambda_1\psi_{C_1}+\cdots+\lambda_\ell\psi_{C_\ell}=0$, evaluating at
+$g_j$ gives $\lambda_j=0$; as this is true for all $1\leq j\leq\ell$, the
+$\psi_{C_i}$ are linearly independent. Given $\psi\in cl$, set
+$\lambda_i=\psi(g_i)$ for all $i$; then
+$\sum_{i=1}^\ell\lambda_i\psi_{C_i}$ is a class function agreeing
+with $\psi$ on all $g_i$, so it must be equal to it. Thus the
+$\psi_{C_i}$ span $ cl$; so they form a basis as required.
+\end{quote}
+{\bf Example:} If $G=D_6$ as above, the class function
+$\psi$ given by $\psi(1)=3$, $\psi(a)=\psi(a^2)=1$ and
+$\psi(b)=\psi(ba)=\psi(ba^2)=0$ is equal to $3\psi_{C_1}+\psi_{C_2}$.
+\\
+\\
+{\bf Theorem 53:} The irreducible characters
+$\chi_1,\dots,\chi_k$ form a basis of $ cl$; indeed if
+$\psi$ is a class function then $\psi=\sum_{i=1}^k\lambda_i\chi_i$, where
+$\lambda_i=\langle\psi,\chi_i\rangle$ for $1\leq i\leq k$.
+\begin{quote}
+\emph{Proof:}
+The $\chi_i$ are linearly independent, so they
+span a subspace of $ cl$ of dimension $k$; since $dim(cl) = \ell =k$,
+they form a basis of $ cl$. Given $\psi\in cl$ we may therefore write
+$\psi=\sum_{i=1}^k\lambda_i\chi_i$ for some $\lambda_i\in{\mathbb C}$; since
+$\langle\chi_i,\chi_j\rangle=\delta_{ij}$, taking inner products with
+$\chi_i$ gives $\langle\psi,\chi_i\rangle=\lambda_i$ as required.
+\end{quote}
+{\bf Corollary:} If $g,h\in G$, then $g$ is conjugate
+to $h$ if and only if $\chi(g)=\chi(h)$ for all characters $\chi$ of $G$.
+\begin{quote}
+\emph{Proof:}
+If $g$ is conjugate to $h$ then $\chi(g)=\chi(h)$ for
+all characters $\chi$ of $G$. Conversely, if $\chi(g)=\chi(h)$ for all
+characters $\chi$, then by the Theorem, we have $\psi(g)=\psi(h)$ for all
+$\psi\in cl$. In particular, this is true for the characteristic function
+$\psi_C$ of the class $C$ containing $g$; thus $\psi_C(h)=\psi_C(g)=1$, and so
+$h\in C$, i.e., $h$ lies in the same conjugacy class as $g$.
+\end{quote}
+{\bf Corollary:} If $g\in G$, then $g$ is conjugate to
+$g^{-1}$ if and only if $\chi(g)\in {\mathbb R}$ for all characters $\chi$ of $G$.
+\begin{quote}
+\emph{Proof:}
+Since $\chi(g)\in {\mathbb R}$ if and only if
+$\chi(g)=\overline{\chi(g)}=\chi(g^{-1})$, the
+result follows immediately from the corollary.
+\end{quote}
+\subsection{Character tables and orthogonality relations}
+{\bf Definition:} The $k\times k$ matrix with $(i,j)$-entry
+$\chi_i(g_j)$ is called the \emph{character table} of $G$.
+\\
+\\
+{\bf Definition:} The relations
+$$\sum_{i=1}^k\frac{\chi_r(g_i)\overline{\chi_s(g_i)}}{|C_G(g_i)|}=\delta_{rs}$$
+are called the \emph{row orthogonality relations} for $G$.
+\\
+\\
+{\bf Definition:} The relations
+$$\sum_{i=1}^k\chi_i(g_r)\overline{\chi_i(g_s)}=\delta_{rs}|C_G(g_r)|$$
+are called the \emph{column orthogonality relations} for $G$.
+\\
+\\
+{\bf Theorem 54:} The character table for $G$ satisfies the row
+and column orthogonality relations.
+\begin{quote}
+\emph{Proof:}
+We already know that the row orthogonality relations hold. For
+$1\leq s\leq k$, we may write the characteristic function $\psi_{C_s}$ as a
+linear combination of $\chi_1,\dots,\chi_k$; say
+$\psi_{C_s}=\lambda_1\chi_1+\cdots+\lambda_k\chi_k$.
+Taking inner products with $\chi_i$ gives
+$$\lambda_i=\langle\psi_{C_s},\chi_i\rangle
+=\frac{1}{|G|}\sum_{g\in G}\psi_{C_s}(g)\overline{\chi_i(g)}.$$
+Now the only elements $g$ for which $\psi_{C_s}(g)\neq0$ are those lying in the
+conjugacy class $C_s$; since there are $|G|/|C_G(g_s)|$ of
+them, each having $\psi_{C_s}(g)=1$, we have
+$$\lambda_i=\frac{1}{|G|}\sum_{g\in C_s}\psi_{C_s}(g)\overline{\chi_i(g)}
+=\frac{\overline{\chi_i(g_s)}}{|C_G(g_s)|}.$$
+Thus
+$$\delta_{rs}=\psi_{C_s}(g_r)=\sum_{i=1}^k\lambda_i\chi_i(g_r)
+=\sum_{i=1}^k\frac{\chi_i(g_r)\overline{\chi_i(g_s)}}{|C_G(g_r)|}.$$
+\end{quote}
+{\bf Examples:}
+\begin{itemize}
+\item[(i)] Let $G=D_6$.
+$$\sum_{i=1}^3\chi_i(g_1)\overline{\chi_i(g_1)}=1.1+1.1+2.2=6,\quad
+\sum_{i=1}^3\chi_i(g_1)\overline{\chi_i(g_2)}=1.1+1.1+2.(-1)=0.$$
+\item[(ii)] Suppose $G$ is a group of order $12$ with four conjugacy classes,
+and we are given the following part of the character table, in which
+$\omega=e^{2\pi i/3}$.
+$$
+\begin{array}{|c|cccc|}
+\hline
+g&g_1&g_2&g_3&g_4\\
+\hline
+|C_G(g)|&12&4&3&3\\
+\hline
+\chi_1&1&1&1&1\\
+\chi_2&1&1&\omega&\omega^2\\
+\chi_3&1&1&\omega^2&\omega\\
+\chi_4&&&&\\
+\hline
+\end{array}
+$$
+We use the column orthogonality relations to determine the
+final row of the table. The entries in the first column are the degrees of
+the $\chi_i$, so they are all positive integers.  The relation
+with $r=s=1$ implies that the sum of the squares of these entries is $12$, and
+so $\chi_4(g_1)=3$. Next, the relation with $r=1$ and $s=2$ yields
+$$0=1.1+1.1+1.1+3\overline{\chi_4(g_2)};$$
+so $\chi_4(g_2)=-1$. Similarly, those with $r=1$ and $s=3$ or $4$ give
+$\chi_4(g_3)=0=\chi_4(g_4)$. Thus the full character table is:
+$$
+\begin{array}{|c|cccc|}
+\hline
+g&g_1&g_2&g_3&g_4\\
+\hline
+|C_G(g)|&12&4&3&3\\
+\hline
+\chi_1&1&1&1&1\\
+\chi_2&1&1&\omega&\omega^2\\
+\chi_3&1&1&\omega^2&\omega\\
+\chi_4&3&-1&0&0\\
+\hline
+\end{array}
+$$
+\end{itemize}
+{\bf Theorem 55:} If $N\norm G$ and $\tilde\chi$ is a character
+of $G/N$, then the function $\chi:G\rightarrow{\mathbb C}$ defined by
+$\chi(g)=\tilde\chi(gN)$ for all $g\in G$ is a character of $G$; the characters
+$\chi$ and $\tilde\chi$ have the same degree, and $\chi$ is irreducible if and
+only if $\tilde\chi$ is.
+\begin{quote}
+\emph{Proof:}
+Let $\tilde\rho:G/N\rightarrow GL_n({\mathbb C})$ be a representation of $G/N$ with
+character $\tilde\chi$. Define a function $\rho:G\rightarrow GL_n({\mathbb C})$ by
+$$\rho(g)=\tilde\rho(gN)\qquad\hbox{for all }g\in G;$$
+then $\rho(g)\rho(h)=\tilde\rho(gN)\tilde\rho(hN)=\tilde\rho(gN.hN)
+=\tilde\rho(ghN)=\rho(gh)$, so $\rho$ is a homomorphism, i.e., a representation
+of $G$. The character $\chi$ of $\rho$ is given by
+$$\chi(g)=Tr(\rho(g)=Tr((\tilde\rho(gN))=\tilde\chi(gN)\qquad\hbox{for all }
+g\in G;$$
+moreover $\chi(1)=\tilde\chi(N)$ so that $\chi$ and $\tilde\chi$ have the
+same degree. Finally, let $U$ be a subspace of the vector space ${\mathbb C}^n$; then by
+definition of $\rho$ we have $\rho(g)u=\tilde\rho(gN)u$ for all $g\in G$ and
+$u\in U$. Thus
+\begin{eqnarray*}
+U\hbox{ is a ${\mathbb C}G$-submodule of }{\mathbb C}^n
+\!\!\!\!&\iff&\!\!\!\!\rho(g)u\in U\hbox{ for all }g\in G,\ u\in U\\
+\!\!\!\!&\iff&\!\!\!\!\tilde\rho(gN)u\in U\hbox{ for all }g\in G,\ u\in U\\
+\!\!\!\!&\iff&\!\!\!\! U\hbox{ is a ${\mathbb C}(G/N)$-submodule of }{\mathbb C}^n;
+\end{eqnarray*}
+so the representation $\rho$ is reducible if and only if
+$\tilde\rho$ is, and thus $\chi$ is irreducible if and only if
+$\tilde\chi$ is.
+\end{quote}
+{\bf Definition:} If $N\norm G$ and $\tilde\chi$ is a character of
+$G/N$, then the character $\chi$ of $G$ defined by
+$$\chi(g)=\tilde\chi(gN)\qquad\hbox{for all }g\in G$$
+is called the \emph{lift} of $\tilde\chi$ to $G$.
+\\
+\\
+{\bf Example:} Let $G=S_4$; then if we write $v_{ij}$ for
+$v_{\{i,j\}}$, the second permutation module for $G$ has basis
+$v_{12},v_{13},v_{14},v_{23},v_{24},v_{34}$. If we take conjugacy class
+representatives $1$, $(1\;2)$, $(1\;2)(3\;4)$, $(1\;2\;3)$ and $(1\;2\;3\;4)$,
+then $1$ fixes all six basis elements, $(1\;2)$ and $(1\;2)(3\;4)$ each fix
+just $v_{12}$ and $v_{34}$, while $(1\;2\;3)$ and $(1\;2\;3\;4)$ both fail to
+fix any basis elements. Thus the values of the second permutation character
+are as follows.
+
+$$
+\begin{array}{|c|ccccc|}
+\hline
+&1&(1\;2)&(1\;2)(3\;4)&(1\;2\;3)&(1\;2\;3\;4)\\
+\hline
+\pi_2&6&2&2&0&0\\
+\hline
+\end{array}
+$$
+
+ Together with the first permutation character, lifts from the
+quotient $S_4/A_4\cong C_2$ and the orthogonality relations, this enables us
+to obtain the full character table of $G$.
+
+$$
+\begin{array}{|c|ccccc|}
+\hline
+&1&(1\;2)&(1\;2)(3\;4)&(1\;2\;3)&(1\;2\;3\;4)\\
+\hline
+\chi_1&1&1&1&1&1\\
+\chi_2&1&-1&1&1&-1\\
+\chi_3&2&0&2&-1&0\\
+\chi_4&3&1&-1&0&-1\\
+\chi_5&3&-1&-1&0&1\\
+\hline
+\end{array}
+$$
+We may also define the \emph{third permutation character} of $G$ by
+considering unordered triples, and so on.
+\\
+\\
+The third method applies when we have a non-trivial linear character of
+$G$.
+\\
+\\
+{\bf Theorem 56:} If $\chi$ and $\lambda$ are characters of
+$G$ and $\lambda$ is linear, then the function
+$\lambda\chi:G\rightarrow{\mathbb C}$ defined by
+$\lambda\chi(g)=\lambda(g)\chi(g)$ for all $g\in G$ is a character of $G$;
+if $\chi$ is irreducible, so is $\lambda\chi$.
+\begin{quote}
+\emph{Proof:}
+Let $\rho:G\rightarrow GL_n({\mathbb C})$ be a representation of $G$ with character
+$\chi$, and define a map $\lambda\rho: G \rightarrow GL_n({\mathbb C})$ by
+$$(\lambda\rho)(g)=\lambda(g)\rho(g)\qquad\hbox{for all }g \in G;$$
+thus $(\lambda\rho)(g)$ is the matrix obtained by multiplying $\rho(g)$ by the
+complex number $\lambda(g)$. For all $g,h\in G$ we have
+
+\begin{eqnarray*}
+(\lambda\rho)(gh)\!\!\!\!&=&\!\!\!\!\lambda(gh)\rho(gh)\\
+\!\!\!\!&=&\!\!\!\!\lambda(g)\lambda(h)\rho(g)\rho(h)\\
+\!\!\!\!&=&\!\!\!\!\lambda(g)\rho(g)\lambda(h)\rho(h)\\
+\!\!\!\!&=&\!\!\!\!(\lambda\rho)(g)(\lambda\rho)(h),
+\end{eqnarray*}
+
+ and so $\lambda\rho$ is a homomorphism, i.e., a
+representation of $G$. The trace
+of the matrix $(\lambda\rho)(g)$ is $\lambda(g)Tr(\rho(g)=\lambda(g)\chi(g)$;
+thus $\lambda\chi$ is the character of the representation $\lambda\rho$. For
+irreducibility, we note that for all $g\in G$ the complex number
+$\lambda(g)$ is a root of unity, and so
+$\lambda(g)\overline{\lambda(g)}=1$; thus
+$$\langle\lambda\chi,\lambda\chi\rangle
+=\frac{1}{|G|}\sum_{g\in G}\lambda(g)\chi(g)\overline{\lambda(g)\chi(g)}
+=\frac{1}{|G|}\sum_{g\in G}\chi(g)\overline{\chi(g)}
+=\langle\chi,\chi\rangle,$$
+so $\chi$ is irreducible if and only if $\lambda\chi$ is.
+\end{quote}
+{\bf Examples:}
+\begin{itemize}
+\item[(i)] Let $G=S_4$. We
+obtain a non-trivial linear character of $G$ by lifting from the quotient
+$S_4/A_4\cong C_2$; this gives the character $\chi_2$ (which corresponds to
+the sign homomorphism). If we write $\lambda=\chi_2$, we see that
+$$\lambda\chi_1=\chi_2,\quad\lambda\chi_2=\chi_1,\quad
+\lambda\chi_3=\chi_3,\quad\lambda\chi_4=\chi_5,\quad
+\lambda\chi_5=\chi_4.$$
+\item[(ii)] Let $G=A_4$, we have two non-trivial linear characters,
+$\chi_2$ and $\chi_3$. If we set $\lambda=\chi_2$, we have
+$$\lambda\chi_1=\chi_2,\quad\lambda\chi_2=\chi_3,\quad
+\lambda\chi_3=\chi_1,\quad\lambda\chi_4=\chi_4.$$
+\end{itemize}
+{\bf Example:} Let $G=S_5$; then $G$ has seven conjugacy classes,
+with representatives
+$$1,\quad(1\;2),\quad(1\;2)(3\;4),\quad(1\;2\;3),\quad(1\;2\;3\;4),
+\quad(1\;2\;3\;4\;5),\quad(1\;2\;3)(4\;5),$$
+and centralizer sizes $120$, $12$, $8$, $6$, $4$, $5$ and
+$6$ respectively. We have the trivial character $1_G$ and
+we have the normal subgroup $A_5$ with quotient $S_5/A_5 \cong C_2$, so we may
+lift the non-trivial irreducible character of $C_2$ to $G$ to obtain a second
+linear character $\lambda$ (which again corresponds to the sign homomorphism).
+We also have the first and second permutation characters $\pi_1$ and $\pi_2$;
+the values of the characters found so far are as follows.
+$$
+\begin{array}{|c|ccccccc|}
+\hline
+&1&(1\;2)&(1\;2)(3\;4)&(1\;2\;3)&(1\;2\;3\;4)&(1\;2\;3\;4\;5)&(1\;2\;3)(4\;5)\\
+\hline
+1_G&1&1&1&1&1&1&1\\
+\lambda&1&-1&1&1&-1&1&-1\\
+\pi_1&5&3&1&2&1&0&0\\
+\pi_2&10&4&2&1&0&0&1\\
+\hline
+\end{array}
+$$
+Of these, $1_G$ and $\lambda$ are irreducible, and shall be called
+$\chi_1$ and $\chi_2$ respectively. We find that
+$\langle\pi_1,\chi_1\rangle=1$, and so $\nu_1=\pi_1-\chi_1$ is a
+character; then $\langle\nu_1,\nu_1\rangle=1$, so
+that $\nu_1$ is a third irreducible character $\chi_3$. Since
+$\lambda\nu_1 \neq \nu_1$, we have a fourth irreducible character
+$\chi_4=\lambda\nu_1$. We then find that 
+$$\langle\pi_2,\chi_1\rangle=\langle\pi_2,\chi_3\rangle=1,$$
+and so $\nu_2=\pi_2-\chi_1-\chi_3$ is a character; as
+$\langle\nu_2,\nu_2\rangle=1$, we see that $\nu_2$ is a fifth irreducible
+character $\chi_5$. Again, $\lambda\nu_2\neq\nu_2$, so we have a sixth
+irreducible character $\chi_6=\lambda\nu_2$. Finally, the seventh irreducible
+character may be determined using the orthogonality relations; the full
+character table is as follows.
+$$
+\begin{array}{|c|ccccccc|}
+\hline
+&1&(1\;2)&(1\;2)(3\;4)&(1\;2\;3)&(1\;2\;3\;4)&(1\;2\;3\;4\;5)&(1\;2\;3)(4\;5)\\
+\hline
+\chi_1&1&1&1&1&1&1&1\\
+\chi_2&1&-1&1&1&-1&1&-1\\
+\chi_3&4&2&0&1&0&-1&-1\\
+\chi_4&4&-2&0&1&0&-1&1\\
+\chi_5&5&1&1&-1&-1&0&1\\
+\chi_6&5&-1&1&-1&1&0&-1\\
+\chi_7&6&0&-2&0&0&1&0\\
+\hline
+\end{array}
+$$
+\section {Characters and group structure}
+{\bf Observation:}
+The character table determines the normal subgroups and the nilpotent groups.
+General procedure for calculating characters: (1) Derive a faithful representation,
+(2) generate group elements, (3) determine conjugacy classes, (4) determine structure
+constants ($|C_i||C_j|= \sum_k \alpha_{ijk} |C_k|$), (5) get characters from structure
+constants.
+\\
+\\
+{\bf Theorem 57:}
+If $\chi$ is an irreducible character, $\chi(1) \mid |G|$ 
+\begin{quote}
+\emph{Proof:}
+If $g_i$ is in the $i$-th conjugacy class,
+${\frac {|G|} {|C_G(g_i)|}} {\frac {\chi(g_i)} {\chi(1)}}$ and ${\overline {\chi(g)}}$
+are algebraic integers so
+$\sum_{i=1}^k {\frac {|G|} {|C_G(g_i)|}} {\frac {\chi(g_i)} {\chi(1)}}{\overline {\chi(g)}}
+={\frac {|G|} {\chi(1)}}$ is and algebraic integer.  Since it is rational, it must be in
+${\mathbb Z}$.
+\end{quote}
+{\bf Theorem 58:}
+If $G \subseteq S_n$, $\alpha: G \rightarrow {\mathbb C}$ by $\alpha(g)= |Fix(g)|-1$,
+then $\alpha$ is a character of $G$. Define $ker(\rho)= \{g: \chi_{\rho}(g)= \chi_{\rho}(1) \}$.
+$\rho$ is faithful iff $ker(\rho)=1$.  $N= \{n: |\chi(n)|= \chi(1) \} \lhd G$. 
+\begin{quote}
+\emph{Proof:}  
+This is easy.
+\end{quote}
+{\bf Theorem 59:}
+$N \lhd G, \exists \chi_i: \bigcap_{i=1}^r ker(\chi_i) =N$.  
+$g \sim h$ iff $\chi(g) = \chi(h), \forall  \chi$.  
+\begin{quote}
+\emph{Proof:}  
+If $g, h$ are conjugate, it's clear $\chi(g) = \chi(h), \forall  \chi$.
+If $\chi(g) = \chi(h), \forall  \chi$, it's also true for any class function.  Pick the class
+function which is $1$ in $ccl_G(g)$ and $0$ elsewhere and the result follows.
+\end{quote}
+{\bf Theorem 60:}
+$ccl_{A_n}(x)=ccl_{S_n}(x)$ otherwise
+$ccl_{S_n}(x)$ splits into two conjugacy classes in $A_n$.
+\begin{quote}
+\emph{Proof:}  
+$S_n = A_n \cup A_n (12)$ and the result follows.
+\end{quote}
+{\bf Theorem 61:}
+Let $C_i= \sum_{x \in ccl(y)} x$ then the $C_i$ form a basis for ${\mathbb Z}(FG)$.
+There are $|G/G'|$ inequivalent linear representations (characters) of $G$.
+\begin{quote}
+\emph{Proof:}  
+If $A$ is abelian, there are $|A|$ inequivalent linear representations (characters) of $G$
+by the decomposition results.  Each gives rise to an inequivalent linear representation of $G/G'$.
+So $G/G'$ has at least $|G/G'|$ inequivalent linear representations.
+\end{quote}
+{\bf Theorem 62:}
+$\chi(g)$ is real iff
+$\chi(g)= \chi(g^{-1}), \forall \chi$.  $N \lhd G$ iff $\exists \chi_i, i= 1, \ldots, k$
+such that $\bigcap_{i=1}^k ker(\chi_i)=N$.
+\begin{quote}
+\emph{Proof:}  
+In ${\mathbb C}$, $\chi(g^{-1}) = {\overline {\chi(g)}}$.
+\end{quote}
+{\bf Theorem 63:}
+$G$ is not simple iff $\exists \chi, g \ne 1:
+\chi(g)= \chi(1)$.
+\begin{quote}
+\emph{Proof:}  
+If such a $g$ exists, it is in the kernel of $\chi$.
+\end{quote}
+{\bf Theorem 64:}
+$G$ has $|G/G'|$ linear characters.
+If all irreducible representations of $G$ have dimension $1$, $G$ is abelian.
+\begin{quote}
+\emph{Proof:}  
+Every linear character, $\chi$, has $G' \subseteq ker(\chi)$.  Further, if $N \lhd G$,
+$G' \subseteq N$ means $G/N$ is abelian.  Further, every linear character of $G$ is a
+lift of linear character of $G/G'$.
+\end{quote}
+{\bf Theorem 65:}
+Let $H$ be the kernel of $\theta$ then (i) $|\theta(g)| \leq \theta(1)$,
+(ii) $\theta(g) = \theta(1)$, iff $g \in H$,
+(iii) $|\theta(g)| = \theta(1)$, iff $gH$ is in the center of $G/H$.
+\begin{quote}
+\emph{Proof:}  
+$\theta(g)$ is the sum of $\theta(1)$ roots of unity showing (i).
+(ii) is the definition.
+\end{quote}
+{\bf Definition:}
+Define $(\theta , \eta)= {\frac 1 {|G|}} \sum_g \theta(g) {\overline {\eta(g)}}$.
+\\
+\\
+{\bf Theorem 66:}
+If $U = U_{1} \otimes ... \otimes U_{s}$, the number of these similar to $U_{1}$
+is ${\frac {(\theta, \eta)} {(\eta, \eta)}}$.
+$(\theta, \rho_{G})= \theta(1)$,
+$(\chi_{i}, \chi_{j})= \delta_{ij}$,
+$\sum_{g} \chi(g) = |G| \delta_{i1}$,
+$\sum_{i} \chi_{i}^{2}(1) = |G| $.
+$\omega_{i}(R_{j})= |r_{j}|\chi_{i}(g)/\chi_{i}(1)$,
+$\omega_{t}(R_{i}) \omega_{t}(R_{j})= \sum_{s} a_{ijs} \omega_{t}(R_{s})$.
+$\sum_{t} \chi_{t}(g_{i}) {\overline \chi_{t}(g_{j})} =
+{\frac {|G|}{|R_{j}|}} \delta_{ij}$.
+\begin{quote}
+\emph{Proof:}  
+Calculations based on the decomposition theorem.
+\end{quote}
+{\bf Theorem 67:}
+The number of conjugacy classes = number of irreducible representations.
+$\omega_{i}(R_{j})$ is an algebraic integer.
+\begin{quote}
+\emph{Proof:}  
+Each element of the representation affording each $\omega$ is an algebraic integer and a
+character is just field operations of these elements.
+\end{quote}
+\section {Some applications of character theory}
+{\bf Theorem 70:}
+Suppose $\chi$ is a character of a ${\mathbb C}G$-module, $V$, and $g \in G$ has order
+$m$ then (1) $\chi(1)=dim(V)$, (2) $\chi(g)$ is a sum of $m$-th roots of unity,
+(3) $\chi(g^{-1})= {\overline {\chi(g)}}$ and (4) $\chi(g)$ is real iff $g \sim g^{-1}$.
+\begin{quote}
+\emph{Proof:}  
+(a) is trivial.
+For (b), put the matrix affording $\chi$ into Jordan form (maybe by extending the field).  Raising
+the matrix to the $n$-th power (where $g^n = 1$), we get the identity.  The character of $g$ is thus
+the sum of roots of $1$.
+\end{quote}
+{\bf Burnside's Lemma:} 
+$|{\frac {\chi(g)} {\chi(1)}}| \le 1$.  If
+$|{\frac {\chi(g)} {\chi(1)}}| \ne 1$ it is not an algebraic integer.  
+\begin{quote}
+\emph{Proof:}  
+$\chi(g)$ is the sum of $\chi(1)$ roots of unity.
+\end{quote}
+{\bf Theorem 71:}
+Let $\chi$ be an irreducible character and $R$ a conjugacy class.
+If $(\chi(1), |R|)=1$ then either $|\chi(g)|= \chi(1)$ (equivalently, 
+$R \subseteq {\mathbb Z}(\chi)$) or $\chi(g)=0$.
+\begin{quote}
+\emph{Proof:}  
+$\exists s, t \in {\mathbb Z}: s|R|+ t \chi(1) =1$, so,
+$s|R| \chi(g) + t \chi(1) \chi(g)  = \chi(g)$.  
+$a_1= {\frac {\chi(g)} {\chi(1)}}$ is an algebraic integer.  Let its
+conjugates be $a_2 , \ldots a_m$.  For each $a_1$, $|a_i| \le 1$ and
+$\prod_{i=1}^m |a_i| \le 1$ is a rational integer so
+$\prod_{i=1}^m |a_i| = 0$ or
+$\prod_{i=1}^m |a_i| = 1$.  In the former case, $\chi(g)= 0$ and in the latter
+case, $|\chi(g)|= \chi(1)$.
+\end{quote}
+{\bf Theorem 72:}
+Let $p$ be a prime and $G$ a finite
+group with conjugacy class of size $p^r, r \ge 1$, then $G$ is not a non-abelian simple group.
+\begin{quote}
+\emph{Proof:}  
+Let $g \in R$.  Every non-principal irreducible character $\chi_i, i>1$ of $G$ is faithful.
+$\sum_{i=2}^k \chi_i(1) \chi_i(g) + 1 = 0$ so $\exists i: \chi_i(g) \chi_i(g) \ne 0 \jmod{p}$.
+Thus $(|R|, \chi_i(1)) =1$ and since $\chi_i(g) \ne 0$, applying the previous result,
+we have $g \in {\mathbb Z}(G)$.
+\end{quote}
+{\bf Burnside's Theorem:} Every group of order $p^a q^b$ is solvable.
+\begin{quote}
+\emph{Proof:}  
+Let $G$ be a minimal counterexample.  If $G$ is abelian, the theorem is true.  
+If not, some element of
+$G$ has a conjugacy class of prime power order.  This contradicts the previous result.
+\end{quote}
+{\bf Theorem 73:} The number of real irreducible characters of $G$ is the number of real conjugacy
+classes in $G$,
+\begin{quote}
+\emph{Proof:}  
+Let $X$ be the character table of $G$.  Since ${\overline X}$ is also a matrix of irreducible
+characters so $P X = {\overline X}$, where $P$ is a permutation matrix.  Similarly,
+$X Q = {\overline X}$ and $Q= X^{-1}PX$.  The number of irreducible real characters of $G$
+is $tr(X)$ and the number of irreducible conjugacy classes is $tr(Q)$, and the result holds.
+\end{quote}
+{\bf Corollary:}
+$G$ has a non-trivial real irreducible character iff $G$ has even order.
+\begin{quote}
+\emph{Proof:}  
+Straightforward.
+\end{quote}
+\section {Feit's moduleless treatment}
+{\bf Maschke:} If $char(F)$ does not divide $|G|$, then $F$-representations of $G$
+are completely reducible.  For $\phi$ irreducible,
+if $\exists S: \forall g, S \phi(g) = \phi(g) S$ then S is non-singular.
+\\
+\\
+{\bf Theorem 74:}
+If $A(g), B(g)$ are $k$-irreducible then (i) if $A$ is not similar to $B$,
+and,
+$\sum_{g} a_{is}(g) b_{tj}(g^{-1}) = 0$; or,
+(ii) $A$, $B$ are absolutely irreducible and
+$\sum_{g} a_{is}(g^{-1}) a_{tj}(g) =
+{\frac {|G|} {n}} \delta_{ij} \delta_{st}$, where $n \times n$ is the
+dimension of $(a_{is}(g))$.
+\\
+\\
+{\bf Theorem 75:}
+If $A^{s}$ is absolutely irreducible then $a^{s}_{ij}(g)$ are linearly
+independent and $\sum_{s=1}^k n_{s}^{2} \leq |G|$.
+\section{Induced Representations and Characters}
+{\bf Theorem 76:}
+Let $U$ be a ${\mathbb C}H$ submodule then the map $\theta(x) = xr, r \in {\mathbb C}G$ is
+a ${\mathbb C}H$-homomorphism from $U$ into ${\mathbb C}G$.  Any ${\mathbb C}H$
+homomorphism into ${\mathbb C}G$ can be represented this way.
+\begin{quote}
+\emph{Proof:}
+The first statement is obvious.  If $\theta$ is a ${\mathbb C}H$ homomorphism into
+${\mathbb C}G$, ${\mathbb C}H= U \oplus W$ for some ${\mathbb C}H$ invariant, $W$.
+Define 
+$\varphi(u+w)= \theta(u)$ then
+$\varphi(u)= \theta(u), u \in U$.  If $r= \varphi(1)$, 
+$\varphi(u)= \varphi(u \cdot 1)=
+u \varphi(1)= ur $.
+\end{quote}
+{\bf Definition:}
+If $X \subseteq {\mathbb C}G$, define $X({\mathbb C}G)= span \{ xg, g \in G, x \in X \}$.
+If $H \le G$ and $U$ is a ${\mathbb C}H$ module,
+further define the induced representation $U^G= U({\mathbb C}G)$.
+\\
+\\
+{\bf Theorem 77:}
+If $U, V$ are isomorphic ${\mathbb C}H$ modules, $U^G, V^G$ are isomorphic  ${\mathbb C}G$
+modules.
+\begin{quote}
+\emph{Proof:}  
+Straightforward.
+\end{quote}
+{\bf Theorem 78:}
+If $U, V$ are ${\mathbb C}H$ modules and $U \cap V= \{ 0 \}$, then $U^G \cap V^G = \{ 0 \}$.
+\begin{quote}
+\emph{Proof:}  
+Let $\theta: U \rightarrow W$ be a ${\mathbb C}H$-homomorphism.  
+$\exists r \in {\mathbb C}G: \theta(u)= ru$ and
+$\exists s \in {\mathbb C}G: \theta^{-1}(v)= sv$.  If $a \in U^G$, $a$ is a linear combination of
+the elements $ug$.  So $ra$ is a linear combination of elements $rug$ and $ra \in V^G$.  Moreover,
+$\phi \in Hom_{{\mathbb C} G}$, $a\phi(g)= \phi(ag)$.  $sra=a$ and $rsb=b$ so $b \mapsto sb$ is $\phi^{-1}$.
+So $\phi$ is a ${\mathbb C} G$ isomorphism.
+\end{quote}
+{\bf Theorem 79:}
+If $U$ is a ${\mathbb C}H$ module of ${\mathbb C}H$ and
+If $V$ is a ${\mathbb C}G$ module of ${\mathbb C}G$ then
+$ dim(Hom_{{\mathbb C}G}(U^G, V))= dim(Hom_{{\mathbb C}H}(U, V_{|H}))$
+\begin{quote}
+\emph{Proof:}  
+If $\theta \in
+Hom_{{\mathbb C}G}(U^G, V)) $, 
+$\exists r \in {\mathbb C}G$: $\theta(s)= sr, s \in U^G$.  Define
+${\overline \theta}= \theta_{|H}$.   The map $\theta \mapsto {\overline \theta}$
+is a linear transformation from
+$ Hom_{{\mathbb C}G}(U^G, V)$ to $Hom_{{\mathbb C}H}(U, V_{|H})$.  First we show it
+is invertible: 
+If $\varphi \in Hom_{{\mathbb C}H}(U, V_{|H})$,
+$\exists r \in {\mathbb C}G: \varphi(u)= ur$.  Define $\theta: U^G \rightarrow {\mathbb C}G$
+by $\theta(s)= sr, s \in U^G$ then
+$\theta \in Hom_{{\mathbb C}G}(U^G, V) $ and ${\overline \theta}= \varphi$.  Now
+the transformation is injective because if
+$r_1 , r_2 \in {\mathbb C}G$ and  $u r_1 = u r_2, \forall u \in U$, then
+$r_1 s = r_2 s, \forall s \in U^G$.
+\end{quote}
+{\bf Definition:}
+If $H \le G$ and $\varphi$ a class function on $H$, 
+$\varphi^G(g)= {\frac 1 {|H|}} \sum_{x \in G} \varphi^* (x^{-1}gx)$ is called an
+\emph{induced character}, where $\varphi^*(x)= 0, x \notin H$ and
+$\varphi^*(x)= \varphi(x), x \in H$.  It actually is a character.
+\\
+\\
+{\bf Frobenius Reciprocity Theorem:} 
+$(\varphi^G , \theta)= (\varphi, \theta_{|H})$.
+\begin{quote}
+\emph{Proof:}  
+Suppose first that 
+$(\varphi$ and $\theta$ are irreducible with underlying representation modules
+$U$ and $V$.  Then
+$(\varphi^G , \theta)_G = dim(Hom_{{\mathbb C}G}(U^G, V))$ and
+$(\varphi , \theta_{|H})_H = dim(Hom_{{\mathbb C}H}(U, V_{|H})$ and the result follows from
+the earlier theorem.  Since any character is the linear combination of irreducible characters,
+the result follows from the bilinarity of the form.
+\end{quote}
+{\bf Remark:}  Note that $deg(\phi^G)= \phi^G(1)= {\frac {|G|} {|H|}} \phi(1)$.
+We define  $f^G_x(y) = 1$, if $y \in x^G$ and
+$f^G_x(y) = 0$, otherwise.
+\\
+\\
+{\bf Theorem 80:}
+$(\chi, f^G_x) = {\frac {\chi(x)} {|C_G(x)|}}$.
+If no element of $g^G$ lies in $H$ then $\phi^G(g)= 0$.
+If some element of $g^G$ lies in $H$ then 
+$\phi^G(g)= 
+|C_G(g)|(
+{\frac {\phi(x_1 )} {|C_H(x_1)|}} + \ldots +
+{\frac {\phi(x_m )} {|C_H(x_m)|}} ) $ where $(f^G_g)_{|H}= 
+f^H_{x_1} + \ldots +
+f^H_{x_m}$.
+\begin{quote}
+\emph{Proof:}  
+$(\chi , {f_x}^G) = {\frac 1 {|G|}} \sum_{g \in G} \chi(g) {f_x}^G(g)= $
+${\frac 1 {|G|}} \sum_{g \in G} \chi(g) {f_x}^G(g)= {\frac {|x^G|} {|G|}} \chi(x) = {\frac {\chi(g)} {|C_G(x)|}}$.
+\end{quote}
+{\bf Brauer's Characterization of Characters:} $p$-elementary groups are the products of
+a cyclic $p'$ group and $p$ group.  Every irreducible character is an induced character
+of a linear character of a $p$ elementary subgroup for some $p$.
+\begin{quote}
+\emph{Proof:}
+\\
+\\
+\emph{Step 1:}  
+Let $\chi_1 , \ldots , \chi_h$ be the irreducible characters of $G$
+over ${\mathbb C}$ and let $X_R(G)= \{ \sum a_i \chi_i \}$,
+$V_R(G) = \{ \sum r_i \phi_1 , \phi_i $ and irreducible character of an
+elementary abelian subgroup of $G \}$, $U_R(G)= \{ \chi: G \rightarrow {\mathbb C} \}$ where
+$\chi$ is a class function of an elementary abelian subgroup $E$ of $G$, $\chi_{|E} \in X_R(E)$.
+\\
+\\
+\emph{Step 2:}  
+$V_R(G) \subseteq X_R(G) \subseteq U_R(G)$ and $V_R(G)$ is an ideal in $U_R(G)$.
+\\
+\\
+\emph{Step 3:}  
+Let $E= A \times B$ be elementary with $(|A|, |B|)= 1$.  $\exists \psi = \psi_a \in V_S(G)$
+such that (1) $\psi(g) \in {\mathbb Z}, \forall g \in G$,
+(2) if $g$ is not conjugate to an element of $gB$ then $\psi(g)= 0$ and
+(3) $\psi(a)= |C(a):B|$.
+\\
+\\
+\emph{Step 4:} Let $ {\cal C_1}, {\cal C_1}, \ldots, {\cal C_k} $
+be the conjugacy classes of $G$ which consist of $p'$-elements then $\forall i, 1 \le i \le k$,
+$\exists \tau_i \in V_S(G):$
+(1) $\tau_i(g) \in Z, g \in G$,
+(2) $\tau_i(g) = 0$ if the $p'$ part of $g$ is not in ${\cal C}_i$,
+(3) $\tau_i(g) = 1 \jmod{p} $ if the $p'$ part of $g \in {\cal C}_i$.
+\\
+\\
+\emph{Step 5:} 
+If $p$ is prime, $\exists \phi \in V_S(G)$ such that $\forall g \in G, \phi(g) \in Z$ and
+$\phi(g)= 1 \jmod{p}$.
+\\
+\\
+\emph{Step 6:} 
+If $\alpha: G \rightarrow {\mathbb C}$ is a class function and $\alpha(g) \in |G|S,
+\forall g \in G$ then $\alpha \in V_S(G)$.
+\\
+\\
+\emph{Step 7:} 
+$|G|= p^n g_0$, $p \nmid g_0$ then $\alpha(x)= g_0 \in V_S(G)$.
+\\
+\\
+\emph{Step 8:} 
+$1 \in V_S(G)$.
+\\
+\\
+\emph{Step 9:} 
+$1 \in V_Z(G)$.
+\\
+\\
+\emph{Step 10:}  $1 \in V_Z(G) \le V_R(G)$ so by step $2$,
+$V_R(G) = X_R(G)= U_R(G)$.
+\end{quote}
+{\bf RSK correspondence} for representations
+of the symmetric group: $\exists$ bijection between $S_n$ and the set of ordered
+tableau of the same shape $g \leftrightarrow (S,T)$, further
+$g^{-1} \leftrightarrow (T,S)$.
+\\
+\\
+{\bf Young's diagram:} $D(\lambda )$, $n= n_1 + n_2 + \ldots + n_k$,
+$n_1 \geq n_2 \geq \ldots \geq n_k$.
+Number of tableaus with shape $\lambda$:
+$f_{ \lambda } = \frac { n!} {\prod_{i,j \in D(\lambda )} {h(i, j)}}$, where
+$h(i, j)$ = number of cells in hook $H_{i,j}$.

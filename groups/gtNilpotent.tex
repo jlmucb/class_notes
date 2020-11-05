@@ -1,0 +1,130 @@
+\chapter{Nilpotent Groups and Frattini Subgroup}
+\section{Series}
+{\bf Definition of lower central series:} $G^{(0)}=G$, $G^{(n+1)} = [G^{(n)},G]$.
+\\
+\\
+{\bf Definition 1:} $G$ is {\bf nilpotent} if
+$G^{(n)}=1$ for some $n$.  Note $G^{(n)}/G^{(n+1)} \subseteq {\mathbb Z}(G/G^{(n+1)})$.
+\\
+\\
+{\bf Definition of upper central series:}
+$G^{[0]}=1$. Define $G^{[n+1]}= $ preimage of ${\mathbb Z}(G/G^{[n]})$.
+\\
+\\
+{\bf Definition 2:}
+A normal series, $N_k \subseteq N_{k-1} \subseteq  \ldots \subseteq N_1 = G$,
+is \emph{central} if $[N_i , G] \subseteq N_{i+1}$.
+\\
+\\
+{\bf Theorem 1:}  Let $G$ be a finite group, the following are equivalent:
+(1) $G$ has a central series which reaches $1$;
+(2) $G^{(n)} = 1$ for some $n$;
+(3) $G^{[n]} = G$ for some $n$;
+(4) $N_G(H) > H$ if $H \ne G$;
+(5) Every maximal subgroup of $G$ is normal in $G$ and the quotient group has index $p$;
+(6) Every Sylow subgroup of $G$ is normal in $G$.  When these hold, we say $G$ is
+\emph {nilpotent}.
+\begin{quote}
+\emph{Proof $1 \rightarrow 2$:}
+Let $G=N_0 \supseteq N_1 \supseteq \ldots \supseteq N_n$ with $[G, N_i] \subseteq N_{i+1}$.
+$G^{(0)} \subseteq N_0$ and $G^{(i+1)}= [G^{(i)}, G] \subseteq [N_i, G] \subseteq N_{i+1}$
+so $G^{(n)}=1$.
+\\
+\\
+\emph{Proof $2 \rightarrow 3$:}
+We prove that $G^{[n-i]} \supseteq G^{(i)}$, $G^{(0)}=G=G^{[n]}$ and $G^{(n)}=1=G^{[0]}$.
+\\
+\\
+\emph{Proof $3 \rightarrow 4$:}
+$\exists i$ such that $G^{[i]} \subseteq H$ and $G^{[i+1]} \nsubseteq H$.  Then
+$G^{[i+1]}, G] \subseteq G^{[i]} \subseteq H$ and there is a $x \in G^{[i+1]}$,
+$x \notin H$ with $xHx^{-1}=H$.
+\\
+\\
+\emph{Proof $4 \rightarrow 5$:}
+Let $M$ be a maximal subgroup.  $N_G(M) > M$ so $G= N_G(M)$.
+\\
+\\
+\emph{Proof $5 \rightarrow 6$:}
+Let $M$ be a maximal subgroup containing $N_G(P)$, $P \in S_p(G)$ then $M \lhd G$ and
+by Frattini, $G= M N_G(P)= N_G(P)$.
+\\
+\\
+\emph{Proof $6 \rightarrow 1$:}
+Let $P_1, P_2, \ldots, P_n$ be the Sylow subgroups and put $H= P_1 P_2 \ldots P_n$,
+$H \lhd G$.  Put $G^*= [P_1, G]= [P_1, P_1] \ne P_1$ and consider
+$G \supseteq G^*$.  $G^*$ has a central series by induction.
+\end{quote}
+{\bf Corrollary:}  If $G$ is nilpotent, $G= \bigoplus_{p \mid |G|} O_p(G)$ and 
+$O_p(G)$ is a Sylow subgroup of $G$.
+\section{Frattini Subgroup}
+{\bf Lemma:} Let $1 \ne H \lhd G$ and $J$, a $p$-group in $H$.  If $|H| \neq 1 \jmod{p}$ then
+$H \cap C_G(J) \neq 1$.
+\begin{quote}
+\end{quote}
+{\bf Theorem 2:} If $G$ is nilpotent and $1 \ne H \lhd G$ then (1) $[H,G] \nsubseteq H$ and
+(2) $1 \ne H \cap {\mathbb Z}(G)$.
+\begin{quote}
+\emph{Proof:} (1) If $[H,G]=H$ then $[H, G, G, \ldots, G]=H$. (2) Count!
+\end{quote}
+{\bf Definition 3:} $\Phi(G)= \bigcap_{M \in {\cal M}(G)} M$ where ${\cal M}(G)$ is the set of
+maximal subgroups of $G$.  
+It is called the \emph {Frattini subgroup} of $G$.  
+\\
+\\
+{\bf Theorem 3:} 
+$\Phi(G) \; char \; G$; further,
+(1) $\Phi(G)$ is nilpotent. (2)
+$F(G)/\Phi(G)= F(G/\Phi(G))$.
+\begin{quote}
+\emph{Proof:}  
+Automorphisms, $\phi$, and their inverses take maximal subgroups in $G$ so 
+$ \bigcap_{M \in {\cal M}} M = \bigcap_{M \in {\cal M}} \phi(M)= \Phi(G)$.
+Let $P \in S_p(\Phi(G))$.  Since $\Phi(G) \lhd G$, $G= \langle \Phi(G), N_G(P) \rangle = N_G(P)$ and so
+$P \lhd G$ so $\Phi(G)$ is nilpotent.  (2) follows from (1).
+\end{quote}
+{\bf Theorem 4:} If $G$ is nilpotent, $G' \subseteq \Phi(G)$.
+\begin{quote}
+\emph{Proof:}  Suppose $G$ is nilpotent and $M$ is a maximal subgroup of $G$.
+$N_G(M)>M$ so $M \lhd G$.  If $1 \ne a \in G/M$, $ \langle a, M \rangle = G$ so $G/M$ is cyclic and
+$G' \subseteq M$.  This is true for every $M$ so $G' \subseteq \Phi(G)$.
+\end{quote}
+{\bf Theorem 4:} $G$ is nilpotent iff it is solvable and $p$-closed $\forall p$.
+\begin{quote}
+\emph{Proof:} If $G$ is nilpotent, $O_p(G) = P \in S_p(G)$ and $G= \bigotimes_{p \mid |G|} O_{p_i}(G)$ and the result follows.
+The reverse inclusion goes by induction $G$ is solvable, $O_p(G) \neq 1$, some $p$, applying induction to ${\overline G}=
+G/O_p(G)$ gives the result.
+\end{quote}
+{\bf Theorem 5:} If $\Phi(G)$ and ${\overline G}= G/\Phi(G)$ are nilpotent then so is $G$.
+\begin{quote}
+\emph{Proof:} Let ${\overline P} \in S_p({\overline G})$ then ${\overline P} \lhd {\overline G}$.
+Put $N= P \Phi(G) \lhd G$.  
+By Frattini, $P \in S_p(G) \rightarrow N_G(P)N= N_G(P) \Phi(G)= N_G(P)$.
+\end{quote}
+{\bf Theorem 6:} $\Phi(G) \subseteq F(G)$.
+\begin{quote}
+\emph{Proof:} $\Phi(G)$ is nilpotent and so is $F(G)$ and so is their product.  Since
+$F(G)$ is maximal, this product is in $F(G)$.
+\end{quote}
+{\bf Theorem 7:} If $P$ is a $p$-group then ${\overline P}= P/\Phi(P)$ is elementary abelian.  It
+is the smallest such subgroup with this property.
+\begin{quote}
+\emph{Proof:}  Suppose $M$ is maximal in $P$.  As above, $M \lhd P$ and $P' \subseteq M$.
+Suppose ${\overline x} \in {\overline P}$.  $|x|= p^m$ and there is a the characteristic
+subgroup $N$ of $P$ with index $p$ must be in $M$ (otherwise $P=NM$).  
+Thus $xM$ has order $p$.  This is
+true for all $M$ so ${\overline x}$ has order $p$ and as noted ${\overline P}$ is abelian so
+it is elemenetary abelian.
+\end{quote}
+{\bf Theorem 8:} $\Phi(G/N)= \Phi(G)N/N$.
+\begin{quote}
+\emph{Proof:} Let ${\overline A}= A/N$, $N \lhd G$.  Maximal subgroups of ${\overline G}$ are
+the maximal subgroups of $G$ containing $N$.
+\end{quote}
+{\bf Theorem 9:} If $S \subseteq G$ and $ \langle S, \Phi(G) \rangle =G$ then $ \langle S \rangle
+=G$.
+\begin{quote}
+\emph{Proof:}  Suppose $ \langle S \rangle
+=H < G$. Let  $M$ be a maximal subgroup containing $H$.  
+$\Phi(G) \subseteq M$, so $ \langle \Phi(G), S \rangle \subseteq H \ne G$.  Contradiction.
+\end{quote}

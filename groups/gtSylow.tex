@@ -1,0 +1,77 @@
+\chapter{Counting and Sylow's Theorem}
+\section {Basic Results}
+{\bf Theorem 1:} If $X, Y \leq G$,  $XY$ is a group iff $XY=YX$.
+\begin{quote}
+\emph{Proof:} 
+Associativity and identity are inherited from $G$. If 
+$x_1,x_2 \in X$ and
+$y_1,y_2 \in Y$, $x_1 y_1 x_2 y_2=
+x_1  x_2' y_1' y_2$ by the equality so $XY$ is closed. Further, $
+(x_1 y_1)^{-1}= 
+(y_1)^{-1} x_1^{-1} =
+(y_1' x_1')^{-1} \in XY$ so every element in $XY$ has an inverse.
+\end{quote}
+{\bf Theorem 2:} If $exp(G)=2$, $G$ is abelian.
+\begin{quote}
+\emph{Proof:} 
+$(xy)^2= xyxy=1$ so $x^2yxy= yxy= x$ and $yxy^2= yx= xy$ so $G$ is abelian.
+\end{quote}
+\section {Counting}
+{\bf Lagrange's Theorem:} If $G>H$ $G= \bigcup Hx_i$ for some $x_i \in G$ and each pair of
+cosets is disjoint.
+\begin{quote}
+\emph{Proof:}  $G= \bigcup_{x \in G} Hx$ since $x \in Hx$.  Since any
+two cosets coincide or are disjoint, this partition can be refined to disjoint sets all of
+size $|H|$.   Thus $|H| \mid |G|$.
+\end{quote}
+{\bf Group Actions:} A \emph{group action} is a map $\phi: \Omega \times G \rightarrow \Omega$
+satisfying $\phi(\alpha,1)= \alpha$, $\phi(\alpha, g_1 g_2)= \phi(\phi(\alpha, g_1), g_2)$.
+\\
+\\
+{\bf Counting Theorem:} $|\alpha^G|= |G:G_{\alpha}|$.
+\begin{quote}
+\emph{Proof:} Let $G_{\alpha} g$ be a coset.  Every element of the coset maps $\alpha$ into the same element.  Further,
+if $G_{\alpha} g_1$ and
+$G_{\alpha} g_2$ map $\alpha$ into the same element then
+$g_1 g_2^{-1} \in G_{\alpha}$.
+\end{quote}
+{\bf Cauchy's Theorem:}  If $G$ is abelian and $p \mid |G|$ then $\exists x \in G, x \ne 1: x^p=1$.
+\begin{quote}
+\emph{Proof:}  By induction on $|G|$; true if $|G|=1$.
+If $a \in G$ and $|a|= p^rm$, $(p, m)=1$ then $b=a^{p^{r-1}m}$ has order $p$ and where done.
+If $p \nmid |a|$, apply the inductive hypothesis to $G/ \langle a \rangle$.
+\end{quote}
+{\bf Sylow's Theorem:}  Let $|G|_p$ denote the largest $i$ such that $p^i \mid |G|$.
+(1) $\exists S \le G, |S|= p^{|G|_p}$; (2) Let $S_p(G)= \{S \le G: |S|= p^{|G|_p} \}$,
+$|S_p(G)| = 1 \jmod{p}$ and $|S_p(G)| \mid |G:P|$.
+\begin{quote}
+\emph{Proof of (1):}  By induction on $|G|$; true if $|G|=1$.
+Let $G$ act by conjugation on its elements and decompose these into disjoint orbits.  We get
+$|G|= |{\mathbb Z}(G)|+\sum_{x} |G:C_G(x)|$.  If $p \nmid |{\mathbb Z}(G)|$, $p \nmid |C_G(x)|$
+for some $x$ and we can apply the induction hypothesis to $C_G(x)$.  If $p \mid |G|$, by Cauchy,
+$\exists a \in {\mathbb Z}(G), a \ne 1, a^p =1$.  $\langle a \rangle \lhd G$.  
+Apply the induction hypothesis to
+$G/ \langle a \rangle$.
+\\
+\\
+\emph{Proof of (2, 3):}
+Let $G$ act on $S_p(G)$ by conjugation and $P \in S_p(G)$.  $P$ also acts on $S_p(G)$ by
+conjugation.  Let $\Sigma$ be a $G$-orbit.  $\Sigma= \bigcup \Delta_i$ where each
+$\Delta_i$ is a $P$-orbit disjoint from $\Delta_j, i \ne j$.  If $P \notin \Sigma$
+$p \mid |\Delta_i|, \forall i$ so $p \mid |G:N(P)|$ which is a contradiction.  So $P \in \Sigma$ for
+all $G$-orbits and hence $G$ is transitive on $S_p(G)$.  In this decomposition, $P$ is in an orbit
+by itself and every other orbit has size divisible by $p$, so $|S_p(G)= |G:N_G(P)| = 1 \jmod{p}$.
+Finally,
+$|S_p(G)| = |G:N_G(P)| \mid |G:P|$.
+\end{quote}
+{\bf Frattini Argument:} If $H \lhd G$ and $P \in S_p(H)$ then $G= H N_G(P)$.
+\begin{quote}
+\emph{Proof:}  Let $g \in G$.  $P^g \in H$ so $\exists x \in H: P^x=P^g$.  $x^{-1}g \in N(P)$ so
+$g \in HN(P)$.
+\end{quote}
+{\bf Theorem 3:} If $P$ is a $p$-group and $S < P$ then $N_P(S) > S$.
+\begin{quote}
+\emph{Proof:}  Let $P$ act on $S$ by conjugation and $\Sigma$ be the resulting orbit.
+Now let $S$ act on $\Sigma$.
+\end{quote}
+

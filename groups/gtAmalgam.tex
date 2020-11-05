@@ -1,0 +1,661 @@
+\chapter{Primitive groups, pairs and amalgams}
+\section {Primitive Groups}
+{\bf Definition 1:} $M<G$ is \emph{primitive} if $M=N_G(A), \forall A \lhd M$. $1 \ne M <G$ is
+\emph{strongly $p$-embedded} if $|M \cap M^g|_p = 1$ for $g \in G \setminus M$.
+$H<G$ is a $p$-local subgroup of $G$ if $M= N_G(P), P \in p(G)$.
+\\
+\\
+{\bf Comment:} Bender classified groups with strongly embedded $2$-subgroups.
+\\
+\\
+{\bf Theorem 1:}
+Let $N \lhd G$, be abelian.  If $G/N$ is perfect then $G'$ is perfect.
+\begin{quote}
+\emph{Proof:}  
+$(G/N)= (G/N)'$ so $G= G'N$ and 
+$G/N \approx G'/(G' \cap N)$.  So
+$G'/(G' \cap N)=
+(G'/(G' \cap N))'$ and thus $G=G''N$ so $G/G'' \approx N/(G'' \cap N)$.  Since this is abelian,
+$G' \subseteq G''$.
+\end{quote}
+{\bf Theorem 2:}
+$C_M(O_p(M)) \subseteq O_p(M)$ is equivalent to $F^*(M)=O_p(M)$ and $O_{p'}(M)=1$.
+\begin{quote}
+\emph{Proof:}  
+Clear.
+\end{quote}
+{\bf Theorem 3:}
+If $M<G$ is maximal and $N \lhd G$ then $M/N$ is a maximal subgroup of $G/N$.
+\begin{quote}
+\emph{Proof:}  Clear.
+\end{quote}
+{\bf Comment:} The forgoing theorem let's us assume a maximal subgroup contains no normal subgroup of
+$G$.
+\\
+\\
+{\bf Theorem 4:}  Let $L \lhd \lhd G$.  If $L \leq F^*(G)$ then (a)
+$L= (L \cap F(G))(L \cap E(G))$; (b) $F^*(L) = F^*(G) \cap L$; (c)
+$E(L) C_{E(G)}(L) = E(G)$.  $E(L) \lhd E(G)$.
+\begin{quote}
+\emph{Proof:}  
+Every component of $L$ is a component of $G$ and $F(L) \leq F(G)$.  Since $[F(G), E(G)]=1$.
+\end{quote}
+{\bf Theorem 5:}  The action of $G$ by right conjugation on cosets of primitive groups is primitive.
+\begin{quote}
+\emph{Proof:}  The action is obviously transitive and 
+$Mg=M \rightarrow g \in M$ which is maximal so the action is primitive.
+\end{quote}
+{\bf Theorem 6:}
+If $M<G$ is primitive, $N \lhd G$ and $M \cap N \neq 1$ then $C_G(N) =1$.
+\begin{quote}
+\emph{Proof:}  
+$C_G(N) \lhd G$ and $C_G(N) < M \cap N$ then $C_G(N)=1$.
+\end{quote}
+{\bf Theorem 7:}
+Let $M$ be a primitive subgroup of $G$.  No non-trivial subnormal subgroup of $G$ is contained in $M$.
+$F(G) \cap M = 1$.
+\begin{quote}
+\emph{Proof:}  
+Suppose $L \lhd \lhd G, 1 \neq L \leq M$.  Pick a minimal one, $L \leq F^*(G)$.  By the previous result,
+${\mathbb Z}(F^*(G)) = 1$.  So $F(G)=1$ and $L$ is a component of $G$.
+$\langle L^M \rangle \lhd E(G)$ and by primitivity, $E(G) \leq M$.  So $E(G)=1$, which is a contradiction.
+\end{quote}
+{\bf Theorem 8:}
+If $M<G$ is a primitive subgroup, $p \in \pi(M)$, $N \lhd G$.  Suppose $M \cap N =1$ and $O_p(M) \neq 1$.
+(a) $p \notin \pi(N)$, (b) $\forall q \in \pi(N), \exists$ an $M$-invariant subgroup Sylow $q$-subgroup
+of $N$; (c) if $|\pi(N)| \geq 2$ then $M$ is a maximal subgroup of $G$.
+\begin{quote}
+\emph{Proof:}  
+(a) Put $P= O_p(M)$ then $M= N_G(P)$ and $P \in S_p(NP)$ since $N \cap P = 1$ thus $p \notin \pi(N)$.
+For (b), $PN$ acts on $\Omega= S_q(N)$. by conjugation and $N$ is a transitive normal subgroup of $PN$ so
+$C_{\Omega}(P) \neq \emptyset$ and $C_N(P)$ is transitive on $C_{\Omega}(P)$.  Now $C_N(P) \leq M \cap N =1$ gives
+$|C_{\Omega}(P)|=1$ and $C_{\Omega}(P)= C_{\Omega}(M)$ since $P \lhd M$.
+For (c), $\exists M$-invariant $Q \in S_q(N)$.  Since $Q < N$, $M < QM < NM \leq G$.
+\end{quote}
+{\bf Theorem 9:}
+Let $M<G$ be a primitive subgroup, $N \lhd G$: $M \cap F^*(N) \neq 1$ then
+$F(G)=1$, $F^*(N)=F^*(G)= E(G)$. Every minimal normal subgroup of $G$ is contained in $M$.
+\begin{quote}
+\emph{Proof:}  
+$F^*(N) \leq F^*(G)$ and by a previous result, ${\mathbb Z}(R(G)) =1$ and so $F(G)=1$.$F^*(N)=E(N)$ and
+$F^*(G)= C_{F^*(G)}(E(N))E(N)$.  Applying the result again,
+$F^*(G)= E(N)= F^*(N)$.
+\end{quote}
+{\bf Theorem 10:}
+Suppose $G$ contains a primitive maximal subgroup $M$ then one of the following holds:
+(F1) $F(G)=F^*(G)$ and $M$ is a complement of $F(G)$ in $G$;
+(F2) $G$ contains exactly two minimal normal subgroups $N_1, N_2$ which are non-abelian
+$F^*(G)= N_1 \times N_2= E(G)$; (F3) $F^*(G)$ is a minimal non-abelian subgroup of $G$.
+\begin{quote}
+\emph{Proof:}  
+See Stellmacher, 6.6.4.
+\end{quote}
+{\bf Theorem 11:}
+If F1 holds and $p \in \pi(M), O_p(M) \neq 1$ then all primitive maximal subgroups of $G$ are
+conjugate.
+\begin{quote}
+\emph{Proof:}  
+Put $P= O_p(M), F= F^*(G)$ then $M= N_G(P)$, $FP \lhd G$ and $S_p(M) \subseteq S_p(G)$.  Let
+$H$ be another primitive maximal subgroup.  $H$ is also a complement of $F$ so $|H|=|M|$.
+$\exists g: P \leq P^g$.  $P= H^g \cap FP \lhd H^g$ so $H^g= N_G(P)= M$.
+\end{quote}
+{\bf Theorem 12:}
+Suppose F2 holds.   There is an $M$-isomorphism $\alpha: N_1 \rightarrow N_2$ such that
+$M \cap F^*G) = \{ x x^{\alpha}: x \in N_1 \}$.
+\begin{quote}
+\emph{Proof:}  
+Let $D= M \cap F^*(G)$ then by a previous result ($C_G(N)=1$), $ D \cap N_1 = 1 = D \cap N_2$. 
+Since $G= N_iM$, $F^*(G)= N_iD$ and $\forall x_1 \in N_1, \exists ! x_2 \in N_2: x_1 x_2 \in D$.
+The mapping $\alpha: N_1 \rightarrow N_2, x_1 \mapsto x_2$ is an isomorphism.  The isomorphism
+commutes with  elements of $M$ since $N_1, N_2, D$ are all $M$-invariant.
+\end{quote}
+{\bf Theorem 13:}
+Let $F$ be a minimal normal subgroup of $G$, $N<G$, $G= FM$.
+(a) Suppose $U \subseteq F$ and $U^M=U$, then $UM<G$.
+\begin{quote}
+\emph{Proof:}  
+(b) follows from (a).  For (a), assume the contrary, $G=UM$.  Then $U \lhd G$ and $F$ is not a minimal
+normal subgroups of $G$.
+\end{quote}
+\section {Primitive pairs}
+{\bf Definition 2:} $M<G$ is \emph{primitive} if $M=N_G(A), \forall A \lhd M$. $1 \ne M <G$ is
+\emph{strongly $p$-embedded} if $|M \cap M^g|_p = 1$ for $g \in G \setminus M$.
+A group $M$ is of characteristic $p$ if $C_M(O_p(M)) \leq O_p(M)$ (If
+$M$ is $p$-separable then $O_{p'}(M)=1$).
+\\
+\\
+{\bf Theorem 14:}
+Let $M$ be a group of characteristic $p$.
+Suppose $U \le M$ and $U \lhd \lhd M$ or $O_p(M) \le U$ then
+$U$ has characteristic $p$.
+\begin{quote}
+\emph{Proof:}  
+The case $O_p(M) \leq $ is clear.  In the other case, apply $F^*(L) =F^*(G) \cap L$.
+\end{quote}
+{\bf Definition 3:}  $M_1, M_2$ is called a \emph{primitive pair} if $1 \ne A \lhd M_i$,
+$A \le M_1 \cap M_2 \rightarrow N_{M_j}(A)= M_1 \cap M_2$.  The pair is respectively
+(solvable or characteristic $p$ if each are.  The property ${\cal P}(M_1 , M_2, A)$ is
+$1 \neq A \lhd M_i$, $A \leq M_1 \cap M_2$.
+\\
+\\
+{\bf Theorem 15:}
+Let $M_1, M_2$ be two different maximal $p$-local subgroups of $G$ that both have characteristic $p$.
+Suppose $M_1$ and $M_2$ have a common Sylow $p$-subgroup, then $(M_1 , M_2)$ is a primitive pair of 
+characteristic $p$.
+\begin{quote}
+\emph{Proof:}  
+Let $1 \neq A \lhd M_i, A \leq M_i \cap M_j, i \neq j$.  By previous result,
+$1 \neq O_p(A) \lhd M_i$ and the maximality of $M_i$ gives $M_i= N_G(O_p(A))$.  So
+$N_{M_j}(A)= M_i \cap M_j$ has property ${\cal P}$.  Let $S$ be a common Sylow subgroup of
+$M_1$ and $M_2$ then $O_p(M_1 ) O_p(M_2 ) \leq S \leq M_1 \cap M_2$.
+\end{quote}
+{\bf Theorem 16:}
+Suppose $p \in \pi(G)$, every $p$-local has characteristic $p$ and $O_p(G)=1$ then either
+(a) there is a primitive pair of characteristic $p$ or (b)
+every maximal $p$-local subgroup of $G$ is strongly embedded in $G$.
+\begin{quote}
+\emph{Proof:}  
+Let $M$ be a maximal $p$-local of $G$, then $O_p(M) \neq 1$ and
+$N_G(M) \leq N_G(O_p(M))=M < G$ so $M^g \neq M, g \in G-M$.  $M^g$ is a maximal $p$-local.
+Among all such, choose one, $L \neq M$ with $|M \cap L|_p$ maximal.
+If $|M \cap L|_p>1$ then $T \in S_p(M \cap L)$ and $U= N_G(T)$.
+Since $U$ is a $p$-local, there is a maximal $p$-local $H \subseteq G$, maximal with $U \subseteq H$.
+If $H \neq M$, let $T \in S_p(M)$.  If $T<S$, $T<N_S(T) \leq H \cap M$ which contradicts the maximality of
+$|M \cap L|_p$.  This $T \in S_p(M)$.  $\exists S_1 \in S_p(L), g \in S_1 - T$ such that $T^g=T$ and
+$M \neq M^g$.  By the previous result, $(M, M^g)$ is a primitive pair of characteristic $p$.  We've shown (a)
+holds if $|M \cap L|_p = 1$ when $M, L$ are two different $p$-locals.   If $|M \cap M^g|_p=1, \forall g \in G - M$,
+$M$ is strongly $p$-embedded.
+\end{quote}
+{\bf Bender's Little Theorem:}
+Let $(M_1, M_2)$ be a primitive pair of $G$.  Suppose 
+$F^*(M_1) \le M_2$ and
+$F^*(M_2) \le M_1$ then $\exists p: (M_1, M_2)$ has characteristic $p$.
+\begin{quote}
+\emph{Proof:}  
+See Stellmacher, 10.1.4.
+\end{quote}
+{\bf Theorem 17:}
+Let $(M_1, M_2)$ be a primitive pair of $G$ of characteristic $p$ then $\exists i \in \{1 , 2 \}$
+such that either 
+(1) The action of $M_i$ on $O_p(M_i/ \Phi(M_i))$ is not $p$-solvable or
+(2) $W_i$ is elementary abelian and the action of $M_i$ on $W_i$ is not $p$-stable.
+\begin{quote}
+\emph{Proof:}  
+See Stellmacher, 10.1.5.
+\end{quote}
+{\bf Theorem 18:}
+Let $(M_1, M_2)$ be a primitive pair of characteristic $p$, then $M_1$ or
+$M_2$ has a non-abelian Sylow $2$-subgroup.
+\begin{quote}
+\emph{Proof:}  
+If $p \neq 2$, it follows from the previous result and $p$-stability for groups with abelian $2$-syslow subgroups.
+For $p= 2$, if the Sylow $2$-groups are abelian, then $O_2(M_1)= O_2(M_2)$ and $(M_1, M_2)$ is not primitive.
+\end{quote}
+{\bf Theorem 19:}
+Let $M$ be $p$-seperable and $A$ a $p$-subgroup of $M$ satisfying
+$Phi(A) \leq O_p(M)$ and $A \nleq O_p(M)$ then $\exists x \in O_{p,p'}(M)$
+such that for $L= \langle A, A^x \rangle$, (a) $x \in O^p(L) \leq O_{p,p'}(M)$,
+(b) $[O^P(L),A]= O^p(L)$, and (c) $|A/(A \cap O_p(L))|=p$ and $[A \cap O_p(L), L] \leq O_p(M)$.
+\begin{quote}
+\emph{Proof:}  
+$\exists L$ with property (a).  Choose $L$ maximal among all such groups then (b) follows.
+${\overline L}= L/O_p(L)$, ${\overline Q}= O_{p'}({\overline L})$ so ${\overline L} = {\overline {AQ}}$.
+$A$ is an elementary abelian $p$-group and
+$\Phi(A) \leq O_p(M) \cap L \leq O_p(L)$.  Let ${\cal B}$ be the set of maximal subgroups of $A$.
+${\overline Q}=  \langle C_{\overline Q}({\overline U}): U \in {\cal B} \rangle$ so
+$[C_{\overline Q}({\overline U}), A] \neq 1$ for some $U \in {\cal B}$ since $A$ acts non-trivially
+on ${\overline Q}$.  This implies $U= A \cap O_p(L)$ and
+$[U, O^p(L)] \leq O_p(L) \cap O_{pp'}(M) \leq O_p(M)$ and (c) follows.
+\end{quote}
+{\bf Theorem 20:}
+Let $M$ be a group of characteristic $2$ that 
+possesses a section isomorphic to $S_4$  then $M$
+possesses a section isomorphic to $S_4$ .
+\begin{quote}
+\emph{Proof:}  
+Let $M$ be a minimal counterexample.  $O_2(S_3)=1$ and $M/O_2(M) \leq N \lhd X < M$ and $X/N \approx S_3$.
+$X=M$ by minimality.  Let ${\overline M}= M/N$ and $D \in S_3(M)$, ${\overline D} \approx C_3 \lhd M$.
+By Frattini, $M= N_M(D) N$.  There are $2$-elements that act nontrivially on the $3$ group $D$.  Let $t \in N_M(D)$
+of minimal order.  $\exists d \in D: |d|=3, d^t= d^{-1}$, $\langle d, t \rangle/\langle t^2 \rangle \approx S_3$.
+Minimality of $M$ shows  $M= O_2(M) \langle d,t \rangle$ and $t^2 \in _2(M)$.
+$\Phi(O_2(M))= 1$ and $C_{O_2(M)}(d)=1$.  Thus  $t^2=1$ and $\exists 1 \neq Z \in C_{O_2(M)}(t)$.
+$V= \langle z, z^d, Z^{d^2} \rangle$ and $|V| \leq 8$ and $V \lhd M$.  Hence $V= C_2 \times C_2$ and
+$V \langle d, t \rangle \approx S_4$ so $M$ is not a minimal counterexample.
+\end{quote}
+{\bf Notation:}
+${\cal Q}(Z, X)= \{ A \leq X: [Z,A,A]=1 \neq [Z,A] \}$.
+$q(Z,X)= 0$ if ${\cal Q}(Z,X)= \emptyset$;
+$q(Z,X)= min \thinspace \{e \in {\mathbb R}: |A/C_A(Z)|^e= |Z/C_Z(A)|, A \in {\cal Q}(Z,X) \}$, otherwise.
+\\
+\\
+{\bf Theorem 21:}
+Let $M$ act faithfully on 
+an elementary abelian $2$-group, $V$ and let
+$A$ be an elementary abelian $2$-subgroup of $M$.  Suppose
+$C_M(O_{2'}(M)) \leq O_{2'}(M)$ and $|V/C_V(A)| < |A|^2$.  Then
+$M$ posseses a section isomorphic to $S_3$.
+\begin{quote}
+\emph{Proof:}  
+Among all the elementary abelian $2$-subgroups that satisfy the condition, choose $A$ of minimal order.
+Assume $|A|=2$, then $A \in {\cal A}_V(M)$ and the result follows from Glauberman's theorem.
+If $|A|>2$,$C_M(O_{2'}(M) \leq O_{2'}(M)$ means $A$ acts non-trivially on $O_{2'}(M)$.  Let $Q \subseteq O_{2'}(M)$
+be minimal.  $Q^A=Q$ and $[Q,A] \neq 1$ so $A_0= C_A(Q)$ is a maximal subgroup of $A$ and
+$QA/A_0$ acts faithfully on $C_V(A_0)$.  The conclusion follows from the $|A|=2$ case if
+$|C_V(A_0)/C_V(A)| \leq |A/A_0|^2=4$ which in turn follows from the minimality of $A$ since
+$|V/C_V(A)| < |A|^2 \leq 4 |V/C_V(A_0)|$.
+\end{quote}
+{\bf Theorem 22:}
+Let $M$ be a group and $V$ an elementary abelian normal $p$-subgroup of $M$; let $Z \leq V$ with
+$V= \langle Z^M \rangle$ and $Z \lhd O_p(M)$.  Suppose $\exists A \leq O_p(M)$ with $[V,A,A]=1$.
+Then $|A/C_A(V)|^q \leq |V/C_V(A)|$ where $q= q(Z,O_p(M))$.
+\begin{quote}
+\emph{Proof:}  
+See Stellmacher, 10.1.10.
+\end{quote}
+{\bf Theorem 23:}
+Let $(M_1, M_2)$ be a solvable primitive pair of characteristic $2$, then $M_1$ or
+$M_2$ has a section isomorphic to $S_4$.
+\begin{quote}
+\emph{Proof:}  
+See Stellmacher, 10.1.11.
+\end{quote}
+{\bf Theorem 24:}
+Let $G$ be a group of even order, $O_2(G)=1$.  Suppose that for every $2$-local $M$ of $G$,
+(1) $M$ has characteristic $2$ and is solvable and (2) $M$ does not possess a section
+isomorphic to $S_4$ then every maximal $2$ local of $G$ is strongly $2$-embedded in $G$.
+\begin{quote}
+\emph{Proof:}  
+This is a direct consequence of the result preceeding Bender's theorem and the previous result.
+\end{quote}
+\section {Amalgam Graphs}
+{\bf Definition 4:}
+$P_1, P_2 \le G$, $|P_i|< \infty$.  Construct a graph $\Gamma(G, P_1, P_2)=\Gamma$
+as follows: 
+$\Gamma$ has verticies consisting of right cosets of $P_1$ and $P_2$; the verticies
+$P_i g_j$ and $P_n g_m$ are
+joined by an edge if 
+$P_i g_j \ne P_n g_m$ and
+$P_i g_j \cap P_n g_m \ne \emptyset$.  $\Delta(\alpha)$ denotes the verticies
+adjacent to $\alpha$.  $G$ acts on graph by right multiplication on cosets.  
+$\Delta(\alpha)$ is a set of vertices adjacent to $\alpha$.
+$G \rightarrow Aut(\Gamma)$.
+\\
+\\
+{\bf Theorem 25:}
+Suppose $G$ has two orbits and $P_1, P_2$ are representatives.  Every vertex stabilizer
+$G_{\alpha}$ is a $G$-conjugate of $P_1$ or $P_2$ then
+(a) $G$ acts transitively on $\Gamma$ and every edge stabilizer in
+$G$ is a $G$-conjugate of $P_1 \cap P_2$, (b) $G_{\alpha}$ acts transitively
+on $\Delta(\alpha)$, (c) $|\Delta(\alpha)|= |G_{\alpha}:G_{\alpha, \beta}|$,
+(d) $P_1 \cap P_2$ is the kernel of the action on $\Gamma$.
+\begin{quote}
+\emph{Proof:}  
+(a) For $P_ix \in \Gamma$ and $g \in G$, $P_ixg=P_ix$ is equivalent to
+$P_i g^{x^{-1}} = P_i$ is equivalent $g \in P_i^x$.
+(b) Let $\langle P_1x, P_2y \rangle$ be an edge.  $\exists z \in P_1x \cap P_2y$.  Hence
+$P_1x = P_1z$ and $P_1x = P_1z$ so $z^{-1}$ conjugates $(P_1x, P_2y)$ to $(P_1, P_2)$.  The
+stabilizer of $(P_1z, P_2z)$ is in $P_1^z \cap P_2^z= (P_1 \cap P_2)^z$.
+(c) By (a), we can assume $\alpha= P_1$ then $\Delta( \alpha ) = \{ P_2y : P_2 \cap P_1 \neq \emptyset \}$
+$= \{ P_2y : y \in P_1 \}$ thus $P_1$ is transitive on $\Delta( \alpha )$.
+(d) By (a), any normal subgroup of $G$ is contained in $P_1 \cap P_2$ fixes every vertex of $\Gamma$.
+\end{quote}
+{\bf Theorem 26:}
+$\Gamma$ is connected iff $G= \langle P_1 , P_2 \rangle $.
+\begin{quote}
+\emph{Proof:}  
+Assume $G= \langle P_1 , P_2 \rangle$ and let $\Delta$ be a connected component of $\Gamma$ that contains
+$P_1$.  Since $P_1$ and $P_2$ are adjacent, $P_2 \in \Delta$.  Since different components are disjoint,
+$\Delta = \Delta^{\langle P_1, P_2 \rangle}= \Delta^G$ and thus $\Delta= \Gamma$ by (a) above.
+Now assume $\Gamma$ is connected and let $G_0= \langle P_1, P_2 \rangle$ and $\Gamma_0= 
+\{ P_1x: x \in G_0 \} \cup \{ P_xx: x \in G_0 \} $ be the coset graph of $G_0$ with respect to
+$P_1, P_2$.  $\Gamma_0$ is connected.  If $\Gamma= \Gamma_0$ then $G= G_0$.  Assume $\Gamma \neq \Gamma_0$.
+Since $\Gamma$ is connected, $\exists \alpha, \beta \in \Gamma$ such that $\alpha \in \Gamma_0, \beta \in \Gamma
+- \Gamma_0$.  By (c) above, $\beta$ and all other elements of $\Delta( \alpha )$ are in $\Gamma - \Gamma_0$.
+Hence $\Gamma$ is not connected.  Contradiction.
+\end{quote}
+{\bf Theorem 27:}
+Let $G= \langle P_1, P_2 \rangle $, $U \le G_{\alpha} \cap G_{\beta}$ and
+$(\alpha, \beta)$ is an edge.  The (1) $N_{G_{\delta}}(U)$ acts transitively on
+$\Delta(\delta), \delta \in \{ \alpha , \beta \}$ and (2) if $U \le G_{\alpha} \cap G_{\beta}$ then
+$U$ acts trivially on $\Gamma$.
+\begin{quote}
+\emph{Proof:}  
+(2) together with (c) implies (1) so we may assume (1) holds.
+Let $\Gamma_0= \alpha^{N_G(U)} \cup \beta^{N_G(U)}$.  $U$ fixes $\Gamma_0$.
+If $\gamma \in \Gamma_0$, $\exists g \in N_G(U)$ and $\delta \in \{ \alpha, \beta \}$ such that
+$\gamma= \delta^g$.  Then $\Delta( \delta^g ) = \Delta ( \gamma )$ and 
+$N_{G_{\gamma}}(U)= N_{G_{\delta}}(U)^g $.  By (1), $N_G(U)$ is transitive on $\Delta( \delta^g ) = \Delta( \gamma )$.
+One of $\alpha^g, \beta^g$ is adjacent to $\gamma$ and $\{ \alpha^g , \beta^g \} \subseteq \Gamma_0$.
+It follows that $\Delta( \gamma ) \subseteq \Gamma_0$.  By the previous result, $\Gamma$ is connected
+and we must have $\Gamma= \Gamma_0$ so $U$ stabilizes every vertex in $\Gamma$.
+\end{quote}
+{\bf Condition} ${\cal A}$:  Let $G$ be a
+finite group generated by $P_1, P_2$,
+$T= P_1 \cap P_2$ satisfying: $C_{P_i}(O_2(P_i)) \le O_2(P_i)$, $T \in S_2(P_i)$,
+$T_G=1$, $P_i/O_2(P_i) \approx S_3$ and $[\Omega(Z(T)), P_i] \ne 1$.
+\\
+\\
+{\bf Theorem 28:}
+Let ${\cal A}$ holds and $(\alpha, \beta)$ be an edge of $\Gamma$.
+(a) $|G_{\alpha}:G_{\alpha, \beta}|=3$ and is a Sylow $2$ subgroup of $G_{\alpha}$.
+$G_{\alpha} = \langle t, G_{\alpha, \beta} \rangle$ for $t \in G_{\alpha} - G_{\beta}$.
+(b) $|\Delta( \alpha )| =3$ and $O_2(G_{\alpha})= \bigcap_{\delta \in \Delta( \alpha )} (G_{\alpha} \cap G_{\beta})$,
+(c) $G_{\alpha}$ acts $2$-transitively on $\Delta( \alpha )$.
+\begin{quote}
+\emph{Proof:}  
+(a) follows from $P_1/O_2(P_i) \approx S_3$ and (b) and (c) follows from a previous result.
+\end{quote}
+{\bf Notation:}
+For the remainder of the section, $Q_{\alpha}= O_2(G_{\alpha})$ and
+$Z_{\alpha}= \langle \Omega(Z(T)): T \in S_2(G_{\alpha} \rangle$.
+\\
+\\
+{\bf Theorem 29:}
+Suppose ${\cal A}$ holds and $\alpha \in \Gamma$, $V \lhd G_{\alpha}$, $T \in S_2(G_{\alpha})$ and
+$\Omega(Z(T)) \leq V \leq \Omega(Z(Q_{\alpha}))$ and $|V:\Omega(Z(T))|= 2$
+then
+$V= C_V(G_{\alpha}) \times W$, $W= [V, G_{\alpha}]$. $W= C_2 \times C_2$,
+$C_{G_{\alpha}}(W)= Q_{\alpha}$.  
+\begin{quote}
+\emph{Proof:}  
+Let $D \in S_3(G_{\alpha})$.  $V= C_V(D) \times W$, $W= [V,D]$.  By ${\cal A}$, since
+$G_{\alpha}= DT$, $W \neq 1$ and thus $|W| \geq 4$.   Let $d \in D^{\#}$,
+$|V/ \Omega(Z(T))|=2=|V/ \Omega(Z(T^d))|$.  $G_{\alpha}= \langle T, T^d \rangle$ means
+$|V/C_V(G_{\alpha})| \leq 4$ so $C_V( G_{\alpha}) = C_V(D)$ and $|W|=4$.  The remainder follows from
+${\cal A}$.
+\end{quote}
+{\bf Theorem 30:}
+Let ${\cal A}$ hold and $(\alpha, \beta)$ be an edge of $\Gamma$;
+(a) $Z_{\alpha} \leq \Omega(Z(Q_{\alpha}))$;
+(b) $Q_{\alpha} Q_{\beta} = G_{\alpha} \cap G_{\beta} \in S_2(G)$;
+(c) $C_{G_{\alpha}}(Z_{\alpha}) = Q_{\alpha}$;
+(d) $Z_{\alpha}Z_{\eta} \lhd G_{\alpha}$ iff $\exists \gamma \in \Delta( \alpha) - \{ \beta \}$ such that
+$Z_{\alpha}Z_{\beta} = Z_{\alpha}Z_{\gamma} $.
+\begin{quote}
+\emph{Proof:}  
+(a) Let $T \in S_2(G_{\alpha})$ then $Q_{\alpha} \leq T$ and ${\cal A}$ implies 
+$\Omega(Z(Y)) \leq Z(Q_{\alpha})$.
+(b) By ${\cal A}$ and a previous result, 
+$Q_{\alpha}$ and $Q_{\beta}$ have index $2$ in $G_{\alpha} \cap G_{\beta}$ so it STS $
+Q_{\alpha} \neq Q_{\beta} $.
+If $Q_{\alpha} = Q_{\beta} $, 
+now two previous results show
+$G$ acts failthfully on $\Gamma$, and this contradicts ${\cal A}$.
+\end{quote}
+{\bf Theorem 31:}
+Let ${\cal A}$ hold and $(\alpha, \beta)$ be an edge of $\Gamma$.  The following are equivalent:
+(1) the conclusion of Goldschmidt's Theorem holds; (2) $Z \leq Q_{\beta}$.
+\begin{quote}
+\emph{Proof:}  
+Assume the conclusion of Goldschmidt's theorem holds.  For $\delta \in \{ \alpha \beta \}$,
+either 
+(i) $G_{\delta} = S_4$ and $Q_{\delta} \approx S_4 \times C_2$, or 
+(ii) $G_{\delta} = S_4 \times C_2$ and $Q_{\delta} \approx C_2 \times C_2 \times C_2$.  In either
+case, $Z_{\delta} - Q_{\delta}$ and by the previous result $Z_{\alpha} \nleq Q_{\beta}$.
+Set $T= Q_{\alpha} Q_{\beta}$ and $E= Q_{\alpha} \cap Q_{\beta}$.  The previous result gives
+$T \in S_2(G_{\delta})$ and $|T/Q_{\delta}|=2$.  Thus 
+$ |Q_{\alpha}:E|=2= |Q_{\beta}:E| $ and
+$T= Q_{\beta}Z_{\alpha}$ and
+$Q_{\alpha}= E Z_{\alpha}$.
+Todo, more.
+\end{quote}
+{\bf Definition 5:} 
+$\alpha, \alpha'$ is a \emph{critical pair} if $Z_{\alpha} \nleq Q_{\alpha'}$ and
+$b=d(\alpha, \alpha')$.  Let $b$ be minimal.
+\\
+\\
+{\bf Theorem 32:}
+Suppose ${\cal A}$ holds and (a) ($\alpha, \alpha')$ is a critical pair;
+(b) $G_{\alpha} \cap G_{\alpha+1} = Z_{\alpha'}Q_{\alpha}$, $G_{\alpha'-1} \cap G_{\alpha'} = Z_{\alpha}Q_{\alpha'}$;
+(c) $R \leq Z(G_{\alpha}) \cap Z(G_{\alpha+1}) \cap Z(G_{\alpha'}) \cap Z(G_{\alpha'-1})$ and
+$R = [Z(G_{\alpha}), G_{\alpha+1}) \cap G_{\alpha}]= [Z(G_{\alpha'}), G_{\alpha'-1}) \cap G_{\alpha'}] $
+(d) $ Z_{\alpha} = [ Z_{\alpha} , G_{\alpha} ] \times \Omega( Z(G_{\alpha} ))] $ and
+$[ Z_{\alpha} , G_{\alpha} ] = C_2 \times C_2$;
+(e) $|Z_{\alpha}:\Omega(Z(Y))|=2$ for $Y \in S_2(G_{\alpha})$.
+\begin{quote}
+\emph{Proof:}  
+Minimality of $(b)$ implies 
+$Z_{\alpha} \leq Q_{\alpha'-1} \leq G_{\alpha'-1} \cap G_{\alpha'} $ and
+$Z_{\alpha'} \leq Q_{\alpha+1} \leq G_{\alpha+1} \cap G_{\alpha} $.
+$Z_{\alpha} \nleq Q_{\alpha'}$ shows that
+$G_{\alpha'-1} \cap G_{\alpha'} = Z_{\alpha} Q_{\alpha} $ since $Q_{\alpha'}$ has index $2$ in
+$G_{\alpha'-1} \cap G_{\alpha'}$.
+$Z_{\alpha} \lhd G_{\alpha}$ and
+$Z_{\alpha'} \lhd G_{\alpha'}$  so
+$R \leq Z_{\alpha} \cap Z_{\alpha'} $.  By a previous result, $R \neq 1$ and so $Z_{\alpha'} \nleq Q_{\alpha}$
+and $G_{\alpha+1} \cap G_{\alpha}= Z_{\alpha'} Q_{\alpha}$.  (a) and (b) follow and (c) follows from
+$R \leq Z_{\alpha} \cap Z_{\alpha'} $ and a previous result.   These also show
+$ |Z_{\alpha} / C_{\alpha}(Z_{\alpha'}(Z_{\alpha})= |Z_{\alpha'} / Z_{\alpha'}Z(Z_{\alpha}) =2 $
+and
+$C_{Z_{\alpha}}(Z_{\alpha'})= \Omega( Z(
+G_{\alpha+1} \cap G_{\alpha}
+)$ which gives (d) and (f) and, with a previous result (e).
+\end{quote}
+{\bf Theorem 33:}
+Let $\alpha - 1 \in \Delta(\alpha) - \{ \alpha+1 \}$.  Suppose $(\alpha-1, \alpha'-1)$ is not a critical pair.
+Then
+(1) $ Z_{\alpha} Z_{\alpha+1} = Z_{\alpha} Z_{\alpha-1} $;
+(2) $Q_{\alpha} \cap Q_{\beta} \lhd G_{\alpha}, \beta \in \Delta( \alpha)$;
+(3) $\alpha$ and
+$\alpha'$ are conjugate and $b$ is even.
+\begin{quote}
+\emph{Proof:}   Since $(\alpha-1, \alpha'-1)$ is not critical, $Z_{\alpha-1}, Z_{\alpha'}] \leq R \leq Z_{\alpha}$,
+so $\langle Z_{\alpha'}, G_{\alpha} \cap G_{\alpha-1} \rangle \subseteq N(Z_{\alpha-1}Z_{\alpha})$.  The previous result
+gives (a). (b) follows by a previous result and the fact that $G_{\alpha}$ is transisitve on $\Delta( \alpha )$.
+Either 
+$\alpha \in (\alpha')^G$ or
+$\alpha \in (\alpha'-1)^G$ , so the former holds and $b$ is even.
+For (c), note $\alpha$ and $\alpha'-1$ are conjugate so
+$G_{\alpha}$ and $G_{\alpha'-1}$ are conjugate.  Then (b) gives $Z_{\alpha} \leq
+Q_{\alpha'-2} \cap Q_{\alpha'-1} =
+Q_{\alpha'-1} \cap Q_{\alpha'} $.  This contradicts $Z_{\alpha} \nleq Q_{\alpha'}$.
+\end{quote}
+{\bf Theorem 34:}
+Suppose $\alpha - 1 \in \Delta(\alpha) - \{ \alpha+1 \}$ such that  $(\alpha-1, \alpha'-1)$ is a critical pair
+then $b=1$.
+\begin{quote}
+\emph{Proof:}  
+Put $R_1= [Z_{\alpha - 1}, Z_{\alpha' - 1}]$.  Assume $b > 1$.
+$Z_{\alpha} \leq Q_{\alpha+1}$ and $Z_{\alpha'} \leq Q_{\alpha'-1}$.  $(\alpha - 1, \alpha' - 1)$ is a 
+critical pair so $|R_1'| =2$.  
+$R_1 = [Z_{\alpha - 1}, G_{\alpha - 1} \cap G_{\alpha}] \leq (Z(G_{\alpha - 1} \cap  Z(G_{\alpha})) 
+\cap (Z(G_{\alpha' - 2} \cap  Z(G_{\alpha' - 1}))$.  $R_1 \leq [Z_{\alpha - 1}, Z_{\alpha' - 1}]$, so $[R_1, Z_{\alpha'}] = 1$.
+$\langle Z_{\alpha'} , G_{\alpha - 1} \cap G_{\alpha} \rangle = G_{\alpha}$.
+\\
+\\
+(1) $R_1 \leq Z(G_{\alpha})$.
+\\
+Let $\alpha - 2 \in \Delta(\alpha - 1) \setminus \{ \alpha \}$.  Now we show \\
+\\
+(2) $(\alpha - 2, \alpha' - 2)$ is a critical pair.\\
+If not, $Z_{\alpha + 1} Z_{\alpha} = Z_{\alpha - 1} Z_{\delta}, \delta \in \Delta(\alpha - 1)$
+$Z_{\alpha + 1} Z_{\alpha} = Z_{\alpha + 1} Z_{\alpha + 2}$.  Minimality of $b$ gives
+$Z_{\alpha + 1} Z_{\alpha + 2} \leq Q_{\alpha'}$ and $Z_{\alpha} \leq Q_{\alpha'}$, so $(\alpha, \alpha')$ is not a critical pair.
+Now put $R_2= [Z_{\alpha - 2}, Z_{\alpha' - 2}]$.  $\alpha - 2$ and $(\alpha, \alpha')$ satisfy the hypothesis,
+hence $|R_2| = 2$.\\
+\\
+(3) $R_2 = [Z_{\alpha - 2},  G_{\alpha - 2} \cap G_{\alpha - 1}] \leq Z(G_{\alpha - 1})$.\\
+$\exists y \in G_{\alpha - 1}, x \in G_{\alpha} : (\alpha - 2)^y = \alpha$ and $(\alpha + 1)^x = \alpha - 1$.
+$[Z_{\alpha}, G_{\alpha - 1} \cap G_{\alpha}] = [Z_{\alpha - 2}, G_{\alpha - 2} \cap G_{\alpha - 1}] = (R_1)^y \leq Z_{\alpha - 1}$.
+$R^x = [Z_{\alpha}, G_{\alpha + 1} \cap G_{\alpha}]^x = [Z_{\alpha}, G_{\alpha} \cap G_{\alpha - 1}] = (R_2)^y \leq Z(G_{\alpha - 1})$.
+It follows that\\
+\\
+(4) $ R \leq Z(G_{\alpha + 1})$, so \\
+\\
+(5) $ R \cap R_1 =1$.\\
+If not, $Z_{\alpha'} \leq Q_{\alpha' - 2}$, $[R_2, Z_{\alpha'}] = 1= [R_2, G_{\alpha - 1}]$, so $R_2 =1$.
+This contradicts $|R_2|=2$.\\
+\\
+(6) $b = 2$\\
+If $b>2$, 
+$V_{\alpha} = \langle Z_{\beta}, \beta \in \Delta(\alpha) \rangle \lhd G_{\alpha}$.
+$V_{\alpha + 1} = \langle Z_{\beta}, \beta \in \Delta(\alpha + 1) \rangle \lhd G_{\alpha + 1}$.
+$V_{\alpha} \leq Q_{\alpha}$,
+$V_{\alpha + 1} \leq Q_{\alpha + 1}$, and
+$Z_{\alpha} = \langle \Omega(Z(G_{\alpha + 1} \cap G_{\alpha})^{G_{\alpha}} \rangle \leq V_{\alpha}$.
+$Z_{\alpha + 1} \leq Q_{\alpha + 1}$, so \\
+\\
+(7) $Z_{\alpha} Z_{\alpha + 1} \leq V_{\alpha} \cap V_{\alpha + 1}$.\\
+Since $R_1 \leq Z(G_{\alpha})$ is a $2$-transitive action of $G_{\alpha}$ on $\Delta(\alpha )$.
+${V_{\alpha}}' = R_1 \leq Z(G_{\alpha})$.
+We show $V_{\alpha}$ is abelian and $V_{\alpha}$ is generated by involutions.
+$V_{\alpha} / R_1$ is elementary abelian so $R_1 = \Phi(V_{\alpha})$ and $R = \Phi(V_{\alpha + 1})$, put
+${\overline {V_{\alpha}}} = V_{\alpha} / Z_{\alpha}$.  We get $Z_{\beta}/(Z_{\alpha} \cap Z_{\beta})= 2, \forall \beta \in \Delta(\alpha)$,
+so $|{\overline {Z_{\beta}}}| = 2$.  ${\overline {V_{\alpha}}} = \langle Z_{\beta}, \beta \in \Delta(\alpha)\rangle$, so 
+$|{\overline {V_{\alpha}}}| \leq 8$.  Set $W= V_{\alpha} \cap V_{\alpha + 1} \lhd G_{\alpha} \cap G_{\alpha + 1}$ then
+$Z_{\alpha}Z_{\alpha + 1} \leq W$ and\\
+\\
+(8)  $V_{\alpha} = \langle W^{G_{\alpha}} \rangle$.\\
+$\Phi(W) \leq \Phi(V_{\alpha}) \cap \Phi(V_{\alpha + 1}) =R_1 \cap R =1$ and $W$ is elementary abelian
+${V_{\alpha}}' \ne 1$ and $|V_{\alpha} / W| \geq 2$.
+The kernel of the action of $G_{\alpha}$ on ${\overline {V_{\alpha}}}$ contains $Q_{\alpha}$ since
+$[Z_{\alpha - 1} , G_{\alpha} \cap G_{\alpha - 1}] \leq R_1 \leq Z_{\alpha}$.
+${\overline {V_0}} = [{\overline {V_{\alpha}}}, O^2(G_{\alpha})]$.
+If ${\overline {V_0}} = 1$ $W \lhd G_{\alpha}$ and ${V_{\alpha}}' =1$ but this contradicts ${V_{\alpha}}' = R_1$ and
+$|R_1| = 2$.
+Now suppose ${\overline {V_0}} \ne 1$ since $|{\overline {V_{\alpha}}}| \leq 8$, \\
+\\
+(9) $|{\overline {V_0}}| = 4$.\\
+Assume $|V_{\alpha} / W| = 2$.  Let $x \in G_{\alpha}$ st $W^x \ne W$
+then $V_{\alpha} = W W^x$.
+$W  \cap W^x = Z(V_{\alpha})$ and $|V_{\alpha} (W \cap W^x)| = 4$.  Let $D \in S_3(G_{\alpha})$, $D$ acts non-trivially on
+$V_{\alpha} / (W \cap W^x)$ so all maximal subgroups of $V_{\alpha}$ that contain $W \cap W^x$ are $D$-conjugate.
+Every $x \in V^{\#}$ is an involution, $V_{\alpha}$ is elementary abelian contradicts ${V_{\alpha}}' = R_1$.
+We have shown $|V_{\alpha}/ W| \geq 4$ so  $|{\overline {V_{\alpha}}}| \leq 8$. \\
+\\
+(10) $|V_{\alpha}|=8$, $W = Z_{\alpha}Z_{\alpha + 1}$ and $|{\overline W}|=2$.\\
+$Z_{\alpha'} \leq G_{\alpha}$, $Z_{\alpha'} \nleq Q_{\alpha}$,
+we get $[{\overline {V_0}}, Z_{\alpha}'] \ne 1$.  But $b = 2$,
+so $[V_{\alpha}, Z_{\alpha}] \leq [V_{\alpha}, V_{\alpha + 1}] \leq W$.
+${\overline W} = [{\overline {V_0}}, Z_{\alpha'}], \langle {\overline W}^{G_{\alpha}} \rangle = {\overline {V_0}}$, which
+contradicts (8), (9) and (10).
+\end{quote}
+{\bf Goldschmidt's Theorem:}
+If ${\cal A}$ holds either (i) $P_1 \approx P_2 \approx S_4$ or 
+(ii) $P_1 \approx P_2 \approx C_2 \times S_4$.
+\begin{quote}
+\emph{Proof:}  
+Let $G$ be a counter example and choose $(G, P_1, P_2, T)$ with $|T|$ minimal.
+$b > 1$ and $(\alpha - 1, \alpha' - 1)$ is not a critical pair $\forall \alpha - 1 \in \Delta(\alpha) \setminus \{\alpha + 1 \}$.
+\\
+\\
+(1) $b = 0 \jmod{2}$, $X = Q_{\alpha} \cap Q_{\alpha + 1} \lhd G_{\alpha}$.
+\\
+$|Q_{\alpha} : X| = |Q_{\alpha + 1}| = 2$.  Let $D \in S_3(G_{\alpha})$, ${\overline {G_{\alpha}}} = G_{\alpha} / X$.
+$|{\overline {G_{\alpha}}}|= 12$, ${\overline {Q_{\alpha}}} \leq {\overline {G_{\alpha}}}$ and $|{\overline {Q_{\alpha}}}|=2$ so
+${\overline D} \lhd {\overline {G_{\alpha}}}$.\\
+\\
+We get (2a) $L \lhd G_{\alpha}$, $|G_{\alpha}:L| = 2$,\\
+(2b) ${\overline L} = S_3$, \\
+(2c) $S_2(L) = \langle Q_{\beta}: \beta \in \Delta(\alpha)\rangle$,\\
+(2d) $O_2(L) = X = Q_{\alpha} \cap Q_{\beta}, \forall \beta \in \Delta(\alpha)$,\\
+(2e) $Q_{\alpha +1} = Z_{\alpha'} O_2(L))$, (f) $C_L(O_2(L)) \leq O_2(L)$.\\
+$Z_{\alpha} \leq G_{\alpha}$, $Z_{\alpha} \leq Q_{\alpha + 1} \leq O_2(L)$.
+$C_L(O_2(L)) \leq C_L(Z_{\alpha}) \leq Q_{\alpha} \cap L \leq O_2(L)$.
+By $A2$, $\exists t \in G_{\alpha + 1} \setminus Q_{\alpha + 1}, \alpha^t = \alpha + 2$ and $t^2 \in Q_{\alpha + 1}$
+$Q_{\alpha + 1}, Q_{\alpha}^t \in S_2(L) \leq G_{\alpha}$, $L^t \leq G_{\alpha + 2}$. \\
+\\
+(3) $O_2(L)$ is not elementary abelian.
+\\
+$A_1 = O_2(L)$, $A_2=O_2(L^t)$ are elementary abelian of index $2$ in $Q_{\alpha + 1}$.
+If $A_1 = A_2$, $A_1 \lhd \langle G_{\alpha}, G_{\alpha + 2}\rangle$.
+$\langle G_{\alpha}, G_{\alpha} \cap  G_{\alpha + 1}, G_{\alpha + 1} \cap  G_{\alpha + 2}\rangle = \langle G_{\alpha}, G_{\alpha + 1}\rangle=G$
+such that $A_1 \ne A_2$, $Q_{\alpha + 1}$ is non-abelian.
+$A = A_1 \cap A_2 = Z(Q_{\alpha + 1})$, $|(Q_{\alpha + 1}/A)| = 4$.
+$\langle G_{\alpha}, O^2(G_{\alpha + 1} \rangle = N_G(A_1)$, which is a contradiction.
+$O^2(G_{\alpha + 1})$ acts transitively on $(Q_{\alpha + 1}/A)^{\#}$, its elements are involutions and $Q_{\alpha + 1}$ is elementary
+abelian.
+$G_0 = \langle L, L^t \rangle$.  Denote the largest normal subgroup of $G_0$ in $Q_{\alpha +1}$ by $Q$.
+${G_0}^t=G_0, Q^t=Q$.  \\
+\\
+(4) We show $[Q, D] \ne 1$.\\
+Suppose not put ${\tilde {G_0}} = G_0/Q$.
+$Q_{\alpha + 1} \in S_2(L) \cap S_2(L^t)$.
+$({\tilde {G_0}}, {\tilde L}, {\tilde {L^t}}, {\tilde {Q_{\alpha + 1}}})$ satisfy ${\cal {A_2}}$, ${\cal {A_3}}$, ${\cal {A_4}}$.
+${\tilde W}= [{\tilde {Z_{\alpha}}}, {\tilde D}] \ne 1$.
+$C_{\tilde L}(O_2({\tilde L})) \leq O_2({\tilde L})$, so  ${\cal {A_1}}$ and ${\cal {A_5}}$ hold.
+Because of the minimality of $|T|$ and $|Q_{\alpha + 1}| < |T|$, ${\tilde L} = S_4$ or ${\tilde L} = C_2 \times S_4$.
+${\tilde W} = [O_2(({\tilde L}), O^2({\tilde L})]$ is not contained in $O_2({\tilde L}^t)$ and ${\tilde W} \leq {\tilde {Z_{\alpha}}}$
+and so $O_2(L) =(O_2(L) \cap O_2(L^t))Z_{\alpha}$.
+Since $Z_{\alpha} \leq \Omega(Z(O_2(L)))$, $\Phi(O_2(L))= \Phi(O_2(L) \cap O_2(L^t))$ and thus
+$\Phi(O_2(L)) = \Phi(O_2(L^t))$. $\Phi(O_2(L)) \lhd \langle G_{\alpha}, G_{\alpha + 2} \rangle = G$ and ${\cal {A_3}}$ gives
+$\Phi(O_2(L))=1$ which contradicts (3) and (4).\\
+\\
+(5) Let $\beta \in \Delta(\alpha) \setminus \{\alpha \}$, then $\langle Z_{\alpha}, Z_{\gamma} \rangle$ is not normal in $L$.
+\\
+Put $\Delta(\beta) = \{ \alpha, \delta, \gamma \}$ and $V_{\beta}= \langle Z_{\alpha}, Z_{\beta}, Z_{\gamma} \rangle \lhd G_{\beta}$.
+If $x \in Q_{\alpha} \setminus Q_{\beta}$ interchanges $\gamma$ and $\delta$ and normalized $L$.
+If $\langle Z_{\alpha} , Z_{\gamma} \rangle$ is normal in $L$ and also 
+$\langle Z_{\alpha}, Z_{\delta} \rangle = \langle Z_{\alpha}, Z_{\gamma}^x \rangle$ is normal in $L$.  Thus $V_{\beta}$ is normal
+in $L$ (which is not contained in $G_{\alpha} \cap G_{\beta}$) which contradiction!\\
+\\
+(6) Let $b \geq 4, \alpha - 1 \in \Delta(\alpha) \setminus \{ \alpha + 1 \}$ and
+$\alpha - 2 \in \Delta(\alpha - 1) \setminus \{\alpha \}$ then $(\alpha - 2, \alpha' - 2)$ is a critical pair.
+\\
+Assume not.  $Z_{\alpha - 2} \leq Q_{\alpha' - 3} \cap Q_{\alpha' - 2}$.  Since
+$\alpha' - 2$ is conjugate to $\alpha$,
+$Z_{\alpha -2} \leq Q_{\alpha' -3} \cap Q_{\alpha' - 2} = Q_{\alpha' - 2} \cap Q_{\alpha' - 1} \leq
+G_{\alpha' - 1} \cap G_{\alpha'} = Z_{\alpha}Q_{\alpha'}$.  So
+$[Z_{\alpha - 2}, Z_{\alpha'}] \leq [Z_{\alpha}, Z_{\alpha'}] \leq Z_{\alpha}$ and so $Z_{\alpha - 2} Z_{\alpha} \leq Q_{\alpha} \cap Q_{\alpha - 1}$ is normalized by $Z_{\alpha'}$ is normal in $L$ which contradicts (5).\\
+\\
+$\alpha - 1 \in \Delta(\alpha) \setminus \{ \alpha + 1 \}, x \in L \leq G_{\alpha}$ with $(\alpha - 1 = (\alpha + 1)^x$.  Thus
+$\alpha - 2 = (\alpha + 2)^x$, which is adjacent to $\alpha - 1$.  If $b \geq 4$, $(\alpha - 2, \alpha' - 2)$ is critical.  Hence
+$R_2= [Z_{\alpha - 2}, Z_{\alpha' - 2}] \leq Z(G_{\alpha - 2} \cap G_{\alpha - 1}) \cap Z_{\alpha' - 2}$.  Also,
+$b \geq 4$ also implies $Z_{\alpha'} \leq Q_{\alpha' - 2}$ and $[R_2, Z_{\alpha'}] = 1$ and so $[R_2 , L] = 1$ and
+$R_2 \leq Z(G_{\alpha + 2} \cap G_{\alpha + 1}$ since $x \in L$.\\
+Now $(\alpha', \alpha)$ is also a critical pair so $\exists \alpha' +2$ such that $d(\alpha', \alpha' + 2) = 2$ and
+$(\alpha' +2, \alpha + 2)$ is also critical. So $Z_{\alpha' + 2} \leq Q_{\alpha' - 2}$ and so
+$[R_2, Z_{\alpha' +2}] = 1$ since $R_2 \leq Z_{\alpha' - 2}$.  Hence $G_{\alpha + 2} \cap G_{\alpha + 3} = Q_{\alpha +2}Z_{\alpha'+2}$
+is centralized by $R_2$.  But then $R_2 \leq Z(G_{\alpha + 2})$ and  $R_2 \leq Z(G_{\alpha - 2})$ after conjugation.  This contradicts
+the action of $Z_{\alpha' - 2}$ on  $Z_{\alpha + 2}$.
+This proves:\\
+(7) $b \leq 4$
+\\
+Finally, $Q \leq O_2(L^t) \leq Q_{\alpha +2}] =  1$.\\
+\\
+Case a: $Z_{\alpha + 2}$ is not contained in $O_2(L)$.\\
+$Q_{\alpha + 1} \leq O_2(L) Z_{\alpha + 2}$ and $L= \langle (Z_{\alpha + 2})^L \rangle O_2(L) = C_L(O_2(L)) O_2(L)$.
+So $O^2(L) \leq C_L(Q)$ since $Q \lhd L$ but then $[Q, D] = 1$ which contradicts (4).
+\\
+\\
+Case b: $Z_{\alpha + 2} \leq O_2(L)$
+\\
+$Z_{\alpha + 2} \leq Q_{\alpha}$ and (7) implies $b=4$.  (6) then implies
+$Z_{\alpha + 2}$ is not contained in $Q_{\alpha - 2}= Q_{(\alpha + 2)^x}$ and $L^{tx}$ is normal of index $2$ in $G_{\alpha - 2}$.
+$\langle (Z_{\alpha + 2})^{L^{tx}} \rangle \leq G_0$ has a Sylow $3$ subgroup, $D_2$ of $G_{\alpha - 2}$. But then
+$Q \lhd G_0$ shows $[Q, D] = 1$ which contradicts (4).
+This contradicts (4) since $D_2$ is a $G_0$ conjugate of $D \in S_3(G_{\alpha})$.
+Assume $(\alpha - 2, \alpha' - 2)$ is not normal in $L$.
+\end{quote}
+{\bf Amalgam example 1:} $G= S_6$, $a=(12)$, $b=(12)(34)(56)$.  $P_1 = C_G(a)$, $P_2 = C_G(b)$.  
+$P_1 = \langle a \rangle \times \langle (34)(56) \rangle \times \langle (35)(46) \rangle$.
+\\
+\\
+{\bf Amalgam example 2:} $G= SL_3(2)$, $|G|=168$.
+$P_1 = \{\left(
+\begin{array}{ccc}
+a & b & c \\
+0 & d & e \\
+0 & 0 & f \\
+\end{array}
+\right) \}$.
+$P_2 = \{\left(
+\begin{array}{ccc}
+a & b & c \\
+d & e & f \\
+0 & 0 & g \\
+\end{array}
+\right) \}$. $G=\langle P_1, P_2\rangle$. $P_1 \cong P_2 \cong S_4$.
+$P_1 \cap P_2 = \{\left(
+\begin{array}{ccc}
+1 & a & b \\
+0 & 1 & c \\
+0 & 0 & 1 \\
+\end{array}
+\right) \}$.  If $M_1, M_2$ are a solvable primitive pair oc characteristic $2$, either $M_1$ or $M_2$ possesses a section isomorphic
+to $S_4$.
+\section {ONan}
+{\bf Theorem:} Let $M$ be a primitive maximal subgroup of $G$ then either (1) $F^*(G)=F(G)$ [Example: $G=S_4$, $M=S_3$], (2)
+$F(G)= 1$ and $F^*(G) = N_1 \times N_2$ where $N_1$ and $N_2$ are the only minimal normal subgroups
+[$G$ involves $A_5$] or (3) $F(G)=1$ and $F^*(G)$ is the unique minimal subgroup pf $G$.
+

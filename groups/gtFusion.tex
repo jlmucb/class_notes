@@ -1,0 +1,111 @@
+\chapter{Fusion}
+\section {Definitions}
+{\bf Definition:}
+Let $p$ be a prime, $T \in S_p(G), W \le T$ with $W$ weakly closed in $T$ with respect
+to $G$ and $D=C_G (W)$.  Then $N_G(W)$ \emph{controls fusion} in $D$.
+\\
+\\
+{\bf Definition:}
+$P \in S_p(G)$.  $X \in p(G)$ is a \emph {tame intersection} of
+$Q, R \in S_p (G)$ if $X= Q \cap R$ and $N_Q (X), N_R (X) \in S_p(N(X))$.
+\\
+\\
+{\bf Definition:}
+For $R, Q \in S_p(G)$, write $R \rightarrow_x Q$ if $\exists Q_i \in S_p(G), 1 \le i \le n$,
+and $x_i \in N_G(P \cap Q_i)$ such that (1) $P \cap Q_i$ is a tame intersection of
+$P$ and $Q_i$ 
+for each $1 \le i \le n$,
+(2) $P \cap R \le P \cap Q_1$ and $(P \cap R)^{x_1 x_1 \ldots x_i} \le (P \cap Q_i)$
+for each $1 \le i \le n$, and
+(3) $R^x=Q$ where $x= x_1 x_2 \ldots x_n$.
+\section {Alperin's Results}
+{\bf Alperin's Fusion Theorem:}
+If $P \in S_p(G), g \in G$ and $ \langle A, A^g \rangle \subseteq P$.  Then 
+for $1 \le i \le n$, $\exists Q_i \in S_p (G)$ and $x_i \in N(P \cap Q_i)$ such
+that (1) $g= x_1 x_2 ... x_n$,
+(2) $P \cap Q_i$ is a tame intersection of $P$ and $Q_i$ for each $i$,
+(3) $A \subseteq P \cap Q_1$ and
+$A^{x_1 x_2 ... x_i} \subseteq P \cap Q_{i+1}$.
+\\
+\\
+{\bf Lemma 1:}
+$Q \rightarrow P, \forall Q \in S_p(G)$.
+\\
+\\
+{\bf Lemma 2:}
+$P \rightarrow P$. 
+\\
+\\
+{\bf Lemma 3:}
+$\rightarrow$ is transitive.
+\begin{quote}
+\emph{Proof:} 
+Let $\{R_i, y_i: 1 \le i \le m \}$ and
+$\{Q_i, x_i: 1 \le i \le n \}$ accomplish $S \rightarrow R$ and $R \rightarrow Q$
+respectively.  Then $R_1 , R_2 , \ldots , R_m , Q_1, \ldots , Q_n$ and
+$y_1 , y_2 , \ldots , y_m , x_1 , \ldots , x_n$ accomplish $A \rightarrow Q$.
+\end{quote}
+{\bf Lemma 4:}
+If $S \rightarrow_x P$, $Q^x \rightarrow P$ and $P \cap Q = P \cap S$
+then $Q \rightarrow P$.
+\begin{quote}
+\emph{Proof:} It suffices to show $Q \rightarrow Q^x$.
+Let $\{S_i, x_i: 1 \le i \le n \}$
+accomplish $S \rightarrow P$ then
+$\{S_i, x_i: 1 \le i \le n \}$ also accomplishes
+$Q \rightarrow Q^x$.
+\end{quote}
+{\bf Lemma 5:}  If 
+Assume $R, Q \in S_p(G)$ with $R \rightarrow P$ and $P \cap Q < R \cap Q$.  Assume further,
+$\forall S \in S_p(G)$ with $|S \cap P| > |Q \cap  P|$ and $S \rightarrow P$.  Then
+$Q \rightarrow P$.
+\\
+\\
+{\bf Lemma 6:}
+Assume $P \cap Q$ is tame and 
+$S \rightarrow P, \forall S \in S_p(G)$ with $|S \cap P| > |Q \cap P|$ and $S \rightarrow P$
+then $Q \rightarrow P$.
+\begin{quote}
+\emph{Proof:}
+By Lemma 2, we can assume $Q \ne P$ and thus $P \cap Q < P_0 = N_P(P \cap Q)$
+By hypothesis $P_0$ and $Q_0= N_Q(P \cap Q)$ are Sylow in $M=N_G(P \cap Q)$ so there is
+an $x \in M$ with $Q_0^x=P_0$.  Hence $Q \rightarrow Q_x$ by $Q, x$; further,
+$P \cap Q < P_0 \le P \cap Q^x$ so $Q^x \rightarrow P$ and finally by Lemma 3 $Q \rightarrow P$.
+\\
+\\
+\emph{Proof of Lemma 1:}
+Pick a counterexample $Q$ with $P \cap Q$ of maximal order.  By Lemma 2, $P \ne Q$ so
+$P \cap Q \ne P$ hence $P \cap Q < N_P(P \cap Q)$.  Let $S \in S_p(G)$ with
+$N_P(P \cap Q) < N_S(P \cap Q) \le P \cap S$, $S \rightarrow P$ by the maximality of
+$P \cap Q$ this there is a $x \in G: S \rightarrow_x P$.  Now $(P \cap Q)^x \le q^x$,
+$P \cap Q \le S$ and $S^x=P$ so $(P \cap Q)^x \le P$.  Thus
+$(P \cap Q)^x \le P \cap Q^x$.  If $(P \cap Q)^x \ne P \cap Q^x$ then
+$|P \cap Q| < |P \cap Q^x|$ so by the maximality of $P \cap Q$, $Q^x \rightarrow P$.  But
+then $Q \rightarrow P$ by Lemma 4 contradicting the choice of $Q$.  Now we have
+$(P \cap Q)^x = P \cap Q^x$ and let $T \in S_p(G)$ with 
+$N_{Q^x}(P \cap Q^x) \le
+N_{T}(P \cap Q^x) \in S_p(N_G(P \cap Q^x))$.  Again
+$P \cap Q^x < N_{Q^x}(P \cap Q^x) \le T$ so $P \cap Q^x < T \cap Q^x$.  Hence if
+$T \rightarrow P$, by Lemma 5 $Q^x \rightarrow P$ which was already shown false.  Thus
+we do not have $T \rightarrow P$ and by the maximality od $|P \cap Q|$,
+$P \cap Q^x = P \cap T$.
+By the choice of $T$ and since $P \cap Q^x = P \cap T$, we have
+$N_T(P \cap T) \in S_p(N_G(P \cap T)$.
+By the choice of $S$, 
+$N_S(P \cap Q) \in S_p(N_G(P \cap Q)$.  Since
+$(P \cap Q)^x = (P \cap Q^x) = P \cap T$ and $S^x=P$, we have 
+$N_P(P \cap T) \in S_p(N_G(P \cap T)$.  But now, by Lemma 6, $T \rightarrow P$, contrary to the
+previous observation.
+\\
+\\
+\emph{Proof of Alperin:}  By Lemma 1, $P^{g^{-1}} \rightarrow P$.  Let 
+$Q_i, x_i, 1 \le i < n$ accomplish
+$P^{g^{-1}} \rightarrow P$. $ \langle A, A^{g{-1}} \rangle \subseteq P \cap P^{g^{-1}}$ so
+$A \subseteq P \cap P^{g^{-1}} \le (P \cap Q_1)$ and $A^{x_1 x_2 \ldots x_i}
+\le P \cap Q_{i+1}$
+for $1 \le i < n$ setting $x=x_1 x_2 \ldots x_{n-1}$.
+$P = P^{g^{-1}x}$ so $x_n=x^{-1}g \in N_G(P)$ and
+$g= x x_n$.  Finally, let $Q_n=P$ and note that
+$A^{x_1 x_2 \ldots x_{n-1}}= A^{g x_n^{-1}} \le P^{x_n^{-1}}=P=P \cap Q_n$ and 
+the theorem holds.
+\end{quote}

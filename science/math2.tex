@@ -1,0 +1,3165 @@
+\section{Algebra}
+\subsection{General Algebra}
+{\bf Solving low degree univariate polynomials:}
+For \emph{quadratic},  $x^2+px+q=0$, $(x_1-x_2)= {\sqrt D}, D= p^2-4q, x_1+x_2=p$.
+For \emph{cubic}, $az^3 + bz^2 + cz + d= f(z)$, substitute $z= x - {\frac {b} {3a}}$ and
+divide by $a$ to get $x^3+ px+ q= 0$.  Put $x= (u+v)$, get $p=3uv$,
+$q= u^3 + v^3$.  Following Galois, note $S_3 \supseteq A_3 \supseteq 1$,
+$(x_1 -x_2)(x_1-x_3)(x_2-x_3)= {\sqrt D}, D= -4p^3-27q^2$.  After adjoining
+${\sqrt D}$, we are left with an irreducible cubic.  Put $\rho=
+-{\frac 1 2} + {\frac 1 2} {\sqrt {-3}}$ and 
+$(1,x_1 )= x_1 +x_2 + x_3$, $(\rho, x_1 )= x_1 + \rho x_2 + \rho^2 x_3$,
+$(\rho^2, x_1 )= x_1 + \rho^2 x_2 + \rho x_3$, then
+$(\rho, x_1 )^3= \sum x_i^3  - {\frac 3 2} \sum x_i^2 x_j + 6 x_1 x_2 x_3$.
+$(\rho, x_1 )^3= - {\frac {27} {2}}q + {\frac 3 2} {\sqrt {-3}} {\sqrt {D}}$ and
+$(\rho^2, x_1 )^3= - {\frac {27} {2}}q - {\frac 3 2} {\sqrt {-3}} {\sqrt {D}}$.
+Solution is:
+$x= ({-{\frac {p} {2}} +- {\sqrt {{\frac{q^2} {4}} + {\frac {p^3} {27}}}}})^{\frac {1} {3}}$.  
+For \emph{quartic}, $az^4 + bz^3 + cz^2 + dz+e= f(z)$, 
+substitute $x= x - {\frac {b} {4a}}$ and
+divide by $a$ to get $x^4+ px^2 + qx + r$.  Again following Galois,
+$S_4 \supseteq A_4 \supseteq C_4 \supseteq Z_2 \supseteq 1$.  
+$\Theta_1 = (x_1+x_2)(x_3+x_4)$ is fixed by $C_4$ but not $A_4$.
+The $\Theta_i$ are solutions of $\Theta^3 -b_1 \Theta^2 + b_2 \Theta_3 -b_3$ with
+$b_1= 2p, b_2= p^2-4r, b_3= -q^2$ and
+$D=16 p^4r-4p^3q^2-128p^2r^2+144 p q^2r -27 q^4 +256 r^3$.
+Look at
+$(y^2 + p)^2 = py^2 -qy -r$ and pick $z$ to make right hand side
+$(y^2 + p + z)^2 = (p+2z)y^2 -qy + (p^2 -r +2pz + z^2 )$ a perfect square.
+\\
+\\
+{\bf Fundamental Theorem of Algebra:}  If $f(z) \in {\mathbb C}[x]$ then $f(z)=0$
+has a solution (\emph{root}) in ${\mathbb C}$.
+\begin{quote}
+\emph{Proof:}
+Let $f(z)= z^n+ a_{n-1} x^{n-1} + ... + a_0$ and 
+$\mu= \textnormal{inf}(|f(z)|)$.   If 
+$\mu = 0$, we're done since the minimum must occur in bounded ball.  So assume
+$\mu \ne 0$.  Let the minimum occur at $z_{0}$ and put
+$f(z_{0})= w_{0}$,
+$w=f(z_{0}+ \zeta)$.  ${\frac {w} {w_{0}}}= 1+q \zeta^{\nu}(1+\zeta \xi)=
+1-h \rho^{\nu}(1+ \zeta \xi)$ where $\zeta= \rho (cos(\theta) + i sin(\theta))$ and
+$q= h(cos(\lambda) + i sin(\lambda))$.  So we can find a point with smaller modulus than
+$w_0$.  This contradicts the assumed minimality at $z_0$.
+\end{quote}
+{\bf Facts about roots of unity:}  
+Consider $f(x)= x^h -1$ over $F$ where 
+$(char(F),h)=1$ or $char(F)=0$.
+The roots of $f$ form an abelian group, $G$.  $x \in G \rightarrow |x| \mid |G|$.  Since
+$(f, f')=1$ there are $h$ distinct roots, set $h= \prod_{i=1}^m q_i^{v_i}$.  
+$\{ x: x^{h/q_i} = 1 \}$ is a group of order
+$h/q_i$ so $\forall i, \exists x_i \in G: 
+x^{h/q_i} \ne 1$.  Setting $b_i= x_i^{h/{q_i}^{v_i}}$, then $\chi = \prod b_i$ has order
+exactly $h$ and is a primitive $h$th root of unity.  
+Let the number of such roots be $\varphi(h)$; if $(r,s)=1, \varphi(rs)= \varphi(r) \varphi(s)$
+so $\varphi(\prod_i {q_i}^{v_i})= 
+\prod_i \varphi({q_i}^{v_i})= 
+\prod_i ({q_i}^{v_i}- {q_i}^{v_i-1})= h \prod_i (1- {\frac 1 {q_i}})$.  Set $n=\varphi(h)$ and
+$\Phi_n(x) = \prod_i (x- \psi_i)$ where $\psi_i$ are the primitive roots.
+$x^h-1 = \prod_{d \mid h} \Phi_d(x)$ and by Moebius inversion,
+$\Phi_h(x)= \prod_{d \mid h} (x^d -1)^{\mu({\frac h d})}$.
+\\
+\\
+{\bf Theorem:} $\Phi_h(x)$ is irreducible of
+degree $\varphi(h)$.
+\begin{quote}
+\emph{Proof:} Let $\zeta \in {\mathbb C}$ be a primitive root of
+$\Phi_h(x)$ with minimal polynomial $f(x)$ and $(p,h)=1$.  Let $g(x)$ be the minimal
+polynomial for $\zeta^p$ so $g(\zeta^p)=0$.  $x^h -1 = f(x) g(x) h(x)$ and
+$g(x^p)=f(x)k(x)$.  $g(x^p)=g(x)^p \jmod{p}$.  If $\phi(x) \mid f(x)$ then
+$\phi(x) \mid g(x)^p \jmod{p}$.  So $\phi(x)^2 \mid x^h-1$ but this contradicts the
+fact that $x^h -1$ does not have roots of multiplicity 2.  It follows that if $(p_i , h)=1$,
+$\zeta^{p_1 p_2 \ldots p_k}$ is a primitive root and the degree of $f(x)$ is $\varphi(h)$.
+\end{quote}
+Note this shows that $Aut({\mathbb Q}[\zeta]) \cong {\mathbb Z}_h^*$.
+So if $h=q=p^n$ ,
+the Galois group is cyclic and the subfields correspond to the
+cyclic subgroups of ${\mathbb Z}_q^*$.  The $q$th roots of 1 are expressible as radicals
+if $char(F)=0$ or $char(F)>q$.
+If $N_p (d)=$ number of irreducible monic polynomials of degree $d$ in
+$GF(p)[x]$ then $p^n = \sum_{d \mid n} d N_p (d)$ and $N_p (d)= {\frac 1 n}
+\sum_{d \mid n} \mu ( {\frac {n} {d} }) p^d$.
+$x^{p^n} - x = \prod_{f,\small{irred, monic}, deg(f) \mid n} f$.
+\\
+\\
+{\bf Eisenstein's Criteria:} If $f(x)= \sum_{i=0}^n a_n x^n$, $a_n \ne 0 \jmod{p}$,
+$a_i = 0 \jmod{p}, i<n$ and $a_0 \ne 0 \jmod{p^2}$ then $f$ is irreducible.
+\\
+\\
+{\bf Factoring in finite number of steps:} Let $g(x) \in {\mathbb Z}[x]$ if
+$f(x) \mid g(x)$ then $f(n) \mid g(n)$ for
+all $n$. $deg(f) = s \le \lfloor {\frac {deg(g)} 2} \rfloor$.  Pick $s$ integers $i_j$ and
+use the integer factors of $g(i_j)$ to get possible $f(i_j)$; there are a finite
+number of ways to pick the factors.  For each possibility, we can solve for the $s$ 
+coefficients of $f$.
+\subsection{Free groups, rings and modules}
+{\bf Theorem:}
+Every group is the homomorphic image of a free group.
+\begin{quote}
+\emph{Proof:}
+Let $F$ be the elements of $G$ and $R$ be the relations $abc^{-1}=1$.
+$G$ is the free group on the symbols $F$ with relations $R$.
+\end{quote}
+{\bf Theorem:}
+If $x_1, x_2, \ldots , x_n$ is a basis for a free abelian group for a free abelian
+group and $y_i = \sum_{j=1}^n a_{ij} x_j$ with $a_{ij} \in {\mathbb Z}$ then
+$\langle y_i \rangle$ is a basis iff $det(a_{ij}) = \pm 1$.
+\begin{quote}
+\emph{Proof:}  
+Since $\langle y_i \rangle$ is a basis, $x_i= \sum_j b_{ij} y_j$ for some
+$b_{ij} \in {\mathbb Z}$.  Let $A= (a_{ij})$ and $B= (b_{ij})$ then
+$BA=I$ and $det(B)= det(A) \in {\mathbb Z}$, so $det(A)= \pm 1$.
+$\langle y_i \rangle$ is a basis iff $det(a_{ij}) = \pm 1$.
+\end{quote}
+{\bf Theorem:}
+Every subgroup $H \le G$ of a free abelian group $G$ of rank $n$ is free abelian group
+of rank $s \le n$.  Moreover, $\exists  u_1, \ldots, u_s \in G$ and 
+$\alpha_1, \ldots, \alpha_s \in {\mathbb Z}$ such that $\alpha_1 u_1 , \ldots, \alpha_s u_s$
+is a basis of $H$.
+\begin{quote}
+\emph{Proof:}  
+By induction on $n$.  True for $n=1$.  Pick a basis $w_1, \ldots, w_n$ of $G$ and
+for $h \in H: h= h_1 w_1 + \ldots + h_n w_n$.  Let $\alpha_1 \ne 0$ be the
+smallest (in absolute value) coefficient in any such sum and assume WLOG it occurs as the coefficient of $w_1$ for
+some $h$.
+Let $v_1= \alpha_1 w_1 + \beta_2 w_2 + \ldots + \beta_n w_n \in H$. $\exists q_i, r_i:
+\beta_i = \alpha_1 q_i + r_i$.  Put $u_1 = w_1 + q_2 w_2 + \ldots + q_n w_n$ then
+$u_1, w_2 , \ldots , w_n$ is another basis for $G$ and $v_1= \alpha_1 u_1 \in H$.
+Now put $H'= \{ h= m_2 w_2 + \ldots + m_n w_n: h \in H \}$.  $H' \cap (v_1) = 0$
+and $H= H' \oplus (v_1)$.
+\end{quote}
+{\bf Theorem:}
+If $G$ is a free abelian group of rank $r$ and $H \le G$ then $G/H$ is finite iff
+$H$ has rank $r$.  If $G$ has basis $x_1, \ldots , x_s$ and $H$ has basis
+$y_1, \ldots, y_s$ with $y_i= \sum_{j=1}^s a_{ij} x_j$ then $|G/H|= det(a_{ij})$.
+\begin{quote}
+\emph{Proof:}  
+By the structure theorem, viewing $G$ as a ${\mathbb Z}$-module,
+$G \approx {\mathbb Z}^s/H$.  In the diagonal form, the order of the direct sums appears
+on the diagonal and the product is $det(a_{ij})$.
+\end{quote}
+{\bf Theorem:}
+Every finitely generated abelian group with $n$ generators is the direct product of a
+free abelian group and a finite abelian group.
+\begin{quote}
+\emph{Proof:}  
+Let $G= \langle x_i , \ldots ,x_n \rangle$ and $H= \{ x \in G: x^n=1, n \in {\mathbb Z} \}$.
+$G/H$ is free and finitely generated.  Apply the theorem (just before the structure theorem)
+to $g \rightarrow G/H$ to conclude the proof.
+\end{quote}
+{\bf Calculating with free groups:}
+Let $F_m$ be a free abelian group generated by $a_1 , a_2 , \ldots , a_m$ and
+define $E_i= r_{i1} a_1 + r_{i2} a_2 + \ldots + r_{im} a_m$ where
+$r_{ij} \in {\mathbb Z}$ and $1 \le i \le n$; further, put
+$b_i= E_i$ and let $K= \langle b_i \rangle$.  
+Suppose $G$ is the free abelian group generated
+by $a_i$ subject to $E_i = 0$.  Then $G \cong F_m / K$.  Let $R$ represent the matrix
+$(r_{ij})$ then 
+(1) if the matrix $S=(s_{ij})$ is obtained from $R$ by elementary row operations then
+$c_i= s_{i1} a_1 + \ldots + s_{im} a_m \in K$; and,
+(2) if the matrix $S=(s_{ij})$ is obtained from $R$ by elementary column operations then
+$\exists a_i' \in F_m: b_i= s_{i1} a_1' + \ldots + s_{im} a_m'$ (so the $a_i'$ generate
+$K$).  By applying elementary row and column operations, we can transform $R$ into
+the diagonal matrix $D= diag(d_1 , d_2 , \ldots , d_r , 0, \ldots , 0)$ where
+$d_i \mid d_{i+1}$
+and $G \cong {\mathbb Z}/(d_1) \times {\mathbb Z}/(d_2) \times \ldots 
+\times {\mathbb Z}/(d_r) \times {\mathbb Z} \times \ldots \times {\mathbb Z}$ where there
+are $m-r$ copies of ${\mathbb Z}$ in the product.
+\\
+\\
+{\bf Definition:} If $f(x)= \sum_{i=0}^n a_i x^i$, $a_i \in R$, a UFD, the \emph{content} of
+$f$ is $cont(f)= gcd(a_0, a_1, \ldots, a_n)$.  
+\\
+\\
+{\bf Gauss' Lemma}: 
+If $D$ is a UFD and $f, g \in D[x]$ then
+$cont(f(x)g(x))= cont(f(x)) cont(g(x))$.  If $f(x) \in R[x], deg(f)>0$ and $f(x)$
+is irreducible in $R[x]$ then it is irreducible in $K[x]$.
+\begin{quote}
+\emph{Proof:}
+Suffices to show that if $cont(f)=cont(g)=1$ then $cont(fg)=1$.  Let
+$f(x)= a_0 + a_1 x + \ldots +a_n x^n$ and
+$g(x)= b_0 + b_1 x + \ldots +b_m x^m$ with $a_i, b_i \in R$.  Suppose, by way of
+contradiction that $p \mid cont(fg)$.  Let 
+$i$ be maximal subject to $p \nmid a_i$ and
+$j$ be maximal subject to $p \nmid b_j$.  The coefficient of $x^{i+j}$ in $fg$ is
+$c_{i+j}= \sum_{k=0}^{i+j} a_k b_{i+j-k}$.  
+$p \mid a_k, k<i$ and
+$p \mid b_{i+j-k}, k>i$ but $p \nmid a_i b_j$ so $p \nmid c_{i+j}$.
+\end{quote}
+{\bf Theorem:} If $R$ is a UFD then
+$R[x]$ is a UFD. 
+\begin{quote}
+\emph{Proof:}
+Let the field of quotients of $R$ be $K$.  If $f(x) \in R[x]$, $f(x)= cont(f) f'(x)$
+with $cont(f')=1$.  By Gauss' lemma, it suffices to prove the result
+when $f$ is primitive.
+$f(x)= f_1(x) \cdot f_2(x) \ldots \cdot f_n(x)$ over $K$ with each $f_i$ irreducible;
+further, this factorization is unique up to units in $K$.  So $\exists c_i, d_i \in R$ 
+such that 
+$d_i f_i(x)= c_i p_i(x)$ where $p_i \in R[x]$ satisfies $cont(p_i)=1$.
+Put $c= \prod_{i=1}^n c_i$ and
+$d= \prod_{i=1}^n d_i$  then $d f(x)=
+c p_1(x) \cdot p_2(x) \ldots \cdot p_n(x)$ so $c$ and $d$ are units of $R$ by Gauss.
+This shows a factorization exists.
+If $f(x)= d q_1(x) \cdot q_2(x) \ldots \cdot q_m(x)$
+is another such factorization then $m=n$  
+and $p_i= u_i q_j$, $u_i \in K$ by the factorization result in $K[x]$.  Thus
+$t_i p_i= r_i q_j$, $r_i, t_i \in R$ with $(t_i, r_i)= 1$.  By Gauss, $t_i= u_i r_i$
+where $u_i$ is a unit in $R$.
+Finally, 
+$d$ is a unit in $R$ again by Gauss's lemma and the proof is complete.
+\end{quote}
+{\bf Ring theoretic Chinese Remainder Theorem:} 
+If $I_j, j= 1,2, \ldots, n$ are ideals of $R$ and
+$I_j + I_k = R$ for $j \ne k$, then $\forall x_1 , x_2, \ldots , x_n \in R, \exists
+x \in R$ such that $x= x_j \jmod{I_j}$.
+\\
+\\
+{\bf Corollaries:} Under the same assumptions as the theorem,
+$\psi: R \rightarrow R/I_1 \times R/I_2 \times \ldots \times R/I_n$ given by
+$x \mapsto x \jmod{I_1} \times \ldots \times x \jmod{I_n}$ is surjective and
+$R/(\bigcap_{j=1}^n I_j) \cong R/I_1 \times R/I_2 \times \ldots \times R/I_n$.
+If $m= \prod_{i=1}^n p_i^{r_i}$,
+${\mathbb Z}/(m{\mathbb Z}) \cong \prod_i {\mathbb Z}/({p_i}^{r_i}{\mathbb Z})$ and
+$\psi(m)= \prod_i \psi({p_i}^{r_i})$.  If $R$ is cyclic of order $n$ then
+$End(R) \cong {\mathbb Z}/(n{\mathbb Z})$ and
+$({\mathbb Z}/(n{\mathbb Z}))^* \cong Aut(R)$.
+\\
+\\
+{\bf Hilbert Basis Theorem: }
+If $R$ is a ring with identity such that every ideal is finitely 
+generated then $R[x]$ has the same property.
+\begin{quote}
+\emph{Proof:}
+Let $I$ be an ideal of $R[x]$ and $I_j$ be the set of coefficients
+of the $x^j$ terms in $I$.  $I_j$ is an ideal of $R$ and $I_j \subseteq I_{j+1}$.
+Since $R$ is finitely generated, $\exists m: I_j \subseteq I_m, \forall i$.
+Let the generators of $I_j$ be 
+$\langle b^{(1)}_j, b^{(2)}_j,  \ldots , b^{(i_j)}_j, \rangle$.  So there are
+polynomials $f_j^{(i)}(x) \in I_j$:
+$f_j^{(i)}(x)= b_j^{i} x^j + g_j^{(i)}(x), deg (g_j^{(i)}(x)< j)$.
+The polynomials
+$$\langle
+f_0^{(1)}(x),
+f_0^{(2)}(x), \ldots,
+f_0^{(i_0)}(x), 
+f_1^{(1)}(x),
+f_1^{(2)}(x), \ldots,
+f_1^{(i_1)}(x), 
+\ldots,
+f_m^{(1)}(x),
+f_m^{(2)}(x), \ldots,
+f_m^{(i_m)}(x)
+\rangle$$
+generate $I$.
+\end{quote}
+{\bf Groups with operators} ($M$) and invariant subgroups:  Projection commutes with
+all inner automorphisms; such an endomorphism is called normal.  An $M-$group
+$G$ is decomposable 
+iff there are projections.  Any $M-$group satisfying DCC is a direct
+product of a finite number of indecomposable $M-$groups.  If $\eta \in  End(G)$
+then ${\sqrt \eta}= \{z \in G: z \eta^s=1 \}$.
+\\
+\\
+{\bf Fitting Lemma:}  Let $G$ be an $M-$group that satisfies ACC and DCC and $\eta$ is a
+normal endomorphism of $G$ then $G= {\sqrt \eta} \times H$ and $H \eta = H$.
+If $G$ is an indecomposable $M-$group satisfying ACC and DCC then any normal
+$M-$endomorphism of $G$ is either {\bf nilpotent} or an automorphism.  Suppose
+$\eta_1, \eta_2$ are normal nilpotent $M-$endomorphisms, if $\eta_1 + \eta_2$
+is an endomorphism it is nilpotent.  {\bf Krull-Schmidt} follows
+from this.  
+\\
+\\
+{\bf Definition:} $M$ is \emph{unitary} if $RM=M$.  
+\\
+\\
+{\bf Primary decomposition:}
+If $A,B$ are ideals, we say $A \mid B$ if $B \subseteq A$. $Q$ is \emph{primary} iff
+$ab= 0 \jmod{I} \rightarrow a = 0 \jmod{Q}$ or $b \in {\sqrt I}$.  If
+$Q$ is primary then ${\sqrt Q}$ is prime.  
+Every irreducible ideal in a Noetherian ring is primary.
+Every ideal in a Noetherian ring is the finite intersection of
+primary ideals.  If $Q_1, Q_2$ are primary and
+${\sqrt {Q_1}}= {\sqrt {Q_2}}$ then $Q_1 \cap Q_2$ is primary.
+If $Q_1 \cap Q_2 \cap \ldots \cap Q_r = Q_1' \cap Q_2' \cap \ldots \cap Q_s'$
+are two irredundant representations into primary ideals whose associated primes
+are distinct, then $r=s$ and the set of associated primes is identical.
+If $R^2=R$ is a commutative ring then every maximal ideal is prime.  Let
+$P$ be a prime ideal of $R$ ($1 \in R$) then (1)
+There is a 1-1 correspondence between the set of prime ideals of $R$ contained
+in $P$ and (2) the prime ideals of $R_P$ given by 
+${\mathbb Q} \mapsto {\mathbb Q}_P$.  A local ring is a commutative ring
+with identity containing a unique maximal ideal.  If $R$ is a commutative ring
+with identity, the following are equivalent: (1) $R$ is a local ring; (2)
+all non-units of $R$ are contained in an ideal 
+$M \ne R$; (3)  the non-units form an ideal.
+Substitution from a the polynomial ring to the ring of coefficients is a homomorphism.
+\\
+\\
+{\bf Theorem:} 
+If $R$ is Noetherian and $a \in M$ is $R-$\emph{integral} iff $\exists$ a finitely
+generated submodule of $M$ that contains all powers of $a$.  The totality
+$G$ of elements of $M$ that are $R-$integral is a subring of $M$ containing
+$R$.  The ring $G$ or $R-$integral elements is integrally closed in $R$.
+\begin{quote}
+\emph{Proof:} $\rightarrow$.  Suppose $a^n + r_{n-1} a^{n-1} + \ldots + r_0 = 0$.
+Put $M= \langle a^{n-1}, \ldots, 1 \rangle$.  $a^k \in M, \forall k$.
+$\leftarrow$. Consider 
+$\langle 1 \rangle \subseteq \langle 1, a \rangle \subseteq
+\langle 1, a, a^2 \rangle \subseteq \ldots$.  Since $R$ is noetherian, this series
+is finite.  Say $M = \langle 1, a, a^2, \ldots, a^m \rangle$ is the terminal module
+in the series.  $a^k \in M, \forall k$.
+\end{quote}
+{\bf Projective and injective modules:}
+If $A, B, C, A', B', C'$ are modules 
+over a ring $R$ with identity and we have the diagrams
+$0 \rightarrow A
+{\buildrel\rm f\over \rightarrow} \; B {\buildrel\rm g\over \rightarrow} \; 
+C \rightarrow 0$
+and
+$0 \rightarrow A'
+{\buildrel\rm f'\over \rightarrow} \; B' {\buildrel\rm g'\over \rightarrow} \; 
+C' \rightarrow 0$ with 
+$A
+{\buildrel\rm \alpha\over \rightarrow} \; 
+A'$,
+$B
+{\buildrel\rm \beta\over \rightarrow} \; 
+B'$, and
+$C
+{\buildrel\rm \gamma\over \rightarrow} \; 
+C'$, then (1) $\beta$ is a monomorphism if $\alpha$ and $\beta$ are and (2)
+$\beta$ is a epimorphism if $\alpha$ and $\beta$ are.
+$P$ is projective if given $A, B, g, f$ and morphism diagrams:
+$A {\buildrel\rm g\over \rightarrow} \; B \rightarrow 0$ and
+$P {\buildrel\rm f\over \rightarrow} \; B$, $\exists h,
+P {\buildrel\rm h\over \rightarrow} \; B$ which makes the diagram commute.
+$J$ is injective if given $A, B, g, f$ and morphism diagrams:
+$A {\buildrel\rm g\over \rightarrow} \; B \rightarrow 0$ and
+$A {\buildrel\rm f\over \rightarrow} \; J$, $\exists h,
+B {\buildrel\rm h\over \rightarrow} \; J$ which makes the diagram commute.
+Every free module $F$ over $R$ with identity is projective.  
+If $R$ is a ring
+with identity, TFAE: (1) $P$ is projective, (2) every short exact sequence
+$0 \rightarrow A
+{\buildrel\rm f\over \rightarrow} \; B {\buildrel\rm g\over \rightarrow} \; 
+P \rightarrow 0$ splits so $B= P \oplus A$ and (3) $\exists F$, free such that
+$F=K \oplus P$.
+If $R$ is a ring
+with identity, TFAE: (1) $J$ is injective, (2) every short exact sequence
+$0 \rightarrow A
+{\buildrel\rm f\over \rightarrow} \; B {\buildrel\rm g\over \rightarrow} \; 
+C \rightarrow 0$ splits so $B= J \oplus C$ and (3) $J$ is a direct summand.
+$0 \rightarrow A
+{\buildrel\rm \psi\over \rightarrow} \; B {\buildrel\rm \phi\over \rightarrow} \; 
+C$ is exact if:
+$0 \rightarrow Hom(D, A)
+{\buildrel\rm \psi\over \rightarrow} \; Hom(D, B) {\buildrel\rm \phi\over \rightarrow} \; 
+Hom(D, C)$ is.
+$A
+{\buildrel\rm \theta\over \rightarrow} \; B {\buildrel\rm \zeta\over \rightarrow} \; 
+C \rightarrow 0$ 
+is exact if:
+$0 \rightarrow Hom(A, D)
+{\buildrel\rm \psi\over \rightarrow} \; Hom(B, D) {\buildrel\rm \phi\over \rightarrow} \; 
+Hom(C, D)$ is.  The full short exact sequence is split exact iff the corresponding
+dual (Hom) sequence is.
+\\
+\\
+{\bf Integral closure of  UFD's:} 
+If $A$ us a unique factorization domain, $A$ is integrally closed.  
+The integral closure in a number field
+$K$ is called the ring of algebraic integers.  Algebraic integers form a free
+${\mathbb Z}$-module of rank $[K:{\mathbb Q}]$.
+\\
+\\
+{\bf Results on trace and norm:}
+Let $[E:F]=n$ and $[F(x):F]=d$ and $x_1 , x_2 , \ldots , x_d$ be the
+roots of $min_F(x)$ then 
+$N_{E/F}(x)= (\prod_{i=1}^d x_i)^{\frac n d}$ and
+$Tr_{E/F}(x)= {\frac n d} (\sum_{i=1}^d x_i)$.  
+If $E/F$ is separable then
+$N_{E/F}(x)= \prod_{i=1}^n \sigma_i(x)$ and
+$Tr_{E/F}(x)= \sum{i=1}^n \sigma_i(x)$.  If $F \subseteq E \subseteq K$ then
+$N_{E/F}(N_{K/E}(x))= N_{K/F}(x)$ and $Tr_{E/F}(Tr_{K/E}(x))= Tr_{K/F}(x)$.  If
+$E/F$ is a finite separable extension, $\exists x \in E: Tr_{E/F}(x)= 0$ and
+$(x,y) \rightarrow Tr_{E/F}(xy)$ is bilinear.
+For this paragraph, $L$ be a separable extension of $K$, 
+$A \subseteq K$ be a ring of integers and
+$B \subseteq L$ be a ring of algebraic integers.
+${\vec x}$ is a basis for $L/K$ iff $\Delta({\vec x}) \ne 0$.  If
+$L=K(x)$ and $f$ is a minimal polynomial of $x$ over $K$ then
+$\Delta(1,x,x^2, \ldots, x^{n-1})= disc(f)= \prod_{i<j} (x_i-x_j)=
+(-1)^{n \choose 2} N_{L/K}(f'(x))$.  There is a basis for $L/K$ consisting
+of elements of $B$.  If $A$ is a PID then $B$ is a free $A$-module of rank $[L:K]$.
+If $a_i \in A$ then $(x_1-a_1 , x_2 - a_2 , \ldots , x_n-a_n)$ is a maximal ideal.
+\\
+\\
+{\bf Theorems on chain conditions:}
+Let $M$ be an $R$ module.  
+The following are equivalent
+(1) $M$ satisfies \emph{ACC (Noetherian)}, 
+(2) Any non empty collection of submodules of $M$
+has a maximal element.
+The following are equivalent
+(1) $M$ satisfies \emph{DCC (Artinian)}, (2) Any non empty collection of submodules of $M$
+has a minimal element.  
+$M$ is Noetherian iff every submodule is finitely generated.
+$M$ is Artinian iff every submodule is finitely co-generated.  
+\\
+\\
+{\bf Example of Noetherian ring:}
+PIDs, $F[x]$.  $F[x_1 ,x_2, \ldots ]$ is \emph{neither} Noetherian nor Artinian.
+If $N \subseteq M$ then $M$ is Noetherian iff $N$ and $M/N$ are.  $M$ has a
+composition series iff $M$ is Noetherian and Artinian.
+$L$ be a separable extension of $K$, 
+$A \subseteq K$ be a ring of integers
+$B \subseteq L$ be a ring of algebraic integers, if $A$ is integrally closed
+in $K$ and $A$ is Noetherian, so is $B$.
+Let $P$ be a prime ideal of $R$ and 
+$P \supseteq I_1 I_2 \ldots I_n$ then
+$\exists k: P \supseteq I_k$.
+Let $I$ be a non-zero ideal of a noetherian integral domain $R$ then
+$I \supseteq P_1 P_2 \ldots P_n$ for $P_i$ prime.
+Let $R$ be a non-zero ideal of a noetherian integral domain and $K$ its
+field of quotients, $I$ is a fractional ideal if $I$ is an $R$-module and
+$\exists r \in R: rI \subseteq R$.  If $I$ is a finitely generated $R$
+submodule of $K$ then $I$ is a fractional ideal.  If $R$ is Noetherian and $I$
+is a fractional ideal of $R$ then $I$ is a finitely generated $R$ submodule of $K$.
+\\
+\\
+{\bf Definition:}
+A \emph{Dedekind Domain (``DD'')} is an integral domain, $R$, such that 
+(1) $R$ is Noetherian,
+(2) $R$ is integrally closed, and, (3) Every non-zero prime ideal of $R$ is maximal.
+PIDs are DDs.  Algebraic integers in a number field is a DD.  If $P$ is a non-zero
+prime ideal in a DD, $R$ and $J=\{x \in K: xI \subseteq R \}$ then
+(1) $R \subseteq J$ and (2) $J$ is a fractional ideal and $PJ=R$.  If $I$
+is a fractional ideal in a DD, $R$ then $I= \prod_{i=1}^N {P_i}^{n_i}$ 
+($n_i \in {\mathbb Z}$ not just ${\mathbb Z}^{\ge 0}$), $n_P(I)=n_i$.  The
+fractional ideals form a group.  A non-zero fractional ideal is integral iff all
+$n_i$ in the forgoing representation are $\ge 0$.  $I_1 \supset I_2$ iff
+$\forall P, n_P(I_1) \le n_P(I_2)$.  If $I_1 , I_2$ are integral ideals then
+$I_1 \mid I_2$ if $I_2= J I_1$.  $I_1 \mid I_2$ iff $I_1 \supseteq I_2$.
+$L$ be a separable extension of $K$, 
+$A \subseteq K$ be a ring of integers, if $A$ is a DD, $B$ is a DD.
+An abelian group with a basis of $n$ elements is a \emph{free abelian
+group} of rank $n$.
+\\
+\\
+{\bf Kummer's idea:}  For a field, $K$ let
+${\mathfrak D}_K$ denote the ring of integers in $K$.
+Start with $K$ and extend it to $L$ such that
+${\mathfrak D}_K \subseteq {\mathfrak D}_L$.  For example, 
+$K={\mathbb Q}(\sqrt {15}) \subseteq {\mathbb Q}({\sqrt {3}}, {\sqrt {5}})= L$.
+$10 = {\sqrt{5}} {\sqrt{5}} ({\sqrt{5}} + {\sqrt{3}}) ({\sqrt{5}} - {\sqrt{3}})$.
+Let $I= ({\sqrt{5}} + {\sqrt{3}}) \cap {\mathfrak D}_K$.  
+$({\sqrt{15}} + 3) \in I$,
+$({\sqrt{15}} + 5) \in I$ so $2 \in I$ and $I$ is not principal.
+\\
+\\
+{\bf Definition:} A ${\mathfrak D}$-submodule ${\mathfrak a}$ of $K$ is a 
+\emph{fractional} ideal of ${\mathfrak D}$ if $\exists c \in {\mathfrak D}:
+c{\mathfrak a} \subseteq {\mathfrak D}$ and $c {\mathfrak a} = {\mathfrak b}$ is an
+ideal of ${\mathfrak D}$.  An ideal ${\mathfrak p}$ is prime if
+${\mathfrak p} \mid {\mathfrak a} {\mathfrak b}$ implies
+${\mathfrak p} \mid {\mathfrak a}$ or ${\mathfrak p} \mid {\mathfrak b}$.
+${\mathfrak a}^{-1}= \{ x \in K: x {\mathfrak a} \subseteq {\mathfrak D} \}$.
+\\
+\\
+{\bf Theorem:}  If a domain is \emph{noetherian} the elements factor into irreducibles.
+If every irreducible in a domain, $D$, is prime then $D$ is a UFD.
+\begin{quote}
+\emph{Proof:}  
+\\
+\emph{Claim 1:}
+Let ${\mathfrak a} \ne 0$, $\exists
+{\mathfrak p}_1 , 
+{\mathfrak p}_2 , \ldots ,
+{\mathfrak p}_n $ 
+such that
+$ {\mathfrak p}_1 \cdot {\mathfrak p}_2 \cdot \ldots \cdot{\mathfrak p}_n  \subseteq {\mathfrak a}$.
+\\
+\emph{Claim 2:}
+${\mathfrak a}^{-1}$, exists.
+\\
+\emph{Claim 3:}
+If ${\mathfrak a}$ is a proper ideal then
+${\mathfrak a} \nsupseteq {\mathfrak D}$.
+\\
+\emph{Claim 4:}
+If 
+${\mathfrak a} S \subseteq {\mathfrak a}$ for
+$S \subseteq K$ then
+$S \subseteq {\mathfrak D}$.
+\\
+\emph{Claim 5:}
+If ${\mathfrak p}$ is a maximal ideal then
+${\mathfrak a} {\mathfrak a}^{-1} = {\mathfrak D}$.
+\\
+\emph{Claim 6:}
+If
+${\mathfrak a}$ is a fractional ideal, it has an inverse and
+${\mathfrak a} {\mathfrak a}^{-1} = {\mathfrak D}$.
+\\
+\emph{Claim 7:}
+Every non-zero ideal ${\mathfrak a}$ is a product of prime ideals.
+\\
+\emph{Claim 8:}
+Prime factorization is unique.
+\end{quote}
+{\bf Theorem:}
+The non-zero fractional ideals of ${\mathfrak D}$ form a group and the identity is
+${\mathfrak D}$.  Every non-zero ideal of ${\mathfrak D}$ can be written as a product of prime
+ideals uniquely up to the order of factors.
+\begin{quote}
+\emph{Proof:}  
+Todo.
+\end{quote}
+{\bf Definition:}
+$N({\mathfrak a})= {\mathfrak D}/ {\mathfrak a}$.
+\\
+\\
+{\bf Theorem:}  Let $G$ be an additive subgroup of
+${\mathfrak D}$, a ring of algebraic integers, of rank $n$ equal to the degree of an
+algebraic number field $K$ with ${\mathbb Z}$-basis $\{ \alpha_1 , \ldots , \alpha_n \}$
+then $|{\mathfrak D}/G|^2 \mid \Delta(\alpha_1, \ldots , \alpha_n)$.
+\begin{quote}
+\emph{Proof:}  
+Todo.
+\end{quote}
+{\bf Chain conditions and exact sequences:}
+If $0 \rightarrow A
+{\buildrel\rm f\over \rightarrow} \; B {\buildrel\rm g\over \rightarrow} \; 
+P \rightarrow 0$, $B$ satisfies ACC (resp DCC) iff $A$ and $C$ do.
+$A$ satisfies ACC on submodules iff each submodule is finitely generated (same for
+rings).  Jordan-Holder for modules (composition series have unique refinements).  $A$
+has a composition series iff $A$ satisfies ACC and DCC.  If $D$ is a division ring
+then $Mat_{n \times n}(D)$ is both Noetherian and Artinian.  An ideal $P (\ne R)$
+in a commutative ring $R$ is prime iff $R-P$ is a multiplicative set.  If
+$S$ is multiplicative and $S \cap I \ne \emptyset$, $\exists P$, prime that is maximal
+with respect to the disjoint property.  $rad(I)= \{ r \in R: r^n \in I \}$.
+\\
+\\
+{\bf Theorem:}
+Every transcendental extension has a \emph{transcendence basis.}
+If $\langle x_1, x_2, \ldots , x_n \rangle$
+spans $E$ algebraically and $S \subseteq E$ is algebraically independent then
+$|S| \le n$. (Use Steinmetz replacement.) 
+\\
+\\
+{\bf Noetherian Normalization Lemma:}
+Let $R$ be an integral domain which is a finitely generated extension of $K$ and
+suppose $r$ is the transcendence degree over $K$ of the quotient field of $R$, then
+$\exists t_1, \ldots, t_r$ algebraically independent elements such that
+$R$ is integral over $K[t_1, \ldots, t_r]$.
+\\
+\\
+{\bf Localization:} Let $S$ be a multiplicative subset of $R$ and $h: a \mapsto a/1$ 
+be the natural map.  If $J$ is an ideal in $S^{-1}R$ then
+$S^{-1}J = I$ is an ideal of $R$ and
+$I \subseteq h^{-1}(S^{-1}(I)$ with equality if $I \cap S = \emptyset$.
+If $I$ is a prime ideal of $R$ and $I \cap S= \emptyset$ then $S^{-1}R$ is a
+prime ideal of $S^{-1}R$.  If $P$ is a prime ideal of $R$ and $S=R-P$ is a
+multiplicative set, denote $S^{-1}R$ as $R_P$.  $R_P$ has a unique maximal ideal
+consisting of non-units of $R_P$.  ${\sqrt I}= P_1 \cap P_2 \cap \ldots \cap P_k$ for
+some prime ideals $P_i$.
+\subsection{Polynomials}
+{\bf Basic Symmetric polynomials:} $\sigma_1= \sum x_i$, $\sigma_2 = \sum x_i x_j$,
+etc.  
+Every symmetric function $f(x_1, \ldots , x_n)= (z-x_1) \ldots (z-x_n)$
+can be written as a polynomial
+with coefficients in the basic symmetric polynomials.  
+\begin{quote}
+\emph{Proof 1:}
+Let $ a {x_1}^{a_1} {x_2}^{a_2} \ldots {x_n}^{a_n}$
+be the leading coefficient of a symmetric form in lexicographic order,
+subtracting
+$a {\sigma_1}^{a_1 - a_2} {\sigma_2}^{a_2 - a_3} \ldots {\sigma_n}^{a_n}$
+leaves a symmetric form with leading coefficient smaller in lexicographic
+order.
+\\
+\emph{Proof 2:}  By induction on the weight.  True for 1.  If 
+$f(x_1 , \ldots, x_n)$ is symmetric, so is
+${\frac {f(x_1 , \ldots, x_{n-1},0)} z}$. 
+So ${\frac {f(x_1 , \ldots, x_{n-1},0)} z}= 
+\phi((\sigma_1)_0, \ldots , (\sigma_{n-1})_0)$
+Set  
+$f_1(x_1 , \ldots, x_n)=
+f(x_1 , \ldots, x_n)-
+\phi((\sigma_1)_0, \ldots , (\sigma_{n-1})_0)$.
+$f_1(x_1 , \ldots, x_{n-1},0)=0$ so $x_n$ and hence $\sigma_n$ divides
+$f_1$ thus $f_1 = \sigma_n g$ and $g$ is writable as a polynomial in the basic
+symmetric functions by induction so
+$f(x_1 , \ldots, x_n)= \sigma_n \psi(\sigma_1, \ldots , \sigma_n) 
++ \phi (\sigma_1 , \ldots , \sigma_{n-1})$.  Further, the representation is essentially
+unique which you can show by proving 
+$\phi(y_1 , \ldots , y_n) \ne 0 \rightarrow \phi(\sigma_1 , \ldots , \sigma_n) \ne 0 $
+(Prove).
+\end{quote}
+{\bf Theorem:} Let $\sigma_1, \ldots , \sigma_n$ be the symmetric functions on $n$ variables.
+$\varphi(\sigma_1 , \ldots , \sigma_n )=0 $ iff
+$\varphi(a1 , \ldots , x_n )=0 $.
+\begin{quote}
+\emph{Proof:} 
+Proof by induction on $n$.  Trivial for $n=1$.  
+Let $\phi(y_1, \ldots , y_n)=
+\phi_k(y_1, \ldots , y_{n-1}) y^m + \ldots + \phi_0(y_1 , \ldots , y_{n-1})$ be a
+counterexample of minimum degree in $y_n$.
+Then $\phi(\sigma_1, \ldots , \sigma_n)=
+\phi_k(\sigma_1, \ldots , \sigma_{n-1}) \sigma^m + \ldots + \phi_0(\sigma_1 , \ldots , \sigma_{n-1})= 0$.
+Put $x_n=0$.  Then  
+$\phi_0(\sigma_1 , \ldots , \sigma_{n-1})= 0$ but
+$\phi_0(y_1 , \ldots , y_{n-1}) \neq 0$ which contradicts the induction hypothesis.
+\end{quote}
+{\bf Resultant:}
+If $f_{v}(x)= v_{n}x^{n}+ \ldots + v_{0}$ and
+$g_{w}(x)= w_{m}x^{m}+ \ldots + w_{0}$,
+$\exists \phi_{v,w}(x), \psi_{v,w} (x):$
+$\phi_{v,w}(x) f_{v}(x) + \psi_{v,w}(x) g_{u}(x) = R(v,w)
+= v_{m}^n w_{n}^m \prod_{i<j} (t_{i}-u_{j})$, where $t_i , u_j$ are roots of
+$f, g$ respectively.  Resultant is 0 iff equations have common solution.  
+Consider the equations written in matrix notation:
+$$
+\left(
+\begin{array}{c}
+x^{m-1}f_{v} (x) \\
+x^{m-2}f_{v} (x) \\
+\ldots \\
+f_{v} (x) \\
+x^{n-1}g_{w} (x) \\
+x^{n-2}g_{w} (x) \\
+\ldots \\
+g_{w} (x)
+\end{array}
+\right) =
+\left(
+\begin{array}{cccccccc}
+v_n & v_{n-1} & \ldots & v_0 & 0 & 0 & \ldots & 0 \\
+0 & v_n & v_{n-1} & \ldots & v_0 & 0 & \ldots & 0 \\
+\ldots & \ldots & \ldots & \ldots & \ldots & \ldots & \ldots & \ldots\\
+0 & 0 & \ldots & 0 & v_n & v_{n-1} & \ldots & v_0 \\
+w_m & w_{m-1} & \ldots & w_0 & 0 & 0 & \ldots & 0 \\
+0 & w_m & w_{m-1} & \ldots & w_0 & 0 & \ldots & 0 \\
+\ldots & \ldots & \ldots & \ldots & \ldots & \ldots & \ldots & \ldots\\
+0 & 0 & \ldots & 0 & w_m & w_{m-1} & \ldots & w_0 \\
+\end{array}
+\right)
+\left(
+\begin{array}{c}
+x^{n+m-1}\\
+x^{n+m-2}\\
+\ldots \\
+\ldots \\
+\ldots \\
+\ldots \\
+x \\
+1
+\end{array}
+\right)
+$$
+\begin{quote}
+\emph{Proof:} Let the column vectors be $C_{m+n-1}$ \ldots $C_{0}$.
+$C= (x^{m-1}f_v(x), \ldots , g_w (x))^T$.
+$C= C_{m+n-1} \cdot x_{m+n-1} + \ldots + 1 \cdot C_{0}$.
+Now solve for 1.  $1= {\frac {det(C_{m+n-1}, \ldots C_{1}, C)}
+{det(C_{m+n-1}, \ldots C_{1}, C_{0})}}$.
+Get $\phi_{v,w}(x)f_{v}(x) +
+\psi_{v,w}(x)g_{w}(x)= R(v,w)$.
+\end{quote}
+{\bf Theorem}:
+Let $f_{1},\ldots, f_{s}$ be polynomials of one variable with indeterminate
+coefficients. $\exists d_{1} , d_{2}, \ldots, d_{h}$ of integral polynomials
+in the coefficients of $f_i$ such that if the coefficients are assigned values 
+(\emph{``specialized''})
+from $k$, $d_{i}=0$ iff either
+the $f_{i}=0$ have a common solution or the leading coefficients vanish.
+\begin{quote}
+\emph{Proof:} Set $f_{u} = u_{1} f_{1} + \ldots + u_{s} f_{s}$,
+$f_{v} = v_{1} f_{1} + \ldots + v_{s} f_{s}$. $(f_{u}, f_{v})=1$ iff
+$(f_{1}, f_{2} \ldots, f_{s}) = 1$.  $R(f_{u},f_{v}) = 0$ iff $f_u$ and
+$f_v$ have a non-trivial common factor.  But $R(f_u, f_v)$ is
+a polynomial in $u_{i}, v_{j}$ with coefficients which are integral in the
+coefficients of $f_{i}$.  Arrange these in the order of powers of $u_i v_j$.
+These are the $d_i$.
+The proof also shows that 
+$d_{i}= 0 \jmod{(f_{1}, f_{2}, \ldots f_{r})}$ and
+$(d_{1}, d_{2} \ldots d_{l})= 0 \jmod{(f_{1}, f_{2}, \ldots f_{r})}$.
+\end{quote}
+{\bf Theorem}: If
+$f_{1},\ldots, f_{r} \in F[x_1, \ldots, x_n]$ has no common zeros, 
+$\exists A_{1},...A_{r}$ such that
+$\sum_{i} A_{i}f_{i}=1$.
+\begin{quote}
+\emph{Proof:} By the induction on number of variables.  True for $n=1$
+by usual theory of polynomials over fields.
+Assume it's true for $n-1$.  Let ${\overline f}_i(x)= f_i(x, x_2, \ldots , x_n) =
+\sum_{j-0}^{n_i} g_{ij}(x_2, \ldots, x_n) x^j$.  
+The ${\overline f}_i$ have no common solution or the $f_i$ would; thus
+by the previous result, regarding the coefficients of $x^j$ as indeterminants,
+$\exists d_{lk}$ which are not simultaneously $0$ [or again, the $f_i$ would have a common
+solution], such that 
+$\sum_{lk} B_{lk} d_{lk} =1$.  After substitution,
+$\sum_{ij} C_{ij} g_{ij} =1$.  Further, $g_{ij}= \sum_j A_j f_j$, again by
+the previous result.  After substituting again, we get
+$\sum_j D_j f_j(x, x_2, \ldots, x_n)$ which is what we want.
+\end{quote}
+{\bf Nullstellensatz}:  
+If $f(x_1, \ldots, x_n) \in F$ vanishes at all the common zeros of
+$f_1(x_1, \ldots, x_n), \ldots , f_r(x_1, \ldots, x_n)$
+in every extension of $F$, then
+$f^k(x_1, \ldots, x_n) \in (f_1(x_1, \ldots, x_n), \ldots,
+f_r(x_1, \ldots, x_n))$ for some $k$.
+\begin{quote}  
+To prove this, look at
+$f_{1},\ldots, f_{r}, 1-zf$,
+put $z= {\frac {1} {f}}$ and clear denominators.
+Note that if $h_1 , \ldots, h_m$ are zero
+for all common zeros of the 
+$f_i$, $(h_1, \ldots , h_m)^{\rho}= 0 (f_1 , f_2 , \ldots , f_r)$.
+\\
+\\
+Note that an algebraic condition for solvability is not always
+possible:  Consider
+$a_1 x_1 +a_2 x_2 +a_3=0$,
+$b_1 x_1 +b_2 x_2 +b_3=0$; they have a solution in general if
+$a_1b_2-b_1a_2 \ne 0$ and the $d_i$ (the resultant system)
+would have to vanish for indeterminant $a, b$ and the
+equation would always have a solution but it doesn't.  However, this does work
+for homogeneous equations (forms).
+\end{quote}
+General idea of \emph{elimination} for forms relies on three lemmas:
+\\
+\\
+\emph{Lemma 1:} We can assume $x_1$ appears with non-zero
+constant coefficient.
+\begin{quote}
+\emph{Proof:} if not, substitute $x_1= u_1 x_1'$, 
+$x_2= x_2'+u_2x_1'$, ..., $x_n= x_n'+u_nx_1'$. 
+\end{quote}
+\emph{Lemma 2:}  If ${\cal F}$ has a non-trivial common solution, the $d_i$ do too.
+\begin{quote}
+\emph{Proof:} If the
+coefficients do not vanish, the $d_i$ give rise to a solution $(\xi_2, \ldots, \xi_n)$
+in $(x_2, \ldots, x_n)$ which can be extended to $x_1$; if not, the $d_i$ vanish identically
+and have a solution, say $(1,1,\ldots,1)$ and the $f_i$ have a solution $(1,0,\ldots,0)$
+with the coefficients of the $x_1$ terms $0$.  
+\end{quote}
+\emph{Lemma 3:} The system ${\cal F}$ has a
+resultant system of integral polynomials $b_j$ in the coefficients of the $f_i$ such that
+for a specialization of the coefficients of the $f_i$, ${\cal F}$ has a 
+non-trivial common solution iff the $b_j=0$; further, the $b_j$ are homogeneous in the
+coefficients of the forms.
+\\
+\\
+{\bf Elimination procedure:}  Successively eliminate $x_1 , x_2, \ldots, x_n$.  At each step,
+the $d_i$ obtained by eliminating previous $x_i$ are forms, 
+we can continue the elimination
+procedure until only $x_n$ remains and the resultant system becomes:
+${x_n}^{s_1} b_1,
+{x_n}^{s_2} b_2, \ldots,
+{x_n}^{s_k} b_k$ and by the above
+${x_n}^{s_j} b_j= 0 \jmod{(f_1, \ldots, f_n)}$.
+If elimination results in a non-zero constant, there is no
+common solution and we get $1= 0 \jmod{(f_1, f_2, \ldots, f_r)}$.
+\\
+\\
+Observe that not all solutions can be obtained by specialization.  Consider
+$f_1= x_1^2 + x_1 x_2$, $f_2= x_1 x_2 + x_2^2 + x_1 +x_2$, $(x_1+x_2)$ is a common factor
+so the resultant vanishes.  $\xi_1= -\xi_2$ is a solution; however, if $\xi_2= -1,
+\xi_1=0$ is also solution which does not fit the specialization solution.
+\\
+\\
+For the next few paragraphs, the system $\cal F$ consists of
+$r$ forms, $f_1, ..., f_r$ in $n$ variables
+with indeterminant coefficients.
+The indeterminants in $f_1$ are $a_1, \ldots , a_{\omega}$,
+the indeterminants in $f_2$ are $b_1, \ldots , b_{\omega}$
+and the indeterminants in $f_r$ are $e_1, \ldots , e_{\omega}$.  
+When $r=n$ the resultant system is generated by a single polynomial, $R$, called the
+resultant.
+\\
+\\
+Let ${\cal F}$ be a system of forms as above with
+$deg(f_i)=l_1$ and $l_1=\alpha, l_2= \beta, \ldots, l_r= \epsilon$.  
+By the above, $\exists T \in {\mathbb Z}[a_1, \ldots , e_{\omega}]$ such
+that ${x_i}^{\tau} T = 0 \jmod{(f_1, \ldots, f_n)}$. $T$ is called an inertial form.
+Set $f_1= f_1^* + a_{\omega}{x_n}^{\alpha}$,
+$f_2= f_2^* + b_{\omega}{x_n}^{\beta}$, ... ,
+$f_n= f_n^* + e_{\omega}{x_n}^{\epsilon}$, substituting
+$a_{\omega}= -{\frac {f_1^*} {x_n^{\alpha}}}$, ...,
+$e_{\omega}= -{\frac {f_r^*} {x_n^{\alpha}}}$, we get
+$T(a_1 , \ldots, -{\frac {f_1^*} {x_n^{\alpha}}}, \ldots, 
+-{\frac {f_r^*} {x_n^{\alpha}}}) =0$
+(Condition ``A'')
+and this actually holds for all $i$ if it holds for any $x_i$.  Conversely, if
+Condition ``A'' is satisfied, ${x_n}^{\tau} T=0 \jmod{(f_1, \ldots, f_r)}$.  
+\begin{quote}
+\emph{Proof:}
+We can use Condition A to rearrange $T$ in powers of
+$a_{\omega}+{\frac {f^*_1} {x_n^{\alpha}}}, 
+\ldots, e_{\omega}+{\frac {f^*_r} {x_n^{\epsilon}}}$ and the term independent of the
+powers vanishes so 
+$T= 0
+\jmod {(a_{\omega}+{\frac {f^*_1} {x_n^{\alpha}}},
+\ldots, e_{\omega}+{\frac {f^*_r} {x_n^{\epsilon}}})}$; multiplying through by the largest
+power of $x_n$ in the denominators, we get 
+$x_n^{\tau}T= 0 \jmod {(f_1, f_2 , \ldots , f_r)}$.
+The inertial forms form and ideal ${\cal I}$ which is prime and a basis for ${\cal I}$
+thus forms a resultant system.
+\end{quote}
+{\bf Theorem}:  If the number
+of forms, $f_i$, is less than the number of variables, $n$, then there is no inertial form
+distinct from $0$; if $r=n$, there is no inertial form independent of $e_{\omega}$ and
+distinct from $0$.  
+\begin{quote}
+The proof uses the following 
+\emph{Lemma:}  When a sequence of polynomials
+$f_1, \ldots, f_s$ in indeterminants $a_1 , a_2 , \ldots, a_p, x_1, x_2, \ldots, x_q$
+is algebraically dependent in $k[a_1, \ldots, a_p]$, this dependence is valid for
+every specialization $a_p=\alpha$.  
+\\
+\\
+\emph{Proof of Lemma:} Since
+$F(a_1, \ldots, a_p, f_1, \ldots , f_s)=0$ and
+$F(a_1, \ldots, a_p, z_1, \ldots , z_s) \ne 0$, $F(a,z)$ is not divisible by 
+$(a_p-\alpha)$ or we could reduce the relations. So
+$F(a_1, \ldots, a_{p-1}, \alpha, f_1, \ldots , f_s) \ne 0$.
+\\
+\\
+\emph{Proof of theorem:}
+If $r<n$, by Condition ``A'',
+$-{\frac {f_1^*} {x_n^{\alpha}}}, \ldots,
+-{\frac {f_r^*} {x_n^{\alpha}}}$ would be algebraically dependent relative
+to $k[a_1, \ldots, a_{\omega -1}, e_1, \ldots, e_{\omega -1}]$ and this continues to be
+true if $x_n = 1$.  If $r=n$ and the hypothesis is false, 
+$-{\frac {f_1^*} {x_n^{\alpha}}}, \ldots,
+-{\frac {f_{n-1}^*} {x_n^{\delta}}}$ would be algebraically dependent relative and
+we can set $x_n=1$.  In both cases, the lemma applies and we can specialize over any of the
+indeterminants without losing dependency.  Choose a specialization so
+$f_1, \ldots, f_s^{\delta} \rightarrow x_1^{\alpha}, \ldots, x_s^{\delta}$.  This is a
+contradiction since these terms are algebraically independent.
+\end{quote}
+{\bf Theorem}:  If $r=n$, there is a non-vanishing
+inertial form $D_e$, homogeneous in the indeterminants and of degree
+$L_n= l_1 l_2 \ldots l_{n-1}$ in the $e_j$.  
+\begin{quote}
+\emph{Proof:}  Put 
+$l= 1+ \sum_i^n (l_i -1)$ and consider, ${\cal P}$, the monomials of degree $l$ in the $x_i$.
+${\cal P}$ is a disjoint union of the following sets: 
+monomials of degree $l$ containing ${x_1}^{l_1}$,
+monomials of degree $l$ containing ${x_2}^{l_2}$ but not ${x_1}^{l_1}$, \ldots,
+monomials of degree $l$ containing ${x_n}^{l_n}$ but not 
+${x_1}^{l_1}$,
+${x_2}^{l_2}$, etc.  Suppose $H^{(m)}_{l-l_1}$ are the complementary monomials of
+the elements of the disjoint sets, i.e. - 
+${x_1}^{l_1}H^{(m)}_{l-l_1}$ are in the disjoint sets.  $H^{(m)}_{l-l_n}$ has
+$l_1 l_2 \ldots l_{n-1}$ power products ($x_1^k, 0 \le k < l_1$, etc).  Now form
+$H^{(m)}_{l-l_i} f_i$.  Since there are as many of these as power products, the matrix is
+square.  Denote its determinant as $D_e$ which has the value $1$ under the specialization
+$f_i= {x_i}^{l_i}$.  Multiplying the equations $H^{(j)}_{l-l_i} f_i = \sum a_{mk} H^{(k)}_l$
+by the subdeterminants of a column of $D_e$ and adding, the left hand side becomes
+linear in the $f_i$ and the right hand side, $D_e H^{(k)}_l$.  Letting
+$H^{(k)}_l= x_i^l$, we get $D_rx_i^l = 0 \jmod{(f_1, f_2, \ldots, f_r)}$ and $D_e$
+is homogeneous in each form, $f_i$ and has degree $L_n$ in the coefficients of $f_n$.
+\end{quote}
+Now, let $f_1, f_2, \ldots, f_n$ be forms in $x_1, x_2, \ldots, x_n$ with indeterminate
+coefficients and ${\cal I}$ the ideal generated by the inertial forms.  
+{\bf Theorem:} If $R$ is a polynomial of minimal degree in $e_{\omega}$, every element of 
+${\cal I}$ is divisible by $R$.  $R$ is the resultant.  
+\begin{quote}
+\emph{Proof:} Arrange $R$ in powers of
+$e_{\omega}, R= S {e_{\omega}}^{\lambda} + \ldots $.  If $T$ is in ${\cal I}$, we can
+get a polynomial, $T'=S^jT-QR$ of lower degree which is also in ${\cal I}$ but then $T'=0$ and
+$R \mid T$.  Note if $R$ vanishes for a specialization, every element of ${\cal I}$
+does also and the $f_i$ have a common 0; 
+conversely, if the $f_i$ have a common zero, since
+${x_i}^{\tau}R = A_1 f_1 + \ldots + A_n f_n$, substitution makes the right side of
+the equation $0$ but at least one $x_i \ne 0$ so $R=0$.  We have:
+{\bf Theorem}:
+$R(gh,f_2, \ldots, f_n)= R(g,f_2, \ldots, f_n) R(h,f_2, \ldots, f_n)$, $R$ is
+homogeneous of degree $L_1$ in the coefficients of $F_1$,
+homogeneous of degree $L_2$ in the coefficients of $F_2$, ..., 
+and homogeneous of degree $L_n$ in the coefficients of $F_n$,
+$R= (D_a, D_b, \ldots, D_e)$ is a principal ideal
+and the resultant contains a principal term
+${a_1}^{L_1} \ldots {e_{\omega}}^{L_n}$.
+\end{quote}
+{\bf Bezout's theorem:}  If $n-1$ homogeneous equations have a finite number of solutions
+then sum of the multiplicities equals 
+the product of the degrees of the equations.
+\begin{quote}
+\emph{Proof of Bezout}:  Suppose the system ${\cal F}, r=n$ has a finite 
+number of non-trivial
+solutions $(\xi_1^{(\alpha)}, \ldots, \xi_n^{(\alpha)})$, $\alpha= 1,2, \ldots, q$.
+Add the form $l= u_1 x_1 + \ldots + u_n x_n$ and form the resultant system $b_1(u),
+b_2(u), \ldots, b_t(u)$.  The resultant system has a solution iff
+$l_{\alpha}= u_1 {\xi_1}^{(\alpha)} + \ldots + u_n {\xi_n}^{(\alpha)} =0$.  By
+the Nullstellensatz: 
+$(b_i(u))^{\tau_i} = 0 \jmod{ (\prod_{\alpha} l_{\alpha})}$ and
+$(\prod_{\alpha} l_{\alpha})^{\tau}= 0 \jmod{D(u)}$ where
+$D(u) = ( b_1(u), \ldots, b_t(u))$.  So $D(u)= \prod_{\alpha} {l_{\alpha}}^{\rho_{\alpha}}$
+(the $\rho_{\alpha}$'s are the multiplicities).
+If we consider $n-1$ forms $f_i$ and add the form $l=u_1 x_1 + \ldots + u_n x_n$, we get
+Bezout's theorem.
+\end{quote}
+{\bf Berlekamp polynomial factorization over $F_q$:} $f(x)$ square free so
+$f(x)= p_1(x) \ldots p_r(x)$. 
+Note that $v(x)^p=v(x)$ and $(v(x)-0)(v(x)-1) \ldots (v(x)-(p-1)) \jmod{f(x)}$
+and $\exists s_i \in F_q: (f(x), v(x)-s_i)= p_i(x)$.
+Compute $x^{iq} \jmod{f(x)}= \sum q_{ij} x^j$.
+Find null space of $Q-I$ with basis $v_1 (x) , \ldots , v_r (x)$.
+Compute $(f(x), v_k (x) - \alpha ), \alpha \in F_q$.
+$f_{n}(x) = {\frac {(x^{n} - 1)} {\prod_{d \mid n, d<n} f_{d}(x)}}$.
+For \emph{distinct factors}, note that if $q(x)$ is irreducible of degree $d$ then
+$q(x) \mid x^{p^d} -x$ but $q(x) \mid x^{p^c} -x, c<d$.  To use this, rull out square free
+again, set $w(x)=x$, $d=0$ and repeatedly check $g_d(x)= w(x)-x, v(x)$ and replace
+$d$ by $d+1$,
+$w(x)$ by $w(x)^p$, and $v(x)$ by ${\frac {v(x)} {g_d(x)}}$.
+\\
+\\
+{\bf Submodules of finitely generated free modules over a PID:}
+Let $D$ be a PID and $D^{(n)}$ be a free module of rank $n$ over $D$.  Then any
+submodule, $K$ of $D^{(n)}$ is free with base $m \leq n$ elements.
+\begin{quote}
+\emph{Proof:}  By induction.  For $n=1$, $K$ is isomorphic to a principal ideal.
+Suppose the result is true for $n-1$.  Let
+$x_1, \ldots, x_n$ be a free basis for $M$.  
+If $K$ is contained in any module generated by all
+but one of the $x_i$, were done by induction.  Let $\pi_i$ be the projection on the
+$i$-th basis element.  
+$im((\pi_i)_{|K})$ is a principal ideal generated by $p_i$.  WLOG let $p=p_1$ generate the
+maximal ideal among these, so $p | p_i, \forall i$. 
+$\exists k \in K: k= p x_1 + p d_2 x_2 + \ldots + p d_n x_n$.
+Put $y= x_1 + d_2 x_2 + \ldots + d_n x_n$.  $M= Dy \oplus D x_2 \oplus \ldots \oplus D x_n$ 
+and $py \in K$.
+Set $K_1= (K \cap \langle x_2, \ldots, x_n \rangle)$.
+$K= (Dp) y + K_1$ and $Dp x_1 \cap K_1= \{0\}$ so $K= Dp y \oplus K_1$.
+Since $K_1 \subseteq \langle x_2 , x_3 , \ldots , x_n \rangle$, the result follows now 
+by applying the induction hypothesis.
+\end{quote}
+{\bf Multivariate division algorithm:}
+Fix a monomial order ($\leq$) for terms in $x_1, x_2, \ldots x_n$. Denote leading term of
+$f$ under this order as $in_{\leq}(f)$.   The division algorithm for $f$
+with respect to the monomial order produces
+$f(x)= a_1 (x) f_1 (x) + \ldots + a_m (x) f_m (x) + r(x) $
+where $r=0$ or $r$ is a linear combination of monomials none of which are
+divisible by $in_{\leq}(f_i )$.  This is written as
+$r= {f^F}$.  \emph{Procedure for multi-variable division algorithm:} Set
+$r \leftarrow f(x), a_i(x) \leftarrow 0$.
+Pick ordering of $f_1(x), f_2(x), \ldots , f_m(x)$.
+If $in_{\leq}(f_j) | in_{\leq}(r)$ for any $j$, pick first such $j$, set
+$t \leftarrow {\frac {in_{\leq}(r)} {in_{\leq}(f_j)}}$,
+$s \leftarrow s- t f_j(x)$,
+$a_j(x) \leftarrow a_j(x) + t$; repeat this step until if condition fails.
+$r \leftarrow s$.  In general, the result depends on the ordering of the
+$f_j(x)$.  \\
+\\
+{\bf Grobner Basis}:  A finite subset
+$G= \{ g_1 , g_2 , ..., g_s \}$ is a Grobner basis for an ideal $I$
+with respect to the monomial order $\leq$ if
+$\langle in_{\leq}(g_1 ), in_{\leq}(g_2 ), ... , in_{\leq}(g_s )  \rangle= 
+\langle in_{\leq}(I) \rangle$.
+Equivalently, if $f \in I$, $in_{\leq}(g_i ) | in_{\leq}(f)$ for some $i$.
+If $G$ is a Grobner basis $f^G$ is independent of the order of the $f_i(x)$.
+If $G$ is a Grobner basis and $I= \langle G \rangle$, $f \in I$ iff $f^G = 0$.
+\\
+\\
+{\bf Dickson's Lemma:}  If $S \subseteq N^n$ then $\exists v_1, v_2, \ldots v_m$ such
+that $S \subseteq (v_1 + N^n) \cup (v_2 + N^n) \cup \ldots \cup (v_m + N^n)$.
+\\
+Consequence: Every ideal has a Grobner basis.
+\begin{quote}
+\emph{Proof:} Let $S= \{v: x^v = in_{\leq}(f), f \in I \}$.  By Dickson,
+$S \subseteq \bigcup_i (v_i + N^n), i= 1,2, \ldots m$. If
+$f(x) \in I$,
+$ax^w = in_{\leq} (f), w= v_i + v$ for some $i, v$ then
+$x^w= x^{v_i}x^v$ hence $in_{\leq}(f_i) | in_{\leq}(f)$.
+\end{quote}
+{\bf Buchberger reduction:}
+$f \in R$ reduces to 0 with respect to  
+$f= \langle f_1, f_2, \ldots, f_m \rangle \subseteq R - \{0\}$
+iff $\exists a_1 , a_2 , \ldots , a_m \in R$:
+$f= a_1 f_1 + a_2 f_2 + \ldots + a_m f_m$ and $in_{\leq}(a_i f_i) \leq in_{\leq}(f)$
+if $a_i f_i \ne 0$.  This is denoted by $f \rightarrow_F 0$.
+Let $G= (g_1,g_2, \ldots, g_m)$, $I= \langle G \rangle$.  
+If $f \rightarrow_G 0$ for all $f \in I$
+then $G$ is a Grobner basis.  If $G$ is a Grobner basis for $I$,
+$f^G=0$ iff $f \rightarrow_G 0, \forall f \in I$.
+$S(f, g)= {\frac {x^{\gamma}} {in_{\leq}(f)} } f - {\frac {x^{\gamma}} {in_{\leq}(g)} } g$,
+where $x^{\gamma}= LCM(in_{\leq}(f),in_{\leq}(g))$.
+If $S(f_i, f_j) \rightarrow_F 0, \forall i,j$ then $f \rightarrow_F 0, \forall f \in I$.
+$F$ is a Grobner basis iff $S(f_i,f_j) \rightarrow_F 0, \forall i,j$ iff
+$S(f_i, f_j)^F = 0, \forall i,j$.
+\\
+\\
+{\bf Buchberger Algorithm:}
+Test $S(f_i, f_j)^F \ne 0$, $F= F \cup \{ S(f_i, f_j) \}$.  Do this
+until all $S(f_i, f_j)^F=0$.  This procedure terminates.
+\\
+\\
+{\bf Minimal Grobner:}
+$in_{\leq}(f_i)$ does not divide
+$in_{\leq}(f_j)$ and coefficients are 1.  \emph{Reduced Grobner:} Minimal Grobner where
+$in_{\leq}(f_i)$ does not divide any term of $in_{\leq}(f_j)$.
+\emph{Example:} $F=(x^2+y, x^2y+1)$.  $S(x^2+y, x^2y+1)= y^2-1$,
+$(x^2+y, x^2y+1, y^2-1)$ is a Grobner basis.
+\emph{Elimination ideals:} $I_l = I \cap k[ x_{l+1} , ..., x_{n} ]$.
+\\
+\\
+{\bf More on Resultants.} Condition 1: 
+$F_{0}(x_0 , x_1 , \ldots , x_n) = F_{1}(x_0 , x_1 , \ldots , x_n) =
+\ldots = F_{n}(x_0 , x_1 , \ldots , x_n)=0 $, 
+with each $F_i$ homogeneous of degree
+$d_i$ in the $x_i$.  Let $F_i (x_0 , x_1 , \ldots , x_n)= \sum_{|\alpha|= d_i} 
+u_{i, \alpha} x^{\alpha}$.
+{\bf Theorem 1:} Fix $d_0 , d_1 , \ldots , d_n$, there is a unique polynomial
+$Res \in {\mathbb Z} [ u_{i, \alpha}]$ such that if $u_{i,\alpha}$ are replaced by the 
+corresponding $c_{i,\alpha} \in {\mathbb C}$
+and $F_i$ is homogeneous of degree $d_i$ then (a) the equations of condition 1 have a 
+non-trivial solution in ${\mathbb C}$ iff $Res(F_0 , F_1 , \ldots , F_n)=0$, (b)
+$Res( x_0^{d_0}, x_1^{d_1}, \ldots , x_n^{d_n}) = 1$, (c) $Res$ is irreducible.  
+Sometimes we write 
+$Res_{d_0 , d_1 , \ldots , d_n}$ to emphasize degrees.
+Note that $Res_{1,1, \ldots , 1}$ is just the determinant.
+{\bf Theorem 2:} For fixed $j, 0 \le j \le n$, $Res$ is homogeneous in $u_{j, \alpha}$
+of degree $d_0 \cdot d_1 \cdot d_{j-1} \cdot d_{j+1} \cdot d_n$; further,
+$Res(F_0, \ldots , F_{j-1} , \lambda F_j , F_{j+1}, \ldots, F_n)
+\lambda^{ d_0 \cdot d_1 \cdot d_{j-1} \cdot d_{j+1} \cdot d_n}
+Res(F_0, F_1 , \ldots , F_n)$ and the total degree of $Res$ is $\sum_{j=0}^n
+d_0 \cdot d_1 \cdot d_{j-1} \cdot d_{j+1} \cdot d_n$.  $Res$ is alternating in the
+$F_i$ and 
+$Res(gh , F_2, \ldots, F_n) = Res(g , F_2, \ldots, F_n) Res(h , F_2, \ldots, F_n)$.
+\emph{Example:}
+$Res_{2,2,2} (F_0 , F_1 , F_2)$ has $18$ variables of total degree 
+$12$ and $21,894$ terms.  
+If $f(x)= a_l x^l + \ldots + a_0$ and
+$g(x)= b_m x^m + \ldots + b_0$ then
+$Res(f,g,x)= a_l^m b_m^l \prod_{i=1}^l \prod_{j=1}^m (\xi-\eta_i)= 
+a_l^m \prod_{i=1}^l g(\xi_i)=
+b_m^l \prod_{i=1}^m f(\eta_i)$.  Put $A_f= k[x]/(f(x))$ and let $[h]_f$ be
+the natural map from $k[x] \rightarrow A_f$, further, let
+$m_g: [h]_f \mapsto [gh]_f$ then $m_g$ is a linear map and $Res(f,g,x)= det(m_g)$.
+\subsection{Linear Algebra}
+{\bf Homomorphisms on modules:}
+Left module $M$ over $R$ with $RM \subset M$, $1 m = m, (r+s)m=rm+sm$, etc.
+Notation: $End_R(X)= Hom_R(X,X)$.
+$Hom_R(U,V)= \{ f, f:U \rightarrow V, 
+f(r_1 u + r_2 v)= r_1 f(u) + r_2 f(v) \}$ where $r_i \in R$.
+\\
+\\
+{\bf Definition:} 
+If $V$ is a vector space (or module) then $V^*$, the set of linear functions over $V$, 
+is the \emph{dual space}.  
+\\
+\\
+{\bf Theorem:}
+If $V$ is finite dimensional, $dim(V)= dim(V^*)$.  $V \approx V^{**}$.  
+Observe that the solution space is the
+kernel of linear map, $L$. 
+$colRank + dim(ker(L))=n$.  $rowRank + dim(ker(L))=n$.
+\begin{quote}
+\emph{Proof:} Let
+$L = 
+\left(
+\begin{array}{ccc}
+a_{11} & \ldots & a_{1n}\\
+\ldots & \ldots & \ldots\\
+a_{m1} & \ldots & a_{mn}\\
+\end{array}
+\right)$.  $L: {\mathbb R}^n \rightarrow {\mathbb R}^m$.  The image of $L$ is the column
+space of $L$ and the kernel of $L$ is the solution space to $Lx = 0$.
+${\mathbb R}^n / ker(L) \cong im(L)$ so $n - dim(ker(L)) = colRank(L)$.
+Now, $ker(L)$ is the space of vectors in ${\mathbb R}^n$ orthogonal to the
+rows of $L$ so $dim(ker(L)) + rowRank(L) = n$. So, $rowRank(L) = colRank(L)$.
+\end{quote}
+{\bf Theorem:}   Suppose $r_1, r_2 , \ldots , r_m \in {\mathbb R}^n$ are linearly independent and
+$S= \{ x \in {\mathbb R}^n: x \cdot r_i=0 \}$ then $dim(S)=n-m$.
+\begin{quote}
+\emph{Proof:}  Put $W= \{ r_1, r_2, \ldots , r_m \}$.
+$r_i \notin S$ since $r_i \cdot r_i \ne 0$ so $dim(S) \le n-m$.  Define $\alpha: x \mapsto
+(x \cdot r_1, \ldots , x \cdot r_m)$.  Then $dim(ker(\alpha)) = dim(S)$ and
+$dim(ker(\alpha)) + dim(im(\alpha)) =n$.  Since $dim(im(\alpha)) \le m$, $dim(S) + m \ge n$ so
+$dim(S) \ge n-m$.
+\end{quote}
+{\bf Theorem:} The row rank, $r$, equals column rank, $c$. 
+\begin{quote}
+\emph{Proof:} Let $A= (a_{ij})$ be an $m \times n$ matrix.  
+Let $\langle S_1 , \ldots , S_r \rangle$ be a basis for the row space.
+Put $S_i= (s_{ij}), 1 \leq j \leq n, 1 \leq i \leq r$. 
+Let row $i$, $R_i= (a_{i1}, a_{i2}, \ldots, a_{in})$.
+$R_i = \sum_{t=1}^r k_{it} S_t$.  
+So $a_{ij}= \sum_{t=1}^r k_{it} s_{tj}, 1 \leq j \leq n, 1 \leq i \leq m$ and
+the column vectors $(k_{1i}, k_{2i} , \ldots , k_{mi})^T, 1 \le i \le r$ 
+span the column space.  Thus $c \leq r$.
+The same holds for $A^T$ and so $r \leq c$ and $r=c$.
+\\
+\\
+\emph{Artin's proof:}
+\\
+\emph{Lemma:} If $W \subset V$ are vector spaces over $k$ and $W^{\perp} \subset V^*$ then
+$dim(W) + dim(W^{\perp}) = dim(V)$.
+\\
+\emph{Proof of result:} Let $T:k^n \rightarrow k^m$ be the
+linear transformation represented by the matrix $M$ with rows $r_1 , r_2 , \ldots , r_m$
+and columns $c_1, \ldots , c_n$ and let the row space of $M$ be $R$ and the column space,
+$C$; finally, let $r=dim(R)$, $c=dim(C)$ and $W= ker(T)$.  Since $dim(Im(T))+dim(W)=n=dim(V)$,
+$r=n-dim(W)$ and $dim(W) + dim(W^{\perp})=n$, it suffices to show $dim(W^{\perp})=r$.  
+Note that
+$r_i \cdot w= 0$ for $w \in W$ so, if $\lambda_i$ is the usual dual basis of $V^*$ with
+respect to 
+$\langle e_1 , e_2 , \ldots , e_n \rangle$ where
+$\langle e_1 , e_2 , \ldots , e_k \rangle=W$.  
+Let $\lambda_j$ be the natural dual basis and note that
+$R \subseteq \langle e_{k+1} , e_{k+2}, \ldots , e_n \rangle$ 
+since $r_i \cdot \lambda_j=0$ for $j \le k$.
+Now let 
+$b_{k+1} \lambda_{k+1} + \ldots + b_n \lambda_n = \lambda \in W^{\perp}$.
+Consider
+$\varphi: \lambda \mapsto b_{k+1} e_{k+1} + \ldots + b_n e_n$.  If 
+$\varphi(\lambda)=0$, $\lambda=0$ so $dim(R)=dim(W^{\perp})$ and the result holds.
+\end{quote}
+Here's still another proof.\\
+\\
+{\bf Theorem:} If $A:V \rightarrow W$ is a linear transformation (i.e, $A \in Hom_{\mathbb R}(V,W)$) between two 
+finite dimensional vector spaces over ${\mathbb R}$, then $V = U \oplus S$ where $U \cong im(A)$ and $S=ker(A)$.
+\begin{quote}
+\emph{Proof:}  Let $\langle u_1, u_2, \ldots , u_k \rangle$ be a basis for $im(A)$, so $k=dim(im(A))$.  Pick
+$v_1, \ldots, v_k \in V: A(v_i)= u_i, 1 \leq i \leq k$. First observe $\langle v_1, \ldots, v_k \rangle$ are
+linearly independent because $a_1 v_1 + \ldots + a_k v_k = 0$ implies $a_1 A(v_1) + \ldots + a_k A(v_k) = 0$ so
+$a_1 u_1 + \ldots + a_k u_k = 0$ and all the $a_i$ are $0$ since $\langle u_1, u_2, \ldots , u_k \rangle$ is
+a basis; also note that $U= span(v_1, \ldots, v_k) \cong im(A)$.
+Let $S= ker(A)$.  $V= U + S$ so we need only show $U \cap S = 0$.
+If $v= a_1 v_1 + \ldots + a_k v_k \in S$ then $a_1 A(v_1) + \ldots + a_k A(v_k) = 0$ but since $\langle u_1, u_2, \ldots , u_k \rangle$
+is a basis, we must have $v=0$.
+\end{quote}
+{\bf Theorem:} Let $V= {\mathbb R}^n$ and $\langle v_1, \ldots, v_m \rangle$ be a set of linearly independent vectors in $V$.
+Put $S= \{v \in V: (v_i, v)= 0, i = 1, \ldots, m\}$.  Finally, put $s= dim(S)$.  $s+m = n$.
+\begin{quote}
+\emph{Proof:}  
+Put $W= span(v_1, \ldots, v_m)$.
+First note that $S \cap W = 0$ because $v \in S \rightarrow (v,w)=0, \forall w \in W$.  If $v \in W$, this means $(v,v)=0$ so
+$v=0$.  Now, $dim(W+S) = dim(W) + dim(S) - dim(S \cap W)= dim(W) + dim(S) \leq n$  so $n - m \geq s$.  
+Define $\alpha: V \rightarrow {\mathbb R}^m$ by $\alpha(v) = ( (v_1, v), (v_2, v), \ldots, (v_m, v) )$. 
+$\alpha \in Hom_{\mathbb R}({\mathbb R}^n, {\mathbb R}^m)$ so $im(\alpha) + ker(\alpha) = {\mathbb R}^n$.
+$ker(\alpha) = S$ and $dim(im(\alpha)) \leq m$ since $im(\alpha) \subseteq {\mathbb R}^m$.  Thus
+$m + s \geq n$ and $s \geq n-m$, this, along with the previous inequality gives $n-m=s$.
+\end{quote}
+{\bf Theorem:}  Let $A=
+\left(
+\begin{array}{cccc}
+a_{11} & a_{12} & ... & a_{1n} \\
+... & ... & ... & ... \\
+a_{m1} &  a_{m2} & ... & \ a_{mn}\
+\end{array}
+\right)$.  $A: {\mathbb R}^n \rightarrow {\mathbb R}^m$.  Let $r$ be the row rank of $A$ and $c$ be the column rank. Then
+$r=c$.
+\begin{quote}
+\emph{Proof:}  
+Put $a_i^{R} = (a_{i1},  a_{i2} ,  \ldots a_{in}), 1 \leq i \leq m$ and 
+$a_j^{C} = (a_{1j},  a_{2j} ,  \ldots a_{mj})^T, 1 \leq j \leq n$.
+Put $S= \{x \in {\mathbb R}^n: (a_i^{R}, x)=0, 1 \leq i \leq m \}$ and $s= dim(S)$.  Note that $S=ker(A)$.  By the previous theorem,
+$n= s + r$. The column space of $A$ is $V_{CS}= span(a_1^{C}, \ldots ,a_n^{C})$ which is just $im(A)$.  So
+$n = c +s$.  Thus $r=c$.
+\end{quote}
+{\bf Change of basis for matrix:}
+Let $[e]= \{ e_1 , \ldots , e_n \}$ be a basis for $V_n$ and let $L$ be a
+linear transformation on $V_n$.  Let 
+$v_{[e]} = [c_1 , c_2 , ... , c_n]^T$ denote the
+coordinates of $v$ with respect to $[e]$: $v_{[e]}= c_1 e_1 + ...+ c_n e_n$.
+Let $L_{[e]}$ denote the
+matrix for $L$ with respect to $[e]$: $L_{[e]}: e_i \mapsto \sum_j a_{ji} e_j$. Then
+$L_{[e]} v_{[e]} = (Lv)_{[e]}$.  If $f_i= \sum_j b_{ji} e_j$ is another basis,
+$P= (b_{ij})$ is called the transition matrix from $[f]$ to $[e]$ and $P^{-1}$ is
+the transition matrix from $[e]$ to $[f]$ (note the sum over the first index).
+$Pv_{[f]}= v_{[e]}$ and
+$v_{[f]}= P^{-1}v_{[e]}$.  Finally, $L_{[f]}= P^{-1} L_{[e]}P$.  The same holds over free
+modules.  Alternate notation: $L: V \rightarrow W$, 
+$V$ has basis ${\cal B}$ and
+$W$ has basis ${\cal B'}$ with $L(w_i)= \sum_j a_{ij} v_j$ then
+$M^{\cal B}_{\cal B'}(F)= A^T$.  If ${\cal B}$ and ${\cal B'}$ are over
+the same space, 
+$M^{\cal B'}_{\cal B'}(F)=
+N^{-1}M^{\cal B}_{\cal B}(F)N$ where
+$N= M^{\cal B'}_{\cal B}(id)$.
+\\
+\\
+{\bf Theorem:}
+The group of \emph{affine transformations} is isomorphic
+to the subgroup of the matrices with last column $(0,0, \ldots, 0,1)$.
+The translations form a normal subgroup.
+\\
+\\
+{\bf Cayley-Hamilton Theorem:}  
+Any matrix, $A$,
+acting on a vector space $V$ of dimension $n$, over a field, $F$, whose 
+characteristic roots lie in $F$ (For example, if $F$ is
+algebraically closed field) is similar to a 
+triangular one.  The minimum polynomial divides the characteristic polynomial.
+\begin{quote}
+\emph{Proof:}
+The second statement follows from the first since the characteristic roots, $\lambda_i$
+appear on the diagonal of the triangular matrix and the characterisitic polynomial is
+thus $f(x)= \prod_{i=1}^n (x-\lambda_i)$.  $f(A)=0$ so the minimal polynomial divides the
+characteristic polynomial.  The proof of the first statement is by induction on $n$.  It is
+true for $n=1$.  Suppose it's true for $n-1$.  $A$ has an eigenvalue, say, $\lambda_1$ in
+$F$ with $Av= \lambda_1 v_1, v_1 \ne 0$.  Put $W= \{ av_1, a \in F \}$. $A$ acts on
+$V/W$ which has dimension $<n$ so by induction, $\exists v_2 , \ldots , v_n$ and
+$a_{ij} \in F$: 
+$A {\overline v}_2= a_{22} {\overline v}_2$,
+$A {\overline v}_3= 
+a_{32} {\overline v}_2 +
+a_{33} {\overline v}_3$,
+and so on.  Let $v_i, i>1$ be corresponding elements of $V$.  $Av_2-a_{22}v_2 \in W$ and
+so on.  Thus $A$ is triangular in the basis $\{ v_1, \ldots, v_n \}$.
+\end{quote}
+{\bf Definitions:} Let $A^*$ denote the \emph{adjoint} (conjugate transpose).  
+$(Ax,y)=(x,A^*y)$.
+A \emph{hermitian matrix} is self adjoint over complex numbers.
+A \emph{symmetric matrix} is self adjoint over reals.  
+A \emph{unitary matrix} $AA^*=I$; equivalently: $A$ is length
+preserving: $(Ax,Ay)=(x,y)$.  
+$A$ is \emph{nilpotent} if $\exists q$: $A^q = 0$, smallest $q$ is degree of nilpotence.
+$A$ is \emph{normal} if $A A^*= A^* A$.
+\\
+\\
+{\bf Theorem:}
+If $T$ is any linear transform on $V_n$, $\exists M_0 , M_1 , \ldots , M_n$:
+(i) $AM_k \subseteq M_k$, (ii) $dim (M_j )= j$, (iii)
+$\{0\} = M_0 \subseteq M_1 \subseteq \ldots \subseteq M_n= V_n$.
+\begin{quote}
+\emph{Proof:}
+\end{quote}
+{\bf Theorem:}
+If $A$ is a linear transform on $V_n$ with proper values
+$\lambda_1 , \lambda_2 ,  \ldots , \lambda_p$ having multiplicity
+$m_1 , m_2 ,  \ldots , m_p$ then $V_n =  M_1 \oplus \ldots \oplus M_p$ with
+$AM_j \subseteq M_j$, $dim(M_j ) = m_j$ and $A- \lambda_j I$
+is nilpotent on $M_j$.
+\begin{quote}
+\emph{Proof:}
+\end{quote}
+{\bf Theorem:}
+If $A$ is nilpotent of degree $q$, $\exists x$: $A^{q-1}x \ne 0$ and
+$x , Ax , A^2 x, \ldots A^{q-1} x$ are linearly independent.  
+Every linear transform is the direct sum of a nilpotent and an invertible transform.
+\begin{quote}
+\emph{Proof:} 
+The existence of $x$ is guarenteed by nilpotence.
+If $a_0 x +  a_1 Ax + a_2 A^2 x  + \ldots a_{q-1} A^{q-1} x = 0$, applying $A$
+$q-1$ times, we get  $a_0 A^{q-1}(x)= 0$ which is a contradiction. 
+\end{quote}
+{\bf Theorem:}
+If $A$ is symmetric and $X$ is orthogonal then $X A X^{-1}$ is symmetric.
+\begin{quote}
+\emph{Proof:}  Since $X$ is orthogonal, $X^{-1} = X^T$.
+$X A X^{-1} = (X A X^T)^T = X A^T X^T = X A X^T = (X A X^{-1})^T$.
+\end{quote}
+{\bf Theorem:}
+$T$ is orthogonal (unitary) iff it takes orthonormal basis into orthonormal basis
+which happens iff $TT^*=I$.  
+\begin{quote}
+\emph{Proof:} 
+If $T$ is unitary and $\langle v_1, \ldots , v_n \rangle$ is an orthonormal basis,
+$(Tv_i, Tv_j)= (v_i, v_j)= \delta_{ij}$ and $\langle Tv_1 , \ldots , Tv_n \rangle$ is
+an orthonormal basis.
+If $T v_i = w_i$ and 
+$\langle v_1 , \ldots , v_n \rangle$ and $\langle w_1 , \ldots , w_n \rangle$ 
+are both orthogonal basis extending linearly we get, $(Tx, Ty)= (x,y)$ and $T$ is unitary.
+\end{quote}
+{\bf Theorem:}  (a) If $S^*S(v)=0$, $S(v)= 0$.
+Suppose $N$ is \emph{normal}. 
+(b) $N(v)= 0 \rightarrow N^*(v)= 0$.
+(c) If $N(v)= \lambda v$, $N^*(v)= {\overline {\lambda}} v$. 
+(d) If $N^k(v)=0$ then $N(v)=0$.
+(e) If $N(v)= \lambda v, N(w)= \mu w, \lambda \ne \mu$ then $(v,w)= 0$.
+\begin{quote}
+\emph{Proof:} 
+For (a), $(S^*S(v),v) = 0 = (S(v), S(v))$ and so $S(v)= 0$.
+For (b), $(N^*(v), N^*(v))= (NN^*v,v)= (N^*Nv,v)=(Nv,Nv)=0$.
+For (c), $(N-\lambda) (N^*-{\overline {\lambda}}) $.  Since 
+$(N-\lambda)$ is normal and
+$(N-\lambda)(v)= 0$, (b) gives
+$(N-\lambda)^*(v)= 0$ and the result follows.
+For (d), let $S=N^*N$ then $S^k v= (N^*)^k N^k v= 0$.  Since $S^*=S$, $S(v)= 0$ by
+(a) and again by (a) $N(v)= 0$.
+For (e), $\lambda (v,w)= (Nv,w)= (v, N^* w)= (v, {\overline {\mu}} w)= \mu (v,w)$ and
+the result follows.
+\end{quote}
+{\bf Spectral Theorem:}  If $T$ is \emph{normal} ($TT^*=T^*T$), $\exists E_{1}, 
+\ldots , E_{r}$ such that $T= \sum_{i}^{r} \lambda_{i} E_{i}$ with
+$T= \sum_{i}^{r} E_{i}= I$, $E_{i}E_{j}= 0$ and transforming matrix, A,
+unitary $({\overline A^{t}} = A^{-1})$.
+\begin{quote}
+\emph{Proof:} 
+Let $\lambda_1, \ldots, \lambda_k$ be the distinct characteristic roots of $T$.  By
+the primary decomposition theorem, $V= V_1 \oplus \ldots \oplus V_n$
+and each $V_i$ is annihilated by $(T-\lambda_i)^{n_i}$.  Vectors
+in different $V_i$'s are orthogonal and each $V_i$ has an orthonormal basis by Gram-Schmidt.
+$T$ can be transformed into an upper triangular matrix with its eigenvalued on the diagonal,
+sinfe $T$ is normal, this matrix must be diagonal.
+\end{quote}
+{\bf Theorem:}
+If $A$ is symmetric there is a $P$ such that $P^TAP$ is diagonal.  All the 
+eigenvalues are real.
+\begin{quote}
+\emph{Proof:} Diagonalizability follows from the Spectral theorem.  If
+$Av= \lambda v$, $(AA^Tv, v)= (Av,Av)= \lambda^2>0$ so the eigenvalues are real.
+\end{quote}
+{\bf Sylvester's Theorem:}
+Every real quadratic form is equivalent to a diagonal one
+with a signature of positive and negative coefficients.   
+Two forms are
+equivalent iff they have the same rank and signature.
+\begin{quote}
+\emph{Proof:} 
+Since the matrix for the form is real and symmetric it can be brought into diagonal form
+by an orthogonal transformation and the eigenvalues are the diagonal elements of the
+matrix.  The rank is invariant and so the number of nonzero elements is an invariant.
+Because there are square roots, we can assume the elements are $\pm 1$.  If 
+$r$ is the number of $-1$'s and 
+$s$ is the number of $1$'s we need only show these are invariants.  Since the subspace
+of vectors on which the form is positive is an invariant, we're done.
+\end{quote}
+{\bf Definition:}
+Extreme point in {convex} set: $P$ with no $Q_1$, $Q_2$ such that $P= t Q_1 + (1-t) Q_2$,
+$t>0$.
+\\
+\\
+{\bf Krien Millman Theorem:}  
+If $S$ is a closed, bounded convex set, then $S$ is the convex closure
+of its extreme points.
+\\
+\\
+{\bf Principal Axis Theorem:}
+Any real quadratic form is equivalent to one with $Q(\eta)= \lambda_1{x_1}^2 +
+\ldots + \lambda_n {x_n}^2$ with
+$\lambda_1 \geq \lambda_2 \geq \ldots \geq \lambda_n$.
+\begin{quote}
+\emph{Proof:}
+Find eigenvector $v$, $V= \langle v \rangle \oplus \langle v \rangle^{\perp}$.
+\end{quote}
+{\bf SVD:} $A= U \Sigma V^T$, $\Sigma$ diagonal and $U U^T=V V^T = 1$.
+\\
+\\
+{\bf Theorem:}
+An $n \times n$ matrix is \emph{diagonalizable} iff it has $n$ linearly independent
+eigenvectors.  A matrix is diagonalizable iff its minimal polynomial is a 
+product of different linear factors.
+Two matrices are simultaneously diagonalizable iff
+they are diagonalizable and commute.
+\begin{quote}
+\emph{Proof:} The first and second statements are easy.  The third statement is
+proved by induction on $n$.  It is clear for $n=1$.  Let 
+$ \lambda_1, \lambda_2, \ldots, \lambda_k$ be the characteristic values
+of $T$ and $W_i$ be the null space of $T-\lambda_i$.  Each $W_i$ is an invariant space
+and the $T_{|W_i}$ is diagonalizeable.  Since $dim(W_i)<dim(V)$ the commuting operators
+restricted to these spaces can be simultaneously diagonalized.  Composing the diagonal
+bases of the restricted transformations yields a basis in which all the matricies are
+diagonal.
+\end{quote}
+{\bf Theorem:}
+Let $f: A \rightarrow A'$ be surjective.  $A$, $A'$ abelian, $A'$ free.
+$\exists C \subseteq A$ such that $A= ker(f) \oplus C$.
+\begin{quote}
+\emph{Proof:} 
+Let $\langle x_i' \rangle$ be a basis of $A'$ and for each $i \in I$, let $x_i \in A$
+be such that $f(x_i )= x_i'$.  Put $C= \langle x_i \rangle$ and $B=ker(f)$.  If we have
+$\sum_{i \in I} n_i x_i = 0$, applying $f$ yields
+$\sum_{i \in I} n_i x_i' = 0$ and $\langle x_i \rangle$ is a basis.
+Similarly, if $z \in C$ and $f(z)= 0$ then $z= 0$.  Hence $B \cap C =0$.
+Let $x \in A$.   Since $f(x) \in A'$, $\exists n_i, i \in I:
+f(x)= \sum_{i \in I} n_i x_i'$.  Applying $f$ to $x - \sum_{i \in I} n_i x_i = b \in B$.
+$x \in B + C$ and so $A= B \oplus C$.
+\end{quote}
+{\bf Submodules of free modules over PIDs:}  
+Let $D^{(n)}$ be a free $D$-module, $D$, a PID, with basis $X= [e_1 , e_2 , \ldots , e_n]^T$.  
+If $P$ is invertible, $Y= [e'_1, \ldots , e'_n]^T= P X$ is another basis for $D^{(n)}$.
+Let $K$ be a submodule generated by
+$U=[u_1, \ldots , u_m]^T = A X$.  $A$ is called a relations matrix.
+Suppose $Q$ is invertible so that
+$V= QU$ is another set of generators for $K$.
+$V= QU = QAX= QAP^{-1}Y$.  $B=QAP^{-1}$ is the new relations matrix for the basis $Y$.
+$A$ and $B$ are called \emph{equivalent}.
+In the foregoing, $M$ is finitely generated and we note that the map
+$f: e_i \mapsto u_i$ extends to a homomorphism
+and $M \cong D^{(n)} / K$ where $K= ker(f)$.  $K$ is
+a submodule of $D^{(n)}$ and by a previous result, is free with a base of size $m \le n$.
+\\
+\\
+{\bf Theorem:}  If $A$ is an $m \times n$ matrix with entries from a PID,
+$D$, then $A$ is equivalent to a matrix of the form
+$diag(d_1, d_2, \ldots, d_r, 0, 0, \ldots, 0)$ with $d_i \ne 0$ and $d_i \mid d_{i+1}$.
+The proof simply requires applying elementary row and column operations to 
+$A$ as is done below.
+There, let $O_{ij}= (\delta_{il} \delta_{jk})_{1 \leq l \leq n, 1 \leq k \leq n}$
+and $E_{ij}(\alpha)= I+ \alpha O_{ij}$.
+$E_{ij} (\alpha) A$ acts on $A$ by adding $\alpha$ times row $j$ to row  $i$.
+$A E_{ij} (\alpha) A$ acts on $A$ by adding $\alpha$ times column $i$ to column $j$.
+\\
+\\
+\emph{Example:} Suppose $D= {\mathbb Z}$ and $F= {\mathbb Z}^{(3)}$ 
+is a free abelian group with basis $x_1, x_2, x_3$ and
+$K$ is the submodule generated by
+$u_1= 2 x_1 + 2x_2 + 8 x_3$ and $u_2= -2 x_1 + 2 x_2 + 4 x_3$ and
+$F/K= 
+\langle x_1 , x_2, x_3  | 2 x_1 + 2x_2 + 8 x_3 = 0$, $-2 x_1 + 2 x_2 + 4 x_3 = 0 \rangle$.
+We have $ \left(
+\begin{array}{ccc}
+2 & 2 & 8\\
+-2 & 2 & 4\\
+\end{array}
+\right) 
+\rightarrow
+\left(
+\begin{array}{ccc}
+2 & 0 & 0\\
+0 & 4 & 0\\
+\end{array}
+\right)$ 
+and $F/K = {\mathbb Z}_2 \oplus {\mathbb Z}_4 \oplus {\mathbb Z}$.
+\\
+\\
+{\bf Structure theorem for finitely generated modules over principal ideal domains:} 
+If $M \ne 0$ is a finitely generated module over a PID, $D$. Then $M= Dz_{1} \oplus
+Dz_{2} \oplus \ldots \oplus Dz_{s}$ with
+$ann(z_{1}) \supseteq ann(z_{2}) \supseteq \ldots \supseteq ann(z_{s})$, 
+$z_{k} \ne 0$.  Note $D z_i \cong D/ann(z_i)$.
+\begin{quote}
+\emph{Proof:} 
+First, $Dx \cong D/ann(x)$, always.
+Let the base of $D^{(n)}$ be $e_{1}, e_{2}, \ldots , e_{n}$ and let
+$\eta: D^{(n)} \rightarrow M$ be the canonical map
+$\sum_i a_i e_i \mapsto \sum_i a_i x_i$ where $\langle x_i \rangle$ are generators
+for $M$.  $M \cong D^{(n)}/K$. $K= ker(\eta)$ is generated by 
+$f_{i}= \sum_j a_{ij} e_{j}, i= 1, 2, \ldots , n$.  
+The Smith reduced canonical relations matrix is
+$QAP^{-1}= diag(d_{1}, d_{2}, ..., d_{r}, 0, \ldots, 0 )$ and $d_{i} \mid d_{i+1}$,
+$P=(p_{ij}), Q= (q_{ij})$.
+So $f'_{i}= d_{i} e'_{i}$ where $e_i'= \sum_j p_{ij} e_j$ and 
+$f_i'= \sum_j q_{ij} f_j$. 
+$y_i= \sum_j p_{ij} x_j$ is another set of generators for $M$ (i.e.,
+$M= \sum D y_i$).  If $\sum_i b_i y_{i}=0$ then $\sum_i b_i e_i' \in K$ so
+$\sum_i b_i e_i' = \sum_i c_i f_i'= \sum_i c_i d_i e_i'$ and so $b_i = c_i d_i$ and 
+$b_i y_i=0, \forall i$, since each $d_i y_i= 0$, already.
+$ann(y_{i})= (d_{i})$ by construction.  If $d_{i}$ is a unit, $d_i y_i= 0 \rightarrow y_i= 0$ 
+and we can drop $y_i$ from the list of generators.  Thus if the first $t$ $d_i$ are units,
+putting $z_{1}= y_{t+1} , \ldots, z_{s}= y_{n}$, $s= n-t$, we get the desired result.
+\end{quote}
+{\bf Notation:}  Let $T$ be and endomorphism of the $D$-module, $M$ $\alpha \in M$.
+$Z(\alpha, T)$ is the cyclic subspace generated by $T$.  The $T$-annihilator
+of $\alpha$ is $(p(x))$ since $D$ is a PID where
+$p(x)= x^k + c_{k-1} x^{k-1} + \ldots + c_0$.  
+The companion matrix (matrices operating on the left) is $C_T=
+\left(
+\begin{array}{cccccc}
+0 & 1 & 0 & \ldots & 0 & 0\\
+0 & 0 & 1 & \ldots & 0 & 0\\
+\ldots & \ldots & \ldots & \ldots & \ldots & \ldots \\
+0 & 0 & 0 & \ldots & 0 & 1\\
+-c_0 & -c_1 & -c_2 & \ldots & -c_{k-2} & -c_{k-1}\\
+\end{array}
+\right)$.
+For a vector space of $V$ over $F$, $T: V \rightarrow V$,
+the \emph{rational decomposition}
+is $V= Z(\alpha_1, T) \oplus \ldots \oplus Z(\alpha_r, T)$.  Again, the PID is $D= F[x]$.
+\\
+\\
+{\bf Application to a linear transformation:} Suppose 
+$e_1, \ldots, e_n$ is a basis for $V$ over $F$ and put $D= F[\lambda]$.  Let 
+$T(e_i) = \sum_j a_{ij} e_j$.  For $g(\lambda) \in D$, $g(T)$ acts on vectors in the
+usual way.  As above, $M \cong {D^{(n)}}/{K}$ and $K$ has a free base over $D$
+with $m \le n$ elements.\\
+\\
+\emph{Lemma:} $f_i = \lambda e_i - \sum_j a_{ij}e_j$ is a base for $K$ over $D$.
+\begin{quote}
+\emph{Proof:}
+Since $Te_i= \sum_j a_{ij} e_j$,
+$\lambda e_i= f_i+ \sum_j a_{ij} e_j$, and we can write any $g_i(\lambda) e_i$ as
+$\sum_i g_i( \lambda ) e_i = \sum_i h_i( \lambda )f_i + \sum b_i e_i$, $b_i \in F$.
+If this is in $K$, then $\sum_i b_i e_i \in K$ so $\sum_i b_i e_i = 0$.
+Since the $e_i$ form a base for $V$ over $F$, $b_i= 0, \forall i$ and the element
+$K$ has the form $\sum_i h_i( \lambda) f_i = 0$.  Suppose there is a non trivial relation
+between the $h_i( \lambda )$, then
+$\sum_{i=1}^n h_i( \lambda) \lambda e_i = \sum_{i,j=1}^n h_i( \lambda) a_{ij} \lambda e_i$
+and since the $e_i$ is a base,
+$h_i( \lambda) \lambda = \sum_{j=1}^n h_j( \lambda) a_{ji}$.
+If any $h_i( \lambda ) \ne 0$ let $h_r( \lambda )$ be one of maximal degree.
+Clearly,
+$h_r( \lambda ) \lambda = \sum_j h_j( \lambda ) a_{jr}$ is impossible.  This proves
+every $h_i( \lambda) = 0$ 
+and so the $f_i$ form a base for $K$.
+\end{quote}
+After diagonalization,
+$Q (\lambda I -A) P = diag(1,\ldots,1,d_1(\lambda), \ldots , d_s(\lambda))$.
+As in the proof of the structure theorem,
+$K$ is generated by $f'_i= d_i e'_i$.  If
+$P^{-1}= (p^*_{ij})$, $v_i= \sum_j p^*_{ij} u_j$, $z_i= v_{n-s+i}$ and
+$V= D z_1 \oplus \ldots \oplus D z_s$.
+\\
+\\
+\emph{Example:}
+Suppose
+$T u_1= -u_1 - 2 u_2 + 6 u_3$,
+$T u_2= -u_1 + 3 u_3$,
+$T u_3= -u_1 - u_2 + 4 u_3$.  The matrix for $T$ in the basis
+$\langle u_1 , u_2 , u_3 \rangle$ is $A$.
+$$
+A=
+\left(
+\begin{array}{ccc}
+-1 &  -2 &  6 \\
+-1 &  0 &  3 \\
+-1 &  -1 &  4
+\end{array}
+\right),
+Q=
+\left(
+\begin{array}{ccc}
+0 & 1 & 0\\
+0 & -1 & 1\\
+1 &  2-\lambda & -3
+\end{array}
+\right),
+P=
+\left(
+\begin{array}{ccc}
+1 & 3 & \lambda-3\\
+0 & 0 & -1\\
+0 & 1 &  -1
+\end{array}
+\right)
+$$
+$$
+Q(\lambda I - A) P =
+\left(
+\begin{array}{ccc}
+1 & 0 & 0\\
+0 & (\lambda -1) & 0\\
+0 & 0 & (\lambda -1)^2
+\end{array}
+\right),
+P^{-1}=
+\left(
+\begin{array}{ccc}
+1 & \lambda & -3\\
+0 & -1 & 1\\
+0 & -1 & 0
+\end{array}
+\right)
+$$
+$v_1=u_1+\lambda u_2 - 3 u_3$, $v_2= -u_2 + u_3$, $v_3= -u_2$.
+$z_1=v_2=-u_2 + u_3$, $z_2=v_3= -u_2$, $z_3=\lambda v_3= u_1-3u_3$. So,
+$
+\left(
+\begin{array}{c}
+1 \\
+0 \\
+0 
+\end{array}
+\right)_{z}=
+\left(
+\begin{array}{c}
+0 \\
+-1 \\
+1
+\end{array}
+\right)_{u}
+$,
+$
+\left(
+\begin{array}{c}
+0 \\
+1 \\
+0 
+\end{array}
+\right)_{z}=
+\left(
+\begin{array}{c}
+0 \\
+-1 \\
+0
+\end{array}
+\right)_{u}
+$,
+$
+\left(
+\begin{array}{c}
+0 \\
+0 \\
+1 
+\end{array}
+\right)_{z}=
+\left(
+\begin{array}{c}
+1 \\
+0 \\
+-3
+\end{array}
+\right)_{u}
+$.  Thus the transition matrix between the $u$ base and the $z$ base is
+$
+R=
+\left(
+\begin{array}{ccc}
+0 & -1 & 1\\
+0 & -1 & 0\\
+1 & 0 & -3
+\end{array}
+\right)
+$
+and
+$
+R^{-1}=
+\left(
+\begin{array}{ccc}
+3 & -3 & 1\\
+0 & -1 & 0\\
+1 & -1 & 0
+\end{array}
+\right)
+$.  $R A R^{-1}= 
+\left(
+\begin{array}{ccc}
+1 & 0 & 0\\
+0 & 0 & 1\\
+0 & -1 & 2
+\end{array}
+\right)
+$, as we can verify directly by
+$$
+\left(
+\begin{array}{ccc}
+0 & -1 & 1\\
+0 & -1 & 0\\
+1 & 0 & -3
+\end{array}
+\right)
+\left(
+\begin{array}{ccc}
+-1 &  -2 &  6 \\
+-1 &  0 &  3 \\
+-1 &  -1 &  4
+\end{array}
+\right)
+\left(
+\begin{array}{ccc}
+0 & -1 & 1\\
+0 & -1 & 0\\
+1 & 0 & -3
+\end{array}
+\right)^{-1} =
+\left(
+\begin{array}{ccc}
+1 & 0 & 0\\
+0 & 0 & 1\\
+0 & -1 & 2
+\end{array}
+\right).
+$$
+Note in the example above, the matricies are applied ``from the right.''  Conventionally,
+matricies are applied from the left.  We can take tranposes of all the matricies 
+in the above example to convert
+the example to one where the matricies are applied conventionally.
+Here is an analysis using the conventional notation:\\
+Let $A$ be a matrix and $\langle e_1 , e_2 , \ldots, e_n \rangle$ the underlying basis so that
+$Ae_1= (a_{11}, a_{21}, \ldots a_{n1})^T$.  Put $B(\lambda) = (\lambda I - A)$ and let $f_1, f_2,
+\ldots, f_n$ be the columns of $B(\lambda)$. Suppose $D$ is a PID and
+$\langle x_1 , x_2, \ldots , x_n \rangle$ be generators of the module, $M$ over $D$.
+Let $\eta: D^{(n)} \rightarrow M$ be defined by $\eta(c_1 , c_2, \ldots , c_n) =
+c_1 x_1 + c_2 x_2 + \ldots + c_n x_n$.  $D^{(n)}/K = M$ where $K$ is is generated by the
+columns of $B(\lambda)$, namely, $f_1, f_2, \ldots, f_n$. Put $B(\lambda)$ in Smith normal
+form, $PB(\lambda)Q = diag(1,1,\ldots,1, d_1(\lambda), \ldots , d_s(\lambda))$. 
+$M = D/(d_1(\lambda)) \oplus \ldots \oplus D/(d_s(\lambda))$ and $d_1(\lambda) \mid d_2(\lambda) \mid
+\ldots \mid d_s(\lambda)$.  Put $P= (p_{ij})$, $Q= (q_{ij})$ and $P^{-1} = ({p_{ij}}^*)$.  Then
+${e_i}' = \sum_{k} {p}_{ki} e_k$,
+${f_i}' = \sum_{k} {q}_{ki} f_k$.
+$e_i = \sum_{k} {p_{ki}}^* {e_k}'$.
+${f_i}' = \sum_{k,l,m} q_{li} b_{kl} {p_{mk}}^* {e_m}'$.  $ann({f_i}')= (d_i(\lambda))$.
+$Q$ is invertible so $\langle {f_1}', {f_2}', \ldots , {f_m}' \rangle$ also generates $K$.
+If $y_i = \sum_j p_{ji} x_j$, $\langle y_i \rangle$ also generates $M$ and $D y_i = D/(d_i(\lambda))$.
+When computing the rational canonical form (RCF), $v_i = \sum_{k} {p_{ki}}^* e_k$ and $z_i = v_{n-s+i}$.
+The remaining $z_i$ required to from the basis of the RCF by applying $A$ to the existing $z_i$, as above.
+This gives $z_i = \sum_k s_{ki} e_k$.  $S$ is the transition matrix relating the original basis to the
+basis in which $A$ has standard RCF. $A_{RCF}= S^{-1} A S$.  When the matricies are applied ``from the right,''
+the companion matrix, for the block having minimal polynomial $f(x) = x^n + c_{n-1} x^{n-1} + \ldots + c_0$, has the form:
+$$
+\left(
+\begin{array}{ccccc}
+0 & 0 & 0 & \ldots & -c_{n-1}\\
+1 & 0 & 0 & \ldots & -c_{n-2}\\
+\ldots & \ldots &  \ldots & \ldots & \ldots\\
+0 & 0 & \ldots & 1 & -c_{0}\\
+\end{array}
+\right)
+$$
+Here are two ways to do the computation with the current example:
+$A = 
+\left(
+\begin{array}{ccc}
+-1 & -1 & -1 \\
+-2 & 0 & -1 \\
+6 & 3 & 4 \\
+\end{array}
+\right)$,
+$B(\lambda) =  (\lambda I -A) =
+\left(
+\begin{array}{ccc}
+ \lambda + 1 & 1  & 1 \\
+ 1 &  \lambda & -1 \\
+ -6 &  -3 &  \lambda - 4\\
+\end{array}
+\right)
+$.
+$P B(\lambda) Q =
+\left(
+\begin{array}{ccc}
+1 & 0 & 0 \\
+0 & (\lambda - 1) & 0 \\
+0 & 0 & (\lambda - 1)^2 \\
+\end{array}
+\right)
+$, where $P$ is the product of the elementary row operations:
+$[R_3 \leftarrow R_3 + R_2] [R_3 \leftarrow R_3 - (\lambda - 4) R_1] [R_2 \leftarrow R_1 - R_1]$.
+One way to compute $R$, the matrix with $R^{-1}AR= 
+\left(
+\begin{array}{ccc}
+1 & 0 & 0\\
+0 & 0 & -1 \\
+0 & 1 & 2\\
+\end{array}
+\right)
+$, is to compute the revised basis using the rules: (1) $R_i \leftarrow R_i + \alpha R_j$ causes a basis change of
+$e_j = e_j - e_i$ and $R_i \leftrightarrow R_j$ causes a basis change of $e_j \leftrightarrow e_i$.  This results
+in $(0, e_2 - e_1, e_3)$, the first entry should be zero and an additional entry can be computed by applying $A$ to
+$e_3$ giving $R=
+\left(
+\begin{array}{ccc}
+0 & 0 & -1 \\
+1 & 0 & -1\\
+-1 & 1 & 4\\
+\end{array}
+\right)
+$.  We can calculate $R^{-1} =
+\left(
+\begin{array}{ccc}
+-1 & 1 & 0 \\
+3 & 1 & 1\\
+-1 & 0 & 0 \\
+\end{array}
+\right)
+$. We get
+$$
+\left(
+\begin{array}{ccc}
+1 & 0 & 0\\
+0 & 0 & -1 \\
+0 & 1 & 2\\
+\end{array} 
+\right) =
+\left(
+\begin{array}{ccc}
+-1 & 1 & 0 \\
+3 & 1 & 1\\
+-1 & 0 & 0 \\
+\end{array}
+\right)
+\left(
+\begin{array}{ccc}
+-1 & -1 & -1 \\
+-2 & 0 & -1 \\
+6 & 3 & 4 \\
+\end{array}
+\right)
+\left(
+\begin{array}{ccc}
+0 & 0 & -1 \\
+1 & 0 & -1\\
+-1 & 1 & 4\\
+\end{array}
+\right)
+$$
+Another way, to get $R$, is to compute $P$ from the elementary row operations, so
+$P = 
+\left(
+\begin{array}{ccc}
+1 &  0 & 0\\
+-1 &  1 & 0\\
+(3 -\lambda) & 1  & 1 \\
+\end{array}
+\right)
+$ and compute
+$P^{-1} = 
+\left(
+\begin{array}{ccc}
+1 & 0 & 0\\
+1 & 1 & 0\\
+\lambda - 4 & -1 & 1\\
+\end{array}
+\right)
+$.   This lets us read off, from $P^{-1}$,
+$R = 
+\left(
+\begin{array}{ccc}
+0 & 0 & -1 \\
+1 & 0 & -1\\
+-1 & 1 & 4\\
+\end{array}
+\right)
+$.  Again, the last column is computed as $Ae_3$ and again, we compute $R^{-1}$.
+\\
+\\
+{\bf Observation:}
+The \emph{Rational Canonical Form} and \emph{Jordan Canonical Form} are the same
+over an algebraically closed field.
+\\
+\\
+{\bf Principal Component Analysis:}
+$P_A= A(A^TA)^{-1} A^T$ where the rank of $A$ is the number of columns, is the symmetric
+projector; $P_{A^{\perp}}= I-P_A$. 
+$P_A^2 = P_A$, $P_{A^{\perp}}^2 = P_{A^{\perp}}$,
+$P_A^T = P_A$, $P_{A^{\perp}}^T = P_{A^{\perp}}$.  $S=A A^T$ is invertible.
+$P_{\vec a} ({\vec w})$ is the projection of ${\vec w}$ along ${\vec a}$.  The
+linear system $A {\vec f} = P_A {\vec b}$ has solution
+${\vec f} = A^{-1} P_A {\vec b}$ the least squares approximation of data points
+$(x_i,y_i)$ can be calculated from this too.  \emph{Example:} Fit $f(x)= f_0 + x f_1$ to the
+data $(-1,1), (0,0), (1,2)$ by solving
+$\left(
+\begin{array}{cc}
+1 & -1 \\
+1 & 0 \\
+1 & 1 
+\end{array}
+\right)
+(f_0, f_1)^T= (1,0,2)^T
+$.  In general, the least squares approximation arises from the symmetric 
+projection in the sample space ${\mathbb R}^s$ where $s$ is the number of data points.
+$f(A) {\vec v}= (f_0 + f_1 A + \ldots + f_n A^n) {\vec v}=
+( {\vec v}, A{\vec v}, \ldots, A^n{\vec v})$.  Vandermonde determinant and Fourier
+$V(x_0 , x_1 , \ldots , x_n)$ where the $x_i$ are roots of $x^{n+1}-1=0$.
+$Z(x)= (x-x_j) Z_j (x)$ solves for coefficients $f_0 , f_1 , \ldots , f_n$ using
+Lagrange interpolants $\Lambda_j(x) = {\frac {Z_j(x)} {Z_j(x_j)}}$.  For PCA,
+$\mu_A(x)= 
+(x-\lambda_1)^{m_1}
+(x-\lambda_2)^{m_2}
+\ldots
+(x-\lambda_t)^{m_t}
+$.  There are polynomials in $A$, denoted $ A_{\lambda_1} A_{\lambda_2} \ldots A_{\lambda_t} $
+such that $(A-\lambda_i I)^m A_{\lambda_i} =0$ and
+$A= A_{\lambda_1} A_{\lambda_2} \ldots A_{\lambda_t}$.  The $A_{\lambda_i}$ are called components.
+The list of basic eigenvectors of $A$ form the columns of the diagonalizing matrix, $P$ and
+$AP=PD$; $A$ is diagonalizable when $P$ is invertible.
+Approximating a rank $r$ $n \times n$ matrix requires $2nr$ terms.  \emph{Mean clustering:}
+replace $M$ with $D= diag(\alpha_1, \ldots, \alpha_i)$ where
+$\alpha_i= {\sqrt {\frac 1 {(M M^T)_{ii}}}}$.   How closely can a scatterplot be approximated
+by a line $A$ with direction ${\vec a}$?  Find the vector ${\vec a}$ that maximizes
+$
+|P_{\vec a} ({\vec {m_1}})|^2 +
+|P_{\vec a} ({\vec {m_2}})|^2 +
+|P_{\vec a} ({\vec {m_s}})|^2 =
+({\vec a}^T {\vec m_1})^2 + ({\vec a}^T {\vec m_2})^2 +
+\ldots ({\vec a}^T {\vec m_t})^2$.  Maximize ${\vec a}^T M M^T {\vec a},
+\forall {\vec a} \in {\mathbb R}^s, |{\vec a}|=1$.  $C=M M^T$ is a correlation matrix
+with
+$c_{ij}$ is the correlation of $i, j$; if $u_i \perp u_j$ they are uncorrelated.
+$\exists P: CP=PD$, $M M^T=C= PDP^{-1}$ and maximize ${\vec u}^T D {\vec u}, |{\vec u}|=1$,
+${\vec u}= P^T {\vec a} \in {\mathbb R}^s$.  $C$ is diagonalized by $P: P P^T=I$.
+\subsection {Bilinear Forms and Classical Groups}
+{\bf Definition:}
+A \emph{pairing}, $(W,V) \rightarrow k$ is a bilinear map.  If $V_0 \subset V$, 
+$V_0^* = \{{\vec w} \in W: ({\vec w}, {\vec {v_0}})= 0, \forall {\vec {v_0}} \in V_0 \}$,
+$v_0 \subset (V_0^*)^*$.  $V^*$ is called the left kernel. 
+Same holds {\it mutatis mutandis}
+for $W_0 \subseteq W$ provided $W^* = 0$ is the right kernel.
+If $(W,V) \rightarrow k$ is a pairing with left kernel $0$ and
+${\vec {w}} \in W$, define $\varphi_{\vec w} ({\vec v}) = ({\vec w}, {\vec v})$.  
+$\varphi_{\vec w} \in {\hat V}$ and the map
+${\vec w} \mapsto \varphi_{\vec w}$ 
+is an injection from $W \rightarrow {\hat {V}}$.
+Similarly,
+if the right kernel is $0$, there is an injection $V \rightarrow {\hat W}$.
+\\
+\\
+If $W_0 \subseteq W$, $codim_W(W_0)= dim(W)-dim(W_0)$.
+If $W_0 \subset W$, $V_0 \subset V$ and $V^*=0$,
+there are natural injective morphisms
+$V/W_0^* \rightarrow {\hat {W_0}}$ and $V_0^* \rightarrow {\hat {V/V_0}}$. 
+Thus, $dim(V/W_0^*) \le dim({\hat {W_0}})=dim(W_0)$ and 
+$dim(W_0^{**}) \le codim(W_0^*) \le dim(W_0)$.
+If $W= {\hat V}$, both kernels are $0$.
+If $(W,V)$ is a pairing, (a) $dim(W/V^*) = dim(V/W^*)$, (b) if $V^* = 0$,
+$dim(W_0^{**}) = codim(W_0^*) = dim(W_0)$ and if $W_0$ is
+finite dimensional, $W_0^{**}= W_0$ and $W_0$ and $V/W_0^*$ are
+naturally dual, (c) If $V^*=0$ and $W^*=0$, and $V$ and $W$ are
+finite dimensional, $V$ and $W$ are naturally dual and there is a 1-1,
+inclusion reversing correspondence of subgroups of
+$V$ and $W$ under the $*$ operator: $W_0 \leftrightarrow W_0^*$.
+\\
+\\
+Let $A=(a_{ij})$ be an $m \times n$ matrix with entries in $k$ and
+${\vec x}= (x_1, \ldots , x_n)^T$.  Let
+${\vec b}=(b_1 , \ldots , b_m)^T$ then $A {\vec x}= {\vec b}$ is a system
+of linear equations.  Set
+$x=E_1 x_1 + E_2 x_2 + \ldots + E_n x_n, E_i \in V= k^n$.  
+Suppose ${\hat V}$ is dual to $V$ with basis
+$\varphi_1 , \ldots , \varphi_n$: $\varphi_j E_k= \delta_{jk}$.  Let
+$\psi_i (x) = (a_{i1} \varphi_1 + \ldots + a_{in} \varphi_n) (E_1 x_1 + \ldots + E_n x_n)=
+a_{i1}x_1 + \ldots + a_{in}x_n$.  $W \subset {\hat V}$, $W = \langle \psi_j(x) \rangle$
+and $dim(W)=$ row rank. $S_m$ is the $m-$tuple column vectors
+with entries in $k$.
+Note that if $A_i$ are column vectors 
+forming $A$, they are in the column space of $A$ as is
+${\vec b}$  and $A_1 x_1 + \ldots + A_n x_n= {\vec b}, 
+{\vec b}= (\psi_1(x), \ldots, \psi_m (x))$.
+If $f: V \rightarrow S_m, f(x)= (\psi_1x , \ldots , \psi_n x)$, 
+$ker(f) = W^*$. If $Im(f)=U$, $U \cong V/W^*$ and $dim(U)=codim(W^*)=dim(W)$.
+This shows
+the row rank equals the column rank.
+\\
+\\
+Let $B_{ij}(\lambda) = I + \lambda (\delta_{il} \delta_{jk})_{lk}$.  If
+$A \in GL_n(k), A=BD(\lambda)$ where $B \in SL_n(k)$ and $D(\lambda)$ is the same as
+the identity except for $\lambda$ in the lower rightmost position.
+Put $Z=Z(k), S= \langle x^2, x \in k \rangle$ (as an additive group).  
+If $x^2 \in Z, \forall x$  then
+$k$ is commutative; further, unless $k$ is commutative and $char(k)=2$, $S=k$.
+\\
+\\
+{\bf Definition:} $\tau \in GL_n(k)$ is a \emph{transvection} if 
+$\exists H= \{h: \varphi(h) =0, \varphi \in {\hat V} \}$ with $\tau(h) =h, h \in H$ and
+$\tau(x)-x \in H, \forall x \in V$.
+If $\tau$ is a transvection with hyperplane
+$H$, pick ${\vec b}: \varphi({\vec b})= a \ne 0$, set $\tau(x) = x-{\vec b} a^{-1} \varphi(x)$
+then $\tau (t(x))=t(x)$, thus 
+$\tau(x)= x+ {\vec a} \varphi(x)$ with ${\vec a}= \tau({\vec b} a^{-1})-{\vec b} a^{-1}$.
+So all transvections are of this form.
+\\
+\\
+{\bf Theorem:}
+$B_{ij}(\lambda)$ is a transvection.
+If $ {\vec a}, {\vec b} \in H$ then
+$\tau_{\vec a} (\tau_{\vec b}(x))= \tau_{{\vec a}+{\vec b}} (x)$.  
+If $\sigma \in GL_n(k)$ and $\tau$ is a transvection, so is $\tau' = \sigma \tau \sigma^{-1}$
+and $\tau'(x)= x+ (\sigma(A)) \varphi(\sigma^{-1}(x))$; conversely, if
+$\tau''(x)=x+{\vec {a'}} \psi(x)$ is another transvection with hyperplane $H'$,
+we show $\exists \sigma$: $\sigma(H)= H'$ and $\sigma({\vec a}) = a'$ and thus that
+all transvections are conjugate and hence have the same determinant.
+\begin{quote}
+\emph{Proof:} Pick ${\vec b}, {\vec {b'}}$ with $\varphi({\vec b})=\psi({\vec {b'}})=1$.
+$\exists \sigma: \sigma({\vec a})= {\vec {a'}}, \sigma(H)= H', \sigma({\vec b})= {\vec {b'}}$.
+Then $\tau''(x)=x + {\vec {a'}} \varphi(\sigma^{-1}(x))$, 
+$\exists c: \phi(x)=\varphi(\sigma^{-1}(x))$, setting $x= {\vec {b'}}, \sigma^{-1}(x)={\vec b}$
+we get $c=1$ and $\tau''= \tau'$. If $H$ has at least three vectors then 
+$\exists {\vec a}, {\vec b}, {\vec c}$ with
+${\vec c}= {\vec a} + {\vec b}$ and
+$\tau_{\vec a} (\tau_{\vec b}(x))= \tau_{\vec c} (x)$ and since they 
+all have the same determinant, it must be 1.
+In that case, $f:GL_n(k) \rightarrow GL_n(k)/GL_n(k)'$, $f(\sigma \tau \sigma^{-1})= f(\tau)$
+so all transvections have the same image under $f$ and $\tau \in GL_n(k)'=SL_n(k)$.
+If $n \ge 3$ $H$ and $H'$ have independent vectors and we can choose $\sigma: det(\sigma)=1$
+so the transvections are conjugate in $SL_n(k)$.  Finally, the center of $SL_n(k)$
+consists of the matrices $\alpha I$ with $\alpha^n=1$.  We can conclude:
+If $G$ is a normal subgroup of $GL_n(k)$ containing a transvection and
+$n \ge 3$ or $n=2$ and $|k| \ge 4$ then $SL_n(k) \subseteq G$ if $G>Z(GL_n(k))$.
+\end{quote}
+{\bf Theorem:} If $v, w$ are linearly independent, there is a transvection, $T$: $Tv = w$.
+\begin{quote}
+\emph{Proof:} $W = \{x: x \cdot (v-w) = 0 \}$, $x, y \notin $. $T_{|W|} = 1$, $T(v)=w$.
+\end{quote}
+{\bf Theorem:} If $W_1, W_2$ are hyperplanes in $V$, and $v \in V \setminus W_1 \cup W_2$,
+there is a transvection, $T$: $T(W_1)= W_2, T(v) = v$.
+\begin{quote}
+\emph{Proof:} $V = W_1 + W_2$.  $dim(W_1 \cap W_2)= n-2$.  $\exists x \in W_1, y \in W_2: v = x + y$.
+$V= W_1 \cap W_2 + Fx + Fy$.  Define $T_{W_1 \cap W_2 + F(x + y)} = 1$ and $T(x) = y$.
+\end{quote}
+{\bf Theorem:} All transvections are $GL(V)$ conjugate.
+If $T_1, T_2$ are transvections on $V$, $n=dim(V) \ge 3$ and $T_1$ and $T_2$ are
+$GL(V)$ conjugate then they are $SL(V)$ conjugate.  
+\begin{quote}
+\emph{Proof:} Transvections are all of the form $T = 1 + \lambda B_{mn}$ with
+$B_{mn} = (\delta_{mi} \delta_{nj})$. $B_{lm}$ is conjugate to $B_{kn}$ via permutation
+matricies.  Suppose, for example that $T= 1 + \lambda_1 B_{mn} =
+\left(
+\begin{array}{cc}
+1 & \lambda_1 \\
+0 & 1
+\end{array}
+\right)$.
+Put $S = \left(
+\begin{array}{cc}
+{\frac 1 {\lambda_1}} & -1 \\
+0 & {\frac 1 {\lambda_2}}
+\end{array}
+\right)$, then 
+$S^{-1} T S =
+\left(
+\begin{array}{cc}
+1 & \lambda_2 \\
+0 & 1
+\end{array}
+\right)$.  So all transvections are conjugate in $GL(V)$.  If $n \geq 3$, we can pick a diagonal
+element so that $det(S) = 1$ and preserve the conjugacy.
+\end{quote}
+{\bf Theorem:} If $dim(V) \ge 3$, the transvections on $V$ generate $SL(V)$.  $SL(V)'=SL(V)$
+and $PSL(V)'=PSL(V)$.
+\begin{quote}
+\emph{Proof:} It suffices to show there is a (non-trivial) transvection in $SL(V)'$ since they are
+all conjugate.
+Define $T_1(v_1) = v_1 - v_2, T_1(v_j) = v_j, j \ne 1$ and
+$T_2(v_2) = v_2 - v_3, T_1(v_j) = v_j, j \ne 2$. $T_1 T_2 T_1^{-1}T_2^{-1}$ is a transvection.
+\end{quote}
+{\bf Theorem:} $PSL(V)$ is $2$-transitive on $P_{n-1}(V)$.
+\begin{quote}
+\emph{Proof:} Let $[v_1] \ne [v_2], [w_1] \ne [w_2] \in P_{n-1}(V)$.
+We can choose basis
+$\langle v_1, v_2, v_3, \ldots , v_n \rangle$ and
+$\langle w_1, w_2, v_3, \ldots , v_n \rangle$.  Define $T_b$ by
+$T_b(v_1) = b w_1$
+$T_b(v_2) = w_2$, and
+$T_b(v_i) = v_i, i \geq 3$.  Finally, pick $b$: $det(T_b) = 1$.
+\end{quote}
+{\bf Pairings and isometries:}  Let $V \times V \rightarrow k$ be a pairing with trivial
+left and right kernels.   $\sigma$ is an \emph{isometry} if 
+$(x,y)=(\sigma x, \sigma y), \forall x,y \in V$.  $det(\sigma)^2=1$ for all isometries;
+if $det(\sigma)= 1$, $\sigma$ is a rotation,
+if $det(\sigma)= -1$, $\sigma$ is a reflection.  A quadratic map, $Q$ satisfies
+$Q(ax)=a^2 Q(x)$ and $(x,y)= Q(x+y)-Q(x)-Q(y)=(y,x)$ is a pairing.  If $char(F) \ne 2$,
+$Q(x)= {\frac 1 2}  (x,x)$.  Pairings arising from quadratic maps are symmetric.
+${\vec a} \perp {\vec b} \leftrightarrow ({\vec a}, {\vec b})=0$.  
+If $\langle v_1 , v_2 , \ldots , v_n \rangle$ span $V$ and 
+$({\vec {v_i}}, {\vec {v_j}})= g_{ij}$ and
+if $\langle u_1 , u_2 , \ldots , u_n \rangle$ is another basis related to the original by
+$u_i = \sum_j a_{ji} v_j$ then ${\overline {g_{ij}}} =A^T G A$, where $G=(g_{ij})$.
+The form is symmetric if $a_{ij}= a_{ji}$, antisymmetric if $a_{ij}= - a_{ji}$.
+\\
+\\
+{\bf Isotropic spaces}
+Let $V^* = rad(V)= V \cap V^{\perp}$ and
+$V= rad(V) \oplus U$, $U \cong V/rad(V)$.
+Suppose $V$ is non-singular and $U \subset V$ then $U^{**}=U, dim(U) + dim(U^*) = dim(V)$ and
+$rad(U) =rad(U^*)= U \cap U^*$.  The subspace $U$ is non-singular iff $U^*$ is non-singular
+and then $V= U \perp U^*$.  A vector ${\vec v}$
+is isotropic if $({\vec v}, {\vec v})=0$.  
+$U$ is isotropic if $(u_1 , u_2)= 0, \forall u_1, u_2 \in U$.
+There are two geometries for symmetric metric
+spaces: (1) \emph{symplectic} if $({\vec v}, {\vec v}) = 0, \forall {\vec v} \in V$ and
+$(x,y)= -(y,x)$; (2) \emph{orthogonal} if $(x,y)=(y,x), \forall x,y \in V$.
+If $V$ is orthogonal and every vector is \emph{isotropic} then $V$ is isotropic.
+\\
+\\
+{\bf Definitions:}
+Suppose $dim(V)=2$ and $V$ is non-singular but has an isotropic vector, ${\vec n}$ then
+$\exists {\vec m}: {\vec n}^2={\vec m}^2=0, {\vec n}{\vec m}=1$, 
+$V= \langle {\vec n}, {\vec m} \rangle$. (
+$V= \langle {\vec n} , {\vec a} \rangle$ for some 
+${\vec a}$. Set ${\vec m}= x {\vec n} + y{\vec a}$; if
+${\vec n} {\vec a}=0$, $V$ is singular so we can find $y: y{\vec n} {\vec a} = 1$.  
+Can also
+find $x: {\vec m}^2=0$.)  $\langle {\vec n}, {\vec m} \rangle$ is a 
+\emph{hyperbolic plane}.
+A non-singular space, $V$, with orthogonal geometry is an orthogonal sum of lines.
+A non-singular space, $V$, with symplectic geometry is an orthogonal sum of 
+hyperbolic planes.
+\\
+\\
+{\bf Witt's Theorem:} Let $V$ and $W$ 
+be isometric via $\rho$.  Let $\sigma: V_0 \rightarrow W_0$ be
+an isometry for $V_0 \subset V$ and $W_0 \subset W$, then $\sigma$ can 
+be extended to an isometry of $V$. $O_n$: isometries.  
+\begin{quote}
+\emph{Proof:}
+\end{quote}
+{\bf Definitions:} $O_n^+$: rotations,
+$O_n^-$: reflections.
+$\Omega_n= O_n'$.
+If $V$ is a vector space with over ${\mathbb {R}}$ with a positive definite form 
+(resp. ${\mathbb {C}}$ with a 
+hermitian form) and $W$ is a subspace of $V$ then $V=W \oplus W^{\perp}$.
+$V^* \otimes V \rightarrow {\cal L}(V,V)$ via $L_{\phi \otimes v } (w)= \phi(w)v$.
+If $n$ is odd, $1_V = Z(O_n^+)$.  
+If $n$ is even, $\pm 1_V =Z(O_n^+)$. If $n=2$ over $F_q$, the plane contains
+$q+1$ lines: $\langle A+xB \rangle, \langle B \rangle$; if $V$ is isotropic, 
+$\epsilon= 1$, otherwise
+$V$ contains no isotropic vectors and $\epsilon = -1$.  There are $q - \epsilon$
+non-isotropic lines.  $O(V)$ has $q - \epsilon$ elements.  
+Let $\varphi_n$ be the number of
+isotropic vectors in $V$ and $\lambda_n$ the
+number of hyperbolic pairs.  If $\langle N,M \rangle$ is a hyperbolic plane, 
+$\langle N,M \rangle \oplus \langle N,M \rangle^* = V$.
+$\langle N^* \rangle$ contains $q \varphi_{n-2}$ isotropic vectors.  
+A type I form: TBD.
+Type I, II form:
+$\varphi_{n}=q^{n-1}$.
+Type III, IV form: $\varphi_n= q^{n-1} + c q^{\frac n 2}$, $n \ge 1$.
+If $\Phi_n = |O_n^+(q)|$ or $|PSp_n(q)|$, $\Phi_n= \lambda_n \Phi_{n-2}$.
+\\
+\\
+{\bf Classical Groups Summary.}
+{\bf Theorem:}
+Every isometry in ${\mathbb R}^n$ is the product of $\leq n+1$ reflections.
+\begin{quote}
+\emph{Proof:}
+It suffices to show every isometry, $f$ with $f(0)=0$ is the product of at most $n$ reflections.
+This is true for $n= 1,2$,  suppose it is true for $n-1$.
+$||f(e_n)-f(0)||= ||f(e_n)||= ||e_n||= 1$.  There is a reflection, $R$ such that $g=Rf$ fixes 
+$0$ and $e_n$ and hence $L= \{ t e_n \}$.  Put $W= \{ (x_1, \ldots, x_{n-1},0), x_i \in {\mathbb R} \}$.
+$W \perp L$ and $g$ fixes scalar products.  If $g(x)=y$, $\pi_n(x)= \pi_n(y)$.  Regard $g$ as
+a map on ${\mathbb R}^{n-1}$.  $g^*(x_1, \ldots, x_{n-1})= (y_1, \ldots , y_{n-1})$.  By induction,
+$g^*= R_1^* \ldots R_{n-1}^*$ with $R_j^*(x)= x- 2(x, a_j^*) a_j^*, ||a_j^*||=1$.  Put
+$R_j(x)= x- 2(x, a_j) a_j$, $a_n=0, a_j^*=a_j, j<n$.  $f= R R_1 \ldots R_{n-1}$.
+\end{quote}
+If $G$ is one of $SL(V)$, $Sp(V)$, $SO(V)$ or $S\Omega(V)$, $G=BWB$, where
+$B$ is the \emph{Borel subgroup} (upper triangular matrices) and $W$ is the 
+\emph{Weyl subgroup}
+(the permutation matrices).
+\subsection{Fields}
+{\bf Theorem:}
+If $\alpha$ is the root of an irreducible polynomial $p(x) \in F[x]$ then 
+$F(\alpha)=F[\alpha]= F[x]/(p(x))$ (This is called a
+\emph{field extension}).  Isomorphisms between fields can be extended
+to isomorphisms of extensions over associated (under the isomorphism) polynomials.
+\begin{quote}
+\emph{Proof:} Suppose $\sigma: F \rightarrow K$ then the natural extension of $\sigma$ 
+to $F[x]$ gives $\sigma: F[x] \rightarrow K[x]$.  If $p(x)$ is irreducible, this
+isomorphism can be extended uniquely to $F[x]/(p(x)) \rightarrow K[x]/(p^{\sigma}(x))$.
+\end{quote}
+{\bf Theorem:} 
+Any two splitting fields of the same polynomial over $F$ are isomorphic.  
+\begin{quote}
+\emph{Proof:}
+Let $\alpha$ and $\beta$ be two roots of and irreducible polynomial which divides
+a $f(x)$; let $E$ be the splitting field of $f(x)$.  There is an isomorphism from
+$F(\alpha)$ into $F(\beta)$ which can be extended to an automorphism of $E$.  
+\end{quote}
+{\bf Definitions:}  Let $E$ be a field and $G$ be a set of automorphisms of $E$, 
+$E_G = \{ x \in E: \varphi(x)=x, \forall \varphi \in G \}$.  Note that $E_G$ is a field.
+A polynomial is \emph{separable} if the roots of every irreducible factor are distinct.
+An extension $E/F$ is \emph{separable} if every element of $E$ is the root of a separable polynomial
+in $F[x]$.
+$E$ is a \emph{Galois} over $F$ if $E_G=F$.  
+$E$ is \emph{normal} over $F$ if an irreducible
+polynomial over $F$ with one root in $E$, \emph{splits}.
+\\
+\\
+{\bf Artin's Lemma:} Distinct automorphisms are linearly independent.
+\begin{quote}
+\emph{Proof:}  Suppose not.  Let $c_1 \phi_1 (x) + c_2 \phi_2 (x) + \ldots + c_r \phi_r (x) =0$
+be a minimal relation.  Since the automorphisms are distinct,
+$\exists \beta: \phi_1 (\beta) \ne \phi_r (\beta)$.  Obtain two equations from the
+minimal relation, the first
+by substituting $\beta x$ into the equation for beta, the second by multiplying the
+equation by $\phi_r(\beta)$, then subtract them.  This is a shorter relation.
+\end{quote}
+{\bf Theorem:} 
+If $G$ is a finite set of automorphisms fixing $F$, then $r=|E:F| \geq |G|=n$.
+\begin{quote}
+\emph{Proof:}  Suppose not. Let $\{ \omega_1, \ldots, \omega_r\}$
+be a basis for $E$ over $F$. Consider the $r$ equations:
+$\phi_1 (\omega_k) x_1 + \ldots + \phi_n(\omega_k) x_n = 0$ for $k= 1,2,\ldots r$.
+Since $n>r$ there is a non trivial solution $c_1, c_2, \ldots , c_n$.  Let
+$x= \sum_{i=1}^r a_i \omega_i$.  Multiply the first equation by $a_1$, the second by
+$a_2$ and so on then add them to get
+$c_{1} \phi_{1} (x) + c_2 \phi_2 (x) +  \ldots + c_n \phi_n (x)  = 0$
+for all $x$.  This contradicts the Artin's result.
+\end{quote}
+{\bf Theorem:} 
+Let $G= \{\phi_1 , \phi_2 , \ldots, \phi_n \}$ be a finite group of
+$Aut(E)$ and $F = E_G$, then $r = [E:F] = |G| = n$.
+\begin{quote}
+\emph{Proof:}  Suppose $r>n$. Let $\{ \omega_1, \ldots, \omega_r\}$
+be a basis for $E$ over $F$. Consider the $n$ equations:
+$\phi_k (\omega_1) x_1 + \ldots + \phi_k(\omega_r) x_r = 0$ for $k= 1,2,\ldots, n$.
+This has a non trivial solution, $\langle c_1, c_2, \ldots , c_r \rangle$,
+with $r-n$ more unknowns than equations.  
+Let $\langle c_1, \ldots , c_r \rangle$ be a solution with the minimum number of non-zero
+elements. We may reorder the coefficients and basis so $c_1 \neq 0$ and by dividing each of
+the linear equations by $c_1$, we may assume $c_1 = 1$.  We claim each $c_i \in F, \forall i$.
+If not, say $c_2 \notin F$.  Then $\exists \phi_k: \phi_k(c_2) \neq c_2$.  Thus,
+$\sum_{i=1}^r c_i \phi_j(\omega_i) = 0$ and 
+$\sum_{i=1}^r \phi_k(c_i \phi_j(\omega_i)) = 0$ for each $ 1 \leq j \leq n$.  Again,
+reordering, 
+$\sum_{i=1}^r \phi_k(c_i) \phi_j(\omega_i) = 0$ for each $ 1 \leq j \leq n$.  Subtracting
+the two equations, we get a non-trivial linear relation with fewer non-zero coefficients.
+So, $c_i \in F, \forall i, 1 \leq i \leq r$.  This gives a non-trivial linear dependence 
+in $F$ among the $\omega_i$ which contradicts their linear independence, so
+$r \leq  n$.  Now $r \geq n$ by the previous result so $n=r$.
+\end{quote}
+{\bf Primitive Element Theorem: }
+If $E=F[\alpha_1 , \ldots , \alpha_n]$ with $\alpha_2 , \ldots , \alpha_n$ separable then
+$E=F[\alpha]$, some $\alpha$.  Every separable finite extension is primitive.
+\begin{quote}
+\emph{Proof:}  Assume $F$ is not finite, $E=F[\alpha, \beta]$ with $f, g$ the minimal polynomials
+for $\alpha= \alpha_1$ and 
+$\beta=\beta_1$ respectively, $\alpha_i$  the roots of $f$ and $\beta_i$ the roots of
+$g$.  Let $E$ be the splitting field of $f(x)g(x)$.  
+$\alpha_i + x \beta_k= \alpha_1 + x \beta_1$ 
+has one root for each $i, k$; pick $c$ such that
+$\alpha_i + c \beta_k \ne \alpha_1 + c \beta_1$ and set $\theta= \alpha + c \beta$.
+Claim: $E=F[\theta]$. $f(\theta-c \beta)=g(\beta)=0$ so
+$(f(\theta - cx), g(x))= (x- \beta) \in F[\theta][x]$. 
+\end{quote}
+{\bf Theorem:} 
+Let $E$ be a splitting field for $f(x)$ over $F[x]$.
+If $p(x)$ is irreducible and has one zero in $E$, then $p(x)$ splits in
+$E$.
+\begin{quote}
+\emph{Proof:} 
+Let $L$ be the splitting field of $f(x)p(x)$.
+Set $E= F(a_1,a_2, \ldots, a_n)$
+where $a_1, a_2, \ldots , a_n$ are the roots of $f(x)$.
+Suppose $p(\alpha)=0, \alpha \in E$ and $p(\beta)= 0$.
+Let $\sigma: F(\alpha) \rightarrow F(\beta)$ be an isomorphism with
+$\sigma(\alpha)=\beta$.
+Extend $\sigma$ to $\tau: L \rightarrow L$.  $\tau$
+permutes the roots of $f(x)$ so $\tau(E)= E$.
+$\alpha= {\frac {m(a_1, a_2, \ldots , a_n)} {n(a_1, a_2, \ldots , a_n)}}$.
+So $\beta= \tau(\alpha)= \tau({\frac {m(a_1, a_2, \ldots , a_n)}
+{n(a_1, a_2, \ldots , a_n)}}) \in E$.
+\end{quote}
+{\bf Theorem:} 
+Let $E$ be a finite extension of $F$, $char(F)=0$.  If $E$ is a splitting
+field of $f(x) \in F[x]$
+then $|{\cal G}(E/F)| = [E:F]$.
+\begin{quote}
+\emph{Proof:} $E=F(w)$, $p(w)=0$ and $p$ splits by foregoing. $deg(p)=[E:F]=|G|$.
+\end{quote}
+{\bf Theorem:} 
+Let $F \subseteq E$, $char(F)=0$.  If $G={\cal G}(E/F)$ fixes $F$ then $E$ is
+a normal extension iff $F$ is the fixed field of $G$.
+\begin{quote}
+\emph{Proof:} $E=F(w)$, $|G|=[E:F]$.  Let $K= \{ a: \sigma(a)=a, \forall \sigma \in G\}$.
+$F \subseteq K \subseteq E$ and $E=K(w)$.  STS if $g$ is irreducible
+over $F$ and $g(w)=0$ then $g$
+is irreducible over $K$.  Let $p$ be an irreducible polynomial for $w$ over $K$.  Applying
+elements of $G$, each root of $p$ is a root of $g$.
+\end{quote}
+{\bf Theorem:} 
+Let $E$ be a normal extension of $F$. $E \supset K \supset F$.  If
+${\cal G}(E/F)>S$ has $K$ as a fixed field then ${\cal G}(E/K)=S$.
+\begin{quote}
+\emph{Proof:} 
+Suppose $S \subseteq {\cal G}(E/K)=T$.  By a previous result $|T|=|S|$ so $S=T$.
+\end{quote}
+{\bf Lemma:} Let $K$ be the splitting field of $f(x)$ over $k$
+and let $p(x)$ an irreducible
+factor of $f(x)$, if the roots of $p(x)$ are $\alpha_1 , \ldots , \alpha_r$,
+there is a $\sigma_i \in {\cal G}(K/k)$ such that $\sigma_i(\alpha_1)= \alpha_i$.
+\begin{quote}
+\emph{Proof:} 
+This follows from the isomorphism $F[x]/(f(x)) \rightarrow F(\alpha )$ and
+$F[x]/(f(x)) \rightarrow F(\alpha_i )$.
+\end{quote}
+{\bf Theorem:} 
+$E$ is Galois over $F$ iff (i) every irreducible polynomial in $F[x]$ with one root in $E$
+splits and (ii) $E=F(\theta)$.
+$GF(p^m) \subseteq GF(p^n)$ iff $m|n$.
+\begin{quote}
+\emph{Proof:} 
+Let $\theta= \theta_1$ and $\varphi= \varphi_1$ is another root.  Let $f \in F[x]$ 
+be irreducible with root $\theta$.  By the lemma, 
+there is a $g \in {\cal G}(E/F)$.  $f^g(x)=f(x)$. (ii) follows from this.
+$\theta^g=\varphi$ and so $\varphi$ is thus a root of $f$.
+\end{quote}
+{\bf Theorem:}
+The following are equivalent: (1) $E$ is a splitting field over $F$
+of a separable polynomial $f(x)$.  (2) $F=E_G$. (3) $E$ is finite
+dimensional, normal and separable.  Moreover, if $E$ and $F$ are as in (1) and
+$G= {\cal G}(E/F)$ then $F=E_G$ and if $F$ and $G$ are as in (2) then $G={\cal G}(E/F)$.
+\begin{quote}
+\emph{Proof of
+($1 \rightarrow 2$):}
+$G={\cal G}(E/F)$ and $F'=E_G$. $F \subseteq F' \subseteq E$.  $E$ is a splitting field
+over $F'$ of $f(x)$ as well as over $F$ and $G={\cal G}(E/F')$. $[E:F]= |G| = [E:F']$ so
+$F=F'$ and $F=E_G$
+\\
+\\
+\emph{Proof of
+($2 \rightarrow 3$):}
+By Artin $[E:F] \le |G|$ so $E$ is finite dimensional over $F$.  Let $f(x) \in F[x]$
+having root $r \in E$ be irreducible.  Let $\langle r=r_1, \ldots, r_m \rangle$
+be an orbit of $r$ under $G$.  For $\eta \in G$, $(\eta(r_1) , \ldots , \eta(r_m))$ is
+a permutation of $(r_1 , r_2, \ldots , r_m)$.  $f(r_i)=0, 1 \leq i \leq m$ and
+$(x-r_i) \mid f(x)$ so $g(x)= \prod_{i=1}^m (x-r_i) \mid f(x)$.  Apply to $g(x)$
+the automorphism of $E[x]$ which sends $x \mapsto x, a \mapsto \eta(a)$ for $a \in E$.
+This gives $\eta(g(x))= \prod_{i=1}^m (x-\eta(r_i))= g(x)$.  Since this holds for every
+$\eta \in G$, the coefficients of $g$ are $G-$invariant hence $g(x) \in F[x]$.  Since
+$g(x)$ is irreducible in $F[x]$, $f(x)=g(x)= \prod_{i=1}^n (x-r_i)$ a product of linear
+factors in $E[x]$.  Thus $E$ is separable and normal over $F$ and (3) holds.
+\\
+\\
+\emph{Proof of
+($3 \rightarrow 1$):}
+Since $[E:F] < \infty$ so $E= F(r_1, r_2, \ldots, r_k)$ and $r_i$ is algebraic over $F$.
+Let $f_i$ be the minimal polynomial for $r_i$.  By hypothesis, $f_i(x)$ is a product of
+linear factors in $E[x]$.   It follows that $f(x)= \prod_{i=1}^n f_i(x)$ is separable
+and $E= F(r_1, r_2, \ldots, r_k)$ is a splitting field for $E$ over $F$ and (1)
+follows.
+\\
+\\
+\emph{Proof of supplement:}
+To prove the second part of the supplement, under the hypothesis of part (2) of the supplement,$[E:F] \leq G$
+and since (3) holds, ${\cal G}(E/F)=[E:F]$.  Since
+$G \subseteq {\cal G}(E/F)$ and 
+$|G| \geq [E:F]= |{\cal G}(E/F)|$, $G= {\cal G}(E/F)$.
+\end{quote}
+{\bf Galois' Theorem:} Let $K$ be a normal, separable extension of $k$.  Let $G={\cal G}(K/k)$,
+$H<G$, $K \supseteq F \supseteq k$.  There is a bijective pairing between $H$ and $F$, such
+that
+(i) $H_{1} \supseteq H_{2} \leftrightarrow K_{H_{2}} \supseteq K_{H_{1}}$;
+(ii) $|H|= [K:K_H]$, $[G:H]= [K_H:k]$; and,
+(iii) $H \lhd G \leftrightarrow K_H$ is normal over $k$
+and ${\cal G}(K_H/k)=G/H$.
+\begin{quote}
+\emph{Proof:} 
+\\
+\\
+Let  $H<G={\cal G}(K/k)$.  $k=K_G$.
+Put $F = K_H$.  $k \subseteq F \subseteq K$.  By the previous result,
+$|{\cal G}(K/K_H)|=|H| = [K:K_H]$.  
+Applying supplementary result (2) above with $H$ in place of $G$, we get
+${\cal G}(K/K_H)= H$.
+Similarly,  $|H|=|{\cal G}(K/K_H)|=[K:K_H]$.
+\\
+\\
+Now, let $F$ be any intermediate subfield between $K$ and $k$ and $H= {\cal G}(K/F)$.
+$H \subseteq G={\cal G}(K/K_H)$.
+$K$ is a splitting fields over $F$ of
+a separable polynomial since it is a splitting field over $k$ of a separable polynomial.
+The supplementary result of (1) above applied to $K$ and $F$ shows
+$F=K_H= K_{{\cal G}(K/F)}$.
+Thus the map between $F$ and $K_H$ are inverses.
+\\
+\\
+If $H_1 \supseteq H_2$ then 
+$K_{H_1} \subseteq K_{H_2}$.
+Moreover, if $K_{H_1} \subseteq K_{H_2}$ then we also have
+$H_1 = {\cal G}(K/K_{H_1}) \supseteq {\cal G}(K/K_{H_2}) = H_2$. Hence (i)
+holds. 
+\\
+\\
+The first part of (ii) follows as before.
+$|G|= [K:k] = [K:K_H][K_H:k]= |H| [K_H:k]$ and $|G|= [G:H] |H|$ so
+$[K_H:k]= [G:H]$.  This proves (ii).
+\\
+\\
+If $H < G$ and $F= K_H$, the subfield corresponding 
+to $\eta H \eta^{-1}$ is $\eta(F)$.
+$\eta H \eta^{-1} \eta F= \eta(F)$,
+so $H \lhd G$ iff $\eta(F)=F, \forall \eta \in G$.  If this holds, every
+$\eta$, maps
+$F$ to itself and $\eta_{|F}= {\overline {\eta}}$ is an automorphism of $F/k$.
+Thus the restriction $\eta \rightarrow {\overline {\eta}}$ of
+${\cal G}(K/k)$ into ${\cal G}(F/k)$ is a homomorphism.  
+The image ${\overline G}$ is a group of automorphisms
+of $F$ and $K_{{\overline G}}=k$.
+Hence ${\overline G}= {\cal G}(F/k)$.
+The kernel of the map 
+$\eta \rightarrow {\overline {\eta}}$ is the set $\{ \eta \in G: \eta_{|F}=1_{F} \}$;
+by the pairing, ${\cal G}(K/F)= H$.  This kernel is $H$ and
+${\overline G}= {\cal G}(F/k) \approx G/H$.  Since $k= K_{\overline G}$,
+$F$ is normal over $k$.
+\\
+\\
+Conversely, suppose $F$ is normal over $k$.  Let $a \in F$ and let $f(x)$ be the
+minimal polynomial for $a$ over $k$ then $f(x)= (x-a_1) (x-a_2) \ldots (x-a_n) \in k[x]$
+where $a=a_1$.  If $\eta \in G$ then $f(\eta(a))=0$ which implies $\eta(a)= a_i$
+for some $i$ so $\eta(a) \in F$.  
+Therefore, $\eta(F) \subseteq F$.  $\eta H \eta^{-1} \subseteq H$ if $H$ is the subgroup
+corresponding to $F$ in the Galois pairing. Thus $H \lhd G$, concluding the proof
+of (iii).
+\end{quote}
+{\bf Theorem:}
+If $f(x)$ is solvable by radicals, the Galois group of its splitting field
+is \emph{solvable}.  Galois group of an equation is a permutation group on its roots.
+Splitting field of $g(x)= 2x^5 -10 x+5$ is $S_5$.
+\begin{quote}
+\emph{Proof:} 
+There is an element of order $5$ in $G$ since $g(x)$ is irreducible.  Complex conjugation
+is an automorphism of order $2$.  These generate $S_5$.
+\end{quote}
+{\bf Computing the Galois group for an arbitrary polynomial:}
+Suppose, 
+$f(t) = t^n -s_1 t^{n-1} + \ldots + (-1)^{n}s_n$ over the field $k$.  
+Let $K$ be the splitting field of $f$ over $k$ and $G = {\cal G}(K/k)$.
+Assume
+$f(t)$ has distinct zeros $\alpha_1, \ldots , \alpha_n$ and consider the
+indeterminates $x_1, \ldots, x_n$.  The $s_k$ are elementary symmetric polynomials
+in the $\alpha_k$.  Put $\beta = \sum_{j=1}^n x_j \alpha_j$.  Suppose
+$\sigma \in S_n$.  We set $\sigma_x ( \beta ) = \sum_{j=1}^n x_{\sigma(j)} \alpha_j$
+and $\sigma_{\alpha} ( \beta ) = \sum_{j=1}^n x_{j} \alpha_{\sigma(j)}$. Put
+$q(t) = \prod_{\sigma \in S_n} (t - \sigma_x(\beta)) = 
+\sum_{j=0}^{n!} g_i (s_1 , \ldots, s_n) x_1^{i_1} x_2^{i_2} \ldots x_n^{i_n} t^j$.
+Now $q(t) = q_1(t) q_2(t) \ldots q_k(t)$ where each $q_k(t)$ is irreducible.
+We can assume $(t - \beta) \mid q_1(t)$.
+Put $G_1 = \{ \sigma \in S_n: q_1(t)^{\sigma} = q_1(t) \}$.  In fact, if we
+put $S_{(1)} = \{ \sigma : (t - \sigma_x(\beta)) \mid q_1 (t) \}$, $S_{(1)} = G_1$.
+Finally, define
+$h(t) = \prod_{\sigma \in G} (t - \sigma_{\alpha}(\beta))$. $h(t) \mid q(t)$ so
+$h(t)$ is the product of some of the irreducible factors of $q(t)$.
+For each $q_k$, there is a subset $S_{(k)}$ of $S_n$ such that
+$q_k(t) = \prod_{\sigma \in S_{(k)}} (t - \sigma_x(\beta))$ and $S_n$ is the disjoint union
+of the $S_{(k)}$.
+Since, $(t - \beta) \mid q_1(t)$, $q_1(t) \mid h(t)$.
+\\
+\\
+{\bf Theorem:} In the above notation, $G_1 = G$.
+\begin{quote}
+\emph{Proof:} (1) $G_1 \subseteq G$ since $q_1(t) \mid h(t)$. (2) $G \subseteq G_1$:
+If $\rho \in G$, $\rho(q_1(t)) = \prod_{\sigma \in S_1} (t- \rho(\sigma_x(\beta)))$ and
+$\rho(q_1(t)) = \prod_{\sigma \in S_{(1)}} (t- \rho(\sigma_x(\beta))) = 
+\prod_{\sigma \in S_{(1)}} (t- \rho_{\alpha}^{-1}(\sigma_{x}(\beta))) = \rho_{\alpha}^{-1}(q_1(t))$.
+So, $\rho \in G_1$.
+\end{quote}
+{\bf Theorem:} Let $R$ be a UFD and $p$ a prime.  Set 
+${\overline R}= R/(p)$ and let $Q_R$ and $Q_{\overline R}$ be their fields of
+quotients.  Let $f(x)$ and ${\overline {f(x)}}$ be corresponding polynomials
+with no double roots with corresponding splitting fields $K$ and ${\overline K}$
+respectively.  Then 
+${\cal G}({\overline K}/Q_{\overline R})< {\cal G}(K/Q_R)$.
+\begin{quote}
+\emph{Proof:}
+\end{quote}
+{\bf Definition:}
+A \emph{valuation} is a map $\varphi: K \rightarrow {\mathbb F}^{\ge 0}$ 
+where ${\mathbb F}$ is an
+ordered field such that $\varphi(ab)= 
+\varphi(a) \varphi(b)$, $\varphi(0)=0$, $\varphi(x)>0$ if $x \ne 0$ and 
+$\varphi(a+b) \le
+\varphi(a) + \varphi(b)$.  If $a= {\frac s t} p^n$, $\varphi(a)= p^{-n}$ is a valuation.
+{\bf Ostowski:} A non trivial valuation of ${\mathbb Q}$ is either 
+(i) $\varphi(a)= |a|^\rho, 0 < \rho \le 1$ (the Archemedean valuation) or (ii)
+$\varphi(a)= \varphi_p(a)$ (the $p-$adic valuation.  $w(a)= log(\varphi(a))$ is the 
+exponential valuation.  Set $\wp= \{a: w(a) >0 \}$.  Hensel:  Let $K$ be complete
+in the exponential valuation $w$ and $f(x)$ a primitive polynomial in $K[x]$ with integral
+coefficients. Let $g_0 , h_0$ be polynomials with integral coefficients such that
+$f(x)= g_0(x) h_0(x) \; (\wp)$ then there are polynomials $f(x), h(x)$ with integral
+coefficients in $K$ such that (1) $f(x)=g(x)h(x)$, 
+(2) $g(x)= g_0(x) \; (\wp)$,
+(3) $h(x)= h_0(x) \; (\wp)$ provided $(g_0(x), h_0(x))=1$ 
+further $deg(g)= deg(g_0) \; (\wp)$.
+\\
+\\
+{\bf Definition:}
+$F$ is \emph{perfect} iff every irreducible polynomial is separable.
+\\
+\\
+{\bf Theorem:} $F$ is perfect if
+(1) $char(F)=0$, (2) $char(F)=p$ and every element is a $p$th root,
+(3) $F= GF(q)$, (4) $F$ is algebraically closed, (5) every finite field is perfect.
+\begin{quote}
+\emph{Proof of $2$:}  Suppose $F^p$ is not contained in $F$.  Let $a \notin F^p$.
+$x^p-a$ is irreducible.  Since the derivative is $0$, this is inseparable.  Hence
+$F$ is not perfect.  Suppose $f(x)$ is an inseparable irreducible polynomial in
+$F[x]$ then $(f,f') \ne 1$.  So $f(x)= a_0 +a_p x^p + \ldots + =
+b_0 + b_p^px + b_{2p}^p x^{2p} + \ldots)^p$ contrary to irreducibility.
+Hence $F \ne F^p$.
+\end{quote}
+{\bf Definition:}
+Let $E=F[\theta]$ and $\rho= a_0 + a_1 \theta + \ldots + a_{n-1} \rho^{n-1}$. 
+$T(\rho)= \sum_{g \in {\cal G}(E/F)} \rho^g$ is the \emph{trace} and
+$N(\rho)= \prod_{g \in {\cal G}(E/F)} \rho^g$ is the \emph{norm}; both are in $F$.
+\\
+\\
+{\bf Automorphisms of a finite field:}
+For every $q=p^n$ there is, up to isomorphism, only one field $F=GF(q)$ and the
+multiplicative group is cyclic. Consider $f(x)= x^h-1, h=q-1$ whose roots are
+roots of 1.  The automorphisms of $F$ are exactly $\sigma_i : x \mapsto x^{p^i}$.
+If $char(F)=p$, every irreducible polynomial $f(x)$ of degree $n$
+either has distinct roots or is of
+the form $\phi(x^p)$ in which case all roots have the same multiplicity $p^l$ for
+some $l>0$ with $n=n' p^l$ in which case there are $n'$ relative automorphisms.  Thus
+in successive extensions there are $\prod_i n_i'$ relative automorphisms which have
+cardinality
+$[E:F]$ if $E$ is a separable extension and $<[E:F]$ if not.
+\\
+\\
+{\bf Theorem:}
+If $G$ is solvable, $G^{(n)}=1$ for some $n$.  If $n>4$, $S_{n}^{(m)}$
+contains every 3 cycle for every $m$.
+\begin{quote}
+\emph{Proof:} $G^{(0)} \supseteq G^{(1)} \supseteq \ldots \supseteq G^{(m)} = 1$ is
+a composition series with abelian composition factors.  This can be refined into a
+composition series with composition factors of prime order.  For the second part,
+note that $(123) = (13)(12)(13)(12) \in S_{n}^{(1)}$.  Replacing $1$ by $a$,
+$2$ by $b$ and $3$ by $c$ shows $(abc) \in S_{n}^{(1)}, \forall a, b, c$.
+We show by induction that if $H$ contains all $3$-cycles, so does $H'$, if $n \ge 5$.
+Since $(123)(234) = (13)(24)$, $(ab)(cd) \in H'$. $[(bc)(de),(abc)] =(abc) \in H'$ so
+any $3$-cycle is in $H'$.
+\end{quote}
+{\bf Cyclic Extensions:}
+Suppose $f \in k[x], deg(f)=n$ and let
+${\cal G}_f(k)$ denote 
+${\cal G}(K/k)$ where $K$ is the splitting field for $f$ over $k$. Then
+${\cal G}_f(k)$ is isomorphic to some subgroup of $S_n$ and if $f$ is irreducible,
+the group is transitive on $n$ symbols.  Set $\Delta= \prod_{i<j} (u_i-u_j)$ and
+$Disc_k(f)= \Delta^2$, then if $f$ is irreducible, the Galois group is
+$A_3$ or $S_3$ according to whether 
+$Disc_k(f)= \Delta^2$ is a square in $k$.  If $f$ is a quartic with separated roots
+$u_1, u_2, u_3, u_4$ and
+$\alpha= u_1 u_2 + u_3 u_4$,
+$\beta= u_1 u_3 + u_2 u_4$,
+$\gamma= u_1 u_4 + u_2 u_3$; setting $K=k(\alpha, \beta, \gamma)$ and
+$[K:k]=m$, then
+${\cal G}_f(k)$ is $S_4$ if $m=6$,
+${\cal G}_f(k)$ is $A_4$ if $m=3$,
+${\cal G}_f(k)$ is ${\mathbb Z} \times {\mathbb Z}$ if $m=1$, and
+${\cal G}_f(k)$ is ${\mathbb Z}_4$ 
+or $D_4$ if $m=2$.
+\\
+\\
+{\bf Embeddings:}
+Let $k \subset K \subset {\overline k}$ and 
+$\sigma_1, \sigma_2, \ldots , \sigma_r$ 
+be the distinct $k$-monomorphisms from $K \rightarrow {\overline k}$, for
+$u \in K$,
+define 
+$N_k^K(u) = (\prod_{i} \sigma_i(u))^{[K:k]_i}$ and
+$Tr_k^K(u) = (K:k]_i \sum_{i} \sigma_i(u)$.  Note that distinct automorphisms are
+linearly independent.  From now on, assume all extensions are separable (even Galois).
+$N_k^K (uv)= N_k^K(u) N_k^K(v)$ and
+$Tr_k^K (u+v)= Tr_k^K(u) + Tr_k^K(v)$; if $u \in k$,
+$N_k^K (u)= u^{[K:k]}$ and
+$Tr_k^K (u)= [K:k]u$; if $E$ is an intermediate field,
+$N_k^K (u)= N_k^E(N_E^K(u))$ and
+$Tr_k^K (u)= Tr_k^E(Tr_E^K(u))$.  If $K$ is a cyclic extension of $k$ of degree
+$n$ with generator $\sigma$
+then $Tr_k^K(u) = 0$ iff $\exists v \in K: u= v - \sigma(v)$ and
+$N_k^K(u) = 1$ iff $\exists v \in K: u= v(\sigma(v))^{-1}$.  If $n= mp^t, (p,n)=1$
+where $char(k)=p \ne 0$, there are intermediate cyclic fields, all
+of which, except the last have degree $p$ and
+each of which is the splitting field of $f(x)= x^p-x+a$.
+If $char(k)=p \ne 0$, $K$ is a cyclic extension of degree $p$ iff
+$K$ is the splitting field of an irreducible polynomial
+$f(x)= x^p -x - a$ and $K=k(u), f(u)=0$.
+Suppose $\zeta$ is a primitive $n$th root of unity over $k$ and $K= k(\zeta)$,
+if $d \mid n$, $\zeta^{n/d}$ is a primitive $d$-th root of unity and,
+$K$ is the splitting field over $k$ of an irreducible polynomial
+$f(x)= x^d-a, a \in k$.
+If $k$ contains a primitive  $n$-th root of unity, $\zeta$,
+TFAE: (1) $K$ is cyclic of degree $d$
+$d \mid n$,
+(2) $K$ is the splitting field over $k$ of $f(x)= x^n-a, a \in k$,
+(3) $K$ is the splitting field over $k$ of an irreducible polynomial
+$f(x)= x^d-a, a \in k$.
+\\
+\\
+{\bf Satz 90:}  Let $E/F$ be a cyclic extension with Galois group generated by
+$\sigma$ then 
+(a) $N_{E/F}(x)= 1$ iff $\exists y \in E: x= y/\sigma(y)$; and,
+(b) $T_{E/F}(x)= 0$ iff $\exists y \in E: x= y - \sigma(y)$.
+Let $(n, char(k))= 1$, and $K$ a \emph{cyclotomic extension} of $k$, then,
+(1) $K= k(\zeta)$ where $\zeta$ is a primitive $n$-th root of unity;
+(2) $K$ is an \emph{abelian extension} of $k$ of dimension $d, d \mid \psi(n)$;
+(3) $|{\cal G}(K/k)|=d$ and is a subgroup of ${\mathbb Z}_n^*$.
+\begin{quote}
+\emph{Proof of additive part:}
+If such an $\alpha$ exists then $Tr_k^K(\beta)=0$ as $\sigma$ permutes
+the elements. Conversely,
+suppose $Tr_k^K(\beta)=0$, $\exists \theta: Tr_k^K(\theta) \ne 0$.
+Let $\alpha = {\frac 1 {Tr(\theta)}} [ 
+\beta \theta^{\sigma} +
+(\beta + \sigma \beta) \theta^{\sigma^2} + \ldots +
+(\beta + \sigma \beta + \ldots + \sigma^{n-2} \beta) \theta^{\sigma^{n-1}}]$.
+From this, we get $\beta= \alpha - \sigma \alpha$.
+\\
+\\
+\emph{Proof of multiplicative part:}
+Assume $\alpha$ exists.  $N(\beta)= {\frac {N(\alpha)} {N(\sigma(\alpha))}}$ 
+and since elements of $G$ permute these, $N(\beta)=1$.  Now suppose
+$\tau, \tau' \in G, \xi \in E: \xi^{\tau + \tau'}= 
+\xi^{\tau} \xi^{\tau'} $.   By Artin's theorem on characters, the map given by
+$ id+ \beta \sigma + \beta^{1+\sigma} \sigma^2+ \ldots +
+\beta^{1+\sigma + \ldots + \sigma^{n-2}} \theta^{\sigma^{n-1}} \ne 0 $.
+Hence $\exists \theta \in K: 
+\alpha= \theta + \beta \theta^{\sigma} + \beta^{1+\sigma} \theta^{\sigma^2} + \ldots +
+\beta^{1 + \sigma + \ldots + \sigma^{n-2}} \theta^{\sigma^{n-1}} \ne 0$.  
+$\beta \alpha^{\sigma}= \alpha$ using the fact that $N(\beta)=1$ and so
+applying $\sigma$ to the last term in the sum, we obtain $\theta$.  Dividing by
+$\alpha^{\sigma}$, the proof concludes.
+\end{quote}
+{\bf Radical extensions:} $K= k(u_1, u_2, \ldots , u_n)$ where
+$\exists n_1 : {u_1}^{n_1} \in k$ and
+$\exists n_m : {u_m}^{n_m} \in k(u_1 , \ldots , u_{m-1})$.  $f$ is said to
+be solvable by radicals if there is a radical extension containing the splitting
+field of $f$.
+If $K$ is a radical extension of $k$  and $E$ is an intermediate field
+then ${\cal G}(E/k)$ is solvable.
+If $E$ is a finite dimensional extension of degree $n$, $char(k) \nmid [E:k]$
+and ${\cal G}(E/k)$ is solvable then there is a radical extension
+$K$ of $k$ containing $E$.  If $char(k) \nmid n!$ and $f \in k[x], deg(f)=n$ then
+$f(x)=0$ is solvable by radicals iff ${\cal G}_f$ is solvable.  To show this,
+it suffices to consider prime exponents but we need
+to prove:
+\\
+\\
+{\bf Theorem:} If $q \nmid char(F)$ then the $q$-th root of unity are expressible as radicals, $q$,
+a prime.
+\\
+\\
+First a {\bf Lemma:} If $x^p-a$ is reducible, $a$ is a $p$-th power.
+\begin{quote}
+\emph{Proof:}
+If $x^p-a = \psi(x) \phi(x)$, each is a product of factors of the form $(x- \zeta_{\nu} \theta)$ where
+$\zeta$ is a $p$-th root of unity and $\theta^p=a$.  Say, $\psi(x)= b_k x^k + \ldots + b_0$ is 
+a product of $k$ of them.  $(p,k)=1$ so $cp+dk=1$ for some $c, d \in {\mathbb Z}$.  Further,
+$b= b_0= \zeta^{\nu} \theta^k$.  So $a=a^{cp} \cdot a^{dk}= b^{dp} \cdot a^{cp}$ which proves
+the result.
+\end{quote}
+\begin{quote}
+\emph{Proof of Theorem:}
+By induction on $q$, clear for $q=2$.  The $q$-th roots of unity form a cyclic extension of
+degree $q-1= p_1^{e_1} \ldots p_k^{e_k}$.  By induction, the successive $p_i$-th roots of unity
+are radicals and adjoining them, $x^{p_k}-a$ must be irreducible by the lemma so each such
+extension is a radical extension.
+\end{quote}
+{\bf Theorem:} Let $R_m$ be the ring of integers in ${\mathbb Q}[{\sqrt m}]$.  Suppose
+$\forall x, y\in R_m$, with $y \nmid x$ and $|N(x)| \ge |N(y)|$, $\exists u, v \in R_m$ such that
+$N(xu-yv) \leq |N(y)|$. Then $R_m$ is a PID.
+\begin{quote}
+\emph{Proof:} Let $I$ be an ideal and assume, by way of contradiction, $R_m$ is Euclidean.
+Choose $y \ne 0$ so that $|N(y)|$ is minimal.  WTS $y \mid x$.  We can find
+$u, v$: $N(xu-yv) \leq |N(y)|$ but this contradicts the minimality of $|N(y)|$.  Thus
+$y \mid x$ and $I = (y)$.
+\end{quote}
+{\bf Theorem:} $R_{-19}$ is a PID.
+\begin{quote}
+\emph{Proof:} $R_{-19} = {\frac {a + b {\sqrt m}} {2}}$.  Suppose $y \nmid x$, $|N(x)| \geq |N(y)|$.
+${\frac {x} {y}} = {\frac {a + b {\sqrt m}} {c}}, c > 1$.  Each of the cases $c=2, c=3, c=4, c \geq 5$,
+yield contradictions.
+\end{quote}
+{\bf Theorem:} If $m \in {\mathbb Z}^{<0}$ is square-free and $m \notin \{-1, -2, -3, -7, -11 \}$,
+then $R_m$ is not a Euclidean domain.
+\begin{quote}
+\emph{Proof:}
+Suppose if is.  CHoose $b \in R_m \setminus U(R_m)$ with $d(b)$ minimal.
+$\forall a, a=bq+r$ and $r =0, \pm  1$, so $b \mid 2, 3$.  However,
+both $2$ and $3$ are irreducible in $R_m$.  If $m = 1 \jmod{4}$ and put $a= {\frac {1 + {\sqrt m}} {2}}$.
+Neither $a, a+1, a-1$ are divisible by $2$ or $3$.  Contradiction.
+\end{quote}
+{\bf Theorem:} $R_{-19}$ is a PID that is not a Euclidean domain.
+\begin{quote}
+\emph{Proof:}  By the above, $R_{-19}$ is not a Euclidean domain and is a PID.
+\end{quote}
+\subsection {Computational Algebra}
+{\bf Discrete Fourier Transform and FFT:} Let $c(x)=a(x)b(x)$ which
+corresponds to the convolution ${\vec c} = {\vec a} * {\vec b}$.
+Define the DFT as 
+$F({\vec a})= A {\vec a}$, $A= \omega^{ij}$ with inverse
+$A^{-1}= {\frac 1 n} \omega^{-ij}$.
+Note that $F({\vec b} * {\vec c})= F({\vec b}) \cdot F({\vec c})$ (pointwise multiplication).
+\emph{Tukey-Cooley Idea:} Suppose $n=pq$, set 
+$j=j(j_1,j_2)= j_1 q +j_2, k=k(k_1 , k_2)= k_2p+k_1,
+0 \le j_1 <p, 0 \le j_2 <q, 0 \le k_1 <p, 0 \le k_2 <q$.  Then
+${\hat f}(k_1, k_2)= 
+\sum_{j_2=0}^{q-1}
+e^{\frac {2 \pi i j_2 (k_2p+k_1)} {n}}
+\sum_{j_1=0}^{p-1}
+e^{\frac {2 \pi i j_1 k_1} {p}} f(j_1 , j_2)$.  This requires $p^2q$ and $q^2p$ operations
+respectively or $pq(p+q)$ rather than $(pq)^2$.  
+Now do this recursively if $p, q$ factor further.
+$X_n = \sum_{k=0}^{N-1} x_k e^{-ikn}$.
+$x_n = {\frac 1 N} \sum_{k=0}^{N-1} X_k e^{ikn}$.
+\\
+\\
+{\bf Strassen and FFT:}  For matrix multiply, Strassen found $7$ products that do the trick.
+$m_1= (a_{12} - a_{22}) (b_{21} - b_{22})$,
+$m_2= (a_{11} + a_{22}) (b_{11} + b_{22})$,
+$m_3= (a_{11} - a_{21}) (b_{11} + b_{12})$,
+$m_4= (a_{11} + a_{12}) b_{22}$,
+$m_5= a_{11} (b_{21} - b_{22})$,
+$m_6= a_{22} (b_{21} + b_{11})$,
+$m_7= (a_{21} + a_{22}) b_{11}$.
+$c_{11}= m_1 + m_2 -m_4 + m_6$,
+$c_{12}= m_4 + m_5$,
+$c_{21}= m_6 + m_7$,
+$c_{22}= m_2 - m_3 + m_5 - m_7$.  $T(n)= 7 T({\frac n 2}) + 18 {\frac n 2}^2$, which is
+$O(2^{lg(7)})$. $F_{i,j}= \omega^{ij}$.  $F$ evaluates, $F^{-1}$, interpolates.
+$q_{l,m} = \prod_{j=l}^{l+2^m-1} (x-c_j)$ and $q_{l,m}= a_{l, m-1} q_{l+2^m,m-1}$.
+What is $Rem({\frac {p(x)} {q_{l,0}(x)}}), \forall l$?  If $q= q' q''$, 
+$Rem({\frac {p(x)} {q'(x)}}) =Rem({\frac {r_{l,m}(x)} {q'(x)}})$,
+$q_{l,m}= x^{2^m} =\omega^{rev(l/2^m)}$.  For algorithm, crucial step is
+$r_{l,m}(x) =\sum (a_j + \omega^s a_{j+2^m}) x^j$ and
+$r_{l+2^m,m}(x) =\sum (a_j + \omega^{s+ {\frac n 2}} a_{j+2^m}) x^j$.
+\\
+\\
+{\bf Hensel:}  If $I \subseteq {\mathbb R}$, $f=gh \jmod{I}$ such that the pseudo 
+$GCD(g,h)=1$ then
+$\exists g^*,h^*$ such that (1) $f= g^* h^* \jmod{I^2}$,
+(2) $g=g^* \jmod{I}$,
+(3) $h=h^* \jmod{I}$, and pseudo $GCD(g^*,h^*)=1 \jmod{I^2}$.
+If $g', h'$ satisfy the conditions also, 
+$g'=g^*(1+u) \jmod{i^2}$ and
+$h'=h^*(1-u) \jmod{i^2}$.
+\\
+\\
+{\bf Bivariate Factoring:}  If $|{\mathbb F}|>4d^2$, $f \in {\mathbb F}$, 
+$deg_x(f) \leq d$, $\exists \in {\mathbb F}$: $f_{\beta}(x,0) \in {\mathbb F}[x]$
+has no repeated factors.\\
+\jt 1a Obtain square free factorization.\\
+\jt 1b Find $\beta \in {\mathbb F}$ such that $f(x,\beta)$ is squarefree.\\
+\jt 1c $f_{\beta}=f(x,y+\beta)$.\\
+\jt 2a $f(x,y)=g(x,y)h(x,y) \jmod{y}$.\\
+\jt 2b Lift $f(x,y)=g_k(x,y)h_k(x,y) \jmod{y^k}$.\\
+\jt 3a Find $g''$ and $l_k$: $g''=g_k l_k \jmod{y^{2^k}}$, 
+$deg_x(g'') \leq deg_x(f)$,
+$deg_y(g'') \leq deg_y(f)$, $g'' \ne 0$. \\
+$|Res(f,g,x)| \leq  (m+1)^{\frac n 2} (n+1)^{\frac m 2} A^{\frac m 2} B^{\frac n 2}$.
+\\
+\\
+{\bf Extension Theorem:}
+Let $I= \langle f_1 ,..., f_s \rangle \in {\mathbb C}(x_1,x_2,...,x_n)$ and $I_1$
+is the first elimination ideal of $I$.  For each $1 \leq i \leq s$ write
+$f_i = g(x_2,...,x_n) {x_1}^{N_i} + ...$.   Suppose $c=(c_2,...,c_n) \in V(I_1)$.
+If $c \notin V(g_1,g_2,...,g_s)$, $\exists c_1$ such that $(c_1,c) \in V(I)$.  
+\\
+\\
+{\bf Linear Programming:} $max(cx)$ subject to $Ax \leq b$, $x \geq 0$.
+{\bf Quadratic Programming: }
+$max(\sum \rho_{ij}\sigma_i \sigma_j x_i x_j)$, subject to $\sum x_i =1$,
+$x_i \geq 0$, $\sum x_i u_i \geq R$.
+\subsection{Algebraic Number Theory}
+{\bf Gaussian Integers:} ${\mathbb Z}[i]$.  Let $\alpha, \beta, \gamma, \delta$ represent
+gaussian integers.  $N(x+yi)= x^2 + y^2$.
+$\forall \alpha, \beta, \exists \gamma, \delta$ such that
+$\alpha= \beta \gamma + \delta$ with $0 \leq N(\delta) < N(\beta)$.
+$\alpha$ is a unit iff $N(\alpha)=1$. Units are $1, -1, i, -i$.
+Let $S= \{\alpha \eta + \beta \gamma\}$, $\phi$ with minimal norm is the
+gcd.
+If $\pi$ is a Gaussian integer with $N(\pi)=p$ then $\pi$ is prime.
+If $\pi$ is a Gaussian prime and $\pi | \alpha \beta$ then $\pi | \alpha$ or
+$\pi | \beta$.
+Gaussian integers form a UFD.
+Let $\pi$ be a Gaussian prime, there is one and only one $p$ such that
+$\pi | p$.
+Note that $\pi= x + yi$, $N(\pi)= x^2 + y^2$ divides $p$ or $p^2$ so
+$x= 0, 1, 2 \jmod{4}$.
+Characterization of Gaussian primes: $p=2$:  $p= -i \pi^2$.
+$p=3 \jmod{4}$, $p=\pi$.
+$p=1 \jmod{4}$, $p=\pi {\overline \pi}$ and $\pi$ and
+${\overline \pi}$ are non-associated primes.
+If $p=1 \jmod{4}$ then $p \mid (z^2+1)$.  If $\pi \mid p$,
+$\pi | (z+i)(z-i)$ so $\pi | (z-i)$.
+\\
+\\
+{\bf Definitions:}
+$x$ is \emph{integral} over $A$ if $x$ is a root of a monic polynomial 
+$f$ with coefficients in $A$.
+If $A$ is a subring of $R$, the \emph{integral closure} of $A$ in
+$R$ is the set $A_c$ of elements of $R$ 
+that are integral over $A$. Note that $A \subseteq A_c$.
+We say $A$ is integrally closed in $R$ if $A_c = A$. 
+If $A$ is an integral domain
+with quotient field $K$, and $A$ is integrally closed in $K$
+we simply say
+that $A$ is integrally closed without reference to $R$.
+\\ 
+\\
+{\bf Theorem:}  Let $M$ be an $A$-module.  $M$ is faithful if 
+$aM=0 \rightarrow a=0$.  Let $A \subseteq B$, $\alpha \in B$.  The following are
+equivalent: (1) $\alpha$ is a root of $f(x)=x^n+a_{n-1}x^{n-1}+...+a_0$;
+(2) $A[\alpha]$ is a finitely generated $A$ module; (3) $\exists$ a faithful
+module, $N$, over $A[\alpha]$ which is a finitely generated $A$-module.
+\begin{quote}
+\emph{Proof:}
+$1 \rightarrow 2$:  $1,x,\ldots, x^{n-1}$ generate $A[x]$.
+$2 \rightarrow 3$:  $N=A[x]$.
+$3 \rightarrow 1$:  Let $\beta_1, \ldots, \beta_n$ be the generators of $N$.
+$x \beta_i = \sum_j a_{ij} \beta_j$ and $det(xI-(a_{ij}))=0$.  This gives the monic equation.
+\end{quote}
+{\bf More trace and norm:}
+$N_{E/F}(x)= det(m(x))$, $Tr_{E/F}(x)= trace(m(x))$.
+If $\alpha= x+yi$, $Tr(\alpha)= 2x$, $N(\alpha)= \alpha {\overline
+\alpha}$.
+$S(\alpha)= \sum_{\sigma} \alpha^{\sigma}$ is an integer, so is
+$N(\alpha)= \prod_{\sigma} \alpha^{\sigma}$. $\alpha$ is a  unit iff
+$|N(\alpha)| = 1$.
+$\alpha$ is an integer of $Q({\sqrt d})$ iff $T(\alpha)$ and $N(\alpha)$
+are integers.
+\\
+\\
+{\bf Quadratic integers:}
+$I_d= \{x+y \omega_d, x,y \in {\mathbb Z} \}$,
+$\omega_d = {\sqrt d}$ if
+$d= 2,3 \jmod{4}$,
+${\frac { 1+{\sqrt d}} 2}$, if
+$d= 1 \jmod{4}$.
+Ideal Theory:
+$P= (2, 1+{\sqrt {-5}})$,
+$Q= (3, 1+{\sqrt {-5}})$.  $P^2= (2)$ and $Q {\overline Q}= (3)$.
+Fermat analogue: $\alpha^{N(\pi)-1}= 1 \jmod{\pi}$.
+\\
+\\
+{\bf Theorem:}
+If $\theta$ is an algebraic number,
+there is an integer $m$ such that $m \theta$ is an algebraic integer.
+\begin{quote}
+\emph{Proof:} We may assume 
+$a_n \theta^n + a_{n-1} \theta^{n-1} + \ldots + a_0 =0, a_i \in {\mathbb Z}$.  Then
+$(a_n \theta)^n + a_{n-1} (a_n \theta)^{n-1} + \ldots + (a_n)^{n-1}a_0 =0$.
+$a_n \theta$ is an algebraic integer.
+\end{quote}
+{\bf Notation:} $R(\theta)$ denotes the ring of algebraic integers in ${\mathbb Q}(\theta)$.
+\\
+\\
+{\bf Theorem:}
+Every basis for $R(\theta)$ has $n$ elements, where $\theta$ is an algebraic number whose
+minimal polynomial has degree $n$.
+\begin{quote}
+\emph{Proof:} Every integral basis is a basis and has the same number of elements.
+\end{quote}
+{\bf Definition:}
+$\Delta(\alpha_1, \alpha_2, \ldots, \alpha_n) =
+det({\alpha_i}^{\sigma_j})^2$, $\alpha_i \in R( \theta )$.
+Alternatively,
+$\Delta(\alpha_1, \alpha_2, \ldots, \alpha_n) =
+det(T({\alpha_i}{\alpha_j}))$; this follows from the fact that 
+$T(\alpha_i \alpha_j)= \sum_k \sigma_k(\alpha_i \alpha_j)$.
+\\
+\\
+{\bf Theorem:}
+$\Delta(\alpha_1, \alpha_2, \ldots, \alpha_n)$ is an integer.
+\begin{quote}
+\emph{Proof:} 
+$\Delta(\alpha_1, \alpha_2, \ldots, \alpha_n)$ is an algebraic integer fixed by 
+all $\sigma \in {\cal G}({\mathbb Q}(\theta)/{\mathbb Q}$ and so it is in ${\mathbb Q}$.
+The only algebraic integers in ${\mathbb Q}$ are in ${\mathbb Z}$.
+\end{quote}
+{\bf Theorem:}
+If $\{\alpha_i\}$ and $\{\beta_i\}$ are basis with
+$\alpha_j= \sum_k a_{jk}\beta_k$ then
+$\Delta(\alpha_1, \alpha_2, \ldots, \alpha_n)= det(a_{ij})^2
+\Delta(\beta_1, \beta_2, \ldots, \beta_n)$.
+\begin{quote}
+\emph{Proof:} $T( \beta_r \beta_s)= T(\sum_{i,j} a_{r,i} a_{s,j} \alpha_i \alpha_j$,
+so $(T(\beta_r \beta_s ) )= (a_{ij}) T(\alpha_i \alpha_j) (a_{ij})^T$.  Taking determinants
+gives the result.
+\end{quote}
+{\bf Theorem:}  Suppose $F$ is separable over ${\mathbb Q}$,
+$\langle \alpha_i \rangle$ is a basis iff
+$\Delta(\alpha_1, \alpha_2, \ldots, \alpha_n) \ne 0$.
+\begin{quote}
+\emph{Proof:} If 
+$\sum_j c_j \alpha_j =0$,
+$\sum_j c_j \sigma_k(\alpha_j) =0, \forall k$ and $B=(\sigma_i (\alpha_j))$ has linearly dependent
+columns so the determinant (discriminant) is $0$.  Suppose 
+$\langle \alpha_1 , \ldots , \alpha_n \rangle$
+are a basis and $\exists c_j$ not all $0$ such that $\sum_j c_j \sigma_k(\alpha_j) = 0$.
+If 
+$\Delta(\alpha_1, \alpha_2, \ldots, \alpha_n)= 0$, the rows of $B$ are linearly dependent so
+$\sum_j c_j \sigma_k(u) = 0, \forall u$, which contradicts Artin.
+\end{quote}
+{\bf Theorem:}
+All integral bases of $R(\theta)$ have the same discriminant.
+\begin{quote}
+\emph{Proof:} If 
+$\langle \alpha_1 , \ldots , \alpha_n \rangle$ and
+$\langle \beta_1 , \ldots , \beta_n \rangle$ are two bases
+$\alpha_j= \sum_k a_{jk}\beta_k$ and
+$\beta_j= \sum_k b_{jk}\alpha_k$.
+$det(a_{ij})^2= det(b_{ij})^2 = 1$.
+\end{quote}
+{\bf Definition:}
+If $\{\alpha_i\}$ is an integral basis for $R(\theta)$ then
+$\Delta(\alpha_1, \alpha_2, \ldots, \alpha_n)$ is minimal,
+in which case it is called the \emph{discriminant} of $R(\theta)$ and written
+$Disc(R(\theta))$.
+\\
+\\
+{\bf Theorem:} If $A$ is an ideal of $R(\theta)$ then
+${\mathbb Z} \cap A \ne \emptyset$.
+\begin{quote}
+\emph{Proof:} 
+Since $A$ is an ideal, $R(\theta) A \subseteq A$.
+If $\alpha \in A$, $ \alpha^n + a_{n-1} \alpha^{n-1} + \ldots + a_0= 0, a_i \in {\mathbb Z}$.
+$a_0 \in {\mathbb Z} \cap A$.
+\end{quote}
+{\bf Theorem:}
+If $D$ is a ring of algebraic integers and $A$ is a module then $D/A$ is finite.
+\begin{quote}
+\emph{Proof:} $\exists a \in A \cap {\mathbb Z}$.  $(a) \subseteq A$ so $D/(a) \rightarrow D/A$ is
+a homomorphism.  $D= {\mathbb Z} \omega_1 + \ldots + {\mathbb Z} \omega_n$.  Let
+$S= \{ \sum_i \gamma_i \omega_i, 0 \leq \gamma_i < a \}$.  $S$ contains all coset representatives
+of $D/(a)$.
+\end{quote}
+{\bf Theorem:} $D$ is Noetherian.
+\begin{quote}
+\emph{Proof:}
+Since $D/A_i$ is finite there are only finitely many ideals in $A_1$.
+\end{quote}
+{\bf Theorem:}
+Every prime ideal in $D$ is maximal.
+\begin{quote}
+\emph{Proof:}
+$D/P$ is a finite integral domain.
+\end{quote}
+{\bf Theorem:}
+Let $A \subseteq D$ be an ideal.  If $\beta \in F$ and $\beta A \subseteq A$ then
+$\beta \in D$.
+\begin{quote}
+\emph{Proof:} $A$ is a finitely generated ${\mathbb Z}$-module.  $\beta$ satisfies
+$a_n B^n+ \ldots + a_0 = 0, a_i \in {\mathbb Z}$.  Multiply by $a_n^{n-1}$ and $a_n \beta$ is an algebraic
+integer.  $a_i a_n^{-1} \in {\mathbb Z}$.
+\end{quote}
+{\bf Theorem:}
+If $A, B$ are ideals in $D$ and $A= AB$ then $B=D$.
+\begin{quote}
+\emph{Proof:} 
+Let $\alpha_1, \ldots , \alpha_n$ be an integral basis for $A$.  $\exists b_i \in B:
+\alpha_i = \sum_j b_{ij} \alpha_j$.  $det(b_{ij}- \delta_{ij})= 0$.  So $1 \in B$ and $D=B$.
+\end{quote}
+{\bf Theorem:}
+If $\omega \in D$ and $( \omega ) A = B A$ then $( \omega ) = B$.
+\begin{quote}
+\emph{Proof:} 
+$\beta \in B$ implies $(\beta / \omega ) A \subseteq A$ so $ \beta / \omega \in D$.
+$A= \omega^{-1} B A$ so $\omega^{-1} B = D$.
+\end{quote}
+{\bf Theorem:}
+Every ideal contains a basis.
+\begin{quote}
+\emph{Proof:} 
+Let $\beta_1, \ldots , \beta_n$ be a basis of $F/{\mathbb Q}$.  $\exists a, b \in {\mathbb Z}$
+such that $b \beta_1, \ldots , b\beta_n \in {\mathbb Z}$.  Choose $\alpha \in A, \alpha \neq 0$,
+$b\beta_1 \alpha , \ldots , b\beta_n \alpha \in A$ are a basis.
+\end{quote}
+{\bf Theorem:}
+$\exists M(F): \alpha , \beta \in D, \beta \ne 0, 1 \leq t \leq M$ and $\omega \in D$:
+$|N( t \alpha - \omega \beta)| < |N(\beta)|$.
+\begin{quote}
+\emph{Proof:} 
+Let $\gamma= {\frac {\alpha}{\beta}} \in F$.  It suffices to show that $\forall \gamma \in F$,
+there is an $M: |N(t \alpha - \omega \beta )|< 1$ for some $1 \leq t \leq M$ and $\omega \in D$.
+Let $ \omega_1 , \ldots, \omega_n $ be an integral basis for $D$.  For $\gamma \in F$,
+$\gamma= \sum_{i=1}^n \gamma_i \omega_i, \gamma_i \in {\mathbb Q}$.
+Notice that  $|N(\gamma)|= |\prod_j (\sum_i \gamma_i \omega_i^{(j)})| \leq C (max_i |\gamma_i|)^n$,
+where $C= \prod_j ( \sum_i \omega_i^{(j)})$.  Choose $m > C^{\frac 1 n}$ and set $M= m^n$.
+For $\gamma \in F, \gamma= \sum_i \gamma_i \omega_i$, 
+$\gamma_i = a_i + b_i, a_i= \lceil \gamma_i \rceil$.  Put $[ \gamma_i ]= \sum_i a_i \omega_i$.
+Map $F \rightarrow {\mathbb R}^n$ by $\phi(\sum_i \gamma_i \omega_i)= (\gamma_1 , \ldots , \gamma_n)$.
+Partition the $n$-cube into $M=m^n$ subcubes.  
+Consider the points $\phi(\{k \gamma\}), 1 \leq k \leq m^n + 1$.
+At least two lie in the same subcube.  Subtracting we get $t \gamma= \omega + \delta$.
+The coordinates of $\delta$ have absolute value $\leq {\frac 1 m}$.  
+So $N(\delta) \leq C(1/m)^n= C/m^n<1$.
+\end{quote}
+{\bf Theorem:}
+The class number is finite.
+\begin{quote}
+\emph{Proof:} 
+Let $A \subseteq D$.  For $\alpha \in A$ and $\alpha \ne 0$, $|N(\alpha)| \in {\mathbb Z}$.
+Choose $\beta \in A, \beta \ne 0: |N(A)|$ is minimal.  $\forall \alpha, \exists t:
+|N(t \alpha - \omega \beta )| < |N(\beta)|, 1 \leq t \leq M$.  Since
+$t \alpha - \omega \beta \in A$,
+$t \alpha - \omega \beta = 0$.  $B = {\frac 1 {\beta}} M! A \subseteq D$,  $ (M!) \supseteq (\beta)B$ so
+$(M!) \subseteq B$.  But $(M!)$ is contained in only finitely many ideals.  So $A \equiv B$, where
+$B$ is one of finitely many ideals.
+\end{quote}
+{\bf Theorem:}
+If $A, B$ are ideals in $R(\theta)$, $A|B$ iff $A=BC$ iff $B \subseteq A$.
+\begin{quote}
+\emph{Proof:} 
+$\exists k: B^k = (\beta)$.  Since $A \subseteq B$, $B^{k-1} A \subseteq (\beta)$ so
+$C= {\frac 1 {\beta}} B^{k-1}A \subseteq D$.  $BC=1$.
+\end{quote}
+{\bf Definition:}
+If $A$ is an ideal with basis $\alpha_i= \sum_j a_{ij} \omega_j$ then
+$N(A)= det (a_{ij})$.
+$A \sim B$ iff $\exists \alpha, \beta$ such that $(\alpha)A=(\beta)B$.
+each equivalence class is called an ideal class.
+\\
+\\
+{\bf Theorem:} $\forall A \subseteq D, \exists k: 1 \leq k \leq h_F$ such that $A^k$ is principal.
+\begin{quote}
+\emph{Proof:} 
+Consider $\{ a^i : 1 \leq k \leq h_F+1 \} : a^i \equiv A^j, j>i$.  $\exists \alpha , \beta \in D:
+(\alpha) A^i= (\beta) A^j$.  Put $B= A^{j-i}$.  $B$ is principal since
+$(\alpha) A^i = (\beta) B A^i$.  $( \alpha / \beta ) A^i \subseteq A^i$, so
+$\omega= \alpha / \beta \in D$ then $(\omega) A^i = B A^i$ and thus $(\omega)= B$.
+\end{quote}
+{\bf Theorem:}
+There are finitely many ideal classes $h$ of $R(\theta)$ and $A^h \sim
+(1)$.
+\begin{quote}
+\emph{Proof:} 
+For $K=R(\theta)$, $\exists C(K): \forall A, \exists 0 \ne \alpha \in A:
+|N(\alpha)| \leq C N(A)$.  Use this to show $\exists B:N(B) \leq C$ so there are a finite
+number of ideals containing $B$. $\exists \alpha: (\alpha)=AD$.  $AN \sim AD$.
+\end{quote}
+{\bf Theorem:}
+If $A$ is an ideal in $R(\theta)$, $\exists B$ such that $AB= (a)$ for some
+$a$ in $R(\theta)$.
+\begin{quote}
+\emph{Proof:} Todo.
+\end{quote}
+{\bf Theorem:}
+If $A, B$ are ideals in $R(\theta)$,with  $AC=BC$ then $A=B$.
+\begin{quote}
+\emph{Proof:} $\exists k>0: A^k= (\alpha)$, so
+$A^{k-1}AB = A^{k-1} AC$.  $(\alpha) B = (\alpha) C$ and so $B=C$.
+\end{quote}
+{\bf Theorem:}
+If $P|AB$ and $P$ does not divide $A$ then $P|B$.
+\begin{quote}
+\emph{Proof:} $a \in A, b \in B$ $P \supseteq AB$ but $P \nsupseteq A$,
+so $ab \in P$.  $\exists c: ac \in 1 +P$.  $ac - 1 \in P$ and
+$abc - b \in P$ but $ab \in P$ so $b \in P$ and $P \supseteq B$.
+\end{quote}
+{\bf Theorem:}
+Every ideal has finitely many distinct divisors.
+\begin{quote}
+\emph{Proof:} Todo.
+\end{quote}
+{\bf Theorem:}
+Every prime ideal must divide the principal ideal of a rational prime.
+\begin{quote}
+\emph{Proof:} Follows from finiteness of class number.
+\end{quote}
+{\bf Theorem:}
+Every ideal can be written as a product of prime ideals.  The factorization
+is unique apart from order.
+\begin{quote}
+\emph{Proof:} Let $A$ be an ideal.  $D/A$ is finite so $A \subset P_1$, maximal and
+$A= P_1B_1$.  If $B_1 \neq D$, $B_1$ is contained in a maximal ideal and so on
+giving a chain, $A \subset B_1 \subset B_2 \subset \ldots$ which must terminate.
+\end{quote}
+{\bf Theorem:}
+Every rational integer belongs to finitely many ideals.
+\begin{quote}
+\emph{Proof:} Todo.
+\end{quote}
+{\bf Theorem:}
+Rational prime is \emph{ramified}
+ if its principal ideal factors into prime ideals in which one
+prime ideal is repeated.  If this happens, $p | \Delta(\alpha_1 , \ldots , \alpha_n)$.
+\begin{quote}
+\emph{Proof:} Todo.
+\end{quote}
+{\bf Theorem:}
+The ring of integers ${\cal D}_K$ in the number field, $K$, has the following properties:
+${\cal D}_K$ 
+is a domain with field of fractions $K$.
+${\cal D}_K$ is noetherian (Use the fact that
+${\cal D}_K$  is a free abelian group of degree $n= K:{\mathbb Q}$.)
+\begin{quote}
+\emph{Proof:} Todo.
+\end{quote}
+{\bf Definition:}
+Let ${\cal D}$ be a ring of integers, ${\mathfrak a}$
+is a fractional ideal if $\exists c \in {\cal D}$: $c {\mathfrak a} \subseteq {\cal D}$.
+\\
+\\
+{\bf Theorem:}
+Every non zero prime ideal ${\mathfrak p}$ of ${\cal D}$ is maximal. (
+${\cal D}/{\mathfrak a}$ is a finite integral domain.)  Fractional ideals form an abelian
+group.  
+\begin{quote}
+\emph{Proof:} Todo.
+\end{quote}
+{\bf Theorem:}
+Every non-zero ideal of
+${\cal D}$ can be factored into prime ideals (${\cal D}$ is noetherian).
+\begin{quote}
+\emph{Proof:} Todo.
+\end{quote}
+{\bf Norm of an ideal:} 
+$N({\mathfrak a})= |{\mathfrak D}/{\mathfrak a}|$; if ${\mathfrak a}= \langle a \rangle$ 
+is principal
+$N(a)= N({\mathfrak a})$. 
+$N({\mathfrak a}{\mathfrak b})= N({\mathfrak a}) N({\mathfrak b})$.
+$\Delta_{K/{\mathbb Q}}(\alpha_1 , \alpha_2, \ldots , \alpha_n )= 
+[det(\sigma_i (\alpha_j))]^2$.
+\\
+\\
+{\bf Theorem:}
+Every non-zero ideal of ${\cal D}$ has a finite number
+of divisors.  
+\begin{quote}
+\emph{Proof:} Todo.
+\end{quote}
+{\bf Theorem:}
+A non-zero rational integer belongs to a finite number
+of ideals of ${\cal D}$.  
+\begin{quote}
+\emph{Proof:} Todo.
+\end{quote}
+{\bf Theorem:}
+Only a finite number of ideals of ${\cal D}$
+have a given norm.  
+\begin{quote}
+\emph{Proof:} Todo.
+\end{quote}
+{\bf Theorem:}
+If ${\mathfrak a} \ne {\mathfrak b}$ are ideals of ${\cal D}$ then
+$\exists \alpha \in {\mathfrak a}: \alpha {\mathfrak a}^{-1} + {\mathfrak b}= {\cal D}$.
+\begin{quote}
+\emph{Proof:} Todo.
+\end{quote}
+{\bf Theorem:}
+Let ${\mathfrak a} \ne 0$ be an ideal of ${\cal D}$ and $0 \ne \beta \in {\mathfrak a},
+\exists \alpha \in {\mathfrak a}: {\mathfrak a}= \langle  \alpha, \beta \rangle$.
+\begin{quote}
+\emph{Proof:} Todo.
+\end{quote}
+{\bf Minkowski:}
+$X$ is convex if $x, y \in X \rightarrow \lambda x + (1-\lambda)y \in X,
+\forall \lambda \in [0,1]$.
+$X$ is  symmetric if $x \in X \rightarrow -x \in X$.
+Let $L$ be an $n$-dimensional lattice in ${\mathbb R}^n$ with
+fundamental region $T$ and let $X$ be a bounded, convex, symmetric subset of
+${\mathbb R}^n$; if $v(X)> 2^n v(T), \exists \alpha \in X \cap L, x \ne 0$.  Let
+$L$ be a lattice then ${\mathbb R}^n/L \cong T^n$ (a torus).  Let
+$T$ be a fundamental region of $L$, $\phi: T \rightarrow T^n$ then
+$v(X) = v(\phi^{-1}(X))$.  If $\nu: {\mathbb R}^n \rightarrow T^n$ is the
+natural homomorphism with $ker(\nu)=L$.  If $X$ is a bounded subset of
+${\mathbb R}^n$, $\nu$ exists and $v(\nu(X)) \ne v(X)$ then $\nu_{|X}$ is
+not injective.  \emph{Four squares:} If $p= 4k+1$ then $p=a^2 + b^2$.  
+($\langle g \rangle = {\mathbb Z}_p$
+is cyclic $g^k=u$ and $u^2= -1$.  Let $L= \{(a,b): b=ua \jmod{p} \}$,
+${\mathbb Z}^2:L= p^2$, $vol(T_L)=p$.  $C_r: \{ x: ||x||<r \}$ and $\pi r^2>4p$,
+$r^2= {\frac {3p} 2}, 0 \ne a^2 +b^2 \le r^2 <2p$.
+\\
+\\
+\emph{Examples in algebraic fields:} In
+$R= {\mathbb Z}[{\sqrt {-3}}]$, ${\frac {-1+{\sqrt {-3}}} 2}$ is a unit note that
+$2 \times 2 = {-1+{\sqrt {-3}}} \times {-1-{\sqrt {-3}}}$.
+In $R= {\mathbb Z}[{\sqrt {-5}}]$ ideals are not all principal; note that
+$2 \times 3 = {-1+{\sqrt {-5}}} \times {-1-{\sqrt {-5}}}$.  \emph{Pell related:}
+There are two equivalence classes of forms of determinant $5$:   $x^2+5y^2$ and
+$2 x^2 + 2xy +3y^2$ and the class number of ${\mathbb Z} [{\sqrt {-5}}]$ is $2$.
+If $p$ is a rational prime and $K/ {\mathbb Q}$ is a Galois extension 
+then $G= {\cal G}(K/{\mathbb Q})$ acts transitively on the ideal divisors of $(p)$,
+the exponent of the ideal divisors are called the ramification index.  The ideal generated
+by a rational ideal $(p)$ factors into indecomposable factors
+in an algebraic number field, $O_F$, in one of
+three ways: (a) $(p)$, (b) $(p)= P \sigma(P)$ (``$p$ splits''), or (c)
+$(p)= P^2$ (``$p$ ramifies'').
+\\
+\\
+{\bf Analytic formulas:} $f*g(n)= \sum_{d|n} f(d)g({\frac n d})$.  
+This is commutative, associative and has an inverse.
+$\Lambda(n)= ln(n)$, if $n= p^m$,
+$\Lambda(n)= 0$, otherwise.  Note: $ln(n)= \sum_{d|n} \Lambda(d)$.
+$\sigma_{\alpha}(n)= \sum_{d|n} d^{\alpha}$.
+$\psi(x)= \sum_{n \leq x} \Lambda(n)$,
+$\vartheta(x)= \sum_{p \leq x} ln(p)$.
+${\frac {\psi(x)} {x}} -
+{\frac {\vartheta(x)} {x}} \leq {\frac {ln(x)^2} {2 {\sqrt x} ln(2)}}$.
+$L(1,\chi)= \sum_{n=1}^{\infty} {\frac {\chi(n)} n}$, $\chi$, a
+non-principal character.
+{\bf Dirichlet:}  If $k>0$ and $(h,k)=1$, $\forall x>1$
+$\sum_{p \leq x, p=h \jmod{k}} {\frac {ln(p)} p}=
+{\frac 1 {\phi(k)}} ln(x) + O(1)$.
+$\pi_a (x)= \sum_{p \leq x, p=a \; \jmod{k}} 1$.
+$\pi_a (x) \approx {\frac {\pi(x)} {\phi(k)}}$, $x \rightarrow 0$,
+$\forall a$, $(a, k)=1$ and $\pi_a (x) \approx \pi_b (x)$ when
+$(a,k)=(b,k)=1$.
+\\
+\\
+{\bf Definition:} A \emph{Lie algebra} is a vector space, $V$ over a field, $F$ with an operation
+$[,]: V \times V \rightarrow V$ which is alternating and bilinear and which satisfies the Jacobi
+identity: $[x,[y,z]] + [y,[z,x]] + [z, [x,y]]= 0$.  If $A$ is an associative algebra, there is
+a corresponding Lie algebra with $[a,b]= a*b-b*a$, called an \emph{enveloping algebra}.
+\emph{Example:} $n \times n$ matricies over $F$ give rise to $L_n(F)$.  ${\mathbb R}^3$ with
+$[a, b]= a \times b$ is a Lie algebra.
+

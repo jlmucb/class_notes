@@ -1,0 +1,530 @@
+\chapter{Transfer and $p-$complements}
+\section{Transfer}
+{\bf Definition 1:}  Suppose $G$ is a finite group and $H$ is a subgroup, $|G:H|=n$.  
+Let $ \langle r_1, \ldots, r_n \rangle $ be a right transversal so $G= \bigcup_{i=1}^n Hr_n$ and
+$Hr_i \cap Hr_j = \emptyset$ if $i \ne j$.  Suppose $r_i g= h_i(g) r_j$.
+The \emph {transfer} map from $G$ to $H$ is defined as 
+$V_{G \rightarrow H}(g)= \prod_{i=1}^n h_i(g) \jmod {H'}$.
+\\
+\\
+{\bf Definition 2:} $Foc_G(H)= \langle y^{-1} y^g: y, y^g \in H \rangle $, 
+thus $H' \le Foc_G(H) \le H \cap G'$.
+\\
+\\
+{\bf Theorem 1:}
+The map $V_{G \rightarrow H}$ is well defined and is a homomorphism.
+\begin{quote}
+\emph{Proof:}  
+Let 
+$T= \{ t_1 , t_2 , \ldots , t_n \}$ and
+$T'= \{ t_1' , t_2' , \ldots , t_n' \}$ be two transversals for $G/H$.
+$\exists k_i \in H: t_i'= k_i t_i$.  If 
+$t_i g = h_i(g) t_j$ and
+$t_i' g = h_i'(g) t_j'$, $t_i g= k_i^{-1} h_i(g)' k_j^{-1}$ and $k_i^{-1} h_i(g)' k_j = h_i(g)$.
+For each $g$, each $k_i^{-1}, k_j$ occur once when $h_i(g)$ is calculated the cosets.
+$\prod_{i=1}^n h_i(g) = \prod_{i=1}^n k_i^{-1} h_i(g)' k_j \jmod{H'}$ but the elements of $H$
+commute $\jmod{H'}$ and all the $k_i's$ cancel thus
+$\prod_{i=1}^n h_i(g) = \prod_{i=1}^n  h_i(g)' \jmod{H'}$ and 
+thus $V_{G \rightarrow H}$ is well defined.
+\\
+\\
+Now 
+$V_{G \rightarrow H}(g_1 g_2)= \prod_{i=1}^n h_i(g_1 g_2) \jmod {H'}$.
+$t_i g_1 g_2 = h_i(g_1 g_2) t_j = h_i(g_1) t_k g_2 = h_i(g_1) h_k(g_2) t_j$. So
+$V_{G \rightarrow H}(g_1 g_2) = $
+$\prod_{i=1}^n h_i(g_1 g_2) =$ $ \prod_{i=1, k=1}^n h_i(g_1) h_k(g_2) \jmod{H'} =$
+$(\prod_{i=1}^n h_i(g_1) \jmod{H'})$ $(\prod_{k=1}^n h_k(g_2) \jmod{H'}$ 
+$= V_{G \rightarrow H}(g_1) V_{G \rightarrow H}(g_2)$,
+thus, $V_{G \rightarrow H}$ is a homomorphism.
+\end{quote}
+{\bf Theorem 2:} 
+$V_{G \rightarrow H}(g)= \prod_{i=1}^k  h_j \jmod {H'}
+= \prod_{i=1}^k  r_i g^{n_i}{r_i}^{-1} \jmod {H'}$.  Further, $\sum_{i=1}^h n_i = |G:H|$.
+\begin{quote}
+\emph{Proof:}  
+For fixed $g \in G$, we can pick the transversal 
+$Hr_1, H r_1, \ldots, H r_1 g^{n_1 -1}$,
+$Hr_2, H r_2, \ldots, H r_2 g^{n_2 -1}$, \ldots,
+$Hr_k, H r_k, \ldots, H r_k g^{n_k -1}$, where $r_j g^{n_j} = h_j r_j$ for
+some, $h_j= r_j g^{n_j}{r_j}^{-1}$. So
+$V_{G \rightarrow H}(g)= \prod_{i=1}^k  h_j \jmod {H'}
+= \prod_{i=1}^k  r_i g^{n_i}{r_i}^{-1} \jmod {H'}$.  Further, $\sum_{i=1}^h n_i = |G:H|$.
+\end{quote}
+{\bf Theorem 3:} 
+If $Z$ is a central subgroup of $G$, $|G:Z|=n$ then
+$V_{G \rightarrow Z}(g)= g^n$
+\begin{quote}
+\emph{Proof:}  
+Choose a right transversal, $T$ for $Z$ in $G$ and let $g \in G$.  Choose $T_0 \subseteq T$
+and integers $n_t$ for $t \in T_0$.  For $t \in T_0$, we have 
+$t g^{n_t} t^{-1} \in Z$
+and thus
+$t^{-1} t g^{n_t} t^{-1} t= g^{n_t}$ and the product over all these is $g^{\sum_t n_t}= g^n$.
+\end{quote}
+{\bf Lemma A:} 
+Let $T$ be a right transversal for $Z={\mathbb Z}(G)$ in $G$, then every commutator in $G$
+is of the form $[s,t], s,t \in T$.  So if $|G:Z|$ is finite, there are only finitely 
+many commutators.
+\begin{quote}
+\emph{Proof:}    The second statement follows from the first since $|T|= |G:{\mathbb Z}(G)$.
+If $g \in G, g= xs, x \in {\mathbb Z}(G), t \in T$.  So it suffices to show 
+$[xs,yt]=[s,t]$  with $x, y \in {\mathbb Z}(G)$ and $s, t \in T$.  So
+$[xs,yt]= [x,yt]^s [s,yt]= [s,yt]$.  Also, 
+$[s,yt]= [yt,s]^{-1}= ([y,s]^t [t,s]^{-1}= [t,s]^{-1}=[s,t]$.
+\end{quote}
+{\bf Theorem 4:} 
+If $|G:{\mathbb Z}(G)|=n$ then $[g,h]^n=1, \forall g,h \in G$.
+\begin{quote}
+\emph{Proof:}  
+The map $g \mapsto g^n$ is a homomorphism from $G$ into ${\mathbb Z}(G)$ and so $G'$ is
+in the kernel.
+\end{quote}
+{\bf Theorem 5:} 
+Let $X$ be a finite subseteq of $G$ closed under conjugation and 
+suppose $\exists n: x^n = 1, \forall x \in X$ then $ \langle X \rangle $ is a 
+finite subgroup of $G$.
+\begin{quote}
+\emph{Proof:}  
+Let $S$ be the subseteq of $G$ of all products of finitely many elements of $X$.  $S$
+is closed under multiplication.  Since $x^n=1$, $x^{n-1}= x^{-1} \in S$ and 
+$ \langle X \rangle = S$.
+\emph{Claim:} Such an expression in $S$ never requires more than $(n-1) |X|$ factors.  The result
+follows from the claim.
+\\
+\emph {Proof of claim:} Put $g= x_1 x_2 \ldots x_m$. Suppose an element of $x \in X$ occurs $k$
+times.  We now that $g$ can be rewritten with leading factor $x$ with $x$ occuring no more than
+$k$ times.  To show this, assume $t$ is the smallest index for which $x=x_t$.  
+If $t=1$, we're done.
+$x_1 x_2 \ldots x_t = x(x_1 \ldots x_{t-1})^x= x (x_1^x) \ldots (x_{t-1}^x)$, this is
+a product of $t$ elements of $X$ since $X$ is closed under conjugation. We can continue and
+extract all copies of $x$ to the front.  Since $x^n=1$, the exponent of $x$ is $\le n-1$.
+\end{quote}
+{\bf Schur's Theorem:} 
+Suppose $|G:{\mathbb Z}(G)| < \infty$ then $|G'|< \infty$.
+\begin{quote}
+\emph{Proof:}  
+Let $X$ be the set of all commutators of $G$ and observe $|X|$ is finite.  Also,
+$[x,y]^g= [x^g, y^g]$.  
+$x^{|G:{\mathbb Z }(G)|}=1$ and the result follows from the previous result.
+\end{quote}
+{\bf Theorem 6:} Let $p \mid |G| < \infty$ and $p \mid |G' \cap {\mathbb Z}(G)|$, then
+the Sylow $p$-subgroup of $G$ is nonabelian.
+\begin{quote}
+\emph{Proof:}  
+Suppose $P \in S_p(G)$ is abelian and let $T$ be a right transversal.  Put
+$v(g)= V_{G \rightarrow P}(g)$. Let $Z= {\mathbb Z}(G)$.  
+$G' \cap Z \cap P > 1$ since $G' \cap Z \lhd G$.
+For $t \in T, z \in G' \cap Z \cap P$, $Ptz=Pzt=Pt$ so $t$ is the element in $Ptz$ and
+$t \cdot z= t$.  Thus, $tz(t \cdot z)^{-1}= tzt^{-1}=z$ and $v(z)= z^{|T|}=z^{|G:P|}$.
+We know, since $P$ is abelian that $G' \subseteq ker(v)$. So 
+$z \in G'\rightarrow 1=v(z)=z^{|G:P|}$.  Thus $z=1$.  This contradicts the choice of $z$.
+\end{quote}
+{\bf Theorem 7:} Let $Z < {\mathbb Z}(\Gamma)$, $\Gamma$, finite, then a Sylow $p$-subgroup of
+$\Gamma/Z$ is non-cyclic for all $p \mid |Z|$.
+\begin{quote}
+\emph{Proof:}  
+Let $P \in S_p( \Gamma )$, $p \mid |Z|$ and $Z \subseteq {\mathbb Z}( \Gamma ) \cap \Gamma'$
+so by the foregoing, $P$ is not abelian.  Since $P \cap Z \subseteq {\mathbb Z}(P)$ and
+$P$ is not abelian, $P/(P \cap Z)$ cannot be cyclic.  
+But $P/(P \cap Z) \cong PZ/Z \in S_p(\Gamma/Z)$ and so $\Gamma/Z$ has a 
+non-cyclic Sylow $p$-subgroup.
+\end{quote}
+{\bf Observation:} Note that $\Gamma$ is a central extension of $G$ if $\Gamma/Z \cong G$.
+In the case $Z \cong M(G)$ (the Schur multiplier), $\Gamma$ is a Schur representation group and
+if $G$ is perfect, this representation group is unique.  
+If $G= \langle x \rangle , x^4=1$, $|M(G)|=2$.  The
+theorem shows, for example, that $|M(A_5)|=2$
+\\
+\\
+{\bf Definition 3:} $A^p(G)$ is the smallest normal subgroup of $G$ such that
+$G/A^p(G)$ is an abelian $p$-group.  If $P$ is a Hall $\pi$ subgroup of $G$,
+we use $G(\pi)$ to denote the inverse image of $O_{\pi}(G/G')$.
+\\
+\\
+{\bf Focal Subgroup Theorem:}  
+If $P \in S_p(G)$, $Foc_G(P) = P \cap G' = P \cap A^p(G) = ker(V_{G \rightarrow P})$.
+\begin{quote}
+\emph{Proof:}  
+$Foc_G(P) \subseteq  P \cap G' \subseteq  P \cap A^p(G)  \subseteq ker(V_{G \rightarrow P})$ is
+easy.  So if we prove
+$ker(V_{G \rightarrow P}) \subseteq Foc_G(P)$, we're done.  Let $x \in ker(V_{G \rightarrow P})$, so $x \in P'$.
+Suppose $\langle Pg_i x, \ldots , P g_i x^{n_i - 1} \rangle$ is an orbit of $x$ acting on $Pg_i$ in $G/P$. So $Pg_i = Pg_i x^{n_i}$,
+${g_i}^{-1} x^{n_i} g_i \in P$, and $x^{n_i} \in P$.  
+We can find a complete set of coset representatives of $P$ in $G$ consisting of such orbits with $g_i \in G, i = 1,2, \ldots, h$.
+For each $i$, $x^{n_i} = {g_i}^{-1} x^{n_i} g_i \jmod{Foc_G(P)}$.  So 
+$V_{G \rightarrow P}(x) \jmod{Foc_G(P)} = \prod_{i=1}^h {g_i}^{-1} x^{n_i} g_i \jmod{Foc_G(P)} = x^{|G:P|} \jmod{Foc_G(H)}$
+and  $x^{|G:P|} \in Foc_G(P)$.  Since $P' \subseteq Foc_G(P) \subseteq P$ and $(|x|, |G:P|) =1$, $\exists k_1, k_2: k_1|G:P| + k_2|x| = 1$
+so $x = x^{|G:P| k_1} x^{|x| k_2} \in Foc_G(H)$ and all the groups are the same.
+\end{quote}
+{\bf Theorem 8:}  
+If $P \in S_p(G)$ then $ker(V_{G \rightarrow P})= A^p(G)$.
+\begin{quote}
+\emph{Proof:}  
+Put $K= ker(V_{G \rightarrow P})$, $A= A^p(G)$,  $A \supseteq K$ by the last result.
+$|G:K|$ and $|G:A|$ are $p$-powers.  $PK=G=PA$.  By FST, $P \cap K = P \cap A$ and
+$|G:K|= |P:P \cap K|= |P: P \cap A|= |G:A|$.  So $|A|= |K|$ and the result holds.
+\end{quote}
+{\bf Theorem 9:}  
+Let $H$ be a Hall $\pi$ subgroup of $G$ and $v(g)= V_{G \rightarrow H}(g)$ then
+$v(H)=v(G)$ and $|H: H \cap ker(v)|= |G:ker(v)|$.
+\begin{quote}
+\emph{Proof:}  
+We know $|G:ker(v)| = |v(G)|$ and since
+$v(G) \subseteq H/H'$, we have $|G:ker(v)| \mid |H|$.  $(|G:ker(v)|, |G:H|)=1$ so
+$ker(v)H=G$.
+\end{quote}
+{\bf Theorem 10:}  
+If $P \in S_p(G)$ then $N_G(P)$ controls $G$-fusion in $C_G(P)$.
+\begin{quote}
+\emph{Proof:}  
+Let $c_1 , c_2 \in C_G(P)$ and $c_1^g=c_2$.  Then $c_2 = c_1^g \in C_G(P^g)$
+We know $c_2 \in C_G(P)$, so $P, P^g \in C_G(c_2)$ and since they are both
+Sylow subgroups of $C_G(c_2)$ by Sylow, $\exists h \in C_G(c_2): P^{gh}=P$ and
+hence $gh \in N_G(P)$.  $c_1^{gh}= c_2^h= c_2$ and so $c_1$ and $c_2$ fuse in $N_G(P)$.
+\end{quote}
+{\bf Theorem 11:}  Let  $P$ be a Hall subgroup of $G$ then $Foc_G(H) = P \cap G(\pi)=P \cap G'$ and
+$G/Foc_G(H) \cong G/G(\pi)$, $ker(V_{G \rightarrow P}) = G(\pi)$ and $P/P' = {\overline P} = {\overline {Foc_G(P)}} \times Im(V_{G \rightarrow P})$.
+\begin{quote}
+\emph{Proof:}  $(|P|,|G:P|) = 1$.  $V_{G \rightarrow P} {\overline {Foc_G(P)}} = \langle {\overline x} \rangle {\overline {Foc_G(P)}}$ as in the
+proof of the FST.  Conversely, $G(\pi) \subseteq ker(V_{G \rightarrow P})$ and ${\overline P}$ is abelian so
+$Foc_G(P) \leq P \cap G' = P \cap G(\pi) \leq P \cap ker(V_{G \rightarrow P})$.  As before, equality holds 
+$|G/G(\pi)| \geq |G/ker(V_{G \rightarrow P})| = |Im(V_{G\rightarrow P})|$.
+Finally, $P/(P \cap G') \cong G/G(\pi)$,
+so $ker(V_{G \rightarrow P}) = G(\pi)$ and $Im(V_{G \rightarrow P}) \cong P/Foc_G(P)$.
+${\overline P} = {\overline {Foc_G(P)}} \times Im(V_{G \rightarrow P})$.
+\end{quote}
+{\bf Corollary:} If $P$ is a Hall $\pi$
+group of $G$, $G/G'= PG'/G' \times O_{\pi'}(G/G')$; hence, if $P \ne Foc_G(P)$,
+$G \ne O^{\pi'}(G)$.
+\begin{quote}
+\emph{Proof:}  
+Follows from Theorem 11.
+\end{quote}
+{\bf Burnside's Lemma:}  If $P \in S_p(G)$, $A_1, A_2 \subseteq P$ with 
+$(A_i)^x = A_i, \forall x \in P, i= 1, 2$, then
+if $A_1^g=A_2$, then $\exists h \in N_G(P): A_1^h=A_2$. ($N(P)$ controls fusion in $P$.)
+\begin{quote}
+\emph{Proof:}  
+Same as the earlier proof about $N_G(P)$ controlling fusion on $C_G(P)$.
+\end{quote}
+{\bf Definition 4:}
+$Z$ is \emph {weakly closed} in $P$ with respect to $G$ if $Z^g \subseteq P \rightarrow Z^G=Z$.
+The \emph {weak closure} of $Z$ in $P$ with respect to $G$ is 
+$wcl_G(Z, P)= \langle Z^g, Z^g \rangle \subseteq P$.
+\\
+\\
+{\bf Theorem 12:}
+Let $P \in S_p(G)$ and $Z \subseteq {\mathbb Z}(P)$ 
+is weakly closed in $P$.  Suppose $x \in P$ and $g \in G$ such that
+$y^g \in P$.  The $\exists n \in N_G(Z): y^g=y^n$.
+\begin{quote}
+\emph{Proof:}  
+Note $y^g \in P \cap P^g$ and $ \langle Z, Z^g \rangle \subseteq C_G(y^g )$.  By Sylow,
+$\exists c \in C_G(y^g )$ such that 
+$ \langle Z^g, Z^c \rangle $ is a $p$-group and $\exists h \in G:
+\langle Z^{gh}, Z^{ch} \rangle \le P$.  Since $Z$ is weakly closed in $P$, 
+$Z^{gh}= Z^{ch}= Z$. So
+$n= g c^{-1} \in N_G(Z)$ and since $c \in C(y^g): y^n= y^g$.
+\end{quote}
+{\bf Grun's Theorem:} If $P \in S_p(G)$ and $Z \subseteq {\mathbb Z}(P)$ 
+is weakly closed in $P$ then
+$P/(P \cap G') \approx G/G' (p) \approx N(Z)/N(Z)'$ and so 
+$G \ne O^p(G) \rightarrow N(Z) \ne O^p(N(Z))$.
+\begin{quote}
+\emph{Proof:}  
+This follows from Theorem 12 and Theorem 11.
+\end{quote}
+{\bf Theorem 13:} If
+$P \in S_p(G)$ and $Z \lhd N(P)$ then the following are equivalent:
+(1) $Z$ is weakly closed in $P$ with respect to $G$;
+(2) $Z \le R \in S_p(G) \rightarrow Z \lhd R$.
+\begin{quote}
+\emph{Proof:} 
+\\
+(1) implies (2): If $Z \le R = P^{g^{-1}}, g \in G$, then $Z^g \le P$ and $Z=Z^g$.
+Hence, $Z^R= Z^{P^{g^{-1}}} = Z$.\\
+(2) implies (1):  Let $Z^g \le P$ so by (2), $ \langle Z^g \rangle \lhd P$.  
+By Burnside, $\exists y \in N_G(P)$
+such that  $Z^y=Z^g$ and thus $Z^y=Z^g=Z$.
+\end{quote}
+{\bf Theorem 13a:}  (1) Let $P \in S_p(G)$ then (1) $\exists K \lhd G: G/K \approx P/ P \cap G'$.
+(2) If $K \lhd G$ such that $G/K$ is an abelian $p$-group then $P \cap G' \subseteq K$ 
+and $G/K$ is isomorphic to a homomorphic image of $P/P \cap G'$.
+\begin{quote}
+\emph{Proof:}  Assume $K \lhd G$ and $G/K$ is an abelian $p$-group.  Then $G' \subseteq K$ and
+$G= KP$.  $P \cap G' \subseteq K$ and so $P/P \cap K$ is a homomorphic image of $P/P \cap G'$ and (2)
+holds.  For 1, put ${\overline G} = G/Foc_G(P)$ and let
+$K$ be the inverse image of $O_{p}({\overline G})$
+in $G$.  $P \cap G' \in S_p(G')$.  
+$P \cap G' = P \cap K, K \lhd G$ and $G/K$ is isomorphic to $P/P \cap G'$ and (1) holds.
+\end{quote}
+{\bf Burnside's Theorem:} 
+If $P \in S_p(G)$ and $P \subseteq {\mathbb Z}(N_G(P))$ then $P$ has a normal
+$p$-complement.
+\begin{quote}
+\emph{Proof:}  Put $N=N_G(P)$.  Note that $P$ is abelian so $P \cap Q'= 1, Q \in S_p(G)$.
+$P$ is a normal Hall subgroup of $N$ so it has a complement $H$ in $N$.  $N= P \times H$ so
+$N' = H'$ so $P \cap N' = P \cap H' = 1$ so by Grun, $P \cap G'=1$.  By previous result, $\exists K:
+G/K \approx P/P \cap G'$ thus $K$ is a $p'$-group and $K= O_{p'}(G)$.
+\end{quote}
+{\bf Another statement of Burnside's Theorem:} 
+If $P \in S_p(G)$ and $N_G(P) = C_G(P)$ then $G$ has a normal $p$ complement.
+\begin{quote}
+\emph{Proof:} 
+$P \leq {\mathbb Z}(N_G(P))$.
+\end{quote}
+{\bf Theorem 13b:} Suppose Sylow $p$-subgroups of $G$ and $G$ is a semidirect product of $N \lhd G$ and $P$,
+$Z \subseteq P$ wiht $Z^g \leq P$. $\exists x \in P: Z^g = Z^x$ so every normal subgroup of $P$ is weakly
+closed in $P$.
+\begin{quote}
+\emph{Proof:} 
+$g=yx$, $y \in N$ and $x \in P$.
+$Z^g \leq P$ so $Z^y \leq P$ so $Z^g = Z^x$.
+This shows that $\forall z \in Z, [z,y] \in N \cap P = 1$ and so
+$y \in C_G(Z)$ and the result follows.
+\end{quote}
+{\bf Baer's Theorem:}
+$X$ be a $p$-group of $G$ then either
+$X \le O_p(G)$ or $\exists g: \langle X, X^g \rangle $ is not a $p$-group.
+\begin{quote}
+\emph{Proof:}  
+See the stability section.
+\end{quote}
+{\bf Theorem 14:} If $Q$ is an abelian sylow subgroup in $G$ and if $Q \subseteq {\mathbb Z}(G)$ then
+$V_{G \rightarrow Q}(g)= g^{|G:Q|}, \forall g \in G$.  
+\begin{quote}
+\emph{Proof:}  
+Let $T$ be the transversal 
+$T= \{ Qh_1, Qh_1g, \ldots , Qh_1g^{n_1-1}, Qh_2, Qh_2 g^{n_2-1}, \ldots, Qh_m g^{n_t-1} \}$. 
+$V_{G \rightarrow Q}(g)= \prod_{k=0}^t h_i g_{n_i} h_i^{-1} \jmod{Q'}$.  Since 
+$g^{n_i}, h_i g^{n_i} h_i^{-1} \in Q \subseteq {\mathbb Z}(G)$, 
+$V_{G \rightarrow Q}(g)= g_{\sum_{i=1}^t n_i} = g^{|G:Q|}$. 
+\end{quote}
+{\bf Theorem 15:}
+If $P \in S_p (G), P'=1$ then $P \cap G' = P \cap N_G(P)'$.
+\begin{quote}
+\emph{Proof:}  
+As proved earlier, $N_G(P)$ controls fusion on $C_G(P) \supseteq P$ (since $P$ is abelian).
+\end{quote}
+{\bf Theorem 16:} If $P \in S_p(G)$ is cyclic where $p$ is the smallest prime divisor of $|G|$,
+then $G$ has a normal $p$-complement.
+\begin{quote}
+\emph{Proof:}  
+$1 \rightarrow N_G(P)/C_G(P) \rightarrow Aut(P)$ and since $|P|$ is cyclic it has order
+$\varphi(|P|)$.  If $|P|= p^n$, $\varphi(|P|)= p^{n-1}p$, this is divisible by no prime
+bigger than $p$ and the index is divisible by no prime smaller than $p$.  
+Since $p \nmid |N_G(P):C_G(P)|$ and since $P$ is abelian it has index $1$, $C_G(P)= N_G(P)$;
+thus, $P \subseteq  {\mathbb Z}(N_G(P))$ and by Burnside, $G$ has a normal $p$-complement.
+\end{quote}
+{\bf Theorem 17:}
+If all Sylow subgroups of $G$ are cyclic, $G$ is solvable.  
+\begin{quote}
+\emph{Proof:}  
+Induction on $|G|$.  Let be $p$ be the smallest prime such that $p \mid |G|$.
+$G$ has a normal $p$-complement, $N$, by the previous result.  $N < G$ and all the
+Sylow subgroups of $N$ are cyclic.  $N$ is solvable by induction. $G/N$ is a $p$-group
+so it is solvable.
+\end{quote}
+{\bf Theorem 18:}
+Suppose all Sylow subgroups of $G$ are cyclic then $(|G'|, |G/G'|)=1$ and both are cyclic.
+\begin{quote}
+\emph{Proof:}  
+$G/G'$ is cyclic.  To show $G'$ is cyclic, we proceed by induction on $|G|$.
+$G' < G$ so $G''$ is cyclic (by induction).  $Aut(G'')$ is thus abelian and
+$1 \rightarrow G/C_G(G'') \rightarrow Aut(G'')$ and $G' \subseteq G_G(G'')$ and
+$G'' \subseteq {\mathbb Z}(G') \rightarrow G'$ is abelian and thus $G'$ is cyclic.
+\end{quote}
+{\bf Theorem 19:}
+Let $P$ be a cyclic Sylow subgroup of $G$ then $p$ divides at most one of $|G'|$ and $|G/G'|$.
+\begin{quote}
+\emph{Proof:}  
+Let $N=N_G(P)$, $K \subseteq N$ a complement for $P$ in $N$.  $P= [P,K] \times C_P(K)$.
+If $[P, K]=1$, $C_P(K)=P$ and $P$ is central in $N=PK$.  By Burnside,
+$G$ has a normal $p$-complement, $M$ and $G/M$ is a $p$-group which is cyclic so
+$G' \subseteq M$ and $p \nmid |G'|$.
+\end{quote}
+{\bf Theorem 20:}
+Let $P$ be an abelian Sylow subgroup of $G$ then $G' \cap P \cap {\mathbb Z}(N_G(P))=1$.
+\begin{quote}
+\emph{Proof:}  
+Let $v:G \rightarrow P$ and $x \in G' \cap P \cap {\mathbb Z}(N_G(P))$ then $x \in G'$ so
+$1=v(x)=\prod_{t \in T_0} t x^{n_t} t^{-1} \in P$.  $x^{n_t} , t x^{n_t} t^{-1} \in C_G(P)$ and
+$x$ is central so self conjugate in $N_G(P)$.  $x^{n_t}= t x^{n_t} t^{-1}, \forall t \in T_0$,
+so, since $|G:P|= \sum_t n_t$, $v(x)= x^{|G:P|}$.  $1= x^{|G:P|}$ and since $x \in P$ then
+$x=1$.
+\end{quote}
+{\bf Theorem 21:}
+Suppose the Sylow $2$-subgroups of $G$, $G$ is nonabelian, are direct products of cyclic groups
+one of which is strictly larger than the other then $G$ is not simple.
+\begin{quote}
+\emph{Proof:}  
+Let $P \in S_2(G)$.  $P= A \times B$ where $A$ is cyclic of order $a \ge 2$ and
+$x^{a/2}=1, \forall x \in B$.  Let $C= \{ x^{a/2}: x \in P \} \; char \; P$ so there is
+the unique $t \in C$ is central in $N_G(P)$.  $t \notin G'$ so $G' < G$ and the result follows.
+\end{quote}
+{\bf Gaschutz:}  Let $K$ be a normal abelian $p$-subgroup of a finite group $G$ and let
+$P \in S_p(G)$.  Then $K$ has a complement in $G$ iff $K$ has a complement in $P$.
+\begin{quote}
+\emph{Proof:}  
+Let $A$ be a complement of $K$ in $U$: $=KA, K \cap A = 1$.  
+Let ${\cal L}$ be the set of left transversals of $U$ in $G$ and $S_0 \in {\cal L}$.
+Then $\forall L \in {\cal L}, l \in L$:
+$l=s_l k_l a_l, s_l \in S_0, k_l \in K, a_l \in A$ and $s_l U = lU$ and the factorization is
+unique.  Hence
+$\forall l \in L, \exists! l_0 \in S_0 K: lU=l_0 U$ (i.e. - $l_0=s_l k_l$).  So every
+$L \in {\cal L}$ is associated with $L_0 = \{ l_0 : l \in L \}$ in
+${\cal S} = \{ L \in {\cal L}: L \subseteq S_0 K \}$ such that $LA= L_0 A$.  For $x \in G$ and
+$xL \in {\cal L}$: $(xL)_0A = xLA = x L_0 A = (xL_0)_0 A$ and thus $(xL)_0 = (x L_0)_0$.
+Now define $S^x= (x^{-1} S)_0 = (y^{-1} ( x^{-1} S))_0 = ((xy)^{-1} S)_0 = S^{xy}$.
+This defines an action of $G$ on ${\cal S}$.  Now write $(xS)_0$ instead of $S^{x^{-1}}$.
+$R|S= \prod_{(r,s) \in R \times S, Kr=Ks} (rs^{-1}), R, S \in {\cal S}$.  For
+$kS \subseteq k S_0 K= S_0 K$ and thus $kS = (kS)_0 \in {\cal S}$.  Further,
+$(kS)_0|R = k^{G:K|} (S|R). k \in K, S,R \in {\cal S}$.  As in Schur-Zassnehaus,
+$R \sim S  \leftrightarrow R|S=1$ thus defines an equivalence relation on ${\cal S}$
+and the existance of a complement follows using the action of $G$ and $K$ on ${\cal S}/ \sim$.
+\end{quote}
+{\bf Theorem 22:} 
+Let $N \lhd G$ and $G$ be a semidirect product of $N$ with $P$, $g \in G: Z^g \le P$.  Then
+$\exists x \in P: Z^g = Z^x$ so every normal subgroup of $P$ is weakly closed in $P$.
+\begin{quote} 
+\emph{Proof:}  
+$g=yx, y \in N, x \in P$ so $Z^g \le P \rightarrow Z^y \le P$.  Thus, $\forall z \in Z:
+[z,y] \in N \cap P =1$ and $y \in C(Z)$ so $Z^g=Z^x$.
+\end{quote}
+{\bf Observation:} If $N$ is a $p$-complement in $G$ then $O_{p'}(G)=N=O^{p}(G)$.
+\\
+\\
+{\bf Frobenius Normal $p-$complement Theorem:}  Let $P \in S_p(G)$ if $\forall U \in p(G)$,
+$N_G(U)$ has a normal $p$-complement then $G$ has a normal $p$ -complement.  Note: There is a
+stronger result in which $U$ can be restricted to characteristic $p$-locals and Thompson's
+$p$-complement theorem is a further strengthening.
+\begin{quote}
+\emph{Proof:}  
+$G$ has a normal $p$-complement if $P = 1$.  If $P > 1, Z={\mathbb Z}(P) > 1$ and $H= N_G(Z)$ has a normal $p$-complement
+by hypothesis.  Thus $O^p(H) \ne H$.\\
+\emph{Claim:} $Z$ is weakly closed in $P$.
+\\
+\emph{Proof of claim:}  It suffices to show, $Z \le R \in S_p(N_G(P)) \rightarrow
+Z \lhd R$.  Assume this condition does not hold and choose $R$ such that
+$S=N_R(Z)$ is maximal.  $S < N_R(S)$ and $S < N_T(S)$.  Put $M= N_G(S)$ and let
+$N_T(S) \le T_1 \in S_p(M)$.  By the maximality, $Z \lhd T_1$  Since $M$ has a normal $p$-complement, the
+previous result show $Z$ is normal in every Sylow subgroup of $M$ containing it.  Hence
+$Z \lhd N_R(S)$ which contradicts $S < N_R(S)$.
+\\
+Now Grun's Theorem shows $O^p(G) \ne G$ and by induction on $|G|$, $O^p(G)$ has a normal $p$-complement, $K$.
+$K \lhd G$ and $G/K$ is a $p$-group, so $K$ is also a normal $p$-complement of $G$.
+\end{quote}
+{\bf Theorem 23:} A finite group $G$ has a normal $p$ complement iff a Sylow $p$-group
+controls its own fusion.  
+\begin{quote}
+\emph{Proof:}  
+\\
+\\
+$\rightarrow$:  Let $P \in S_p(G)$ and $N$ be a normal $p$ complement so $G=NP$.
+Suppose $x, y \in P$ and $x^g=y$.  Let ${\overline G}= G/N$ so the isomorphism
+$G \rightarrow {\overline G}$ induces an isomorphism of $P$ onto ${\overline G}$.
+${\overline x}$ and
+${\overline y}$ are conjugate in 
+${\overline G}$ so by the isomorphism, they are $P$-conjugate and $P$ controls its own
+fusion.
+\\
+\\
+$\leftarrow$:  Let $N= O^p(G)$, $Q= N \cap P$ so $Q \in S_p(N)$.  We show $Q=1$ and hence
+$N$ is a normal $p$-complement.
+\\
+\emph{Claim:} $N= A^p(N)=N$.
+\\
+\emph{Proof of claim:}
+$A^p(N) \; char \; N$ so $A^p(N) \lhd G$.  Further,
+$|G:A^p(N)|= |G:N||N:A^p(N)|$, which is a $p$-power.  Thus
+$N= O^p(G) \subseteq A^p(N)$ and $O^p(N)=A^p(N)$ as claimed.
+\\
+By the focal subgroup theorem,  $Foc_N(Q)= Q \cap A^p(N)= Q \cap N = Q$.  Let
+$x, y \in Q$ be $N$-conjugate so $x^{-1}y$ is a typical generator in $Foc_N(Q)$.
+$\exists u \in P: x^u=y$ so $x^{-1}y = [x,u] \in [Q, P]$.  So
+$Q= Foc_N(Q) \subseteq [Q, P]$, so $Q \subseteq [Q, P, P, \ldots ,P]$ but
+$Q \subseteq P$ and $P$ is nilpotent so $[Q, P, \ldots , P]= 1$ eventually and so
+$Q= 1$.
+\end{quote}
+{\bf Theorem 23a:}  The following are equivalent:
+(1) $G$ has a normal $p-$complement, 
+(2) Each $p-$local subgroup of $G$ has a normal $p-$complement,
+(3) $Aut_G(P)$ is a $p-$group $\forall P \in p(G)$.
+\begin{quote}
+\emph{Proof:}  
+$1 \rightarrow 2 \rightarrow 3$ is easy.
+\\
+\emph{Claim:} Assume $N_G(X)/C_G(X)$ is a $p$-group for every $p$-group, $X$, of a finite
+group $G$ and let $P, Q \in S_p(G)$ then $Q=P^c$ for some $c \in C_G(P \cap Q )$.
+\\
+\emph{Proof of claim:}
+Assume (3).  It suffices to show that $P$ controls its own fusion in $G$.  If
+$x,y \in P$ are conjugate in $G$, $x^g=y$, $y \in P \cap P^g$ and by the claim,
+$\exists c \in C_G(P \cap P^g): (P^G)^c=P$.  Since $N_G(P)/C_G(P)$ is a $p$-group
+and $P$ is a Sylow $p$-subgoup of $N_G(P)$,  $N_G(P)= C_G(P)P$.  We have
+$gc=tu$, $t \in C_G(P)$ and $u \in P$.  Since $x \in P$ and $[x,t]=1$ and thus
+$y=y^c=x^{gc}=x^{tu}=x^u$ so $x$ and $y$ are $P$-conjugate.
+\end{quote}
+{\bf Definition 5:} $G$ is $\pi$-closed if $G/O_{\pi}(G)$ is a $\pi'$ group and thus
+$O_{\pi}(G)=O^{\pi'}(G)$.\\
+\\
+{\bf Definition 6:} $A^{\pi}(G)$ is the unique smallest normal subgroup of $G$ such that
+$G/A^{\pi}(G)$ is an abelian $\pi$-group.  If $P \subseteq H \subseteq G$ then
+$ |G:A^p(G)| \le |H:A^p(H)|$ if equality holds we say $H$ \emph {controls $p$-transfer in $G$}.
+\\
+\\
+{\bf Burnside $p$-complement theorem:}  If $C_G(P)= N_G(P)$ then $G$ has a normal $p$-complement.
+\begin{quote}
+\emph{Proof:}  Obviously, $P$ controls its own fusion in this case and the result follows.
+\end{quote}
+{\bf Theorem 24:}  If $P \in S_p(G)$ and $H$ controls $p$-fusion in $P$ then $H$ controls $p$-transfer
+in $G$.  If $P \in S_p(G)$ is abelian, then $N_G(P)$ controls $p$-transfer.  
+\begin{quote}
+\emph{Proof:}  
+Want to show $|G:V_{G \rightarrow P}| = |H:V_{H \rightarrow P}|$ this happens iff
+$P \cap ker(V_{G \rightarrow P}) = Foc_G(P) = P \cap ker(V_{H \rightarrow P}) = Foc_H(G)$.
+$Foc_G(P) = Foc_G(H)$ since $H$ controls $G$-fusion.
+\end{quote}
+{\bf Theorem 25:} 
+Let $p \ne 2$ and suppose every $p$-element is central in
+$G$ then $G$ has a normal $p$ complement.
+\begin{quote}
+\emph{Proof:}  
+This follows from the Frobenius normal $p$-complement theorem.
+\end{quote}
+{\bf Theorem 26:} 
+Let $G$ be a finite group $H \le G$, $(p, |G:H|)=1, K \lhd H$, $H/K$ abelian,
+$g$ a $p-$element in $H \setminus K$: $g^{ma} \in g^m K, \forall m$, all $a \in G$ such that
+$g^{ma} \in H$ then $g \notin G'$.
+\begin{quote}
+\emph{Proof:}  
+See, Stellmacher,  p 73.
+\end{quote}
+{\bf Definition 7:} The action of $A$ on $N \lhd G$ is \emph{Frobenius} if $n^a \neq n$, if $a \neq 1 \neq n$.
+\\
+\\
+{\bf Lemma:}  Let $A<G$ with the TI property for all $g \in G-A$ then
+$X= \{x: x \neq y, y= a^g \}$, $|X|= |G|/|A|$.
+\begin{quote}
+\emph{Proof:}  
+If $A>1$, $A=N_G(A)$ since $A^x=a$ then $A \cap A^x=A>1$, $x \in A$.  So $A$ has exactly $|G:A|$ conjugates
+in $G$ all with the same TI property as $A$.  These contain $|G:A|(|A|-1)$ non-identity elements of $G$.
+$|X|= |G| - |G:A| (|A|-1) = |G:A|$.
+\end{quote}
+{\bf Theorem 27:}
+Let $N \lhd G$ and $A$ is a complement for $N$ in $G$.  The following are equivalent:
+(1) The conjugate action of $A$ on $N$ is Frobenius;
+(2) $A \cap A^g = 1$, $\forall g \in G-A$;
+(3) $C_G(A) \subseteq A$.
+\begin{quote}
+\emph{Proof:}  
+$1 \rightarrow 2$:
+If $A \cap A^x \neq 1$ with $x=an$.  $A^x= A^{an}= A^n$ so $A \cap A^n \neq 1$ so
+$a=a^n$ and $a^n=a \in A \cap A^n= 1$ so $n=1$ and $x \in A$.
+\\
+$2 \rightarrow 3$:  Suppose $g \in C_G(A), g \notin A$ then $g=an$ and $[A, an]=1$ and
+$b= b^{an} \in A \cap A^n =1$ so $n=1$ by (1).
+\\
+$3 \rightarrow 1$:
+If $1 \neq a  \in A$ by (3), then $C_N(a)= N \cap C_G(a)=1$ so $a^n \neq a$ for $n \neq 1$.
+\end{quote}

@@ -1,0 +1,138 @@
+\chapter{Miscellaneous Results}
+\section{Thompson like characterization}
+{\bf Netto:}  Let $x,y \in S_n$ be selected randomly.  
+$Pr[ \langle x,y \rangle =S_n]= {\frac 3 4}$.  
+\\
+\\
+{\bf Sample characterization of $S_5$:}
+If $G$ is a finite group with two conjugacy classes of involutions having
+centralizers, $C_1= C(u_1) = \langle u_1 \rangle \times S_3$ and
+$C_2= C(u_2) = D_8$ then $G = S_5$.
+\\
+In $S_5$, $u_1= (12)$, $u_2= (12)(34)$.
+\\
+\\
+1. $C_2 \in S_2(G)$.
+\\
+\\
+2.  After conjugation, we can assume, $u_1 \in C_2, u_2 \in C_1$.
+Let $x_1, x_2$ be involutions.  Let $s_i$ be the number of ordered pairs
+$u \in x_1^G, v \in x_2^G$ and $x_i \in \langle uv \rangle
+$.  $|G|= s_1|C_G(x_2)| + s_2 |C_G(x_1)|$.
+(In the real $G$, $|ccl_G(u_1)| = 10$ and $|ccl_G(u_2)|= 15$.)
+Note that if 
+$x \in x_1^G$ and $y \in x_2^G$ and $|xy|$ is even, $x,y \in C((xy)^{\frac {|xy|} 2})$.
+\\
+\\
+3. 
+$C_2 \cong D_8$ has three conjugacy classes of involutions.  
+$D_8= \langle u, v \rangle $, $u^2=v^2=1$, $t= uv$ and $|t| = 4$.
+$C_2= \langle (12),(14)(23) \rangle $, $t= (1324)$.
+$u_2= (12)(34)$.
+$ccl_{C_2}((14)(23))= \{ (14)(23), (13)(24) \}$,
+$ccl_{C_2}((12))= \{ (12), (34) \}$,
+$ccl_{C_2}((12)(34))= \{ (12)(34) \}$.  If $x \ne u_2$, $ x \sim x u_2$.
+$G$ contains a non-cyclic group $V$ of order $4$
+and all involutions of $V$ are conjugate to $u_2$ in $G$.
+$V= ccl_{C_2}((14)(23)) \cup \{ 1 \} \cup ccl_{C_2}((12)(34))$.
+Since $G$ has two classes of involutions, $s_2 = 0$ or $s_2 = 4$.
+\\
+\\
+4.
+$C_1$ has three conjugacy classes of involutions.  $x \ne u_1 \rightarrow x \nsim x u_1$.
+$ \langle u_1 \rangle \times S_3$. 
+$ccl_{C_1}((12))= \{ (12) \}$,
+$ccl_{C_1}((12)(34))= \{ 
+(12)(34), 
+(12)(35), 
+(12)(45), 
+\}$, $ccl_{C_1}((34))= \{ (34) , (35), (45) \}$.  If $x \ne u_2$, $ x \nsim x u_2$.
+Since $G$ has two classes of involutions and for any $u \ne x \in Inv(C_1 )$,
+exactly one of $x$  or $xu$ is
+conjugate to $u$, $s_1 = 9$.
+\\
+\\
+5.
+$|G|= 9 \cdot 8 + 4 \cdot 12 = 120$, if $s_2=4$ or $|G|= 9 \cdot 8 = 72$, if $s_2 = 0$.
+\\
+\\
+6. $|G| \ne 72$: If $|G|=72$, let
+$P \in S_3(C_1)$, $P \subseteq Q \in S_3(G)$.  
+$|Q|=9$ and $ \langle C_1 , Q \rangle \subseteq N(P)$,
+$36 \mid |N(P)|$.
+$\exists H: C(P) \subset H: |H|=36$.  $u_1 \in H$ and $u_2$ is a square in $H$.
+$H \lhd G$ and $H$ contains all involutions hence $C_2 \cap H$ contains all involutions of
+$C_2$ but $|C_2 \cap H|=4$ and there are $5$ involutions in $C_2$.
+Let $x \in G$ then $x^{-1} u_2 x \ne u_2$, $x^{-1} u_2 x \in V$ then
+$x^{-1} C_2 x \ne C_2$ and
+$u_2 \in C(x^{-1} u_2 x) = x^{-1} C_2 x$.
+\\
+\\
+7.  $C(V)=V, N(V)/V \cong S_3$ (permutes all $3$ involutions of $V$) and $|N(V)|= 24$.
+$N(V)$ contains at least $2$ Sylow $2$-subgroups of $G$.
+\\
+\\
+8. $G:N(V)= 5$ and the permutation representation shows $G \cong S_5$.  Let $g$ be an element
+of order $5$.  $g$ acts as a $5$-cycle on the cosets.  If $t$ is an element of order $2$,
+it is of the form $(12)$ or $(12)(34)$.
+\section{Isaac's treatment of central extensions}
+{\bf Definition:} A central extension of $G$ is a pair $(\Gamma, \pi)$ with $\pi: \Gamma \rightarrow G$ and $ker(\pi) = {\mathbb Z}(\Gamma)$.
+\\
+\\
+{\bf Theorem 1:}
+Let $(\Gamma, \pi)$ be a central extension of $G$, $A=ker(\pi)$ and let $X= \{x_g| g \in G \}$ be coset representatives for $\Gamma/A$.
+Define $\alpha$ by $x_g x_h = \alpha(g,h) x_{gh}$, then $\alpha \in Z(G,A)$ is well defined and the resulting multiplication is associative.
+\begin{quote}
+\emph{Proof:} Compute $x_g x_h x_k$ both ways and compare.  Put $y_g = \mu(g)x_g$ then
+$y_g y_h = \mu(g) \mu(h) \mu(gh)^{-1} \alpha(g,h)$.
+\end{quote}
+{\bf Definition:} $A$ divisible if $\forall a \in A, n \in {\mathbb Z}^+, \exists b \in A: b^n=a$.  $M(G)= H(G, {\mathbb C}^{\times})$.
+$\hat{A}$ is the set of linear characters of $A$.
+\\
+\\
+{\bf Theorem 2:}
+Let $A$ be abelian, $Q \subseteq A$, $Q$, divisible and $|A:Q| < \infty$ then $Q$ is complemented in $A$.
+\begin{quote}
+\emph{Proof:} By induction on $|A:Q|$.  True if $|A:Q|=1$.  Choose $a \in G \setminus A$. $n=|aQ|$ in $A/Q$.
+$u = a^n$, $v \in Q: v^n=u$.  Put $b= av^{-1}$ and $\langle b \rangle \cap Q =1$.  ${\overline A}= A/\langle b \rangle$.
+${\overline Q} = Q\langle b \rangle / \langle b \rangle$ and ${\overline Q} = Q$.  
+$|{\overline A}:{\overline Q}| = |A:Q\langle b \rangle| < |A:Q|$, so ${\overline Q}$ is complemented by induction and 
+$\exists B \subseteq A: B \cap Q\langle b \rangle = \langle b \rangle$ and $QB =A$.  $Q \cap B = Q \cap Q\langle b \rangle \cap B= $
+$Q \cap \langle b \rangle = 1$.
+\end{quote}
+{\bf Theorem 3:}   If $F$ is algebraically closed and $G$ is finite, $H(G,A)| \mid |G|$.
+\begin{quote}
+\emph{Proof:} 
+Claim: $B(G, F^{\times})$ is divisible:
+$B(G, F^{\times})$ is complemented in $Z(G, F^{\times})$.  For $\beta \in B(G, F^{\times})$, $\beta = \delta(\mu)$ for some
+$\mu:G \rightarrow F^{\times}$.  Choose $\nu(g) \in F^{\times}: \nu(g)^n = \mu(g)$, we can do this since $F$ is algebraically closed.
+$\delta(\nu)^n = \delta(\mu)= \beta$.  
+We can apply previous lemma and once we show $|H(G, F^{\times})| < \infty$.\\
+\\
+For $\alpha \in Z(G, F^{\times})$, put
+$\mu(g) = \prod_{x \in G} \alpha(g,x)$.
+$\alpha(g, hx) \alpha(h, x) = \alpha(gh, x)\alpha(g, h)$ so
+$\prod_{x \in G} \alpha(g, hx) \alpha(h, x) = \prod_{x \in G} \alpha(gh, x)\alpha(g, h)$ so
+$\mu(g) \mu(h) = \mu(gh) \alpha(g, h)^{|G|}$.  $\alpha(g, h)^{|G|} \in B(G, F^{\times})$ and
+$exp(H(G, F^{\times})) \mid |G|$.
+Putting $U = \{ \alpha \in Z(G, F^{\times}): \alpha^{|G|} = 1 \}$ and $A = \langle B(G, F^{\times}), \alpha \rangle$.
+$|A : B(G, F^{\times})| \mid |G|$.  By the previous result, $B(G, F^{\times})$ is complemented in $Z(G, F^{\times})$ so
+$B(G, F^{\times})U = Z(G, F^{\times})$.   $\forall u \in U, u: G \times G \rightarrow \{y \in F: y^{|G|} = 1 \}$.
+$|H(G, F^{\times})| = B(G, F^{\times})U:B(G, F^{\times})| \leq |U| < \infty$, and we can apply the previous result, proving the lemma.
+\end{quote}
+{\bf Definition:}  Choose a set of coset representatives in $\Gamma/A$, as before and $\pi(x_g) = g$.  Let
+$\alpha \in Z(G, A)$, defined by $x_g x_h = \alpha(g,h) x_{gh}$.  For $\lambda \in \hat{A}$, define $\eta(\lambda) = {\overline {\lambda(\alpha)}}$.
+$\lambda(\alpha)(g,h) = \lambda(\alpha(g,h))$.  Bar is the canonical map from $Z(G, {\mathbb C}^{\times})$ to $H(G, {\mathbb C}^{\times}) = M(G)$.
+$\eta: \hat{A} \rightarrow M(G)$ is defined by that map, called the \emph{standard map}.
+\\
+\\
+{\bf Theorem 4 (Schur):} Given $G$ and $A$, abelian, there is a central extension with $ker(\pi)=A= M(G)$
+\begin{quote}
+\emph{Proof:}
+Let $M$ be a complement of $B(G, F^{\times})$ in $Z(G, F^{\times})$. Let $M = \hat{A}$.
+Define $\alpha(g,h)$ by $\alpha(g, h)(\gamma) = \gamma(g,h), \gamma \in M$.  $\alpha(g,h) \in A$.
+$\alpha(gh,k) \alpha(g,h) (\gamma) =  \gamma(gh, k) \gamma(g,h)$.  
+Since $\gamma$ runs over factor sets, $\alpha \in Z(G, F^{\times})$.  Let $\Gamma, G, X$ be as in the earlier results.
+$\lambda(\alpha(g,h))) = \alpha(g,h)(\gamma) = \gamma(g,h)$ and $\lambda(\alpha) = \gamma$.  
+$|A| = |\hat{A}| \geq |\eta(\hat(A))| = |M(G)| = |A|$.
+\end{quote}
