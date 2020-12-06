@@ -29,6 +29,31 @@ int main(int an, char** av) {
     printf("\n");
   }
 
+  int to_find;
+  int n;
+
+  printf("\nlinear search\n");
+  to_find = 9;
+  n = linear_search((byte*) &to_find, item_pointer, 200, &int_cmp);
+  if (n < 0) {
+    printf("%d not in array\n", to_find);
+  } else {
+    printf("%d found at %d, ", to_find, n);
+    int_print(item_pointer[n]);
+    printf("\n");
+  }
+
+  printf("\nbinary search\n");
+  to_find = 9;
+  n = binary_search((byte*) &to_find, item_pointer, 0, 199, &int_cmp);
+  if (n < 0) {
+    printf("%d not in array\n", to_find);
+  } else {
+    printf("%d found at %d, ", to_find, n);
+    int_print(item_pointer[n]);
+    printf("\n");
+  }
+
   printf("\n");
   gen_array(data, 50);
   printf("\nOriginal data\n");

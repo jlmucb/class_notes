@@ -15,6 +15,11 @@ void heap_sort(byte** data, int size, int (*cmp)(byte*, byte*),
         void (*swap)(byte*, byte*));
 int select (byte** a, int n, int k, int (*cmp)(byte*, byte*),
         void (*swap)(byte*, byte*));
+int linear_search(byte* target_data, byte** data, int size,
+        int (*cmp)(byte*, byte*));
+int binary_search(byte* target_data, byte** sorted_data, int start, int end, 
+     int (*cmp)(byte*, byte*));
+
 
 inline int int_cmp(byte* a, byte* b) {
   if (*((int*)a) > *((int*)b))
