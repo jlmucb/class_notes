@@ -10,12 +10,12 @@ int f(n,a)
 int n,a[];
 
 {
-	int i;
+  int i;
 
-	printf("%d:",++np);
-	for(i=0;i<n;i++)
-		printf(" %d",a[i]);
-	printf("\n");
+  printf("%d:",++np);
+  for(i=0;i<n;i++)
+    printf(" %d",a[i]);
+  printf("\n");
 }
 
 
@@ -24,7 +24,7 @@ int n,a[];
 
 
 /*
- *	generate permutations
+ *  generate permutations
  */
 
 #define N 20
@@ -37,31 +37,31 @@ int a[];
 int  (*f)();
 
 /*
- *	m goes from 1 to n
+ *  m goes from 1 to n
  */
 
 {
-	int i,j,k;
-	int b[N];
+  int i,j,k;
+  int b[N];
 
-	if(m>=n) {
-		(*f)(n,a);
-		return(1);
-		}
-	for(i=0;i<=(n-m);i++)
-		b[i]= a[m-1+i];
-	for(i=0;i<=(n-m);i++) {
-		a[m-1]= b[i];
-		k= 0;
-		for(j=0;j<=(n-m);j++) {
-			if(i!=j) {
-				a[m+k]= b[j];
-				k++;
-				}
-			}
-		rperm(n,m+1,a,f);
-		}
-	return(1);
+  if(m>=n) {
+    (*f)(n,a);
+    return(1);
+    }
+  for(i=0;i<=(n-m);i++)
+    b[i]= a[m-1+i];
+  for(i=0;i<=(n-m);i++) {
+    a[m-1]= b[i];
+    k= 0;
+    for(j=0;j<=(n-m);j++) {
+      if(i!=j) {
+        a[m+k]= b[j];
+        k++;
+        }
+      }
+    rperm(n,m+1,a,f);
+    }
+  return(1);
 }
 
 
@@ -73,14 +73,14 @@ int argn;
 char *argv[];
 
 {
-	int i,j,n;
-	int aa[N];
+  int i,j,n;
+  int aa[N];
 
-	n= atoi(argv[1]);
-	for(i=0;i<n;i++)
-		aa[i]= i+1;
-	rperm(n,1,aa,f);
-	exit();
+  n= atoi(argv[1]);
+  for(i=0;i<n;i++)
+    aa[i]= i+1;
+  rperm(n,1,aa,f);
+  exit();
 }
 
 #endif
