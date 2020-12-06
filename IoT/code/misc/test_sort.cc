@@ -1,7 +1,6 @@
 #include "stdio.h"
 #include "sort.h"
 
-
 void gen_array(int* data, int size) {
   int i;
 
@@ -18,11 +17,19 @@ int main(int an, char** av) {
   for(int i = 0; i < 200; i++)
     printf("%d  %d\n", i, data[i]);
 
-  printf("Bubble sorted data\n");
-  bubble_sort(data, 200);
-  for(int i = 0; i < 200; i++)
-    printf("%d  %d\n", i, data[i]);
+  byte* item_pointer[200];
+  for (int i = 0; i < 200; i++)
+    item_pointer[i] = (byte*)(&data[i]);
 
+  printf("Bubble sorted data\n");
+  bubble_sort(item_pointer, 200, &int_cmp, &int_swap);
+  for(int i = 0; i < 200; i++) {
+    printf("%d  ", i);
+    int_print(item_pointer[i]);
+    printf("\n");
+  }
+
+#if 0
   gen_array(data, 50);
   printf("Merge sorted data\n");
   merge_sort(data, 50, out);
@@ -39,6 +46,7 @@ int main(int an, char** av) {
   printf("select data\n");
   int s = select(data, 200, 100);
   printf("100th element is %d\n", s);
+#endif
 
   return 0;
 }

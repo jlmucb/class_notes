@@ -23,7 +23,8 @@ void merge(int* d1, int n1, int* d2, int n2, int* d_out) {
   }
 }
 
-void merge_sort(int* data, int size, int* out) {
+void merge_sort(int* data, int size, int* out,
+        int (*cmp)(byte*, byte*), void (*set)(byte*, byte*)) {
   int i;
 
   if (size < 10) {
