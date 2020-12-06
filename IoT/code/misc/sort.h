@@ -1,6 +1,8 @@
 #ifndef __SORT_H__
 #define __SORT_H__
 
+#include <stdio.h>
+
 #ifndef byte
 typedef unsigned char byte;
 #endif

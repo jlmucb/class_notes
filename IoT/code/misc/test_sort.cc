@@ -12,18 +12,31 @@ int main(int an, char** av) {
   int data[200];
   int out[200];
 
+  byte* item_pointer[200];
+  for (int i = 0; i < 200; i++)
+    item_pointer[i] = (byte*)(&data[i]);
+
   gen_array(data, 200);
   printf("\nOriginal data\n");
   for(int i = 0; i < 200; i++)
     printf("%d  %d\n", i, data[i]);
 
-  byte* item_pointer[200];
-  for (int i = 0; i < 200; i++)
-    item_pointer[i] = (byte*)(&data[i]);
-
-  printf("Bubble sorted data\n");
+  printf("\nBubble sorted data\n");
   bubble_sort(item_pointer, 200, &int_cmp, &int_swap);
   for(int i = 0; i < 200; i++) {
+    printf("%d  ", i);
+    int_print(item_pointer[i]);
+    printf("\n");
+  }
+
+  printf("\n");
+  gen_array(data, 50);
+  printf("\nOriginal data\n");
+  for(int i = 0; i < 50; i++)
+    printf("%d  %d\n", i, data[i]);
+  printf("\nHeap sorted data\n");
+  heap_sort(item_pointer, 50, &int_cmp, &int_swap);
+  for(int i = 0; i < 50; i++) {
     printf("%d  ", i);
     int_print(item_pointer[i]);
     printf("\n");
@@ -35,12 +48,6 @@ int main(int an, char** av) {
   merge_sort(data, 50, out);
   for(int i = 0; i < 50; i++)
     printf("  %d\n", out[i]);
-
-  gen_array(data, 50);
-  printf("Heap sorteddata\n");
-  heap_sort(data, 50);
-  for(int i = 0; i < 50; i++)
-    printf("  %d\n", data[i]);
 
   gen_array(data, 200);
   printf("select data\n");

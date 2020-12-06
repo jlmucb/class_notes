@@ -1,40 +1,37 @@
 #include "sort.h"
-#include <stdlib.h>
+#include <stdio.h>
 
-void heapify(int* data, int size) {
-  int i, j;
+void heapify(byte** data, int size, int (*cmp)(byte*, byte*),
+        void (*swap)(byte*, byte*)) {
+  int i;
 
   if (size <= 1)
     return;
-  if((data[0] >= data[1]) && (data[0]>data[2]))
+  if(((*cmp)(data[0], data[1]) >= 0) && 
+     ((*cmp)(data[0], data[2]) > 0))
     return;
 
   i = 1;
-  if((size > 2) && (data[2] > data[1]))
+  if((size > 2) && ((*cmp)(data[2], data[1]) > 0))
     i= 2;
-  j= data[0];
-  data[0]= data[i];
-  data[i]= j;
-  heapify(&data[i], size - i);
+  (*swap)(data[0], data[i]);
+  heapify(&data[i], size - i, cmp, swap);
   return;
 }
 
 
-void heap_sort(int* data, int size) {
-  int i,j;
+void heap_sort(byte** data, int size, int (*cmp)(byte*, byte*),
+        void (*swap)(byte*, byte*)) {
+  int i;
 
   // buildheap
-  for(i = 1;i <= size; i++)
-    heapify(&data[size - i], i);
+  for(i = 1; i <= size; i++)
+    heapify(&data[size - i], i, cmp, swap);
 
   for(i = 1; i <= size; i++) {
-    j= data[size - i];
-    data[size - i]= data[0];
-    data[0]= j;
-    heapify(data, size - i);
+    (*swap)(data[size - i], data[0]);
+    heapify(data, size - i, cmp, swap);
     }
   return;
 }
-
-
 
