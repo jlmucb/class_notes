@@ -1,58 +1,53 @@
 #include "sort.h"
 #include <stdlib.h>
 
-void merge(int* d1, int n1, int* d2, int n2, int* d_out) {
-  int i1 = 0;
-  int i2 = 0;
-  int n = n1 + n2;
+void merge(byte** first_data_half, int size_first_data_half,
+           byte** second_data_half, int size_second_data_half, int size_data,
+           int (*cmp)(byte*, byte*), void (*set)(byte*, byte*)) {
 
-  for(int i = 0; i < n; i++) {
-    if (i1 >= n1) {
-      d_out[i] = d2[i2++];
+  int i= 0;
+  int j= 0;
+
+  int n = size_first_data_half + size_second_data_half;
+  byte* ptr_out[n];
+  byte out[n * size_data];
+  for (int k = 0; k < n; k++)
+    ptr_out[k] = (byte*) (out + size_data * k);
+
+  for (int k = 0; k < n; k++) {
+    if (i >= size_first_data_half) {
+      (*set)(ptr_out[k], second_data_half[j++]);
       continue;
     }
-    if (i2 >= n2) {
-      d_out[i] = d1[i1++];
+    if (j >= size_second_data_half) {
+      (*set)(ptr_out[k], first_data_half[i++]);
       continue;
     }
-    if (d1[i1] < d2[i2]) {
-      d_out[i] = d1[i1++];
+    if ((*cmp)(first_data_half[i], second_data_half[j]) <= 0) {
+      (*set)(ptr_out[k], first_data_half[i++]);
     } else {
-      d_out[i] = d2[i2++];
+      (*set)(ptr_out[k], second_data_half[j++]);
     }
   }
+
+  // copy back
+  for (int k = 0; k < n; k++)
+      (*set)(first_data_half[k], ptr_out[k]);
 }
 
-void merge_sort(int* data, int size, int* out,
-        int (*cmp)(byte*, byte*), void (*set)(byte*, byte*)) {
+void merge_sort(byte** data, int size, int size_data,
+        int (*cmp)(byte*, byte*), void (*set)(byte*, byte*),
+        void (*swap)(byte*, byte*)) {
   int i;
 
   if (size < 10) {
-    for (i = 0; i < size; i++)
-      out[i]= data[i];
-    bubble_sort(out, size);
+    bubble_sort(data, size, cmp, swap);
     return;
   }
 
-  int k1 = size / 2;
-  int k2 = size - k1;
-
-  int* t_data1 = (int*)malloc(k1 * sizeof(int));
-  int* t_data2 = (int*)malloc(k2 * sizeof(int));
-  int* t_out1 = (int*)malloc(k1 * sizeof(int));
-  int* t_out2 = (int*)malloc(k2 * sizeof(int));
-
-  for (i = 0; i < k1; i++)
-    t_data1[i] = data[i];
-  for (i = 0; i < k2; i++)
-    t_data2[i] = data[i + k1];
-  merge_sort(t_data1, k1, t_out1);
-  merge_sort(t_data2, k2, t_out2);
-  merge(t_out1, k1, t_out2, k2, out);
-
-  free(t_data1);
-  free(t_data2);
-  free(t_out1);
-  free(t_out2);
+  int mid = size / 2;
+  merge_sort(&data[0], mid, size_data, cmp, set, swap);
+  merge_sort(&data[mid], size - mid, size_data, cmp, set, swap);
+  merge(data, mid, &data[mid], size - mid, size_data, cmp, set);
 }
 

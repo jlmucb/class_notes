@@ -67,13 +67,24 @@ int main(int an, char** av) {
     printf("\n");
   }
 
-#if 0
-  gen_array(data, 50);
-  printf("Merge sorted data\n");
-  merge_sort(data, 50, out);
-  for(int i = 0; i < 50; i++)
-    printf("  %d\n", out[i]);
+  byte* out_item_pointer[200];
+  for (int i = 0; i < 200; i++)
+    out_item_pointer[i] = (byte*)(&out[i]);
 
+  printf("\n");
+  gen_array(data, 50);
+  printf("\nOriginal data\n");
+  for(int i = 0; i < 50; i++)
+    printf("%d  %d\n", i, data[i]);
+  printf("\nMerge sorted data\n");
+  merge_sort(item_pointer, 50, sizeof(int), &int_cmp, &int_set, int_swap);
+  for(int i = 0; i < 50; i++) {
+    printf("%d  ", i);
+    int_print(item_pointer[i]);
+    printf("\n");
+  }
+
+#if 0
   gen_array(data, 200);
   printf("select data\n");
   int s = select(data, 200, 100);

@@ -9,8 +9,9 @@ typedef unsigned char byte;
 
 void bubble_sort(byte** data, int size,
         int (*cmp)(byte*, byte*), void (*swap)(byte*, byte*));
-void merge_sort(byte** data, int size, byte** out,
-         int (*cmp)(byte*, byte*), void (*set)(byte*, byte*));
+void merge_sort(byte** data, int size, int size_data,
+        int (*cmp)(byte*, byte*), void (*set)(byte*, byte*),
+        void (*swap)(byte*, byte*));
 void heap_sort(byte** data, int size, int (*cmp)(byte*, byte*),
         void (*swap)(byte*, byte*));
 int select (byte** a, int n, int k, int (*cmp)(byte*, byte*),
