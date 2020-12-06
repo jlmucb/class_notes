@@ -20,7 +20,7 @@
 /* ----------------------------------------------------------------------- */
 
 
-char map[XM*YM];		/* "bit map" */
+char map[XM*YM];    /* "bit map" */
 int gr={0};
 
 
@@ -29,13 +29,13 @@ f(t,a,x,y)
 double a,t,*x,*y;
 
 {
-	/* printf("evaluating t: %f, a: %f\n",t,a); */
-	/* 
-		*x= a*t*t*t;
-		*y= a*t*t;
-	 */
-	*x= a*t;
-	*y= 5.0*a*t*t;
+  /* printf("evaluating t: %f, a: %f\n",t,a); */
+  /* 
+    *x= a*t*t*t;
+    *y= a*t*t;
+   */
+  *x= a*t;
+  *y= 5.0*a*t*t;
 }
 
 
@@ -46,40 +46,40 @@ int argn;
 char *argv[];
 
 {
-	int i,j,k,ix,iy,ni,ixc,iyc;
-	double a,x,y,t,ts;
-	double xsf, ysf;
+  int i,j,k,ix,iy,ni,ixc,iyc;
+  double a,x,y,t,ts;
+  double xsf, ysf;
 
-	if(InitGraphics(XM,YM)<=0) {
-		printf("Can't use bitmap graphics\n");
-		}
-	else
-		gr= 1;
+  if(InitGraphics(XM,YM)<=0) {
+    printf("Can't use bitmap graphics\n");
+    }
+  else
+    gr= 1;
 
-	i= XM<YM?XM:YM;
-	xsf= ysf= 2.1;
-	i/= 2;
-	ixc= (iyc= i);
-	a= i;
+  i= XM<YM?XM:YM;
+  xsf= ysf= 2.1;
+  i/= 2;
+  ixc= (iyc= i);
+  a= i;
 
-	ni= 1000;
-	t= -1.0;
-	ts= 2.0/((double) ni);
-	for(i=0;i<ni;i++) {
-		f(t,a,&x,&y);
+  ni= 1000;
+  t= -1.0;
+  ts= 2.0/((double) ni);
+  for(i=0;i<ni;i++) {
+    f(t,a,&x,&y);
 #ifdef DEBUG1
-		printf("f(%f)= (%f,%f)\n",t,x,y);
+    printf("f(%f)= (%f,%f)\n",t,x,y);
 #endif
-		if(scale(xsf,ysf,x,y,XM,YM,ixc,iyc,&ix,&iy)>0) {
-			map[iy*XM+ix]= 1;
-			}
-		t+= ts;
-		}
+    if(scale(xsf,ysf,x,y,XM,YM,ixc,iyc,&ix,&iy)>0) {
+      map[iy*XM+ix]= 1;
+      }
+    t+= ts;
+    }
 
-	displaybits(map,XM,YM,XM,YM);
+  displaybits(map,XM,YM,XM,YM);
 
-	CloseGraphics();
-	exit();
+  CloseGraphics();
+  exit();
 }
 
 
