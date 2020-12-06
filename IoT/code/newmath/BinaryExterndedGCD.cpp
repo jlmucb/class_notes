@@ -17,8 +17,7 @@ typedef long int i64;
 
 
 
-bool BinaryExtendedGCD(i64 x, i64 y, i64* pa, i64* pb, i64* pg)
-{
+bool BinaryExtendedGCD(i64 x, i64 y, i64* pa, i64* pb, i64* pg) {
     i64     g= 1L;
     i64     A= 1L;
     i64     B= 0L;
