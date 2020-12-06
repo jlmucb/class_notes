@@ -1,0 +1,3 @@
+#
+ld -o orbit /lib/crt0.o transform.o planet.o -lm -lc
+

@@ -1,0 +1,94 @@
+.EQ
+delim $$
+.EN
+.LP
+$ epsilon sub earth$= 23.5, $ epsilon sub ecliptic/MW$= 62.5
+.br
+$E sub sun = 4 times 10 sup 33 ergs/sec$, $r sub diam = 865 ( 10 sup 3 ) miles$,
+$lambda sub sun = 26 days - 37 days$
+.br
+$R sub Moon = 2160 mi$, $R sub av = 238 (10 sup 3 )$, varies by $30 (10 sup 3)$,
+$epsilon sub moon = 5$, $lambda sub sider =  27d7h43m12s$,
+$lambda sub synod = 29d12h44m3s$
+.br
+$position sub SF$: 37.05N, 123W; $position sub NY$: 41.44N, 73.8W
+.TS
+center,allbox;
+c s s s s s s s s s
+l l l l l l l l l l
+l l l n n l l l n n.
+Bright Stars
+Name	RA	Dec	Vmag	Dist	Name	RA	Dec	Vmag	Dist
+Alpheratz	00 03	28 32	2.07	31	 Polaris	01 23	88 46	2.06	200
+Aldeberan	04 30	16 19	.8	21	Capella	05 09	45 54	.09	14
+Rigel	05 10	-08 19	.11	270	Bellatrix	05 20	06 16	1.63	140
+Betelgeuse	05 50	07 23	.4	180	Sirius	06 41	-16 35	-1.44	2.7
+Canopus	06 22	-52 38	-.72	?	Castor	07 28	32 06	1.56	14
+Procyon	07 34	05 29	.36	3.5	Pollux	07 39	28 16	1.15	10.7
+Regulus	10 03	12 27	1.34	26	Merak	10 56	56 55	2.36	23
+Dubhe	10 58	62 17	1.81	30	Mizar	13 20	55 27	2.12	26
+Spica	13 20	-10 38	.97	65	Arcturus	14 11	19 42	-.05	11
+Antares	16 23	-26 13	.94	130	Vega	18 34	38 41	.03	8.1
+Altair	19 46	08 36	.77	4.9	Deneb	20 38	44 55	1.25	500
+Formalhaut	22 52	-30 09	1.16	7	-	-	-	-	-
+.TE
+.TS
+center,allbox;
+c s s s s s s s s s s s
+l l l l l l l l l l l l.
+Planetary Phenomena
+P	$D sub av$	$lambda $	e	i	$L sub node$	$L sub Per$	$P sub epoc$	M	R	$rho$	Rot
+M	57.9	87.97d	.2	7	47.9	76.8	222.6	3.3e26	2439	5.4	58.7d
+V	108.2	224.7d	.007	3.4	76.3	131.0	174.3	4.9e27	6050	5.1	243d
+E	149.6	365.26	.017	0	0	102.3	100.2	6e27	6378	5.52	23h56m
+M	227.9	686.98	.093	1.8	49.2	335.3	258.8	6.4e26	3394	3.97	24 37
+J	778.3	11.8	.048	1.3	100.0	13,7	259.8	1.9e30	71880	1.33	9 55
+S	1427.0	29.46	.056	2.5	113.3	92.3	280.7	5.7e29	60400	.68	10 38	27
+U	2869	84	.047	.8	73.8	170.0	141.3	8.8e28 	23540	1.6	10 49	98
+N	4496	164.79	.009	1.8	131.3	44.3	216.9	1e29	24600	1.6	15	29
+P	5900	247.7	.250	17.2	109.9	224.2	181.6	-	-	-	-	-
+.TE
+.br
+\fB Notes: \fR Distance in km, dens $gm/(cm sup 3 )$,
+$a = b (1 - e sup 2 ) sup (1/2)$
+.TS
+center, allbox;
+c s s s
+l l l l.
+GMST at 12AM, (RA of star at Greenwich)
+Month	GMST	Month	GMST
+1/0	6.6245	7/0	18.5180
+6/0	16.5467	12/0	4.5716
+.TE
+.LP
+Spherical Aberation, Chromatic aberation, refractor, reflector
+.br
+Convex: rays converge, positive image
+.br
+.EQ
+f sub ratio = L sub focus  over R sub diameter
+.EN
+.EQ
+3 <= f sub ratio <= 6
+.EN
+.EQ
+Mag= L sub "focus-ovjective" over L sub "focus-eyepiece"
+.EN
+Resolving Power: 4.54/D arc-seconds (D in inches)
+
+
+.TS
+center, allbox;
+c s s s s s s s s s
+l l l l l l l l l l.
+Platetary Positions, 1986
+Time	Mercury	Venus	Earth	Mars	Jupiter	Saturn	Uranus	Neptune	Pluto
+1/1	222	270	100	189	325	242	258	273	215
+3/1	93	3	160	217	330	244	259	274	216
+5/1	315	101	220	248	336	246	260	274	216
+7/1	236	200	279	282	341	247	261	274	216
+9/1	140	299	338	320	347	249	261	275	217
+11/1	347	36	38	359	352	251	262	275	217
+1/1	259	134	100	36	358	253	263	276	218
+.TE
+@

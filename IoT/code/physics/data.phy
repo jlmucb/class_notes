@@ -1,0 +1,257 @@
+.nr HM .75i
+.nr PO .75i
+.nr LL 7.0i
+.EQ
+delim $$
+.EN
+.EQ
+\fBF\fR= d\fBp\fR over dt ",  "
+m= m sub 0 {{(1 - (v/c) sup 2 )} sup {-{1/2 }}}",  "
+E sup 2 - (p c) sup 2 = { (m c sup 2 ) } sup 2 ",  "
+F= -G {m sub 1 m sub 2 } over {{r sub 12 } sup 2 }",  "
+\fBF\fR= q ( \fBE\fR + \fBv\fR times \fBB\fR )
+.EN
+.EQ
+del \fBj\fR = - {partial rho } over {partial t}",  "
+del \fBE\fR = rho  over {epsilon sub 0}",  "
+del times \fBE\fR = - {partial \fBB\fR} over {partial t}",  "
+del \fBB\fR = 0",  "
+{c sup 2 } del times \fBB\fR = \fBj\fR over {epsilon sub 0} + {partial \fBE\fR} over {partial t}
+.EN
+.EQ
+E= - del phi - {partial \fBA\fR} over {partial t}",  "
+B = del times \fBA\fR ",   "
+phi (1,t) = int {{rho (2,t - (r/c))} over { 4 pi epsilon sub 0 r sub 12} dV }",  "
+\fBA\fR(1,t) = int {{\fBj\fR(2,t - (r/c))} over { 4 pi epsilon sub 0 c sup 2 r sub 12} dV }
+.EN
+.EQ
+E sub rad = - {q a sub p ( t')} / {( r c sup 2 )}",  "
+P(t)= 2/3 {q sup 2 } / {c sup 3} a sup 2 ( t ) ",  "
+\fBS \fR = c / {( 4 pi )} \fBE\fR times \fBB\fR",  "
+ED= 1 / {( 8 pi )} ( \fBE\fR sup 2  + \fBB\fR sup 2 ).
+.EN
+.EQ
+DELTA p DELTA x >= h over { 4 pi }",  "
+lambda = h over p " ,  " nu = E over h",  "
+\fBp\fR = { h \fBk\fR } over { 2 pi } " ,  " 
+E = { h omega } over { 2 pi } ",  "
+E sup 2  phi = [ {(m c sup 2 ) } sup 2 + {(pc)} sup 2 ] phi" ,  "
+E phi = [ beta m c sup 2 + \fB alpha  p \fR c] phi
+.EN
+.EQ
+W sub MB = {N!}/(n sub 1 ! ... n sub r !) {g sub 1 } sup {n sub 1 } ... {g sub r } sup { n sub r } ", " n sub i = g sub i e sup {- alpha } e sup { - beta E sub i }"; "
+p sub av = n k T"."
+E( lambda , T ) = { 8 pi h c }  / {( lambda sup 5 )} ( e sup {{(h c)} / {( lambda k T )}} - 1 ) sup -1",  "
+v sub av = sqrt { {3 k T } / m } ",  "
+.EN
+.EQ
+W sub BE = prod { (n sub i + g sub i - 1 )!} / {( n sub i ! ( g sub i - n sub i )! )} ", "
+n sub i = g sub i (e sup { - alpha} { e sup { - beta E sub i } - 1 )} sup -1 "; "
+W sub FD = prod { (g sub i )!} / {( n sub i ! ( g sub i - n sub i )! )} ", "
+n sub i = g sub i {(e sup { - alpha } e sup {- beta E sub i } + 1 )} sup -1 "."
+.EN
+.EQ
+phi ' = phi" (scalar), "
+{eta '} sup i = {partial {x ' sup i}} over {partial {x sup j}}  eta sup j " (rank 1), "
+{T '} sup ij = {partial {x ' sup i}} over {partial {x sup k}}  
+{partial {x ' sup j}} over {partial {x sup l}} {T sup kl}" (rank 2), "
+ds sup 2 = g sub ij dx sup i dx sup j ", "
+g sub ij = g sub ji
+.EN
+.EQ
+{GAMMA sub ij} sup k = 1/2 g sup kl ( 
+{{partial {g sub li}} over {partial {x sup j}}+
+{partial {g sub lj}} over {partial {x sup i}}-
+{partial {g sub ij}} over {partial {x sup k}}} ) ", "
+{R sub jkl} sup i = {partial {{GAMMA sub kj} sup i}} over {partial {x sup l}}
+- {partial {{GAMMA sub kl} sup i}} over {partial {x sup j}}+
+{{GAMMA sub ml} sup i} {{GAMMA sub kj} sup m} -
+{{GAMMA sub mk} sup i} {{GAMMA sub jl} sup m} ",  "
+{V sup i} sub ;j = {{partial {V sup i}} over {partial {x sup k}} +
+{GAMMA sub kj} sup i} {V sup j}
+.EN
+.EQ
+{R sub ikj} sup k = R sub ij = {{ 8 pi G} over {c sup 2}}(T sub ij - 1/2 g sub ij {{T sup i} sub i})",  "
+delta int { ds} = 0": " {d sup 2 x sup i} over {ds sup 2} + 
+{{GAMMA sub jk} sup i} {d x sup j} over ds {d x sup k} over ds = 0",  "
+{GAMMA sub i,rs}= g sub ik {{GAMMA sub rs} sup k}", "
+{{GAMMA sub rs} sup i} = g sup ik {GAMMA sub i,rs}
+.EN
+.EQ
+R= g sup ij R sub ij ",  "
+R sup ij = - kappa ( T sup ij - 1/2 g sup ij T ", "
+R sup ik - (1/2) g sup ij R = - kappa T sup ij ) ", "
+(R sup ij - (1/2) g sup ij R) sub ;j = 0 
+.EN
+.EQ
+delta int {(L- 1 / {(2 kappa )} sqrt g R )d sup 4 x } = 0 ",  "
+delta int {L sqrt g d sup 4 x } = 1/2 int { sqrt g T sup ij delta g sub ij d sup 4 x } ",  "
+DELTA omega  = {omega sub 0 } / {c sup 2 } ( 1 + {g H } / {c sup 2} )" ,  Max:  "
+J sup mu  = 1/{sqrt g }  { partial over {partial x sup nu }{ ( sqrt (g) F sup { mu nu } ) }}
+.EN
+.EQ
+cos(a) = sin(b) sin(c) cos(A) + cos(b) cos(c) ", "
+sin(a) / sin(A)  =  sin(b) / sin(B)" ." 
+.EN
+.EQ
+G= 6.671 times 10 sup -11  N m sup 2 / kg sup 2 ",  " k = 1.38 times 10 sup -16  ergs /(mol-deg)",  "
+22.4 times 10 sup 3 cm sup 3 /mol (STP) ",   "N sub 0 = 6.022 times 10 sup 23 mol sup -1
+.EN
+.EQ
+c= 2.99725 times 10 sup 10 cm/s ",  "  epsilon sub 0 = 10 sup 7 {( 4 pi {c sup 2} ) } sup -1 ",  "
+h= 6.6262 times 10 sup -27 erg sec " ,  " q sub e = 1.60219 times 10 sup -19 C",  "
+R=8.3143 J/mol-deg
+.EN
+.LP
+\fBAtomic:\fR
+$M sub e = .510998 Mev$, $M sub p = 938.256 Mev (=1836 M sub e )$,
+$M sub n = 939.55 Mev$,
+$sigma sub SB = 5.67 times 10 sup -8 W m sup -2 K sup -4$,
+$1 ev = 1.6 times 10 sup -12 erg = 1.6 times 10 sup -19 J$, $1 curie = 3.7 times 10 sup 12 decays$,
+HDNA: 2,900,000 kilobases.
+.LP
+\fBUniverse:\fR $H sub 0 = 100 km /(s-Mpc)$, 
+$1 pc= 3.26 l-y$,
+$10 sup 80$ nucleons, $10 sup 28 cm-diam$, $10 sup 11$ galaxies.
+.LP
+\fBMilky Way:\fR $ epsilon sub ecliptic/MW$= 62.5, $1.6 times 10 sup 11$ stars,
+$10 sup 23 cm-diam$, $8 times 10 sup 44 gm$. 0 Jan 1986= 2,446,430.5JD.
+.LP
+\fBSun:\fR $E sub sun = 4 times 10 sup 33 ergs/sec$, $7 times 10 sup 10 cm-diam$,
+$1.99 times 10 sup 33 gm$,
+$lambda sub sun = 30 days$.
+.LP
+\fBEarth:\fR $epsilon sub earth =23.5$, 50%clouds, $R sub moon = 2160 mi$,
+$epsilon sub moon = 5$, $lambda sub sider =  27d7h43m12s$,
+$lambda sub synod = 29d12h44m3s$.
+.br
+$c sub s = 3.32 times 10 sup 4 cm/s$, $1 cal = 4.1855J$, 1 BTU= 252 cal,
+1 kg TNT= 4.2 MJ, $ 1A = 10 sup -8 cm$.
+.LP
+\fBDry (static,sliding) Friction: \fR Steel (.78,.42), Teflon; (.04,-).
+.br
+\fBExpansion: \fR
+$alpha sub l = {l sup -1 } {partial l } / {partial t}$, $times 10 sup 6 C$:
+(Al, 24), (Cu, 17), (Granite, 8.3), (Ice, 50), (Fe, 12), (Water,207).
+.br
+\fBHeat Capacity: \fR
+$c sub v =  {m sup -1} {partial Q } / {partial T}$:
+$(He, 12.5)$, $(O sub 2 , 21.1)$, $(N sub 2 , 20.6)$,
+$(C sub 2 H sub 6 , 39.3)$, MFP $N sub 2 = 10 sup -5 cm$,
+$C sub {v,solid} = 3 R$.
+.Br
+\fBMelting/Boiling: \fR
+MP/BP (K): Au, 1336, 3081; $O sub 2$, 54, 90; Cu, 1356, 2839.
+.br
+\fBHeat Conduction: \fR
+$Q' = - kappa A  {partial T} / {partial l}$ W/(cmK): 
+(Cu, 4), (Fe, 0.80), (Si, 1.5), ($H sub 2$,$.00024-.0018$),
+(Rock, 2.8 kc/mhK).
+.br
+\fBDielectric: \fR
+$epsilon = K epsilon sub 0$: (Glass, 6.7), (Water, 78), (Nylon, 3.6).
+.br
+\fBResistivity: \fR
+$R= rho {L / A}  times 10 sup -8$: (Ag, 1.4), (Cu, 1.7), (Al, 2.8), (Fe, 9.8).
+.br
+\fBDensity: \fR
+$rho / rho sub water$: Al, 2.7; Cu, 8; Rock, 5.5; Au, 19; Fe, 8; Gas, .68; air, .0012; wood, .75.
+.br
+\fBModuli: \fR
+$B= DELTA P / ( DELTA V / V)$: Al, 70; Cu, 140; Fe, 100; Water, 200.
+$Y= ( DELTA F / A ) /( DELTA l / l) times 10 sup 12 dy/cm sup 2$: Al, 70; Cu, 110; Fe, 190.
+.br
+$M sub s = ( DELTA F / A ) / ( DELTA x ) / l $: Al, 30; Cu, 42; Fe, 100.
+.LP
+\fBAir:\fR 28.96 m-w, $c sub p = 1005 J/kg-K$, $c sub v = 718 J/kg-K$,
+SP $1.013 times 10 sup 5 Pa= 10 sup 6 dyne/ cm sup 2 = 760 mm-Hg$, 
+$rho : " " 1.293 mg/cm sup 3$,
+$kappa ":  "2.4 times 10 sup -2 W/m-K$,
+visc@20: .00018 g/cm-s.
+.br
+\fBWater\fR: 273.15K, 18 m-w, 540 cal/gm (vaporization), 80 cal/gm (fusion),
+$rho sub ice = 917 kg / m sup 3 $,
+$kappa ":  ".19 W/m-K$, visc@20: .01gm/cm-s, ST: @20: $73d/cm$.
+.bp
+.LP
+\fBSpectrum: \fR 30cps audio 30K 500K AM 1500K 3M HF 30M 88M FM VHF 210M 400M UHF 800M
+1.5G $H sub 2$  S-band 3G 7600A IR 6300 Visible 3900A UV 100A X-ray .1A $gamma$
+67 Mev. A above middle C: 440cps.
+.LP
+\fBProbability: \fR
+$H(\fBP\fR) = sum - p sub i lg ( p sub i ) ",  " I(X;Y)= H(X)-H(X | Y )$,
+$p(x) = {( sqrt { 2 pi }  sigma )} sup -1 e sup {{- {( x - mu }) sup 2 } / { 2 sigma sup 2 }}$,
+$x sub (n+1) = (a x sub n + c )$ (mod m) has period n if $(c,m)=1$, $b=a-1$,
+$b=0$ (mod p) if p|m, b=0 (4) if m=0 (4),
+$V= {{(Y sub 2 - n p sub 2 )} sup 2 } / {( n p sub 2 )}+...+
+{{(Y sub 12 - n p sub 12 )} sup 2 } / {( n p sub 12 )} $.
+.TS
+center, allbox;
+bl bl bl bl bl bl bl bl bl bl
+l l l n n l l l n n.
+Name	RA	Dec	Vmag	Dist	Name	RA	Dec	Vmag	Dist
+Polaris	01 23	88 46	2.06	200	Mizar	13 20	55 27	2.12	26
+Aldeberan	04 30	16 19	.8	21	Capella	05 09	45 54	.09	14
+Rigel	05 10	-08 19	.11	270	Bellatrix	05 20	06 16	1.63	140
+Betelgeuse	05 50	07 23	.4	180	Sirius	06 41	-16 35	-1.44	2.7
+Canopus	06 22	-52 38	-.72	?	Castor	07 28	32 06	1.56	14
+Procyon	07 34	05 29	.36	3.5	Pollux	07 39	28 16	1.15	10.7
+Regulus	10 03	12 27	1.34	26	Merak	10 56	56 55	2.36	23
+Spica	13 20	-10 38	.97	65	Arcturus	14 11	19 42	-.05	11
+Antares	16 23	-26 13	.94	130	Vega	18 34	38 41	.03	8.1
+Altair	19 46	08 36	.77	4.9	Deneb	20 38	44 55	1.25	500
+.TE
+\fBOrbits: \fR $a = b (1 - e sup 2 ) sup (1/2)$, 
+$RA sub Greenwich $ (1986.0): 6.6245.
+.TS
+center, allbox;
+bl bl bl bl bl bl bl bl bl bl bl
+l l l l l l l l l l l.
+Planet	$D sub av$(km)	$lambda$(rev)	e	i	$L sub node$	$L sub Per$	$P sub epoc$	M(gm)	R(km)	Rot
+Mercury	57.9	87.97d	.2	7	47.9	76.8	222.6	3.3e26	2439	58.7d
+Venus	108.2	224.7d	.007	3.4	76.3	131.0	174.3	4.9e27	6050	243d
+Earth	149.6	365.26	.017	0	0	102.3	100.2	6e27	6378	23h56m
+Mars	227.9	686.98	.093	1.8	49.2	335.3	258.8	6.4e26	3394	24h37m
+Jupiter	778.3	11.8yr	.048	1.3	100.0	13,7	259.8	1.9e30	71880	9.8h
+Saturn	1427.0	29.46	.056	2.5	113.3	92.3	280.7	5.7e29	60400	10.66h
+Uranus	2869	84	.047	.8	73.8	170.0	141.3	8.8e28 	23540	17.24h
+Neptune	4496	164.79	.009	1.8	131.3	44.3	216.9	1e29	24600	16h
+Pluto	5900	247.7	.250	17.2	109.9	224.2	181.6	-	-	-	-
+.TE
+.TS
+center, allbox;
+l l l l l l l l l l l l.
+Bjng	40.1	116.33	SF	37.45	-122.33	NY	41.44	-73.8	Bstn	42.35	-71.05	
+Chi	41.87	-87.63	Dls	32.78	-96.78	Mdsn	43.07	-89.38	S Fe	35.68	-105.93	
+Sea	47.61	-122.33	Tcsn	32.22	-110.97	DC	38.88	-77.0	Dnvr	39.75	-104.99	
+Atla	33.75	-84.39	Lndn	53.5	0.0	Pars	48.83	2.3	Brln	52.5	13.42	
+Rome	41.88	12.5	Mscw	55.75	37.7	Atns	37.97	23.75	Jslm	31.75	35.22	
+Tkyo	35.75	139.75	Sdny	-33.87	151.2	MKea	19.826	-155.47	CTlo	-70.82	-30.17	
+.TE
+.LP
+\fBStellar Evolution (': wrt r): \fR
+$P'= - rho G M(r) / {r sup 2}$,
+$M'= 4 pi r sup 2 rho$,
+$L'= 4 pi r sup 2  epsilon$,
+$L'= {(-3  chi rho ) } / {(4 a c T sup 3 (4 pi r sup 2 )) }$ (rad),
+$L'= (1 - gamma sup -1 ) T  rho sup -1 P'$ (conv),
+$P=RT { rho / mu }$, $chi = C rho T sup -3.5$,
+$alpha = {( {10 sup 6} / T )} sup {1/3}$, 
+$epsilon sub AB = epsilon sub AB,0 rho X sub A X sub B alpha sup 2
+e sup {-{ alpha sub AB alpha }}$.
+.LP
+\fBResolving Power: \fR $4.54/{D sub inches }$ arc-seconds,
+$f sub ratio = L sub focus  / R sub diameter$ , $3 <= f sub ratio <= 6$,
+$Mag= L sub "focus-objective" / L sub "focus-eyepiece"$.
+.LP
+\fBChemical bonds: \fR ionic/hydrogen 3kcal/mole, covalent: 1000 kcal/mole. Acid
+added to $H sub 2 O$ increases $H sup +$.
+.LP
+\fBFluids: \fR $P + phi + (1/2) rho v sup 2  = const$,
+$ del rho \fBv\fR = - rho '$,
+$del \fBv\fR = 0$,
+$del times \fBv\fR=\fB0\fR.$
+.sp
+.SM
+.B
+John Manferdelli,  JLM PHY941025

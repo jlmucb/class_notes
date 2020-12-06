@@ -1,0 +1,3 @@
+#
+ld -o observer /lib/crt0.o transform.o observer.o -lm -lc
+
