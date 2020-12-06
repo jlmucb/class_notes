@@ -575,7 +575,7 @@ void delete_min(pq *p)
   for(candidate=p->next->next; candidate; candidate=candidate->next)
     {
       if(candidate->content->pq_cost < winner->content->pq_cost)
-	winner=candidate;
+  winner=candidate;
     }
   for(previous=p; previous->next != winner; previous=previous->next);
 
