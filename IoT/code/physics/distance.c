@@ -7,13 +7,7 @@
  *  (c) Copyright, 1989, John L. Manferdelli.  All Rights Reserved
  */
 
-
-/* ---------------------------------------------------------------------- */
-
-
-main(int argn,Char *argv[])
-
-{
+main(int argn,Char *argv[]) {
   Int i,j,n;
   Char *lname1, *lname2;
   Double lat1,lat2,lng1,lng2;
@@ -42,7 +36,4 @@ main(int argn,Char *argv[])
     x,(180.0/PI)*x,y,y*KMTOMI);
   exit();
 }
-
-
-/* ---------------------------------------------------------------------- */
 

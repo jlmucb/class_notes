@@ -32,13 +32,7 @@ Int lpy[4]= {0,3,2,1};
 
 Int epoch={EPOCH};
 
-
-/* ------------------------------------------------------------------ */
-
-
-scmp1(Char *p,Char *q)
-
-{
+scmp1(Char *p,Char *q) {
   while(*p!='\0') {
     if((*p)!=(*q))
       return(0);
@@ -48,14 +42,10 @@ scmp1(Char *p,Char *q)
 }
 
 
-Int month12(char *name)
-
-
 /*
  *  return month number given name
  */
-
-{
+Int month12(char *name) {
   Int i;
   char *p, *q, n[20];
 
@@ -77,50 +67,38 @@ Int month12(char *name)
 }
 
 
-char *month21(Int i)
-
 /*
  *  return monthname given month number
  */
-
-{
+char *month21(Int i) {
   if((i>0)&&(i<13))
     return(moname[i-1]);
   return(NULL);
 }
 
 
-Double intojul(Double t)
-
 /*
  *  Jan 1, 4713 bc at 12 noon is 0
  *  1582 had only 355 days, leap centuries not divis by 400 skip
  *  Jan 1, 1980 12 noon is 2,444,240
  */
-
-{
+Double intojul(Double t) {
   return(t+2444240.0);
 }
 
 
-printdate(struct T2 *t2)
-
-{
+printdate(struct T2 *t2) {
   printf("%d %s %d %d:%d:%.4f", t2->year,month21(t2->mno),
     t2->day, t2->hr, t2->min, t2->sec);
 }
 
 
-Double jultoint(Double t)
-
-{
+Double jultoint(Double t) {
   return(t-2444240.0);
 }
 
 
-intot2(Double t,struct T2 *t2,Int ep)
-
-{
+intot2(Double t,struct T2 *t2,Int ep) {
   Int i,j,k,n,*ip;
   Double x,y;
 
@@ -192,13 +170,11 @@ intot2(Double t,struct T2 *t2,Int ep)
 }
 
 
-Double t2toint(struct T2 *t1,Int ep)
 
 /*
  *  Transform fron t2 format to internal format
  */
-
-{
+Double t2toint(struct T2 *t1,Int ep) {
   Int i,j,k;
   Double x,y;
 
@@ -274,13 +250,11 @@ Double t2toint(struct T2 *t1,Int ep)
 }
 
 
-Double gmttocivil(Double t,Double l)
 
 /*
  *  longitude in degrees (East is postive, West is negative)
  */
-
-{
+Double gmttocivil(Double t,Double l) {
   Int i;
 
   i= l/360.0;
@@ -294,9 +268,7 @@ Double gmttocivil(Double t,Double l)
 }
 
 
-Double civiltogmt(Double t,Double l)
-
-{
+Double civiltogmt(Double t,Double l) {
   Int i;
 
   i= l/360.0;
@@ -310,9 +282,7 @@ Double civiltogmt(Double t,Double l)
 }
 
 
-Double gmttolocal(Double t,Double l)
-
-{
+Double gmttolocal(Double t,Double l) {
   Int i;
 
   i= l/360.0;
@@ -327,9 +297,7 @@ Double gmttolocal(Double t,Double l)
 }
 
 
-localtogmt(Double t,Double l)
-
-{
+localtogmt(Double t,Double l) {
   Int i;
 
   i= l/360.0;
@@ -344,9 +312,7 @@ localtogmt(Double t,Double l)
 }
 
 
-tomins(Double x,Int *ix,Double *xx)
-
-{
+tomins(Double x,Int *ix,Double *xx) {
   *ix= x;
   x-= (*ix);
   if(x<0.0)
@@ -356,16 +322,10 @@ tomins(Double x,Int *ix,Double *xx)
 }
 
 
-/* ------------------------------------------------------------------ */
-
-
-sptriang(Double A,Double b,Double c,Double *a)
-
 /*
  *  cos(a)= cos(b)cos(c)+sin(b)sin(c)cos(A)
  */
-
-{
+sptriang(Double A,Double b,Double c,Double *a) {
   Double x;
 
   if(A<0.0)
@@ -375,15 +335,11 @@ sptriang(Double A,Double b,Double c,Double *a)
   return(1);
 }
 
-
-tospherical(Double x,Double y,Double z,Double *a1,Double *a2)
-
 /*
  *  given x,y,z in space, get azimuth (z axis to line) and angle in xy
  *  plane put the answer in a1, a2, answer is in radians
  */
-
-{
+tospherical(Double x,Double y,Double z,Double *a1,Double *a2) {
   Double u,v,w;
 
 #ifdef DEBUG7
@@ -418,15 +374,12 @@ tospherical(Double x,Double y,Double z,Double *a1,Double *a2)
 }
 
 
-eqtohor(Double t,Double par,Double r,Double d,
-    Double la,Double lo,Double *al,Double *azz)
-
 /*
  *  time since epoch (days), ra of Greenwich at epoch, ra, dec,
  *  latitude, longitude all in radians
  */
-
-{
+eqtohor(Double t,Double par,Double r,Double d,
+    Double la,Double lo,Double *al,Double *azz) {
   Double x,y,z,u,lha;
   Int j;
 
@@ -467,9 +420,7 @@ eqtohor(Double t,Double par,Double r,Double d,
 }
 
 
-degtora(Double x,Char *b)
-
-{
+degtora(Double x,Char *b) {
   Int i,j;
 
   x/= 360.0;
@@ -487,9 +438,7 @@ degtora(Double x,Char *b)
 }
 
 
-degtominsec(Double x,Char *b)
-
-{
+degtominsec(Double x,Char *b) {
   Int i,j;
 
   i= x;
@@ -503,16 +452,10 @@ degtominsec(Double x,Char *b)
 }
 
 
-/* ------------------------------------------------------------------------- */
-
-
-Double angles(Double x,Char *p,Char *q)
-
 /*
  *   to ra measure from radians
  */
-
-{
+Double angles(Double x,Char *p,Char *q) {
   Int i,j;
   Double a,b;
 
@@ -549,15 +492,13 @@ Double angles(Double x,Char *p,Char *q)
 }
 
 
-rotate(Double x,Double y,Double z,
-     Double *x1,Double *y1,Double *z1,Char *axis,Double t)
 
 /*
  *  rotate
  *  to change coordinates, use -t for t
  */
-
-{
+rotate(Double x,Double y,Double z,
+     Double *x1,Double *y1,Double *z1,Char *axis,Double t) {
   if(strcmp(axis,"xy")==0) {
     *x1= x*cos(t)-y*sin(t);
     *y1= x*sin(t)+y*cos(t);
@@ -581,9 +522,7 @@ rotate(Double x,Double y,Double z,
 }
 
 
-Double normalize(Double x)
-
-{
+Double normalize(Double x) {
   Int i;
   Double y;
 
@@ -606,9 +545,6 @@ Double normalize(Double x)
 #endif
   return(x);
 }
-
-
-/* ------------------------------------------------------------------ */
 
 
 #ifdef DEBUG2
@@ -638,9 +574,6 @@ char *argv[];
   exit();
 }
 #endif
-
-
-/* ------------------------------------------------------------------ */
 
 
 char *unknownloc={"Unknown"};
@@ -694,9 +627,7 @@ struct {
 
 
 
-printlocs()
-
-{
+printlocs() {
   Int i;
 
   for(i=0;i<NLOCS;i++) {
@@ -711,9 +642,7 @@ printlocs()
 }
 
 
-Int fetchpos(char **na,Double *la,Double *lo,char *arg[])
-
-{
+Int fetchpos(char **na,Double *la,Double *lo,char *arg[]) {
   char a;
   Int i;
 
@@ -741,5 +670,3 @@ Int fetchpos(char **na,Double *la,Double *lo,char *arg[])
     }
 }
 
-
-/* ---------------------------------------------------------------------- */

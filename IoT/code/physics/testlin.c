@@ -13,10 +13,8 @@ double test[]={
   };
 
 main(argn,argv)
-
 int argn;
 char *argv[];
-
 {
   double ans[4];
   int i;

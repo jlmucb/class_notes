@@ -5,17 +5,13 @@
  *  (c) Copyright, 1989, John L. Manferdelli.  All Rights Reserved
  */
 
-
 #define SM 111.3171 /* km */
 #define SMM 69.169 /* miles */
 #define PI 3.1415926536
 
-
 main(argn,argv)
-
 int argn;
 char *argv[];
-
 {
   char *name1, *name2;
   int i,j,k,n;

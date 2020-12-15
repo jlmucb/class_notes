@@ -6,22 +6,15 @@
  *  (c) Copyright, 1989, John L. Manferdelli.  All Rights Reserved
  */
 
-
 #define PI 3.1415926535
 
-
-double fourstep(x,n)
-
-double x;
-int n;
 
 /*
  *  Evaluate 1/2+ sum-to-n [Am sin(m pi x)]
  *  where Am= -(2/(pi m)) when m is odd, 0 when even
  *  this should be a fourier appx to step fnctn
  */
-
-{
+double fourstep(double x, int n) {
   int i,j;
   double y,z,c;
 

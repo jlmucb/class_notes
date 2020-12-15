@@ -12,12 +12,7 @@
  */
 
 
-main(argn, argv)
-
-int argn;
-char *argv[];
-
-{
+main(int argn,ar** argv) {
   double u,d,ds,rs,um,vm,e,r1,v1,phi1,gamma1;
   double lambda1,h,a,p,r0,ta0,ecc,ea1,tof;
   double parm1, parm2, eps2, hp, rp,vp;
