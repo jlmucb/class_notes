@@ -73,14 +73,10 @@ short_t R0[54], R0I[54], R1[54], R1I[54], R2[54], R2I[54];
 short_t gin[54], gout[54];
 
 
-
  // ----------------------------------------------------------------------
 
 
-
-void initp(short_t in[], short_t out[],short_t outi[])
-
-{
+void initp(short_t in[], short_t out[],short_t outi[]) {
   int i,n;
 
   for(n=0;in[n]>=0;n++);
@@ -94,10 +90,7 @@ void initp(short_t in[], short_t out[],short_t outi[])
     }
 }
 
-
-void pcopy(int n, short_t in[], short_t out[])
-
-{
+void pcopy(int n, short_t in[], short_t out[]) {
   int i;
 
   for(i=0;i<n;i++)
@@ -105,9 +98,7 @@ void pcopy(int n, short_t in[], short_t out[])
 }
 
 
-void applyperm (int n, short_t perm[], short_t in[], short_t out[])
-
-{
+void applyperm (int n, short_t perm[], short_t in[], short_t out[]) {
   int i;
 
   for(i=0;i<n;i++)
@@ -116,9 +107,7 @@ void applyperm (int n, short_t perm[], short_t in[], short_t out[])
 
 
 
-void pprint(short_t pp[])
-
-{
+void pprint(short_t pp[]) {
   int i;
 
   for(i=0;i<27;i++)
@@ -141,9 +130,7 @@ void pprint(short_t pp[])
 #define MAXARRAY 100
 
 
-void printcycles(int_t n, short_t map[])
-
-{
+void printcycles(int_t n, short_t map[]) {
   int i,j,k,m;
   byte_t seen[MAXARRAY];
 
@@ -181,13 +168,9 @@ void printcycles(int_t n, short_t map[])
 }
 
 
-
-
- int main(int an,char *av[])
-
- {
+ int main(int an,char *av[]) {
    int i;
-  short_t *p;
+   short_t *p;
 
 
   initp(iiF0,F0,F0I);
@@ -268,10 +251,4 @@ void printcycles(int_t n, short_t map[])
 
   return(1);
  }
-
-
-
- // ----------------------------------------------------------------------
-
-
 
