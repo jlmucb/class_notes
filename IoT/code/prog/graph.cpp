@@ -21,25 +21,16 @@
 #include "graph.h"
 
 
-
 /* ------------------------------------------------------------------------------------------ */
 
 
-
-
-BOOL RotatePlanarPoint(double xXin, double xYin, double xAngle, double* pxXout, double* pxYout)
-
-{
+BOOL RotatePlanarPoint(double xXin, double xYin, double xAngle, double* pxXout, double* pxYout) {
   *pxXout= xXin*cos(xAngle)-xYin*sin(xAngle);
   *pxYout= xYin*cos(xAngle)-xXin*sin(xAngle);
   return(TRUE);
 }
 
-
-
-Graph::Graph()
-
-{
+Graph::Graph() {
   iNumberofNodes= 0;
   pNodeList= NULL;
   iNumberofLinks= 0;
@@ -47,25 +38,16 @@ Graph::Graph()
   iLabelMaxWidth= 0;
   }
 
-
-
-BOOL Graph::ScaleGraph(RECT rectDisplayArea)
-
-{
+BOOL Graph::ScaleGraph(RECT rectDisplayArea) {
   return TRUE;
   }
 
 
 
-BOOL Graph::Init(RECT rectDisplayArea)
-
-{
+BOOL Graph::Init(RECT rectDisplayArea) {
   }
 
-
-BOOL Graph::InitLayout(RECT rectDisplayArea)
-
-{
+BOOL Graph::InitLayout(RECT rectDisplayArea) {
   double xAngle, xSideToRadiusRatio;
   Int iXsize, iYsize;
   Int iXVertex, iYVertex, iCenter;
@@ -122,21 +104,16 @@ BOOL Graph::InitLayout(RECT rectDisplayArea)
   		return(FALSE);
 
   	pThisNode= pThisListPosition->pCurrentNode;
-
   	pThisNode->iXPosition= iXVertex;
   	pThisNode->iYPosition= iYVertex;
-
   	xcX= (double)(iXVertex-rectGraphArea.left-iCenter);
   	xcY= (double)(-(iYVertex-rectGraphArea.top-iCenter));
   	// fix this it isnt right
   	::RotatePlanarPoint(xcX, xcY, xAngle, &xnX, &xnY);
-
   	iXVertex= (Int)xnX;
   	iYVertex= (Int)(-xnY);
-
   	iXVertex+= rectGraphArea.left+iCenter;
   	iYVertex+= rectGraphArea.top+iCenter;
-
   	pThisListPosition= pThisListPosition->pNextNodeList;
   	}
   
@@ -144,26 +121,16 @@ BOOL Graph::InitLayout(RECT rectDisplayArea)
 }
 
 
-
-void DrawANode(CDC* pDC, const GNode& grNode, Int iRadius)
-
 // Assume Mapmode and name is ok.
-
-{
+void DrawANode(CDC* pDC, const GNode& grNode, Int iRadius) {
 
   pDC->Rectangle(grNode.iXPosition-iRadius,grNode.iYPosition-iRadius,
   		       grNode.iXPosition+iRadius,grNode.iYPosition+iRadius);
   pDC->TextOut(grNode.iXPosition+iRadius*2,grNode.iYPosition, grNode.pstrNodeName);
-  
   }
 
 
-
-void DrawALink(CDC* pDC,const GLink& grLink, Int iWidth)
-
-// assume mapmode and name is ok.
-
-{
+void DrawALink(CDC* pDC,const GLink& grLink, Int iWidth) {
   GNode* g1;	GNode* g2;
   Int ix1,iy1,ix2,iy2;
 
@@ -171,7 +138,6 @@ void DrawALink(CDC* pDC,const GLink& grLink, Int iWidth)
   g2= grLink.pDestination;
   ASSERT(g1!=NULL);
   ASSERT(g2!=NULL);
-
   ix1= g1->iXPosition;
   iy1= g1->iYPosition;
   ix2= g2->iXPosition;
@@ -180,13 +146,4 @@ void DrawALink(CDC* pDC,const GLink& grLink, Int iWidth)
   pDC->LineTo(ix2,iy2);
   pDC->TextOut(((ix1+ix2)/2)+iWidth,(iy1+iy2)/2,grLink.pstrLinkName);
   }
-
-
-
-
-/* ------------------------------------------------------------------------------------------ */
-
-
-
-
 

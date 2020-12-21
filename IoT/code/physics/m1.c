@@ -15,14 +15,8 @@ double tpi={2.0*PI};
 double thpi={PI+(PI/2.0)};
 double e={2.718281828459045};
 
-/* -------------------------------------------------------------- */
 
-
-double fabs(x)
-
-double x;
-
-{
+double fabs(double x) {
   if(x<0.0)
     return(-x);
   return(x);
@@ -33,12 +27,7 @@ double x;
  *  sqrt, sin, cos, asin, acos, tan, atan, ln, exp
  */
 
-
-double sqrt(x)
-
-double x;
-
-{
+double sqrt(double x) {
   double a,b;
 
 #ifdef DEBUG7
@@ -67,19 +56,11 @@ double x;
 }
 
 
-/* ---------------------------------------------------------------- */
-
-
 #define NBITS 50
 static double sqr2[NBITS];
 
 
-main(an,av)
-
-int an;
-char *av[];
-
-{
+main(int an, char** av) {
   unsigned *u;
   double x,y,z;
   int i,j,k;
@@ -105,9 +86,4 @@ char *av[];
   printf("};\n");
   exit(1);
 }
-
-
-
-/* ---------------------------------------------------------------- */
-
 

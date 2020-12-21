@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <math.h>
 
-
 //
 //  location on earth using altitudes from 2 know objects
 //
@@ -11,8 +10,6 @@
 
 typedef int Int;
 typedef double Double;
-
-
 #define PI 3.141592653589793
 #define todegree(xx) ((xx)*180.0/PI)
 #define toradian(xx) ((xx)*PI/180.0)
@@ -22,14 +19,9 @@ Double t= {0.0};      // time elapsed since epoch in seconds
 Double w= {1.0/86160.0};     // rate of rotation
 
 
-/* ------------------------------------------------------------------------ */
-
-
-spt1 (Double A,Double b,Double c,Double *a)
 
 //  cos(a)= cos(b)cos(c)+sin(b)sin(c)cos(A)
-
-{
+int spt1 (Double A,Double b,Double c,Double *a) {
   Double x;
 
   if(A<0.0)
@@ -40,12 +32,8 @@ spt1 (Double A,Double b,Double c,Double *a)
 }
 
 
-
-spt2 (Double a,Double b,Double c,Double *A)
-
 //  cos(a)= cos(b)cos(c)+sin(b)sin(c)cos(A)
-
-{
+spt2 (Double a,Double b,Double c,Double *A) {
   Double x;
 
   x= (cos(a)-cos(b)*cos(c))/(sin(b)*sin(c));
@@ -54,12 +42,7 @@ spt2 (Double a,Double b,Double c,Double *A)
 }
 
 
-/* ------------------------------------------------------------------------ */
-
-
-main(Int argn,char *argv[])
-
-{
+main(Int argn,char *argv[]) {
   Int i,j,n;
   Double d1,r1,d2,r2,a1,a2;        // declination, ra
   Double pp,p,z,zp,ss,lat,lng;
@@ -93,6 +76,4 @@ main(Int argn,char *argv[])
   exit();
 }
 
-
-/* ------------------------------------------------------------------------ */
 

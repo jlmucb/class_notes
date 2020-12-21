@@ -10,19 +10,15 @@
 #define NAMESIZE 256
 
 
-
 void MakeName(
   Int iFnum,           // Integer incrementor
   const String pProto,     // Prototype Name
   String pNewName        // New Name
-  )      
-
-{
+  )      {
   Char *p, *q;
   Char NewBuffer[NAMESIZE];
   
   q= pProto;
-
   p= &NewBuffer[0];
   while((*q!=_T('.'))&&(*q!=_T('\0')))
     *(p++)= *(q++);
@@ -37,14 +33,11 @@ void MakeName(
   }
 
 
-
 Int FileSplit(
   String InputName,     // input file name
   String OutputName,     // output file name (or null)
   Int iMaxSector      // maximum disk file size
-  )
-
-{
+  ) {
   HANDLE hIn, hOut;
   Int iFileSize, iFileLeft, iSectorSize, iSectorLeft, iFileNumber;
   BOOL fSuccess;
@@ -52,7 +45,6 @@ Int FileSplit(
   Char Buffer[BUFSIZE];
   Char NewOutName[NAMESIZE];
   DWORD lpNumberOfBytesRead, lpNumberOfBytesWritten;      
-
 
   hIn= CreateFile(InputName, GENERIC_READ,FILE_SHARE_READ,NULL,
           OPEN_EXISTING,FILE_ATTRIBUTE_NORMAL,NULL);
@@ -62,9 +54,7 @@ Int FileSplit(
   iFileLeft= iFileSize;
 
   iFileNumber= 0;
-  while(iFileLeft>0) 
-    {
-    
+  while(iFileLeft>0) {
     MakeName(iFileNumber++, 
         (OutputName==NULL)?InputName:OutputName, 
         NewOutName);
@@ -76,8 +66,7 @@ Int FileSplit(
 
     iSectorSize= ((iFileLeft>iMaxSector)?iMaxSector:iFileLeft);
     iSectorLeft= iSectorSize;
-    while(iSectorLeft>0)
-      {
+    while(iSectorLeft>0) {
       fSuccess=ReadFile(hIn,Buffer,
                 (iSectorLeft>BUFSIZE)?BUFSIZE:iSectorLeft,
                   &lpNumberOfBytesRead,NULL); 
@@ -97,14 +86,10 @@ Int FileSplit(
   return(TRUE);
   }
 
-
-
 Int FileMerge(
   String InputName,     // input file name
   String OutputName     // output file name (or null)
-  )
-
-{
+  ) {
   HANDLE hIn, hOut;
   Int iFileSize, iFileLeft, iFileTotal, iFileNumber;
   BOOL fSuccess;
@@ -121,8 +106,7 @@ Int FileMerge(
 
   iFileNumber= 0;
   iFileTotal= 0;
-  for(;;) 
-    {
+  for(;;) {
     MakeName(iFileNumber++, 
         (InputName==NULL)?OutputName:InputName, 
         NewInName);
@@ -133,17 +117,13 @@ Int FileMerge(
 
     iFileSize= GetFileSize(hIn,NULL);
     iFileLeft= iFileSize;
-    while(iFileLeft>0)
-      {
+    while(iFileLeft>0) {
       fSuccess=ReadFile(hIn,Buffer,
                 (iFileLeft>BUFSIZE)?BUFSIZE:iFileLeft,
                   &lpNumberOfBytesRead,NULL); 
-        // Assert(fSuccess==TRUE);
       fSuccess= WriteFile(hOut,Buffer,lpNumberOfBytesRead,
                   &lpNumberOfBytesWritten,NULL);
-        // Assert(fSuccess==TRUE); 
       iFileLeft-= lpNumberOfBytesRead;
-      // Assert(lpNumberOfBytesWritten==lpNumberOfBytesRead);
       }
     
     CloseHandle(hIn);
@@ -153,7 +133,4 @@ Int FileMerge(
   CloseHandle(hOut);
   return(TRUE);
   }
-
-
-
 

@@ -11,9 +11,6 @@
  */
 
 
-/* ------------------------------------------------------------------------- */
-
-
 #define MERCURY 0
 #define VENUS 1
 #define EARTH 2
@@ -93,11 +90,7 @@ int localtime={0};
 /* ------------------------------------------------------------------------- */
 
 
-double qplanetdat(a)
-
-int a;
-
-{
+double qplanetdat(int a) {
   int pni, i;
   char inp[80];
   double x;
@@ -114,11 +107,7 @@ int a;
 }
 
 
-char *toplanetname(i)
-
-int i;
-
-{
+char *toplanetname(int i) {
   switch(i) {
     case 0:
     return("mercury");
@@ -143,11 +132,7 @@ int i;
 }
 
 
-frplanetname(p)
-
-char *p;
-
-{
+frplanetname(char* p) {
   if(strcmp(p,"mercury")==0)
     return(MERCURY);
   if(strcmp(p,"venus")==0)
@@ -186,11 +171,7 @@ struct T2 *t2;
 }
 
 
-/* ------------------------------------------------------------------------- */
-
-
 orbelts(e,d,a,b,f)
-
 double e,d,*a,*b,*f;
 
 /*
@@ -216,10 +197,8 @@ double e,d,*a,*b,*f;
 
 
 ellipse(a,b,f,u,x,y,z)
-
 double a,b,f,u;   /* semi maj, minor, focal len, angle */
 double *x,*y,*z;
-
 {
   *x= a*cos(u)-f;
   *y= b*sin(u);
@@ -233,9 +212,7 @@ double *x,*y,*z;
 
 
 kepler(ecc,ww,t1,pe,E)
-
 double ecc,ww,t1,pe,*E;
-
 {
   int i;
   double M,p0,p1,xi;
@@ -264,10 +241,8 @@ double ecc,ww,t1,pe,*E;
 
 
 planet(i,t,px,py,pz)
-
 int i;
 double t,*px,*py,*pz;
-
 /*
  *  1. calculate new T0'= T0-(ln+ph) -- long of node, perhelion
  *  2. calculate position on ellipse with  T0'
@@ -276,7 +251,6 @@ double t,*px,*py,*pz;
  *  5. incline so pts on neg y axis up towards pos z
  *  6. rotate back by ln
  */
-
 {
   double ww,w,ecc,ph,ln,incl,pepoch,a,b,f,dist;
   double x1,y1,z1,x2,y2,z2;
@@ -349,13 +323,7 @@ double t,*px,*py,*pz;
   return;
 }
 
-
-/* ------------------------------------------------------------------------- */
-
-
-initplanet()
-
-{
+initplanet() {
   int i;
 
   /* distances in planetdat should be multiplied by 10**6 */
@@ -363,10 +331,6 @@ initplanet()
     planetdat[dat(i,DIST)]*= 1.0e6;
   return;
 }
-
-
-/* ------------------------------------------------------------------------- */
-
 
 positions(t)
 
@@ -396,11 +360,6 @@ double t;    /* days since epoch */
 }
 
 
-/* ------------------------------------------------------------------------- */
-
-
-earthcoord(t)
-
 
 /*
  *  earth coordinates of planets
@@ -408,10 +367,7 @@ earthcoord(t)
  *    rotate earth by 23.5
  *    calculate declination and right ascension
  */
-
-double t;
-
-{
+earthcoord(double t) {
   int i,j,k;
   double x,y,z,xe,ye,ze,u,v;
   double xa,ya,za;
@@ -505,9 +461,6 @@ double t;
 }
 
 
-/* ------------------------------------------------------------------------- */
-
-
 #define NSTARS 23
 
 struct star {
@@ -548,9 +501,7 @@ double sra[NSTARS],sdec[NSTARS],salt[NSTARS],saz[NSTARS];
 
 
 cstars(t,la,lo)
-
 double t,la,lo;
-
 {
   int i,j,k;
   double x,y,z,u;
@@ -573,8 +524,6 @@ double t,la,lo;
 }
 
 
-/* ------------------------------------------------------------------------- */
-
 
 #define TMEPOCH 0.0
 #define EPSG 278.83354
@@ -589,11 +538,7 @@ double t,la,lo;
 #define LAMSUN 337.448
 
 
-moon(t)
-
-double t;
-
-{
+moon(double t) {
   int i;
   double Ns,Ms,Ecs,Ls;
   double Mm,Lnm,Evm,Aem,A3m,A4m,Ecm,lpm,l;
@@ -696,17 +641,10 @@ double t;
 }
 
 
-/* ------------------------------------------------------------------------- */
-
-
 #define MAIN
-
-
 #ifdef MAIN
 
-
 main(argn,argv)
-
 int argn;
 char *argv[];
 

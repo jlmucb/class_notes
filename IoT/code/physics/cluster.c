@@ -12,10 +12,6 @@
  *  which is not exactly right for a collision of stars.
  */
 
-
-/* ---------------------------------------------------------------------- */
-
-
 #define NBODIES 100
 #define NBUF 256
 
@@ -189,10 +185,6 @@ int n;
   for(i=0;i<nbod;i++)
     printbodydata(&bodies[i]);
 }
-
-
-
-/* ---------------------------------------------------------------------- */
 
 
 main(argn,argv)

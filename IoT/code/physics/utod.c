@@ -4,10 +4,8 @@
 
 
 main(argn,argv)
-
 int argn;
 char *argv[];
-
 {
   int in, out;
   char cr,buf[256];

@@ -5,12 +5,9 @@
  *  (c) Copyright, 1989, John L. Manferdelli.  All Rights Reserved
  */
 
-
 main(argn,argv)
-
 int argn;
 char *argv[];
-
 {
   int i,j,sg;
   double k, x,y,z;

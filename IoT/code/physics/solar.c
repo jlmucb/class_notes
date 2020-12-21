@@ -19,10 +19,8 @@ double dmassr,dlnmr;
 
 
 main(argn, argv)
-
 int argn;
 char *argv[];
-
 {
   int i;
 

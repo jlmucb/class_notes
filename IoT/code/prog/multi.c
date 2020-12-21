@@ -1,15 +1,9 @@
 #include "bodydefs.h"
 
 
-
 /*
  *  (c) Copyright, 1989-1995, John L. Manferdelli.  All Rights Reserved
  */
-
-
-
-// ---------------------------------------------------------------------- 
-
 
 int      iNumBodies;      //  Number of bodies
 Body*    Bodies;        //  Base of Bodies
@@ -19,17 +13,10 @@ F3Point    Xa;          //  X axis in projective Plane
 F3Point    Ya;          //  Y axis in projective Plane
 FrPoint    E;          //  Position of viewer Perspective
 
-
-
-// -----------------------------------------------------------------------
-
-
 //    Geometric Transformations
 
 
-void Body::ReScale(double xXFactor,xYFactor)
-
-{
+void Body::ReScale(double xXFactor,xYFactor) {
   int i;
     
 }
@@ -60,40 +47,20 @@ void  Body::Perspective_transform(F3Point& const E, F3Point& const P,
 } 
 
 
-void Body::Display()
-
-{
+void Body::Display() {
   }
 
 
-BOOL  Body::Serialize(int fInOrOut,int iFile)
-
-{
+BOOL  Body::Serialize(int fInOrOut,int iFile) {
   }
 
 
-// ---------------------------------------------------------------------------------------
-
-
-//      Data Persistance
-
-
-
-SerializeAll(int iInOrOut,char* pstrFile)
-
-
-{
-  
+SerializeAll(int iInOrOut,char* pstrFile) {
 }
 
 
-// ---------------------------------------------------------------------------------------
-
-
 void f(double k,F3Point& const xP1,F3Point& const xP2,
-     double* ax,double* ay,double* az)
-
-{
+     double* ax,double* ay,double* az) {
   double x,y,z,d,d3;
   double sqrt();
 
@@ -115,11 +82,8 @@ void f(double k,F3Point& const xP1,F3Point& const xP2,
 fullstep(int n, double dt, double k,    // number of bodies, timestep, constant
      Body *Bodies[],
      F3Point NewPosition[],
-     F3Point NewVelocity[])
-
-{
+     F3Point NewVelocity[]) {
   int i;
-
   double bx,by,bz;
 
   for(i=0;i<n;i++) {
@@ -152,16 +116,7 @@ fullstep(int n, double dt, double k,    // number of bodies, timestep, constant
   return;
 }
 
-
-/* ---------------------------------------------------------------------- */
-
-
-void simulate(int n, Body* Bodies[], int iNumSteps, double xDeltaT, double k)
-
-//    multibody problem
-
-
-{
+void simulate(int n, Body* Bodies[], int iNumSteps, double xDeltaT, double k) {
 
   int i,j;
   double t,dt;

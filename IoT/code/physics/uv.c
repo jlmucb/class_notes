@@ -20,12 +20,9 @@ Double as[]={
   .00068,.00057,.00048,.0004,.00034,.00029};
 
 
-
 main(an,av)
-
 int an;
 char *av[];
-
 {
   Int j,sh;
   Double m,l,la,t,ds,ha,cz,zs,hh,h,kk,be,s1,sa,
