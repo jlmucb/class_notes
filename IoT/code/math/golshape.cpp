@@ -1,8 +1,6 @@
 #include "stdio.h"
 
 
-// ------------------------------------------------------------------------------
-
 char g_rgiGolay[24*12]= {
 //  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24
   1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,   // row  1
@@ -29,11 +27,8 @@ int g_iShape[25]= {
 };
 
 
-// ------------------------------------------------------------------------------
 
-
-void CalcProd(char* pInd, char* pOut)
-{
+void CalcProd(char* pInd, char* pOut) {
   int i, j;
 
   for(i=0; i<24;i++) {
@@ -46,8 +41,7 @@ void CalcProd(char* pInd, char* pOut)
 }
 
 
-void Vec(int i, char* ps)
-{
+void Vec(int i, char* ps) {
   int j;
 
   for(j=0;j<12;j++)
@@ -55,8 +49,7 @@ void Vec(int i, char* ps)
 }
 
 
-int main(int an, char** av) 
-{
+int main(int an, char** av) {
   int    i,j,k;
   char  sProd[12];
   char*  ps;
@@ -82,8 +75,4 @@ int main(int an, char** av)
       printf("\t(%02d[0], %02d[1]) - %d\n", 24-i,i,g_iShape[i]);
   }
 }
-
-
-// ------------------------------------------------------------------------------
-
 

@@ -39,9 +39,7 @@ int posind[15];
 int bitpos[15];
 
 
-getnode()
-
-{
+getnode() {
   int i;
 
   i= freep;
@@ -50,11 +48,7 @@ getnode()
 }
 
 
-wasseen(n)
-
-int n;
-
-{
+wasseen(int n) {
   int i;
 
   i= seen;
@@ -67,27 +61,19 @@ int n;
 }
 
 
-frnode(n)
-
-int n;
-
-{
+frnode(int n) {
   list[n].nx= freep;
   freep= n;
   return(1);
 }
 
 
-         /* 012345678 9012345678 9012345678 9012345678 9012345678 9 */
+/* 012345678 9012345678 9012345678 9012345678 9012345678 9 */
 char *mat={"    x    \n   x x   \n  x x x  \n x x x x \nx x x x x\n"};
 int pt[15]= {4,13,15,22,24,26,31,33,35,37,40,42,44,46,48};
 
 
-prtab(n)
-
-int n;
-
-{
+prtab(int n) {
   int i,j,k;
   int pr[15];
   char *p;
@@ -106,12 +92,7 @@ int n;
 
 
 
-main(argn,argv)
-
-int argn;
-char *argv[];
-
-{
+main(int argn, char** argv) {
   int h,i,j,k,l,m,n;
   int m1,m2;
 

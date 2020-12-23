@@ -2,11 +2,7 @@
 #include "string.h"
 
 
-// ---------------------------------------------------------------------------------
-
-
-void printNameWithSpaces(int iSpacing, char* szStr)
-{
+void printNameWithSpaces(int iSpacing, char* szStr) {
   int j= iSpacing;
   if(szStr) {
     printf("%s", szStr);
@@ -17,8 +13,7 @@ void printNameWithSpaces(int iSpacing, char* szStr)
   }
 
 
-char* MyDup(char* szStr)
-{
+char* MyDup(char* szStr) {
   if(szStr==NULL)
     return(NULL);
   int    iStrSize= strlen(szStr);
@@ -64,8 +59,7 @@ public:
   };
 
 
-Perm::Perm(char* szName, int iSize) 
-{
+Perm::Perm(char* szName, int iSize) {
   m_fInitialized= false; 
   m_fInverseInitialized= false;
   m_fNamedElements= false;
@@ -77,8 +71,7 @@ Perm::Perm(char* szName, int iSize)
   }
 
 
-Perm::~Perm() 
-{
+Perm::~Perm() {
   m_fInitialized= false; 
   m_fInverseInitialized= false;
   if(m_szName) {
@@ -96,8 +89,7 @@ Perm::~Perm()
   }
 
 
-bool Perm::CalculateInverse() 
-{
+bool Perm::CalculateInverse() {
   if(m_fInverseInitialized)
     return(true);
   if(m_rgInvPerm)
@@ -114,8 +106,7 @@ bool Perm::CalculateInverse()
   }
 
 
-bool Perm::CommonInit() 
-{
+bool Perm::CommonInit() {
   int i;
   
   m_rgPerm= new (int [m_iSize]); 
@@ -127,8 +118,7 @@ bool Perm::CommonInit()
   }
 
 
-bool Perm::Init(int i, int* rgP, bool fCalcInv) 
-{
+bool Perm::Init(int i, int* rgP, bool fCalcInv) {
   if(i!=m_iSize)
     return(false);
   if(!CommonInit())
@@ -143,8 +133,7 @@ bool Perm::Init(int i, int* rgP, bool fCalcInv)
   }
 
 
-bool Perm::Init(int n, int* rgPIn, int* rgPOut, bool fCalcInv) 
-{
+bool Perm::Init(int n, int* rgPIn, int* rgPOut, bool fCalcInv) {
   if(!CommonInit())
     return(false);
 
@@ -158,8 +147,7 @@ bool Perm::Init(int n, int* rgPIn, int* rgPOut, bool fCalcInv)
   }
 
 
-bool Perm::Init(int i, bool(* fp) (int* rgi), bool fCalcInv) 
-{
+bool Perm::Init(int i, bool(* fp) (int* rgi), bool fCalcInv) {
   if(!CommonInit())
     return(false);
    
@@ -172,8 +160,7 @@ bool Perm::Init(int i, bool(* fp) (int* rgi), bool fCalcInv)
   }
 
 
-bool Perm::Apply(int n, int* rgIn, int* rgOut, bool fInverse)
-{
+bool Perm::Apply(int n, int* rgIn, int* rgOut, bool fInverse) {
   int i;
 
   if(!fInverse) {
@@ -193,8 +180,7 @@ bool Perm::Apply(int n, int* rgIn, int* rgOut, bool fInverse)
   }
 
 
-bool  Perm::InitNames(char** rgszNames)
-{
+bool  Perm::InitNames(char** rgszNames) {
   m_rgszNames= new (char* [m_iSize]);
 
   int i;
@@ -205,8 +191,7 @@ bool  Perm::InitNames(char** rgszNames)
   }
 
 
-bool  Perm::printOut(int n, int* rgP)
-{
+bool  Perm::printOut(int n, int* rgP) {
   int i, j, k;
 
   if(n!=m_iSize)
@@ -221,10 +206,9 @@ bool  Perm::printOut(int n, int* rgP)
       if(j>iSpacing)
         iSpacing= j;
       }
-    }
-  else {
+  } else {
     iSpacing= 3;
-    }
+  }
   iSpacing++;
   if(iSpacing>iMaxRow)
     return(false);
@@ -265,14 +249,9 @@ bool  Perm::printOut(int n, int* rgP)
   }
 
 
-bool  Perm::printCycle(int n, int* rgP)
-{
+bool  Perm::printCycle(int n, int* rgP) {
   return(true);
-  }
-
-
-// ----------------------------------------------------------------------------------
-
+}
 
 char* g_rgszInitT[32]= {
   "00", "33",
@@ -335,8 +314,7 @@ char* g_rgszName[32] = {
   }; 
 
 
-int posFromName(char* szName, char** rgszNames, int n)
-{
+int posFromName(char* szName, char** rgszNames, int n) {
   for(int i=0; i<n; i++) {
     if(strcmp(szName, rgszNames[i])==0)
       return(i);
@@ -344,13 +322,7 @@ int posFromName(char* szName, char** rgszNames, int n)
   return(-1);
   }
 
-
-// ---------------------------------------------------------------------------------
-
-
-
-int main(int an, char** av)
-{
+int main(int an, char** av) {
   int i;
 
   int rgiTmp[32];

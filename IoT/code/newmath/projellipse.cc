@@ -26,10 +26,6 @@
 #define nullptr NULL
 #endif
 
-
-// --------------------------------------------------------------------- 
-
-
 #define PI 3.14159265359
 
 void printResult(FILE* file, double norm_r, double new_theta) {
@@ -65,8 +61,6 @@ void project_onto_axis(double ax, double ay, double az, double bx, double by, do
   *cx = ax * x + ay * y + az * z;
   *cy = bx * x + by * y + bz * z;
 }
-
-
 
 int main(int an, char** av) {
   long int n = 360;
@@ -148,8 +142,4 @@ int main(int an, char** av) {
   fclose(file);   
   return 0;
 }
-
-
-// ---------------------------------------------------------------------------
-
 

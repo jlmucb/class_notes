@@ -7,11 +7,7 @@
 int x1[XM], y1[YM], z1[ZM];
 
 
-inarray(n,a,i)
-
-int n,i,a[];
-
-{
+inarray(int n, int a[], int i) {
   int j;
 
   for(j=0;j<i;j++) {
@@ -25,12 +21,7 @@ int n,i,a[];
 }
 
 
-main(argn,argv)
-
-int argn;
-char *argv[];
-
-{
+main(int argn, char**argv) {
   int i,j,k,m,n;
 
   for(i=0;i<XM;i++)

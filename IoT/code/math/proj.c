@@ -11,9 +11,7 @@
 
 
 int proj(Double x, Double y, Double z, Double px, Double py, Double pz,
-         Double x0, Double y0, Double z0, Double *xx, Double *yy, Double *zz)
-
-{
+         Double x0, Double y0, Double z0, Double *xx, Double *yy, Double *zz) {
   Double l,d;
 
   d= (x0-px)*(x0-x)+(y0-py)*(y0-y)+(z0-pz)*(z0-z);

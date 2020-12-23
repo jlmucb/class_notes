@@ -9,9 +9,6 @@
 // (c) copyright, 2015, John L. Manferdelli
 
 
-// --------------------------------------------------------------------- 
-
-
 double g(double x) {
   double y;
 

@@ -48,10 +48,7 @@
 #ifdef DEBUG
 
 
-void printall(Int m,Int n,Double *c,Double *a,char *bv, int *cn)
-
-
-{
+void printall(Int m,Int n,Double *c,Double *a,char *bv, int *cn) {
   Int i,j,N,NP1;
 
   N= m+n;
@@ -91,11 +88,6 @@ void printall(Int m,Int n,Double *c,Double *a,char *bv, int *cn)
 #endif
 
 
-
-/* ----------------------------------------------------------------------------------- */
-
-
-
 //    Tableau examines old objective coefficient (oc below).
 //    If pivot is found, tableau does "pivot and reduce" step
 //    and returns 1.
@@ -109,14 +101,10 @@ void printall(Int m,Int n,Double *c,Double *a,char *bv, int *cn)
 
 
 
-Int findpivot(Int n,Int m,Double c[],Double a[],char *bv,int *rp,int *cp)
-
 //     rp, cp row, column pivot, if successful
 //    Find entering and leaving basic variable.
 //    Return 1 if successful, 0  otherwise.
-//
-
-{
+Int findpivot(Int n,Int m,Double c[],Double a[],char *bv,int *rp,int *cp) {
   Int N,NP1;
   int i,crp,ccp;
   Double pv,x,y,z,t;
@@ -157,7 +145,6 @@ Int findpivot(Int n,Int m,Double c[],Double a[],char *bv,int *rp,int *cp)
 
 
 
-Int tableau(Int n,Int m,Double *oa,Double *oc,char *obv,int *ocn, Double *na,Double *nc,char *nbv, int *ncn)
 
 /*
  *  n- Number of basic (!=0) variables
@@ -167,8 +154,7 @@ Int tableau(Int n,Int m,Double *oa,Double *oc,char *obv,int *ocn, Double *na,Dou
  *  obv- old basic variable flags
  *  ocn- old column names
  */
-
-{
+Int tableau(Int n,Int m,Double *oa,Double *oc,char *obv,int *ocn, Double *na,Double *nc,char *nbv, int *ncn) {
   Int i,j,N,NP1;
   int rp, cp, ev, lv;
   Double pv,t;
@@ -217,18 +203,11 @@ Int tableau(Int n,Int m,Double *oa,Double *oc,char *obv,int *ocn, Double *na,Dou
   return(1);
 }
 
-
-/* -------------------------------------------------------------------------------------- */
-
-
-Int simplex(Int n,Int r,Double *a,Double *c)
-
 /*
  *   a: Constraint coefficients
  *   c: Objective function coefficients
  */
-
-{
+Int simplex(Int n,Int r,Double *a,Double *c) {
   Int i,j,k,ws,N,NP1;
   Unsigned mm;
   Double *c1, *c2, *a1, *a2, *v, *m;
@@ -321,14 +300,8 @@ Int simplex(Int n,Int r,Double *a,Double *c)
 }
 
 
-/* -------------------------------------------------------------------------------------- */
-
-
 #define gindex(ii,jj) (((n+1)*(ii)+jj))
 
-
-
-Int gelim(Int n,Int m,Double *a,int *vn)
 
 /*
  *  Gausian Elimination
@@ -341,7 +314,7 @@ Int gelim(Int n,Int m,Double *a,int *vn)
  *    -1 if error
  */
 
-{
+Int gelim(Int n,Int m,Double *a,int *vn) {
   int i,j,k,pv, l;
   Double x,p1,p2;
 
@@ -401,9 +374,4 @@ Int gelim(Int n,Int m,Double *a,int *vn)
 
    return(m);
 }
-
-
-
-/* ---------------------------------------------------------------------------------------- */
-
 

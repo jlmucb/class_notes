@@ -14,11 +14,7 @@ typedef unsigned char byte;
 #endif
 
 
-// --------------------------------------------------------------------- 
-
-
-double SineHalfAngle(double x)
-{
+double SineHalfAngle(double x) {
   double y, z;
 
   y = 1.0 - x*x;
@@ -26,9 +22,7 @@ double SineHalfAngle(double x)
   return sqrt(z);
 }
 
-int main(int an, char** av) 
-
-{
+int main(int an, char** av) {
   int current_n = 4;
   int new_n = 4;
   double current_p;

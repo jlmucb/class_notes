@@ -9,13 +9,7 @@ int g_iNumBufChars= 0;
 
 char rgBuf[2048];
 
-
-/* --------------------------------------------------------------------- */
-
-
-int main(int argn, char** argv)
-
-{
+int main(int argn, char** argv) {
   int in;
   int iNumLine= 0;
   int iInLine=16;
@@ -57,5 +51,3 @@ int main(int argn, char** argv)
   exit();
 }
 
-
-/* --------------------------------------------------------------------- */

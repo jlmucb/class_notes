@@ -14,23 +14,17 @@ F3Point    Ya;          //  Y axis in projective Plane
 FrPoint    E;          //  Position of viewer Perspective
 
 //    Geometric Transformations
-
-
 void Body::ReScale(double xXFactor,xYFactor) {
   int i;
     
 }
 
-
-void  Body::Perspective_transform(F3Point& const E, F3Point& const P,
-    F3Point& const Xa, F3Point& const Ya)
-
 // E is Observer's Eye.
 // P is point at base of normal defining plane (perp to defining plane).
 // Xa is the X axis in the Plane
 // Ya is the Y axis in the Plane 
-         
-{
+void  Body::Perspective_transform(F3Point& const E, F3Point& const P,
+    F3Point& const Xa, F3Point& const Ya) {
   double d, t;
   F3Point I;    // I is intersection Point at Plane.
 
@@ -46,7 +40,6 @@ void  Body::Perspective_transform(F3Point& const E, F3Point& const P,
   return;
 } 
 
-
 void Body::Display() {
   }
 
@@ -57,7 +50,6 @@ BOOL  Body::Serialize(int fInOrOut,int iFile) {
 
 SerializeAll(int iInOrOut,char* pstrFile) {
 }
-
 
 void f(double k,F3Point& const xP1,F3Point& const xP2,
      double* ax,double* ay,double* az) {
@@ -117,7 +109,6 @@ fullstep(int n, double dt, double k,    // number of bodies, timestep, constant
 }
 
 void simulate(int n, Body* Bodies[], int iNumSteps, double xDeltaT, double k) {
-
   int i,j;
   double t,dt;
 
@@ -127,10 +118,4 @@ void simulate(int n, Body* Bodies[], int iNumSteps, double xDeltaT, double k) {
   
   return;
 }
-
-
-/* ---------------------------------------------------------------------- */
-
-
-
 

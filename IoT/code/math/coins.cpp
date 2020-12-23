@@ -9,9 +9,6 @@
 #define NODEBUG
 
 
-// ---------------------------------------------------------------------------------------------------
-
-
 class Coinslot {
 public:
   int    m_iNumberOfCoins;
@@ -25,26 +22,20 @@ public:
 };
 
 
-Coinslot::Coinslot(int iNumCoins)
-
-{
+Coinslot::Coinslot(int iNumCoins) {
   m_iNumberOfCoins= iNumCoins;
   m_rgiCoinValues= new (int [m_iNumberOfCoins]);
 }
 
 
-Coinslot::~Coinslot()
-
-{
+Coinslot::~Coinslot() {
   if(m_rgiCoinValues)
     delete (m_rgiCoinValues);
   m_rgiCoinValues= NULL;
 }
 
 
-void Coinslot::CopySelf(Coinslot* pNew)
-
-{
+void Coinslot::CopySelf(Coinslot* pNew) {
   int i;
 
   pNew->m_iNumberOfCoins= m_iNumberOfCoins;
@@ -54,9 +45,7 @@ void Coinslot::CopySelf(Coinslot* pNew)
 }
 
 
-int Coinslot::CalcNumCoins(int iValue)
-
-{
+int Coinslot::CalcNumCoins(int iValue) {
   int iCurCoinVal;
   int iNumUsed= 0;
   int k;
@@ -72,8 +61,7 @@ int Coinslot::CalcNumCoins(int iValue)
 }
 
 
-int main(int argc, char* argv[])
-{
+int main(int argc, char* argv[]) {
   int     iNumCoins;
   int     i;
   double    xAvCoins= 0.0;

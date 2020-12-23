@@ -13,9 +13,7 @@ int wtgcw[4096];    // weight of codeword
 long int cweights[25];         // code vector weights
 
 
-void mton(int nb, char m[],long *n)
-
-{
+void mton(int nb, char m[],long *n) {
   int i;
 
   nb--;
@@ -25,9 +23,7 @@ void mton(int nb, char m[],long *n)
 }
 
 
-void ntom(int nb, long n, char *m)
-
-{
+void ntom(int nb, long n, char *m) {
   int i;
 
   nb--;
@@ -36,10 +32,7 @@ void ntom(int nb, long n, char *m)
 }
 
 
-
-void circmseed()
-
-{
+void circmseed() {
   int i,j;
 
   j= mseed[0];
@@ -50,11 +43,7 @@ void circmseed()
 
 
 
-void prmat (char m[],int r,int c)
-
-// print matrix m; r rows, c columns
-
-{
+void prmat (char m[],int r,int c) {
   int i,j;
 
   for(i=0;i<r;i++) {
@@ -66,11 +55,7 @@ void prmat (char m[],int r,int c)
 }
 
 
-void lrmat (char m[],int r,int c, char *cp)
-
-// print matrix m; r rows, c columns
-
-{
+void lrmat (char m[],int r,int c, char *cp) {
   int i,j;
 
   for(i=0;i<r;i++) {
@@ -83,21 +68,12 @@ void lrmat (char m[],int r,int c, char *cp)
 }
 
 
-
-main(an,av)
-
-int an;
-char *av[];
-
-// generate golay code
-
-{
+main(int an, char** av) {
   int i,j,k;
   long x;
   char cw[25];
   char line[100];
   int out;
-
 
   // printf("Golay code generator, seed\n");
   // prmat(mseed,1,11);

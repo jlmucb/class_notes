@@ -23,9 +23,6 @@
 #define cmult(r,x,y) {r[0]= x[0]*y[0]-x[1]*y[1];r[1]=x[1]*y[0]+x[0]*y[1];}
 
 
-/* ----------------------------------------------------------------------- */
-
-
 #ifdef X11
 Display *display;
 int screen;
@@ -38,11 +35,7 @@ XSetWindowAttributes att;
 XSizeHints size_hints;
 XGCValues gcvalues;
 
-
-
-InitGraphics()
-
-{
+InitGraphics() {
   if((display= XOpenDisplay(NULL))==NULL) {
     printf("Cannot open X Server\n");
     return(0);
@@ -74,9 +67,7 @@ InitGraphics()
 }
 
 
-ClearGraphics()
-
-{
+ClearGraphics() {
   XClearArea(display,win,0,0,XM,YM,True);
 }
 
@@ -100,16 +91,12 @@ int x,y,xm,ym;
 }
 
 
-CloseGraphics()
-
-{
+CloseGraphics() {
   XDestroyWindow(display,win);
   XCloseDisplay(display);
 }
 #endif
 
-
-/* ----------------------------------------------------------------------- */
 
 
 char map[XM*YM];    /* "bit map" */

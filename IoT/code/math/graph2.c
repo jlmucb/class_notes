@@ -9,19 +9,7 @@
 #define INFCOST  8000
 #endif
 
-
-
-/* --------------------------------------------------------------------- */
-
-
-
-int dypath(int n,int i,int cm[],int tm[],int (* cost)(int,int))
-
- /*
-  *    cost of shortest paths from i
-  */
-
- {
+int dypath(int n,int i,int cm[],int tm[],int (* cost)(int,int)) {
 
    int j,k,m,l,lc;
 
@@ -56,16 +44,7 @@ int dypath(int n,int i,int cm[],int tm[],int (* cost)(int,int))
 }
 
 
-floyd(n,am,cost,indx)
-
-int n,am[];
-int (*cost)(int,int), (*indx)(int,int);
-
- /*
-  *    cost of shortest paths from i
-  */
-
- {
+floyd(int n, int am[], int (*cost)(int,int), int (*indx)(int,int)) {
 
    int i,j,k,m;
 
@@ -83,19 +62,11 @@ int (*cost)(int,int), (*indx)(int,int);
   return(1);
 }
 
-
-/* --------------------------------------------------------------------- */
-
-
 #ifdef DEBUG
 #include <stdio.h>
 
 
-int cst1(i,j)
-
-int i,j;
-
-{
+int cst1(int i, int j) {
   int i1,j1,i2,j2;
 
   i1= i&03;
@@ -116,9 +87,7 @@ int i,j;
 }
 
 
-int ind1(int i,int j)
-
-{
+int ind1(int i,int j) {
   return(4*i+j);
 }
 
@@ -126,12 +95,7 @@ int ind1(int i,int j)
 int tm1[16], tm2[16];
 
 
-main(argn,argv)
-
-int argn;
-char *argv[];
-
-{
+main(int argn, char** argv) {
     int i,j;
 
   dypath(16,0,tm1,tm2,cst1);
@@ -144,10 +108,5 @@ char *argv[];
   return(1);
 }
 
-
-
 #endif
-
-
-/* --------------------------------------------------------------------- */
 

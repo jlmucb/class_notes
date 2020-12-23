@@ -63,8 +63,6 @@ DEFINE_int32(w, 1, "weight");
 DEFINE_bool(options, false, "options");
 
 
-// ---------------------------------------------------------------------
-
 const int g_infinity = 9999;
 const int g_max_modulus = 128;
 int g_inverse_table[g_max_modulus];

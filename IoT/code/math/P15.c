@@ -9,9 +9,7 @@ int dypath(int,int,int [],int [],int (*)(int,int));
  */
 
 
-int perm(int n,int a[],int b[],int p[])
-
-{
+int perm(int n,int a[],int b[],int p[]) {
   int i;
 
   for(i=0;i<n;i++)
@@ -21,9 +19,7 @@ int perm(int n,int a[],int b[],int p[])
 }
 
 
-int tranpose(int a[],int b[],int n)
-
-{
+int tranpose(int a[],int b[],int n) {
   int i,j;
 
   for(i=0;i<n;i++) {
@@ -44,9 +40,7 @@ int tranpose(int a[],int b[],int n)
  */
 
 
-gettarget(int a[])
-
-{
+gettarget(int a[]) {
   int i,j;
 
   for(i=0;i<16;i++)
@@ -55,16 +49,13 @@ gettarget(int a[])
 }
 
 
-getspace(int a[])
-
-{
+getspace(int a[]) {
   int i,j;
 
   for(i=0;i<16;i++)
     if(a[i]==0)
       return(i);
 }
-
 
 
 main(argn,argv)

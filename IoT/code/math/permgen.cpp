@@ -9,13 +9,7 @@ class CMove {
   };
 
 
-// ------------------------------------------------------------------------------------------------------------
-
-
-
-void transpose(int* piA, int* piB)
-
-{
+void transpose(int* piA, int* piB) {
   int i;
 
   i= *piA;
@@ -25,8 +19,7 @@ void transpose(int* piA, int* piB)
   }
 
 
- int Factorial(int iNumElements)
- {
+ int Factorial(int iNumElements) {
    register int iNum;
 
    iNum= 1;
@@ -40,9 +33,7 @@ void transpose(int* piA, int* piB)
 
 
 
-void generate(int iNumElements, CMove* pNewMoves)
-
-{
+void generate(int iNumElements, CMove* pNewMoves) {
   CMove *pOldMoves, *pOSave; 
   int  iNumlessOneFact, iMove1, iMove2;
   int  i, j, iFwd;
@@ -84,11 +75,7 @@ void generate(int iNumElements, CMove* pNewMoves)
   }
 
 
-
-
-int main(int an,char *av[])
-
-{
+int main(int an,char *av[]) {
   int iNumPlace, iNumFact;
   int i, iMove1, iMove2;
   CMove* pMoves;
@@ -105,9 +92,4 @@ int main(int an,char *av[])
 
   return(0);
   }
-
-
-
-// ------------------------------------------------------------------------------------------------------------
-
 
