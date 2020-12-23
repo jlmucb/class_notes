@@ -28,20 +28,12 @@ int R[NE];      /* element to internal set name */
 int nxtR[NE];      /* linked list of elements of set */
 
 
-find(i)
-
-int i;
-
-{
+find(int i) {
   return(inttoext[R[i]]);
 }
 
 
-union(i,j,k)
-
-int i,j,k;
-
-{
+union(int i, int j, int k) {
   int e,l,a,b,c;
 
   a= exttoint[i];
@@ -66,6 +58,4 @@ int i,j,k;
   return;
 }
 
-
-/* -------------------------------------------------------------- */
 

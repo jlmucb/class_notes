@@ -1,5 +1,5 @@
 /*                         
- *	(c) Copyright, 1991, John L. Manferdelli.  All Rights Reserved.
+ *  (c) Copyright, 1991, John L. Manferdelli.  All Rights Reserved.
  */
 
 #define NODE 0
@@ -11,17 +11,12 @@
 
 #define NFP 200
 
-typedef long unsigned Pointer;
-typedef long unsigned Unsigned;
-typedef long int Int;
-typedef int Short; 
-
 struct node {
-	struct node *p;			// parent
-	Short ct,nc;			// child type, number of childre
-	Unsigned c1,c2,c3;		// children
-	Unsigned m1,m2,m3;		// min of children
-	};
+  struct node *p;      // parent
+  int ct,nc;      // child type, number of childre
+  unsigned c1,c2,c3;    // children
+  unsigned m1,m2,m3;    // min of children
+  };
 
 typedef struct node node;
 #define Btp(x) ((node *) x)

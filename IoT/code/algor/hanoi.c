@@ -10,9 +10,7 @@ short int peg3[NRINGS];
 int tmoves={0};
 
 
-snaprings()
-
-{
+snaprings() {
   int i;
 
   printf("after %d moves\n",tmoves);
@@ -40,16 +38,8 @@ snaprings()
   return;
 }
 
-main(argn,argv)
-
-int argn;
-char *argv[];
-
-/*
- *  tower of hanoi, don't leave home without it
- */
-
-{
+//  tower of hanoi, don't leave home without it
+main(int argn, char** argv) {
   int i;
 
   /*

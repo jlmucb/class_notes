@@ -16,40 +16,36 @@
 #define IOBUF 3072
 
 
-/* --------------------------------------------------------------------- */
-
-
 int line={1};
 int errors={0};
 int infile,tokenl;
 char tokenc[TBUF];
 
 
-getrc()
-
-/*
- *  Get next real character strips comments.
- */
-
-{
+//  Get next real character strips comments.
+getrc() {
   char c;
 
   if((c=getc())=='#') {
     for(;;) {
-      if((c=ge(c=='\t')||(c=='\n'))
+      if((c=get())==EOF || (c=='\n'))
+        break;
+    }
+  }
+  return getrc();
+}
 
 
-yylex()
-
-{
+yylex() {
   char c;
   int i;
 
-  for(;;)
+  for(;;) {
     if((c=getrc())==NULL)
       return(EOF);
     else if(!WSPACE)
       break;
+  }
   if(tokes(c)==1)  {
     tokenc[0]= c;
     tokenl= 1;
@@ -87,11 +83,7 @@ yylex()
 }
 
 
-tokes(c)
-
-char c;
-
-{
+tokes(char c) {
   if((c>='A')&&(c<='Z'))
     return(1);
   if((c>='a')&&(c<='z'))
@@ -109,16 +101,7 @@ char c;
     }
 }
 
- /* ---------------------------------------------------------------------- */
-
-
-tonum(radix,pt,dig)
-
-int radix;
-char *pt;
-int dig;
-
-{
+tonum(int radix, char* pt, int dig) {
   int j,k;
 
   j= 0;
@@ -134,8 +117,6 @@ int dig;
   return(j);
 }
 
-
-/* ----------------------------------------------------------------------- */
 
 #define NPERMS 500
 #define NBIGBASE 100
@@ -167,12 +148,7 @@ extern unsigned *alloc();
 extern bsgs();
 
 
-main(argn,argv)
-
-int argn;
-char *argv[];
-
-{
+main(int argn,char** argv) {
   int ngen,nbigbase,npoints;
   unsigned i,j,k,*base,basesize;
   unsigned order,factor;      /* order of the group */
@@ -277,14 +253,7 @@ char *argv[];
   exit();
 }
 
-/* ---------------------------------------------------------------- */
-
-cyclstruc(a,n)
-
-int *a,n;
-
-{
-
+cyclstruc(int* a, int n) {
   int ncycles,i,j,k,count,x,max;
   int **cyclptr,*length,*check,*b,*ialloc(),**palloc();
 
@@ -341,4 +310,3 @@ int *a,n;
 }
 
           
-

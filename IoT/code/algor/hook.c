@@ -5,14 +5,7 @@ short int tem[1000];
  *    Young tableaux
  */
 
-/* ------------------------------------------------------------- */
-
-
-insert(T,n,x)
-
-short int T[],n,x;
-
-{
+insert(short int T[], short int n, short int x) {
   int i,j,k,t;
 
   for(i=0;i<n;i++) {
@@ -32,11 +25,7 @@ short int T[],n,x;
 }
 
 
-delete(T,n,y,x)
-
-short int T[],n,x,y;
-
-{
+delete(short int T[],short int n,short int y,short int x) {
   int i,j,k,t;
 
   t= T[y*n+x];
@@ -62,14 +51,7 @@ short int T[],n,x,y;
 }
 
 
-/* ------------------------------------------------------------------ */
-
-
-prtab(T,n)
-
-short int T[],n;
-
-{
+prtab(short int T[],short int n) {
   int i,j;
 
   for(i=0;i<n;i++) {
@@ -87,11 +69,7 @@ short int T[],n;
 }
 
 
-init(T,n)
-
-short int T[],n;
-
-{
+init(short int T[], short int n) {
   int i,j;
 
   for(i=0;i<n;i++)
@@ -101,15 +79,12 @@ short int T[],n;
   return;
 }
 
-/* ---------------------------------------------------------------- */
 
 short int order[100]= {3,5,4,2,1};
 int n={5};
 
 
-main()
-
-{
+main() {
   int i,j,k;
   int revorder[100];
 

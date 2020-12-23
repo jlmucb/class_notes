@@ -1,14 +1,5 @@
 #include "bt.h"
 
-/*
- *(c) Copyright, 1991, John L. Manferdelli.  All Rights Reserved.
- *  Did delete etc 12/94
- */
-
-
-/* -------------------------------------------------------------- */
-
-
 static unsigned nfree={NULL};
 int bt_nn={0};      /* number of nodes used */
 
@@ -38,29 +29,15 @@ static unsigned getnode() {
 }
 
 
-static freenode(a)
-
-unsigned a;
-
-{
+static freenode(unsigned a) {
   Btp(a)->c1= nfree;
   nfree= a;
   return;
 }
 
 
-/* -------------------------------------------------------------- */
-
-
-void propagate(n,m,v)
-
-unsigned n,m,v;
-
-/*
- *  n is parent, m is child, v in min value
- */
-
-{
+//  n is parent, m is child, v in min value
+void propagate(unsigned n, unsigned m, unsigned v) {
 #ifdef DEBUG1
   printf("propagate(%x %x)\n",n,m);
 #endif
@@ -83,12 +60,7 @@ unsigned n,m,v;
 }
 
 
-unsigned bt_traverse(n,nf,kf,cf)
-
-unsigned n;
-int (*nf)(),(*kf)(),(*cf)();
-
-{
+unsigned bt_traverse( unsigned n, int (*nf)(), int (*kf)(), int (*cf)()) { {
 #ifdef DEBUG2
   printf("bt_traverse %x\n",n);
 #endif
@@ -131,12 +103,7 @@ int (*nf)(),(*kf)(),(*cf)();
 }
 
 
-unsigned bt_ischild(n,v,cf)
-
-unsigned n,v;        /* node, value */
-int (*cf)();
-
-{
+unsigned bt_ischild(unsigned n,unsigned v, int (*cf)()) {
   int i;
 
 #ifdef DEBUG1
@@ -158,12 +125,7 @@ int (*cf)();
 }
 
 
-unsigned bt_pc(n)
-
-unsigned n;
-
-{
-  if(Btp(n)->ct==LEAF)
+{ if(Btp(n)->ct==LEAF)
     return;
   if(((unsigned)(Btp(Btp(n)->c1)->p))!=n) {
     printf("***Error at parent %x\n",n);
@@ -186,14 +148,7 @@ unsigned n;
   return;
 }
 
-
-
-unsigned bt_find(n,v,cf)
-
-unsigned n,v;        /* node, value */
-int (*cf)();
-
-{
+unsigned bt_find( unsigned n, unsigned v, int (*cf)()) {
 #ifdef DEBUG2
   printf("bt_find(%x),",n);
   printf("nc: %d, %x %x %x\n",Btp(n)->nc,Btp(n)->c1,
@@ -209,13 +164,9 @@ int (*cf)();
 }
 
 
-static unsigned splitnode(r,n,oc,m,cf)
-
-unsigned *r;      /* root */
-unsigned n,oc,m;    /* node (intree), old child of n, new node */
-int (*cf)();      /* comparison function */
-
-{
+// Args: root,  node (intree), old child of n, new node, comparison function 
+static unsigned splitnode(unsigned *r, unsigned n,, unsigned oc,, unsigned m,
+    int (*cf)()) {
   unsigned a,b;
 
 #ifdef DEBUG1
@@ -287,14 +238,8 @@ int (*cf)();      /* comparison function */
   return(b);
 }
 
-
-unsigned bt_insert(r,v,cf)
-
-unsigned *r;      /* root */
-unsigned v;      /* node, value */
-int (*cf)();      /* comparison function */
-
-{
+// root node, comparison function
+unsigned bt_insert(unsigned *r, unsigned v, int (*cf)()) {
   int i;
   unsigned a,b;
 
@@ -397,19 +342,8 @@ int (*cf)();      /* comparison function */
 }
 
 
-unsigned bt_delete(r,n,v,cf)
-
-unsigned *r;      /* root */
-unsigned n,v;      /* node (intree), node to attach */
-int (*cf)();      /* comparison function */
-
-{
+unsigned bt_delete(unsigned *r, unsigned n, unisgned v, int (*cf)()) {
   printf("No deletion allowed yet\n");
   return(NULL);
 }
-
-
-/* -------------------------------------------------------------- */
-
-
 

@@ -7,12 +7,7 @@ int rboys[625];
 int rgirls[625];
 int accept[25];
 
-main(argn,argv)
-
-int argn; 
-char *argv[];
-
-{
+main(int argn, char* argv) {
   int i,j,k;
   int input;
   int oprop[25],prop[25];

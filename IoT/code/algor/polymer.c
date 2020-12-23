@@ -11,7 +11,7 @@ char bits[], perm[];
 int n;
 
 /*
- *      permute first n bits of bits[] using perm[].
+ *    permute first n bits of bits[] using perm[].
  *    perm[0..(n-1)]
  */
  

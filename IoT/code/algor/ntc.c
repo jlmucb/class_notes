@@ -1,4 +1,3 @@
-
 #define NULL 0
 
 extern struct gen {

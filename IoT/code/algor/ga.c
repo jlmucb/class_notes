@@ -1,4 +1,3 @@
-
 /*
  *	Heapsort
  *	a[i], sons: a[2i], a[2i+1]

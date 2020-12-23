@@ -5,11 +5,7 @@
 int np={0};
 
 
-int f(n,a)
-
-int n,a[];
-
-{
+int f(int n, int* a) {
   int i;
 
   printf("%d:",++np);
@@ -30,17 +26,7 @@ int n,a[];
 #define N 20
 
 
-rperm(n,m,a,f)
-
-int n,m;
-int a[];
-int  (*f)();
-
-/*
- *  m goes from 1 to n
- */
-
-{
+rperm( int n, int m, int a[], int  (*f)()) {
   int i,j,k;
   int b[N];
 
@@ -67,12 +53,7 @@ int  (*f)();
 
 #ifdef DEBUG
 
-main(argn,argv)
-
-int argn;
-char *argv[];
-
-{
+main(int argn, char** argv) {
   int i,j,n;
   int aa[N];
 
