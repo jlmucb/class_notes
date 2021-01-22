@@ -1,0 +1,22 @@
+SweynTooth, URGENT/11, Ripple20, and SigRed.
+DNSpooq 
+
+Researchers have discovered a set of seven security flaws in the open-source DNS 
+caching software dnsmasq that allow for remote code execution when combined via 
+DNS spoofing and buffer overflow attacks
+URGENT/11 and RIPPLE20 
+AMNESIA:33, with 33 zero-day vulnerabilities impacting four widely used open source TCP/IP stacks
+uIP, FNET, picoTCP, and Nut/Net
+
+I1 Weak Guessable, or Hardcoded Passwords
+I2 Insecure Network Services
+I3 Insecure Ecosystem Interfaces
+I4 Lack of Secure Update Mechanism
+I5 Use of Insecure or Outdated Components
+I6 Insufficient Privacy Protection
+I7 Insecure Data Transfer and Storage
+I8 Lack of Device Management
+I9 Insecure Default Settings
+I10 Lack of Physical Hardening
+
+
