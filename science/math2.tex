@@ -2011,8 +2011,8 @@ L =
 0 & 6 & 1\\
 1  & 7 & 2\\
 \end{array}
-\right)
-$$.
+\right).
+$$
 $$
 L^{-1}AL =
 \left(
@@ -2033,7 +2033,97 @@ J =
 0  & 0 & 1\\
 \end{array}
 \right)
-$$.
+$$
+{\bf One more example:} $F = \mathbb{Q}$ and $T$ us represented over the standard basis as
+$$
+A =
+\left(
+\begin{array}{cc}
+\lambda_1 & 0\\
+0 & \lambda_2 \\
+\end{array}
+\right).
+$$  The RCF for $A$, by inspection is 
+$$
+\left(
+\begin{array}{cc}
+x - \lambda_1 & 0\\
+0 & (x - \lambda_1) (x - \lambda_2)\\
+\end{array}
+\right)
+$$
+and $m_T(X)= x^2 -(\lambda_1 + \lambda_2) x + \lambda_1 \lambda_2)$.  Further,
+$$
+A-xI = 
+\left(
+\begin{array}{cc}
+x - \lambda_1 & 0\\
+0 & x - \lambda_2\\
+\end{array}
+\right)
+$$
+and
+$$
+PAQ = 
+\left(
+\begin{array}{cc}
+x - \lambda_1 & 0\\
+0 & (x - \lambda_1) (x - \lambda_2)\\
+\end{array}
+\right), \;
+P =
+\left(
+\begin{array}{cc}
+1 & \lambda_1\\
+1 & \lambda_2\\
+\end{array}
+\right), \;
+$$
+In RCF, the new basis are $f_1, f_2$ where
+$$
+\left(
+\begin{array}{c}
+f_1 \\
+f_2\\
+\end{array}
+\right) =
+P^T
+\left(
+\begin{array}{c}
+e_1 \\
+e_2\\
+\end{array}
+\right), \;
+P^T =
+\left(
+\begin{array}{cc}
+1 & 1\\
+\lambda_1 & \lambda_2\\
+\end{array}
+\right)
+$$
+To switch basis, $v_{[e]}= P v_{[f]}$.
+$$
+P^{-1} = {\frac 1 {\lambda_1 - \lambda_2}}
+\left(
+\begin{array}{cc}
+- \lambda_2 & \lambda_1\\
+1 & -1\\
+\end{array}
+\right)
+$$
+then
+$$
+P^{-1} A P =
+\left(
+\begin{array}{cc}
+0 & -\lambda_1 \lambda_2\\
+1 & \lambda_1 +\lambda_2\\
+\end{array}
+\right)
+$$ which is the RCF.
+\\
+\\
 {\bf Principal Component Analysis:}
 $P_A= A(A^TA)^{-1} A^T$ where the rank of $A$ is the number of columns, is the symmetric
 projector; $P_{A^{\perp}}= I-P_A$. 
