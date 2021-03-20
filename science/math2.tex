@@ -1842,7 +1842,7 @@ $dim(E)=s+k$
 \emph{Proof:} 
 $f(x_i)= u_i y_i, 1 \leq u \leq s$,
 $f(x_i)= d_i y_i, s+1 \leq u \leq s + k$,
-$f(x_i)= 0, i geq s+k+1$.  Put $W_i = R \langle y_i + E \rangle$, $s+1 \leq i \leq m$.  $N/E = \sum_i W_i$ and $W_i \cap \sum_{i \ne j} W_j = 0$ so
+$f(x_i)= 0, i \geq s+k+1$.  Put $W_i = R \langle y_i + E \rangle$, $s+1 \leq i \leq m$.  $N/E = \sum_i W_i$ and $W_i \cap \sum_{i \ne j} W_j = 0$ so
 the sum is direct.  Each $y_i + E$ has order $d_{i-s}$.
 \end{quote}
 {\bf Application to linear equations:} Consider the linear equations $\sum_{j=1}^n a_{i,j} x_j =c_i$, $i= 1, 2, \ldots, m$.  Write this as
@@ -1947,9 +1947,9 @@ $$.
 Define $\psi: N \rightarrow V_T$ by $\psi(e_i)=v_i$.  
 We show $ker(\psi)=E$. 
 Let $z_i = \sum_{j=1}^n a_{ji}e_j =xe_i$ then $E= \langle z_i \rangle$.
-$\psi(z_i) = \sum_{j=1}^n a{j,i}v_j - T(v_i)= 0$ so $E \subseteq ker(\psi)$.
+$\psi(z_i) = \sum_{j=1}^n a_{j,i}v_j - T(v_i)= 0$ so $E \subseteq ker(\psi)$.
 Let $W = \langle e_i + E \rangle$, $1 \leq i \leq n$.  $x e_i + xE \in W$ so $W$ is a submodule of $N/E$.
-Since $N= R \langle e-1 , e_2 , \ldots , e_n \rangle$, $W= N/E$.  If $u \in N$, $u = \sum_i c_i e_i + z$, $c_i \in F, x \in E$.
+Since $N= R \langle e_1 , e_2 , \ldots , e_n \rangle$, $W= N/E$.  If $u \in N$, $u = \sum_i c_i e_i + z$, $c_i \in F, x \in E$.
 $\psi(u)=  \sum_i c_i \psi(e_i) + \psi(z) = \sum_i c_i v_i$ and so $u \in ker(\psi)$ iff $c_i =0$ so $u \in E$.
 \end{quote}
 {\bf Example:} $F = \mathbb{Q}$ and $T$ is represented over the standard basis as
@@ -2059,8 +2059,19 @@ P(A-xI)Q =
 1 & 0\\
 0 & (x - \lambda_1) (x - \lambda_2)\\
 \end{array}
-\right), \;
+\right),
+$$
+with
+$$
 P =
+{\frac 1 {\lambda_1 - \lambda_2}}
+\left(
+\begin{array}{cc}
+- \lambda_2 & \lambda_1\\
+1 & -1\\
+\end{array}
+\right), \;
+P^{-1}=
 \left(
 \begin{array}{cc}
 1 & \lambda_1\\
@@ -2068,42 +2079,28 @@ P =
 \end{array}
 \right)
 $$
-In RCF, the new basis is $\langle f_1, f_2 \rangle$ where
+So the basis for the RCF is $\langle (1,1)^T, (\lambda_1, \lambda_2)^T \rangle$.
+To switch basis, $v_{[e]}= L v_{[f]}$.  The matrix, $L$, is then
 $$
-\left(
-\begin{array}{c}
-f_1 \\
-f_2 \\
-\end{array}
-\right) =
-P^T
-\left(
-\begin{array}{c}
-e_1 \\
-e_2\\
-\end{array}
-\right), \;
-P^T =
+L=
 \left(
 \begin{array}{cc}
-1 & 1\\
-\lambda_1 & \lambda_2\\
+1 & \lambda_1\\
+1 & \lambda_2\\
 \end{array}
-\right)
-$$
-To switch basis, $v_{[e]}= P v_{[f]}$.
-$$
-P^{-1} = {\frac 1 {\lambda_1 - \lambda_2}}
+\right), \;
+L^{-1} =
+{\frac 1 {\lambda_1 - \lambda_2}}
 \left(
 \begin{array}{cc}
 - \lambda_2 & \lambda_1\\
 1 & -1\\
 \end{array}
-\right)
+\right).
 $$
 We see that
 $$
-P^{-1} A P =
+L^{-1} A L =
 \left(
 \begin{array}{cc}
 0 & -\lambda_1 \lambda_2\\
