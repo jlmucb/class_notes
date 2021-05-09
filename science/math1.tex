@@ -702,19 +702,19 @@ $[(x_1^p+x_2^p) + (y_1^p+y_2^p)]^{\frac 1 q}$ while noting that
 $1 - {\frac 1 q} = {\frac 1 p}$, we get Minkowski.
 \end{quote}
 {\bf Chebyshev's inequality:}
-If $a_1 \leq a_2 \ldots \le a_n$, $b_1 \leq b_2 \ldots \le b_n$.
+If $a_1 \leq a_2 \ldots \le a_n$, $b_1 \leq b_2 \ldots \le b_n$
 $({\frac {1} {n}} \sum a_i )
 ({\frac {1} {n}} \sum b_i ) \leq
 ({\frac {1} {n}} \sum a_i b_i)$. 
 \begin{quote}
 \emph{Proof:}
-$\sum_{i,j} (a_i b_i - a_i b_j )=
-n \sum_i a_i b_i -(\sum_i a_i ) (\sum_i b_i )$
-$\sum_{i,j} (a_j b_j - a_j b_i )=
-n \sum_i a_i b_i -(\sum_i a_i ) (\sum_i b_i )$
-so
-$n \sum_i a_i b_i -(\sum_i a_i ) (\sum_i b_i )= {\frac {1} {2}}
-\sum (a_j - a_i) (b_i - b_j) \leq 0$.
+By the rearrangement inequality,
+$a_1 b_1 + a_2 b_2 + \ldots + a_n b_n \geq a_1 b_1 + a_2 b_2 + \ldots + a_n b_n$,
+$a_1 b_1 + a_2 b_2 + \ldots + a_n b_n \geq a_1 b_2 + a_2 b_3 + \ldots + a_n b_1$, ...
+$a_1 b_1 + a_2 b_2 + \ldots + a_n b_n \geq a_1 b_n + a_2 b_1 + \ldots + a_n b_{n-1}$.
+Adding the $n$ inequalities, we get
+$n \sum a_i b_i \geq a_1 \sum b_j + a_2 \sum b_j + \ldots + a_n \sum b_j$ or
+$n \sum a_i b_i \geq (\sum a_i) (\sum b_j) $.
 \end{quote}
 {\bf Observation:} $\sum_i a_i b_i$ is max when $a_i$ and $b_i$ are in order, $a_, b_i \geq 0$.
 $min(a,b) \leq {\frac {2ab} {a+b}} \leq
