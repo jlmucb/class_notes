@@ -69,6 +69,14 @@ When $p<<1$ Poisson approximates binomial with
 $np= \lambda$, $E(X)= \lambda$.
 \\
 \\
+{\bf Binomial test:}  If we have an experiment with two outcomes and we want to test the hypothesis that the
+distribution of outcomes is $p, q=1-p$.  We perform $n$ experiments.  We expect about $np$ observations of the
+first outcome.  Suppose there are $r$ observation of the first value.  The \emph{binomial} test with significance $\alpha$,
+tests the hypothesis that the proposed distribution is correct.  To do it, let the random variable
+$x$ represent the number of "successes".  Compute $P(x \geq r) = \sum_{j=r}^n {n \choose j} p^j (1-p)^{n-j}$.
+If $P(x \geq r) < \alpha$, reject the hypothesis.
+\\
+\\
 {\bf Zipf distribution:}  $P(k)= {\frac c {k^{1+\alpha}}}$.
 \\
 \\
