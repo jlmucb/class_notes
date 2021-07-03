@@ -1277,6 +1277,18 @@ and in the second case, again setting $z=re^{i \theta}$
 $\int_{\cal C} {\frac {p'(z)} {p(z)}} dz= 
 \int_{\cal C} {\frac {-1} {(z-a)}} dz= {\frac {-1} {2 \pi i}} \int_0^{2 \pi} i d \theta = -1$.
 \end{quote}
+{\bf Theorem:} If $f(z)$ is analytic in an on a ball centered at $a$ of radius $r$, $B_r(a)$, then
+$|f^(n)(a)| \leq {\frac {M n!} {r^n}}$, where  $|f(z)| \leq M, z \in B_r(a)$.
+\begin{quote}
+\emph{Proof:}
+Use the Cauchy integral formula.
+\end{quote}
+{\bf Theorem:} If $f(z)$ is bounded and analytic in the plane, $f(z)$ is a constant.
+\begin{quote}
+\emph{Proof:}
+$f(b) - f(a) = {\frac {b-a} {2 \pi i}} \int_{B_r(a)} {\frac {f(z)} {(z-a)(z-b)}} dz$.
+So $|f(b) - f(a)| \leq {\frac {2(b-a) M} {r}}$; let $ \rightarrow \infty$.
+\end{quote}
 {\bf Rouche's Theorem:} If $f(z), g(z)$ are analytic 
 in and on a simple closed curve $C$
 and $|f(z)|>|g(z)|$ on $C$ then
