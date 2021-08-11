@@ -13,19 +13,18 @@
 #define FAIL    -1
 
 int OpenListener(int port) {
-  int sd;
   struct sockaddr_in addr;
 
-  sd = socket(PF_INET, SOCK_STREAM, 0);
+  int sd = socket(PF_INET, SOCK_STREAM, 0);
   bzero(&addr, sizeof(addr));
   addr.sin_family = AF_INET;
   addr.sin_port = htons(port);
   addr.sin_addr.s_addr = INADDR_ANY;
-  if ( bind(sd, (struct sockaddr*)&addr, sizeof(addr)) != 0 ) {
+  if (bind(sd, (struct sockaddr*)&addr, sizeof(addr)) != 0) {
     perror("can't bind port");
     abort();
   }
-  if ( listen(sd, 10) != 0 ) {
+  if (listen(sd, 10) != 0) {
     perror("Can't configure listening port");
     abort();
   }
@@ -40,7 +39,7 @@ int isRoot() {
   }
 }
 
-SSL_CTX* InitServerCTX(void) {
+SSL_CTX* InitServerCTX() {
   SSL_METHOD *method;
   SSL_CTX *ctx;
 
@@ -48,7 +47,7 @@ SSL_CTX* InitServerCTX(void) {
   SSL_load_error_strings();
   method = TLSv1_2_server_method();
   ctx = SSL_CTX_new(method);
-  if ( ctx == NULL ) {
+  if (ctx == NULL) {
     ERR_print_errors_fp(stderr);
     abort();
   }
@@ -56,26 +55,26 @@ SSL_CTX* InitServerCTX(void) {
 }
 
 void LoadCertificates(SSL_CTX* ctx, char* CertFile, char* KeyFile) {
-  if ( SSL_CTX_use_certificate_file(ctx, CertFile, SSL_FILETYPE_PEM) <= 0 ) {
+  if (SSL_CTX_use_certificate_file(ctx, CertFile, SSL_FILETYPE_PEM) <= 0 ) {
     ERR_print_errors_fp(stderr);
     abort();
   }
-  if ( SSL_CTX_use_PrivateKey_file(ctx, KeyFile, SSL_FILETYPE_PEM) <= 0 ) {
+  if (SSL_CTX_use_PrivateKey_file(ctx, KeyFile, SSL_FILETYPE_PEM) <= 0 ) {
     ERR_print_errors_fp(stderr);
     abort();
   }
-  if ( !SSL_CTX_check_private_key(ctx) ) {
+  if (!SSL_CTX_check_private_key(ctx) ) {
     fprintf(stderr, "Private key does not match the public certificate\n");
     abort();
   }
 }
 
 void ShowCerts(SSL* ssl) {
-  X509 *cert;
+  X509 *cert = nullptr;
   char *line;
 
   cert = SSL_get_peer_certificate(ssl);
-  if ( cert != NULL ) {
+  if (cert != NULL) {
     printf("Server certificates:\n");
     line = X509_NAME_oneline(X509_get_subject_name(cert), 0, 0);
     printf("Subject: %s\n", line);
@@ -94,12 +93,12 @@ void Servlet(SSL* ssl) {
   int sd, bytes;
   const char* HTMLecho="<html><body><pre>%s</pre></body></html>\n\n";
 
-  if ( SSL_accept(ssl) == FAIL )
+  if (SSL_accept(ssl) == FAIL)
     ERR_print_errors_fp(stderr);
   else {
     ShowCerts(ssl);
     bytes = SSL_read(ssl, buf, sizeof(buf));
-    if ( bytes > 0 ) {
+    if (bytes > 0) {
       buf[bytes] = 0;
       printf("Client msg: \"%s\"\n", buf);
       sprintf(reply, HTMLecho, buf);
@@ -113,25 +112,27 @@ void Servlet(SSL* ssl) {
   close(sd);
 }
 
-int main(int count, char *strings[]) {
+
+int main(int count, char *av[]) {
   SSL_CTX *ctx;
   int server;
-  char *portnum;
+  char* portnum;
 
   if(!isRoot()) {
     printf("This program must be run as root/sudo user!!");
     exit(0);
   }
-  if ( count != 2 ) {
-    printf("Usage: %s <portnum>\n", strings[0]);
+  if (count != 2) {
+    printf("Usage: %s <portnum>\n", av[0]);
     exit(0);
   }
   SSL_library_init();
 
-  portnum = strings[1];
+  portnum = av[1];
   ctx = InitServerCTX();
   LoadCertificates(ctx, "mycert.pem", "mycert.pem");
   server = OpenListener(atoi(portnum));
+
   while (1) {   struct sockaddr_in addr;
     socklen_t len = sizeof(addr);
     SSL *ssl;
