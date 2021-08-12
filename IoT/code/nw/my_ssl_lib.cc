@@ -229,6 +229,7 @@ bool rsa_implement::generate_key(int num_bits) {
   if (0 == RSA_generate_key_ex(rsa_key_, num_bits, e, nullptr))
     return false;
   key_initialized_ = true;
+  BN_free(e);
   int bit_size_ = num_bits;
   return true;
 }
@@ -243,7 +244,7 @@ bool rsa_implement::encrypt(int padding, int plain_len, byte* plain,
   if (*cipher_size <  RSA_size(rsa_key_))
     return false;
 
-  int size_out = RSA_private_encrypt(plain_len, plain, cipher, rsa_key_, padding);
+  int size_out = RSA_public_encrypt(plain_len, plain, cipher, rsa_key_, padding);
   if (size_out <= 0)
     return false;
   *cipher_size = size_out;
@@ -255,7 +256,6 @@ bool rsa_implement::decrypt(int padding, int cipher_len, byte* cipher,
 
   if (!key_initialized_)
     return false;
-
   // one block only for now
   if (*plain_len <  RSA_size(rsa_key_))
     return false;

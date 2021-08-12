@@ -191,7 +191,7 @@ bool test_rsa() {
   byte output[output_len]; 
   memset(output, 0, output_len);
 
-  int recovered_len = 256;
+  int recovered_len = 512;
   byte recovered[recovered_len]; 
   memset(recovered, 0, recovered_len);
 
@@ -221,7 +221,9 @@ bool test_rsa() {
     print_bytes(recovered_len, recovered);
   }
 
-  return true;
+  if (input_len != recovered_len)
+    return false;
+  return (memcmp(input, recovered, recovered_len) == 0);
 }
 TEST (rsa, test_rsa) {
   EXPECT_TRUE(test_rsa());
