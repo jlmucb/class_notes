@@ -106,7 +106,6 @@ bool test_encrypt() {
 
   if (!dec.decrypt(key, output_len, output, &recovered_len, recovered))
     return false;
-printf("back\n");
 
   if (FLAGS_print_all) {
     printf("recovered (%2d): ", recovered_len);
@@ -122,8 +121,51 @@ TEST (encrypt, test_encrypt) {
 }
 
 bool test_authenticated_encrypt() {
-  // authenticated_aes256_cbc enc;
-  // authenticated_aes256_cbc dec;
+  authenticated_aes256_cbc enc;
+  authenticated_aes256_cbc dec;
+
+  byte key[64];
+  byte iv[16];
+
+  int input_len = 64;
+  byte input[input_len]; 
+  memset(input, 0, input_len);
+
+  int output_len = 256;
+  byte output[output_len]; 
+  memset(output, 0, output_len);
+
+  int recovered_len = 128;
+  byte recovered[recovered_len]; 
+  memset(recovered, 0, recovered_len);
+
+  for (int i = 0; i < 64; i++)
+    key[i] = (i % 256);
+  for (int i = 0; i < 16; i++)
+    iv[i] = (i % 256);
+  for (int i = 0; i < input_len; i++)
+    input[i] = ((5 * i) % 256);
+
+  if (FLAGS_print_all) {
+    printf("aes256_cbc_hmac_sha256 key: ");
+    print_bytes(32, key);
+    printf("aes256_cbc_hmac_sha256 iv : ");
+    print_bytes(16, iv);
+
+    printf("plain     (%2d) : ", input_len);
+    print_bytes(input_len, input);
+  }
+
+  if (!enc.authenticated_encrypt(key, iv, input_len, input, &output_len, output))
+    return false;
+
+  if (FLAGS_print_all) {
+    printf("cipher    (%2d) : ", output_len);
+    print_bytes(output_len, output);
+  }
+
+  if (!dec.authenticated_decrypt(key, output_len, output, &recovered_len, recovered))
+    return false;
 
   return true;
 }

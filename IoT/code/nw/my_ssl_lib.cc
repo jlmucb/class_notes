@@ -160,6 +160,56 @@ bool aes256_cbc::get_key(byte* out) {
 }
 
 
+authenticated_aes256_cbc::authenticated_aes256_cbc() {
+  total_cipher_len_ = 0;
+  total_plain_len_ = 0;
+  }
+
+  authenticated_aes256_cbc::~authenticated_aes256_cbc() {
+  }
+
+  bool authenticated_aes256_cbc::authenticated_encrypt(byte* key, byte* iv,
+        int plain_len, byte* plain, int* cipher_len, byte* cipher) {
+  aes256_cbc enc; 
+
+  // make sure the output buf is big enough
+  if (*cipher_len < (plain_len + 64))
+    return false;
+
+  int  len = *cipher_len;
+  if (!enc.encrypt(key, iv, plain_len, plain, &len, cipher))
+    return false;
+
+  unsigned int  md_len = 0;
+  HMAC(EVP_sha256(), (const void*)&key[32], 32, cipher, len, cipher + len, &md_len);
+  *cipher_len = len + ((int)md_len);
+  return true;
+  }
+
+  bool authenticated_aes256_cbc::authenticated_decrypt(byte* key,
+        int cipher_len, byte* cipher, int* plain_len, byte* plain) {
+  aes256_cbc dec; 
+  byte hmac_digest[32];
+  memset(hmac_digest, 0, 32);
+
+  unsigned int md_len = 32;
+  HMAC(EVP_sha256(), (const void*)&key[32], 32, cipher, cipher_len - 32, hmac_digest, &md_len);
+  if (memcmp(hmac_digest, cipher + cipher_len - 32, 32) != 0)
+    return false;
+
+  if (!dec.decrypt(key, cipher_len - 32, cipher, plain_len, plain))
+    return false;
+  return true;
+}
+
+  bool authenticated_aes256_cbc::get_key(byte* out) {
+    memcpy(out, key_, 64);
+    return true;
+  }
+
+
+
+
 #if 0
 // EM = 0x00 || 0x02 || PS || 0x00 || M to fill buffer
 void RSA_free(RSA *rsa);
