@@ -53,26 +53,41 @@ public:
 class aes256_cbc {
 public:
   EVP_CIPHER_CTX* ctx_;
-  int cipher_len;
-  int plain_len;
+  int total_cipher_len_;
+  int total_plain_len_;
   byte iv_[16];
   byte key_[32];
 
   aes256_cbc();
   ~aes256_cbc();
 
-  bool encrypt_init(int key_size, byte* key, byte* iv);
-  bool decrypt_init(int key_size, byte* key, byte* iv);
-  bool encrypt_update(byte* cipher, int* cipher_len,
-        byte* plaintext, int plaintext_len);
-  bool encrypt_finalize(byte* cipher, int* size);
-  bool decrypt_update(byte* cipher, int* cipher_len,
-        byte* plaintext, int plaintext_len);
-  bool decrypt_finalize(byte* plain, int* size);
+  bool encrypt(byte* key, byte* iv, int plain_len, byte* plain,
+        int* cipher_size, byte* cipher);
+  bool decrypt(byte* key, int cipher_len, byte* cipher,
+        int* plain_len, byte* plain);
   int get_key_size() {return 32;};
   int get_block_size() {return 16;};
   bool get_key(byte* out);
 };
 
+class authenticated_aes256_cbc {
+public:
+  EVP_CIPHER_CTX* ctx_;
+  int total_cipher_len_;
+  int total_plain_len_;
+  byte iv_[16];
+  byte key_[64];
+
+  authenticated_aes256_cbc();
+  ~authenticated_aes256_cbc();
+
+  bool authenticated_encrypt(byte* key, byte* iv,
+        int plain_len, byte* plain, int* cipher_size, byte* cipher);
+  bool authenticated_decrypt(byte* key,
+        int cipher_len, byte* cipher, int* plain_len, byte* plain);
+  int get_key_size() {return 64;};
+  int get_block_size() {return 16;};
+  bool get_key(byte* out);
+};
 
 #endif

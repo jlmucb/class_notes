@@ -57,60 +57,40 @@ bool sha256_digest::finalize(byte* digest, unsigned int* size) {
 
 
 aes256_cbc::aes256_cbc() {
-  ctx_ = nullptr;
 }
 
 aes256_cbc::~aes256_cbc() {
+  // clear key and iv
   if (ctx_ != nullptr) {
     EVP_CIPHER_CTX_free(ctx_);
     ctx_ = nullptr;
   }
 }
 
-bool aes256_cbc::encrypt_init(int key_size, byte* key, byte* iv) {
-  cipher_len = 0;
-  plain_len = 0;
+bool aes256_cbc::encrypt(byte* key, byte* iv, int plain_len, byte* plain, int* cipher_size, byte* cipher) {
+  total_cipher_len_ = 0;
+  total_plain_len_ = 0;
 
-  if (key_size != 32)
-    return false;
+  if (ctx_ == nullptr)
+    ctx_ = EVP_CIPHER_CTX_new();
   
   memcpy(key_, key, 32);
   memcpy(iv_, iv, 32);
-
   if (1 != EVP_EncryptInit_ex(ctx_, EVP_aes_256_cbc(), NULL, key_, iv_))
     return false;
-  if (ctx_ != nullptr)
-    return true;
-  ctx_ = EVP_CIPHER_CTX_new();
-  return true;
-}
-
-bool aes256_cbc::encrypt_update(byte* cipher, int* cipher_len,
-        byte* plaintext, int plaintext_len) {
   // if (1 != EVP_EncryptUpdate(ctx, ciphertext, &len, plaintext, plaintext_len))
   // ciphertext_len = len;
-  return true;
-}
-
-bool aes256_cbc::encrypt_finalize(byte* cipher, int* size) {
+  // if (1 != EVP_EncryptFinal_ex(ctx, ciphertext + len, &len))
+  // ciphertext_len += len;
   // if (1 != EVP_EncryptFinal_ex(ctx, ciphertext + len, &len))
   // ciphertext_len += len;
   return true;
 }
 
-bool aes256_cbc::decrypt_init(int key_size, byte* key, byte* iv) {
+bool aes256_cbc::decrypt(byte* key, int cipher_len, byte* cipher, int* plain_len, byte* plain) {
    // if (1 != EVP_DecryptInit_ex(ctx, EVP_aes_256_cbc(), NULL, key, iv))
-  return true;
-}
-
-bool aes256_cbc::decrypt_update(byte* cipher, int* cipher_len,
-        byte* plaintext, int plaintext_len) {
   // if(1 != EVP_DecryptUpdate(ctx, plaintext, &len, ciphertext, ciphertext_len))
   // plaintext_len = len;
-  return true;
-} 
-
-bool aes256_cbc::decrypt_finalize(byte* plain, int* size) {
    // if(1 != EVP_DecryptFinal_ex(ctx, plaintext + len, &len))
    // plaintext_len += len;
   return true;
@@ -123,6 +103,7 @@ bool aes256_cbc::get_key(byte* out) {
 
 
 #if 0
+// EM = 0x00 || 0x02 || PS || 0x00 || M to fill buffer
 void RSA_free(RSA *rsa);
 int RSA_private_encrypt(int flen, unsigned char *from, unsigned char *to, RSA *rsa, int padding);
 int RSA_public_decrypt(int flen, unsigned char *from, unsigned char *to, RSA *rsa, int padding);
