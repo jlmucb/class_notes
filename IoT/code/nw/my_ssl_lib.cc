@@ -34,6 +34,8 @@ sha256_digest::~sha256_digest() {
 }
 
 bool sha256_digest::init() {
+  if (ctx_ != nullptr)
+    return true;
   ctx_ = EVP_MD_CTX_new();
   if (1 != EVP_DigestInit_ex(ctx_, EVP_sha256(), NULL))
     return false;
@@ -54,109 +56,77 @@ bool sha256_digest::finalize(byte* digest, unsigned int* size) {
 }
 
 
+aes256_cbc::aes256_cbc() {
+  ctx_ = nullptr;
+}
+
+aes256_cbc::~aes256_cbc() {
+  if (ctx_ != nullptr) {
+    EVP_CIPHER_CTX_free(ctx_);
+    ctx_ = nullptr;
+  }
+}
+
+bool aes256_cbc::encrypt_init(int key_size, byte* key, byte* iv) {
+  cipher_len = 0;
+  plain_len = 0;
+
+  if (key_size != 32)
+    return false;
+  
+  memcpy(key_, key, 32);
+  memcpy(iv_, iv, 32);
+
+  if (1 != EVP_EncryptInit_ex(ctx_, EVP_aes_256_cbc(), NULL, key_, iv_))
+    return false;
+  if (ctx_ != nullptr)
+    return true;
+  ctx_ = EVP_CIPHER_CTX_new();
+  return true;
+}
+
+bool aes256_cbc::encrypt_update(byte* cipher, int* cipher_len,
+        byte* plaintext, int plaintext_len) {
+  // if (1 != EVP_EncryptUpdate(ctx, ciphertext, &len, plaintext, plaintext_len))
+  // ciphertext_len = len;
+  return true;
+}
+
+bool aes256_cbc::encrypt_finalize(byte* cipher, int* size) {
+  // if (1 != EVP_EncryptFinal_ex(ctx, ciphertext + len, &len))
+  // ciphertext_len += len;
+  return true;
+}
+
+bool aes256_cbc::decrypt_init(int key_size, byte* key, byte* iv) {
+   // if (1 != EVP_DecryptInit_ex(ctx, EVP_aes_256_cbc(), NULL, key, iv))
+  return true;
+}
+
+bool aes256_cbc::decrypt_update(byte* cipher, int* cipher_len,
+        byte* plaintext, int plaintext_len) {
+  // if(1 != EVP_DecryptUpdate(ctx, plaintext, &len, ciphertext, ciphertext_len))
+  // plaintext_len = len;
+  return true;
+} 
+
+bool aes256_cbc::decrypt_finalize(byte* plain, int* size) {
+   // if(1 != EVP_DecryptFinal_ex(ctx, plaintext + len, &len))
+   // plaintext_len += len;
+  return true;
+}
+
+bool aes256_cbc::get_key(byte* out) {
+  memcpy(out, key_, 32);
+  return false;
+}
+
 
 #if 0
-
-int encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *key,
-            unsigned char *iv, unsigned char *ciphertext)
-{
-    EVP_CIPHER_CTX *ctx;
-
-    int len;
-
-    int ciphertext_len;
-    EVP_CIPHER_CTX *ctx = EVP_CIPHER_CTX_new();
-
-    /* Create and initialise the context */
-    if(!(ctx = EVP_CIPHER_CTX_new()))
-        handleErrors();
-
-    /*
-     * Initialise the encryption operation. IMPORTANT - ensure you use a key
-     * and IV size appropriate for your cipher
-     * In this example we are using 256 bit AES (i.e. a 256 bit key). The
-     * IV size for *most* modes is the same as the block size. For AES this
-     * is 128 bits
-     */
-    if(1 != EVP_EncryptInit_ex(ctx, EVP_aes_256_cbc(), NULL, key, iv))
-        handleErrors();
-
-    /*
-     * Provide the message to be encrypted, and obtain the encrypted output.
-     * EVP_EncryptUpdate can be called multiple times if necessary
-     */
-    if(1 != EVP_EncryptUpdate(ctx, ciphertext, &len, plaintext, plaintext_len))
-        handleErrors();
-    ciphertext_len = len;
-
-    /*
-     * Finalise the encryption. Further ciphertext bytes may be written at
-     * this stage.
-     */
-    if(1 != EVP_EncryptFinal_ex(ctx, ciphertext + len, &len))
-        handleErrors();
-    ciphertext_len += len;
-
-    /* Clean up */
-    EVP_CIPHER_CTX_free(ctx);
-
-    return ciphertext_len;
-}
-
-int decrypt(unsigned char *ciphertext, int ciphertext_len, unsigned char *key,
-            unsigned char *iv, unsigned char *plaintext)
-{
-    EVP_CIPHER_CTX *ctx;
-
-    int len;
-
-    int plaintext_len;
-
-    /* Create and initialise the context */
-    if(!(ctx = EVP_CIPHER_CTX_new()))
-        handleErrors();
-
-    /*
-     * Initialise the decryption operation. IMPORTANT - ensure you use a key
-     * and IV size appropriate for your cipher
-     * In this example we are using 256 bit AES (i.e. a 256 bit key). The
-     * IV size for *most* modes is the same as the block size. For AES this
-     * is 128 bits
-     */
-    if(1 != EVP_DecryptInit_ex(ctx, EVP_aes_256_cbc(), NULL, key, iv))
-        handleErrors();
-
-    /*
-     * Provide the message to be decrypted, and obtain the plaintext output.
-     * EVP_DecryptUpdate can be called multiple times if necessary.
-     */
-    if(1 != EVP_DecryptUpdate(ctx, plaintext, &len, ciphertext, ciphertext_len))
-        handleErrors();
-    plaintext_len = len;
-
-    /*
-     * Finalise the decryption. Further plaintext bytes may be written at
-     * this stage.
-     */
-    if(1 != EVP_DecryptFinal_ex(ctx, plaintext + len, &len))
-        handleErrors();
-    plaintext_len += len;
-
-    /* Clean up */
-    EVP_CIPHER_CTX_free(ctx);
-
-    return plaintext_len;
-}
-
-EVP_aes_256_cbc()
-
 void RSA_free(RSA *rsa);
 int RSA_private_encrypt(int flen, unsigned char *from, unsigned char *to, RSA *rsa, int padding);
 int RSA_public_decrypt(int flen, unsigned char *from, unsigned char *to, RSA *rsa, int padding);
 int RSA_size(const RSA *rsa);
-RSA *RSA_generate_key(int num, unsigned long e, void (*callback)(int,int,void *), void *cb_arg);
-
-
 RSA_public_encrypt(size_sig, sig, decrypted, key, RSA_NO_PADDING)
 RSA_private_decrypt(size_buf, buf, out, key, RSA_NO_PADDING)
 RSA_PKCS1_PADDING
@@ -167,7 +137,6 @@ RSA_generate_key_ex(r, num_bits, bne, NULL)
 BN_bin2bn
 RSA_set0_key(r, n, e, d)
 BN_bin2bn
-
 RSA_get0_key(r, &m, &e, &d);
 size = BN_num_bytes(m)
 BIGNUM* d = nullptr;
@@ -178,9 +147,6 @@ EVP_PKEY_free(verify_pkey);
 size = BN_num_bytes(m)
 BN_bn2bin(BIGNUM, byte buf)
 rsa_sha256_verify
-
-
 X509_verify(&cert, verify_pkey)
-
 #endif
 
