@@ -45,7 +45,7 @@ public:
 
   bool init();
   bool update(int size, byte* buf);
-  bool finalize(byte* digest, int* size);
+  bool finalize(byte* digest, unsigned int* size);
   int get_digest_size() {return 32;};
 };
 

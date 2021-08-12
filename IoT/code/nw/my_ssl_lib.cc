@@ -28,13 +28,13 @@ sha256_digest::sha256_digest() {
 
 sha256_digest::~sha256_digest() {
   if (ctx_ != nullptr) {
-    // EVP_MD_CTX_free(ctx_);
+    EVP_MD_CTX_free(ctx_);
     ctx_ = nullptr;
   }
 }
 
 bool sha256_digest::init() {
-  // ctx_ = EVP_MD_CTX_new();
+  ctx_ = EVP_MD_CTX_new();
   if (1 != EVP_DigestInit_ex(ctx_, EVP_sha256(), NULL))
     return false;
   return true;
@@ -42,12 +42,14 @@ bool sha256_digest::init() {
 
 bool sha256_digest::update(int size, byte* buf) {
 
-  // if(1 != EVP_DigestUpdate(mdctx, message, message_len))
-  // if(1 != EVP_DigestFinal_ex(mdctx, *digest, digest_len))
+  if (1 != EVP_DigestUpdate(ctx_, buf, size))
+    return false;
   return true;
 }
 
-bool sha256_digest::finalize(byte* digest, int* size) {
+bool sha256_digest::finalize(byte* digest, unsigned int* size) {
+  if (1 != EVP_DigestFinal_ex(ctx_, digest, size))
+    return false;
   return true;
 }
 
@@ -147,28 +149,6 @@ int decrypt(unsigned char *ciphertext, int ciphertext_len, unsigned char *key,
 }
 
 EVP_aes_256_cbc()
-
-void digest_message(const unsigned char *message, size_t message_len, unsigned char **digest, unsigned int *digest_len)
-{
-	EVP_MD_CTX *mdctx;
-
-	if((mdctx = EVP_MD_CTX_new()) == NULL)
-		handleErrors();
-
-	if(1 != EVP_DigestInit_ex(mdctx, EVP_sha256(), NULL))
-		handleErrors();
-
-	if(1 != EVP_DigestUpdate(mdctx, message, message_len))
-		handleErrors();
-
-	if((*digest = (unsigned char *)OPENSSL_malloc(EVP_MD_size(EVP_sha256()))) == NULL)
-		handleErrors();
-
-	if(1 != EVP_DigestFinal_ex(mdctx, *digest, digest_len))
-		handleErrors();
-
-	EVP_MD_CTX_free(mdctx);
-}
 
 void RSA_free(RSA *rsa);
 int RSA_private_encrypt(int flen, unsigned char *from, unsigned char *to, RSA *rsa, int padding);
