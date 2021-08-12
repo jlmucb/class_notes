@@ -91,4 +91,31 @@ public:
   bool get_key(byte* out);
 };
 
+
+class rsa_implement {
+public:
+  bool key_initialized_;
+  int bit_size_ = 0;
+  RSA* rsa_key_;
+
+  rsa_implement();
+  ~rsa_implement();
+
+  bool generate_key(int num_bits);
+  bool set_key(int num_bits, byte* m, int size_e, byte* e,
+      int size_d, byte* d);
+  bool get_key(int* num_bits, int* size_m, byte* m,
+      int* size_e, byte* e, int* size_d, byte* d);
+
+  bool encrypt(int padding, int plain_len, byte* plain,
+        int* cipher_size, byte* cipher);
+  bool decrypt(int padding, int cipher_len, byte* cipher,
+        int* plain_len, byte* plain);
+  int get_key_size() {return (bit_size_ + 7) / 8;};
+  int get_block_size() {return (bit_size_ + 7) / 8;};
+  bool get_m(byte* out);
+  bool get_e(byte* out);
+  bool get_d(byte* out);
+};
+
 #endif

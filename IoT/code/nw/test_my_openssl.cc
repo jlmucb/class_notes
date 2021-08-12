@@ -174,6 +174,53 @@ TEST (authenticated_encrypt, test_authenticated_encrypt) {
 }
 
 bool test_rsa() {
+  rsa_implement r;
+
+  if (!r.generate_key(2048))
+    return false;
+  if (FLAGS_print_all) {
+    printf("key:\n");
+    RSA_print_fp(stdout, r.rsa_key_, 2);
+  }
+
+  int input_len = 64;
+  byte input[input_len]; 
+  memset(input, 0, input_len);
+
+  int output_len = 256;
+  byte output[output_len]; 
+  memset(output, 0, output_len);
+
+  int recovered_len = 256;
+  byte recovered[recovered_len]; 
+  memset(recovered, 0, recovered_len);
+
+  for (int i = 0; i < input_len; i++)
+    input[i] = ((5 * i + 1) % 256);
+
+  if (FLAGS_print_all) {
+    printf("plain  (%2d):\n", input_len);
+    print_bytes(input_len, input);
+  }
+
+  if (!r.encrypt(RSA_PKCS1_PADDING, input_len, input,
+        &output_len, output))
+    return false;
+
+  if (FLAGS_print_all) {
+    printf("cipher (%2d)\n", output_len);
+    print_bytes(output_len, output);
+  }
+
+  if (!r.decrypt(RSA_PKCS1_PADDING, output_len, output,
+        &recovered_len, recovered))
+    return false;
+
+  if (FLAGS_print_all) {
+    printf("recovered (%2d)\n", recovered_len);
+    print_bytes(recovered_len, recovered);
+  }
+
   return true;
 }
 TEST (rsa, test_rsa) {

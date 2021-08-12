@@ -202,40 +202,101 @@ authenticated_aes256_cbc::authenticated_aes256_cbc() {
   return true;
 }
 
-  bool authenticated_aes256_cbc::get_key(byte* out) {
-    memcpy(out, key_, 64);
-    return true;
-  }
+bool authenticated_aes256_cbc::get_key(byte* out) {
+  memcpy(out, key_, 64);
+  return true;
+}
 
 
+rsa_implement::rsa_implement() {
+  key_initialized_ = false;
+  int bit_size_ = 0;
+  rsa_key_ = nullptr;
+}
+
+rsa_implement::~rsa_implement() {
+  if (rsa_key_ != nullptr)
+    RSA_free(rsa_key_);
+  key_initialized_ = false;
+  int bit_size_ = 0;
+  rsa_key_ = nullptr;
+}
+
+bool rsa_implement::generate_key(int num_bits) {
+  BIGNUM* e = BN_new();
+  BN_set_word(e, 65537UL);
+  rsa_key_ = RSA_new();
+  if (0 == RSA_generate_key_ex(rsa_key_, num_bits, e, nullptr))
+    return false;
+  key_initialized_ = true;
+  int bit_size_ = num_bits;
+  return true;
+}
+
+bool rsa_implement::encrypt(int padding, int plain_len, byte* plain,
+        int* cipher_size, byte* cipher) {
+
+  if (!key_initialized_)
+    return false;
+
+  // one block only for now
+  if (*cipher_size <  RSA_size(rsa_key_))
+    return false;
+
+  int size_out = RSA_private_encrypt(plain_len, plain, cipher, rsa_key_, padding);
+  if (size_out <= 0)
+    return false;
+  *cipher_size = size_out;
+  return true;
+}
+
+bool rsa_implement::decrypt(int padding, int cipher_len, byte* cipher,
+        int* plain_len, byte* plain) {
+
+  if (!key_initialized_)
+    return false;
+
+  // one block only for now
+  if (*plain_len <  RSA_size(rsa_key_))
+    return false;
+
+  int size_out = RSA_private_decrypt(cipher_len, cipher, plain, rsa_key_, padding);
+  if (size_out <= 0)
+    return false;
+  *plain_len = size_out;
+  return true;
+}
+
+bool rsa_implement::get_m(byte* out) {
+  // RSA_get0_key(r, &m, &e, &d);
+
+  return true;
+}
+
+bool rsa_implement::get_e(byte* out) {
+  // BN_bin2bn
+  // RSA_get0_key(r, &m, &e, &d);
+  return true;
+}
+
+bool rsa_implement::get_d(byte* out) {
+  return true;
+}
+
+bool rsa_implement::set_key(int num_bits, byte* m, int size_e, byte* e,
+      int size_d, byte* d) {
+  // RSA_set0_key(r, n, e, d)
+  return false;
+}
+
+bool rsa_implement::get_key(int* num_bits, int* size_m, byte* m, 
+      int* size_e, byte* e, int* size_d, byte* d) {
+  // RSA_get0_key(r, &m, &e, &d);
+  return false;
+}
 
 
-#if 0
-// EM = 0x00 || 0x02 || PS || 0x00 || M to fill buffer
-void RSA_free(RSA *rsa);
-int RSA_private_encrypt(int flen, unsigned char *from, unsigned char *to, RSA *rsa, int padding);
-int RSA_public_decrypt(int flen, unsigned char *from, unsigned char *to, RSA *rsa, int padding);
-int RSA_size(const RSA *rsa);
-RSA_public_encrypt(size_sig, sig, decrypted, key, RSA_NO_PADDING)
-RSA_private_decrypt(size_buf, buf, out, key, RSA_NO_PADDING)
-RSA_PKCS1_PADDING
-RSA_bits(r);
-BIGNUM* m = BN_new();
-BN_set_word(bne, e)
-RSA_generate_key_ex(r, num_bits, bne, NULL)
-BN_bin2bn
-RSA_set0_key(r, n, e, d)
-BN_bin2bn
-RSA_get0_key(r, &m, &e, &d);
-size = BN_num_bytes(m)
-BIGNUM* d = nullptr;
-RSA_bits(r);
-RSA_get0_key(r, &m, &e, &d);
-HMAC(EVP_sha256(), hmackey, mac_size, out, cipher_size, out , &hmac_size)
-EVP_PKEY_free(verify_pkey);
-size = BN_num_bytes(m)
-BN_bn2bin(BIGNUM, byte buf)
-rsa_sha256_verify
-X509_verify(&cert, verify_pkey)
-#endif
+// useful for later
+//    EM = 0x00 || 0x02 || PS || 0x00 || M to fill buffer
+//    RSA_PKCS1_PADDING
 
