@@ -43,7 +43,7 @@ LINK=g++
 PROTO=protoc
 AR=ar
 #export LD_LIBRARY_PATH=/usr/local/lib
-LDFLAGS= -lprotobuf -lgtest -lgflags -lpthread
+LDFLAGS= -lprotobuf -lgtest -lgflags -lpthread -lssl -lcrypto
 
 dobj=	$(O)/test_my_openssl.o $(O)/my_ssl_lib.o $(O)/ssl.pb.o
 

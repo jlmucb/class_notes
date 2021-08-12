@@ -13,13 +13,13 @@
 // File: my_ssl_lib.cc
 
 #include "my_ssl_lib.h"
-#include <openssl/conf.h>
+
+#include <openssl/ssl.h>
 #include <openssl/evp.h>
 #include <openssl/err.h>
 #include <openssl/rsa.h>
 #include <openssl/x509.h>
 #include <openssl/hmac.h>
-#include <openssl/ssl.h>
 
 
 sha256_digest::sha256_digest() {
@@ -28,17 +28,22 @@ sha256_digest::sha256_digest() {
 
 sha256_digest::~sha256_digest() {
   if (ctx_ != nullptr) {
-    EVP_MD_CTX_free(ctx_);
+    // EVP_MD_CTX_free(ctx_);
     ctx_ = nullptr;
   }
 }
 
 bool sha256_digest::init() {
-  ctx_ = EVP_MD_CTX_new();
+  // ctx_ = EVP_MD_CTX_new();
+  if (1 != EVP_DigestInit_ex(ctx_, EVP_sha256(), NULL))
+    return false;
   return true;
 }
 
 bool sha256_digest::update(int size, byte* buf) {
+
+  // if(1 != EVP_DigestUpdate(mdctx, message, message_len))
+  // if(1 != EVP_DigestFinal_ex(mdctx, *digest, digest_len))
   return true;
 }
 
@@ -58,6 +63,7 @@ int encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *key,
     int len;
 
     int ciphertext_len;
+    EVP_CIPHER_CTX *ctx = EVP_CIPHER_CTX_new();
 
     /* Create and initialise the context */
     if(!(ctx = EVP_CIPHER_CTX_new()))

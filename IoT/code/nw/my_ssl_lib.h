@@ -24,13 +24,12 @@
 #include <string.h>
 #include <string>
 
-#include <openssl/conf.h>
+#include <openssl/ssl.h>
 #include <openssl/evp.h>
 #include <openssl/err.h>
 #include <openssl/rsa.h>
 #include <openssl/x509.h>
 #include <openssl/hmac.h>
-#include <openssl/ssl.h>
 
 
 #ifndef byte
@@ -39,7 +38,7 @@ typedef unsigned char byte;
 
 class sha256_digest {
 public:
-  EVP_MD_CTX *ctx_;
+  EVP_MD_CTX* ctx_;
 
   sha256_digest();
   ~sha256_digest();
