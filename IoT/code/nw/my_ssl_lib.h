@@ -1,4 +1,4 @@
-/ Copyright 2020 John Manferdelli, All Rights Reserved.
+// Copyright 2020 John Manferdelli, All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -10,28 +10,44 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License
-// File: crypto_support.h
+// File: my_ssl_lib.h
 
 #ifndef _MY_OPENSSL_LIB___
 #define _MY_OPENSSL_LIB___
 
-#include <stdio.h>
-#include <stdint.h>
-#include <stdlib.h>
-#include <string.h>
-
-#include <string>
-#include <memory>
-#include <cstdint>
-
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include <unistd.h>
 #include <cmath>
+
+#include <stdio.h>
+#include <string.h>
+#include <string>
+
+#include <openssl/conf.h>
+#include <openssl/evp.h>
+#include <openssl/err.h>
+#include <openssl/rsa.h>
+#include <openssl/x509.h>
+#include <openssl/hmac.h>
+#include <openssl/ssl.h>
+
 
 #ifndef byte
 typedef unsigned char byte;
 #endif
+
+class sha256_digest {
+public:
+  EVP_MD_CTX *ctx_;
+
+  sha256_digest();
+  ~sha256_digest();
+
+  bool init();
+  bool update(int size, byte* buf);
+  bool finalize(byte* digest, int* size);
+  int get_digest_size() {return 32;};
+};
 
 #endif

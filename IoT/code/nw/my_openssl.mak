@@ -13,10 +13,10 @@
 
 
 ifndef SRC_DIR
-SRC_DIR=$(HOME)/src/github.com/jlmucb/class_notes/IoT
+SRC_DIR=$(HOME)/src/github.com/jlmucb/class_notes/IoT/code
 endif
 ifndef OBJ_DIR
-OBJ_DIR=$(HOME)/cryptoobj/v2
+OBJ_DIR=$(HOME)/cryptoobj
 endif
 ifndef EXE_DIR
 EXE_DIR=$(HOME)/cryptobin
@@ -32,8 +32,8 @@ TARGET_MACHINE_TYPE= x64
 endif
 
 
-S= $(SRC_DIR)/code
-O= $(OBJ_DIR)/code
+S= $(SRC_DIR)/nw
+O= $(OBJ_DIR)/code/nw
 INCLUDE= -I$(SRC_DIR)/code -I$(S) -I/usr/local/include
 
 CFLAGS=$(INCLUDE) -O3 -g -Wall -std=c++11 -Wno-unused-variable -D X64
@@ -45,7 +45,7 @@ AR=ar
 #export LD_LIBRARY_PATH=/usr/local/lib
 LDFLAGS= -lprotobuf -lgtest -lgflags -lpthread
 
-dobj=	$(O)/test_my_openssl.exe.o
+dobj=	$(O)/test_my_openssl.o $(O)/my_ssl_lib.o $(O)/ssl.pb.o
 
 
 all:	test_my_openssl.exe
@@ -59,14 +59,18 @@ test_my_openssl.exe: $(dobj)
 	@echo "linking executable files"
 	$(LINK) -o $(EXE_DIR)/test_my_openssl.exe $(dobj) $(LDFLAGS)
 
-$(S)/ssl.pb.cc $(S)/ssl.pb.h: $(S)/ssl.proto
-	$(PROTO) -I=$(S) --cpp_out=$(S) $(S)/ssl.proto
-
-$(O)/test_my_openssl.o: $(S)/test_my_openssl.cc $(S)/support.pb.h
+$(O)/test_my_openssl.o: $(S)/test_my_openssl.cc $(S)/ssl.pb.cc
 	@echo "compiling test_my_openssl.cc"
 	$(CC) $(CFLAGS) -c $(I) -o $(O)/test_my_openssl.o $(S)/test_my_openssl.cc
+
+$(S)/ssl.pb.cc: $(S)/ssl.proto
+	$(PROTO) -I=$(S) --cpp_out=$(S) $(S)/ssl.proto
 
 $(O)/ssl.pb.o: $(S)/ssl.pb.cc $(S)/ssl.pb.h
 	@echo "compiling ssl.pb.cc"
 	$(CC) $(CFLAGS) -c $(I) -o $(O)/ssl.pb.o $(S)/ssl.pb.cc
+
+$(O)/my_ssl_lib.o: $(S)/my_ssl_lib.cc
+	@echo "compiling my_ssl_lib.cc"
+	$(CC) $(CFLAGS) -c $(I) -o $(O)/my_ssl_lib.o $(S)/my_ssl_lib.cc
 
