@@ -21,6 +21,23 @@
 #include <openssl/x509.h>
 #include <openssl/hmac.h>
 
+void print_bytes(int n, byte* in) {
+  int i;
+
+  for(i = 0; i < n; i++) {
+    printf("%02x",in[i]);
+    if ((i%32)== 31)
+      printf("\n");
+  }
+  if ((i%32) != 0)
+    printf("\n");
+}
+
+void reverse_bytes(int size, byte* in, byte* out) {
+  for (int i = 0; i < size; i++)
+    out[size - 1 - i] = in[i];
+}
+
 
 sha256_digest::sha256_digest() {
   ctx_ = nullptr;
@@ -60,39 +77,63 @@ aes256_cbc::aes256_cbc() {
 }
 
 aes256_cbc::~aes256_cbc() {
-  // clear key and iv
+  // clear key
+  memset(key_, 0, 32);
   if (ctx_ != nullptr) {
     EVP_CIPHER_CTX_free(ctx_);
     ctx_ = nullptr;
   }
 }
 
-bool aes256_cbc::encrypt(byte* key, byte* iv, int plain_len, byte* plain, int* cipher_size, byte* cipher) {
+bool aes256_cbc::encrypt(byte* key, byte* iv, int plain_len, byte* plain, int* cipher_len, byte* cipher) {
   total_cipher_len_ = 0;
   total_plain_len_ = 0;
+  int len;
+
+  // make sure the output buf is big enough
 
   if (ctx_ == nullptr)
     ctx_ = EVP_CIPHER_CTX_new();
   
   memcpy(key_, key, 32);
-  memcpy(iv_, iv, 32);
-  if (1 != EVP_EncryptInit_ex(ctx_, EVP_aes_256_cbc(), NULL, key_, iv_))
+  if (1 != EVP_EncryptInit_ex(ctx_, EVP_aes_256_cbc(), NULL, key_, iv))
     return false;
-  // if (1 != EVP_EncryptUpdate(ctx, ciphertext, &len, plaintext, plaintext_len))
-  // ciphertext_len = len;
-  // if (1 != EVP_EncryptFinal_ex(ctx, ciphertext + len, &len))
-  // ciphertext_len += len;
-  // if (1 != EVP_EncryptFinal_ex(ctx, ciphertext + len, &len))
-  // ciphertext_len += len;
+#if 0
+  memcpy(cipher, iv, 16);
+  cipher += 16;
+  total_cipher_len_ += 16;
+#endif
+  if (1 != EVP_EncryptUpdate(ctx_, cipher, &len, plain, plain_len))
+    return false;
+  cipher += len;
+  total_cipher_len_ += len;
+  total_plain_len_ += plain_len;
+  if (1 != EVP_EncryptFinal_ex(ctx_, cipher, &len))
+    return false;
+  cipher_len += len;
   return true;
 }
 
 bool aes256_cbc::decrypt(byte* key, int cipher_len, byte* cipher, int* plain_len, byte* plain) {
-   // if (1 != EVP_DecryptInit_ex(ctx, EVP_aes_256_cbc(), NULL, key, iv))
-  // if(1 != EVP_DecryptUpdate(ctx, plaintext, &len, ciphertext, ciphertext_len))
-  // plaintext_len = len;
-   // if(1 != EVP_DecryptFinal_ex(ctx, plaintext + len, &len))
-   // plaintext_len += len;
+  total_cipher_len_ = 0;
+  total_plain_len_ = 0;
+  int len;
+  byte* iv = cipher;
+
+  // make sure the output buf is big enough
+
+  if (1 != EVP_DecryptInit_ex(ctx_, EVP_aes_256_cbc(), NULL, key, iv))
+    return false;
+  if (1 != EVP_DecryptUpdate(ctx_, plain, &len, cipher, cipher_len))
+    return false;
+  plain += len;
+  total_cipher_len_ += cipher_len;
+  total_plain_len_ += len;
+
+  if (1 != EVP_DecryptFinal_ex(ctx_, plain, &len))
+    return false;
+  total_plain_len_ += len;
+
   return true;
 }
 

@@ -36,6 +36,9 @@
 typedef unsigned char byte;
 #endif
 
+void print_bytes(int n, byte* in);
+void reverse_bytes(int size, byte* in, byte* out);
+
 class sha256_digest {
 public:
   EVP_MD_CTX* ctx_;
@@ -55,7 +58,6 @@ public:
   EVP_CIPHER_CTX* ctx_;
   int total_cipher_len_;
   int total_plain_len_;
-  byte iv_[16];
   byte key_[32];
 
   aes256_cbc();
@@ -75,7 +77,6 @@ public:
   EVP_CIPHER_CTX* ctx_;
   int total_cipher_len_;
   int total_plain_len_;
-  byte iv_[16];
   byte key_[64];
 
   authenticated_aes256_cbc();
