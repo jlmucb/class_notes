@@ -21,6 +21,7 @@
 #include <openssl/x509.h>
 #include <openssl/hmac.h>
 
+
 void print_bytes(int n, byte* in) {
   int i;
 
@@ -74,6 +75,9 @@ bool sha256_digest::finalize(byte* digest, unsigned int* size) {
 
 
 aes256_cbc::aes256_cbc() {
+  ctx_ = nullptr;
+  total_cipher_len_ = 0;
+  total_plain_len_ = 0;
 }
 
 aes256_cbc::~aes256_cbc() {
@@ -91,6 +95,8 @@ bool aes256_cbc::encrypt(byte* key, byte* iv, int plain_len, byte* plain, int* c
   int len;
 
   // make sure the output buf is big enough
+  if (*cipher_len < (plain_len + 32))
+    return false;
 
   if (ctx_ == nullptr)
     ctx_ = EVP_CIPHER_CTX_new();
@@ -98,11 +104,11 @@ bool aes256_cbc::encrypt(byte* key, byte* iv, int plain_len, byte* plain, int* c
   memcpy(key_, key, 32);
   if (1 != EVP_EncryptInit_ex(ctx_, EVP_aes_256_cbc(), NULL, key_, iv))
     return false;
-#if 0
+
   memcpy(cipher, iv, 16);
   cipher += 16;
   total_cipher_len_ += 16;
-#endif
+
   if (1 != EVP_EncryptUpdate(ctx_, cipher, &len, plain, plain_len))
     return false;
   cipher += len;
@@ -110,7 +116,8 @@ bool aes256_cbc::encrypt(byte* key, byte* iv, int plain_len, byte* plain, int* c
   total_plain_len_ += plain_len;
   if (1 != EVP_EncryptFinal_ex(ctx_, cipher, &len))
     return false;
-  cipher_len += len;
+  total_cipher_len_ += len;
+  *cipher_len = total_cipher_len_;
   return true;
 }
 
@@ -118,12 +125,21 @@ bool aes256_cbc::decrypt(byte* key, int cipher_len, byte* cipher, int* plain_len
   total_cipher_len_ = 0;
   total_plain_len_ = 0;
   int len;
-  byte* iv = cipher;
 
   // make sure the output buf is big enough
+  if (*plain_len < (cipher_len - 16))
+    return false;
 
+  if (ctx_ == nullptr)
+    ctx_ = EVP_CIPHER_CTX_new();
+
+  memcpy(key_, key, 32);
+  byte* iv = cipher;
   if (1 != EVP_DecryptInit_ex(ctx_, EVP_aes_256_cbc(), NULL, key, iv))
     return false;
+  cipher += 16;
+  cipher_len -= 16;
+  total_cipher_len_ = 16;
   if (1 != EVP_DecryptUpdate(ctx_, plain, &len, cipher, cipher_len))
     return false;
   plain += len;
@@ -133,6 +149,7 @@ bool aes256_cbc::decrypt(byte* key, int cipher_len, byte* cipher, int* plain_len
   if (1 != EVP_DecryptFinal_ex(ctx_, plain, &len))
     return false;
   total_plain_len_ += len;
+  *plain_len = total_plain_len_;
 
   return true;
 }

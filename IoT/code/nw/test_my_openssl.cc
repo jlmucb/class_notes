@@ -61,13 +61,70 @@ TEST (digest, test_digest) {
 }
 
 bool test_encrypt() {
-  return true;
+  aes256_cbc enc;
+  aes256_cbc dec;
+
+  byte key[32];
+  byte iv[16];
+
+  int input_len = 64;
+  byte input[input_len]; 
+  memset(input, 0, input_len);
+
+  int output_len = 128;
+  byte output[output_len]; 
+  memset(output, 0, output_len);
+
+  int recovered_len = 128;
+  byte recovered[recovered_len]; 
+  memset(recovered, 0, recovered_len);
+
+  for (int i = 0; i < 32; i++)
+    key[i] = (i % 256);
+  for (int i = 0; i < 16; i++)
+    iv[i] = (i % 256);
+  for (int i = 0; i < input_len; i++)
+    input[i] = ((5 *i) % 256);
+
+  if (FLAGS_print_all) {
+    printf("aes256_cbc key: ");
+    print_bytes(32, key);
+    printf("aes256_cbc iv : ");
+    print_bytes(16, iv);
+
+    printf("plain     (%2d) : ", input_len);
+    print_bytes(input_len, input);
+  }
+
+  if (!enc.encrypt(key, iv, input_len, input, &output_len, output))
+    return false;
+
+  if (FLAGS_print_all) {
+    printf("cipher    (%2d) : ", output_len);
+    print_bytes(output_len, output);
+  }
+
+  if (!dec.decrypt(key, output_len, output, &recovered_len, recovered))
+    return false;
+printf("back\n");
+
+  if (FLAGS_print_all) {
+    printf("recovered (%2d): ", recovered_len);
+    print_bytes(recovered_len, recovered);
+  }
+
+  if (recovered_len != input_len)
+    return false;
+  return (memcmp(recovered, input, input_len) == 0);
 }
 TEST (encrypt, test_encrypt) {
   EXPECT_TRUE(test_encrypt());
 }
 
 bool test_authenticated_encrypt() {
+  // authenticated_aes256_cbc enc;
+  // authenticated_aes256_cbc dec;
+
   return true;
 }
 TEST (authenticated_encrypt, test_authenticated_encrypt) {
