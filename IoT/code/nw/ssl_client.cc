@@ -33,12 +33,12 @@ int OpenConnection(const char* hostname, int port) {
 }
 
 SSL_CTX* InitCTX(void) {
-  SSL_METHOD *method;
   SSL_CTX *ctx;
 
   OpenSSL_add_all_algorithms();
   SSL_load_error_strings();
-  method = TLSv1_2_client_method();
+  // SSL_METHOD* method = (SSL_METHOD*)TLSv1_2_client_method();
+  SSL_METHOD* method = (SSL_METHOD*)SSLv23_client_method();
   ctx = SSL_CTX_new(method);
   if ( ctx == NULL ) {
     ERR_print_errors_fp(stderr);
@@ -88,10 +88,10 @@ int main(int count, char *av[]) {
   if (SSL_connect(ssl) == FAIL)
     ERR_print_errors_fp(stderr);
   else {
-    char *msg = "Hello???";
+    const char *msg = "Hello???";
     printf("Connected with %s encryption\n", SSL_get_cipher(ssl));
     ShowCerts(ssl);
-    SSL_write(ssl, msg, strlen(msg));
+    SSL_write(ssl, (unsigned char*)msg, strlen(msg));
     bytes = SSL_read(ssl, buf, sizeof(buf));
     buf[bytes] = 0;
     printf("Received: \"%s\"\n", buf);

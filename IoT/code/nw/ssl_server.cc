@@ -40,12 +40,11 @@ int isRoot() {
 }
 
 SSL_CTX* InitServerCTX() {
-  SSL_METHOD *method;
   SSL_CTX *ctx;
 
   OpenSSL_add_all_algorithms();
   SSL_load_error_strings();
-  method = TLSv1_2_server_method();
+  SSL_METHOD* method = (SSL_METHOD*) SSLv23_server_method();
   ctx = SSL_CTX_new(method);
   if (ctx == NULL) {
     ERR_print_errors_fp(stderr);
@@ -133,7 +132,8 @@ int main(int count, char *av[]) {
   LoadCertificates(ctx, "mycert.pem", "mycert.pem");
   server = OpenListener(atoi(portnum));
 
-  while (1) {   struct sockaddr_in addr;
+  while (1) {
+    struct sockaddr_in addr;
     socklen_t len = sizeof(addr);
     SSL *ssl;
 
