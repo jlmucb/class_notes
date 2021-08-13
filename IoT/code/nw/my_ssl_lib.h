@@ -59,6 +59,8 @@ class time_point {
   bool unix_tm_to_time_point(struct tm* time_now);
 };
 int compare_time_points(time_point& l, time_point& r);
+bool time_point_to_time_t(time_point& tp, time_t* tm);
+bool time_t_to_time_point(time_t& tm, time_point* tp);
 
 void print_bytes(int n, byte* in);
 void reverse_bytes(int size, byte* in, byte* out);

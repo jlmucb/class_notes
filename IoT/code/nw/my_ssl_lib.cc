@@ -90,6 +90,27 @@ bool time_point::add_interval_to_time(time_point& from, double seconds_later) {
   return true;
 }
 
+bool time_point_to_time_t(time_point& tp, time_t* tm) {
+  /*
+    int year_;
+    int month_;  // 1= January
+    int day_in_month_;
+    int hour_;
+    int minutes_;
+    double seconds_;
+       #include <time.h>
+       time_t time(time_t *tloc);
+    struct tm lt;
+    localtime_r(&t, &lt);
+    std::gmtime(&t)
+   */
+  return false;
+}
+
+bool time_t_to_time_point(time_t& tm, time_point* tp) {
+  return false;
+}
+
 const char* s_months[] = {
   "January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
@@ -651,8 +672,20 @@ bool my_x509::load_cert_values() {
   X509_set_subject_name(cert_, subject_name);
   X509_set_issuer_name(cert_, issuer_name);
 
-  ASN1_TIME *not_before_tm= nullptr;
-  ASN1_TIME *not_after_tm= nullptr;
+  time_point tp_nb;
+  time_point tp_na;
+  tp_nb.decode_time(not_before_);
+  tp_na.decode_time(not_after_);
+  time_t tm_nb;
+  time_t tm_na;
+  if (!time_point_to_time_t(tp_nb, &tm_nb))
+    return false;
+  if (!time_point_to_time_t(tp_na, &tm_na))
+    return false;
+  ASN1_TIME* not_after_tm= ASN1_TIME_new();
+  ASN1_TIME* not_before_tm= ASN1_TIME_new();
+  ASN1_TIME_set(not_after_tm, tm_na);
+  ASN1_TIME_set(not_before_tm, tm_nb);
   X509_set1_notBefore(cert_, (const ASN1_TIME*)not_before_tm);
   X509_set1_notAfter(cert_, (const ASN1_TIME*)not_after_tm);
 
