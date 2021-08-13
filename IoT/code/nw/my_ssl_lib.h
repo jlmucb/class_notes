@@ -36,6 +36,8 @@
 typedef unsigned char byte;
 #endif
 
+using std::string;
+
 void print_bytes(int n, byte* in);
 void reverse_bytes(int size, byte* in, byte* out);
 
@@ -118,4 +120,32 @@ public:
   bool get_d(byte* out);
 };
 
+class my_x509 {
+public:
+  uint64_t  sn_;
+  string not_before_;
+  string not_after_;
+  string subject_name_;
+  string issuer_name_;
+
+  RSA* issuer_key_;
+  RSA* subject_key_;
+  X509* cert_;
+
+  my_x509();
+  ~my_x509();
+
+  bool generate_keys_for_test(int num_bits);
+  bool set_issuer_key(int num_bits, byte* m, int size_e, byte* e,
+      int size_d, byte* d);
+  bool get_issuer_key(int* num_bits, int* size_m, byte* m,
+      int* size_e, byte* e, int* size_d, byte* d);
+  bool set_subject_key(int num_bits, byte* m, int size_e, byte* e,
+      int size_d, byte* d);
+  bool get_subject_key(int* num_bits, int* size_m, byte* m,
+      int* size_e, byte* e, int* size_d, byte* d);
+
+  bool sign_cert();
+  bool verify_cert();
+};
 #endif

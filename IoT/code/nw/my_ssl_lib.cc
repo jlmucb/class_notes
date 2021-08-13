@@ -207,6 +207,7 @@ bool authenticated_aes256_cbc::get_key(byte* out) {
   return true;
 }
 
+// EM = 0x00 || 0x02 || PS || 0x00 || M to fill buffer
 
 rsa_implement::rsa_implement() {
   key_initialized_ = false;
@@ -292,6 +293,101 @@ bool rsa_implement::set_key(int num_bits, byte* m, int size_e, byte* e,
 bool rsa_implement::get_key(int* num_bits, int* size_m, byte* m, 
       int* size_e, byte* e, int* size_d, byte* d) {
   // RSA_get0_key(r, &m, &e, &d);
+  return false;
+}
+
+my_x509::my_x509() {
+  sn_ = 0ULL;
+  issuer_key_ = nullptr;
+  subject_key_ = nullptr;
+  cert_ = nullptr;
+}
+
+my_x509::~my_x509() {
+  if (issuer_key_ != nullptr) {
+    issuer_key_ = nullptr;
+  }
+  if (subject_key_ != nullptr) {
+    subject_key_ = nullptr;
+  }
+  if (cert_ != nullptr) {
+    cert_ = nullptr;
+  }
+}
+
+bool my_x509::generate_keys_for_test(int num_bits) {
+  return false;
+}
+
+bool my_x509::set_issuer_key(int num_bits, byte* m, int size_e, byte* e,
+      int size_d, byte* d) {
+  return false;
+}
+
+bool my_x509::get_issuer_key(int* num_bits, int* size_m, byte* m,
+      int* size_e, byte* e, int* size_d, byte* d) {
+  return false;
+}
+
+bool my_x509::set_subject_key(int num_bits, byte* m, int size_e, byte* e,
+      int size_d, byte* d) {
+  return false;
+}
+
+bool my_x509::get_subject_key(int* num_bits, int* size_m, byte* m,
+      int* size_e, byte* e, int* size_d, byte* d) {
+  return false;
+}
+
+bool my_x509::sign_cert() {
+  if (cert_ == nullptr) {
+    cert_ = X509_new();
+  }
+  ASN1_INTEGER* a = ASN1_INTEGER_new();
+  ASN1_INTEGER_set_uint64(a, sn_);
+  X509_set_serialNumber(cert_, a);
+  ASN1_INTEGER_free(a);
+
+  X509_NAME* subject_name =  X509_NAME_new();
+  X509_NAME_add_entry_by_txt(subject_name, "CN", MBSTRING_ASC,
+      (unsigned char *)subject_name_.c_str(), -1, -1, 0);
+  X509_set_subject_name(cert_, subject_name);
+
+  X509_NAME* issuer_name =  X509_NAME_new();
+  X509_NAME_add_entry_by_txt(issuer_name, "CN", MBSTRING_ASC,
+      (unsigned char *)issuer_name_.c_str(), -1, -1, 0);
+  X509_set_subject_name(cert_, issuer_name);
+
+#if 0
+  ASN1_TIME_set(tm_start, t_start)
+  ASN1_TIME* tm_end = ASN1_TIME_adj(NULL, t_start, offset_day, offset_sec);
+  X509_set1_notBefore(x509, tm_start);
+  X509_set1_notAfter(x509, tm_end);
+#endif
+
+  EVP_PKEY* issuer_pkey = EVP_PKEY_new();
+  EVP_PKEY* subject_pkey = EVP_PKEY_new();
+  EVP_PKEY_set1_RSA(subject_pkey, subject_key_);
+  EVP_PKEY_set1_RSA(issuer_pkey, issuer_key_);
+  X509_sign(cert_, issuer_pkey, EVP_sha256());
+  return false;
+}
+
+bool my_x509::verify_cert() {
+#if 0
+  X509_NAME_get_text_by_NID(subject_name, NID_commonName, name_buf, 1024)
+  X509_NAME* subject_name = X509_get_subject_name(&cert);
+  EVP_PKEY* subject_pkey = X509_get_pubkey(&cert);
+  RSA* subject_rsa_key= EVP_PKEY_get1_RSA(subject_pkey);
+  RSA* rsa_issuer_ket = EVP_PKEY_get_pubkey(subject_pkey);
+  int BN_bn2bin(const BIGNUM *a, unsigned char *to);
+  void BN_zero(BIGNUM *a);
+  int BN_one(BIGNUM *a);
+  const BIGNUM *BN_value_one(void); 
+  int BN_set_word(BIGNUM *a, BN_ULONG w);
+  BN_ULONG BN_get_word(BIGNUM *a);
+  X509_verify(cert_, issuer_pkey);
+#endif
   return false;
 }
 

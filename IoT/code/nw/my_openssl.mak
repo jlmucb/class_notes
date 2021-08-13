@@ -34,7 +34,7 @@ endif
 
 S= $(SRC_DIR)/nw
 O= $(OBJ_DIR)/code/nw
-INCLUDE= -I$(SRC_DIR)/code -I$(S) -I/usr/local/include
+INCLUDE= -I$(SRC_DIR)/code -I$(S) -I/usr/local/include -I/usr/local/opt/openssl@1.1/include/
 
 CFLAGS=$(INCLUDE) -O3 -g -Wall -std=c++11 -Wno-unused-variable -D X64
 CFLAGS1=$(INCLUDE) -O1 -g -Wall -std=c++11 -Wno-unused-variable -D X64
@@ -43,7 +43,7 @@ LINK=g++
 PROTO=protoc
 AR=ar
 #export LD_LIBRARY_PATH=/usr/local/lib
-LDFLAGS= -lprotobuf -lgtest -lgflags -lpthread -lssl -lcrypto
+LDFLAGS= -lprotobuf -lgtest -lgflags -lpthread -lcrypto -L/usr/local/opt//openssl@1.1/lib -lssl
 
 dobj=	$(O)/test_my_openssl.o $(O)/my_ssl_lib.o $(O)/ssl.pb.o
 
