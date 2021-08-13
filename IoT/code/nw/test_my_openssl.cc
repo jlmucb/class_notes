@@ -229,6 +229,48 @@ TEST (rsa, test_rsa) {
   EXPECT_TRUE(test_rsa());
 }
 
+bool test_x509() {
+  my_x509 x;
+
+  if (!x.init())
+    return false;
+
+  uint64_t sn;
+  string nb;
+  string na;
+  string subject_name;
+  string issuer_name;
+
+  if (!x.generate_keys_for_test(2048))
+    return false;
+  // if (!x.set_sn(sn))
+  //  return false;
+  // if (!x.set_not_before(nb))
+  //  return false;
+  // if (!x.set_not_after(na))
+  //  return false;
+  // if (!x.set_subject_name(subject_name))
+  //  return false;
+  // if (!x.set_issuer_name(issuer_name))
+  //  return false;
+  // if (!x.set_subject_key(subject_key_))
+  //  return false;
+  // if (!x.set_issuer_key(issuer_key_))
+  //  return false;
+  // if (!x.load_cert_values())
+  //  return false;
+
+  if (!x.sign_cert())
+    return false;
+  if (!x.verify_cert())
+    return false;
+
+  return true;
+}
+TEST (x509, test_x509) {
+  EXPECT_TRUE(test_x509());
+}
+
 
 int main(int an, char** av) {
   gflags::ParseCommandLineFlags(&an, &av, true);

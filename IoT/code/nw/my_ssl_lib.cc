@@ -21,6 +21,171 @@
 #include <openssl/x509.h>
 #include <openssl/hmac.h>
 
+time_point::time_point() {
+  year_ = 0;
+  month_ = 0;
+  day_in_month_ = 0;
+  hour_ = 0;
+  minutes_ = 0;
+  seconds_ = 0.0;
+}
+
+bool time_point::time_now() {
+  time_t now;
+  struct tm current_time;
+
+  time(&now);
+  gmtime_r(&now, &current_time);
+  if (!unix_tm_to_time_point(&current_time))
+    return false;
+  return true;
+}
+
+bool time_point::add_interval_to_time(time_point& from, double seconds_later) {
+  // This doesn't do leap years, seconds, month or other stuff... correctly
+  year_ = from.year_;
+  day_in_month_ = from.day_in_month_;
+  month_= from.month_;
+  minutes_= from.minutes_;
+  hour_= from.hour_;
+  seconds_= from.seconds_;
+
+  int days = seconds_later / (double)seconds_in_day;
+  seconds_later -= (double) (days * seconds_in_day);
+  int yrs = days /365;
+  days -= yrs * 365;
+  year_ += yrs;
+  int months = days / 30; // not right;
+  days -= months * 30;
+  month_ +=  months;
+  day_in_month_ += days;
+  int mins = (int)seconds_later / 60.0;
+  seconds_later -= (double) (mins * 60);
+  int hrs = (int)mins / 60.0;
+  mins -= hrs * 60;
+  hour_ += hrs;
+  minutes_ += mins;
+  seconds_+= seconds_later;
+  // now fix overflows
+  if (seconds_ >= 60.0) {
+    seconds_ -= 60.0;
+    minutes_ += 1;
+  }
+  if (minutes_ >= 60) {
+    minutes_ -= 60;
+    hour_ += 1;
+  }
+  if (hour_ >= 24) {
+    day_in_month_ += 1;
+    hour_ -= 24;
+  }
+  if(day_in_month_ > 30) {
+    month_ += 1;
+    day_in_month_ -= 30;
+  }
+  if (month_ > 12) {
+    year_ += 1;
+    month_ -= 12;
+  }
+  return true;
+}
+
+const char* s_months[] = {
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+};
+void time_point::print_time() {
+  int m = month_ - 1;
+  if (m < 0 || m > 11)
+    return;
+  printf("%d %s %d, %02d:%02d:%lfZ", day_in_month_, s_months[m], year_,
+      hour_, minutes_, seconds_);
+}
+
+bool time_point::encode_time(string* the_time) {
+  int m = month_ - 1;
+  if (m < 0 || m > 11)
+    return false;
+  char time_str[256];
+  *time_str = '\0';
+  snprintf(time_str,255, "%d %s %d, %02d:%02d:%lfZ", day_in_month_, s_months[m], year_,
+      hour_, minutes_, seconds_);
+  m = strlen(time_str);
+  *the_time = time_str;
+  return true;
+}
+
+const char* m_months[12] = {
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+};
+int month_from_name(char* mn) {
+  for(int i = 0; i < 12; i++) {
+    if (strcmp(mn, m_months[i]) == 0)
+      return i;
+  }
+  return -1;
+}
+bool time_point::decode_time(string& encoded_time) {
+  int dm, yr, hr, min;
+  double sec;
+  char s[20];
+  sscanf(encoded_time.c_str(), "%d %s %d, %02d:%02d:%lfZ", &dm, s, &yr,
+      &hr, &min, &sec);
+  int mm = month_from_name(s);
+  if (mm < 0)
+   return false;
+  mm++;
+  year_ = yr;
+  month_ = mm;
+  day_in_month_ = dm;
+  hour_ = hr;
+  minutes_ = min;
+  seconds_ = sec;
+  return true;
+}
+
+bool time_point::time_point_to_unix_tm(struct tm* time_now) {
+  return false;
+}
+
+bool time_point::unix_tm_to_time_point(struct tm* the_time) {
+  year_ = the_time->tm_year + 1900;
+  month_ = the_time->tm_mon + 1;
+  day_in_month_ = the_time->tm_mday;
+  hour_ = the_time->tm_hour;
+  minutes_ = the_time->tm_min;
+  seconds_ = the_time->tm_sec;
+  return true;
+}
+
+int compare_time_points(time_point& l, time_point& r) {
+  if (l.year_ > r.year_)
+    return 1;
+  if (l.year_ < r.year_)
+    return -1;
+  if (l.month_ > r.month_)
+    return 1;
+  if (l.month_ < r.month_)
+    return -1;
+  if (l.day_in_month_ > r.day_in_month_)
+    return 1;
+  if (l.day_in_month_ < r.day_in_month_)
+    return -1;
+  if (l.hour_ > r.hour_)
+    return 1;
+  if (l.hour_ < r.hour_)
+    return -1;
+  if (l.minutes_ > r.minutes_)
+    return 1;
+  if (l.minutes_ < r.minutes_)
+    return -1;
+  if (l.seconds_ > r.seconds_)
+    return 1;
+  if (l.seconds_ < r.seconds_)
+    return -1;
+  return 0;
+}
 
 void print_bytes(int n, byte* in) {
   int i;
@@ -325,40 +490,60 @@ bool my_x509::init() {
 }
 
 bool my_x509::generate_keys_for_test(int num_bits) {
-  return false;
+  BIGNUM* e = BN_new();
+  BN_set_word(e, 65537UL);
+
+  subject_key_ = RSA_new();
+  if (0 == RSA_generate_key_ex(subject_key_, num_bits, e, nullptr))
+    return false;
+
+  issuer_key_ = RSA_new();
+  if (0 == RSA_generate_key_ex(issuer_key_, num_bits, e, nullptr))
+    return false;
+
+  BN_free(e);
+  return true;
 }
 
 bool my_x509::sign_cert() {
-  // X509 *X509_new(void);
-  // void X509_free(X509 *a);
-  // void ASN1_INTEGER_free(ASN1_INTEGER *a);
-  // BIGNUM *bnser = ASN1_INTEGER_to_BN(serial, NULL);
-  // ASN1_INTEGER_get_uint64, ASN1_INTEGER_set_uint64, ASN1_INTEGER_get_int64,
-  // ASN1_INTEGER_get_uint64
-  // X509_get_serialNumber
-  // X509_NAME_free, X509_NAME_new
-  // int X509_NAME_add_entry_by_txt(X509_NAME *name, const char *field, int type, const unsigned char *bytes, int len, int loc, int set);
-  // X509_NAME *X509_get_subject_name(const X509 *x);
-  // int X509_set_subject_name(X509 *x, X509_NAME *name);
-  // ASN1_TIME *tm;
-  // ASN1_TIME *ASN1_TIME_set(ASN1_TIME *s, time_t t);
-  // ASN1_TIME *ASN1_TIME_adj(ASN1_TIME *s, time_t t, int offset_day, long offset_sec);
-  // int X509_sign(X509 *x, EVP_PKEY *pkey, const EVP_MD *md);
-  // int X509_sign_ctx(X509 *x, EVP_MD_CTX *ctx);
-  // int X509_verify(X509 *a, EVP_PKEY *r);
-  return false;
+  if (issuer_key_ == nullptr)
+    return false;
+
+  EVP_PKEY* k =  EVP_PKEY_new();
+  if (k == nullptr)
+    return false;
+
+  if (0 == EVP_PKEY_set1_RSA(k, issuer_key_)) {
+    EVP_PKEY_free(k);
+    return false;
+  }
+  
+  if (0 == X509_sign(cert_, k, EVP_sha256())) {
+    EVP_PKEY_free(k);
+    return false;
+  }
+  return true;
 }
 
 bool my_x509::verify_cert() {
-  // int X509_NAME_get_text_by_NID(X509_NAME *name, int nid, char *buf, int len);
-  // RSA *EVP_PKEY_get1_RSA(EVP_PKEY *pkey);
-  // int BN_bn2bin(const BIGNUM *a, unsigned char *to);
-  // void BN_zero(BIGNUM *a);
-  // int BN_one(BIGNUM *a);
-  // const BIGNUM *BN_value_one(void); 
-  // int BN_set_word(BIGNUM *a, BN_ULONG w);
-  // BN_ULONG BN_get_word(BIGNUM *a);
-  return false;
+  if (issuer_key_ == nullptr)
+    return false;
+
+  EVP_PKEY* k =  EVP_PKEY_new();
+  if (k == nullptr)
+    return false;
+
+  if (0 == EVP_PKEY_set1_RSA(k, issuer_key_)) {
+    EVP_PKEY_free(k);
+    return false;
+  }
+  
+  if (0 == X509_verify(cert_, k)) {
+    EVP_PKEY_free(k);
+    return false;
+  }
+  EVP_PKEY_free(k);
+  return true;
 }
 
 bool get_m(string* m_str) {
@@ -369,83 +554,144 @@ bool set_m(string& m_str) {
   return false;
 }
 
-bool get_e(string* e_str ) {
+bool my_x509::get_e(string* e_str ) {
   return false;
 }
 
-bool set_e(string& e_str ) {
+bool my_x509::set_e(string& e_str ) {
   return false;
 }
 
-bool get_d(string* d_str) {
+bool my_x509::get_d(string* d_str) {
   return false;
 }
 
-bool set_d(string& d_str) {
+bool my_x509::set_d(string& d_str) {
   return false;
 }
 
-bool get_sn(uint64_t* sn) {
+bool my_x509::get_sn(uint64_t* sn) {
   return false;
 }
 
-bool set_sn(uint64_t sn) {
+bool my_x509::set_sn(uint64_t sn) {
   return false;
 }
 
-bool get_not_before(string* nb) {
+bool my_x509::get_not_before(string* nb) {
   return false;
 }
 
-bool set_not_before(string& nb) {
+bool my_x509::set_not_before(string& nb) {
   return false;
 }
 
-bool get_not_after(string* na) {
+bool my_x509::get_not_after(string* na) {
   return false;
 }
 
-bool set_not_after(string& na) {
+bool my_x509::set_not_after(string& na) {
   return false;
 }
 
-bool get_subject_name(string* subject_name) {
+bool my_x509::get_subject_name(string* subject_name) {
   return false;
 }
 
-bool set_subject_name(string& subject_name) {
+bool my_x509::set_subject_name(string& subject_name) {
   return false;
 }
 
-bool get_issuer_name(string* issuer_name) {
+bool my_x509::get_issuer_name(string* issuer_name) {
   return false;
 }
 
-bool set_issuer_name(string& issuer_name) {
+bool my_x509::set_issuer_name(string& issuer_name) {
   return false;
 }
 
-bool get_subject_key(RSA* out) {
+bool my_x509::get_subject_key(RSA* out) {
   return false;
 }
 
-bool set_subject_key(RSA* in) {
+bool my_x509::set_subject_key(RSA* in) {
   return false;
 }
 
-bool get_issuer_key(RSA* out) {
+bool my_x509::get_issuer_key(RSA* out) {
   return false;
 }
 
-bool set_issuer_key(RSA* in) {
+bool my_x509::set_issuer_key(RSA* in) {
   return false;
 }
 
-bool load_cert_values() {
-  return false;
+bool my_x509::load_cert_values() {
+
+  if (cert_ == nullptr)
+    return false;
+
+  ASN1_INTEGER* a = ASN1_INTEGER_new();
+  ASN1_INTEGER_set_uint64(a, sn_);
+  X509_set_serialNumber(cert_, a);
+  ASN1_INTEGER_free(a);
+
+  X509_NAME* subject_name = X509_NAME_new();
+  X509_NAME* issuer_name = X509_NAME_new();
+  if (0 == X509_NAME_add_entry_by_txt(subject_name, "CN", MBSTRING_ASC, (const byte*)subject_name_.c_str(), -1, -1, 0)) {
+    X509_NAME_free(subject_name);
+    X509_NAME_free(issuer_name);
+    return false;
+  }
+  if (0 == X509_NAME_add_entry_by_txt(issuer_name, "CN", MBSTRING_ASC, (const byte*) issuer_name_.c_str(), -1, -1, 0)) {
+    X509_NAME_free(subject_name);
+    X509_NAME_free(issuer_name);
+    return false;
+  }
+  X509_set_subject_name(cert_, subject_name);
+  X509_set_issuer_name(cert_, issuer_name);
+
+  ASN1_TIME *not_before_tm= nullptr;
+  ASN1_TIME *not_after_tm= nullptr;
+  X509_set1_notBefore(cert_, (const ASN1_TIME*)not_before_tm);
+  X509_set1_notAfter(cert_, (const ASN1_TIME*)not_after_tm);
+
+  if (subject_key_ == nullptr)
+    return false;
+  EVP_PKEY* k =  EVP_PKEY_new();
+  if (k == nullptr)
+    return false;
+  if (0 == EVP_PKEY_set1_RSA(k, subject_key_)) {
+    EVP_PKEY_free(k);
+    return false;
+  }
+  X509_set_pubkey(cert_, k);
+  EVP_PKEY_free(k);
+
+  return true;
 }
 
-bool recover_cert_values() {
+bool my_x509::recover_cert_values() {
+
+  if (cert_ == nullptr)
+    return false;
+
+  // void ASN1_INTEGER_free(ASN1_INTEGER *a);
+  // ASN1_INTEGER_get_uint64
+  // X509_get_serialNumber
+  // int X509_NAME_add_entry_by_txt(X509_NAME *name, const char *field, int type, const unsigned char *bytes, int len, int loc, int set);
+  // ASN1_INTEGER *X509_get_serialNumber(X509 *x);
+  // const ASN1_INTEGER *X509_get0_serialNumber(const X509 *x);
+  // int ASN1_INTEGER_get_uint64(uint64_t *pr, const ASN1_INTEGER *a);
+  // X509_NAME *X509_get_subject_name(const X509 *x);
+  // int X509_set_subject_name(X509 *x, X509_NAME *name);
+  // const ASN1_TIME *X509_get0_notBefore(const X509 *x);
+  // const ASN1_TIME *X509_get0_notAfter(const X509 *x);
+  // EVP_PKEY *X509_get_pubkey(X509 *x);
+  // EVP_PKEY *X509_get0_pubkey(const X509 *x);
+  // ASN1_TIME *tm;
+  // ASN1_TIME *ASN1_TIME_set(ASN1_TIME *s, time_t t);
+  // ASN1_TIME *ASN1_TIME_adj(ASN1_TIME *s, time_t t, int offset_day, long offset_sec);
   return false;
 }
 

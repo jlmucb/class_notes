@@ -38,6 +38,28 @@ typedef unsigned char byte;
 
 using std::string;
 
+const int seconds_in_day = 60 * 60 * 24;
+
+class time_point {
+ public:
+  int year_;
+  int month_;  // 1= January
+  int day_in_month_;
+  int hour_;
+  int minutes_;
+  double seconds_;
+
+  time_point();
+  bool time_now();
+  bool add_interval_to_time(time_point& from, double seconds_later);
+  void print_time();
+  bool encode_time(string* the_time);
+  bool decode_time(string& encoded_time);
+  bool time_point_to_unix_tm(struct tm* time_now);
+  bool unix_tm_to_time_point(struct tm* time_now);
+};
+int compare_time_points(time_point& l, time_point& r);
+
 void print_bytes(int n, byte* in);
 void reverse_bytes(int size, byte* in, byte* out);
 
