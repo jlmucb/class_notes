@@ -295,8 +295,3 @@ bool rsa_implement::get_key(int* num_bits, int* size_m, byte* m,
   return false;
 }
 
-
-// useful for later
-//    EM = 0x00 || 0x02 || PS || 0x00 || M to fill buffer
-//    RSA_PKCS1_PADDING
-
