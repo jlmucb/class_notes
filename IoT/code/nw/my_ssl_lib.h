@@ -127,6 +127,9 @@ public:
   string not_after_;
   string subject_name_;
   string issuer_name_;
+  string m_;
+  string e_;
+  string d_;
 
   RSA* issuer_key_;
   RSA* subject_key_;
@@ -136,14 +139,30 @@ public:
   ~my_x509();
 
   bool generate_keys_for_test(int num_bits);
-  bool set_issuer_key(int num_bits, byte* m, int size_e, byte* e,
-      int size_d, byte* d);
-  bool get_issuer_key(int* num_bits, int* size_m, byte* m,
-      int* size_e, byte* e, int* size_d, byte* d);
-  bool set_subject_key(int num_bits, byte* m, int size_e, byte* e,
-      int size_d, byte* d);
-  bool get_subject_key(int* num_bits, int* size_m, byte* m,
-      int* size_e, byte* e, int* size_d, byte* d);
+
+  bool get_m(string* m_str);
+  bool set_m(string& m_str);
+  bool get_e(string* e_str );
+  bool set_e(string& e_str );
+  bool get_d(string* d_str);
+  bool set_d(string& d_str);
+  bool get_sn(uint64_t* sn);
+  bool set_sn(uint64_t sn);
+  bool get_not_before(string* nb);
+  bool set_not_before(string& nb);
+  bool get_not_after(string* na);
+  bool set_not_after(string& na);
+  bool get_subject_name(string* subject_name);
+  bool set_subject_name(string& subject_name);
+  bool get_issuer_name(string* issuer_name);
+  bool set_issuer_name(string& issuer_name);
+  bool get_subject_key(RSA* out);
+  bool set_subject_key(RSA* in);
+  bool get_issuer_key(RSA* out);
+  bool set_issuer_key(RSA* in);
+
+  bool load_cert_values();
+  bool recover_cert_values();
 
   bool sign_cert();
   bool verify_cert();

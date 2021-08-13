@@ -319,75 +319,126 @@ bool my_x509::generate_keys_for_test(int num_bits) {
   return false;
 }
 
-bool my_x509::set_issuer_key(int num_bits, byte* m, int size_e, byte* e,
-      int size_d, byte* d) {
-  return false;
-}
-
-bool my_x509::get_issuer_key(int* num_bits, int* size_m, byte* m,
-      int* size_e, byte* e, int* size_d, byte* d) {
-  return false;
-}
-
-bool my_x509::set_subject_key(int num_bits, byte* m, int size_e, byte* e,
-      int size_d, byte* d) {
-  return false;
-}
-
-bool my_x509::get_subject_key(int* num_bits, int* size_m, byte* m,
-      int* size_e, byte* e, int* size_d, byte* d) {
-  return false;
-}
-
 bool my_x509::sign_cert() {
-  if (cert_ == nullptr) {
-    cert_ = X509_new();
-  }
-  ASN1_INTEGER* a = ASN1_INTEGER_new();
-  ASN1_INTEGER_set_uint64(a, sn_);
-  X509_set_serialNumber(cert_, a);
-  ASN1_INTEGER_free(a);
+  // X509 *X509_new(void);
+  // void X509_free(X509 *a);
+  // void ASN1_INTEGER_free(ASN1_INTEGER *a);
+  // BIGNUM *bnser = ASN1_INTEGER_to_BN(serial, NULL);
+  // ASN1_INTEGER_get_uint64, ASN1_INTEGER_set_uint64, ASN1_INTEGER_get_int64,
+  // ASN1_INTEGER_get_uint64
+  // X509_get_serialNumber
+  // X509_NAME_free, X509_NAME_new
+  // int X509_NAME_add_entry_by_txt(X509_NAME *name, const char *field, int type, const unsigned char *bytes, int len, int loc, int set);
+  // X509_NAME *X509_get_subject_name(const X509 *x);
+  // int X509_set_subject_name(X509 *x, X509_NAME *name);
+  // ASN1_TIME *tm;
+  // ASN1_TIME *ASN1_TIME_set(ASN1_TIME *s, time_t t);
+  // ASN1_TIME *ASN1_TIME_adj(ASN1_TIME *s, time_t t, int offset_day, long offset_sec);
+  // int X509_sign(X509 *x, EVP_PKEY *pkey, const EVP_MD *md);
+  // int X509_sign_ctx(X509 *x, EVP_MD_CTX *ctx);
+  // int X509_verify(X509 *a, EVP_PKEY *r);
 
-  X509_NAME* subject_name =  X509_NAME_new();
-  X509_NAME_add_entry_by_txt(subject_name, "CN", MBSTRING_ASC,
-      (unsigned char *)subject_name_.c_str(), -1, -1, 0);
-  X509_set_subject_name(cert_, subject_name);
-
-  X509_NAME* issuer_name =  X509_NAME_new();
-  X509_NAME_add_entry_by_txt(issuer_name, "CN", MBSTRING_ASC,
-      (unsigned char *)issuer_name_.c_str(), -1, -1, 0);
-  X509_set_subject_name(cert_, issuer_name);
-
-#if 0
-  ASN1_TIME_set(tm_start, t_start)
-  ASN1_TIME* tm_end = ASN1_TIME_adj(NULL, t_start, offset_day, offset_sec);
-  X509_set1_notBefore(x509, tm_start);
-  X509_set1_notAfter(x509, tm_end);
-#endif
-
-  EVP_PKEY* issuer_pkey = EVP_PKEY_new();
-  EVP_PKEY* subject_pkey = EVP_PKEY_new();
-  EVP_PKEY_set1_RSA(subject_pkey, subject_key_);
-  EVP_PKEY_set1_RSA(issuer_pkey, issuer_key_);
-  X509_sign(cert_, issuer_pkey, EVP_sha256());
   return false;
 }
 
 bool my_x509::verify_cert() {
-#if 0
-  X509_NAME_get_text_by_NID(subject_name, NID_commonName, name_buf, 1024)
-  X509_NAME* subject_name = X509_get_subject_name(&cert);
-  EVP_PKEY* subject_pkey = X509_get_pubkey(&cert);
-  RSA* subject_rsa_key= EVP_PKEY_get1_RSA(subject_pkey);
-  RSA* rsa_issuer_ket = EVP_PKEY_get_pubkey(subject_pkey);
-  int BN_bn2bin(const BIGNUM *a, unsigned char *to);
-  void BN_zero(BIGNUM *a);
-  int BN_one(BIGNUM *a);
-  const BIGNUM *BN_value_one(void); 
-  int BN_set_word(BIGNUM *a, BN_ULONG w);
-  BN_ULONG BN_get_word(BIGNUM *a);
-  X509_verify(cert_, issuer_pkey);
-#endif
+  // int X509_NAME_get_text_by_NID(X509_NAME *name, int nid, char *buf, int len);
+  // RSA *EVP_PKEY_get1_RSA(EVP_PKEY *pkey);
+  // int BN_bn2bin(const BIGNUM *a, unsigned char *to);
+  // void BN_zero(BIGNUM *a);
+  // int BN_one(BIGNUM *a);
+  // const BIGNUM *BN_value_one(void); 
+  // int BN_set_word(BIGNUM *a, BN_ULONG w);
+  // BN_ULONG BN_get_word(BIGNUM *a);
   return false;
 }
+
+bool get_m(string* m_str) {
+	return false;
+}
+
+bool set_m(string& m_str) {
+	return false;
+}
+
+bool get_e(string* e_str ) {
+	return false;
+}
+
+bool set_e(string& e_str ) {
+	return false;
+}
+
+bool get_d(string* d_str) {
+	return false;
+}
+
+bool set_d(string& d_str) {
+	return false;
+}
+
+bool get_sn(uint64_t* sn) {
+	return false;
+}
+
+bool set_sn(uint64_t sn) {
+	return false;
+}
+
+bool get_not_before(string* nb) {
+	return false;
+}
+
+bool set_not_before(string& nb) {
+	return false;
+}
+
+bool get_not_after(string* na) {
+	return false;
+}
+
+bool set_not_after(string& na) {
+	return false;
+}
+
+bool get_subject_name(string* subject_name) {
+	return false;
+}
+
+bool set_subject_name(string& subject_name) {
+	return false;
+}
+
+bool get_issuer_name(string* issuer_name) {
+	return false;
+}
+
+bool set_issuer_name(string& issuer_name) {
+	return false;
+}
+
+bool get_subject_key(RSA* out) {
+	return false;
+}
+
+bool set_subject_key(RSA* in) {
+	return false;
+}
+
+bool get_issuer_key(RSA* out) {
+	return false;
+}
+
+bool set_issuer_key(RSA* in) {
+	return false;
+}
+
+bool load_cert_values() {
+	return false;
+}
+
+bool recover_cert_values() {
+	return false;
+}
+
 
