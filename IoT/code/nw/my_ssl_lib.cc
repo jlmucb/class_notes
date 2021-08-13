@@ -269,14 +269,13 @@ bool rsa_implement::decrypt(int padding, int cipher_len, byte* cipher,
 }
 
 bool rsa_implement::get_m(byte* out) {
-  // RSA_get0_key(r, &m, &e, &d);
+  // void RSA_get0_key(const RSA *r, const BIGNUM **n, const BIGNUM **e, const BIGNUM **d);,
 
   return true;
 }
 
 bool rsa_implement::get_e(byte* out) {
-  // BN_bin2bn
-  // RSA_get0_key(r, &m, &e, &d);
+  // void RSA_get0_key(const RSA *r, const BIGNUM **n, const BIGNUM **e, const BIGNUM **d);,
   return true;
 }
 
@@ -286,7 +285,7 @@ bool rsa_implement::get_d(byte* out) {
 
 bool rsa_implement::set_key(int num_bits, byte* m, int size_e, byte* e,
       int size_d, byte* d) {
-  // RSA_set0_key(r, n, e, d)
+  //int RSA_set0_key(RSA *r, BIGNUM *n, BIGNUM *e, BIGNUM *d);
   return false;
 }
 
@@ -305,14 +304,24 @@ my_x509::my_x509() {
 
 my_x509::~my_x509() {
   if (issuer_key_ != nullptr) {
+    RSA_free(issuer_key_);
     issuer_key_ = nullptr;
   }
   if (subject_key_ != nullptr) {
+    RSA_free(subject_key_);
     subject_key_ = nullptr;
   }
   if (cert_ != nullptr) {
+    X509_free(cert_);
     cert_ = nullptr;
   }
+}
+
+bool my_x509::init() {
+  if (cert_ != nullptr)
+    return true;
+  cert_ = X509_new();
+  return (cert_ != nullptr);
 }
 
 bool my_x509::generate_keys_for_test(int num_bits) {
@@ -337,7 +346,6 @@ bool my_x509::sign_cert() {
   // int X509_sign(X509 *x, EVP_PKEY *pkey, const EVP_MD *md);
   // int X509_sign_ctx(X509 *x, EVP_MD_CTX *ctx);
   // int X509_verify(X509 *a, EVP_PKEY *r);
-
   return false;
 }
 
@@ -354,91 +362,91 @@ bool my_x509::verify_cert() {
 }
 
 bool get_m(string* m_str) {
-	return false;
+  return false;
 }
 
 bool set_m(string& m_str) {
-	return false;
+  return false;
 }
 
 bool get_e(string* e_str ) {
-	return false;
+  return false;
 }
 
 bool set_e(string& e_str ) {
-	return false;
+  return false;
 }
 
 bool get_d(string* d_str) {
-	return false;
+  return false;
 }
 
 bool set_d(string& d_str) {
-	return false;
+  return false;
 }
 
 bool get_sn(uint64_t* sn) {
-	return false;
+  return false;
 }
 
 bool set_sn(uint64_t sn) {
-	return false;
+  return false;
 }
 
 bool get_not_before(string* nb) {
-	return false;
+  return false;
 }
 
 bool set_not_before(string& nb) {
-	return false;
+  return false;
 }
 
 bool get_not_after(string* na) {
-	return false;
+  return false;
 }
 
 bool set_not_after(string& na) {
-	return false;
+  return false;
 }
 
 bool get_subject_name(string* subject_name) {
-	return false;
+  return false;
 }
 
 bool set_subject_name(string& subject_name) {
-	return false;
+  return false;
 }
 
 bool get_issuer_name(string* issuer_name) {
-	return false;
+  return false;
 }
 
 bool set_issuer_name(string& issuer_name) {
-	return false;
+  return false;
 }
 
 bool get_subject_key(RSA* out) {
-	return false;
+  return false;
 }
 
 bool set_subject_key(RSA* in) {
-	return false;
+  return false;
 }
 
 bool get_issuer_key(RSA* out) {
-	return false;
+  return false;
 }
 
 bool set_issuer_key(RSA* in) {
-	return false;
+  return false;
 }
 
 bool load_cert_values() {
-	return false;
+  return false;
 }
 
 bool recover_cert_values() {
-	return false;
+  return false;
 }
 
 

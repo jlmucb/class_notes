@@ -140,6 +140,7 @@ public:
 
   bool generate_keys_for_test(int num_bits);
 
+  bool init();
   bool get_m(string* m_str);
   bool set_m(string& m_str);
   bool get_e(string* e_str );
