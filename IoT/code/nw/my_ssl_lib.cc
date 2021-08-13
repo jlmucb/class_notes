@@ -550,12 +550,10 @@ bool my_x509::verify_cert() {
   EVP_PKEY* k =  EVP_PKEY_new();
   if (k == nullptr)
     return false;
-
   if (0 == EVP_PKEY_set1_RSA(k, issuer_key_)) {
     EVP_PKEY_free(k);
     return false;
   }
-  
   if (0 == X509_verify(cert_, k)) {
     EVP_PKEY_free(k);
     return false;
@@ -593,7 +591,8 @@ bool my_x509::get_sn(uint64_t* sn) {
 }
 
 bool my_x509::set_sn(uint64_t sn) {
-  return false;
+  sn_ = sn;
+  return true;
 }
 
 bool my_x509::get_not_before(string* nb) {
@@ -601,7 +600,8 @@ bool my_x509::get_not_before(string* nb) {
 }
 
 bool my_x509::set_not_before(string& nb) {
-  return false;
+  not_before_.assign(nb);
+  return true;
 }
 
 bool my_x509::get_not_after(string* na) {
@@ -609,7 +609,8 @@ bool my_x509::get_not_after(string* na) {
 }
 
 bool my_x509::set_not_after(string& na) {
-  return false;
+  not_after_.assign(na);
+  return true;
 }
 
 bool my_x509::get_subject_name(string* subject_name) {
@@ -617,7 +618,8 @@ bool my_x509::get_subject_name(string* subject_name) {
 }
 
 bool my_x509::set_subject_name(string& subject_name) {
-  return false;
+  subject_name_.assign(subject_name);
+  return true;
 }
 
 bool my_x509::get_issuer_name(string* issuer_name) {
@@ -625,7 +627,8 @@ bool my_x509::get_issuer_name(string* issuer_name) {
 }
 
 bool my_x509::set_issuer_name(string& issuer_name) {
-  return false;
+  issuer_name_.assign(issuer_name);
+  return true;
 }
 
 bool my_x509::get_subject_key(RSA* out) {
@@ -633,7 +636,7 @@ bool my_x509::get_subject_key(RSA* out) {
 }
 
 bool my_x509::set_subject_key(RSA* in) {
-  return false;
+  return true;
 }
 
 bool my_x509::get_issuer_key(RSA* out) {
@@ -641,7 +644,7 @@ bool my_x509::get_issuer_key(RSA* out) {
 }
 
 bool my_x509::set_issuer_key(RSA* in) {
-  return false;
+  return true;
 }
 
 bool my_x509::load_cert_values() {
