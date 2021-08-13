@@ -235,33 +235,40 @@ bool test_x509() {
   if (!x.init())
     return false;
 
-  uint64_t sn;
-  string nb;
-  string na;
-  string subject_name;
-  string issuer_name;
+  uint64_t sn = 1ULL;
+  string nb("13 August 2021, 21:50:47.000000Z");
+  string na("13 August 2023, 21:50:47.000000Z");
+  string subject_name("John");
+  string issuer_name("JohnRoot");
 
   if (!x.generate_keys_for_test(2048))
     return false;
-  // if (!x.set_sn(sn))
-  //  return false;
-  // if (!x.set_not_before(nb))
-  //  return false;
-  // if (!x.set_not_after(na))
-  //  return false;
-  // if (!x.set_subject_name(subject_name))
-  //  return false;
-  // if (!x.set_issuer_name(issuer_name))
-  //  return false;
-  // if (!x.set_subject_key(subject_key_))
-  //  return false;
-  // if (!x.set_issuer_key(issuer_key_))
-  //  return false;
-  // if (!x.load_cert_values())
-  //  return false;
+  if (!x.set_sn(sn))
+    return false;
+  if (!x.set_not_before(nb))
+    return false;
+  if (!x.set_not_after(na))
+    return false;
+  if (!x.set_subject_name(subject_name))
+    return false;
+  if (!x.set_issuer_name(issuer_name))
+    return false;
+#if 0
+   X509_set_pubkey(X509 *x, EVP_PKEY *pkey);
+  if (!x.set_subject_key(subject_key_))
+    return false;
+  if (!x.set_issuer_key(issuer_key_))
+    return false;
+#endif
+  if (!x.load_cert_values())
+    return false;
 
   if (!x.sign_cert())
     return false;
+
+  if (FLAGS_print_all) {
+    X509_print_fp(stdout, x.cert_);
+  }
   if (!x.verify_cert())
     return false;
 

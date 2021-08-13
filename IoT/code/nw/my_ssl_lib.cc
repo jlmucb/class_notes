@@ -13,6 +13,7 @@
 // File: my_ssl_lib.cc
 
 #include "my_ssl_lib.h"
+#include <time.h>
 
 #include <openssl/ssl.h>
 #include <openssl/evp.h>
@@ -91,20 +92,16 @@ bool time_point::add_interval_to_time(time_point& from, double seconds_later) {
 }
 
 bool time_point_to_time_t(time_point& tp, time_t* tm) {
-  /*
-    int year_;
-    int month_;  // 1= January
-    int day_in_month_;
-    int hour_;
-    int minutes_;
-    double seconds_;
-       #include <time.h>
-       time_t time(time_t *tloc);
-    struct tm lt;
-    localtime_r(&t, &lt);
-    std::gmtime(&t)
-   */
-  return false;
+  struct tm utm;
+
+  utm.tm_sec = tp.seconds_;
+  utm.tm_min = tp.minutes_;
+  utm.tm_hour = tp.hour_;
+  utm.tm_mday = tp.day_in_month_;
+  utm.tm_mon = tp.month_ - 1;
+  utm.tm_year = tp.year_ - 1900;
+  *tm = mktime (&utm);
+  return true;
 }
 
 bool time_t_to_time_point(time_t& tm, time_point* tp) {
