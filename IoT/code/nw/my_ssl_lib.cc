@@ -91,7 +91,7 @@ bool time_point::add_interval_to_time(time_point& from, double seconds_later) {
   return true;
 }
 
-bool time_point_to_time_t(time_point& tp, time_t* tm) {
+bool time_point_to_time_t(time_point& tp, time_t* t) {
   struct tm utm;
 
   utm.tm_sec = tp.seconds_;
@@ -100,12 +100,21 @@ bool time_point_to_time_t(time_point& tp, time_t* tm) {
   utm.tm_mday = tp.day_in_month_;
   utm.tm_mon = tp.month_ - 1;
   utm.tm_year = tp.year_ - 1900;
-  *tm = mktime (&utm);
+  *t = timegm(&utm);
   return true;
 }
 
-bool time_t_to_time_point(time_t& tm, time_point* tp) {
-  return false;
+bool time_t_to_time_point(time_t& t, time_point* tp) {
+  struct tm utm;
+
+  gmtime_r(&t, &utm);
+  tp->seconds_ = utm.tm_sec;
+  tp->minutes_ = utm.tm_min;
+  tp->hour_ = utm.tm_hour;
+  tp->day_in_month_ = utm.tm_mday;
+  tp->month_ = utm.tm_mon + 1;
+  tp->year_ = utm.tm_year + 1900 ;
+  return true;
 }
 
 const char* s_months[] = {
@@ -148,6 +157,7 @@ bool time_point::decode_time(string& encoded_time) {
   int dm, yr, hr, min;
   double sec;
   char s[20];
+
   sscanf(encoded_time.c_str(), "%d %s %d, %02d:%02d:%lfZ", &dm, s, &yr,
       &hr, &min, &sec);
   int mm = month_from_name(s);
