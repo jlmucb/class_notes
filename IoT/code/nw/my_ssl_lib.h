@@ -123,15 +123,16 @@ public:
   bool key_initialized_;
   int bit_size_ = 0;
   RSA* rsa_key_;
+  string m_;
+  string e_;
+  string d_;
 
   rsa_implement();
   ~rsa_implement();
 
   bool generate_key(int num_bits);
-  bool set_key(int num_bits, byte* m, int size_e, byte* e,
-      int size_d, byte* d);
-  bool get_key(int* num_bits, int* size_m, byte* m,
-      int* size_e, byte* e, int* size_d, byte* d);
+  bool set_key_from_parameters(int num_bits);
+  bool get_key_from_parameters();
 
   bool encrypt(int padding, int plain_len, byte* plain,
         int* cipher_size, byte* cipher);
@@ -151,12 +152,16 @@ public:
   string not_after_;
   string subject_name_;
   string issuer_name_;
-  string m_;
-  string e_;
-  string d_;
 
   RSA* issuer_key_;
+  string issuer_m_;
+  string issuer_e_;
+  string issuer_d_;
   RSA* subject_key_;
+  string subject_m_;
+  string subject_e_;
+  string subject_d_;
+
   X509* cert_;
 
   my_x509();
@@ -181,10 +186,11 @@ public:
   bool set_subject_name(string& subject_name);
   bool get_issuer_name(string* issuer_name);
   bool set_issuer_name(string& issuer_name);
-  bool get_subject_key(RSA* out);
-  bool set_subject_key(RSA* in);
-  bool get_issuer_key(RSA* out);
-  bool set_issuer_key(RSA* in);
+
+  bool get_subject_parameters_from_key();
+  bool set_subject_key_from_parameters();
+  bool get_issuer_parameters_from_key();
+  bool set_issuer_key_from_parameters();
 
   bool load_cert_values();
   bool recover_cert_values();

@@ -476,16 +476,64 @@ bool rsa_implement::get_d(byte* out) {
   return true;
 }
 
-bool rsa_implement::set_key(int num_bits, byte* m, int size_e, byte* e,
-      int size_d, byte* d) {
-  //int RSA_set0_key(RSA *r, BIGNUM *n, BIGNUM *e, BIGNUM *d);
-  return false;
+bool rsa_implement::set_key_from_parameters(int num_bits) {
+
+  if (rsa_key_ == nullptr) {
+    rsa_key_ = RSA_new();
+    if (rsa_key_ == nullptr)
+      return false;
+  }
+
+  int len = (num_bits + 7) / 8;
+
+  BIGNUM* m = BN_new();
+  BIGNUM* e = BN_new();
+  BIGNUM* d = BN_new();
+
+  BN_bin2bn((byte*)m_.data(), m_.size(), m);
+  BN_bin2bn((byte*)e_.data(), e_.size(), e);
+  BN_bin2bn((byte*)d_.data(), d_.size(), d);
+
+  RSA_set0_key(rsa_key_, m, e, d);
+    return false;
+
+  BN_free(m);
+  BN_free(e);
+  BN_free(d);
+  return true;
 }
 
-bool rsa_implement::get_key(int* num_bits, int* size_m, byte* m, 
-      int* size_e, byte* e, int* size_d, byte* d) {
-  // RSA_get0_key(r, &m, &e, &d);
-  return false;
+bool rsa_implement::get_key_from_parameters() {
+  if (rsa_key_ == nullptr)
+    return false;
+
+  BIGNUM* m = BN_new();
+  BIGNUM* e = BN_new();
+  BIGNUM* d = BN_new();
+
+  RSA_get0_key(rsa_key_, (const BIGNUM**)&m, (const BIGNUM**)&e,
+          (const BIGNUM**)&d);
+    return false;
+
+  int len = get_block_size();
+  byte m_bytes[len];
+  byte e_bytes[len];
+  byte d_bytes[len];
+  memset(m_bytes, 0, len);
+  memset(e_bytes, 0, len);
+  memset(d_bytes, 0, len);
+
+  int len_m = BN_bn2bin((const BIGNUM*)m, m_bytes);
+  int len_e = BN_bn2bin((const BIGNUM*)e, e_bytes);
+  int len_d = BN_bn2bin((const BIGNUM*)d, d_bytes);
+  m_.assign((char*)m_bytes, len_m);
+  e_.assign((char*)e_bytes, len_e);
+  d_.assign((char*)d_bytes, len_d);
+
+  BN_free(m);
+  BN_free(e);
+  BN_free(d);
+  return true;
 }
 
 my_x509::my_x509() {
@@ -641,19 +689,115 @@ bool my_x509::set_issuer_name(string& issuer_name) {
   return true;
 }
 
-bool my_x509::get_subject_key(RSA* out) {
-  return false;
-}
+bool my_x509::get_subject_parameters_from_key() {
 
-bool my_x509::set_subject_key(RSA* in) {
+  if (subject_key_ == nullptr)
+    return false;
+
+  BIGNUM* m = BN_new();
+  BIGNUM* e = BN_new();
+  BIGNUM* d = BN_new();
+
+  RSA_get0_key(subject_key_, (const BIGNUM**)&m, (const BIGNUM**)&e,
+          (const BIGNUM**)&d);
+    return false;
+
+  int len = RSA_size(subject_key_);
+  byte m_bytes[len];
+  byte e_bytes[len];
+  byte d_bytes[len];
+  memset(m_bytes, 0, len);
+  memset(e_bytes, 0, len);
+  memset(d_bytes, 0, len);
+  int len_m = BN_bn2bin((const BIGNUM*)m, m_bytes);
+  int len_e = BN_bn2bin((const BIGNUM*)e, e_bytes);
+  int len_d = BN_bn2bin((const BIGNUM*)d, d_bytes);
+  subject_m_.assign((char*)m_bytes, len_m);
+  subject_e_.assign((char*)e_bytes, len_e);
+  subject_d_.assign((char*)d_bytes, len_d);
+
   return true;
 }
 
-bool my_x509::get_issuer_key(RSA* out) {
-  return false;
+bool my_x509::set_subject_key_from_parameters() {
+
+  if (subject_key_ == nullptr) {
+    subject_key_ = RSA_new();
+    if (subject_key_ == nullptr)
+      return false;
+  }
+
+  BIGNUM* m = BN_new();
+  BIGNUM* e = BN_new();
+  BIGNUM* d = BN_new();
+
+  BN_bin2bn((byte*)subject_m_.data(), subject_m_.size(), m);
+  BN_bin2bn((byte*)subject_e_.data(), subject_e_.size(), e);
+  BN_bin2bn((byte*)subject_d_.data(), subject_d_.size(), d);
+
+  RSA_set0_key(subject_key_, m, e, d);
+    return false;
+
+  BN_free(m);
+  BN_free(e);
+  BN_free(d);
+
+  return true;
 }
 
-bool my_x509::set_issuer_key(RSA* in) {
+bool my_x509::get_issuer_parameters_from_key() {
+
+  if (issuer_key_ == nullptr)
+    return false;
+
+  BIGNUM* m = BN_new();
+  BIGNUM* e = BN_new();
+  BIGNUM* d = BN_new();
+
+  RSA_get0_key(issuer_key_, (const BIGNUM**)&m, (const BIGNUM**)&e,
+          (const BIGNUM**)&d);
+    return false;
+
+  int len = RSA_size(issuer_key_);
+  byte m_bytes[len];
+  byte e_bytes[len];
+  byte d_bytes[len];
+  memset(m_bytes, 0, len);
+  memset(e_bytes, 0, len);
+  memset(d_bytes, 0, len);
+  int len_m = BN_bn2bin((const BIGNUM*)m, m_bytes);
+  int len_e = BN_bn2bin((const BIGNUM*)e, e_bytes);
+  int len_d = BN_bn2bin((const BIGNUM*)d, d_bytes);
+  issuer_m_.assign((char*)m_bytes, len_m);
+  issuer_e_.assign((char*)e_bytes, len_e);
+  issuer_d_.assign((char*)d_bytes, len_d);
+
+  return true;
+}
+
+bool my_x509::set_issuer_key_from_parameters() {
+
+  if (issuer_key_ == nullptr) {
+    issuer_key_ = RSA_new();
+    if (issuer_key_ == nullptr)
+      return false;
+  }
+
+  BIGNUM* m = BN_new();
+  BIGNUM* e = BN_new();
+  BIGNUM* d = BN_new();
+
+  BN_bin2bn((byte*)issuer_m_.data(), issuer_m_.size(), m);
+  BN_bin2bn((byte*)issuer_e_.data(), issuer_e_.size(), e);
+  BN_bin2bn((byte*)issuer_d_.data(), issuer_d_.size(), d);
+
+  RSA_set0_key(issuer_key_, m, e, d);
+    return false;
+
+  BN_free(m);
+  BN_free(e);
+  BN_free(d);
+
   return true;
 }
 

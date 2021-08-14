@@ -265,10 +265,9 @@ bool test_x509() {
     EVP_PKEY_free(k);
     return false;
   }
-  if (!x.set_subject_key(x.subject_key_))
-    return false;
   X509_set_pubkey(x.cert_, k);
   EVP_PKEY_free(k);
+
   if (!x.load_cert_values())
     return false;
 
