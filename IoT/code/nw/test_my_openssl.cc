@@ -278,7 +278,6 @@ bool test_x509() {
   if (FLAGS_print_all) {
     X509_print_fp(stdout, x.cert_);
   }
-return true;
 
   if (!x.verify_cert())
     return false;
