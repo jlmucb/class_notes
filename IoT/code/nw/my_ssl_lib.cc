@@ -401,6 +401,9 @@ bool authenticated_aes256_cbc::get_key(byte* out) {
 }
 
 // EM = 0x00 || 0x02 || PS || 0x00 || M to fill buffer
+// len = i2d_X509(x509, &buf);  // converting to unsigned char*
+// x509ser = d2i_X509(NULL, &buf, len); // converting back to x509 from unsigned char*
+
 
 rsa_implement::rsa_implement() {
   key_initialized_ = false;
@@ -882,4 +885,22 @@ bool my_x509::recover_cert_values() {
   return false;
 }
 
+bool asn1_to_x509(string& in, X509 *x) {
+  int len = in.size();
 
+  byte* p = (byte*) in.data();
+  d2i_X509(&x, (const byte**)&p, len);
+  if (x == nullptr)
+    return false;
+  return true;
+}
+
+bool x509_to_asn1(X509 *x, string* out) {
+  int len = i2d_X509(x, nullptr);
+  byte buf[len];
+  byte* p = buf;
+
+  i2d_X509(x, (byte**)&p);
+  out->assign((char*)buf, len);
+  return true;
+}

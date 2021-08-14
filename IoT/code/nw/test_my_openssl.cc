@@ -281,6 +281,15 @@ bool test_x509() {
   if (!x.verify_cert())
     return false;
 
+  if (FLAGS_print_all) {
+    string asn1;
+    x509_to_asn1(x.cert_, &asn1);
+
+    printf("der: ");
+    print_bytes(asn1.size(), (byte*) asn1.data());
+    printf("\n");
+  }
+
   return true;
 }
 TEST (x509, test_x509) {

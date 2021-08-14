@@ -198,4 +198,7 @@ public:
   bool sign_cert();
   bool verify_cert();
 };
+
+bool asn1_to_x509(string& in, X509 *x);
+bool x509_to_asn1(X509 *x, string* out);
 #endif
