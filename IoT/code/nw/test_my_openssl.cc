@@ -285,9 +285,15 @@ bool test_x509() {
     string asn1;
     x509_to_asn1(x.cert_, &asn1);
 
-    printf("der: ");
+    printf("\nder:\n");
     print_bytes(asn1.size(), (byte*) asn1.data());
     printf("\n");
+
+    X509* y = X509_new();
+    if (!asn1_to_x509(asn1, y))
+      return false;
+    printf("\nnew x509:\n");
+    X509_print_fp(stdout, y);
   }
 
   return true;
@@ -302,8 +308,7 @@ int main(int an, char** av) {
   an = 1;
   ::testing::InitGoogleTest(&an, av);
 
-  // init?
-  // open /dev/random
+  // open /dev/random?
 
   int result = RUN_ALL_TESTS();
 
