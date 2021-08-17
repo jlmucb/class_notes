@@ -1171,7 +1171,9 @@ coordinates of $v$ with respect to $[e]$: $v_{[e]}= c_1 e_1 + ...+ c_n e_n$.
 Let $L_{[e]}$ denote the
 matrix for $L$ with respect to $[e]$: $L_{[e]}: e_i \mapsto \sum_j a_{ji} e_j$. Then
 $L_{[e]} v_{[e]} = (Lv)_{[e]}$.  If $f_i= \sum_j b_{ji} e_j$ is another basis,
-$P= (b_{ij})$ is called the transition matrix from $[f]$ to $[e]$ and $P^{-1}$ is
+$P= (b_{ij})$ is called the transition matrix from $[f]$ to $[e]$
+(equivalently, $P[e_1, e_2, \ldots , e_n] = 
+[f_1, f_2, \ldots , f_n]$) and $P^{-1}$ is
 the transition matrix from $[e]$ to $[f]$ (note the sum over the first index).
 $Pv_{[f]}= v_{[e]}$ and
 $v_{[f]}= P^{-1}v_{[e]}$.  Finally, $L_{[f]}= P^{-1} L_{[e]}P$.  The same holds over free
@@ -1180,8 +1182,7 @@ $V$ has basis ${\cal B}$ and
 $W$ has basis ${\cal B'}$ with $L(w_i)= \sum_j a_{ij} v_j$ then
 $M^{\cal B}_{\cal B'}(F)= A^T$.  If ${\cal B}$ and ${\cal B'}$ are over
 the same space, 
-$M^{\cal B'}_{\cal B'}(F)=
-N^{-1}M^{\cal B}_{\cal B}(F)N$ where
+$M^{\cal B'}_{\cal B'}(F)= N^{-1}M^{\cal B}_{\cal B}(F)N$ where
 $N= M^{\cal B'}_{\cal B}(id)$.
 \\
 \\
