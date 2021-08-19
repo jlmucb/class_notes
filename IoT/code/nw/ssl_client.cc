@@ -16,7 +16,7 @@ int OpenConnection(const char* hostname, int port) {
   struct sockaddr_in addr;
 
   if ((host = gethostbyname(hostname)) == NULL) {
-    return -1
+    return FAIL;
   }
   int sd = socket(PF_INET, SOCK_STREAM, 0);
   bzero(&addr, sizeof(addr));
@@ -25,7 +25,7 @@ int OpenConnection(const char* hostname, int port) {
   addr.sin_addr.s_addr = *(long*)(host->h_addr);
   if (connect(sd, (struct sockaddr*)&addr, sizeof(addr)) != 0) {
     close(sd);
-    return -1
+    return FAIL;
   }
   return sd;
 }
@@ -35,12 +35,10 @@ SSL_CTX* InitCTX(void) {
 
   OpenSSL_add_all_algorithms();
   SSL_load_error_strings();
-  // SSL_METHOD* method = (SSL_METHOD*)TLSv1_2_client_method();
   SSL_METHOD* method = (SSL_METHOD*)SSLv23_client_method();
   ctx = SSL_CTX_new(method);
   if ( ctx == NULL ) {
-    ERR_print_errors_fp(stderr);
-    abort();
+    return nullptr;
   }
   return ctx;
 }
