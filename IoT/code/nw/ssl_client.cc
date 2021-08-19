@@ -16,8 +16,7 @@ int OpenConnection(const char* hostname, int port) {
   struct sockaddr_in addr;
 
   if ((host = gethostbyname(hostname)) == NULL) {
-    perror(hostname);
-    abort();
+    return -1
   }
   int sd = socket(PF_INET, SOCK_STREAM, 0);
   bzero(&addr, sizeof(addr));
@@ -26,8 +25,7 @@ int OpenConnection(const char* hostname, int port) {
   addr.sin_addr.s_addr = *(long*)(host->h_addr);
   if (connect(sd, (struct sockaddr*)&addr, sizeof(addr)) != 0) {
     close(sd);
-    perror(hostname);
-    abort();
+    return -1
   }
   return sd;
 }

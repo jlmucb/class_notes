@@ -294,6 +294,7 @@ bool test_x509() {
       return false;
     printf("\nnew x509:\n");
     X509_print_fp(stdout, y);
+    X509_free(y);
   }
 
   return true;
