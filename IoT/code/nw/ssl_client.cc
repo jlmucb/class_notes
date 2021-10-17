@@ -18,8 +18,8 @@ int OpenConnection(const char* hostname, int port) {
   if ((host = gethostbyname(hostname)) == NULL) {
     return FAIL;
   }
-  int sd = socket(PF_INET, SOCK_STREAM, 0);
-  bzero(&addr, sizeof(addr));
+  int sd = socket(AF_INET, SOCK_STREAM, 0);
+  memset(&addr, 0, sizeof(addr));
   addr.sin_family = AF_INET;
   addr.sin_port = htons(port);
   addr.sin_addr.s_addr = *(long*)(host->h_addr);
@@ -37,7 +37,7 @@ SSL_CTX* InitCTX(void) {
   SSL_load_error_strings();
   SSL_METHOD* method = (SSL_METHOD*)SSLv23_client_method();
   ctx = SSL_CTX_new(method);
-  if ( ctx == NULL ) {
+  if (ctx == NULL) {
     return nullptr;
   }
   return ctx;
@@ -47,6 +47,15 @@ void ShowCerts(SSL* ssl) {
   X509 *cert = nullptr;
   char *line;
 
+  // SSL_get_peer_certificate() returns a pointer to the X509 certificate the peer
+  // presented. If the peer did not present a certificate, NULL is returned.
+  // SSL_get_verify_result() returns the result of the verification of the X509 
+  // certificate presented by the peer, if any.
+  // SSL_CTX_set_verify() sets the verification flags for ctx to be mode 
+  // and specifies the verify_callback function to be used. If no callback function 
+  // shall be specified, the NULL pointer can be used for verify_callback.
+  // mode SSL_VERIFY_PEER: the server sends a client certificate request to the client.
+  //  SSL_CTX_set_verify(ctx, SSL_VERIFY_PEER | SSL_VERIFY_CLIENT_ONCE, verify_callback);
   cert = SSL_get_peer_certificate(ssl);
   if (cert != NULL) {
     printf("Server certificates:\n");

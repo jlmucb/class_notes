@@ -1,0 +1,338 @@
+SSL/TLS Client
+From OpenSSLWiki
+
+SSL/TLS Client is sample code for a basic web client that fetches a page. The code 
+shown below omits error checking for brevity, but the sample available for download 
+performs the error checking.  The code uses TLS (not SSL) and utilizes the Server 
+Name Indication (SNI) extension from RFC 3546, Transport Layer Security (TLS) Extensions.
+
+If you need features beyond the example below, then you should examine s_client.c in the apps/ directory of the OpenSSL distribution. OpenSSL's s_client implements nearly every client side feature available from the library.
+
+The code below does not perform hostname verification. OpenSSL prior to 1.1.0 does not perform the check, and you must perform the check yourself. The OpenSSL Change Log for OpenSSL 1.1.0 states you can use -verify_name option, and apps.c offers -verify_hostname. But s_client does not respond to either switch, so its unclear how hostname checking will be implemented or invoked for a client. Note (N.B.): hostname verification is marked as experimental, so switches, options, and implementations could change.
+
+Finally, if you are looking for guidance on which protocols and ciphers you should be using, then see Adam Langley's blog The POODLE bites again. The short version: use only TLS 1.2, use only ephemeral key exchanges, and use only AEAD ciphers (like AES/GCM, Camellia/GCM, ChaCha/Poly1305).
+
+Contents
+1	Implementation
+2	Initialization
+3	Context Setup
+4	Options (1)
+5	SSL BIO
+6	Options (2)
+7	Cipher Suites
+8	Connection
+9	Callback
+10	Verification
+10.1	OpenSSL 1.0.2
+10.1.1	Server Certificate
+10.1.2	Certificate Chain
+10.1.3	Certificate Names
+11	Program Output
+12	Session Reuse
+13	Session Tickets
+14	0-RTT
+15	Downloads
+Implementation
+The code below demonstrates a basic client that uses BIOs and TLS to connect to www.random.org, and fetches 32 bytes of random data through an HTTP request. The sample code is available for download below.
+
+#define HOST_NAME "www.random.org"
+#define HOST_PORT "443"
+#define HOST_RESOURCE "/cgi-bin/randbyte?nbytes=32&format=h"
+
+long res = 1;
+
+SSL_CTX* ctx = NULL;
+BIO *web = NULL, *out = NULL;
+SSL *ssl = NULL;
+
+init_openssl_library();
+
+const SSL_METHOD* method = SSLv23_method();
+if(!(NULL != method)) handleFailure();
+
+ctx = SSL_CTX_new(method);
+if(!(ctx != NULL)) handleFailure();
+
+/* Cannot fail ??? */
+SSL_CTX_set_verify(ctx, SSL_VERIFY_PEER, verify_callback);
+
+/* Cannot fail ??? */
+SSL_CTX_set_verify_depth(ctx, 4);
+
+/* Cannot fail ??? */
+const long flags = SSL_OP_NO_SSLv2 | SSL_OP_NO_SSLv3 | SSL_OP_NO_COMPRESSION;
+SSL_CTX_set_options(ctx, flags);
+
+res = SSL_CTX_load_verify_locations(ctx, "random-org-chain.pem", NULL);
+if(!(1 == res)) handleFailure();
+
+web = BIO_new_ssl_connect(ctx);
+if(!(web != NULL)) handleFailure();
+
+res = BIO_set_conn_hostname(web, HOST_NAME ":" HOST_PORT);
+if(!(1 == res)) handleFailure();
+
+BIO_get_ssl(web, &ssl);
+if(!(ssl != NULL)) handleFailure();
+
+const char* const PREFERRED_CIPHERS = "HIGH:!aNULL:!kRSA:!PSK:!SRP:!MD5:!RC4";
+res = SSL_set_cipher_list(ssl, PREFERRED_CIPHERS);
+if(!(1 == res)) handleFailure();
+
+res = SSL_set_tlsext_host_name(ssl, HOST_NAME);
+if(!(1 == res)) handleFailure();
+
+out = BIO_new_fp(stdout, BIO_NOCLOSE);
+if(!(NULL != out)) handleFailure();
+
+res = BIO_do_connect(web);
+if(!(1 == res)) handleFailure();
+
+res = BIO_do_handshake(web);
+if(!(1 == res)) handleFailure();
+
+/* Step 1: verify a server certificate was presented during the negotiation */
+X509* cert = SSL_get_peer_certificate(ssl);
+if(cert) { X509_free(cert); } /* Free immediately */
+if(NULL == cert) handleFailure();
+
+/* Step 2: verify the result of chain verification */
+/* Verification performed according to RFC 4158    */
+res = SSL_get_verify_result(ssl);
+if(!(X509_V_OK == res)) handleFailure();
+
+/* Step 3: hostname verification */
+/* An exercise left to the reader */
+
+BIO_puts(web, "GET " HOST_RESOURCE " HTTP/1.1\r\n"
+              "Host: " HOST_NAME "\r\n"
+              "Connection: close\r\n\r\n");
+BIO_puts(out, "\n");
+
+int len = 0;
+do
+{
+  char buff[1536] = {};
+  len = BIO_read(web, buff, sizeof(buff));
+            
+  if(len > 0)
+    BIO_write(out, buff, len);
+
+} while (len > 0 || BIO_should_retry(web));
+
+if(out)
+  BIO_free(out);
+
+if(web != NULL)
+  BIO_free_all(web);
+
+if(NULL != ctx)
+  SSL_CTX_free(ctx);
+Initialization
+The sample program initializes the OpenSSL library with init_openssl_library. init_openssl_library calls three OpenSSL functions.
+
+#if (SSLEAY_VERSION_NUMBER >= 0x0907000L)
+# include <openssl/conf.h>
+#endif
+...
+
+void init_openssl_library(void)
+{
+  (void)SSL_library_init();
+
+  SSL_load_error_strings();
+
+  /* ERR_load_crypto_strings(); */
+  
+  OPENSSL_config(NULL);
+    
+  /* Include <openssl/opensslconf.h> to get this define */
+#if defined (OPENSSL_THREADS)
+  fprintf(stdout, "Warning: thread locking is not implemented\n");
+#endif
+}
+SSL_library_init performs initialization of libcrypto and libssl, and loads required algorithms. The documents state SSL_library_init always returns 1, so its a useless return value.
+
+SSL_load_error_strings loads error strings from both libcrypto and libssl. There's no need to call ERR_load_crypto_strings.
+
+OpenSSL_add_ssl_algorithms is a #define for SSL_library_init, so the call is omitted.
+
+OPENSSL_config may (or may not) be needed. Internally, OPENSSL_config is called based on a configuration options via OPENSSL_LOAD_CONF. If you are dynamically loading an engine specified in openssl.cnf, then you might need it so you should call it. That is, don't depend upon the OpenSSL library to call it for you.
+
+If you are building a multi-threaded client, you should set the locking callbacks. See threads(3) for details.
+
+A detailed treatment of initialization can be found at Library Initialization.
+
+Context Setup
+The sample program uses SSLv23_method to create a context. SSLv23_method specifies that version negotiation will be used. Do not be confused by the name (it does NOT mean that only SSLv2 or SSLv3 will be used). The name is like that for historical reasons, and the function has been renamed to TLS_method in the forthcoming OpenSSL version 1.1.0. Using this method will negotiate the highest protocol version supported by both the server and the client. SSL/TLS versions currently supported by OpenSSL 1.0.2 are SSLv2, SSLv3, TLS1.0, TLS1.1 and TLS1.2.
+
+The actual SSL and TLS protocols are further tuned through options. By using SSLv23_method (and removing the unwanted protocol versions with SSL_OP_NO_SSLv2 and SSL_OP_NO_SSLv3), then you will effectively use TLS v1.0 and above, including TLS v1.2. You can also use SSL_OP_NO_TLSv1 and SSL_OP_NO_TLSv1_1 if you want to use the TLS 1.2 protocol only.
+
+SSL_CTX_new uses the SSLv23_method method to create a new SSL/TLS context object. If you use, for example TLSv1_method, then you will only use TLS v1.0, and if you use TLSv1_1_method then you will only use TLS v1.1. Typically you should always use SSLv23_method in preference to the version specific methods.
+
+OpenSSL 1.1.0 improves protocol selection by providing SSL_CTX_set_max_proto_version() and SSL_CTX_set_min_proto_version(). You no longer need to subtract unwanted options with SSL_OP_NO_SSLv2 and SSL_OP_NO_SSLv3. Also see the SSL_CTX_set_max_proto_version() and SSL_CTX_set_min_proto_version() man pages.
+
+Options (1)
+After creating a context with SSLv23_method and SSL_CTX_new, the context object is tuned with the following functions:
+
+SSL_CTX_set_verify
+SSL_CTX_set_verify_depth
+SSL_CTX_set_options
+SSL_CTX_load_verify_locations
+SSL_CTX_set_verify sets the SSL_VERIFY_PEER flag and the verify callback. This ensures the chain is verified according to RFC 4158 and Issuer and Subject information can be printed. If you don't want to perform custom processing (such as printing or checking), then don't set the callback. OpenSSL's default checking should be sufficient, so pass NULL to SSL_CTX_set_verify.
+
+There is also a SSL_VERIFY_FAIL_IF_NO_PEER_CERT flag, but it is used for servers and has no effect on clients. If you accidentally use SSL_VERIFY_FAIL_IF_NO_PEER_CERT, then you chain will always verify when call SSL_get_verify_result because the flag is ignored for clients (essentially, 0 is passed for the flag which performs no verification).
+
+SSL_CTX_set_verify_depth sets the chain depth to 4. Chain depth is fairly useless in practice.
+
+SSL_CTX_set_options set the SSL_OP_ALL, SSL_OP_NO_SSLv2, SSL_OP_NO_SSLv3, SSL_OP_NO_COMPRESSION options. In essence, it takes all the bug fixes and work arounds for the various servers, removes the SSL protocols (leaving only TLS protocols), and removes compression. The remaining TLS protocols are TLS 1.0, TLS 1.1, and TLS 1.2.
+
+SSL_CTX_load_verify_locations loads the certificate chain for the random.org site. The site's CA is Comodo, and the chain includes AddTrust External CA Root, COMODO Certification Authority, and COMODO Extended Validation Secure Server CA. Though the chain is provided, only the single trust anchor is needed for validation. The additional intermediate certs are provided to show how to concatenate and load them.
+
+The PEM format means the file is a concatenation of Base64 encoded certificates with the -----BEGIN CERTIFICATE----- prologue (and associated epilogue). If the server sends all certificates required to verify the chain (which it should), then only the AddTrust External CA Root certificate is needed.
+
+The options set on the CTX* can be overridden on a per-connection basis by modifying the SSL* using SSL_set_verify, SSL_set_verify_depth and SSL_set_options (and friends).
+
+SSL BIO
+The sample program uses BIOs for input and output. One BIO is used to connect to random.org, and a second BIO is used to print output to stdout.
+
+BIO_new_ssl_connect creates a new BIO chain consisting of an SSL BIO (using ctx) followed by a connect BIO.
+
+BIO_set_conn_hostname is used to set the hostname and port that will be used by the connection.
+
+Options (2)
+BIO_get_ssl is used to fetch the SSL connection object created by BIO_new_ssl_connect. The connection object inherits from the context object, and can override the settings on the context. The connection object is tuned with the following functions:
+
+SSL_set_cipher_list
+SSL_set_tlsext_host_name
+SSL_set_cipher_list sets the cipher list. The list prefers elliptic curves, ephemeral [Diffie-Hellman], AES and SHA. It also removes NULL authentication methods and ciphers; and removes medium-security, low-security and export-grade security ciphers, such as 40-bit RC2. If desired, you could set the options on the context with SSL_CTX_set_cipher_list.
+
+SSL_set_tlsext_host_name uses the TLS SNI extension to set the hostname. If you are connecting to a Server Name Indication-aware server (such as Apache with name-based virtual hosts or IIS 8.0), then you will receive the proper certificate during the handshake.
+
+Cipher Suites
+
+Wireshark and ClientHello
+According to openssl ciphers ALL, there are just over 110 cipher suites available. Each cipher suite takes 2 bytes in the ClientHello, so advertising every cipher suite available at the client is going to cause a big ClientHello (or bigger then needed to get the job done). When using SSL_CTX_set_cipher_list or SSL_set_cipher_list with the string "HIGH:!aNULL:!kRSA:!PSK:!SRP:!MD5:!RC4", you'll cut the number of cipher suites down to about 45. If you know the server does not support DSA, then you can add "!DSS" and reduce the list further by about 7. And removing RSA key transport ("!kRSA") removes another 9 more (this is a good practice because it uses ephemeral key exchanges which provide forward secrecy). Advertising 35 or so ciphers saves about 160 bytes in the ClientHello.
+Better, pick 16 or 20 ciphers you want to support and advertise them. Order them so the GCM mode ciphers from TLS 1.2 are listed first, and the AES-SHA ciphers from TLS 1.0 are listed last. Though TLS 1.0 should be avoided, its probably needed for interop because only about half the servers on the internet support TLS 1.2. If you control the server, then it should be offering TLS 1.2 and clients only need to advertise AEAD ciphers like AES/GCM or Camellia/GCM.
+
+Keeping the ClientHello small is important for older F5 and IronPort devices. Apparently, the devices used fixed sized buffers and choke on large ClientHello's. In fact, a "large hello" was the cause of the TLS padding bug on IronPort devices. See TLS padding breaks ironport on the TLS mailing list for details.
+
+Connection
+
+Wireshark and TLS versions
+After setting the connection object options, the sample connects to the site and negotiates a secure channel.
+BIO_do_connect
+BIO_do_handshake
+BIO_do_connect performs the name lookup for the host and standard TCP/IP three way handshake.
+
+BIO_do_handshake performs the SSL/TLS handshake. If you set a callback with SSL_CTX_set_verify or SSL_set_verify, then you callback will be invoked for each certificate in the chain used during the execution of the protocol.
+
+The Wireshark packet capture to the right shows the TLS handshake with the SNI extension encountered during the execution of BIO_do_handshake. OpenSSL 1.0.1e advertises TLSv1.2 as the highest protocol level in its ClientHello.
+
+Callback
+OpenSSL provides the ability for an application to interact with the chain validation by way of a callback. Normally, most application don't need to use it since the default OpenSSL behavior is usually adequate. In the callback, you can pass the preverify result back to the library (leaving library behavior unchanged), or you can modify the result to account for a specific issue that your software should address (override default behavior). If you don't need to interact with chain validation, then don't set the callback.
+
+The example program returned the preverify result to the library and just printed information about the certificate in the chain. It did so by using SSL_CTX_set_verify with SSL_VERIFY_PEER and the verify_callback.
+
+int verify_callback(int preverify, X509_STORE_CTX* x509_ctx)
+{
+    int depth = X509_STORE_CTX_get_error_depth(x509_ctx);
+    int err = X509_STORE_CTX_get_error(x509_ctx);
+    
+    X509* cert = X509_STORE_CTX_get_current_cert(x509_ctx);
+    X509_NAME* iname = cert ? X509_get_issuer_name(cert) : NULL;
+    X509_NAME* sname = cert ? X509_get_subject_name(cert) : NULL;
+    
+    print_cn_name("Issuer (cn)", iname);
+    print_cn_name("Subject (cn)", sname);
+    
+    if(depth == 0) {
+        /* If depth is 0, its the server's certificate. Print the SANs too */
+        print_san_name("Subject (san)", cert);
+    }
+
+    return preverify;
+}
+The OpenSSL library will pass in the value of its preliminary checking of the certificate through preverify. If you always return 1 regardless of the value of preverify or the actual result of your processing, then SSL_get_verify_result will always return X509_V_OK. That's probably a bad idea for production software.
+
+If you don't need to perform special processing on the chain, then you should forgo the verify_callback altogether by supplying NULL to SSL_CTX_set_verify:
+
+SSL_CTX_set_verify(ctx, SSL_VERIFY_PEER, NULL);
+Verification
+You use one of two verification procedures, depending on the version of OpenSSL you are using. The change occurs at OpenSSL 1.1.0 because 1.1.0 (and above) implements hostname verification that 1.0.2 (and below) lacked. Painting with a broad brush, minimal checking includes: (1) confirm the server has a certificate, (2) confirm the certificate chain verifies back to a trusted root, and (3) confirm the name of the host matches a hostname listed in the server's certificate.
+
+In the end, its probably better to ignore PKI and just use Public Key Pinning (or Certificate Pinning) when a pre-exisiting relationship exists; or use a Perspectives-like system or a Trust-On-First-Use (TOFU) system when there's no a priori relationship (similar to SSH's StrictHostkeyChecking option). See Peter Gutmann's Engineering Security for details of a security diversification strategy (Chapter 4, starting on page 292).
+
+You usually don't perform revocation in real time because it essentially creates a denial of service on your application. That is, your app will hang while downloading a multi-megabyte CRL or contacts a missing OCSP responder. For a detailed treatment of problems with PKI and Revocation, see Peter Gutmann's Engineering Security (Chapters 1 and 8).
+
+OpenSSL 1.0.2
+OpenSSL 1.0.2 and below requires at least three checks. These versions of OpenSSL do not perform hostname validation and the API user must perform it.
+
+Server Certificate
+You must confirm the server provided a certificate. This is because a server might be misconfigured, or the client and server used Anonymous Diffie-Hellman. You do so as follows:
+
+X509* cert = SSL_get_peer_certificate(ssl);
+if(cert) { X509_free(cert); }
+if(NULL == cert) handleFailure();
+If the server has a certificate, then SSL_get_peer_certificate will return a non-NULL value. You don't really need the certificate, so its free'd immediately.
+
+Certificate Chain
+You must confirm the server's certificate chains back to a trusted root, and all the certificates in the chain are valid. You do so as follows:
+
+long res = SSL_get_verify_result(ssl);
+if(!(X509_V_OK == res)) handleFailure();
+SSL_get_verify_result returns the result of verifying the chain. See the earlier warning on doing the wrong thing in the verification callback.
+
+Certificate Names
+You must confirm a match between the hostname you contacted and the hostnames listed in the certificate. OpenSSL prior to 1.1.0 does not perform hostname verification, so you will have to perform the checking yourself. The sample code does not offer code at the moment, so you will need to borrow it or implement it.
+
+If you want to borrow the code, take a look at libcurl and the verification procedure in source file ssluse.c. Another source is the C/C++ Secure Coding Guide and Section 10.8, Adding Hostname Checking to Certificate Verification. If you implement the code for checking, the sample code shows you how to extract the Common Name (CN) and Subject Alternate Names (SAN) from the certificate in print_cn_name and print_san_name.
+
+Note: matching between the hostname (used in BIO_do_connect ) and names in the certificate (from SSL_get_peer_certificate) must also be validated. For example, a certificate cannot claim to be wildcarded for *.com, *.net, or other Top Level Domains (TLDs). In addition to the TLDs, you also have to country level or ccTLDs, so it can't match *.us, *.cn, *.fed.us, *.公司.cn or similar levels either. Mozilla maintains a list of ccTLDs that are off limits at the Public Suffix List, and there are currently 6136 entries on the list.
+
+Program Output
+After all this musing, here's the lousy output you get when running the program:
+
+Figure 1: Chain Output	   	Figure 2: Server Response
+Session Reuse
+According to Viktor Dukhovni at Possible to control session reuse from the client:
+
+> For performance testing purposes, I would like to turn off session
+> reuse in the (homegrown) client I use for testing. Is there a function
+> in the openssl library to do it?
+> 
+> I tried googling for "openssl client don't send session id" but I didn't
+> find anything useful.
+
+Just do nothing.  Client sessions are not reused unless you explicitly
+arrange for reuse of a session by calling SSL_set_session() before
+SSL_connect().  If you're trying to avoid wasting memory on storing
+client-side sessions that you'll never reuse then this may help:
+
+   SSL_CTX_set_session_cache_mode(client_ctx, SSL_SESS_CACHE_OFF);
+
+but note this is also the default state, so is also not needed unless
+some other code has explicitly enabled client-side caching of sessions.
+
+Only the server-side cache is enabled by default.
+Session Tickets
+Session tickets are specified in RFC 5077. You can disable session tickets with SSL_OP_NO_TICKET:
+
+const long flags = SSL_OP_NO_SSLv3 | ... | SSL_OP_NO_TICKET;
+SSL_CTX_set_options(ctx, flags);
+0-RTT
+0-RTT is specified in XXX (TODO). 0-RTT allows an application to immediately resume a previous session at the expense of consuming unauthenticated data. You should avoid 0-RTT if possible. In fact, an organization's data security policy may not allow it for some higher data sensitivity levels.
+
+Care should be taken if enabling 0-RTT at the client because a number of protections must be enabled at the server. Additionally, some of the protections are required higher up in the stack, outside of the secure socket layer. Below is a list of potential problems from 0-RTT and Anti-Replay and Closing on 0-RTT on the IETF TLS working group mailing list.
+
+0-RTT without stateful anti-replay allows for very high number of replays, breaking rate limiting systems, even high-performance ones, resulting in an opening for DDoS attacks.
+0-RTT without stateful anti-replay allows for very high number of replays, allowing exploiting timing side channels for information leakage. Very few if any applications are engineered to mitigate or eliminate such side channels.
+0-RTT without global anti-replay allows leaking information from the 0-RTT data via cache timing attacks. HTTP GET URLs sent to CDNs are especially vulnerable.
+0-RTT without global anti-replay allows non-idempotent actions contained in 0-RTT data to be repeated potentially lots of times. Abuse of HTTP GET for non-idempotent actions is fairly common.
+0-RTT allows easily reordering request with re-transmission from the client. This can lead to various unexpected application behavior if possibility of such reordering is not taken into account. "Eventually consistent" datastores are especially vulnerable.
+0-RTT exporters are not safe for authentication unless the server does global anti-replay on 0-RTT.
+Downloads
+openssl-bio-fetch.tar.gz - The program and Makefile used for this wiki page.
+
+Retrieved from "https://wiki.openssl.org/index.php?title=SSL/TLS_Client&oldid=2630":w
+
