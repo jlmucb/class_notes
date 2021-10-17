@@ -336,3 +336,228 @@ openssl-bio-fetch.tar.gz - The program and Makefile used for this wiki page.
 
 Retrieved from "https://wiki.openssl.org/index.php?title=SSL/TLS_Client&oldid=2630":w
 
+
+#include <openssl/ssl.h>
+
+ int SSL_CTX_use_certificate(SSL_CTX *ctx, X509 *x);
+ int SSL_CTX_use_certificate_ASN1(SSL_CTX *ctx, int len, unsigned char *d);
+ int SSL_CTX_use_certificate_file(SSL_CTX *ctx, const char *file, int type);
+ int SSL_use_certificate(SSL *ssl, X509 *x);
+ int SSL_use_certificate_ASN1(SSL *ssl, unsigned char *d, int len);
+ int SSL_use_certificate_file(SSL *ssl, const char *file, int type);
+
+ int SSL_CTX_use_certificate_chain_file(SSL_CTX *ctx, const char *file);
+ int SSL_use_certificate_chain_file(SSL *ssl, const char *file);
+
+ int SSL_CTX_use_PrivateKey(SSL_CTX *ctx, EVP_PKEY *pkey);
+ int SSL_CTX_use_PrivateKey_ASN1(int pk, SSL_CTX *ctx, unsigned char *d,
+                                 long len);
+ int SSL_CTX_use_PrivateKey_file(SSL_CTX *ctx, const char *file, int type);
+ int SSL_CTX_use_RSAPrivateKey(SSL_CTX *ctx, RSA *rsa);
+ int SSL_CTX_use_RSAPrivateKey_ASN1(SSL_CTX *ctx, unsigned char *d, long len);
+ int SSL_CTX_use_RSAPrivateKey_file(SSL_CTX *ctx, const char *file, int type);
+ int SSL_use_PrivateKey(SSL *ssl, EVP_PKEY *pkey);
+ int SSL_use_PrivateKey_ASN1(int pk, SSL *ssl, unsigned char *d, long len);
+ int SSL_use_PrivateKey_file(SSL *ssl, const char *file, int type);
+ int SSL_use_RSAPrivateKey(SSL *ssl, RSA *rsa);
+ int SSL_use_RSAPrivateKey_ASN1(SSL *ssl, unsigned char *d, long len);
+ int SSL_use_RSAPrivateKey_file(SSL *ssl, const char *file, int type);
+
+ int SSL_CTX_check_private_key(const SSL_CTX *ctx);
+ int SSL_check_private_key(const SSL *ssl);
+
+ int SSL_CTX_use_cert_and_key(SSL_CTX *ctx, X509 *x, EVP_PKEY *pkey, 
+     STACK_OF(X509) *chain, int override);
+ int SSL_use_cert_and_key(SSL *ssl, X509 *x, EVP_PKEY *pkey, STACK_OF(X509) *chain, int override);
+SSL_CTX_use_certificate() loads the certificate x into ctx, 
+SSL_use_certificate() loads x into ssl. The rest of the certificates needed 
+to form the complete certificate chain can be specified using the 
+SSL_CTX_add_extra_chain_cert(3) function.
+
+SSL_CTX_add_extra_chain_cert
+NAME
+SSL_CTX_add_extra_chain_cert, SSL_CTX_clear_extra_chain_certs - add or clear extra chain certificates
+
+SYNOPSIS
+ #include <openssl/ssl.h>
+
+ long SSL_CTX_add_extra_chain_cert(SSL_CTX *ctx, X509 *x509);
+ long SSL_CTX_clear_extra_chain_certs(SSL_CTX *ctx);
+DESCRIPTION
+SSL_CTX_add_extra_chain_cert() adds the certificate x509 to the extra chain certificates associated with ctx. Several certificates can be added one after another.
+
+SSL_CTX_clear_extra_chain_certs() clears all extra chain certificates associated with ctx.
+
+These functions are implemented as macros.
+
+NOTES
+When sending a certificate chain, extra chain certificates are sent in order following the end entity certificate.
+
+If no chain is specified, the library will try to complete the chain from the available CA certificates in the trusted CA storage, see SSL_CTX_load_verify_locations(3).
+
+The x509 certificate provided to SSL_CTX_add_extra_chain_cert() will be freed by the library when the SSL_CTX is destroyed. An application should not free the x509 object.
+
+RESTRICTIONS
+Only one set of extra chain certificates can be specified per SSL_CTX structure. Different chains for different certificates (for example if both RSA and DSA certificates are specified by the same server) or different SSL structures with the same parent SSL_CTX cannot be specified using this function. For more flexibility functions such as SSL_add1_chain_cert() should be used instead.
+
+RETURN VALUES
+SSL_CTX_add_extra_chain_cert() and SSL_CTX_clear_extra_chain_certs() return 1 on success and 0 for failure. Check out the error stack to find out the reason for failure.
+
+SEE ALSO
+ssl(7), SSL_CTX_use_certificate(3), SSL_CTX_set_client_cert_cb(3), SSL_CTX_load_verify_locations(3) SSL_CTX_set0_chain(3) SSL_CTX_set1_chain(3) SSL_CTX_add0_chain_cert(3) SSL_CTX_add1_chain_cert(3) SSL_set0_chain(3) SSL_set1_chain(3) SSL_add0_chain_cert(3) SSL_add1_chain_cert(3) SSL_CTX_build_cert_chain(3) SSL_build_cert_chain(3)
+
+
+certificate chain ends at root
+
+SSL_CTX_use_PrivateKey() adds pkey as private key to ctx. 
+SSL_CTX_use_RSAPrivateKey() adds the private key rsa of type RSA to ctx. 
+SSL_use_PrivateKey() adds pkey as private key to ssl; 
+SSL_use_RSAPrivateKey() adds rsa as private key of type RSA to ssl. 
+If a certificate has already been set and the private does not belong 
+to the certificate an error is returned. To change a certificate, 
+private key pair the new certificate needs to be set with SSL_use_certificate() 
+or SSL_CTX_use_certificate() before setting the private key 
+with SSL_CTX_use_PrivateKey() or SSL_use_PrivateKey().
+
+SSL_CTX_use_cert_and_key() and SSL_use_cert_and_key() assign the 
+X.509 certificate x, private key key, and certificate chain onto the 
+corresponding ssl or ctx. The pkey argument must be the private key 
+of the X.509 certificate x. If the override argument is 0, 
+then x, pkey and chain are set only if all were not previously set. 
+If override is non-0, then the certificate, private key and 
+chain certs are always set. If pkey is NULL, then the public key of 
+x is used as the private key. This is intended to be used with hardware 
+(via the ENGINE interface) that stores the private key securely, 
+such that it cannot be accessed by OpenSSL. The reference count 
+of the public key is incremented (twice if there is no private key); 
+it is not copied nor duplicated. This allows all private key validations 
+checks to succeed without an actual private key being assigned 
+via SSL_CTX_use_PrivateKey(), etc.
+
+X509_STORE_CTX_new
+NAME
+X509_STORE_CTX_new, X509_STORE_CTX_cleanup, X509_STORE_CTX_free, X509_STORE_CTX_init, X509_STORE_CTX_set0_trusted_stack, X509_STORE_CTX_set_cert, X509_STORE_CTX_set0_crls, X509_STORE_CTX_get0_chain, X509_STORE_CTX_set0_verified_chain, X509_STORE_CTX_get0_param, X509_STORE_CTX_set0_param, X509_STORE_CTX_get0_untrusted, X509_STORE_CTX_set0_untrusted, X509_STORE_CTX_get_num_untrusted, X509_STORE_CTX_set_default, X509_STORE_CTX_set_verify, X509_STORE_CTX_verify_fn - X509_STORE_CTX initialisation
+
+SYNOPSIS
+ #include <openssl/x509_vfy.h>
+
+ X509_STORE_CTX *X509_STORE_CTX_new(void);
+ void X509_STORE_CTX_cleanup(X509_STORE_CTX *ctx);
+ void X509_STORE_CTX_free(X509_STORE_CTX *ctx);
+
+ int X509_STORE_CTX_init(X509_STORE_CTX *ctx, X509_STORE *store,
+                         X509 *x509, STACK_OF(X509) *chain);
+
+ void X509_STORE_CTX_set0_trusted_stack(X509_STORE_CTX *ctx, STACK_OF(X509) *sk);
+
+ void X509_STORE_CTX_set_cert(X509_STORE_CTX *ctx, X509 *x);
+ STACK_OF(X509) *X509_STORE_CTX_get0_chain(X609_STORE_CTX *ctx);
+ void X509_STORE_CTX_set0_verified_chain(X509_STORE_CTX *ctx, STACK_OF(X509) *chain);
+ void X509_STORE_CTX_set0_crls(X509_STORE_CTX *ctx, STACK_OF(X509_CRL) *sk);
+
+ X509_VERIFY_PARAM *X509_STORE_CTX_get0_param(X509_STORE_CTX *ctx);
+ void X509_STORE_CTX_set0_param(X509_STORE_CTX *ctx, X509_VERIFY_PARAM *param);
+ int X509_STORE_CTX_set_default(X509_STORE_CTX *ctx, const char *name);
+
+ STACK_OF(X509)* X509_STORE_CTX_get0_untrusted(X509_STORE_CTX *ctx);
+ void X509_STORE_CTX_set0_untrusted(X509_STORE_CTX *ctx, STACK_OF(X509) *sk);
+
+ int X509_STORE_CTX_get_num_untrusted(X509_STORE_CTX *ctx);
+
+ typedef int (*X509_STORE_CTX_verify_fn)(X509_STORE_CTX *);
+ void X509_STORE_CTX_set_verify(X509_STORE_CTX *ctx, X509_STORE_CTX_verify_fn verify);
+DESCRIPTION
+These functions initialise an X509_STORE_CTX structure for subsequent use by X509_verify_cert().
+
+X509_STORE_CTX_new() returns a newly initialised X509_STORE_CTX structure.
+
+X509_STORE_CTX_cleanup() internally cleans up an X509_STORE_CTX structure. The context can then be reused with an new call to X509_STORE_CTX_init().
+
+X509_STORE_CTX_free() completely frees up ctx. After this call ctx is no longer valid. If ctx is NULL nothing is done.
+
+X509_STORE_CTX_init() sets up ctx for a subsequent verification operation. It must be called before each call to X509_verify_cert(), i.e. a ctx is only good for one call to X509_verify_cert(); if you want to verify a second certificate with the same ctx then you must call X509_STORE_CTX_cleanup() and then X509_STORE_CTX_init() again before the second call to X509_verify_cert(). The trusted certificate store is set to store, the end entity certificate to be verified is set to x509 and a set of additional certificates (which will be untrusted but may be used to build the chain) in chain. Any or all of the store, x509 and chain parameters can be NULL.
+
+X509_STORE_CTX_set0_trusted_stack() sets the set of trusted certificates of ctx to sk. This is an alternative way of specifying trusted certificates instead of using an X509_STORE.
+
+X509_STORE_CTX_set_cert() sets the certificate to be verified in ctx to x.
+
+X509_STORE_CTX_set0_verified_chain() sets the validated chain used by ctx to be chain. Ownership of the chain is transferred to ctx and should not be free'd by the caller. X509_STORE_CTX_get0_chain() returns a the internal pointer used by the ctx that contains the validated chain.
+
+X509_STORE_CTX_set0_crls() sets a set of CRLs to use to aid certificate verification to sk. These CRLs will only be used if CRL verification is enabled in the associated X509_VERIFY_PARAM structure. This might be used where additional "useful" CRLs are supplied as part of a protocol, for example in a PKCS#7 structure.
+
+X509_STORE_CTX_get0_param() retrieves an internal pointer to the verification parameters associated with ctx.
+
+X509_STORE_CTX_get0_untrusted() retrieves an internal pointer to the stack of untrusted certificates associated with ctx.
+
+X509_STORE_CTX_set0_untrusted() sets the internal point to the stack of untrusted certificates associated with ctx to sk.
+
+X509_STORE_CTX_set0_param() sets the internal verification parameter pointer to param. After this call param should not be used.
+
+X509_STORE_CTX_set_default() looks up and sets the default verification method to name. This uses the function X509_VERIFY_PARAM_lookup() to find an appropriate set of parameters from name.
+
+X509_STORE_CTX_get_num_untrusted() returns the number of untrusted certificates that were used in building the chain following a call to X509_verify_cert().
+
+X509_STORE_CTX_set_verify() provides the capability for overriding the default verify function. This function is responsible for verifying chain signatures and expiration times.
+
+A verify function is defined as an X509_STORE_CTX_verify type which has the following signature:
+
+ int (*verify)(X509_STORE_CTX *);
+This function should receive the current X509_STORE_CTX as a parameter and return 1 on success or 0 on failure.
+
+NOTES
+The certificates and CRLs in a store are used internally and should not be freed up until after the associated X509_STORE_CTX is freed.
+
+BUGS
+The certificates and CRLs in a context are used internally and should not be freed up until after the associated X509_STORE_CTX is freed. Copies should be made or reference counts increased instead.
+
+RETURN VALUES
+X509_STORE_CTX_new() returns an newly allocates context or NULL is an error occurred.
+
+X509_STORE_CTX_init() returns 1 for success or 0 if an error occurred.
+
+X509_STORE_CTX_get0_param() returns a pointer to an X509_VERIFY_PARAM structure or NULL if an error occurred.
+
+X509_STORE_CTX_cleanup(), X509_STORE_CTX_free(), X509_STORE_CTX_set0_trusted_stack(), X509_STORE_CTX_set_cert(), X509_STORE_CTX_set0_crls() and X509_STORE_CTX_set0_param() do not return values.
+
+X509_STORE_CTX_set_default() returns 1 for success or 0 if an error occurred.
+
+X509_STORE_CTX_get_num_untrusted() returns the number of untrusted certificates used.
+
+SEE ALSO
+X509_verify_cert(3) X509_VERIFY_PARAM_set_flags(3)
+
+HISTORY
+X509_STORE_CTX_set0_crls() was first added to OpenSSL 1.0.0 X509_STORE_CTX_get_num_untrusted() was first added to OpenSSL 1.1.0
+
+
+STACK_OF(X509) *chain = SSL_get_peer_cert_chain(ssl);
+
+X509_STORE_CTX* newCert = X509_STORE_CTX_new();
+if(newCert){
+    X509_STORE_CTX_set_chain(newCert, chain);
+    std::cout << X509_verify_cert(newCert) << std::endl;
+}
+std::cout << "ERROR : " << X509_STORE_CTX_get_error(newCert) << std::endl;
+
+int
+main(void)
+{
+	STACK_OF(X509)	*stack;
+	X509		*x;
+
+	if ((stack = sk_X509_new_null()) == NULL)
+		err(1, NULL);
+	if ((x = X509_new()) == NULL)
+		err(1, NULL);
+	if (sk_X509_push(stack, x) == 0)
+		err(1, NULL);
+	if (X509_up_ref(x) == 0)
+		errx(1, "X509_up_ref failed");
+	if (sk_X509_push(stack, x) == 0)
+		err(1, NULL);
+	printf("%d pointers: %p, %p\n", sk_X509_num(stack),
+	    sk_X509_value(stack, 0), sk_X509_value(stack, 1));
+	sk_X509_pop_free(stack, X509_free);
+
+	return 0;
+}

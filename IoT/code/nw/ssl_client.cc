@@ -90,18 +90,20 @@ int main(int count, char *av[]) {
   server = OpenConnection(hostname, atoi(portnum));
   ssl = SSL_new(ctx);
   SSL_set_fd(ssl, server);
-  if (SSL_connect(ssl) == FAIL)
+  if (SSL_connect(ssl) == FAIL) {
     ERR_print_errors_fp(stderr);
-  else {
-    const char *msg = "Hello???";
-    printf("Connected with %s encryption\n", SSL_get_cipher(ssl));
-    ShowCerts(ssl);
-    SSL_write(ssl, (unsigned char*)msg, strlen(msg));
-    bytes = SSL_read(ssl, buf, sizeof(buf));
-    buf[bytes] = 0;
-    printf("Received: \"%s\"\n", buf);
-    SSL_free(ssl);
+    return 1;
   }
+
+  const char *msg = "Hello???";
+  printf("Connected with %s encryption\n", SSL_get_cipher(ssl));
+  ShowCerts(ssl);
+  SSL_write(ssl, (unsigned char*)msg, strlen(msg));
+  bytes = SSL_read(ssl, buf, sizeof(buf));
+  buf[bytes] = 0;
+  printf("Received: \"%s\"\n", buf);
+  SSL_free(ssl);
+
   close(server);
   SSL_CTX_free(ctx);
   return 0;
