@@ -375,17 +375,6 @@ that are off limits at the Public Suffix List, and there are currently
 Program Output
 After all this musing, here's the lousy output you get when running the program:
 
-Figure 1: Chain Output	   	Figure 2: Server Response
-Session Reuse
-According to Viktor Dukhovni at Possible to control session reuse from the client:
-
-> For performance testing purposes, I would like to turn off session
-> reuse in the (homegrown) client I use for testing. Is there a function
-> in the openssl library to do it?
-> 
-> I tried googling for "openssl client don't send session id" but I didn't
-> find anything useful.
-
 Just do nothing.  Client sessions are not reused unless you explicitly
 arrange for reuse of a session by calling SSL_set_session() before
 SSL_connect().  If you're trying to avoid wasting memory on storing
@@ -405,7 +394,6 @@ SSL_CTX_set_options(ctx, flags);
 
 Downloads
 openssl-bio-fetch.tar.gz - The program and Makefile used for this wiki page.
-
 
 #include <openssl/ssl.h>
 
@@ -431,14 +419,16 @@ openssl-bio-fetch.tar.gz - The program and Makefile used for this wiki page.
  int SSL_use_RSAPrivateKey_file(SSL *ssl, const char *file, int type);
  int SSL_CTX_check_private_key(const SSL_CTX *ctx);
  int SSL_check_private_key(const SSL *ssl);
- int SSL_CTX_use_cert_and_key(SSL_CTX *ctx, X509 *x, EVP_PKEY *pkey, STACK_OF(X509) *chain, int override);
- int SSL_use_cert_and_key(SSL *ssl, X509 *x, EVP_PKEY *pkey, STACK_OF(X509) *chain, int override);
+ int SSL_CTX_use_cert_and_key(SSL_CTX *ctx, X509 *x, EVP_PKEY *pkey,
+           STACK_OF(X509) *chain, int override);
+ int SSL_use_cert_and_key(SSL *ssl, X509 *x, EVP_PKEY *pkey, 
+           STACK_OF(X509) *chain, int override);
 SSL_CTX_use_certificate() loads the certificate x into ctx, 
 SSL_use_certificate() loads x into ssl. The rest of the certificates needed 
 to form the complete certificate chain can be specified using the 
 SSL_CTX_add_extra_chain_cert(3) function.
 SSL_CTX_add_extra_chain_cert
-NAME
+
 SSL_CTX_add_extra_chain_cert, SSL_CTX_clear_extra_chain_certs - add or clear 
 extra chain certificates
 
@@ -447,6 +437,7 @@ SYNOPSIS
 
  long SSL_CTX_add_extra_chain_cert(SSL_CTX *ctx, X509 *x509);
  long SSL_CTX_clear_extra_chain_certs(SSL_CTX *ctx);
+
 DESCRIPTION
 SSL_CTX_add_extra_chain_cert() adds the certificate x509 to the extra chain 
 certificates associated with ctx. Several certificates can be added one after another.
@@ -621,9 +612,7 @@ or NULL if an error occurred.
 X509_STORE_CTX_cleanup(), X509_STORE_CTX_free(), X509_STORE_CTX_set0_trusted_stack(), 
 X509_STORE_CTX_set_cert(), X509_STORE_CTX_set0_crls() and 
 X509_STORE_CTX_set0_param() do not return values.
-
 X509_STORE_CTX_set_default() returns 1 for success or 0 if an error occurred.
-
 X509_STORE_CTX_get_num_untrusted() returns the number of untrusted certificates used.
 
 SEE ALSO
@@ -635,13 +624,11 @@ X509_STORE_CTX_get_num_untrusted() was first added to OpenSSL 1.1.0
 
 
 STACK_OF(X509) *chain = SSL_get_peer_cert_chain(ssl);
-
 X509_STORE_CTX* newCert = X509_STORE_CTX_new();
 if(newCert){
     X509_STORE_CTX_set_chain(newCert, chain);
     std::cout << X509_verify_cert(newCert) << std::endl;
 }
-std::cout << "ERROR : " << X509_STORE_CTX_get_error(newCert) << std::endl;
 
 int main(void) {
 	STACK_OF(X509)	*stack;
@@ -692,7 +679,7 @@ bool RSAVerifySignature( RSA* rsa, unsigned char* MsgHash, size_t MsgHashLen,
   EVP_PKEY* pubKey  = EVP_PKEY_new();
   EVP_PKEY_assign_RSA(pubKey, rsa);
   EVP_MD_CTX* m_RSAVerifyCtx = EVP_MD_CTX_create();
-  if (EVP_DigestVerifyInit(m_RSAVerifyCtx,NULL, EVP_sha256(),NULL,pubKey)<=0) {
+  if (EVP_DigestVerifyInit(m_RSAVerifyCtx, NULL, EVP_sha256(), NULL, pubKey)<=0) {
     return false;
   }
   if (EVP_DigestVerifyUpdate(m_RSAVerifyCtx, Msg, MsgLen) <= 0) {
@@ -724,4 +711,3 @@ bool verifySignature(std::string publicKey, std::string plainText, char* signatu
                   plainText.c_str(), plainText.length(), &authentic);
   return result & authentic;
 }
-
