@@ -904,3 +904,71 @@ bool x509_to_asn1(X509 *x, string* out) {
   out->assign((char*)buf, len);
   return true;
 }
+
+
+// replaced EVP_MD_CTX_cleanup(sign_ctx);
+bool rsa_sign_msg(RSA* r, const byte* to_sign, int to_sign_size,
+         byte* sig, int* sig_size) {
+  EVP_MD_CTX* sign_ctx = EVP_MD_CTX_create();
+  EVP_PKEY* private_key  = EVP_PKEY_new();
+  EVP_PKEY_assign_RSA(private_key, r);
+  if (EVP_DigestSignInit(sign_ctx, nullptr, EVP_sha256(), nullptr, private_key) <= 0) {
+      return false;
+  }
+  if (EVP_DigestSignUpdate(sign_ctx,  to_sign, to_sign_size) <= 0) {
+      return false;
+  }
+  if (EVP_DigestSignFinal(sign_ctx, nullptr, (size_t*)sig_size) <=0) {
+      return false;
+  }
+  if (EVP_DigestSignFinal(sign_ctx, sig, (size_t*)sig_size) <= 0) {
+      return false;
+  }
+  EVP_MD_CTX_destroy(sign_ctx);
+  return true;
+}
+
+#if 0
+bool rsa_verify_sig(RSA* r, byte* hash, int hash_size,
+         const byte* sig, int sig_size) {
+  EVP_PKEY* public_key  = EVP_PKEY_new();
+  EVP_PKEY_assign_RSA(public_key, r);
+  EVP_MD_CTX* verify_ctx = EVP_MD_CTX_create();
+  if (EVP_DigestVerifyInit(verify_ctx, nullptr, EVP_sha256(), nullptr, public_key) <= 0) {
+    printf("rsa_verify_sig, error 1\n");
+    return false;
+  }
+  if (EVP_DigestVerifyUpdate(verify_ctx, sig, sig_size) <= 0) {
+    printf("rsa_verify_sig, error 2\n");
+    return false;
+  }
+
+  if (1 != EVP_DigestVerifyFinal(verify_ctx, hash, hash_size)) {
+    unsigned long e = ERR_get_error();
+    printf("rsa_verify_sig, error 3\n");
+    printf("%s\n", ERR_lib_error_string(e));
+    EVP_MD_CTX_destroy(verify_ctx);
+    return false;
+  }
+  return true;
+}
+#else
+
+// this is a hack, I have no idea why the bove doesn't work
+bool rsa_verify_sig(RSA* r, byte* hash, int hash_size,
+         const byte* sig, int sig_size) {
+  byte decrypted[sig_size];
+  memset(decrypted, 0, sig_size);
+  int n = RSA_public_encrypt(sig_size, sig, decrypted, r, RSA_NO_PADDING);
+  if (memcmp(hash, &decrypted[sig_size - hash_size], hash_size) != 0)
+    return false;
+  int check_size = 16;
+  byte check_buf[check_size] = {
+    0x00, 0x01, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+    0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+  };
+  if (memcmp(check_buf, decrypted, check_size) != 0)
+    return false;
+  return true;
+}
+#endif

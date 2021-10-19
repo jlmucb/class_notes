@@ -199,6 +199,12 @@ public:
   bool verify_cert();
 };
 
+
+bool rsa_sign_msg(RSA* r, const byte* to_sign, int to_sign_size,
+         byte* sig, int* sig_size);
+bool rsa_verify_sig(RSA* r, byte* hash, int hash_size,
+         const byte* sig, int sig_size);
+
 bool asn1_to_x509(string& in, X509 *x);
 bool x509_to_asn1(X509 *x, string* out);
 #endif

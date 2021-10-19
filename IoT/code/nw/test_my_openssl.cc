@@ -303,6 +303,65 @@ TEST (x509, test_x509) {
   EXPECT_TRUE(test_x509());
 }
 
+bool test_sig_special() {
+
+  rsa_implement rsa_obj;
+
+  if (!rsa_obj.generate_key(2048))
+    return false;
+  if (FLAGS_print_all) {
+    printf("key:\n");
+    RSA_print_fp(stdout, rsa_obj.rsa_key_, 2);
+  }
+
+  int to_sign_size = 64;
+  byte to_sign[to_sign_size];
+  memset(to_sign, 0, to_sign_size);
+  for (int i = 0; i < to_sign_size; i++)
+    to_sign[i] = (byte)i;
+
+  int sig_size = 256;
+  byte sig[sig_size];
+  memset(sig, 0, sig_size);
+  byte decrypted[sig_size];
+  memset(decrypted, 0, sig_size);
+
+  int hash_size = 64;
+  byte hash[hash_size];
+  memset(hash, 0, hash_size);
+
+  sha256_digest dg;
+  dg.init();
+  dg.update(to_sign_size, to_sign);
+  dg.finalize(hash, (unsigned int*)&hash_size);
+  printf("To hash: ");
+  print_bytes(to_sign_size, to_sign);
+  printf("Hashed : ");
+  print_bytes(hash_size, hash);
+
+  if (!rsa_sign_msg(rsa_obj.rsa_key_, to_sign, to_sign_size,
+         sig, &sig_size)) {
+    printf("Can't sign msg\n");
+    return false;
+  }
+
+  printf("Sig    :\n");
+  print_bytes(sig_size, sig);
+
+  int n = RSA_public_encrypt(sig_size, sig, decrypted, rsa_obj.rsa_key_, RSA_NO_PADDING);
+  printf("Decrypted:\n");
+  print_bytes(sig_size, decrypted);
+
+  if (!rsa_verify_sig(rsa_obj.rsa_key_, hash, 32, sig, sig_size)) {
+    printf("Can't verify msg\n");
+    return false;
+  }
+
+  return true;
+}
+TEST (test_sig_special, test_sig_special) {
+  EXPECT_TRUE(test_sig_special());
+}
 
 int main(int an, char** av) {
   gflags::ParseCommandLineFlags(&an, &av, true);
