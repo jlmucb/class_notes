@@ -636,3 +636,72 @@ main(void)
 
 	return 0;
 }
+
+bool RSASign( RSA* rsa, 
+              const unsigned char* Msg, 
+              size_t MsgLen,
+              unsigned char** EncMsg, 
+              size_t* MsgLenEnc) {
+  EVP_MD_CTX* m_RSASignCtx = EVP_MD_CTX_create();
+  EVP_PKEY* priKey  = EVP_PKEY_new();
+  EVP_PKEY_assign_RSA(priKey, rsa);
+  if (EVP_DigestSignInit(m_RSASignCtx,NULL, EVP_sha256(), NULL,priKey)<=0) {
+      return false;
+  }
+  if (EVP_DigestSignUpdate(m_RSASignCtx, Msg, MsgLen) <= 0) {
+      return false;
+  }
+  if (EVP_DigestSignFinal(m_RSASignCtx, NULL, MsgLenEnc) <=0) {
+      return false;
+  }
+  *EncMsg = (unsigned char*)malloc(*MsgLenEnc);
+  if (EVP_DigestSignFinal(m_RSASignCtx, *EncMsg, MsgLenEnc) <= 0) {
+      return false;
+  }
+  EVP_MD_CTX_cleanup(m_RSASignCtx);
+  return true;
+}
+
+bool RSAVerifySignature( RSA* rsa, 
+                         unsigned char* MsgHash, 
+                         size_t MsgHashLen, 
+                         const char* Msg, 
+                         size_t MsgLen, 
+                         bool* Authentic) {
+  *Authentic = false;
+  EVP_PKEY* pubKey  = EVP_PKEY_new();
+  EVP_PKEY_assign_RSA(pubKey, rsa);
+  EVP_MD_CTX* m_RSAVerifyCtx = EVP_MD_CTX_create();
+  if (EVP_DigestVerifyInit(m_RSAVerifyCtx,NULL, EVP_sha256(),NULL,pubKey)<=0) {
+    return false;
+  }
+  if (EVP_DigestVerifyUpdate(m_RSAVerifyCtx, Msg, MsgLen) <= 0) {
+    return false;
+  }
+  int AuthStatus = EVP_DigestVerifyFinal(m_RSAVerifyCtx, MsgHash, MsgHashLen);
+  if (AuthStatus==1) {
+    *Authentic = true;
+    EVP_MD_CTX_cleanup(m_RSAVerifyCtx);
+    return true;
+  } else if(AuthStatus==0){
+    *Authentic = false;
+    EVP_MD_CTX_cleanup(m_RSAVerifyCtx);
+    return true;
+  } else{
+    *Authentic = false;
+    EVP_MD_CTX_cleanup(m_RSAVerifyCtx);
+    return false;
+  }
+}
+
+bool verifySignature(std::string publicKey, std::string plainText, char* signatureBase64) {
+  RSA* publicRSA = createPublicRSA(publicKey);
+  unsigned char* encMessage;
+  size_t encMessageLength;
+  bool authentic;
+  Base64Decode(signatureBase64, &encMessage, &encMessageLength);
+  bool result = RSAVerifySignature(publicRSA, encMessage, encMessageLength, 
+                  plainText.c_str(), plainText.length(), &authentic);
+  return result & authentic;
+}
+
