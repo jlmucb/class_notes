@@ -918,7 +918,7 @@ bool rsa_sign_msg(RSA* r, const byte* to_sign, int to_sign_size,
   if (EVP_DigestSignUpdate(sign_ctx,  to_sign, to_sign_size) <= 0) {
       return false;
   }
-  if (EVP_DigestSignFinal(sign_ctx, nullptr, (size_t*)sig_size) <=0) {
+  if (EVP_DigestSignFinal(sign_ctx, nullptr, (size_t*) sig_size) <= 0) {
       return false;
   }
   if (EVP_DigestSignFinal(sign_ctx, sig, (size_t*)sig_size) <= 0) {
