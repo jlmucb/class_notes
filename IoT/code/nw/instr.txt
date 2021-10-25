@@ -810,3 +810,52 @@ int main(void) {
     return 0;
 }
 
+
+Server
+  SSL_load_error strings
+  socket(AF_INET, addr, 0)
+  bind
+  listen
+  get_certificate_store(ctx)
+  sk_509_stack_null
+  sk_509_push(root)
+  sk_509_push(server_cert)
+  SSL_CTX_use_cert_and_key
+  SSL_CTX_set_certify(SSL_VERIFY_PEER | SSL_VERIFY_CLIENT_ONCE)
+  loop
+    a = accept()
+    ctx= ssl_new
+    ssl_set_verify
+    ssl_set_fd(ssl, a)
+
+server-thread
+  sd= SSL_get_fd
+  SSL_accept
+  SSL_read
+  SSL_write
+  close(sd)
+  SSL_free
+
+
+Client
+  socket
+  gethostaddress
+  connect
+  ctx= SSL_new
+  SSL_set_cipher_list
+  SSL_set_verify(SSL_VERIFY_PEER)
+  SSL_set_fd(sd)
+  SSL_CTX_set_options
+  SSL_set_cipher_list
+  load certs as above
+  ssl_set_verify
+  SSL_connect
+  SSL_get_peer_certificate
+  SSL_get_cipher
+  SSL_read
+  SSL_write
+    close(sd)
+  SSL_free
+  
+
+  
