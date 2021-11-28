@@ -781,6 +781,23 @@ has period $n$ if $(c,m)=1$.  $b=a-1$, $b=0 (p)$ if $p|m, b=0 (4)$
 if $m=0 (4)$.
 \\
 \\
+{\bf Difference calculus:} Let $\langle a_0, a_1, a_2, \ldots \rangle$ be a sequence.  Define $\Delta a_k = a_{k+1} - a_k$.
+$\Delta^2 a_k = \Delta (a_{k+1} - a_k) = a_{k+2} - 2a_{k+1} + a_k$ and in general
+$\Delta^n a_k = \sum_{i=0}^n {n \choose i} (-1)^i a_{k+i}$.  It is easy to show that $(\Delta + 1) a_k = a_{k+1}$ and in
+fact, $(\Delta + 1)^n a_k = a_{k+n}$.  
+Put $E= \Delta + 1$, then $E^n a_0 = a_n$ and $E^n= \sum_{i=0}^n {n \choose i} \Delta^{i}$. Now if $a_k$ is given by
+a polynomial, $P(k)$ and $deg(P) = d$, $\Delta^m a_k = 0$ for $m > d$.  Consider the sequence $a_k= k^3$.
+$a_0 = 0$, $\Delta a_0 = 1$, $\Delta^2 a_0 = 6$, $\Delta^3 a_0 = 6$, $\Delta^m a_0 = 0, m > 3$.
+So $a_n = E^n a_0 = 0 + {n \choose 1} + 6 {n \choose 2} + 6 {n \choose 2}$, which simplifies to
+$a_n = n^3$.  Given a sequence $\langle a_0, a_1, a_2, \ldots \rangle$, we can add another row by forming
+$a_0, a_0 + a_1, a_0 + a_1 +  a_2, \ldots$ and then the formula above allows us to calculate, say $\sum_{i=0}^n i^k$.
+Given a recursion $c_k a_{n+k} + c_{k - 1} a_{n+k-1} + c_{k - 2} a_{n+k-2} + \ldots +c_{0} a_{n} =0$.  Putting
+$a_n = a^n$, we get $c_k a^k + c_{k - 1} x^{k-1}  + \ldots +c_{0} =0$.  If the distinct
+roots are $r_1, \ldots , r_k$, $b_n = \alpha_1 {r_1}^n + \alpha_2 {r_2}^n + \ldots +\alpha_k {r_k}^n$ is a solution
+to the recurrence.   If there are repeated roots, say, $r_1, r_1, r_2$ (and $k=3$), the solution is
+$b_n= (\alpha_1 n +\alpha_2) {r_1}^n + \alpha_3 {r_2}^n$.
+\\
+\\
 {\bf Burnside counting:}  Let a permutation group $G$ act on $A$ inducing an equivalence
 relation $S$.  Let $n$ be the number of equivalence classes.
 $n= {\frac 1 {|G|}} \sum_{g \in G} |A_g|$.
