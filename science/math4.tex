@@ -334,15 +334,15 @@ Let $n_i$: number of vertices with valence $i$, $2e \geq 3F$, $\sum in_i = 2E$.
 \\
 \\
 {\bf Differential Geometry:}
-Let ${\cal U} ({\vec x}) = {\frac {\vec {x}} {|{\vec {x}}|}}$.  
-Curve length: $s(t)= \int_{t_0}^t | \gamma'(t)| dt$.
-${\vec T} (t)=  {\cal U} (\gamma'(t))$,
-${\vec {N}}(t)= {\cal U} (\gamma''(t)) - \langle \gamma''(t), {\vec {T}}(t) \rangle {\vec T}(t)$.
-Alternatively, ${\vec T}(s)= {\cal U}(\gamma'(s))$, 
-${\vec N} (s)= {\cal U}({\vec T}'(s))$.
-$\kappa(t)= {\frac {\langle {\vec {T}}'(t), {\vec {N}}(t) \rangle} {\gamma'(t)}}$, 
-${\vec B}(t)= {\vec {T}}(t) \times {\vec {N}}(t)$,
-$\tau(t)= {\frac {\langle {\vec {N}}'(t) , {\vec B}(t) \rangle} {|\gamma'(t)|}}$.
+Curve length: $s(t)= \int_{t_0}^t | \gamma'(t)| dt$.  Let $'$ be differentiation with respect to
+$s$.
+${\vec T} (s)=  {\vec x(s)}'$.  ${\vec T} (s)$ is a unit vector. ${\vec N (s)} = {\frac {{\vec T} (s)'}
+{|{\vec T} (s)'|}}$.  ${\vec N (s)}$ is also a unit vector called the \emph{normal}.  $\kappa(s)= |{\vec T} (s)'|$
+is the curvature.  The \emph{binormal} is ${\vec B(s)} = {\vec T} (s) \times {\vec N (s)}$.  The \emph{torsion} is
+$\tau(s)$ where  ${\vec B(s)}' = -\tau(s)  {\vec N (s)}$.  Frenet formulas are:
+${\vec T (s)}' = \kappa(s) {\vec N(s)}$, 
+${\vec B (s)}' = -\tau(s){\vec N(s)}$, 
+${\vec N (s)}' = -\kappa(s) {\vec T(s)} + \tau(s) {\vec B(s)}$.
 First Fundamental Form: 
 If $E= {\vec {x_u}} \cdot {\vec {x_u}}$,
 $F= {\vec {x_u}} \cdot {\vec {x_v}}$ and
