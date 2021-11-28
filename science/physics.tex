@@ -976,6 +976,35 @@ $V(r)= - \int f(r) dr$, ${\frac 1 2} m({\dot {r}}^2 +r^2 {\dot{\theta}}^2)+V(r)=
 ellipse if $E<0$, parabola if $E=0$, hyperbola if $E>0$.
 \\
 \\
+{\bf Inertia tensor:} ${\vec \Omega} = \sum_n m_n ({\vec r_n} \times \dot{\vec r}_n)$.
+$\dot{\vec r}_n = {\vec \omega} \times {\vec r_n}$.
+$\Omega = \sum_n m_n ({\vec r_n} \times {\vec \omega} \times {\vec r_n})$.
+In fixed frame $[xyz]$, ${\vec \Omega}= \Omega_x {\vec i} + \Omega_y {\vec j} + \Omega_z {\vec k}$,
+${\vec \omega}= \omega_x {\vec i} + \omega_y {\vec j} + \omega_z {\vec k}$, and
+${\vec r_n}= x_n {\vec i} + y_n {\vec j} + z_n {\vec k}$.
+${\vec \Omega} = \sum_n m_n ({\vec r_n} \times \dot{\vec r}_n)=
+\sum_n m_n[{\vec \omega} |r_n|^2 - {\vec r_n} ({\vec r_n} \cdot {\vec \omega})]$. So
+${\vec \Omega} = 
+\left(
+\begin{array}{ccc}
+I_{xx} & I_{xy} & I_{xz} \\
+I_{yx} & I_{yy} & I_{yz} \\
+I_{zx} & I_{zy} & I_{zz} \\
+\end{array}
+\right) {\vec \omega}
+$, where 
+$I_{xx} = \sum_n m_n {x_n}^2$,
+$I_{xy} = -\sum_n m_n x_n y_n$,
+$I_{xz} = -\sum_n m_n x_n z_n$,
+$I_{yy} = \sum_n m_n {y_n}^2$,
+$I_{yx} = -\sum_n m_n x_n y_n$,
+$I_{yz} = -\sum_n m_n y_n z_n$,
+$I_{zz} = \sum_n m_n {z_n}^2$,
+$I_{zx} = -\sum_n m_n x_n z_n$,
+$I_{zy} = -\sum_n m_n y_n z_n$.  The \emph{principal axes} are the ones in which the interial tensor is diagonal.
+$T = {\frac 1 2} {\vec \omega} \cdot {\vec \Omega}$.
+\\
+\\
 {\bf Rotating frames:}
 Suppose $XYZ (F)$ is inertial system and $xyz (M)$ is rotating frame with
 a common origin $O$.
