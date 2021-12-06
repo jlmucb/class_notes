@@ -313,7 +313,7 @@ $\tilde{\alpha}_t(i)= \sum_{j=1}^{n} \hat{\alpha}_{t-1}(j) a_{ji}b_i(o_t),
 0 \le i <n$,
 $c_t= (\sum_{j=1}^{n} \tilde{\alpha}_0(j))^{-1}$ and
 $\hat{\alpha}_t(i)= c_t \tilde{\alpha}_0(i)$.
-Using the above, $\hat{\alpha}_t(i)= c_0 c_1 \ldots c_t \alpha_t(i)= {\frac {\alpha_t(i)}
+Using the above, $\hat{\alpha}_t(i) = c_0 c_1 \ldots c_t \alpha_t(i)= {\frac {\alpha_t(i)}
 {\sum_{j=1}^{n} \alpha_t(j)}}$ and $P(O|\lambda)= (\prod_{j=0}^{T-1} c_j)^{-1}$,
 the $\beta$ scale the same way.
 \\
@@ -718,29 +718,66 @@ have $d_i=32$ and all other rows will have $d_i=0$.  If one error, $d_i=30$, etc
 \\
 {\bf Definition:} The
 \emph{Golay Code} ${\cal G}_{24}$ is a $[24, 12,8]$ linear code. 
-$G= [I_{12} | C_0 | N] = [I | B]$ 
-where $C_0= (1,1,1,1,1,1,1,1,1,1,1,0)^T$
+$G= [I_{12} | C_0 | N] = [I | B] = (c_1, c_2, \ldots, c_{24})$  where each $c_i$
+is  a column vector and $C_0= (1,1,1,1,1,1,1,1,1,1,1,0)^T$
 and $N$ is formed by circulating $(1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 0)$
 $11$ times and appending an row of $11$ 1's.
 The first row of $N$ corresponds to the quadratic residues $\jmod{11}$.
 Note that $wt(r_1 + r_2) = wt(r_1) + wt(r_2) - 2 [r_1 \cdot r_2]$,
 all codewords have weight divisible by $4$ and $d(C)=8$.  
-${\cal G}_{24} = {\cal G}_{24}^{\perp}$.
+${\cal G}_{24} = {\cal G}_{24}^{\perp}$.  $mG=t$, the transmitted word.
 \\
 \\
 {\bf Decoding the Golay code:} Let
 $G=[I_{12} | B]$ and $B^T= (b_1 , b_2 , \ldots, b_{12})$ with $b_i$ a column vector.
-Suppose $r=c+e$ is received and $wt(e) \le 3$.  Put $s= rG^T$ and compute
-$sB$, $s+c_i^T$, $1 \le i \le 24$ and $sB+b_j^T$, $1 \le j \le 12$. If
-$wt(sB) \le 3$, there is a non-zero entry in the $k$-th position of $sB$ if
-the $k+12$-th position of $e$ is non-zero.   If $wt(s) \le 3$ a non-zero entry in
-$s$ at position $k$ corresponds to a non-zero entry in position $k$ of $e$.  
+Suppose $r=c+e$ is received and $wt(e) \le 3$.  The syndrone is $s= rG^T$.  Compute
+$sB$, $s+c_i^T$, $13 \le i \le 24$ and $sB+b_j^T$, $1 \le j \le 12$.
+If $wt(s) \le 3$, there is a non-zero entry in the $k$-th position of $sB$
+corresponding to non-zero entries of $e$.
+If $wt(sB) \le 3$, there is a non-zero entry in the $k$-th position of $sB$
+corresponding to the $k+12$-th position of $e$.
 If $wt(s+c_j^T) \le 2$, for some $j$, $13 \le j \le 24$ then $e_j=1$ and non-zero
 entries of $s+e_j^T$ are in the same positions as non-zero entries of $e$.
 If $wt(sB+b_j^T) \le 2$, for some $j$, $1 \le j \le 12$ then $e_j=1$ and non-zero
 entries of $sB+b_j^T$ at position $k$ correspond to non-zero entries of $e_{k+12}$.
 \\
 \\
+{\bf Golay and Steiner systems:} Let $|X|=v$.  A $t-(v,k, \lambda)$ design is a collection of $k$-subsets of
+$X$ where every $t$ subset of $X$ is in exactly one of the $k$-subsets. The $k$ subsets are called \emph{blocks}.
+A Steiner system, $S(t,k,v)$ is a $t-(v,k,1)$ design.
+\\
+\\
+{\bf Theorem:} In a $t-(v,k, \lambda)$ design, let $P_1, \ldots, P_i$, $1 \leq i \leq t$
+be distinct points and $\lambda_i$ be the number of blocks containing $P_1, \ldots, P_i$ then
+$\lambda_i = {\frac {{{v-i} \choose {t-i}}} {{{k-i} \choose {t-i}}}}$.  Thus the Steiner system
+$S(5,8,24)$ has $759$ blocks.  $\sum{i=0}^3 {23 \choose i} = 2^{11}$ and the Golay code, ${\cal G}_{23}$ above is perfect.
+${\cal G}_{24}$ also called $G[24,12,8]$ by addid a $1$ or $0$ to the ${\cal G}_{23}$ to make them divisible by $8$.
+\\
+\\
+{\bf $M_{23}:$}  Let $Q$ be the quadratic residues mod $23$ and $N$ be the non residues.  If we label the coordinates of
+the Golay codewords $0,1, \ldots, 22, \infty$, ${\cal G}_{24}$ is preserved by $PSL_2(23)$.  
+$PSL_2(23_ = \langle S, V, T\rangle$ where $S: i \mapsto i+1$, $V: i \mapsto 2i$, $T: i \mapsto - {\frac 1 i}$.
+$M_{24} = \langle S, V, T, W\rangle$ where $W: \infty \mapsto 0$, 
+$W: i \mapsto - {\frac i 2}$ if $i \in Q$ and
+$W: i \mapsto  (2i)^2$ if $i \in N$. $|M_{24}| = 24 \cdot 23 \cdot 22 \cdot 21 \cdot 20 \cdot 48$.
+For ${\cal G}_{24}$,
+\begin{center}
+\begin{tabular} {|r|r|r|r|r|r|}
+\hline
+$i$ & $0$ & $8$ & $12$ & $16$ & $24$ \\
+$A_i$ & $1$ & $759$ & $2576$ & $759$ & $1$ \\
+\hline
+\end{tabular}
+\end{center}
+For ${\cal G}_{23}$,
+\begin{center}
+\begin{tabular} {|r|r|r|r|r|r|r|r|r|}
+\hline
+$i$ & $0$ & $7$ & $8$ & $11$ & $12$ & $15$ & $16$ & $23$ \\
+$A_i$ & $1$ & $253$ & $506$ & $1288$ & $1288$ & $506$ & $253$ & $1$ \\
+\hline
+\end{tabular}
+\end{center}
 {\bf Reed-Solomon construction:} 
 Fix $n$ elements, $\langle \alpha_1 , ..., \alpha_n \rangle$, 
 $|F| \geq n$, $E(m)= \langle M\alpha_1 , ..., M\alpha_n \rangle$, $d(E(m_1,m_2)) \leq n+k-1$.
