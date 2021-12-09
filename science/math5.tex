@@ -897,16 +897,17 @@ $(1)^{23}, -3$ & $24$ \\
 \end{tabular}
 \end{center}
 There are 
-$4600$ vertices adjacent to $2$ adjacent simplex,
-$891$ vertices adjacent to $3$ adjacent simplex,
-$336$ vertices adjacent to $4$ adjacent simplex and
-$170$ vertices adjacent to $5$ adjacent simplex.  
+$4600$ pairs of vertices adjacent to $2$ simplex,
+$891$ triples ertices adjacent to $3$ simplex,
+$336$ 4-sets adjacent to a $4$ simplex and
+$170$ 5-sets adjacent to $5$ simplex.  
 This gives a dihedral like estimate on the size of the symmetry group.
 \\
 \\
 {\bf Definition of
 Conway's group:} ${\bf .O}$ is the set of rotations in ${\mathbb R}^{24}$ fixing $O$ 
-pointwise and $\Lambda$ setwise.
+pointwise and $\Lambda$ setwise.  This is equivalent to the symmetries of the polygon formed
+by the $196,560$ points that are a minimum distance from the origin.
 \\
 \\
 {\bf Notation:}
@@ -991,7 +992,7 @@ no element of $.O$ has order $13 \cdot 23$.
 \\
 \\
 Let $H$ be the symmetries fixing $\Lambda_2^4$ as a whole and $x= 4v_i +4v_j$
-and $N_x$ is the subgroup fixing $x$.  $N$ only changes signs and permutes
+and $N_x$ is the subgroup of $N$ fixing $x$.  $N$ only changes signs and permutes
 coordinates so $N: \Lambda_2^4 \rightarrow \Lambda_2^4$ and fixes
 $\Lambda_2^4(x)$ as a whole.  There are $2^2 {22 \choose 2}= 924$ vectors
 of the form $\pm 4 v_h \pm 4 v_k$ are perpendicular to 
@@ -1000,9 +1001,10 @@ $h, i, j,k$ distinct and so are
 $\pm(4 v_i - 4 v_j)$.  These $926$ vectors form
 $\Lambda_2^4(x)$.  $N_x$ is $2$-transitive so $\exists \sigma: 
 (4 v_i - 4 v_j) \mapsto \pm (4 v_i - 4 v_j) $ and no other elements are in this orbit.
-Thus $\{ (4 v_i - 4 v_j), -(4 v_i - 4 v_j) \} $ form a single orbit.
+Thus $\{ (4 v_i - 4 v_j), -(4 v_i - 4 v_j) \} $ form a single $N_x$ orbit.
 $N_x \subseteq H_x$ and the orbits of $H_x$ are a union of $N_x$ orbits.  As a result,
-it is either all $926$ orbits or the $N_x$ orbits.  In the latter case,
+either the $H_x$ and $N_x$ orbits coincide or all of $\Lambda_2^4(x)$ is in an $H_x$ orbit.
+In the latter case,
 $|H_x: H_{x,y}| = 926= 2 \cdot 463$ which contradicts the lemma.
 So we know $H_x$ has $2$ orbits on $\Lambda_2^4(x)$ and maps 
 $(4 v_i - 4 v_j)$ to itself or it's negative.  In the first case, $\lambda(v_i)= v_i$ and
