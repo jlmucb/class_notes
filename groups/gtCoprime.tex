@@ -152,11 +152,12 @@ $\exists A_1 \subset N_{AG}(P): A_1 \cap G=1$ and $A_1 N_{AG}(P)$ so $\exists g 
 A_1^g=A$ so $A \subseteq N_G(P)$.   This proves the claim.
 \\
 \\
-If $G$ is not a $p$-group, $\exists P \in S_p(G)$ for each $p$ which are $A$-invariant
-so $ \langle C_G(A_0) \rangle \supseteq C_P(A_0)=P$ and we are done.
-Assume $G$ is a $p$-group.  If $A$ is cyclic, the result holds trivially.  Suppose
-$A_0 < A$ and $A_0= {\mathbb Z}_p \times {\mathbb Z}_p$ and ${\overline P}= P/\Phi(P)$ then
-$A$ acts on ${\overline P}$.  By the previous result,
+If $G$ is not a $p$-group, $\exists P \in S_p(G)$ for each $p$ which are $A$-invariant.  In
+this case, $|AP|<|AG|$ so by induction,
+so $ \langle C_P(A_0): A/A_0 \textnormal{ is cyclic}  \rangle =P$ for each $p$ and we're done.
+So $G$ is a $p$-group.  If $A$ is cyclic, the result holds trivially.  If not, $\exists A_0
+\leq  A$ with $A_0= {\mathbb Z}_q \times {\mathbb Z}_q$. Put ${\overline P}= P/\Phi(P)$ then
+$A_0$ acts on ${\overline P}$.  By the previous result,
 $\exists a \in A_0^{\#}: C_{\overline P}(a) \ne 1$.  Put
 ${\overline P}_0= C_{\overline P}(a)$.
 If ${\overline P}_0={\overline P}$, $\forall a: [P, a] \subseteq \Phi (P)$ which contradicts
@@ -164,7 +165,7 @@ the faithfulness hypothesis.  So ${\overline P}_0 < {\overline P}$, ${\overline 
 $A$-invariant.  Since ${\overline P}$ is elementary abelian, $\exists {\overline P}_1$
 also $A$-invariant: ${\overline P}= {\overline P}_0 \times {\overline P}_1$.  Thus
 $P= P_0 P_1$, $P_0 \cap P_1 \subseteq \Phi (P)$ and by induction,
-$P_i= \langle C_{P_i}(A_0): A/A_0 \textnormal{ is cyclic } \rangle $.
+$P_i= \langle C_{P_i}(A_0): A/A_0 \textnormal{ is cyclic } \rangle $ and again we're done by induction.
 \end{quote}
 {\bf Theorem 10:}  Suppose $N \lhd G$, $H < G$, ${\overline G}= G/N$.  If $(|N|, |H|)=1$
 and either is solvable then 
