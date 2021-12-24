@@ -99,6 +99,11 @@ int calc_order(int max, int* a) {
 int main(int an, char** av) {
   int a[4];
   int n = 0;
+  int order_ct[9] = {
+    0, 0, 0,
+    0, 0, 0,
+    0, 0, 0,
+  };
 
   for (int u = 0; u < m; u++) {
     for (int v = 0; v < m; v++) {
@@ -109,6 +114,7 @@ int main(int an, char** av) {
           n++;
           int k = calc_order(8, a);
           if (k > 0) {
+            order_ct[k]++;
             print_mat(2, 2, a);
             printf(" has order %d\n\n", k);
           }
@@ -116,7 +122,13 @@ int main(int an, char** av) {
       }
     }
   }
-
   printf("\nNumber generated: %d\n", n);
+  printf("\n\norder summary\n");
+  for (int i = 0; i < 9; i++)
+    printf("%3d ", i);
+  printf("\n");
+  for (int i = 0; i < 9; i++)
+    printf("%3d ", order_ct[i]);
+  printf("\n");
   return 0;
 }
