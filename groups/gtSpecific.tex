@@ -1070,7 +1070,122 @@ $B_2$, $G_2$ and $F_4$ give rise to (resp),
 the Suzuki groups ($q=2^n, n > 1$),
 the Ree groups of odd type ($q=3^n, n > 1$), and
 the Ree groups of eventype ($q=2^n, n > 1$).
-
+\section{The centralizer of an involution in the classical simple groups}
+{\bf $PSL_n(q)$:} Put $G = PSL_n(q)$ and let $t \in Inv(G)$ and put $C = \{X \in SL_n(q): XT=\mu TX, \mu \in GF(q)^*\}$.  Finally,
+let $Z = \{ \lambda I_n: \lambda^n=1 \}$ so $G = PSL_n(q) = SL_n(q)/Z$; note $|Z|= (n, q-1)$.  Let $T=
+\left(
+\begin{array}{cc}
+-I_r & 0 \\
+0 &  I_s \\
+\end{array}
+\right)$.
+$T$ is an involution corresponding to an involution $t \in G$ of type 1; in fact, $t=TZ/Z$ and $C_G(t) = C/Z$.
+For odd $q$, $T^2= \lambda I_n$ with minimal polynomial $m_t(x)=x^2-\lambda I_n$.  If $\lambda$ is a quadratic residue
+in $GF(q)$, $m_t(x) = (x-\rho)(x+\rho)$.  If $n=2m$ is even, 
+$T= \left(
+\begin{array}{cc}
+0 &  I_m \\
+0 &  \rho I_m \\
+\end{array}
+\right)$ is also an involution of type 2.
+For $X \in C$ $X=
+\left(
+\begin{array}{cc}
+X_1 &  X_2 \\
+X_3 &  X_4 \\
+\end{array} \right)$, in the case of a type 1 involution, $det(X_1) det(X_4) =1$ and $X_2=0$, $X_3 =0$,
+in the case of a type 2 involution, $det(X_2) det(X_3) = -1$ and $X_1=0$, $X_4 =0$.  Let $\delta: X \mapsto det(X)$.
+$K= ker(\delta) \cong SL_r(q) \times SL_s(q)$. Put $E= KZ/Z \cong K/(K \cap Z)$.  $E$ is a central product and
+$E \lhd C/Z$.  $K \cap Z = \lambda I_n$ with $\lambda^r = \lambda^s = 1$ and $|K \cap Z| = (d,s)=(d,r)$, $Z= Z_r \times Z_s$. In fact,
+given the following lemma, $E$ is a minimal central product.\\
+{\bf Lemma:}  If  $A$ and $B$ are cyclic groups with
+$|\langle A \rangle| =ac$,
+$|\langle B \rangle| =bc$ and $(a,b)=1$, then the minimal central product of $A$ and $B$ has order $abc$. [Proof: $A^a=B^b$ is in the center.]
+\\
+Now if $N \subseteq C_G(t)$ corresponds to $E$, $N \lhd C_G(t)$ and $C_G(t)/N$ is cyclic.  Since $GF(q)^* = C/Z \mapsto C_G(t)/N$,
+$\mathbb{Z}(N)$ is also cyclic.  This gives the following:\\
+\\
+{\bf Theorem:} Put $G = PSL_n(q)$, $q$, odd  and let $t \in Inv(G)$. If $n$ is odd, $\exists N \lhd: C_G(t)$ and $N$ is a
+minimal central product of $SL_r(q)$ and $SL_s(q)$ with $r+s=n$.  Further, $|C_G(t)/N| \mid q-1$ and $|\mathbb{Z}(N)| \mid q-1$.
+\\
+\\
+Further (considering involutions of type 2, we get:
+\\
+\\
+{\bf Theorem:} Put $G = PSL_n(q)$, $q$, odd  and let $t \in Inv(G)$. If $n=2m$ is even, there are involutions corresponding to $r \neq s$ with
+centralizers as above.  For $r=s=m$, the centralizer of an involution either has type i or type ii below.  Type i:
+There subgroup $C_0 \lhd C_G(t), |C_G(t):C_0| =2$ such that $r=s=m$ and a subgroup $E \lhd C_G(t)$ where $E$ satisfies the conclusions
+of the previous result with $C_G(t)/E$ dihedral and
+$C_0/E$ and $\mathbb{Z}(E)$ cyclic with orders dividing $q-1$.  Type ii:  There subgroup $C_0 \lhd C_G(t), |C_G(t):C_0| =2$ and a subgroup $E \lhd C_G(t)$ 
+with $E/Z(E) \cong PSL_m(q^2)$. $|\mathbb{Z}(E) \mid q+1$ and $C_G(t) /E$ has order $q+1$ or $2(q+1)$.
+\\
+\\
+Here are the results for other simple classical groups.
+\\
+\\
+{\bf Theorem:} Put $G = PSL_n(q)$, $q$ even and let $t \in Inv(G)$. $\exists E, Q \lhd C_G(t)$ with
+$C_G(t) \supset E \supset Q \supset 1$ such that $C_G(t)/E$ is a cyclic group with order dividing $q-1$,
+$E/Q$ is a minimal central product of $SL_r(q)$ and $SL_s(q)$ with $n=2r+s$ and $Q$ is a $2$-group of class at
+most $2$.  Further, $C_G(Q) \subseteq Q$.\\
+Here $T$ has the form $\left(
+\begin{array}{ccc}
+L &  0 & I_r \\
+0 & I_s  & L \\
+0 & 0  & I_r \\
+\end{array}
+\right)$ and for $C$ as above, $X \in C$ has the form
+$\left(
+\begin{array}{ccc}
+R &  L & M \\
+0 & S  & N \\
+0 & 0  & R \\
+\end{array}
+\right)$ with $det(R)^2 det(S) = 1$, $R \in SL_r(q)$ and $S \in SL_s(q)$
+\\
+\\
+{\bf Theorem:} Put $G = PSp_{2m}(q)$, $q$, odd and let $t \in Inv(G)$. $C_G(t)$ has one of the following forms:\\
+(i) $C_G(t)$ is a minimal central product of $Sp_{2r}(q)$ and $Sp_{2s}(q)$, $r+s=m, r \neq s$\\
+(ii) There is a subgroup $C_1 \lhd C_G(t)$ and $C_1$ is a minimal central product of two copies of $Sp_{2l}(q)$, $2l =m$.  Further,
+$C_G(t) - C_1$ has an involution that exchanges the two copies.\\
+(iii) There is a subgroup $C_1 \lhd C_G(t)$ of index $2$ with $C_1 = GL_m(q)/\langle -I \rangle$.  Further,
+$C_G(t) - C_1$ has an involution which induces an automorphism corresponding to $A \mapsto \thinspace^tA^{-1}$ and $q = 1 \jmod{4}$.
+\\
+(iv) There is a subgroup $C_1 \lhd C_G(t)$ of index $2$ with $C_1 = U_m(q)/\langle -I \rangle$.  Further,
+$C_G(t) - C_1$ has an involution which induces an automorphism corresponding to $A \mapsto A^{\tau}$ and $q = 3 \jmod{4}$.
+\\
+\\
+{\bf Theorem:} Put $G = PSp_{2m}(q)$, $q$, even and let $t \in Inv(G)$.  $\exists E \lhd C_G(t)$ where $E$ is a $2$-group
+of class at most $2$.  $C_G(E) \subseteq Q$ and $C_G(t)/E = G_0 \times Sp_s(q)$ where $G_0$ is one of: $Sp_r(q)$, $Sp_{r-1}(q)$,
+or the semidirect product of $Sp_{r-2}(q)$ and a special $2$-group, $Q$, of order $q^{r-1}$.  $2r+s=2m$.
+\\
+\\
+{\bf Theorem:} Put $G = PSU_{n}(q)$, $q$, odd and let $t \in Inv(G)$.  $C_G(t)$ is one or the following:\\
+(i) $\exists N \lhd C_G(t)$ where $N$ is a minimal central product of $SU_{r}(q)$ and $SU_{s}(q)$, $r+s=n$.
+$C_G(t)/N$ and $\mathbb{Z}(N)$ are cyclic with order dividing $q+1$.
+\\
+(ii) $n=2m$ and $\exists C_0 \lhd C_G(t)$ of index $2$ and $E \lhd C_G(t)$ with the same structure as (i) and
+$C_G(t)/E$ is dihedral.  There is an involution of $C_G(t) - E$ that exchanges the two factors.
+\\
+(iii) $n=2m$ and $\exists C_0 \lhd C_G(t)$ of index $2$ and $E \lhd C_G(t)$ with $E/Z(E)= PSL_m(q^2)$,
+$\mathbb{Z}(E)$ cyclic with order dividing $q-1$.
+There is an involution of $C_G(t) - E$ that transforms elements of $PSL_m(q^2)$ as $A \mapsto \thinspace^t(A^{\tau})^{-1}$.
+\\
+\\
+{\bf Theorem:} Put $G = PSU_{n}(q)$, $q$, even and let $t \in Inv(G)$.  $\exists E, Q: C_G(t) \supset E \supset Q \supset 1$ with
+$C_G(t)/E$ cyclic whose order divides $q+1$, $E/Q$ is a minimal central product of $SU_r(q)$ and $SU_s(q)$, $n =2r+s$, $Q$ is a $2$-group
+of class at most $2$ and $C_G(Q) \subseteq Q$.
+\\
+\\
+{\bf Theorem:} Put $G = P\Omega_{n}(q)$, $q$, odd and let $t \in Inv(G)$.  $\exists E \lhd C_G(t)$ with $C_G(t)/E$, solvable,
+$E=E'$ and $E$ is either (i) $SL_m(q)$, $SU_m(q)$ ($2m=n$) or (ii) a central product of $\Omega_r(q)$ and $\Omega_s(q)$.
+\\
+\\
+{\bf Theorem:} Put $G = P\Omega_{2m}(q)$, $q$, even, $m \geq 4$ and let $t \in Inv(G)$. $\exists Q \lhd C_G(t)$, $C_G(Q) \subseteq Q$,
+where $Q$ is a $2$-group and $C_G(t)/Q$ is either (1) $Sp_r(q) \times {\Omega_{2s}}^{\epsilon}$, $m=r+s$.
+\\
+\\
+{\bf Theorem:} Put $G = A_n$ and let $t \in Inv(G)$. $C_{S_n}(t) = H_1 \times H_2$.  $H_1= S_k$, $H_2= S_k \textnormal{ wr } \mathbb{Z}_2$.
+So $C_G(t) = \{ (a, b), a \in H_1, b \in H_2: \textnormal{sign}(a) =  \textnormal{sign}(b) \}$.
 \section{Finite Simple Groups}
 ${\mathbb Z}_p$, Schur Multiplier: 1.
 \\
