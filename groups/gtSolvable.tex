@@ -204,25 +204,26 @@ so $\exists u \in U: S^{gu}= T$.  This completes the proof.
 $2 \rightarrow 3$ is clear.
 \\
 \\
-\emph{Claim:} If $(|G:H|,|G|K|)= 1$, then $|G: H \cap K|= |G:H| |G:K|$.
+$3 \rightarrow 4$:\\
+\emph{Claim:} If $(|G:H|,|G:K|)= 1$, then $|G: H \cap K|= |G:H| |G:K|$.
 \\
 \emph{Proof of claim:} 
-$|G:H \cap K|= |G:H| \cdot |H: H \cap K| = |G:H| |G:K| |K|$ and $K=1$.
+$|G:H \cap K|= |G:H| \cdot |H: H \cap K| = |G:H| |G:K| |K|$ and $|K|=1$.
 \\
 \\
-Let $G_{p_i'}$ be an $S_{p_i}$-subgroup of $G$, put $G_{\pi'}= \bigcap_{p \in \pi} G_{p_i'}$.
+Let $G_{p_i'}$ be an $S_{p_i'}$-subgroup of $G$, put $G_{\pi'}= \bigcap_{p \in \pi} G_{p_i'}$.
 \\
 \\
 \emph{Claim:} $G_{\pi'}$ is a Hall $S_{\pi'}$-subgroup of $G$.
 \\
 \emph{Proof of claim:} 
 By induction on $|\pi|$.
-$G_{\pi'}= G_{\pi \setminus \{ p_1 \}} \cap G_{p_1'}$.  Applying the previous claim, we get
+$G_{\pi'}= G_{(\pi \setminus \{ p_1 \})'} \cap G_{p_1'}$.  Applying the previous claim, we get
 the result.
 \\
 \\
 Put $G_{p_i}= \bigcap_{j \ne i} G_{p_j'}$  then $G_{p_i}$ is a $p_i$-Sylow subgroup of $G$ and
-$g_{p_i} G_{p_j}= G_{(\pi \setminus \{ p_i , p_j \})'} = G_{p_i} G_{p_j}$.
+$G_{p_j} G_{p_i}= G_{(\pi \setminus \{ p_i , p_j \})} = G_{p_i} G_{p_j}$.
 \\
 \\
 $4 \rightarrow 1$:
