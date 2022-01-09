@@ -30,6 +30,7 @@ int main(int an, char** av) {
   double days_since_solstice = 0.0;
   double inclination = 0.0;
   int n;
+  bool table = false;
 
   if (an < 2) {
     printf("daylight.exe --days=ddd --lat=latitude\n");
@@ -45,18 +46,39 @@ int main(int an, char** av) {
     if (strncmp(av[i], "--lat=", n) == 0) {
       sscanf(&(av[i][n]), "%lf", &lat);
     }
+    if (strcmp(av[i], "--table") == 0) {
+      table = true;
+    }
   }
 
-  double t = (days_since_solstice / 365.25) * 2.0 * pi;
+
+  double t = 0.0;
+  double r_inclination = 0.0;
+  double r_lat = 0.0;
+  double x = 0.0;
+  double dl = 0.0;
+
+  if (table) {
+    printf("Latitude: %6.2lf\n", lat);
+    for (int i = 0; i < 366; i++) {
+      t = 2.0 * pi * (((double) i) / 365.25);
+      inclination = 23.5 * cos(t);
+      r_inclination = degrees_to_radians(inclination);
+      r_lat = degrees_to_radians(lat);
+      x = sunrise_to_sunset_radians(r_inclination, r_lat);
+      dl = (x / pi) * 12.0;
+      printf("%d, %6.2lf\n", i, dl);
+    }
+    return 0;
+  }
+  t = (days_since_solstice / 365.25) * 2.0 * pi;
   inclination = 23.5 * cos(t);
+  r_inclination = degrees_to_radians(inclination);
+  r_lat = degrees_to_radians(lat);
+  x = sunrise_to_sunset_radians(r_inclination, r_lat);
+  dl = (x / pi) * 12.0;
   printf("Latitude: %6.2lf, days since winter solstice: %6.2lf, inclination: %6.2lf, ",
     lat, days_since_solstice, inclination);
-
-  double r_inclination = degrees_to_radians(inclination);
-  double r_lat = degrees_to_radians(lat);
-
-  double x = sunrise_to_sunset_radians(r_inclination, r_lat);
-  double dl = (x / pi) * 12.0;
   printf("%6.2lf hours of daylight\n", dl);
  
   return 0;
