@@ -4,16 +4,30 @@
 #include <string.h>
 #include <math.h>
 
-
-//
-// daylight
+// daylight with spherical trigonometry
 
 const double pi = 3.14159265;
 
+double degrees_to_radians(double d) {
+  return (d / 180.0) * pi;
+}
+
+double radians_to_degrees(double r) {
+  return (r / pi) * 180.0;
+}
+
+double sunrise_to_sunset_radians(double r_inclination, double r_lat) {
+  double a = acos(sin(r_inclination) / cos(r_lat));
+  double x = asin(sin(a) / cos(r_inclination));
+
+  if (a <= (pi / 2.0))
+    return 2.0 * x;
+  return 2.0 * (pi - x);
+}
 
 int main(int an, char** av) {
   double lat = 37.45;
-  double days_sinc_solstice = 0.0;
+  double days_since_solstice = 0.0;
   double inclination = 0.0;
   int n;
 
@@ -25,7 +39,7 @@ int main(int an, char** av) {
   for (int i = 0; i < an; i++) {
     n = strlen("--days=");
     if (strncmp(av[i], "--days=", n) == 0) {
-      sscanf(&(av[i][n]), "%lf", &days_sinc_solstice);
+      sscanf(&(av[i][n]), "%lf", &days_since_solstice);
     }
     n = strlen("--lat=");
     if (strncmp(av[i], "--lat=", n) == 0) {
@@ -33,28 +47,17 @@ int main(int an, char** av) {
     }
   }
 
-  double t = (days_sinc_solstice / 365.25) * 2 * pi;
+  double t = (days_since_solstice / 365.25) * 2.0 * pi;
   inclination = 23.5 * cos(t);
-  printf("Latitude: %lf, days since winter solstice: %lf, inclination: %lf\n",
-    lat, days_sinc_solstice, inclination);
+  printf("Latitude: %6.2lf, days since winter solstice: %6.2lf, inclination: %6.2lf, ",
+    lat, days_since_solstice, inclination);
 
-  double r_inclination = (inclination / 180.0) * pi;
-  double r_lat = (lat / 180.0) * pi;
+  double r_inclination = degrees_to_radians(inclination);
+  double r_lat = degrees_to_radians(lat);
 
-  double a = acos(sin(r_inclination) / cos(r_lat));
-  double x = asin(sin(a) / cos(r_inclination));
-  double dl;
-
-  if (a <= (pi / 2.0))
-    dl = ((2.0 * x) / pi) * 12.0;
-  else
-    dl = ((2.0 * (pi - x)) / pi) * 12.0;
-  printf("%lf hours of daylight\n", dl);
+  double x = sunrise_to_sunset_radians(r_inclination, r_lat);
+  double dl = (x / pi) * 12.0;
+  printf("%6.2lf hours of daylight\n", dl);
  
   return 0;
 }
-
-
-// ---------------------------------------------------------------------------
-
-
