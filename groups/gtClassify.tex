@@ -406,3 +406,44 @@ or dihedral $2$-Sylow subgroups.
 {\bf Standard form:} Suppose $x \in Inv(G)$ and  $H = C(x)$ has a normal quasi-simple subgroup $L$,
 of Lie type with odd characteristic such that $C_H(L)$ has $2$-rank 1.   We say $H$ is in standard
 form with standard component $L$.
+\section{Outline of Thompson}
+J.G. Thompson proved that Frobenius kernels are nilpotent.
+It is enough to prove that a finite group which admits a fixed-point free automorphism $\alpha$
+of prime order $p$ is nilpotent, which Thompson did in his thesis.
+Before Thompson's, it was known that a finite solvable group which admits a fixed-point free automorphism 
+of prime order is nilpotent. This was proved by G. Higman and J. Witt.
+Here is a quick outline, making use of the more modern version of the normal $p$-complement theorems
+(and standard properties of coprime automorphisms).\\
+\\
+\\
+{\bf Theorem:}  Let $G$ be a finite group which admits a fixed-point-free automorphism 
+$\alpha$ of prime order $p$ such that $G$ is not nilpotent, 
+and let $G$  have minimal order subject to this. Then $|G|=1 \jmod{p}$.
+\begin{quote}
+\emph{Proof:}
+We may assume that $G$ is not solvable. Hence we may choose an 
+odd prime divisor $q$ of $|G|$.
+Then $G$ has an $\alpha$-invariant Sylow $q$-subgroup $Q$, and $N(Z(J(Q)))$
+is also $\alpha$-invariant. 
+If $Z(J(Q)) \lhd G$ then $\alpha$ induces a fixed-point free automorphism on 
+$G/Z(J(Q))$ so, by induction, that $G/Z(J(Q))$ is nilpotent,
+and $G$  is solvable, contrary to assumption.  Hence $N(Z(J(Q)))$
+is a proper subgroup of $G$, so is nilpotent by the minimality of $G$.
+The Thompson's normal $q$-complement theorem shows that $G$ has a normal $q$-complement too.
+Since $q$ was an arbitrary odd prime divisor of $|G|$, $G$ has a normal Sylow 2-subgroup $U$ and 
+$G/U$ is nilpotent by minimality of $G$. So $G$ is again solvable, contrary to assumption.
+\\
+This now reduces to proving the result in the case that $G$ is solvable which .
+reduces to representation theory. 
+Further reducing to the case that $Q=F(G)$ is a minimal normal subgroup of $G$. This means $Q$ is 
+an elementary Abelian $q$-group for some prime $q$. 
+Furthermore, $G/M$ is an elementary Abelian $r$-group for some prime $r$.
+Let $R$ be an $\alpha$-invariant Sylow $r$-subgroup of $G$.
+Consider the semi-direct product $H=G \langle \alpha \rangle= Q R \langle \alpha \rangle$.
+$R\langle \alpha \rangle% is itself a Frobenius group of order $p|R|$, and is 
+acts faithfully as a group of automorphisms of $Q$.
+Now by Clifford's theoremm
+$\alpha$ can't act without non-trivial fixed-points on $Q$, contrary to the assumption that it does.
+$\end{quote}
+\section{Dickson's Theorem}
+Gorenstein 2.8.4
