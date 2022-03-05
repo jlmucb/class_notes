@@ -1,7 +1,19 @@
 \chapter{Classification of Finite Simple Groups}
 \section{Early Results}
-{\bf Feit-Thompson:}  The only finite simple groups or odd order are
+{\bf Feit-Thompson (FT):}  The only finite simple groups of odd order are
 ${\mathbb Z}_p, p\ne 2$. The proof follows the CN classification.\\
+\\
+Proof of FT is similar to the proof that all $CA$ groups are solvable. (In a $CA$-group,
+the centralizer of any element is abelian.).  The plan is to try and prove the following:
+Let $G$ be a minimal counterexample, for every maximal subgroup $M<G$, $\exists M_0 \lhd M$,
+such that:\\
+(a) $C_{M_0}(a) =1, a \in M - M_0$;\\
+(b) $M \cap {M_0}^g = 1$ for $g \in G-M$;\\
+(c) $M_0$ is nilpotent;\\
+(d) $M/M0$ is cyclic; \\
+(e) the union of all such $M_0$'s is a partition of $G$.\\
+The notion of stability shortens the original proof.
+\\
 \\
 {\bf Glauberman $ZJ$:}  If $C_G(O_p(G)) \le O_p(G)$ and the action of
 $G$ on its chief factors of $G$ is $p-$stable then $G=N_G(Z(J(S)))$. \\
