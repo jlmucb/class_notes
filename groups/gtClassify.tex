@@ -532,7 +532,9 @@ $N_{\overline G}({\overline T}) = {\overline {N_G(T)}}$.
 \end{quote}
 {\bf Theorem 8:} If $G$ is solvable and $R \in p(G)$ then $O_{p'}(C_G(R)) \subseteq O_{p'}(G)$.
 \begin{quote}
-\emph{Proof:}
+\emph{Proof:}  By previous result, $O_{p'}(G)=1$.  Put $M=O_p(C_G(R))$, $T= O_p(G)$.  $RM= R \times M$.
+$[C_{RT}(R), M] \subseteq M \cap RT = 1$.  Put $C=C_{RT}(M)$.  $C_{RT}(C) \subseteq C_{RT}(R) \subseteq C$.
+$[M, T]=1$ and $T= F(G)$.  $C_G(T) \subseteq T \cap M =1$.  Sp $M = 1$.
 \end{quote}
 {\bf Theorem 9:} If $G$ is solvable of odd order and $O_{p}(G)=1$, then $O_{p', p}(G)$ contains every
 normal abelian subgroup in $S in S_p(G)$.
@@ -543,6 +545,15 @@ ${\overline G}$ acts faithfully on $V$. $O_p({\overline G}) =1$.  Let $A$ be an 
 normal subgroup of $P \in S_q(G)$. $[P, A] \subseteq A$ so $[P, A, A] = 1$ and $[P, A] =1$
 so $[R,A,A]=1$ and ${\overline A}$ has minimal polynomial $(x-1)^2$.  Since $G$ is $p$-stable,
 the minimal polynomial is $x-1$.
+\end{quote}
+{\bf Theorem 6a:} If $A$ acts on $G$, a $p$-group, with $(|G|, |A|)=1$, $C=C_G(A)$.
+If $C_G(C) \subseteq C$ then $[A, G]=1$.
+\begin{quote}
+\emph{Proof:}
+Take $x \in N_G(C), y \in C$.  $(x^{-1}yx)^a = x^{-1}yx$ and $x^ax^{-1}$ centralized $y$. 
+So $x^ax^{-1} \in C_G(C) \subseteq C$.  Thus $A$ centralizes $N_G(C)/C$ stabilizing
+$1 \subseteq C \subseteq N_G(C)$ and $A$ acts trivially in $N_G(C)$.  Thus $N_G(C) \subseteq C$.
+Since $G$ is nilpotent, $G=C$ and $A$ acts trivially on $G$.
 \end{quote}
 {\bf Bender B:} If $A \ne B$ are two maximal subgroups of a simple group $G$ with
 $F^*(A) \subseteq B$ and $F^*(B) \subseteq A$ then
