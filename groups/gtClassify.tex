@@ -416,7 +416,7 @@ Here is a quick outline, making use of the more modern version of the normal $p$
 (and standard properties of coprime automorphisms).\\
 \\
 \\
-{\bf Theorem:}  Let $G$ be a finite group which admits a fixed-point-free automorphism 
+{\bf Theorem 1:}  Let $G$ be a finite group which admits a fixed-point-free automorphism 
 $\alpha$ of prime order $p$ such that $G$ is not nilpotent, 
 and let $G$  have minimal order subject to this. Then $|G|=1 \jmod{p}$.
 \begin{quote}
@@ -440,16 +440,47 @@ an elementary Abelian $q$-group for some prime $q$.
 Furthermore, $G/M$ is an elementary Abelian $r$-group for some prime $r$.
 Let $R$ be an $\alpha$-invariant Sylow $r$-subgroup of $G$.
 Consider the semi-direct product $H=G \langle \alpha \rangle= Q R \langle \alpha \rangle$.
-$R\langle \alpha \rangle% is itself a Frobenius group of order $p|R|$, and is 
+$R\langle \alpha \rangle$ is a Frobenius group of order $p|R|$, and 
 acts faithfully as a group of automorphisms of $Q$.
-Now by Clifford's theoremm
+Now by Clifford's theorem,
 $\alpha$ can't act without non-trivial fixed-points on $Q$, contrary to the assumption that it does.
-$\end{quote}
+\end{quote}
 \section{Dickson's Theorem}
+{\bf Theorem 2:} (i) $SL_2(q)$ has cyclic groups of order $q-1$ and $q+1$, (ii) $P \in S_2(SL_2(q)$ is
+elementary abelian if $q$ is even and generalized quaternion if $q$ is odd.
+\begin{quote}
+\emph{Proof:}
+$\langle
+\left(
+\begin{array}{cc}
+\lambda  &  0 \\
+0 &  {\lambda}^{-1} \\
+\end{array}
+\right)$ shows (i). Identify the two dimensional space over $GF(q)$ with the additive group of $GF(q^2)$;
+now look at the kernel of $det$ into the cyclic group of order $q^2-1$ in $GF_2(q)$.  The kernel has order $q+1$.
+\end{quote}
+{\bf Theorem:} Let $\lambda$ be a generator for $GF(p^r )$, $p \ne 2$ and put
+$L= \langle
+\left(
+\begin{array}{cc}
+1 &  0 \\
+\lambda &  1 \\
+\end{array}
+\right),
+\left(
+\begin{array}{cc}
+1 &  1\\
+0 &  1\\
+\end{array}
+\right)
+\rangle$. Then, either (i) $L=SL_2(p^r)$ or (ii) $p^r=9$, $L/Z(L) \cong A_5$, and
+$L$ contains a subgroup isomorphic to $SL_2(3)$.
+\begin{quote}
+\emph{Proof:}
 Gorenstein 2.8.4
+\end{quote}
 \section{Simplifying $CN$-theorem}
-
-{\bf Theoerm 1:} Suppose $G$ is a minimal simple $CN$group of odd order and $P, Q \in S_p(G)$ with
+{\bf Theorem 1:} Suppose $G$ is a minimal simple $CN$group of odd order and $P, Q \in S_p(G)$ with
 $P \cap Q \ne 1$  Then $P=Q$.
 \begin{quote}
 \end{quote}
@@ -459,3 +490,4 @@ $P \subseteq N(P)'$.
 \end{quote}
 From Theorem 1, it is clear the minimal counterexample cant be a $3$-step group which gives 14.2.2 
 in Gorenstein.  With these two theorems, we can use $N_G(P)$ in place of $N_G(Z(J(P)))$ in 14.2.3.
+\section{Some Bender Results}
