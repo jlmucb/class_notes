@@ -38,5 +38,47 @@ i & 0\\
 {\bf Theorem 5:}  The automorphism group of $Q_8$ is $S_4$.
 \\
 \\
-Automorphisms of Graphs.
+{\bf Theorem 6:} If $H \lhd G \subseteq GL_p(V)$ the $C_V(H)$ is $G$-invariant.
+\begin{quote}
+\emph{Proof:}
+Let $w \in W = C_V(G), h \in H, g \in G$ and let $\phi_{x}$ be the automorphism
+induced by $x$ on $V$.  $g^{-1} h g \in H$ so $\phi_{g^{-1} h g}(w) = 1$.
+so $\phi_{g^{-1}} \phi_{h} \phi_{g} (w) = w$ and so $\phi_{h} \phi_{g} (w) = \phi_{g} (w)$.
+Thus $W$ is $G$-invariant.
+\end{quote}
+{\bf Theorem 7:} Let $P \in p(GL_p(V)$.  $\exists v \in V: \phi_{x}(v)= v, \forall x \in P$.
+\begin{quote}
+\emph{Proof:}
+By induction on $|P|$.  Let $M \lhd P$ be maximal so $|P:M|=p$ and put $W=C_V(M)$.
+By induction, $W \ne 1$ and is $P$-invariant.  Choose $y \in P \setminus M$ then
+$y^p \in M$ so the minimal polynomial for $y$ is $x^p-1 = (x-1)^p$ so there is a $w \in W: [w,y]=1$.
+thus $[w, \langle y, M \rangle ] = 1$.
+\end{quote}
+{\bf Theorem 8:} Let $K \lhd P$ then $K {\mathbb Z}(P) \ne 1$.
+\begin{quote}
+\emph{Proof:}
+$H= \Omega_1({\mathbb Z}(K) \ne 1$.  $H \textnormal{char} K \lhd P$ and $H$ is elementary
+abelian. Let ${\overline P} = P C_H(P) / C_H(P)$.  Then $C_H({\overline P}) \ne 1$ by Theorem 7.
+So, $1 \ne H \cap {\mathbb Z}(P) \subseteq {\mathbb Z}(P) \cap K$.
+\end{quote}
+{\bf Note:} Theorem 8 holds if $P$ is nilpotent.
+\\
+\\
+{\bf Theorem 9:}  Let $H$ be an elementary abelian subgroup of $P$ and $x \in N_P(H)$.  Define
+$H^{(0)} = H$ and $H^{(i+1)}= [H^{(i)}, x]$ then the minimal polynomial for $x$ is $(x-1)^r$
+where $H^{(r)}=1$.
+\begin{quote}
+\emph{Proof:}
+\end{quote}
+{\bf Theorem 10:} If $G$ has a faithful, irreducible representation over $GF(p)$ then $G$
+has no normal $p$ subgroup.
+\begin{quote}
+\emph{Proof:}
+Suppose $P \lhd G$.  $W= C_V(\phi_{P}) \ne 1$.  But $\phi$ is irreducible so $W=V$.  $\phi_{P}$
+acts trivially on $V$ so $P=1$ since $\phi$ faithful.
+\end{quote}
+{\bf Theorem 11:}
+\begin{quote}
+\emph{Proof:}
+\end{quote}
 
