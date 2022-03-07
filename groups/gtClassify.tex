@@ -1,7 +1,8 @@
 \chapter{Classification of Finite Simple Groups}
 \section{Early Results}
 {\bf Feit-Thompson (FT):}  The only finite simple groups of odd order are
-${\mathbb Z}_p, p\ne 2$. The proof follows the CN classification.\\
+${\mathbb Z}_p, p\ne 2$. The proof follows the CN classification which follows
+Suzuki's $CA$ classification.\\
 \\
 Proof of FT is similar to the proof that all $CA$ groups are solvable. (In a $CA$-group,
 the centralizer of any element is abelian.).  The plan is to try and prove the following:
@@ -490,54 +491,45 @@ $P \subseteq N(P)'$.
 From Theorem 1, it is clear the minimal counterexample cant be a $3$-step group which gives 14.2.2 
 in Gorenstein.  With these two theorems, we can use $N_G(P)$ in place of $N_G(Z(J(P)))$ in 14.2.3.
 \section{Some Bender Results}
-{\bf Theorem 3:} If $P \in p(G)$ and $N_G(P)$ is $p$-constrained, so is $C_G(P)$.
-\begin{quote}
-\emph{Proof:}
-\end{quote}
-{\bf Theorem 4:} If $A < G$ is and elementary abelian $p$-groups with $r(A) \geq 3$ and $P, Q $ are
-$A$-invariant $p'$ subgroups of $G$ then $\exists a \in A^{\#}: C_P(a) \ne 1 \ne C_Q(a)$.
-\begin{quote}
-\emph{Proof:}
-\end{quote}
-{\bf Theorem 5:} Suppose $G$ is a group in which every normalizer of a $p$ subgroup is $p$-constrained.
+{\bf Theorem 3:} Suppose $G$ is a group in which every normalizer of a $p$ subgroup is $p$-constrained.
 If $p=2$ assume $cl(P) \leq 2$, $P \in S_p(G)$.  Let $E$ be an abelian $p$ groups with $r(E) \geq 3$ such that
 $E$ contains every $p$-element of $C_G(E)$.  Then $O_{p'}(C_G(E))$ acts transitively on ${\cal N}_G^*(E,q)$,
 $p \ne q$.
-\begin{quote}
-\emph{Proof:}
-\end{quote}
+\\
+\\
 {\bf Definition:} $S \in S_2(G), S' = 1$ is an $A^*$ group if there is a normal series 
 $1 \subseteq N \subseteq M \subseteq G$ where $N$ and $G/M$ have odd order and $M/N$
 is a direct product of $2$-group and $L_2(q)$ or $JR$.
 \\
 \\
-{\bf Bender UniquenessTheorem:} Let $G$ be a minimal simple group of odd order and $U$ an elementary
+{\bf Bender Uniqueness Theorem:} Let $G$ be a minimal simple group of odd order and $U$ an elementary
 abelian subgroup with $|U|=p^3$.   Then there is one and only one maximal subgroup $U<M<G$.
-\begin{quote}
-\emph{Proof:}
-\end{quote}
+\\
+\\
 {\bf Bender A:} Let $G$ be an group with abelian $S_2$ subgroups then $G$ is an $A^*$ group.
-\begin{quote}
-\emph{Proof:}
-\end{quote}
-{\bf Theorem 6:} If $G$ is $p$-solvable and $R \in p(G)$ is $p$-stsable if $p \geq 5$ or $SL_2(3)$ is not involved.
-\begin{quote}
-\emph{Proof:}
-\end{quote}
+\\
+\\
+{\bf Theorem 6:} If $G$ is $p$-solvable and $R \in p(G)$ is $p$-stable if $p \geq 5$ or $SL_2(3)$ is not involved.
+\\
+\\
 {\bf Theorem 7:} If $T \in p(G)$ and $M \in p'(G)$ with $M \lhd G$.  Write ${\overline X} = XM/M$.
 $C_{\overline G}({\overline T}) = {\overline {C_G(T)}}$ and
 $N_{\overline G}({\overline T}) = {\overline {N_G(T)}}$.
 \begin{quote}
 \emph{Proof:}
+Let $C^*/M = C_{G/M}(TM/M)$ and $N^*/M =N_{G/M}(TM/M)$.  $NM \subseteq N^*$. If $x \in N^*$, $T^x \in S_p(TM)$,
+so $\exists y \in M: T^x= T^y$ and $x y^{-1} \in N(T)$.  $x y^{-1})y = x \in NM$. So
+$N^* = NM$.  $CM \subseteq C^* \subseteq N^*= NM$.  Since $T \cap M = 1$, $C^* \cap N = C$ and
+$C^*=(C^* \cap N)M=CM$.
 \end{quote}
 {\bf Theorem 8:} If $G$ is solvable and $R \in p(G)$ then $O_{p'}(C_G(R)) \subseteq O_{p'}(G)$.
 \begin{quote}
 \emph{Proof:}  By previous result, $O_{p'}(G)=1$.  Put $M=O_p(C_G(R))$, $T= O_p(G)$.  $RM= R \times M$.
 $[C_{RT}(R), M] \subseteq M \cap RT = 1$.  Put $C=C_{RT}(M)$.  $C_{RT}(C) \subseteq C_{RT}(R) \subseteq C$.
-$[M, T]=1$ and $T= F(G)$.  $C_G(T) \subseteq T \cap M =1$.  Sp $M = 1$.
+$[M, T]=1$ and $T= F(G)$.  $C_G(T) \subseteq T \cap M =1$.  So $M = 1$.
 \end{quote}
 {\bf Theorem 9:} If $G$ is solvable of odd order and $O_{p}(G)=1$, then $O_{p', p}(G)$ contains every
-normal abelian subgroup in $S in S_p(G)$.
+normal abelian subgroup in $S \in S_p(G)$.
 \begin{quote}
 \emph{Proof:}
 We can assume $O_{p'}(G)=1$. $R= O_p(G)$, $V= R/\Phi(R)$, ${\overline G}= G/R$.
@@ -558,21 +550,14 @@ Since $G$ is nilpotent, $G=C$ and $A$ acts trivially on $G$.
 {\bf Bender B:} If $A \ne B$ are two maximal subgroups of a simple group $G$ with
 $F^*(A) \subseteq B$ and $F^*(B) \subseteq A$ then
 $F^*(A)$ and $F^*(B)$ are $p$-groups.
-\begin{quote}
-\emph{Proof:}
-\end{quote}
+\\
+\\
 {\bf Theorem:} If $G$ has a fixed-point-free automorphism of prime order, $p$ then $G$ is nilpotent.
-\begin{quote}
-\emph{Proof:}
-\end{quote}
-{\bf Theorem:} Let $K=ccl_G(x)$ where $x$ is a $p$-element.  If $\forall x, y \in K, \langle x , y \rangle \in p(G)$
-then $K \subseteq O_p(G)$
-\begin{quote}
-\emph{Proof:}
-\end{quote}
-{\bf Theorem:} $G$is $p$-stable iff $G/O_{p'}(G)$ is $p$-stable.
-\begin{quote}
-\end{quote}
+\\
+\\
+{\bf Theorem:} $G$ is $p$-stable iff $G/O_{p'}(G)$ is $p$-stable.
+\\
+\\
 {\bf Theorem:} Let $G$ be a group with no non-trivial normal $p$-subgroups, $p \ne 2$ which satisfies
 one of the following:\\
 (a) $|G|$ is odd;\\
@@ -580,10 +565,9 @@ one of the following:\\
 (c) $S \in S_2(G)$ is dihedral;\\
 (d) $G \cong PSL_2(q)$;\\
 (e)  $G$ is solvable and either $p \geq 5$ or $SL_2(3)$ is not involved in $G$;\\
-the $G$ is $p$-stable.
-\begin{quote}
-\emph{Proof:}
-\end{quote}
+then $G$ is $p$-stable.
+\\
+\\
 {\bf Hall-Higman Theorem:} Let $G$ be $p$-solvable with $O_p(G)=1$ acting on $V$ over $GF(p)$.
 Let $x$ be an element of order $p^n$. The the minimal polynomial for $x$ is $(x-1)^r$ where
 (i) $r=p^n$ or (ii) $\exists n_0 \leq n$ such that $p^{n_0}-1= q^k$ for which $Q \in S_q(G)$
