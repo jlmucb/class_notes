@@ -15,7 +15,7 @@ typedef unsigned char byte;
 
 #define default_uartDevice "/dev/ttyUSB0"
 #define BUF_SIZE 512
-const int sleep_interval = 3;
+const int sleep_interval = 10;
 
 void clearBuf(byte* buf, int n) {
   for (int i = 0; i < n; i++) {
@@ -84,6 +84,7 @@ struct gpm_msg_values {
   double seconds_;
   double degrees_lat_;
   double degrees_long_;
+  double alt_meters_;
   int num_sats_;
 };
 
@@ -125,6 +126,18 @@ bool parseNMEAMessage(char* msg, struct gpm_msg_values* v) {
     return false;
   if (*ew_string == 'W')
     v->degrees_long_ *= -1.0;
+  char* sats_str = find_string_in_msg(",", ew_string);
+  if (sats_str == NULL)
+    return false;
+  sats_str = find_string_in_msg(",", sats_str);
+  if (sats_str == NULL)
+    return false;
+  sscanf(sats_str, "%02d", &(v->num_sats_));
+  char* alt_str = find_string_in_msg(",", sats_str);
+  if (alt_str == NULL)
+    return false;
+  alt_str = find_string_in_msg(",", alt_str);
+  sscanf(alt_str, "%lf", &(v->alt_meters_));
   return true;
 }
 
@@ -150,7 +163,8 @@ bool get_location(int fd) {
     got_fix = parseNMEAMessage((char*)buf, &out);
     if (got_fix) {
       printf("\n  Time: %02d:%02d:%07.4f GMT, ", out.hour_, out.min_, out.seconds_);
-      printf("Position: %8.5f (lat), %8.5f (long)\n", out.degrees_lat_, out.degrees_long_);
+      printf("Position: %8.5f (lat), %8.5f (long), ", out.degrees_lat_, out.degrees_long_);
+      printf("Altitude: %8.5f (m), %d satellites\n", out.alt_meters_, out.num_sats_);
       return true;
     }
   }
