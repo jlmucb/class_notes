@@ -84,6 +84,11 @@ char* find_string_in_msg(const char* str, char* msg) {
 
 // GPS value structure
 struct gpm_msg_values {
+  bool date_valid_;
+  int year_;
+  int month_;
+  int day_;
+  bool location_valid_;
   int hour_;
   int min_;
   double seconds_;
@@ -101,6 +106,11 @@ struct gpm_msg_values {
 //    $GNGGA,022529.000,3745.5641,N,12226.3415,W,1,07,1.6,34.6,M,0.0,M,,*5A
 //    $GNRMC,022529.000,A,3745.5641,N,12226.3415,W,0.56,0.00,230420,,,A*6D
 //    $GNZDA,210543.000,21,03,2022,00,00*4B for date
+
+bool parseZDANMEAMessage(char* msg, struct gpm_msg_values* v) {
+  return false;
+}
+
 bool parseGGANMEAMessage(char* msg, struct gpm_msg_values* v) {
   char* time_string = find_string_in_msg("$GNGGA,", msg);
   if (time_string == NULL)
