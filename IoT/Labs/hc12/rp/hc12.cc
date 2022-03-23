@@ -23,6 +23,12 @@ typedef unsigned char byte;
 //    rxd (pin 10)  txd
 //    txd (pin  8)  rxd
 
+//    RP            HC12
+//    vcc           vcc
+//    gnd           gnd
+//    rxd (pin 10)  txd
+//    txd (pin  8)  rxd
+
 #define uartDevice "/dev/serial0"
 #define BUF_SIZE 512
 const int set_pin = 7;

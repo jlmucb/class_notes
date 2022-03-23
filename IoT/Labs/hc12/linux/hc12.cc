@@ -22,6 +22,7 @@ typedef unsigned char byte;
 //    gnd           gnd
 //    rxd           txd
 //    txd           rxd
+
 //    RP            HC12
 //    vcc           vcc
 //    gnd           gnd
