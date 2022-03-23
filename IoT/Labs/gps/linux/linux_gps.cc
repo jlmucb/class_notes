@@ -110,10 +110,10 @@ void print_gps_data(gpm_msg_values& out) {
         out.day_);
   }
   if (out.location_valid_) {
-    printf("Time: %02d:%02d:%07.4fZ\n", out.hour_, out.min_, out.seconds_);
-    printf("  Lattitude: %8.5f, Longitude: %8.5f, ",
+    printf("Time: %02d:%02d:%.4fZ\n", out.hour_, out.min_, out.seconds_);
+    printf("  Lattitude: %.5f, Longitude: %.5f, ",
         out.degrees_lat_, out.degrees_long_);
-    printf("Altitude: %8.4f (m), %d SVs\n", out.alt_meters_, out.num_sats_);
+    printf("Altitude: %.4f (m), %d SVs\n", out.alt_meters_, out.num_sats_);
   }
 }
 
