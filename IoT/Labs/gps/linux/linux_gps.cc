@@ -17,7 +17,6 @@ typedef unsigned char byte;
 #define BUF_SIZE 512
 const int sleep_interval = 1;
 const int short_wait = 50000;
-
 bool print_message = true;
 
 void clearBuf(byte* buf, int n) {
@@ -98,6 +97,26 @@ struct gpm_msg_values {
   int num_sats_;
 };
 
+const char* mths[12] = {
+  "January", "February", "March",
+  "April", "May", "June",
+  "July", "August", "September",
+  "October", "November", "December"
+};
+
+void print_gps_data(gpm_msg_values& out) {
+  if (out.date_valid_ & (out.month_ >= 1 && out.month_ <= 12)) {
+    printf("  Date: %04d %s %02d, ", out.year_, mths[out.month_ - 1],
+        out.day_);
+  }
+  if (out.location_valid_) {
+    printf("Time: %02d:%02d:%07.4fZ\n", out.hour_, out.min_, out.seconds_);
+    printf("  Lattitude: %8.5f, Longitude: %8.5f, ",
+        out.degrees_lat_, out.degrees_long_);
+    printf("Altitude: %8.4f (m), %d SVs\n", out.alt_meters_, out.num_sats_);
+  }
+}
+
 // NMEA message format
 //  $GNGGA,HHMMSS.SSS,DDMM.MMMM,N/S,DDDMM.MMMM,E/W,n,NS...A*20
 //  $GNRMC and $GNGLL messages also give location and time.
@@ -108,7 +127,23 @@ struct gpm_msg_values {
 //    $GNZDA,210543.000,21,03,2022,00,00*4B for date
 
 bool parseZDANMEAMessage(char* msg, struct gpm_msg_values* v) {
-  return false;
+  char* time_string = find_string_in_msg("$GNZDA,", msg);
+  if (time_string == NULL || *time_string == ',')
+    return false;
+  char* day_string = find_string_in_msg(",", time_string);
+  if (day_string == NULL || *day_string == ',')
+    return false;
+  sscanf(day_string, "%02d", &(v->day_));
+  char* month_string = find_string_in_msg(",", day_string);
+  if (month_string == NULL || *month_string == ',')
+    return false;
+  sscanf(month_string, "%02d", &(v->month_));
+  char* year_string = find_string_in_msg(",", month_string);
+  if (year_string == NULL || *year_string == ',')
+    return false;
+  sscanf(year_string, "%04d", &(v->year_));
+  v->date_valid_ = true;
+  return true;
 }
 
 bool parseGGANMEAMessage(char* msg, struct gpm_msg_values* v) {
@@ -154,11 +189,39 @@ bool parseGGANMEAMessage(char* msg, struct gpm_msg_values* v) {
     return false;
   alt_str = find_string_in_msg(",", alt_str);
   sscanf(alt_str, "%lf", &(v->alt_meters_));
+  v->location_valid_ = true;
   return true;
 }
 
-bool get_location(int fd) {
-  gpm_msg_values out;
+bool get_date(int fd, gpm_msg_values* out) {
+  bool got_date = false;
+  byte buf[BUF_SIZE];
+  int n = 0;
+  int msg_count = 1;
+
+  while (!got_date) { 
+    usleep(short_wait);
+    clearBuf(buf, BUF_SIZE);
+    n = read(fd, buf, BUF_SIZE - 1);
+    if (n <=  0) {
+      printf("read returns %d\n", n);
+      continue;
+    }
+    buf[n++] = 0;
+
+    if (print_message && n > 5)
+      printf("Message %2d: %s", msg_count++, (char*) buf);
+
+    got_date = parseZDANMEAMessage((char*)buf, out);
+    if (got_date) {
+      return true;
+    }
+  }
+  return false;
+}
+
+
+bool get_location(int fd, gpm_msg_values* out) {
   bool got_fix = false;
   byte buf[BUF_SIZE];
   int n = 0;
@@ -177,22 +240,23 @@ bool get_location(int fd) {
     if (print_message && n > 5)
       printf("Message %2d: %s", msg_count++, (char*) buf);
 
-    got_fix = parseGGANMEAMessage((char*)buf, &out);
+    got_fix = parseGGANMEAMessage((char*)buf, out);
     if (got_fix) {
-      printf("Time: %02d:%02d:%07.4fZ, ", out.hour_, out.min_, out.seconds_);
-      printf("Lattitude: %8.5f, Longitude: %8.5f, ", out.degrees_lat_, out.degrees_long_);
-      printf("Altitude: %8.4f (m), %d SVs\n", out.alt_meters_, out.num_sats_);
       return true;
     }
   }
   return false;
 }
 
+
 int main(int an, char** av) {
   int baudRate = 9600;
-  int num_repeat = 50;
+  int num_repeat = 2;
   const char* uartDevice = default_uartDevice;
+  gpm_msg_values out;
 
+  out.date_valid_ = false;
+  out.location_valid_ = false;
   for (int i = 1; i < (an - 1); i++) {
     if (strcmp(av[i], "-trials") == 0 ) {
       num_repeat = atoi(av[++i]);
@@ -208,9 +272,15 @@ int main(int an, char** av) {
 
   // setup gps sensor and get location
   setup_gps(fd);
-  for (int i = 0; i < num_repeat; i++) {
-    get_location(fd);
+  if (get_date(fd, &out)) {
     printf("\n");
+    print_message = false;
+    for (int i = 0; i < num_repeat; i++) {
+      if (get_location(fd, &out)) {
+        print_gps_data(out);
+        printf("\n");
+      }
+    }
   }
 
   close(fd);
