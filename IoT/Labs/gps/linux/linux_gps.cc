@@ -15,7 +15,10 @@ typedef unsigned char byte;
 
 #define default_uartDevice "/dev/ttyUSB0"
 #define BUF_SIZE 512
-const int sleep_interval = 4;
+const int sleep_interval = 1;
+const int short_wait = 50000;
+
+bool print_message = true;
 
 void clearBuf(byte* buf, int n) {
   for (int i = 0; i < n; i++) {
@@ -41,6 +44,8 @@ void sendCommand(int fd, const char* command) {
 
 #define PMTK_SET_NMEA_OUTPUT_RMCGGA "$PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*28"
 #define PMTK_SET_NMEA_UPDATE_1HZ  "$PMTK220,1000*1F"
+#define PMTK_SET_NMEA_UPDATE_5HZ  "$PMTK220,200*2C"
+#define PMTK_SET_NMEA_UPDATE_10HZ  "$PMTK220,100*1F"
 #define PGCMD_ANTENNA "$PGCMD,33,1*6C"
 void setup_gps(int fd) {
   sendCommand(fd, PMTK_SET_NMEA_OUTPUT_RMCGGA);
@@ -96,7 +101,7 @@ struct gpm_msg_values {
 //    $GNGGA,022529.000,3745.5641,N,12226.3415,W,1,07,1.6,34.6,M,0.0,M,,*5A
 //    $GNRMC,022529.000,A,3745.5641,N,12226.3415,W,0.56,0.00,230420,,,A*6D
 //    $GNZDA,210543.000,21,03,2022,00,00*4B for date
-bool parseNMEAMessage(char* msg, struct gpm_msg_values* v) {
+bool parseGGANMEAMessage(char* msg, struct gpm_msg_values* v) {
   char* time_string = find_string_in_msg("$GNGGA,", msg);
   if (time_string == NULL)
     return false;
@@ -150,7 +155,7 @@ bool get_location(int fd) {
   int msg_count = 1;
 
   while (!got_fix) { 
-    sleep(sleep_interval);
+    usleep(short_wait);
     clearBuf(buf, BUF_SIZE);
     n = read(fd, buf, BUF_SIZE - 1);
     if (n <=  0) {
@@ -158,12 +163,13 @@ bool get_location(int fd) {
       continue;
     }
     buf[n++] = 0;
-    if (n > 5)
+
+    if (print_message && n > 5)
       printf("Message %2d: %s", msg_count++, (char*) buf);
 
-    got_fix = parseNMEAMessage((char*)buf, &out);
+    got_fix = parseGGANMEAMessage((char*)buf, &out);
     if (got_fix) {
-      printf("\nTime: %02d:%02d:%07.4fZ, ", out.hour_, out.min_, out.seconds_);
+      printf("Time: %02d:%02d:%07.4fZ, ", out.hour_, out.min_, out.seconds_);
       printf("Lattitude: %8.5f, Longitude: %8.5f, ", out.degrees_lat_, out.degrees_long_);
       printf("Altitude: %8.4f (m), %d SVs\n", out.alt_meters_, out.num_sats_);
       return true;
