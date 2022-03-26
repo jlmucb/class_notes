@@ -112,6 +112,7 @@ int main(int an, char** av) {
   }
 
   speed_t new_baud_rate = 9600;
+  char* device_name = (char*)"Device 1";
   int new_channel = 0;
   for (int i = 0; i < (an - 1); i++) {
     if (strcmp(av[i], "-baud") == 0) {
@@ -124,6 +125,10 @@ int main(int an, char** av) {
       unsigned ls = 0;
       ls = atoi(av[++i]);
       new_channel = ls;
+      continue;
+    }
+    if (strcmp(av[i], "-device_name") == 0) {
+      device_name = av[++i];
       continue;
     }
   }
@@ -146,12 +151,13 @@ int main(int an, char** av) {
     while (bytes_available(fd) > 0) {
       in_size = read(fd, receive_buf, BUF_SIZE - 1);
       receive_buf[in_size++] = 0;
-      printf("Received: %s", (const char*)receive_buf);
+      printf("%s, received: %s", device_name, receive_buf);
     }
     memset(send_buf, 0, BUF_SIZE);
+    sprintf((char*)send_buf, "%s says Message %d\n", device_name, i);
     out_size = strlen((char*)send_buf);
     write(fd, send_buf, out_size);
-    printf("Sent: %s\n", (char*)send_buf);
+    printf("%s, sent: %s\n", device_name, (char*)send_buf);
 #ifdef PIN_ACCESS
     delay(200);
 else
