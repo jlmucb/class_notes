@@ -170,14 +170,14 @@ int main(int an, char** av) {
         receive_buf[in_size++] = 0;
         printf("%s", receive_buf);
       }
-      if (i > 20)
-        break;
     } else {
       memset(send_buf, 0, BUF_SIZE);
       sprintf((char*)send_buf, "%s says Message %d\n", device_name, i);
       out_size = strlen((char*)send_buf);
       write(fd, send_buf, out_size);
       printf("%s, sent: %s\n", device_name, (char*)send_buf);
+      if (i > 20)
+        break;
     }
 #ifdef PIN_ACCESS
     delay(200);
