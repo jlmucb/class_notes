@@ -163,6 +163,7 @@ int main(int an, char** av) {
     printf("\n**receiving\n\n");
   for(int i = 0; i < 20; i++) {
     if (!transmit) {
+      while (bytes_available(fd) == 0);
       memset(receive_buf, 0, BUF_SIZE);
       while (bytes_available(fd) > 0) {
         in_size = read(fd, receive_buf, BUF_SIZE - 1);
