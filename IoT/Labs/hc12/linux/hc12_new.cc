@@ -163,12 +163,13 @@ int main(int an, char** av) {
     printf("\n**receiving\n\n");
   for(int i = 0; i < 20; i++) {
     if (!transmit) {
+      printf("%s:\n", device_name);
       while (bytes_available(fd) == 0);
       memset(receive_buf, 0, BUF_SIZE);
       while (bytes_available(fd) > 0) {
         in_size = read(fd, receive_buf, BUF_SIZE - 1);
         receive_buf[in_size++] = 0;
-        printf("%s, received: %s", device_name, receive_buf);
+        printf("%s", receive_buf);
       }
     } else {
       memset(send_buf, 0, BUF_SIZE);
