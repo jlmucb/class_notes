@@ -105,16 +105,21 @@ int main(int an, char** av) {
   }
 #endif
 
-  int fd = open(uartDevice, O_RDWR | O_NOCTTY | O_NDELAY);
-  if (fd < 0) {
-    printf("Can't open %s\n", uartDevice);
-    return 1;
-  }
-
   speed_t new_baud_rate = 9600;
   char* device_name = (char*)"Device 1";
   int new_channel = 0;
-  for (int i = 0; i < (an - 1); i++) {
+  char* uart_device = (char*)uartDevice;
+  bool transmit = true;
+  for (int i = 1; i < an; i++) {
+    if (strcmp(av[i], "-receive") == 0) {
+      transmit = false;
+    }
+
+    if (strcmp(av[i], "-uart_device") == 0) {
+      uart_device= av[++i];
+      continue;
+    }
+
     if (strcmp(av[i], "-baud") == 0) {
       unsigned ls = 0;
       ls = atoi(av[++i]);
@@ -133,6 +138,12 @@ int main(int an, char** av) {
     }
   }
 
+  int fd = open(uart_device, O_RDWR | O_NOCTTY | O_NDELAY);
+  if (fd < 0) {
+    printf("Can't open %s\n", uart_device);
+    return 1;
+  }
+
   // turn off blocking for reads.
   fcntl(fd, F_SETFL, 0); //fcntl(fd, F_GETFL)& ~O_NONBLOCK);
 
@@ -146,18 +157,25 @@ int main(int an, char** av) {
   setup(fd, new_baud_rate, new_channel);
   int in_size, out_size;
 
+  if (transmit)
+    printf("\n**transmitting**\n\n");
+  else
+    printf("\n**receiving\n\n");
   for(int i = 0; i < 20; i++) {
-    memset(receive_buf, 0, BUF_SIZE);
-    while (bytes_available(fd) > 0) {
-      in_size = read(fd, receive_buf, BUF_SIZE - 1);
-      receive_buf[in_size++] = 0;
-      printf("%s, received: %s", device_name, receive_buf);
+    if (!transmit) {
+      memset(receive_buf, 0, BUF_SIZE);
+      while (bytes_available(fd) > 0) {
+        in_size = read(fd, receive_buf, BUF_SIZE - 1);
+        receive_buf[in_size++] = 0;
+        printf("%s, received: %s", device_name, receive_buf);
+      }
+    } else {
+      memset(send_buf, 0, BUF_SIZE);
+      sprintf((char*)send_buf, "%s says Message %d\n", device_name, i);
+      out_size = strlen((char*)send_buf);
+      write(fd, send_buf, out_size);
+      printf("%s, sent: %s\n", device_name, (char*)send_buf);
     }
-    memset(send_buf, 0, BUF_SIZE);
-    sprintf((char*)send_buf, "%s says Message %d\n", device_name, i);
-    out_size = strlen((char*)send_buf);
-    write(fd, send_buf, out_size);
-    printf("%s, sent: %s\n", device_name, (char*)send_buf);
 #ifdef PIN_ACCESS
     delay(200);
 else
