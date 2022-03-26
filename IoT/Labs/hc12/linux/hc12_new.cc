@@ -161,7 +161,7 @@ int main(int an, char** av) {
     printf("\n%s transmitting**\n\n", device_name);
   else
     printf("\n%s receiving\n\n", device_name);
-  for(int i = 0; i < 20; i++) {
+  for(int i = 0;; i++) {
     if (!transmit) {
       while (bytes_available(fd) == 0);
       memset(receive_buf, 0, BUF_SIZE);
@@ -170,6 +170,8 @@ int main(int an, char** av) {
         receive_buf[in_size++] = 0;
         printf("%s", receive_buf);
       }
+      if (i > 20)
+        break;
     } else {
       memset(send_buf, 0, BUF_SIZE);
       sprintf((char*)send_buf, "%s says Message %d\n", device_name, i);
