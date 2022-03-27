@@ -1,2 +1,7 @@
 apt update
 apt dist-upgrade
+sudo raspi-config  #enables I2c and SPI
+sudo nano /etc/modules
+i2c-bcm2708
+i2c-dev
+
