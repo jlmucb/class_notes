@@ -20,6 +20,17 @@ const byte y_address = 0x3d;
 const byte z_address = 0x3f;
 const double pi = 3.1415926535;
 
+// for L3G44200D Addreses are
+//  control: 0x68
+//  config: 0x23, put 0x30 in it
+//  settings: 0x20, put 0xf in it (x,y,z) disable power down
+//  xaddr: 0x28 lsb
+//  xaddr: 0x29 msb
+//  yaddr: 0x2a lsb
+//  yaddr: 0x2b msb
+//  zaddr: 0x2c lsb
+//  zaddr: 0x2d msb
+
 //  Connection scheme
 //      RP          6050
 //      gnd(HDR 6)  Gnd
@@ -76,7 +87,9 @@ int main(int an, char** av) {
   // disable sleep
   wiringPiI2CWriteReg8(fd, 0x6b, 0);
 
-  int a_x, a_y, a_z;
+  int a_x= 0;
+  int a_y= 0;
+  int a_z= 0;
   double scaled_x, scaled_y, scaled_z;
   double rot_x, rot_y;
   for(;;) {
