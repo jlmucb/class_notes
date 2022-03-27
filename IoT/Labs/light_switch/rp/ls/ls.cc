@@ -11,7 +11,7 @@ const int measurementDelay = 500;
 const int loopCount = 250;
 
 int main(int an, char** av) {
-  wiringPiSetup ();
+  wiringPiSetup();
   pinMode (switchPin, OUTPUT);
   for (int i = 0; i < loopCount; i++) {
     digitalWrite(switchPin, HIGH); 

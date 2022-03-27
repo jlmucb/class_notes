@@ -7,7 +7,7 @@
 
 const int base = 120;
 const int i2c_address = 0x48;
-const int measure_delay = 100;
+const int measure_delay = 200;
 const double volt_scale = 3.3;
 const int int_scale = 255;
 
@@ -21,6 +21,9 @@ const int int_scale = 255;
 //    12          gnd
 //    10(scl)     5 (scl)
 //    9(sda)      3 (sda)
+//
+//  Breakout board connections are
+//    SDA, SCL, AIN0 (Not Aout!)
 
 int main(int an, char** av) {
   int v = 0;
@@ -32,8 +35,8 @@ int main(int an, char** av) {
   pcf8591Setup(base, i2c_address);
 
   for(;;) {
-    v = analogRead(base);
     delay(measure_delay);
+    v = analogRead(base);
     printf("Voltage: %d units, %5.2f volts (scale: %5.3f volts)\n", v,
       volt_scale*(((double)v)/((double)int_scale)), volt_scale);
   }

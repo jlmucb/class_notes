@@ -1,3 +1,4 @@
+:q
 #include <wiringPi.h>
 #include <pcf8591.h>
 #include <stdio.h>
