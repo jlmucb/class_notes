@@ -86,6 +86,7 @@ int main(int an, char** av) {
 
   // disable sleep
   wiringPiI2CWriteReg8(fd, 0x6b, 0);
+  printf("Control reg: %x\n", wiringPiI2CReadReg8(fd, 0x6b));
 
   int a_x= 0;
   int a_y= 0;
