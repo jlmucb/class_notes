@@ -1,4 +1,4 @@
-// GPS for raspberry pi
+// ublox GPS with dead reckoning
 // Manferdelli
 // This used the standard serial interface via /dev/ttyS0
 // You'll need to use an fdmi connector
@@ -274,7 +274,7 @@ int main(int an, char** av) {
   setup_gps(fd);
   if (get_date(fd, &out)) {
     printf("\n");
-    print_message = false;
+    // print_message = false;  // change this later
     for (int i = 0; i < num_repeat; i++) {
       if (get_location(fd, &out)) {
         print_gps_data(out);
