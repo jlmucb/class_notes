@@ -9,6 +9,7 @@
 #include <fcntl.h>
 #include <termios.h>
 #include <string.h>
+#include <time.h>
 #ifndef byte
 typedef unsigned char byte;
 #endif
@@ -128,6 +129,16 @@ const char* mths[12] = {
   "October", "November", "December"
 };
 
+bool system_date(gpm_msg_values* out) {
+  time_t t = time(NULL);
+  struct tm tm = *gmtime(&t);
+  out->year_ = tm.tm_year + 1900;
+  out->month_ = tm.tm_mon + 1;
+  out->day_ = tm.tm_mday;
+  out->date_valid_ = true;
+  return true;
+}
+
 void print_gps_data(gpm_msg_values& out) {
   if (out.date_valid_ & (out.month_ >= 1 && out.month_ <= 12)) {
     printf("  Date: %04d %s %02d, ", out.year_, mths[out.month_ - 1],
@@ -243,11 +254,8 @@ bool get_date(int fd, gpm_msg_values* out) {
       printf("Message %2d: %s", msg_count++, (char*) buf);
 
     if (++trys > 100) {
-      out->year_ = 2022;
-      out->month_ = 4;;
-      out->day_ = 5;
-      out->date_valid_ =true;
-      return true;
+        if (system_date(out))
+          return true;
     }
 
     got_date = parseZDANMEAMessage((char*)buf, out);
