@@ -35,6 +35,30 @@ void printBuf(byte* in, int n) {
   printf("\n");
 }
 
+// UBOX commands
+//    AT+CCLK="14/07/01,15:00:00+01"
+//    AT+CCLK?        Response: +CCLK: "14/07/01,15:00:00+01"
+//    $PUBX,41,portId,inProto,outProto,baudrate,autobauding*cs<CR><LF>
+//    $PUBX,41,1,0007,0003,19200,0*25
+//    UBX-CFG-MSG NMEA-GGA on All interfaces as follows
+//      0xB5,0x62,0x06,0x01,0x08,0x00,0xF0,0x00,0x00,0x00,0x00,0x00,0x00,0x00, 0xFF,0x23
+//
+//    Command
+//      sync-1(0xb5) sync-2(0x62), class(0x06), id(0x01), len(2 bytes), payload, ck_a, ck_b
+//
+//    checksum computed from class through payload
+//
+//    Checksum
+//      byte ck_a = 0;
+//      byte ck_b=0;
+//      for (int i= 0; i < n; i++) {
+//        ck_a += buf[i]
+//        ck_b += ck_a;
+//      }
+
+//  UTC time: 124923.52.  hour: 12, min: 49, sec: 23, nano: 521000000
+//  GPS time is referenced to 6th January 1980
+
 const char* eol = "\r\n";
 void sendCommand(int fd, const char* command) { 
   write(fd, command, strlen(command));
