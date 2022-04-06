@@ -149,6 +149,11 @@ void print_gps_data(gpm_msg_values& out) {
 //    $GNGGA,022529.000,3745.5641,N,12226.3415,W,1,07,1.6,34.6,M,0.0,M,,*5A
 //    $GNRMC,022529.000,A,3745.5641,N,12226.3415,W,0.56,0.00,230420,,,A*6D
 //    $GNZDA,210543.000,21,03,2022,00,00*4B for date
+//  or perhaps
+//    $GPGLL,3745.5641,N,12226.3415,W,022529.000,A,A*5E
+//    $GPGGA,022529.000,3745.5641,N,12226.3415,W,1,07,1.6,34.6,M,0.0,M,,*5A
+//    $GPRMC,022529.000,A,3745.5641,N,12226.3415,W,0.56,0.00,230420,,,A*6D
+//    $GPZDA,210543.000,21,03,2022,00,00*4B for date
 
 bool parseZDANMEAMessage(char* msg, struct gpm_msg_values* v) {
   char* time_string = find_string_in_msg("$GNZDA,", msg);
@@ -222,6 +227,7 @@ bool get_date(int fd, gpm_msg_values* out) {
   byte buf[BUF_SIZE];
   int n = 0;
   int msg_count = 1;
+  int trys = 0;
 
   while (!got_date) { 
     usleep(short_wait);
@@ -235,6 +241,14 @@ bool get_date(int fd, gpm_msg_values* out) {
 
     if (print_message && n > 5)
       printf("Message %2d: %s", msg_count++, (char*) buf);
+
+    if (++trys > 100) {
+      out->year_ = 2022;
+      out->month_ = 4;;
+      out->day_ = 5;
+      out->date_valid_ =true;
+      return true;
+    }
 
     got_date = parseZDANMEAMessage((char*)buf, out);
     if (got_date) {
