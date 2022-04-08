@@ -1,6 +1,5 @@
 // ublox GPS with dead reckoning
 // Manferdelli
-// This used the standard serial interface via /dev/ttyS0
 // You'll need to use an fdmi connector
 
 #include <stdio.h>
@@ -26,7 +25,7 @@ void clearBuf(byte* buf, int n) {
   }
 }
 
-void printBuf(byte* in, int n) {
+void print_bytes(byte* in, int n) {
   for (int i = 0; i < n; i++) {
     printf(" %02x", in[i]);
     if ((i % 16) == 15) {
@@ -48,6 +47,11 @@ void printBuf(byte* in, int n) {
 //      sync-1(0xb5) sync-2(0x62), class(0x06), id(0x01), len(2 bytes), payload, ck_a, ck_b
 //
 //    checksum computed from class through payload
+
+//  UTC time: 124923.52.  hour: 12, min: 49, sec: 23, nano: 521000000
+//  GPS time is referenced to 6th January 1980
+
+
 //
 //    Checksum
 //      byte ck_a = 0;
@@ -56,9 +60,38 @@ void printBuf(byte* in, int n) {
 //        ck_a += buf[i]
 //        ck_b += ck_a;
 //      }
+void compute_checksum(byte* buf, int len, byte* pa, byte* pb) {
+  byte a = 0; 
+  byte b = 0; 
 
-//  UTC time: 124923.52.  hour: 12, min: 49, sec: 23, nano: 521000000
-//  GPS time is referenced to 6th January 1980
+  for (int i = 0; i < len; i++) {
+    a += buf[i];
+    b += a;
+  }
+  *pa = a;
+  *pb = b;
+}
+
+//  ACK is 0xb5 0x062, 0x01, cls, msg, ck_a, ck_b
+//  NACK is 0xb5 0x062, 0x00, cls, msg, ck_a, ck_b
+//  UBX_CFG_PRT: 0xB5 0x62 0x06 0x00 20 Payload CK_A CK_B
+//  Poll configuration: 0xB5 0x62 0x06 0x02 1 0 CK_A, CK_B
+byte ubx_poll_cfg[8] = {
+  0xb5, 0x62, 0x06, 0x02, 0x01, 0x00, 0x00, 0x00
+};
+
+bool test_ublox_cmds(int fd) {
+  byte in_buf[256];
+  byte out_buf[256];
+
+  compute_checksum(&ubx_poll_cfg[2], 4, &ubx_poll_cfg[6], &ubx_poll_cfg[7]);
+  write(fd, ubx_poll_cfg, 8);
+  int n = read(fd, out_buf, 256);
+  printf("Poll return: ");
+  print_bytes(out_buf, n);
+  printf("\n");
+  return true;
+}
 
 const char* eol = "\r\n";
 void sendCommand(int fd, const char* command) { 
@@ -78,6 +111,11 @@ void setup_gps(int fd) {
   sleep(sleep_interval);
   sendCommand(fd, PGCMD_ANTENNA);
   sleep(sleep_interval);
+
+  if (test_ublox_cmds(fd))
+    printf("UBLOX test succeeded\n");
+  else
+    printf("UBLOX test failed\n");
 }
 
 // s: string to match
