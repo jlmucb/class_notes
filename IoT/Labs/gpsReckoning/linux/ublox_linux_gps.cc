@@ -9,6 +9,7 @@
 #include <termios.h>
 #include <string.h>
 #include <time.h>
+#include <sys/ioctl.h>
 #ifndef byte
 typedef unsigned char byte;
 #endif
@@ -77,21 +78,39 @@ void compute_checksum(byte* buf, int len, byte* pa, byte* pb) {
 //  NACK is 0xb5 0x062, 0x00, cls, msg, ck_a, ck_b
 //  UBX_CFG_PRT: 0xB5 0x62 0x06 0x00 20 Payload CK_A CK_B
 //  Poll configuration: 0xB5 0x62 0x06 0x02 1 0 CK_A, CK_B
-byte ubx_poll_cfg[10] = {
-  0xb5, 0x62, 0x06, 0x02, 0x02, 0x00, 0x01, 0x00, 0x00, 0x00
+byte ubx_poll_cfg[9] = {
+  0xb5, 0x62, 0x06, 0x02, 0x01, 0x00, 0x01, 0x00, 0x00
 };
+byte ubx_cfg_prt[28] = {
+  0xb5, 0x62, 0x06, 0x00, 
+  0x14, 0x00, 
+  0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+  0x00, 0x00
+};
+
+void format_message(byte* buf, int sz) {
+  compute_checksum(&buf[2], sz - 4,
+      &buf[sz - 2], &buf[sz - 1]);
+}
 
 bool test_ublox_cmds(int fd) {
   byte in_buf[256];
   byte out_buf[256];
 
-  compute_checksum(&ubx_poll_cfg[2], sizeof(ubx_poll_cfg) - 4,
-      &ubx_poll_cfg[8], &ubx_poll_cfg[9]);
-  write(fd, ubx_poll_cfg, sizeof(ubx_poll_cfg));
-  int n = read(fd, out_buf, 256);
-  printf("Poll return: ");
-  print_bytes(out_buf, n);
-  printf("\n");
+  int n = read(fd, out_buf, 256);  // clear buffer
+  format_message(ubx_poll_cfg, sizeof(ubx_poll_cfg));
+  for (int i= 0; i < 5; i++) {
+    write(fd, ubx_poll_cfg, sizeof(ubx_poll_cfg));
+    printf("Sent: ");
+    print_bytes(ubx_poll_cfg, sizeof(ubx_poll_cfg));
+    usleep(400000);
+    n = read(fd, out_buf, 256);
+    if (n > 0) {
+      printf("Poll return: ");
+      print_bytes(out_buf, n);
+    }
+  }
   return true;
 }
 
@@ -101,12 +120,20 @@ void sendCommand(int fd, const char* command) {
   write(fd, eol, 2);
 }
 
+int available(int fd) {
+  int n = 0;
+  ioctl(fd, FIONREAD, &n);
+  return n;
+}
+
 #define PMTK_SET_NMEA_OUTPUT_RMCGGA "$PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*28"
 #define PMTK_SET_NMEA_UPDATE_1HZ  "$PMTK220,1000*1F"
 #define PMTK_SET_NMEA_UPDATE_5HZ  "$PMTK220,200*2C"
 #define PMTK_SET_NMEA_UPDATE_10HZ  "$PMTK220,100*1F"
 #define PGCMD_ANTENNA "$PGCMD,33,1*6C"
 void setup_gps(int fd) {
+  sleep(sleep_interval);
+/*
   sendCommand(fd, PMTK_SET_NMEA_OUTPUT_RMCGGA);
   sleep(sleep_interval);
   sendCommand(fd, PMTK_SET_NMEA_UPDATE_1HZ);
@@ -115,9 +142,10 @@ void setup_gps(int fd) {
   sleep(sleep_interval);
 
   if (test_ublox_cmds(fd))
-    printf("UBLOX test succeeded\n");
+    printf("UBLOX test succeeded\n\n");
   else
-    printf("UBLOX test failed\n");
+    printf("UBLOX test failed\n\n");
+ */
 }
 
 // s: string to match
