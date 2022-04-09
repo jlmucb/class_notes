@@ -52,14 +52,6 @@ void print_bytes(byte* in, int n) {
 //  UTC time: 124923.52.  hour: 12, min: 49, sec: 23, nano: 521000000
 //  GPS time is referenced to 6th January 1980
 
-//  GPS.print("$PUBX,41,1,0007,0003,4800,0*13\r\n");
-//  GPSSerial.print("$PUBX,40,GLL,0,0,0,0*5C\r\n");
-//  GPSSerial.print("$PUBX,40,ZDA,0,0,0,0*44\r\n");
-//  GPSSerial.print("$PUBX,40,VTG,0,0,0,0*5E\r\n");
-//  GPSSerial.print("$PUBX,40,GSV,0,0,0,0*59\r\n");
-//  GPSSerial.print("$PUBX,40,GSA,0,0,0,0*4E\r\n");
-
-
 //
 //    Checksum
 //      byte ck_a = 0;
