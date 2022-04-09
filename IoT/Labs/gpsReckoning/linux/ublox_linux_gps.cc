@@ -52,6 +52,13 @@ void print_bytes(byte* in, int n) {
 //  UTC time: 124923.52.  hour: 12, min: 49, sec: 23, nano: 521000000
 //  GPS time is referenced to 6th January 1980
 
+//  GPS.print("$PUBX,41,1,0007,0003,4800,0*13\r\n");
+//  GPSSerial.print("$PUBX,40,GLL,0,0,0,0*5C\r\n");
+//  GPSSerial.print("$PUBX,40,ZDA,0,0,0,0*44\r\n");
+//  GPSSerial.print("$PUBX,40,VTG,0,0,0,0*5E\r\n");
+//  GPSSerial.print("$PUBX,40,GSV,0,0,0,0*59\r\n");
+//  GPSSerial.print("$PUBX,40,GSA,0,0,0,0*4E\r\n");
+
 
 //
 //    Checksum
@@ -94,18 +101,24 @@ void format_message(byte* buf, int sz) {
       &buf[sz - 2], &buf[sz - 1]);
 }
 
+void send_message(int fd, byte* buf, int sz) {
+  for(int i = 0; i < sz; i++) {
+    write(fd, &buf[i], 1);
+  }
+}
+
 bool test_ublox_cmds(int fd) {
   byte in_buf[256];
   byte out_buf[256];
 
   int n = read(fd, out_buf, 256);  // clear buffer
   format_message(ubx_poll_cfg, sizeof(ubx_poll_cfg));
-  for (int i= 0; i < 5; i++) {
-    write(fd, ubx_poll_cfg, sizeof(ubx_poll_cfg));
+  for (int i= 0; i < 3; i++) {
+    send_message(fd, ubx_poll_cfg, sizeof(ubx_poll_cfg));
     printf("Sent: ");
     print_bytes(ubx_poll_cfg, sizeof(ubx_poll_cfg));
-    usleep(400000);
-    n = read(fd, out_buf, 256);
+    usleep(200000);
+    n = read(fd, out_buf, 256); 
     if (n > 0) {
       printf("Poll return: ");
       print_bytes(out_buf, n);
@@ -132,7 +145,6 @@ int available(int fd) {
 #define PMTK_SET_NMEA_UPDATE_10HZ  "$PMTK220,100*1F"
 #define PGCMD_ANTENNA "$PGCMD,33,1*6C"
 void setup_gps(int fd) {
-  sleep(sleep_interval);
 /*
   sendCommand(fd, PMTK_SET_NMEA_OUTPUT_RMCGGA);
   sleep(sleep_interval);
@@ -140,12 +152,12 @@ void setup_gps(int fd) {
   sleep(sleep_interval);
   sendCommand(fd, PGCMD_ANTENNA);
   sleep(sleep_interval);
+ */
 
   if (test_ublox_cmds(fd))
     printf("UBLOX test succeeded\n\n");
   else
     printf("UBLOX test failed\n\n");
- */
 }
 
 // s: string to match
@@ -383,6 +395,15 @@ int main(int an, char** av) {
     printf("Can't open %s\n", uartDevice);
     return 1;
   }
+
+  struct termios options;
+  tcgetattr(fd, &options);
+  options.c_cflag = B9600 | CS8 | CLOCAL | CREAD;
+  options.c_iflag = IGNPAR;
+  options.c_oflag = 0;
+  options.c_lflag = 0;
+  tcflush(fd, TCIFLUSH);
+  tcsetattr(fd, TCSANOW, &options);
 
   // setup gps sensor and get location
   setup_gps(fd);
