@@ -107,30 +107,115 @@ void send_message(int fd, byte* buf, int sz) {
   }
 }
 
+byte ack_msg[8] = {
+  0xb5,0x62,0x05,0x01,0x02,0x00,0x06,0x02
+};
+bool is_ack(byte* in, int sz, byte* cls, byte* msgid) {
+  if (sz != 10)
+    return false;
+  if (memcmp(in, ack_msg, 4) != 0)
+    return false;
+  *cls = in[6];
+  *msgid = in[7];
+  return true;
+}
+
+byte nack_msg[8] = {
+  0xb5,0x62,0x05,0x00,0x02,0x00,0x06,0x02
+};
+bool is_nack(byte* in, int sz, byte* cls, byte* msgid) {
+  if (sz != 10)
+    return false;
+  if (memcmp(in, nack_msg, 4) != 0)
+    return false;
+  *cls = in[6];
+  *msgid = in[7];
+  return true;
+}
+
+int recover_ublx_message(int fd, byte* out, int sz) {
+  usleep(200000);
+  int n = 0;
+  int cur = 0;
+   
+  for (;;) { 
+    n = read(fd, &out[0], 1); 
+    if (n < 1) {
+      return -1;
+    }
+    if (out[0] == 0xb5) {
+      n = read(fd, &out[1], 1); 
+      if (n < 1) {
+        return -1;
+      }
+      if (out[1] == 0x62) {
+        cur = 2;
+        break;
+      }
+    }
+  }
+  // get class and id
+  n = read(fd, &out[cur++], 1); 
+  if (n < 1) {
+    return -1;
+  }
+  n = read(fd, &out[cur++], 1); 
+  if (n < 1) {
+    return -1;
+  }
+
+  // get size
+  unsigned short sm = 0;
+  n = read(fd, &sm, 2); 
+  if (n < 2) {
+    return -1;
+  }
+  memcpy(&out[cur], (byte*)&sm, 2);
+  cur += 2;
+
+  int m = (int) sm + 2;
+  // get payload and checksum
+  n = read(fd, &out[cur], m); 
+  if (n < m) {
+    return -1;
+  }
+  cur += m;
+
+  return cur;
+}
+
 bool test_ublox_cmds(int fd) {
-  byte in_buf[256];
+  byte ack_buf[256];
   byte out_buf[256];
 
   int n = read(fd, out_buf, 256);  // clear buffer
   format_message(ubx_poll_cfg, sizeof(ubx_poll_cfg));
-  for (int i= 0; i < 3; i++) {
-    send_message(fd, ubx_poll_cfg, sizeof(ubx_poll_cfg));
-    printf("Sent: ");
-    print_bytes(ubx_poll_cfg, sizeof(ubx_poll_cfg));
-    usleep(200000);
-    n = read(fd, out_buf, 256); 
-    if (n > 0) {
-      printf("Poll return: ");
-      print_bytes(out_buf, n);
-    }
-  }
-  return true;
-}
+  send_message(fd, ubx_poll_cfg, sizeof(ubx_poll_cfg));
+#if 0
+  printf("Sent: ");
+  print_bytes(ubx_poll_cfg, sizeof(ubx_poll_cfg));
+#endif
 
-const char* eol = "\r\n";
-void sendCommand(int fd, const char* command) { 
-  write(fd, command, strlen(command));
-  write(fd, eol, 2);
+  n = recover_ublx_message(fd, out_buf, 256);
+  if (n < 0)
+    return false;
+
+#if 0
+  printf("Recovered UBLX: ");
+  print_bytes(out_buf, n);
+#endif
+
+  int m = recover_ublx_message(fd, ack_buf, 256);
+  byte cls = 0;
+  byte msgid = 0;
+  if (m < 0)
+    return false;
+
+  if (is_ack(ack_buf, m, &cls, &msgid)) {
+    return true;
+  }
+
+  return false;
 }
 
 int available(int fd) {
@@ -139,21 +224,7 @@ int available(int fd) {
   return n;
 }
 
-#define PMTK_SET_NMEA_OUTPUT_RMCGGA "$PMTK314,0,1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0*28"
-#define PMTK_SET_NMEA_UPDATE_1HZ  "$PMTK220,1000*1F"
-#define PMTK_SET_NMEA_UPDATE_5HZ  "$PMTK220,200*2C"
-#define PMTK_SET_NMEA_UPDATE_10HZ  "$PMTK220,100*1F"
-#define PGCMD_ANTENNA "$PGCMD,33,1*6C"
 void setup_gps(int fd) {
-/*
-  sendCommand(fd, PMTK_SET_NMEA_OUTPUT_RMCGGA);
-  sleep(sleep_interval);
-  sendCommand(fd, PMTK_SET_NMEA_UPDATE_1HZ);
-  sleep(sleep_interval);
-  sendCommand(fd, PGCMD_ANTENNA);
-  sleep(sleep_interval);
- */
-
   if (test_ublox_cmds(fd))
     printf("UBLOX test succeeded\n\n");
   else
