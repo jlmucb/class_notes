@@ -37,16 +37,8 @@ void print_bytes(byte* in, int n) {
 }
 
 // UBOX commands
-//    AT+CCLK="14/07/01,15:00:00+01"
-//    AT+CCLK?        Response: +CCLK: "14/07/01,15:00:00+01"
-//    $PUBX,41,portId,inProto,outProto,baudrate,autobauding*cs<CR><LF>
-//    $PUBX,41,1,0007,0003,19200,0*25
-//    UBX-CFG-MSG NMEA-GGA on All interfaces as follows
-//      0xB5,0x62,0x06,0x01,0x08,0x00,0xF0,0x00,0x00,0x00,0x00,0x00,0x00,0x00, 0xFF,0x23
-//
 //    Command
 //      sync-1(0xb5) sync-2(0x62), class(0x06), id(0x01), len(2 bytes), payload, ck_a, ck_b
-//
 //    checksum computed from class through payload
 
 //  UTC time: 124923.52.  hour: 12, min: 49, sec: 23, nano: 521000000
@@ -175,6 +167,18 @@ int recover_ublx_message(int fd, byte* out, int sz) {
 
   return cur;
 }
+
+// Add
+//    UBX-CFG-MSG (0x06 0x01)
+//    UBX-CFG-NAV5
+//    UBX-CFG-NMEA (0x06 0x17)
+//    UBX-HNR (0x28)
+//    UBX-HNR-PVT (0x28 0x00)
+//    UBX-NAV (0x01)
+//    UBX-RXM (0x02)
+//    UBX-CFG-RATE
+//    UBX-CFG-ITFM
+//    UBX-ESF-INS (dead rekoning)
 
 bool test_ublox_cmds(int fd) {
   byte ack_buf[256];
