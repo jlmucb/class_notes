@@ -545,7 +545,7 @@ int read_line(int fd, byte* buf, int size) {
   int n = 0;
   int k;
 
-  for(;;) {
+  while(n < (size-1)) {
     k = read(fd, &buf[n], 1);
     if (k < 0)
       return -1;
