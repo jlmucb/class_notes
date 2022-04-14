@@ -168,6 +168,12 @@ int recover_ublx_message(int fd, byte* out, int sz) {
   return cur;
 }
 
+int available(int fd) {
+  int n = 0;
+  ioctl(fd, FIONREAD, &n);
+  return n;
+}
+
 // Add
 //    UBX-CFG-MSG (0x06 0x01)
 //    UBX-CFG-NAV5
@@ -184,7 +190,11 @@ bool test_ublox_cmds(int fd) {
   byte ack_buf[256];
   byte out_buf[256];
 
-  int n = read(fd, out_buf, 256);  // clear buffer
+  // clear buf
+  int n = 0;
+  while (available(fd) > 0)
+    n = read(fd, out_buf, 256);  // clear buffer
+
   format_message(ubx_poll_cfg, sizeof(ubx_poll_cfg));
   send_message(fd, ubx_poll_cfg, sizeof(ubx_poll_cfg));
 #if 0
@@ -212,12 +222,6 @@ bool test_ublox_cmds(int fd) {
   }
 
   return false;
-}
-
-int available(int fd) {
-  int n = 0;
-  ioctl(fd, FIONREAD, &n);
-  return n;
 }
 
 void setup_gps(int fd) {
@@ -253,9 +257,18 @@ char* find_string_in_msg(const char* str, char* msg) {
   return NULL;
 }
 
+struct sat_data {
+  int sv_id_;
+  int elev_;
+  int az_;
+  int cn0_;
+};
+
 // GPS value structure
+#define MAX_SATS 32
 struct gpm_msg_values {
   bool date_valid_;
+  int fix_type_;
   int year_;
   int month_;
   int day_;
@@ -266,8 +279,32 @@ struct gpm_msg_values {
   double degrees_lat_;
   double degrees_long_;
   double alt_meters_;
+  double geod_sep_meters_;
   int num_sats_;
+  int num_sat_data_vals_;
+  sat_data sd_[MAX_SATS];
 };
+
+void reset_gpm_location_data(gpm_msg_values* v) {
+  v->location_valid_ = false;
+  v->hour_ = 0;
+  v->min_ = 0;
+  v->seconds_ = 0;
+  v->degrees_lat_ = 0;
+  v->degrees_long_ = 0;
+  v->alt_meters_ = 0;
+  v->geod_sep_meters_ = 0;
+  v->num_sats_ = 0;
+  v->num_sat_data_vals_ = 0;
+}
+
+void reset_gpm_all_data(gpm_msg_values* v) {
+  v->date_valid_ = false;
+  v->year_ = 0;
+  v->month_ = 0;
+  v->day_ = 0;
+  reset_gpm_location_data(v);
+}
 
 const char* mths[12] = {
   "January", "February", "March",
@@ -286,17 +323,53 @@ bool system_date(gpm_msg_values* out) {
   return true;
 }
 
+void fix_quality(int k) {
+  switch(k) {
+    default:
+      return;
+    case 0:
+      printf("No fix, ");
+      return;
+    case 1:
+      printf("Autonomous fix, ");
+      return;
+    case 2:
+      printf("Differential fix, ");
+      return;
+    case 4:
+    case 5:
+      printf("RTK fix, ");
+      return;
+    case 6:
+      printf("Dead reckoning fix, ");
+      return;
+  }
+}
+
 void print_gps_data(gpm_msg_values& out) {
+  printf("\n  ");
+  fix_quality(out.fix_type_);
+  printf(" %d SVs\n", out.num_sats_);
   if (out.date_valid_ & (out.month_ >= 1 && out.month_ <= 12)) {
-    printf("  Date: %04d %s %02d, ", out.year_, mths[out.month_ - 1],
+    printf("    Date: %04d %s %02d, ", out.year_, mths[out.month_ - 1],
         out.day_);
   }
   if (out.location_valid_) {
     printf("Time: %02d:%02d:%.4fZ\n", out.hour_, out.min_, out.seconds_);
-    printf("  Lattitude: %.5f, Longitude: %.5f, ",
+
+    printf("    Lattitude: %.5f, Longitude: %.5f\n",
         out.degrees_lat_, out.degrees_long_);
-    printf("Altitude: %.4f (m), %d SVs\n", out.alt_meters_, out.num_sats_);
+    printf("    Mean altitude: %.4f (m), Geoid offset: %.4f (m), Altitude: %.4f (m)\n",
+	out.alt_meters_, out.geod_sep_meters_,  out.alt_meters_ + out.geod_sep_meters_);
   }
+  if (out.num_sat_data_vals_ > 0) {
+    printf("    Satelittes:\n");
+    for (int i = 0; i < out.num_sat_data_vals_; i++) {
+      printf("      SV-ID: %d, Elevation: %d, Azimuth: %d, Signal quality: %d\n",
+	out.sd_[i].sv_id_, out.sd_[i].elev_, out.sd_[i].az_, out.sd_[i].cn0_);
+    }
+  }
+  printf("\n");
 }
 
 // NMEA message format
@@ -315,6 +388,7 @@ void print_gps_data(gpm_msg_values& out) {
 //  GP is gps, GL is glonass, GA is galeleo, GB is Beidou, GN is anybody
 
 bool parseZDANMEAMessage(char* msg, struct gpm_msg_values* v) {
+  //  $xxZDA,time,day,month,year,ltzh,ltzn*cs<CR><LF>
   char* time_string = find_string_in_msg("$GNZDA,", msg);
   if (time_string == NULL || *time_string == ',')
     return false;
@@ -335,8 +409,13 @@ bool parseZDANMEAMessage(char* msg, struct gpm_msg_values* v) {
 }
 
 bool parseGGANMEAMessage(char* msg, struct gpm_msg_values* v) {
+  // $xxGGA,time,lat,NS,lon,EW,quality,numSV,HDOP,alt,altUnit,sep,sepUnit,diffAge,diffStation*cs<CR><LF>
+  //    quality: 1, 2d; 2, 3d.
+  //    sep: Geoid separation
   char* time_string = find_string_in_msg("$GNGGA,", msg);
   if (time_string == NULL)
+    return false;
+  if (*time_string == ',')
     return false;
   sscanf(time_string, "%02d%02d", &v->hour_, &v->min_);
   sscanf(time_string+4, "%lf", &v->seconds_);
@@ -344,12 +423,16 @@ bool parseGGANMEAMessage(char* msg, struct gpm_msg_values* v) {
   char* latitude_string = find_string_in_msg(",", time_string);
   if (latitude_string == NULL)
     return false;
+  if (*latitude_string == ',')
+    return false;
   int deglat;
   int mlat;
   int minlat;
   sscanf(latitude_string, "%02d%02d.%04d", &deglat, &mlat, &minlat);
   v->degrees_lat_ = ((double)deglat) + (((double)mlat) + ((double)minlat) / 10000.0) / 60.0;
   char* ns_string = find_string_in_msg(",", latitude_string);
+  if (*ns_string == ',')
+    return false;
   if (ns_string == NULL || (*ns_string != 'N' && *ns_string != 'S'))
     return false;
   if (*ns_string == 'S')
@@ -363,36 +446,59 @@ bool parseGGANMEAMessage(char* msg, struct gpm_msg_values* v) {
   char* ew_string = find_string_in_msg(",", longitude_string);
   if (ew_string == NULL || (*ew_string != 'E' && *ew_string != 'W'))
     return false;
+  if (*ew_string == ',')
+    return false;
   if (*ew_string == 'W')
     v->degrees_long_ *= -1.0;
-  char* sats_str = find_string_in_msg(",", ew_string);
+  char* qual_str = find_string_in_msg(",", ew_string);
+  if (qual_str == NULL)
+    return false;
+  if (*qual_str == ',')
+    return false;
+  sscanf(qual_str, "%d", &(v->fix_type_));
+
+  char* sats_str = find_string_in_msg(",", qual_str);
   if (sats_str == NULL)
     return false;
-  sats_str = find_string_in_msg(",", sats_str);
-  if (sats_str == NULL)
+  if (*sats_str == ',')
     return false;
   sscanf(sats_str, "%02d", &(v->num_sats_));
+
   char* alt_str = find_string_in_msg(",", sats_str);
   if (alt_str == NULL)
     return false;
+  if (*alt_str == ',')
+    return false;
   alt_str = find_string_in_msg(",", alt_str);
   sscanf(alt_str, "%lf", &(v->alt_meters_));
+
+  char* alt_unit_str = find_string_in_msg(",", alt_str);
+  if (alt_unit_str == NULL)
+    return false;
+  if (*alt_unit_str != 'M')
+    return false;
+
+  char* sep_str = find_string_in_msg(",", ++alt_unit_str);
+  sscanf(sep_str, "%lf", &(v->geod_sep_meters_));
+
   v->location_valid_ = true;
   return true;
 }
 
 bool parseGLLNMEAMessage(char* msg, struct gpm_msg_values* v) {
+  //  $xxGLL,lat,NS,lon,EW,time,status,posMode*cs<CR><LF>
   return false;
 }
 
 bool parseRMCNMEAMessage(char* msg, struct gpm_msg_values* v) {
+  //  $xxRMC,time,status,lat,NS,lon,EW,spd,cog,date,mv,mvEW,posMode,navStatus*cs<CR><LF>
   return false;
 }
 
 bool parseGPGSVNMEAMessage(char* msg, struct gpm_msg_values* v) {
   // $xxGSV,numMsg,msgNum,numSV{,svid,elv,az,cno},signalId*cs<CR><LF>
   // svid is in the range of 1 to 32 for GPS satellites, and
-  //  33 to 64 for SBAS 
+  // 33 to 64 for SBAS 
   //   Sigid: gps (1-32), SBAS (33-64), Galileo (211-246), Beidou (159-163), GLONASS (65-96)
   return false;
 }
@@ -433,6 +539,21 @@ bool parseNMEAMessage(char* msg, struct gpm_msg_values* v, char* mtype) {
   return false;
 }
 
+int read_line(int fd, byte* buf, int size) {
+  clearBuf(buf, size);
+  int n = 0;
+  int k;
+
+  for(;;) {
+    k = read(fd, &buf[n], 1);
+    if (k < 0)
+      return -1;
+    if (buf[n++] == '\n')
+      return n;
+  }
+  return -1;
+}
+
 bool get_date(int fd, gpm_msg_values* out) {
   bool got_date = false;
   byte buf[BUF_SIZE];
@@ -442,8 +563,12 @@ bool get_date(int fd, gpm_msg_values* out) {
 
   while (!got_date) { 
     usleep(short_wait);
+#if 0
     clearBuf(buf, BUF_SIZE);
     n = read(fd, buf, BUF_SIZE - 1);
+#else
+    n = read_line(fd, buf, BUF_SIZE - 1);
+#endif
     if (n <=  0) {
       printf("read returns %d\n", n);
       continue;
@@ -475,8 +600,12 @@ bool get_location(int fd, gpm_msg_values* out) {
 
   while (!got_fix) { 
     usleep(short_wait);
+#if 0
     clearBuf(buf, BUF_SIZE);
     n = read(fd, buf, BUF_SIZE - 1);
+#else
+    n = read_line(fd, buf, BUF_SIZE - 1);
+#endif
     if (n <=  0) {
       printf("read returns %d\n", n);
       continue;
@@ -501,8 +630,6 @@ int main(int an, char** av) {
   const char* uartDevice = default_uartDevice;
   gpm_msg_values out;
 
-  out.date_valid_ = false;
-  out.location_valid_ = false;
   for (int i = 1; i < (an - 1); i++) {
     if (strcmp(av[i], "-trials") == 0 ) {
       num_repeat = atoi(av[++i]);
@@ -526,6 +653,7 @@ int main(int an, char** av) {
   tcsetattr(fd, TCSANOW, &options);
 
   // setup gps sensor and get location
+  reset_gpm_all_data(&out);
   setup_gps(fd);
   if (get_date(fd, &out)) {
     printf("\n");
@@ -533,7 +661,6 @@ int main(int an, char** av) {
     for (int i = 0; i < num_repeat; i++) {
       if (get_location(fd, &out)) {
         print_gps_data(out);
-        printf("\n");
       }
     }
   }
