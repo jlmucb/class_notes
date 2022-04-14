@@ -17,7 +17,7 @@ typedef unsigned char byte;
 #define default_uartDevice "/dev/ttyUSB0"
 #define BUF_SIZE 512
 const int sleep_interval = 1;
-const int short_wait = 100000;
+const int short_wait = 200000;
 bool print_message = true;
 
 void clearBuf(byte* buf, int n) {
@@ -307,11 +307,12 @@ void print_gps_data(gpm_msg_values& out) {
 //    $GNGGA,022529.000,3745.5641,N,12226.3415,W,1,07,1.6,34.6,M,0.0,M,,*5A
 //    $GNRMC,022529.000,A,3745.5641,N,12226.3415,W,0.56,0.00,230420,,,A*6D
 //    $GNZDA,210543.000,21,03,2022,00,00*4B for date
-//  or perhaps
+//  or perhaps (if gps only)
 //    $GPGLL,3745.5641,N,12226.3415,W,022529.000,A,A*5E
 //    $GPGGA,022529.000,3745.5641,N,12226.3415,W,1,07,1.6,34.6,M,0.0,M,,*5A
 //    $GPRMC,022529.000,A,3745.5641,N,12226.3415,W,0.56,0.00,230420,,,A*6D
 //    $GPZDA,210543.000,21,03,2022,00,00*4B for date
+//  GP is gps, GL is glonass, GA is galeleo, GB is Beidou, GN is anybody
 
 bool parseZDANMEAMessage(char* msg, struct gpm_msg_values* v) {
   char* time_string = find_string_in_msg("$GNZDA,", msg);
@@ -378,6 +379,58 @@ bool parseGGANMEAMessage(char* msg, struct gpm_msg_values* v) {
   sscanf(alt_str, "%lf", &(v->alt_meters_));
   v->location_valid_ = true;
   return true;
+}
+
+bool parseGLLNMEAMessage(char* msg, struct gpm_msg_values* v) {
+  return false;
+}
+
+bool parseRMCNMEAMessage(char* msg, struct gpm_msg_values* v) {
+  return false;
+}
+
+bool parseGPGSVNMEAMessage(char* msg, struct gpm_msg_values* v) {
+  // $xxGSV,numMsg,msgNum,numSV{,svid,elv,az,cno},signalId*cs<CR><LF>
+  // svid is in the range of 1 to 32 for GPS satellites, and
+  //  33 to 64 for SBAS 
+  //   Sigid: gps (1-32), SBAS (33-64), Galileo (211-246), Beidou (159-163), GLONASS (65-96)
+  return false;
+}
+
+bool parseGNSNMEAMessage(char* msg, struct gpm_msg_values* v) {
+  //  $xxGNS,time,lat,NS,lon,EW,posMode,numSV,HDOP,alt,sep,diffAge,diffStation,navStatus*cs<CR><LF>
+  // Posmode: Positioning mode (A-C/A, E-Dead reckoning, N- not valid, F, R - RTK, A/D-3,3d
+  //   First character for GPS, second character for GLONASS
+  //   Third character for Galileo, Fourth character for BeiDou
+  return false;
+}
+
+bool parseNMEAMessage(char* msg, struct gpm_msg_values* v, char* mtype) {
+
+  if (mtype != NULL) {
+    if(strcmp("ZDA", mtype) ==0) {
+    } else if(strcmp("ZDA", mtype) == 0) {
+      return parseZDANMEAMessage(msg, v);
+    } else if(strcmp("GGA", mtype) == 0) {
+      return parseGGANMEAMessage(msg, v);
+    } else if(strcmp("GLL", mtype) == 0) {
+      return parseGLLNMEAMessage(msg, v);
+    } else if(strcmp("RMC", mtype) == 0) {
+      return parseRMCNMEAMessage(msg, v);
+    } else {
+      return false;
+    }
+  }
+
+  if (find_string_in_msg("$GNZDA,", msg) != NULL)
+      return parseZDANMEAMessage(msg, v);
+  if (find_string_in_msg("$GNGGA,", msg) != NULL)
+      return parseGGANMEAMessage(msg, v);
+  if (find_string_in_msg("$GNGLL,", msg) != NULL)
+      return parseGLLNMEAMessage(msg, v);
+  if (find_string_in_msg("$GNRMC,", msg) != NULL)
+      return parseRMCNMEAMessage(msg, v);
+  return false;
 }
 
 bool get_date(int fd, gpm_msg_values* out) {
