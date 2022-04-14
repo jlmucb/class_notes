@@ -16,7 +16,7 @@ typedef unsigned char byte;
 #define default_uartDevice "/dev/ttyUSB0"
 #define BUF_SIZE 512
 const int sleep_interval = 1;
-const int short_wait = 100000;
+const int short_wait = 300000;
 bool print_message = true;
 
 void clearBuf(byte* buf, int n) {

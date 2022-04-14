@@ -505,6 +505,7 @@ bool parseGSVNMEAMessage(char* msg, struct gpm_msg_values* v) {
   // 33 to 64 for SBAS 
   // $GPGSV,2,1,08,05,29,046,32,13,,,32,15,35,118,40,18,64,322,40*4E
   //   Sigid: gps (1-32), SBAS (33-64), Galileo (211-246), Beidou (159-163), GLONASS (65-96)
+  // For GLONASS: GLGSV
   return 0;
 }
 
