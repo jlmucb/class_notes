@@ -499,6 +499,7 @@ bool parseGPGSVNMEAMessage(char* msg, struct gpm_msg_values* v) {
   // $xxGSV,numMsg,msgNum,numSV{,svid,elv,az,cno},signalId*cs<CR><LF>
   // svid is in the range of 1 to 32 for GPS satellites, and
   // 33 to 64 for SBAS 
+  // $GPGSV,2,1,08,05,29,046,32,13,,,32,15,35,118,40,18,64,322,40*4E
   //   Sigid: gps (1-32), SBAS (33-64), Galileo (211-246), Beidou (159-163), GLONASS (65-96)
   return false;
 }
@@ -661,6 +662,7 @@ int main(int an, char** av) {
     for (int i = 0; i < num_repeat; i++) {
       if (get_location(fd, &out)) {
         print_gps_data(out);
+	reset_gpm_location_data(&out);
       }
     }
   }
