@@ -387,44 +387,48 @@ void print_gps_data(gpm_msg_values& out) {
 //    $GPZDA,210543.000,21,03,2022,00,00*4B for date
 //  GP is gps, GL is glonass, GA is galeleo, GB is Beidou, GN is anybody
 
-bool parseZDANMEAMessage(char* msg, struct gpm_msg_values* v) {
+const int gga_msg = 1;
+const int zda_msg = 2;
+const int gsv_msg = 3;
+
+int parseZDANMEAMessage(char* msg, struct gpm_msg_values* v) {
   //  $xxZDA,time,day,month,year,ltzh,ltzn*cs<CR><LF>
   char* time_string = find_string_in_msg("$GNZDA,", msg);
   if (time_string == NULL || *time_string == ',')
-    return false;
+    return -1;
   char* day_string = find_string_in_msg(",", time_string);
   if (day_string == NULL || *day_string == ',')
-    return false;
+    return -1;
   sscanf(day_string, "%02d", &(v->day_));
   char* month_string = find_string_in_msg(",", day_string);
   if (month_string == NULL || *month_string == ',')
-    return false;
+    return -1;
   sscanf(month_string, "%02d", &(v->month_));
   char* year_string = find_string_in_msg(",", month_string);
   if (year_string == NULL || *year_string == ',')
-    return false;
+    return -1;
   sscanf(year_string, "%04d", &(v->year_));
   v->date_valid_ = true;
-  return true;
+  return zda_msg;
 }
 
-bool parseGGANMEAMessage(char* msg, struct gpm_msg_values* v) {
+int parseGGANMEAMessage(char* msg, struct gpm_msg_values* v) {
   // $xxGGA,time,lat,NS,lon,EW,quality,numSV,HDOP,alt,altUnit,sep,sepUnit,diffAge,diffStation*cs<CR><LF>
   //    quality: 1, 2d; 2, 3d.
   //    sep: Geoid separation
   char* time_string = find_string_in_msg("$GNGGA,", msg);
   if (time_string == NULL)
-    return false;
+    return -1;
   if (*time_string == ',')
-    return false;
+    return -1;
   sscanf(time_string, "%02d%02d", &v->hour_, &v->min_);
   sscanf(time_string+4, "%lf", &v->seconds_);
 
   char* latitude_string = find_string_in_msg(",", time_string);
   if (latitude_string == NULL)
-    return false;
+    return -1;
   if (*latitude_string == ',')
-    return false;
+    return -1;
   int deglat;
   int mlat;
   int minlat;
@@ -432,9 +436,9 @@ bool parseGGANMEAMessage(char* msg, struct gpm_msg_values* v) {
   v->degrees_lat_ = ((double)deglat) + (((double)mlat) + ((double)minlat) / 10000.0) / 60.0;
   char* ns_string = find_string_in_msg(",", latitude_string);
   if (*ns_string == ',')
-    return false;
+    return -1;
   if (ns_string == NULL || (*ns_string != 'N' && *ns_string != 'S'))
-    return false;
+    return -1;
   if (*ns_string == 'S')
     v->degrees_lat_ *= -1.0;
   char* longitude_string = ns_string + 2;
@@ -445,74 +449,74 @@ bool parseGGANMEAMessage(char* msg, struct gpm_msg_values* v) {
   v->degrees_long_ = ((double)deglong) + (((double)mlong) + ((double)minlong)/ 10000.0) / 60.0;
   char* ew_string = find_string_in_msg(",", longitude_string);
   if (ew_string == NULL || (*ew_string != 'E' && *ew_string != 'W'))
-    return false;
+    return -1;
   if (*ew_string == ',')
-    return false;
+    return -1;
   if (*ew_string == 'W')
     v->degrees_long_ *= -1.0;
   char* qual_str = find_string_in_msg(",", ew_string);
   if (qual_str == NULL)
-    return false;
+    return -1;
   if (*qual_str == ',')
-    return false;
+    return -1;
   sscanf(qual_str, "%d", &(v->fix_type_));
 
   char* sats_str = find_string_in_msg(",", qual_str);
   if (sats_str == NULL)
-    return false;
+    return -1;
   if (*sats_str == ',')
-    return false;
+    return -1;
   sscanf(sats_str, "%02d", &(v->num_sats_));
 
   char* alt_str = find_string_in_msg(",", sats_str);
   if (alt_str == NULL)
-    return false;
+    return -1;
   if (*alt_str == ',')
-    return false;
+    return -1;
   alt_str = find_string_in_msg(",", alt_str);
   sscanf(alt_str, "%lf", &(v->alt_meters_));
 
   char* alt_unit_str = find_string_in_msg(",", alt_str);
   if (alt_unit_str == NULL)
-    return false;
+    return -1;
   if (*alt_unit_str != 'M')
-    return false;
+    return -1;
 
   char* sep_str = find_string_in_msg(",", ++alt_unit_str);
   sscanf(sep_str, "%lf", &(v->geod_sep_meters_));
 
   v->location_valid_ = true;
-  return true;
+  return gga_msg;
 }
 
-bool parseGLLNMEAMessage(char* msg, struct gpm_msg_values* v) {
+int parseGLLNMEAMessage(char* msg, struct gpm_msg_values* v) {
   //  $xxGLL,lat,NS,lon,EW,time,status,posMode*cs<CR><LF>
-  return false;
+  return 0;
 }
 
-bool parseRMCNMEAMessage(char* msg, struct gpm_msg_values* v) {
+int parseRMCNMEAMessage(char* msg, struct gpm_msg_values* v) {
   //  $xxRMC,time,status,lat,NS,lon,EW,spd,cog,date,mv,mvEW,posMode,navStatus*cs<CR><LF>
-  return false;
+  return 0;
 }
 
-bool parseGPGSVNMEAMessage(char* msg, struct gpm_msg_values* v) {
+bool parseGSVNMEAMessage(char* msg, struct gpm_msg_values* v) {
   // $xxGSV,numMsg,msgNum,numSV{,svid,elv,az,cno},signalId*cs<CR><LF>
   // svid is in the range of 1 to 32 for GPS satellites, and
   // 33 to 64 for SBAS 
   // $GPGSV,2,1,08,05,29,046,32,13,,,32,15,35,118,40,18,64,322,40*4E
   //   Sigid: gps (1-32), SBAS (33-64), Galileo (211-246), Beidou (159-163), GLONASS (65-96)
-  return false;
+  return 0;
 }
 
-bool parseGNSNMEAMessage(char* msg, struct gpm_msg_values* v) {
+int parseGNSNMEAMessage(char* msg, struct gpm_msg_values* v) {
   //  $xxGNS,time,lat,NS,lon,EW,posMode,numSV,HDOP,alt,sep,diffAge,diffStation,navStatus*cs<CR><LF>
   // Posmode: Positioning mode (A-C/A, E-Dead reckoning, N- not valid, F, R - RTK, A/D-3,3d
   //   First character for GPS, second character for GLONASS
   //   Third character for Galileo, Fourth character for BeiDou
-  return false;
+  return 0;
 }
 
-bool parseNMEAMessage(char* msg, struct gpm_msg_values* v, char* mtype) {
+int parseNMEAMessage(char* msg, struct gpm_msg_values* v, char* mtype) {
 
   if (mtype != NULL) {
     if(strcmp("ZDA", mtype) ==0) {
@@ -524,6 +528,8 @@ bool parseNMEAMessage(char* msg, struct gpm_msg_values* v, char* mtype) {
       return parseGLLNMEAMessage(msg, v);
     } else if(strcmp("RMC", mtype) == 0) {
       return parseRMCNMEAMessage(msg, v);
+    } else if(strcmp("GSV", mtype) == 0) {
+      return parseGSVNMEAMessage(msg, v);
     } else {
       return false;
     }
@@ -533,11 +539,16 @@ bool parseNMEAMessage(char* msg, struct gpm_msg_values* v, char* mtype) {
       return parseZDANMEAMessage(msg, v);
   if (find_string_in_msg("$GNGGA,", msg) != NULL)
       return parseGGANMEAMessage(msg, v);
+  if (find_string_in_msg("$GPGSV,", msg) != NULL)
+      return parseGSVNMEAMessage(msg, v);
+#if 0
   if (find_string_in_msg("$GNGLL,", msg) != NULL)
       return parseGLLNMEAMessage(msg, v);
   if (find_string_in_msg("$GNRMC,", msg) != NULL)
       return parseRMCNMEAMessage(msg, v);
-  return false;
+#endif
+
+  return -1;
 }
 
 int read_line(int fd, byte* buf, int size) {
@@ -556,20 +567,14 @@ int read_line(int fd, byte* buf, int size) {
 }
 
 bool get_date(int fd, gpm_msg_values* out) {
-  bool got_date = false;
   byte buf[BUF_SIZE];
   int n = 0;
   int msg_count = 1;
   int trys = 0;
 
-  while (!got_date) { 
+  while (1) { 
     usleep(short_wait);
-#if 0
-    clearBuf(buf, BUF_SIZE);
-    n = read(fd, buf, BUF_SIZE - 1);
-#else
     n = read_line(fd, buf, BUF_SIZE - 1);
-#endif
     if (n <=  0) {
       printf("read returns %d\n", n);
       continue;
@@ -584,29 +589,22 @@ bool get_date(int fd, gpm_msg_values* out) {
           return true;
     }
 
-    got_date = parseZDANMEAMessage((char*)buf, out);
-    if (got_date) {
+   if (zda_msg == parseZDANMEAMessage((char*)buf, out))
       return true;
-    }
   }
   return false;
 }
 
 
 bool get_location(int fd, gpm_msg_values* out) {
-  bool got_fix = false;
+  int msg_type = 0;
   byte buf[BUF_SIZE];
   int n = 0;
   int msg_count = 1;
 
-  while (!got_fix) { 
+  while (1) { 
     usleep(short_wait);
-#if 0
-    clearBuf(buf, BUF_SIZE);
-    n = read(fd, buf, BUF_SIZE - 1);
-#else
     n = read_line(fd, buf, BUF_SIZE - 1);
-#endif
     if (n <=  0) {
       printf("read returns %d\n", n);
       continue;
@@ -616,10 +614,12 @@ bool get_location(int fd, gpm_msg_values* out) {
     if (print_message && n > 5)
       printf("Message %2d: %s", msg_count++, (char*) buf);
 
-    got_fix = parseGGANMEAMessage((char*)buf, out);
-    if (got_fix) {
+#if 0
+#endif
+
+    // if (gga_msg == parseGGANMEAMessage((char*)buf, out))
+    if (gga_msg == parseNMEAMessage((char*)buf, out, NULL))
       return true;
-    }
   }
   return false;
 }
