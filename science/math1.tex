@@ -201,6 +201,10 @@ $f(a+tp^j)= f(a)+ tp^j f'(a) + \textnormal{ terms in } p^{2j} \textnormal{ or hi
 $f(a+t p^j)= (r+t f'(a)) p^j \jmod{p^{j+1}}$.   Find $t: r+t f'(a) = 0 \jmod{p}$.  Then
 $f(a+tp^j)= 0 \jmod{p^{j+1}}$.
 \end{quote}
+{\bf Definition:} Let $S_k = \{y: 1 \leq y <k: (y,k)=1 \}$.  $\phi(k)= |S_k|$.  Let $n= {p_1}^{e_1} {p_2}^{e_2} \ldots {p_k}^{e_k}$.
+$\mu(1)= 1$, if $n=1$; $\mu(n)=0$ if $e_i > 1$ for any $i$; otherwise, $\mu(n)= (-1)^k$.
+\\
+\\
 {\bf Theorem:} 
 If $(m,n)=1$ then $\phi(mn)= \phi(m) \phi(n)$.
 $ \sum_{d \mid n} \phi(d)= n$.
@@ -219,10 +223,6 @@ completes the proof of the second result.  If $n= p_1^{e_1} p_2^{e_2} \ldots p_t
 define $\mu(n)=0$, if $e_j > 1$ for any $j$, otherwise $\mu(n)= (-1)^t$.  $\mu$ is
 multiplicative and the result follows.
 \end{quote}
-{\bf Definition:} If $n = {p_1}^{\alpha_1} \cdot {p_2}^{\alpha_2} \cdot \ldots \cdot {p_k}^{\alpha_k}$, define
-$\mu(n) = (-1)^{\sum_{i=1}^k \alpha_i}$.
-\\
-\\
 {\bf Moebius Formula:} If $f(n)$ is multiplicative and 
 $F(n)=  \sum_{d \mid n} f(d)$ then
 $f(n)= \sum_{d \mid n} \mu(d) F({\frac {n} {d}})$;  if
