@@ -64,6 +64,8 @@ void compute_checksum(byte* buf, int len, byte* pa, byte* pb) {
   *pb = b;
 }
 
+//  The UBX protocol is designed so that messages can be polled by sending the message required to 
+//  the receiver but without a payload (or with just a single parameter that identifies the poll request).
 //  sync1 sync2 class id len-payload payload ck_a ck_b
 //  ACK is 0xb5 0x062, 0x01, cls, msg, ck_a, ck_b
 //  NACK is 0xb5 0x062, 0x00, cls, msg, ck_a, ck_b
@@ -185,6 +187,33 @@ int available(int fd) {
 //    UBX-CFG-RATE
 //    UBX-CFG-ITFM
 //    UBX-ESF-INS (dead rekoning)
+
+
+//  UBX-NAV-TIMEGPS
+//    HDR (0xb5 0x62), class (0x01), id (0x20), length (16) PL chk_a chk_b
+//      Byte offset type    item
+//      00          U4      time-of-week (ms)
+//      04
+//      08          I2      week
+//      10          I1      leasS
+//      11          X1      valid
+//      12          U4      accuracy
+//
+
+//  UBX-NAV-TIMEUTC
+//    HDR (0xb5 0x62), class (0x01), id (0x21), length (20) PL chk_a chk_b
+//      Byte offset type    item
+//      00          U4
+//      04          U4
+//      08          I4
+//      12          U2      year (1999-2099)
+//      14          U1      month (1-12)
+//      15          U1      day (1-31)
+//      16          U1      hour (0-23)
+//      17          U1      min (0-59)
+//      18          U1      sec
+//      19          X1
+
 
 bool test_ublox_cmds(int fd) {
   byte ack_buf[256];
@@ -360,13 +389,13 @@ void print_gps_data(gpm_msg_values& out) {
     printf("    Lattitude: %.5f, Longitude: %.5f\n",
         out.degrees_lat_, out.degrees_long_);
     printf("    Mean altitude: %.4f (m), Geoid offset: %.4f (m), Altitude: %.4f (m)\n",
-	out.alt_meters_, out.geod_sep_meters_,  out.alt_meters_ + out.geod_sep_meters_);
+        out.alt_meters_, out.geod_sep_meters_,  out.alt_meters_ + out.geod_sep_meters_);
   }
   if (out.num_sat_data_vals_ > 0) {
     printf("    Satelittes:\n");
     for (int i = 0; i < out.num_sat_data_vals_; i++) {
       printf("      SV-ID: %d, Elevation: %d, Azimuth: %d, Signal quality: %d\n",
-	out.sd_[i].sv_id_, out.sd_[i].elev_, out.sd_[i].az_, out.sd_[i].cn0_);
+        out.sd_[i].sv_id_, out.sd_[i].elev_, out.sd_[i].az_, out.sd_[i].cn0_);
     }
   }
   printf("\n");
@@ -390,6 +419,7 @@ void print_gps_data(gpm_msg_values& out) {
 const int gga_msg = 1;
 const int zda_msg = 2;
 const int gsv_msg = 3;
+const int rmc_msg = 4;
 
 int parseZDANMEAMessage(char* msg, struct gpm_msg_values* v) {
   //  $xxZDA,time,day,month,year,ltzh,ltzn*cs<CR><LF>
@@ -496,7 +526,24 @@ int parseGLLNMEAMessage(char* msg, struct gpm_msg_values* v) {
 
 int parseRMCNMEAMessage(char* msg, struct gpm_msg_values* v) {
   //  $xxRMC,time,status,lat,NS,lon,EW,spd,cog,date,mv,mvEW,posMode,navStatus*cs<CR><LF>
-  return 0;
+  //  date is DDMMYY
+  char* time_string = find_string_in_msg("$GNRMC,", msg);
+  if (time_string == NULL)
+    return 0;
+  for (int i = 0; i < 8; i++) {
+    time_string = find_string_in_msg(",", time_string);
+    if (time_string == NULL)
+      return 0;
+  }
+  int d = 0;
+  int m = 0;
+  int y = 0;
+  sscanf(time_string, "%02d%02d%02d", &d, &m, &y);
+  v->date_valid_ = true;
+  v->year_ = y + 2000;
+  v->month_ = m;
+  v->day_ = d;
+  return rmc_msg;
 }
 
 bool parseGSVNMEAMessage(char* msg, struct gpm_msg_values* v) {
@@ -545,9 +592,9 @@ int parseNMEAMessage(char* msg, struct gpm_msg_values* v, char* mtype) {
 #if 0
   if (find_string_in_msg("$GNGLL,", msg) != NULL)
       return parseGLLNMEAMessage(msg, v);
+#endif
   if (find_string_in_msg("$GNRMC,", msg) != NULL)
       return parseRMCNMEAMessage(msg, v);
-#endif
 
   return -1;
 }
@@ -591,6 +638,8 @@ bool get_date(int fd, gpm_msg_values* out) {
     }
 
    if (zda_msg == parseZDANMEAMessage((char*)buf, out))
+      return true;
+   if (rmc_msg == parseRMCNMEAMessage((char*)buf, out))
       return true;
   }
   return false;
@@ -663,7 +712,7 @@ int main(int an, char** av) {
     for (int i = 0; i < num_repeat; i++) {
       if (get_location(fd, &out)) {
         print_gps_data(out);
-	reset_gpm_location_data(&out);
+        reset_gpm_location_data(&out);
       }
     }
   }
