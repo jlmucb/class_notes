@@ -401,6 +401,18 @@ TEST (test_sig_special, test_sig_special) {
   EXPECT_TRUE(test_sig_special());
 }
 
+bool test_ecc() {
+  ecc_implement ec;
+
+  if (!ec.generate_key(384))
+    return false;
+  ec.print_key();
+  return true;
+}
+TEST (test_ecc, test_ecc) {
+  EXPECT_TRUE(test_ecc());
+}
+
 int main(int an, char** av) {
   gflags::ParseCommandLineFlags(&an, &av, true);
   an = 1;

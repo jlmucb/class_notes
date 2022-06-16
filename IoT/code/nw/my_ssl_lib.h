@@ -247,4 +247,6 @@ bool rsa_verify_sig(RSA* r, byte* hash, int hash_size,
 
 bool asn1_to_x509(string& in, X509 *x);
 bool x509_to_asn1(X509 *x, string* out);
+
+void bn_print(const BIGNUM* n);
 #endif
