@@ -1113,6 +1113,8 @@ bool ecc_implement::encrypt(int padding, int plain_len, byte* plain,
   if (!key_initialized_)
     return false;
 
+  // ECDH_compute_key
+
   // one block only for now
   if (*cipher_size <  ECDSA_size(ecc_key_))
     return false;
