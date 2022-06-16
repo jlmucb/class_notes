@@ -181,6 +181,8 @@ public:
       BIGNUM** order, const BIGNUM** pk,
       const EC_POINT** generator, const EC_POINT** pub_pt);
   void print_key();
+  bool sign(int dgst_len, byte* dgst, unsigned int* sig_len, byte* sig);
+  bool verify(int dgst_len, byte* dgst, int sig_len, byte* sig);
 };
 
 class my_x509 {

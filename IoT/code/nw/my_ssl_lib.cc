@@ -1165,3 +1165,18 @@ void ecc_implement::print_key() {
   BN_free(p); 
   BN_free(order); 
 }
+
+bool ecc_implement::sign(int dgst_len, byte* dgst, unsigned int* sig_len, byte* sig) {
+  if (ecc_key_ == nullptr)
+    return false;
+  if (1 == ECDSA_sign(0, dgst, dgst_len, sig, sig_len, ecc_key_))
+    return true;
+  return false;
+}
+
+bool ecc_implement::verify(int dgst_len, byte* dgst, int sig_len, byte* sig) {
+  if (1 == ECDSA_verify(0, dgst, dgst_len, sig, sig_len, ecc_key_))
+    return true;
+  return false;
+}
+
