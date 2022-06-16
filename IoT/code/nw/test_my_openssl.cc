@@ -407,6 +407,25 @@ bool test_ecc() {
   if (!ec.generate_key(384))
     return false;
   ec.print_key();
+
+  sha384_digest sha384_dgst;
+  unsigned int dgst_len = 64;
+  byte dgst[dgst_len];
+  unsigned int sig_len = 64;
+  byte sig[sig_len];
+  const char* to_hash = "abc";
+
+  if (!sha384_dgst.init())
+    return false;
+  if (!sha384_dgst.update(strlen(to_hash), (byte*)to_hash))
+    return false;
+  if (!sha384_dgst.finalize(dgst, &dgst_len))
+    return false;
+
+  if (!ec.sign(dgst_len, dgst, &sig_len, sig))
+    return false;
+  if (!ec.verify(dgst_len, dgst, (int)sig_len, sig))
+    return false;
   return true;
 }
 TEST (test_ecc, test_ecc) {
