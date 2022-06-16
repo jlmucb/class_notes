@@ -30,7 +30,7 @@
 #include <openssl/rsa.h>
 #include <openssl/x509.h>
 #include <openssl/hmac.h>
-
+#include <openssl/ecdsa.h>
 
 #ifndef byte
 typedef unsigned char byte;
@@ -79,6 +79,19 @@ public:
 };
 
 
+class sha384_digest {
+public:
+  EVP_MD_CTX* ctx_;
+
+  sha384_digest();
+  ~sha384_digest();
+
+  bool init();
+  bool update(int size, byte* buf);
+  bool finalize(byte* digest, unsigned int* size);
+  int get_digest_size() {return 48;};
+};
+
 class aes256_cbc {
 public:
   EVP_CIPHER_CTX* ctx_;
@@ -117,7 +130,6 @@ public:
   bool get_key(byte* out);
 };
 
-
 class rsa_implement {
 public:
   bool key_initialized_;
@@ -143,6 +155,34 @@ public:
   bool get_m(byte* out);
   bool get_e(byte* out);
   bool get_d(byte* out);
+};
+
+class ecc_implement {
+public:
+  bool key_initialized_;
+  int bit_size_ = 0;
+  EC_KEY* ecc_key_;
+  string m_;
+  string e_;
+  string d_;
+
+  ecc_implement();
+  ~ecc_implement();
+
+  bool generate_key(int num_bits);
+  bool set_key_from_parameters(int num_bits);
+  bool get_key_from_parameters();
+
+  bool encrypt(int padding, int plain_len, byte* plain,
+        int* cipher_size, byte* cipher);
+  bool decrypt(int padding, int cipher_len, byte* cipher,
+        int* plain_len, byte* plain);
+  int get_key_size() {return (bit_size_ + 7) / 8;};
+  int get_block_size() {return (bit_size_ + 7) / 8;};
+  bool get_m(byte* out);
+  bool get_e(byte* out);
+  bool get_d(byte* out);
+  void print_key();
 };
 
 class my_x509 {

@@ -232,6 +232,39 @@ void reverse_bytes(int size, byte* in, byte* out) {
     out[size - 1 - i] = in[i];
 }
 
+sha384_digest::sha384_digest() {
+  ctx_ = nullptr;
+}
+
+sha384_digest::~sha384_digest() {
+  if (ctx_ != nullptr) {
+    EVP_MD_CTX_free(ctx_);
+    ctx_ = nullptr;
+  }
+}
+
+bool sha384_digest::init() {
+  if (ctx_ != nullptr)
+    return true;
+  ctx_ = EVP_MD_CTX_new();
+  if (1 != EVP_DigestInit_ex(ctx_, EVP_sha384(), NULL))
+    return false;
+  return true;
+}
+
+bool sha384_digest::update(int size, byte* buf) {
+
+  if (1 != EVP_DigestUpdate(ctx_, buf, size))
+    return false;
+  return true;
+}
+
+bool sha384_digest::finalize(byte* digest, unsigned int* size) {
+  if (1 != EVP_DigestFinal_ex(ctx_, digest, size))
+    return false;
+  return true;
+}
+
 
 sha256_digest::sha256_digest() {
   ctx_ = nullptr;
@@ -265,7 +298,6 @@ bool sha256_digest::finalize(byte* digest, unsigned int* size) {
     return false;
   return true;
 }
-
 
 aes256_cbc::aes256_cbc() {
   ctx_ = nullptr;
@@ -954,7 +986,7 @@ bool rsa_verify_sig(RSA* r, byte* hash, int hash_size,
 }
 #else
 
-// this is a hack, I have no idea why the bove doesn't work
+// this is a hack, I have no idea why the above doesn't work
 bool rsa_verify_sig(RSA* r, byte* hash, int hash_size,
          const byte* sig, int sig_size) {
   byte decrypted[sig_size];
@@ -972,3 +1004,201 @@ bool rsa_verify_sig(RSA* r, byte* hash, int hash_size,
   return true;
 }
 #endif
+
+ecc_implement::ecc_implement() {
+  key_initialized_ = false;
+  int bit_size_ = 0;
+  ecc_key_ = nullptr;
+}
+
+ecc_implement::~ecc_implement() {
+  if (ecc_key_ != nullptr)
+    EC_KEY_free(ecc_key_);
+  key_initialized_ = false;
+  int bit_size_ = 0;
+  ecc_key_ = nullptr;
+}
+
+void ecc_implement::print_key() {
+
+  // 
+}
+
+bool ecc_implement::generate_key(int num_bits) {
+
+  if (num_bits != 384)
+    return false;
+  ecc_key_ = EC_KEY_new_by_curve_name(NID_secp384r1);
+
+#if 0
+  const BIGNUM *EC_KEY_get0_private_key(const EC_KEY *key);
+  const EC_POINT *EC_KEY_get0_public_key(const EC_KEY *key);
+  int EC_KEY_set_public_key(EC_KEY *key, const EC_POINT *pub);
+  int EC_KEY_generate_key(EC_KEY *key);
+  int EC_KEY_set_public_key(EC_KEY *key, const EC_POINT *pub);
+  EC_POINT *EC_KEY_get0_public_key(const EC_KEY *key);
+  unsigned EC_KEY_get_enc_flags(const EC_KEY *key);
+  size_t (*group_order_size)(const EC_KEY *key);
+
+  a = BN_bin2bn(a_bin, 28, NULL)
+  b = BN_bin2bn(b_bin, 28, NULL)
+  p = BN_bin2bn(p_bin, 28, NULL)
+  order = BN_bin2bn(order_bin, 28, NULL)
+  x = BN_bin2bn(x_bin, 28, NULL)
+  y = BN_bin2bn(y_bin, 28, NULL)
+  curve = EC_GROUP_new_curve_GFp(p, a, b, ctx)
+  EC_POINT_set_affine_coordinates_GFp(curve, generator, x, y, ctx))
+  EC_GROUP_set_generator(curve, generator, order, NULL))
+  EC_POINT_free(generator);
+  BN_free(y);
+  BN_free(a);
+
+  int BN_bn2bin(const BIGNUM *a, unsigned char *to);
+  BIGNUM *BN_bin2bn(const unsigned char *s, int len, BIGNUM *ret);
+
+  bn_print(n);
+  EC_POINT_mul(curve, pub, prv, NULL, NULL, ctx))
+  ECDSA_SIG *signature = ECDSA_do_sign(hash, strlen(hash), eckey);
+  EC_GROUP_free(ecgroup);
+  EC_KEY_free(eckey);
+  EDSA_SIG *signature = ECDSA_do_sign(hash, strlen(hash), eckey);
+  int verify_status = ECDSA_do_verify(hash, strlen(hash), signature, eckey);
+  BN_set_word(e, 65537UL);
+
+  // BN_CTX is a structure that holds BIGNUM temporary variables used by library functions.
+  // BN_CTX *BN_CTX_new(void);
+  // void BN_CTX_free(BN_CTX *c);
+  int EC_POINT_get_affine_coordinates_GFp(const EC_GROUP *group,
+        const EC_POINT *p, BIGNUM *x, BIGNUM *y, BN_CTX *ctx);
+  EC_GROUP_get_order(group, z, ctx)
+  EC_POINT_is_at_infinity(group, Q)
+
+  EC_GROUP* ec_get_group(curve)
+  int EC_GROUP_get_curve_GFp(const EC_GROUP *group, BIGNUM *p,
+                            BIGNUM *a, BIGNUM *b, BN_CTX *ctx);
+  EC_GROUP_get_curve_GFp(EC_GROUP* group, BIGNNUM* p, BIGNUM* a, BIGNUM* b, ctx)
+
+  ecc_key_ = RSA_new();
+  if (0 == RSA_generate_key_ex(ecc_key_, num_bits, e, nullptr))
+    return false;
+  key_initialized_ = true;
+  BN_free(e);
+  int bit_size_ = num_bits;
+#endif
+  return true;
+}
+
+bool ecc_implement::encrypt(int padding, int plain_len, byte* plain,
+        int* cipher_size, byte* cipher) {
+
+  if (!key_initialized_)
+    return false;
+
+  // one block only for now
+  if (*cipher_size <  ECDSA_size(ecc_key_))
+    return false;
+
+#if 0
+  int size_out = RSA_public_encrypt(plain_len, plain, cipher, ecc_key_, padding);
+  if (size_out <= 0)
+    return false;
+  *cipher_size = size_out;
+#endif
+  return true;
+}
+
+bool ecc_implement::decrypt(int padding, int cipher_len, byte* cipher,
+        int* plain_len, byte* plain) {
+
+  if (!key_initialized_)
+    return false;
+  // one block only for now
+  if (*plain_len <  ECDSA_size(ecc_key_))
+    return false;
+#if 0
+  int size_out = RSA_private_decrypt(cipher_len, cipher, plain, ecc_key_, padding);
+  if (size_out <= 0)
+    return false;
+  *plain_len = size_out;
+#endif
+  return true;
+}
+
+bool ecc_implement::get_m(byte* out) {
+  // void RSA_get0_key(const RSA *r, const BIGNUM **n, const BIGNUM **e, const BIGNUM **d);,
+
+  return true;
+}
+
+bool ecc_implement::get_e(byte* out) {
+  // void RSA_get0_key(const RSA *r, const BIGNUM **n, const BIGNUM **e, const BIGNUM **d);,
+  return true;
+}
+
+bool ecc_implement::get_d(byte* out) {
+  return true;
+}
+
+bool ecc_implement::set_key_from_parameters(int num_bits) {
+
+#if 0
+  if (ecc_key_ == nullptr) {
+    ecc_key_ = RSA_new();
+    if (ecc_key_ == nullptr)
+      return false;
+  }
+
+  int len = (num_bits + 7) / 8;
+
+  BIGNUM* m = BN_new();
+  BIGNUM* e = BN_new();
+  BIGNUM* d = BN_new();
+
+  BN_bin2bn((byte*)m_.data(), m_.size(), m);
+  BN_bin2bn((byte*)e_.data(), e_.size(), e);
+  BN_bin2bn((byte*)d_.data(), d_.size(), d);
+
+  RSA_set0_key(ecc_key_, m, e, d);
+    return false;
+
+  BN_free(m);
+  BN_free(e);
+  BN_free(d);
+#endif
+  return true;
+}
+
+bool ecc_implement::get_key_from_parameters() {
+  if (ecc_key_ == nullptr)
+    return false;
+
+#if 0
+  BIGNUM* m = BN_new();
+  BIGNUM* e = BN_new();
+  BIGNUM* d = BN_new();
+
+  RSA_get0_key(ecc_key_, (const BIGNUM**)&m, (const BIGNUM**)&e,
+          (const BIGNUM**)&d);
+    return false;
+
+  int len = get_block_size();
+  byte m_bytes[len];
+  byte e_bytes[len];
+  byte d_bytes[len];
+  memset(m_bytes, 0, len);
+  memset(e_bytes, 0, len);
+  memset(d_bytes, 0, len);
+
+  int len_m = BN_bn2bin((const BIGNUM*)m, m_bytes);
+  int len_e = BN_bn2bin((const BIGNUM*)e, e_bytes);
+  int len_d = BN_bn2bin((const BIGNUM*)d, d_bytes);
+  m_.assign((char*)m_bytes, len_m);
+  e_.assign((char*)e_bytes, len_e);
+  d_.assign((char*)d_bytes, len_d);
+
+  BN_free(m);
+  BN_free(e);
+  BN_free(d);
+#endif
+  return true;
+}

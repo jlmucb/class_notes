@@ -27,19 +27,28 @@ uint32_t sha256_test1_answer[8] = {
   0xBA7816BF, 0x8F01CFEA, 0x414140DE, 0x5DAE2223,
   0xB00361A3, 0x96177A9C, 0xB410FF61, 0xF20015AD
 };
+
+// sha384 tests
+byte* sha384_test1_input = (byte*)"abc";
+int sha384_test1_size= 3;
+uint32_t sha384_test1_answer[12] = {
+  0xcb00753f, 0x45a35e8b, 0xb5a03d69, 0x9ac65007, 0x272c32ab, 0x0eded163,
+  0x1a8b605a, 0x43ff5bed, 0x8086072b, 0xa1e7cc23, 0x58baeca1, 0x34c825a7
+};
 bool test_digest() {
-  sha256_digest hash;
-  unsigned int digest_size = 32;
+  sha256_digest hash1;
+  unsigned int digest_size = 64;  // big enough for any hash
   byte digest[digest_size];
+  byte ans[64];                   // big enough for any hash
 
-  if (!hash.init())
+  // sha256
+  if (!hash1.init())
     return false;
-  if (!hash.update(sha256_test1_size, sha256_test1_input))
+  if (!hash1.update(sha256_test1_size, sha256_test1_input))
     return false;
-  if (!hash.finalize(digest, &digest_size))
+  if (!hash1.finalize(digest, &digest_size))
     return false;
 
-  byte ans[32];
   for (int i = 0; i < 8; i++) {
     reverse_bytes(4, (byte*)&sha256_test1_answer[i], &ans[4 * i]);
   }
@@ -54,7 +63,36 @@ bool test_digest() {
     printf("\n");
   }
 
-  return (memcmp(ans, digest, 32) == 0);
+  if (memcmp(ans, digest, 32) != 0) {
+    return false;
+  }
+
+  sha384_digest hash2;
+  if (!hash2.init())
+    return false;
+  if (!hash2.update(sha384_test1_size, sha384_test1_input))
+    return false;
+  if (!hash2.finalize(digest, &digest_size))
+    return false;
+
+  for (int i = 0; i < 12; i++) {
+    reverse_bytes(4, (byte*)&sha384_test1_answer[i], &ans[4 * i]);
+  }
+
+  if (FLAGS_print_all) {
+    printf("sha-384 in (%2d): ", sha384_test1_size);
+    print_bytes(sha384_test1_size, (byte*)sha384_test1_input);
+    printf("sha-384 digest : ");
+    print_bytes(48, digest);
+    printf("sha-384 correct: ");
+    print_bytes(48, ans);
+    printf("\n");
+  }
+
+  if (memcmp(ans, digest, 48) != 0) {
+    return false;
+  }
+  return true;
 }
 TEST (digest, test_digest) {
   EXPECT_TRUE(test_digest());
