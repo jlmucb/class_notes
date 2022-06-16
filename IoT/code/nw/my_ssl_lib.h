@@ -170,18 +170,16 @@ public:
   ~ecc_implement();
 
   bool generate_key(int num_bits);
-  bool set_key_from_parameters(int num_bits);
-  bool get_key_from_parameters();
-
   bool encrypt(int padding, int plain_len, byte* plain,
         int* cipher_size, byte* cipher);
   bool decrypt(int padding, int cipher_len, byte* cipher,
         int* plain_len, byte* plain);
   int get_key_size() {return (bit_size_ + 7) / 8;};
   int get_block_size() {return (bit_size_ + 7) / 8;};
-  bool get_m(byte* out);
-  bool get_e(byte* out);
-  bool get_d(byte* out);
+  bool get_curve_parameters(const EC_GROUP** group,
+      BIGNUM** a, BIGNUM** b, BIGNUM** p,
+      BIGNUM** order, const BIGNUM** pk,
+      const EC_POINT** generator, const EC_POINT** pub_pt);
   void print_key();
 };
 

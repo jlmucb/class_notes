@@ -1042,60 +1042,6 @@ ecc_implement::~ecc_implement() {
   ecc_key_ = nullptr;
 }
 
-void ecc_implement::print_key() {
-
-  if (ecc_key_ == nullptr)
-    return;
-  const EC_GROUP* group = EC_KEY_get0_group(ecc_key_);
-  if (group == nullptr)
-    return;
-
-  const BIGNUM* pk = EC_KEY_get0_private_key(ecc_key_);
-
-  BN_CTX* ctx = BN_CTX_new();
-  BIGNUM* p = BN_new();
-  BIGNUM* a = BN_new();
-  BIGNUM* b = BN_new();
-  BIGNUM* order = BN_new();
-
-  if (EC_GROUP_get_curve_GFp(group, p, a, b, ctx) <= 0)
-    return;
-  printf("p: ");
-  bn_print(p);
-  printf("\n");
-  printf("a: ");
-  bn_print(a);
-  printf("\n");
-  printf("b: ");
-  bn_print(b);
-  printf("\n");
-
-  EC_GROUP_get_order(group, order, ctx);
-  printf("order: ");
-  bn_print(order);
-  printf("\n");
-
-  const EC_POINT* generator = EC_GROUP_get0_generator(group);
-  if (generator != nullptr) {
-    printf(" generator: ");
-    print_point(group, generator);
-    printf("\n");
-  }
-
-  const EC_POINT* public_pt= EC_KEY_get0_public_key(ecc_key_);
-  if (public_pt != nullptr) {
-    printf(" public point: ");
-    print_point(group, public_pt);
-    printf("\n");
-  }
- 
-  BN_free(a); 
-  BN_free(b); 
-  BN_free(p); 
-  BN_free(order); 
-  BN_CTX_free(ctx);
-}
-
 bool ecc_implement::generate_key(int num_bits) {
 
   if (num_bits != 384)
@@ -1134,24 +1080,88 @@ bool ecc_implement::decrypt(int padding, int cipher_len, byte* cipher,
   return true;
 }
 
-bool ecc_implement::get_m(byte* out) {
-  return false;
-}
+bool ecc_implement::get_curve_parameters(const EC_GROUP** group,
+      BIGNUM** a, BIGNUM** b, BIGNUM** p, BIGNUM** order,
+      const BIGNUM** pk, const EC_POINT** generator,
+      const EC_POINT** pub_pt) {
 
-bool ecc_implement::get_e(byte* out) {
-  return false;
-}
-
-bool ecc_implement::get_d(byte* out) {
-  return false;
-}
-
-bool ecc_implement::set_key_from_parameters(int num_bits) {
-  return false;
-}
-
-bool ecc_implement::get_key_from_parameters() {
   if (ecc_key_ == nullptr)
     return false;
+
+  *group = EC_KEY_get0_group(ecc_key_);
+  if (*group == nullptr)
+    return false;
+  *pk = EC_KEY_get0_private_key(ecc_key_);
+  if (*pk == nullptr)
+    return false;
+
+  BN_CTX* ctx = BN_CTX_new();
+  if (EC_GROUP_get_curve_GFp(*group, *p, *a, *b, ctx) <= 0) {
+    BN_CTX_free(ctx);
+    return false;
+  }
+  if (EC_GROUP_get_order(*group, *order, ctx) != 1) {
+    BN_CTX_free(ctx);
+    return false;
+  }
+  BN_CTX_free(ctx);
+
+  *generator = EC_GROUP_get0_generator(*group);
+  if (generator == nullptr)
+    return false;
+  *pub_pt= EC_KEY_get0_public_key(ecc_key_);
+  if (pub_pt == nullptr)
+    return false;
+
   return true;
+}
+
+void ecc_implement::print_key() {
+
+  if (ecc_key_ == nullptr)
+    return;
+  const EC_GROUP* group = nullptr;
+  const BIGNUM* pk = nullptr;
+  const EC_POINT* generator = nullptr;
+  const EC_POINT* pub_pt = nullptr;
+
+  BIGNUM* p = BN_new();
+  BIGNUM* a = BN_new();
+  BIGNUM* b = BN_new();
+  BIGNUM* order = BN_new();
+
+  if (!ecc_implement::get_curve_parameters(&group,
+      &a, &b, &p, &order, &pk, &generator, &pub_pt))
+    return;
+
+  printf("p: ");
+  bn_print(p);
+  printf("\n");
+  printf("a: ");
+  bn_print(a);
+  printf("\n");
+  printf("b: ");
+  bn_print(b);
+  printf("\n");
+
+  printf("order: ");
+  bn_print(order);
+  printf("\n");
+
+  if (generator != nullptr) {
+    printf(" generator: ");
+    print_point(group, generator);
+    printf("\n");
+  }
+
+  if (pub_pt != nullptr) {
+    printf(" public point: ");
+    print_point(group, pub_pt);
+    printf("\n");
+  }
+ 
+  BN_free(a); 
+  BN_free(b); 
+  BN_free(p); 
+  BN_free(order); 
 }
