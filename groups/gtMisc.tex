@@ -6,7 +6,7 @@ $Pr[ \langle x,y \rangle =S_n]= {\frac 3 4}$.
 \\
 {\bf Thompson Order Formula:} Suppose $G$ has $s\geq 2$ classes of involutions, $C_1, \ldots , C_s$.
 Put $d_{ijk} = |\{ (u,v): u \in C_i, v \in C_k, w=(uv)^m, w \in C_k \}|$.  Put $n_i = {\frac {|G|} {|C_i|}}$ then
-$|G| = n_i n_j \sum_k d_{ijk} $.
+$|G| = n_i n_j \sum_k d_{ijk} $. (Proved earlier)
 \\
 \\
 {\bf Sample characterization of $S_5$:}
@@ -68,17 +68,26 @@ $36 \mid |N(P)|$.
 $\exists H: C(P) \subset H: |H|=36$.  $u_1 \in H$ and $u_2$ is a square in $H$.
 $H \lhd G$ and $H$ contains all involutions hence $C_2 \cap H$ contains all involutions of
 $C_2$ but $|C_2 \cap H|=4$ and there are $5$ involutions in $C_2$.
+\\
+\\
+7. By 3, $C_2$ has a normal four-group, $V$, with $u_2 \in V$ and all the involutions
+in $V$ are $G$-conjugate.
 Let $x \in G$ then $x^{-1} u_2 x \ne u_2$, $x^{-1} u_2 x \in V$ then
 $x^{-1} C_2 x \ne C_2$ and
 $u_2 \in C(x^{-1} u_2 x) = x^{-1} C_2 x$.
 \\
 \\
-7.  $C(V)=V, N(V)/V \cong S_3$ (permutes all $3$ involutions of $V$) and $|N(V)|= 24$.
-$N(V)$ contains at least $2$ Sylow $2$-subgroups of $G$.
+8. By 7, $N(V)$ contains at least two Sylow subgroups of $G$.
 \\
 \\
-8. $G:N(V)= 5$ and the permutation representation shows $G \cong S_5$.  Let $g$ be an element
-of order $5$.  $g$ acts as a $5$-cycle on the cosets.  If $t$ is an element of order $2$,
+9.  $C(V)=V$.
+$N(V)/V \cong S_3$ (permutes all $3$ involutions of $V$), by 7 above, and $|N(V)|= 24$.
+\\
+\\
+10. $G:N(V)= 5$. Let $\phi: G \rightarrow \{N(V)x_i\}$ be the permutation representation
+on the cosets of $N(V)$ in $G$.  $ker(\phi) = 1$ so $G \cong S_5$.
+If $g \in G$ is an element
+of order $5$, $g$ acts as a $5$-cycle on the cosets.  If $t$ is an element of order $2$,
 it is of the form $(12)$ or $(12)(34)$.
 \section{Isaac's treatment of central extensions}
 {\bf Definition:} A central extension of $G$ is a pair $(\Gamma, \pi)$ with $\pi: \Gamma \rightarrow G$ and $ker(\pi) = {\mathbb Z}(\Gamma)$.
