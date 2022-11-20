@@ -1125,10 +1125,14 @@ then $A$ acts trivially on $G$. (b) If $\Phi(G)$ is a $p$-group, then so is $A/C
 Let $G$ be a $p$-group and ${\cal K}$ the set of $A$-composition factors of $G$.  Suppose the action on
 of $A$ on $G$ is coprime then $\bigcap_{K \in {\cal K}} C_A(K)/C_G(A) = O_p(A/C_A(G))$.
 \begin{quote}
-\emph{Proof:}  See Stellmacher, p 188.
+\emph{Proof:}  We may assume, by induction, that 
+$A$ acts failthfully on $G$.  $[K,O_p(G)] = 1$ for all such factor, $K$.
+By Theorem 3, every $p'$ subgroup $B$ acts trivially on $K$ and the result follows.
 \end{quote}
 {\bf Theorem 60:}  (a) If $G/\Phi(G)$ is cyclic, $G$ is cyclic.
 (b) If $P$ is a $p$-group, $P/\Phi(P)$ is elementary abelian.
 \begin{quote}
-\emph{Proof:} 
+\emph{Proof:}  If $G/\Phi(G)$ is cyclic, $\langle g\Phi(P) \rangle = G/\Phi(G)$, so $\langle g, \Phi(P) \rangle = G$ and so
+$\langle g \rangle = G$.  If $M$ is maximal in $P$, $|P:M| = p$ and $M \lhd P$.  Since $P/M$ is abelian,
+$G' \subseteq M$ for any such $M$ and for $x \in G$, $x^p \in M$ for any such $M$.  The second result follows.
 \end{quote}
