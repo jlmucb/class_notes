@@ -5,7 +5,7 @@ $G$ is an \emph{extension} of $K$ by $Q$ if $G \triangleright K$ and $G/K \cong 
 there is a surjective homomorphism $\pi:G \rightarrow Q$.
 \\
 \\
-{\bf Definition 1:} 
+{\bf Definition 1:}
 Let $\pi: A \rightarrow Aut(K)$, $K \lhd G$, $H<G$ and $H \cap K = 1$ define the
 \emph {semi-direct} product of $K$ by $H$ as the group who's elements
 are $(a,b) \in H \times K$ with the product $(a, g) \cdot (b,h)= (ab, \pi(b)(g)h)$.
@@ -41,11 +41,11 @@ If $G= N \ltimes H$, the map $\varphi_{|H}$ is an isomorphism onto $Q$ and $H$ s
 conditions of (1).
 \end{quote}
 \section {Presentations}
-{\bf Theorem 2:}  Let $G= 
+{\bf Theorem 2:}  Let $G=
 \langle x_1, \ldots, x_n| R_1(x_1, \ldots, x_n), R_2(x_1, \ldots, x_n), \ldots R_m(x_1, \ldots, x_n)
 \rangle
 $. There is a one to one correspondance between homomorphisms
-$\rho: G \rightarrow H$ and solutions to 
+$\rho: G \rightarrow H$ and solutions to
 $R_1(y_1, \ldots, y_n)=1, R_2(y_1, \ldots, y_n)=1, \ldots R_m(y_1, \ldots, y_n)=1, y_i \in H$.
 \\
 \\
@@ -69,31 +69,31 @@ If $r, s$ satisfy relation 1, they are called \emph{equivalent}.
 {\bf Theorem 5:} Let $\rho^*: H \rightarrow GL_n({\mathbb C})$ be an ordinary irreducible
 representation of $H$ with $A \le {\mathbb Z}(H)$ then $\rho^*(a)= j_a I_n$ and we can
 define $\rho: H/A \rightarrow GL_n({\mathbb C})/{\mathbb Z}$ by
-$\rho(hA)= \rho^*(h) {\mathbb Z}$.  Schur showed the converse: 
+$\rho(hA)= \rho^*(h) {\mathbb Z}$.  Schur showed the converse:
 $\exists H: A \le {\mathbb Z}(H)$ with $H/A \cong G$.
 \begin{quote}
-\emph{Proof:}  
+\emph{Proof:}
 \end{quote}
-Note that if $G= \langle F|R \rangle $ is of rank $k$, 
+Note that if $G= \langle F|R \rangle $ is of rank $k$,
 $(F/[F,R])/(R/[F,R])= G$ and $R/[F,R]$ is central.
 \section {Central Product}
-{\bf Definition of Central Product:} 
+{\bf Definition of Central Product:}
 $G= \langle G_i \rangle , 1 \le i \le n$, $[G_i , G_j ]=1$ for $i \ne j$.  Equivalently,
 $\rho: (x_1, x_2, \ldots , x_n) \mapsto x_1 x_2 \ldots x_n$ is a surjective homomorphism
 from $D= (G_1 \times G_2 \times \ldots \times G_n)$ to $G$ with $\rho(D_i) = G_i$ with
 $\pi_i (G_1, \ldots , G_n)= D_i$ and $ker(\rho) \cap D_i = 1$, $ker(\rho) \subseteq {\mathbb Z}(G)$.
 \begin{quote}
-\emph{Proof of equivalence:} 
+\emph{Proof of equivalence:}
 Let $\alpha_i: {\mathbb Z}(G_1) \rightarrow {\mathbb Z}(G_i)$.
 $E= \langle z(\alpha_i(z^{-1})) \rangle $.  $E$ is a complement to ${\mathbb Z}(D_i )$ in
 $Z= \langle {\mathbb Z}(D_i) \rangle $ so $D/E$ is a central product.  Suppose $G$ is a
 central product of the $G_i$ with ${\mathbb Z}(G_i)={\mathbb Z}(G_1)$ and $\rho$ the surjective
 homomorphism.  Let $\beta_i:{\mathbb Z}(D_1) \rightarrow {\mathbb Z}(G_i)$ be the composition of
-$\rho_{|{\mathbb Z}(D_1)}$ and 
+$\rho_{|{\mathbb Z}(D_1)}$ and
 $\rho_{|{\mathbb Z}(D_i)}^{-1}: {\mathbb Z}(G_1) \rightarrow {\mathbb Z}(D_i)$ then
 $ker(\rho)= \langle x \beta_i(z^{-1}), z \in {\mathbb Z}(D_1) \rangle = A$ is a complement
 to ${\mathbb Z}(D_i)$ in $Z$ and $G \cong D/A$.  Define $\gamma \in Aut(D)$ with $\gamma(D_1)=D_i$
-and $\gamma(E)=A$.  This induces and isomorphism of $D/E$ with $D/A$.  Let 
+and $\gamma(E)=A$.  This induces and isomorphism of $D/E$ with $D/A$.  Let
 $\delta_i= \beta_i (\alpha_i)^{-1}$ then $\gamma_{i|{\mathbb Z}(D_i)}= \delta_i$ and
 define $\gamma: D \rightarrow D$ by $(x_1, x_2 , \ldots , x_n) \mapsto (x_1, \gamma_1(x_2), \ldots,
 \gamma_n(x_n))$.
@@ -109,25 +109,21 @@ Let $G_i, 1 \le i \le n$ be a family of groups with $Z(g_1)=Z(G_i)$ and
 $Aut_{G_i}(Z(G_i))=Aut(Z(G_i))$.  The up to isomorphism there is a unique
 central product with $Z(G_1)=Z(G_i)$.
 \begin{quote}
-\emph{Proof:}  
-By hypothesis, there are isomorphisms 
+\emph{Proof:}
+By hypothesis, there are isomorphisms
 $\alpha_i : {\mathbb Z}( D_1 ) \rightarrow {\mathbb Z}( D_i )$, $1 \le i \le n$.
 Let $E$ be the subgroup of $D$ generates by $\{ \alpha_i (z^{-1})z, z \in {\mathbb Z}(D_1 )$.
-$E$ is a complement to 
-${\mathbb Z}(D_i)$ in $Z= \langle {\mathbb Z}(D_i), 1 \le i \le n \rangle = {\mathbb Z}(D)$ so
+$E$ is a complement to ${\mathbb Z}(D_i)$ in $Z= \langle {\mathbb Z}(D_i), 1 \le i \le n \rangle = {\mathbb Z}(D)$ so
 $D/E$ is a central product of the $G_i$ with ${\mathbb Z}(G_1 ) = {\mathbb Z}(G_i )$ by
 the foregoing equivalence.  Now suppose $G$ is a central product of the $G_i$ with
 ${\mathbb Z}(G_1 ) = {\mathbb Z}(G_i )$ and let $\pi: D \rightarrow G$ be the surjective
-homomorphism in the equivalence proof.  
-Let $\beta_i : {\mathbb Z}(D_1 ) \rightarrow {\mathbb Z}(D_i )$ be the composition of
+homomorphism in the equivalence proof.  Let $\beta_i : {\mathbb Z}(D_1 ) \rightarrow {\mathbb Z}(D_i )$ be the composition of
 $\pi_{|{\mathbb Z}(D_1 )}$ and $\pi_{|{\mathbb Z}(D_i )}^{-1}$.
 $ker(\pi ) = \langle z \beta_i(Z^{-1} ): z \in {\mathbb Z}(D_1 ), 1 \le i \le n \rangle
 = A$ is a complement
-to ${\mathbb Z}(D_i )$ in $Z$ for each $i$ and $G \cong D/A$.  Now let 
-$\delta_i = \beta_i \alpha_i^{-1}$ and $\delta_i \in Aut({\mathbb Z}(D_i ))$.  By
+to ${\mathbb Z}(D_i )$ in $Z$ for each $i$ and $G \cong D/A$.  Now let $\delta_i = \beta_i \alpha_i^{-1}$ and $\delta_i \in Aut({\mathbb Z}(D_i ))$.  By
 hypothesis, $\exists \gamma_i \in Aut( D_i )$ with $\gamma_{i | {\mathbb Z}(D_i )}= \delta_i$.
-Define $\gamma : D \rightarrow D$ by 
-$(x_1 , x_2 , \ldots , x_n ) \mapsto
+Define $\gamma : D \rightarrow D$ by $(x_1 , x_2 , \ldots , x_n ) \mapsto
 (x_1 , \gamma_2(x_2), \ldots , \gamma_n(x_n))$.  $\gamma \in Aut(D)$ and
 $\alpha_i(\gamma (z^{-1})) z$ so $\gamma(E)=A$ and we're done.
 \end{quote}
@@ -143,21 +139,16 @@ ${g_x}^h= g_{xh}$.
 {\bf Theorem 7:} If $D$ and $Q$ are groups with $Q$ finite then the regular wreath product
 $D \wr_r Q$ contains an isomorphic copy of every extension of $D$ by $Q$.
 \begin{quote}
-\emph{Proof:}  
-If $G$ is an extension of $D$ by $Q$ then there is a surjective homomorphism
+\emph{Proof:}  If $G$ is an extension of $D$ by $Q$ then there is a surjective homomorphism
 $G \rightarrow Q$ with kernel $D$ denoted by $a \mapsto {\overline a}$.
-Choose a transversal $l: Q \rightarrow G$.  For $a \in G$, define 
-$\sigma_a(x) = l(x)^{-1} a l({\overline {a^{-1}}} x)$.  
-If $a, b \in G$ then
+Choose a transversal $l: Q \rightarrow G$.  For $a \in G$, define $\sigma_a(x) = l(x)^{-1} a l({\overline {a^{-1}}} x)$.  If $a, b \in G$ then
 $
 \sigma_a(x) \sigma_b^{\overline a}(x) =
 \sigma_a(x) \sigma_b({\overline {a^{-1}}} x) =
 l(x)^{-1} a l({\overline {a^{-1}}} x)
 l(x)^{-1} a l({\overline {a^{-1}}} x)
 l({\overline {a^{-1}}} x)^{-1} b l({\overline { b^{-1} a^{-1}}} x) =
-l(x)^{-1} a b l({\overline { b^{-1} a^{-1}}} x) = \sigma_{ab}(x)$.  
-Define $\varphi : G \rightarrow D \wr_r Q$ by 
-$\varphi(a) = (\sigma_a, {\overline a}), \forall a \in G$.  A simple calculation shows
+l(x)^{-1} a b l({\overline { b^{-1} a^{-1}}} x) = \sigma_{ab}(x)$.  Define $\varphi : G \rightarrow D \wr_r Q$ by $\varphi(a) = (\sigma_a, {\overline a}), \forall a \in G$.  A simple calculation shows
 $\varphi$ is a injective homomorphism.
 \end{quote}
 {\bf Theorem 8 (Gaschutz):} Let $V$ be an abelian normal subgroup of a $p$-group, $G$, $P \in S_p(G)$.
