@@ -109,6 +109,83 @@ public:
 };
 
 
+class tabulate_orders {
+public:
+  int max_;
+  int num_;
+  int* orders_;
+  int* tally_;
+
+  tabulate_orders(int max);
+  ~tabulate_orders();
+  bool add_ord(int ord);
+  void tab_order(int ord);
+  bool pre_sort();
+  void tab_print();
+};
+
+tabulate_orders::tabulate_orders(int max) {
+  max_ = max;
+  orders_ = new int[max];
+  tally_ = new int[max];
+}
+
+tabulate_orders::~tabulate_orders() {
+  if (orders_ != nullptr) {
+    delete []orders_;
+    orders_ = nullptr;
+  }
+  if (tally_ != nullptr) {
+    delete []tally_;
+    tally_ = nullptr;
+  }
+}
+
+bool tabulate_orders::add_ord(int ord) {
+  for (int i = 0; i < num_; i++) {
+    if (orders_[i] == ord)
+      return true;
+  }
+  if (num_ < (max_- 1)) {
+    orders_[num_] = ord;
+    tally_[num_++] = 0;
+    return true;
+  }
+  return false;
+}
+
+void tabulate_orders::tab_print() {
+  for (int i = 0; i < num_; i++)
+    printf("number of elements of order %d is %d\n", orders_[i], tally_[i]);
+}
+
+void tabulate_orders::tab_order(int ord) {
+  for (int i = 0; i < num_; i++) {
+    if (orders_[i] == ord)
+      tally_[i]++;
+  }
+}
+
+bool tabulate_orders::pre_sort() {
+  for (int i = 0; i < num_; i++) {
+    int k = i;
+    for (int j = i; j < num_; j++) {
+      if (orders_[j] < orders_[k]) {
+        k = j;
+      }
+    }
+
+    if (k != i) {
+      int t = orders_[i];
+      orders_[i] = orders_[k];
+      orders_[k] = t;
+    }
+  }
+  return true;
+}
+
+
+
 int main(int an, char** av) {
   int p = 7;
 
@@ -145,6 +222,16 @@ int main(int an, char** av) {
   }
 
   printf("p= %d, %d elements\n", p, n_t);
+
+  tabulate_orders list(100);
+  for (int i = 0; i < n_t; i++) {
+    list.add_ord(x[i].order_);
+  }
+  list.pre_sort();
+  for (int i = 0; i < n_t; i++) {
+    list.tab_order(x[i].order_);
+  }
+  list.tab_print();
 
   return 0;
 }
