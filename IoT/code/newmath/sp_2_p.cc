@@ -185,12 +185,12 @@ bool tabulate_orders::pre_sort() {
 }
 
 
-
 int main(int an, char** av) {
   int p = 7;
+  int to_print = 0;
 
   if (an < 2) {
-    printf("sl2p.exe --p=7\n");
+    printf("sl2p.exe --p=7 --print_ord=\n");
     return 0;
   }
 
@@ -198,6 +198,10 @@ int main(int an, char** av) {
     int n = strlen("--p=");
     if (strncmp(av[i], "--p=", n) == 0) {
       sscanf(&(av[i][n]), "%d", &p);
+    }
+    n = strlen("--print_ord=");
+    if (strncmp(av[i], "--print_ord=", n) == 0) {
+      sscanf(&(av[i][n]), "%d", &to_print);
     }
   }
 
@@ -232,6 +236,16 @@ int main(int an, char** av) {
     list.tab_order(x[i].order_);
   }
   list.tab_print();
+
+  if (to_print != 0) {
+    printf("\nElements of order %d:\n\n", to_print);
+    for (int i = 0; i < n_t; i++) {
+      if (x[i].order_ == to_print) {
+        print_mat(x[i].mat_);
+        printf("\n");
+      }
+    }
+  }
 
   return 0;
 }
