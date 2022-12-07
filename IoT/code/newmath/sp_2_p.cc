@@ -239,8 +239,10 @@ int main(int an, char** av) {
 
   if (to_print != 0) {
     printf("\nElements of order %d:\n\n", to_print);
+    int c = 0;
     for (int i = 0; i < n_t; i++) {
       if (x[i].order_ == to_print) {
+        printf("%d\n", ++c);
         print_mat(x[i].mat_);
         printf("\n");
       }
