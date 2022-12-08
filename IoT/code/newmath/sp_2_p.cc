@@ -188,9 +188,10 @@ bool tabulate_orders::pre_sort() {
 int main(int an, char** av) {
   int p = 7;
   int to_print = 0;
+  bool print_all = true;
 
   if (an < 2) {
-    printf("sl2p.exe --p=7 --print_ord=\n");
+    printf("sl2p.exe --p=7 --print_ord=8 --print_all\n");
     return 0;
   }
 
@@ -202,6 +203,9 @@ int main(int an, char** av) {
     n = strlen("--print_ord=");
     if (strncmp(av[i], "--print_ord=", n) == 0) {
       sscanf(&(av[i][n]), "%d", &to_print);
+    }
+    if (strncmp(av[i], "--print_all", n) == 0) {
+      print_all = true;
     }
   }
 
@@ -246,6 +250,14 @@ int main(int an, char** av) {
         print_mat(x[i].mat_);
         printf("\n");
       }
+    }
+  }
+
+  if (print_all) {
+    printf("\n");
+    for (int i = 0; i < n_t; i++) {
+      print_mat(x[i].mat_);
+      printf("has order %d\n\n", x[i].order_);
     }
   }
 
