@@ -2457,3 +2457,40 @@ $n_1 \geq n_2 \geq \ldots \geq n_k$.
 Number of tableaus with shape $\lambda$:
 $f_{ \lambda } = \frac { n!} {\prod_{i,j \in D(\lambda )} {h(i, j)}}$, where
 $h(i, j)$ = number of cells in hook $H_{i,j}$.
+\section {Miscellaneous}
+{\bf Theorem:} Let $\chi$ be an irrecucible character of $G$ then $\chi(1) \mid |G:{\mathbb Z}(G)|$.
+If $|\theta(g)| = \theta(1)$ then $g ker(\theta) \in {\mathbb Z}(G/ker(\theta))$.
+\begin{quote}
+\emph{Proof:}
+\end{quote}
+{\bf Character Table:} Let $\chi_1, \chi_2, \ldots, \chi_s$ be the irreducible characters of $G$ and
+$R_1 , R_2 , \ldots , R_s$ be the conjugacy classes.  $X= (\chi_i(g_j))$ is the character table.
+\\
+\\
+{\bf Theorem:} If $N \lhd G$, $N \subseteq ker (\rho_{G/N})$.  If $H < G$ and $\theta$ is a character
+that vanishes on $H^\#$ then $|H| \mid \theta(1)$. If $\chi$ is a non-linear irreducible character
+of $G$ then $\exists g \in G: \chi(g)= 0$.
+\begin{quote}
+\emph{Proof:} ${\frac {\theta(1)} {|H|}} = {\frac 1 {|H|}} \sum_h \theta(h)$ which is an integer.
+\end{quote}
+{\bf Theorem:} Let $A(g)= (a_{ij}(g))$ and $B(g)= (b_{ij}(g))$ be $F-$irreducible representations of $G$.
+(a) If $A \nsim B$ then $\sum_g a_{is}(g) b_{tj}(g^{-1}) = 0$.
+(b) If $A$ is absolutely irreducible, $\sum_g a_{is}(g) a_{tj}(g^{-1}) = {\frac {|G|} n} \delta_{ij} \delta_{st}$,
+where $n = deg(A)$.  If $A$ affords $\chi$ and $B$ affords $\eta$, $(\chi, \eta) = 0$ and
+$(\chi, \chi)= 1$.
+\begin{quote}
+\emph{Proof:} Put $f(S) = \sum_g A(g^{-1})SB(g)$.  $A(h)f(S)=F(S)B(h), \forall h$, so by Schur, $f(S)$ is $0$.
+Put $E_{ij} = (\delta_{ij})$.  $f(E_{ij}) = 0$.  This gives (a).  Since $A = B$ is absolutely irreducible,
+$f(E_{st}) = \lambda I_n$.  $e_{st} \delta_{ij} = \sum_g a_{is}(g^{-1}) a_{tj}(g)$ or
+$\sum_g a_{is}(g^{-1}) a_{tj}(g) = {\frac {|G|} {n \lambda}} \delta_{ij} \delta_{tj}$.  This gives b.
+Summing over $i, j, s, t$ gives $(\chi, \eta) = 0$.
+Summing over $i$, we get
+$\sum_g a_{ss}(g^{-1}) a_{tj}(g) = {\frac {|G|} {n \lambda}} \delta_{sj} \delta_{tj}$.  Summing over $j$, we get
+$\sum_g a_{ss}(g^{-1}) a_{tt}(g) = {\frac {|G|} {n \lambda}} \delta_{ts}$.  Finally, summing over $t,s$, we get
+$\sum_g a_{ss}(g^{-1}) a_{tt}(g) = {\frac {|G|} {n \lambda}} \delta_{ts}$.  Finally, summing over $t,s$, we get
+$\sum_g \chi(g^{-1}) \chi(g) = {\frac {|G|} {n \lambda}} \delta_{ts}$.  Finally, summing over $t,s$, with
+$\lambda = 1$, we get
+$\sum_g \chi(g^{-1}) \chi(g) = |G|$.
+\end{quote}
+
+
