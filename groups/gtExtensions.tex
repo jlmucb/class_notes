@@ -386,3 +386,85 @@ $1 \rightarrow R \rightarrow F \rightarrow G \rightarrow 1$, $F$, free and
 $E= [F,F][F,R] \rightarrow [F,F]/R=G$.
 \begin{quote}
 \end{quote}
+\section {Miscellaneous Central Extensions}
+{\bf Definition:} If $K$ and $Q$ are groups, $G$ is an \emph{extension} of $K$ by $Q$ if $\exists K_1 \cong K$,
+$K_1 \lhd G$ and $G/K_1 \cong Q$.  Let $\pi: G \rightarrow Q$ be a surjection. A \emph{lifting}
+of $Q$ is a map $l:Q \rightarrow G: \pi(l(x))=x$.
+{\bf Data:} $(K,Q,\theta)$, $K$, abelian, $\theta: Q \rightarrow Aut(K)$, for every transversal $l: Q \rightarrow G$.
+$G$ realizes $(K,Q,\theta)$ if $G$ is an extension of $K$ by $Q$, if $\forall: Q \rightarrow G$ with
+$xa=\theta(x)(a)= l(x) + a -l(x)$.
+\\
+\\
+{\bf Definition:} Let $1 \rightarrow K \rightarrow G \rightarrow Q \rightarrow 1$, $l(x)$ are
+transversals. $f$ is a cocycle if $l(x) + l(y) = f(x, y) +l(xy)$, $f(y,1) = 0 = f(1,x)$ and
+$xf(y,z)+f(x,yz) = f(x,y)+f(xy,z)$. $f$ is a \emph{factor} set.
+\\
+\\
+{\bf Theorem:} Let $G$ be an extension if $K$ by $Q$, $l:Q \rightarrow G$, a transversal.  $K$, abelian,
+$\theta:Q \rightarrow Aut(K)$ then $\theta(x): a \rightarrow l(x) + a - l(x)$.  If $l_1$ is another
+transversal $l(x) + a - l(x) = l_1(x) + a - l_1(x)$.  This gives rise to the a cocycle
+$xf(y,z) + f(x, yz) = f(xy,z) + f(x,y)$.
+\begin{quote}
+\emph{Proof:}
+Define $[G_f]$ by $(a,x)*(b,y) = (a + xb + f(x,y), xy)$.  We can prove identity, inverse and, using the cocycle
+identity we get associativity.
+\end{quote}
+{\bf Theorem:} Let $G$ be an extension, $l, l'$ are transversals, $l(1)=0=l'(1)$ giving rise
+to $f, f'$, $h:Q \rightarrow Q$ with $h(1)=0$ such that $f'(x,y) - f(x,y) = xh(y) = h(xy) +h(x)$.
+\begin{quote}
+\emph{Proof:} If $l'(x)= h(x) + l(x)$,
+$l'(x) + l'(h) = h(x) + l(x) + h(y) + l(y) = h(x) +xh(y) + f(x,y) + l(xy) = h(x) + xh(y)+f(x,y) -h(xy) +l'(xy)$
+and $f'(x,y) = h(x) +xh(y) +f(x,y) -h(xy)$.
+\end{quote}
+{\bf Definition:} Under the conditions of the previous theorem, the extensions $G_{f}$ and $G_[f']$ are called
+\emph{equivalent}.  Define $Z^2(K, Q, \theta)$ as the set of cocycles under addition.  Given
+$(K,Q,\theta)$, $g: Q \times Q \rightarrow K$ is a \emph{co-boundary}, if $g(x,y) =xh(y)-h(xy)+h(x)$,
+the set of co-boundaries is denoted $B^2(K,Q, \theta)$.  $H^2(K, Q, \theta) = Z^2(K, Q, \theta) / B^2(K,Q, \theta)$.
+If $G$ and $G'$ realize $(K, Q, \theta)$, they are equivalent iff $f' - f \in B^2(K, Q, \theta)$ by the theorem
+above.
+\\
+\\
+{\bf Theorem:} Let $G$ and $G'$ be extensions realizing$(K,Q, \theta)$ are equivalent if
+$\exists \gamma: G \rightarrow G'$ making the diagrams
+$1 \rightarrow K \rightarrow G \rightarrow Q \rightarrow 1$ and
+$1 \rightarrow K \rightarrow G' \rightarrow Q \rightarrow 1$ commute.
+\\
+\\
+{\bf Definition:} An extension of $K$ by $Q$ is central iff $ K \subseteq {\mathbb Z}(G)$.
+\emph{Projective lifting property}. If $Q$ is a finite group $U$ is a \emph{cover} of $Q$
+is an extension of $K$ by $Q$ and $K \leq U'$.
+\\
+\\
+{\bf Schrier} There is a bijection from $H^2(K, Q, \theta)$ to $E$, the set of all equivalence classes
+of extensions realizing $(K,Q,\theta)$ taking $0$ to the semi-direect product.  $H^2(K, Q, \theta) = 0$
+iff every extension realizing $(K, Q, \theta)$ is a semi-direct product.  $\phi: H^2(K, Q, \theta) \rightarrow E$
+by $\phi(f +  B^2(K,Q, \theta)) = G_{f}$.
+\\
+\\
+{\bf Definition:} $M(Q)= H^2(K,C^{\times}, \theta = 1)$.  Note under these circumstances,
+$f(1,y)= 0 = f(x,1)$ and $f(x,y)f(xt,z)^{-1}f(x,yz) f(x,y)^{-1}=1$.
+\\
+\\
+{\bf Theorem:} If $Q$ is finite, $M(Q)$ is a finite abelian group, $exp(M(Q)) \mid |Q|$.
+\begin{quote}
+\emph{Proof:}
+Define $sigma(x) = \prod_z f(x,z)$.  From cocycle identity,
+$\sigma(y)\sigma(xy)^{-1}\sigma(x) = f(x,y)^n$, $n = |Q|$.
+For $x \in Q$, define $h:Q \rightarrow {\mathbb C}$ by $h(1)=1$ and $h(x)$ an $n$th root of $\sigma(x)^{-1}$.
+$g(x,y)=f(x,y)h(y)h(xy)^{-1}h(x), f \sim g$ and $g(x,y)^n =1$, $f] \in M(Q)$ determines
+$g: q \times Q \rightarrow {\mathbb Z}_n$ and there are only finitely many such $g$.
+\end{quote}
+{\bf Theorem:} Every finite group $Q$ has a cover $U$ which is a central extension of $M(Q)$ by $Q$.
+\\
+\\
+{\bf Theorem:} If $Q=F/R$ where $F$ is free, $M(Q)= (R \cap F')/[F,R]$.
+\\
+\\
+{\bf Theorem:} If $\nu: U \rightarrow Q$ is a central extension $ker(\nu)=K$ and $Q$ is perfect then
+$U'$ is perfect and $|nu_{U'}: U' \rightarrow Q$ is surjective.
+\\
+\\
+{\bf Theorem:} If $Q$ is perfect, $Q=F/R$, $M(Q)= (R \cap F')/[F,R]$ and $F'/[F,R]$ is a cover.
+\\
+\\
+{\bf Theorem:} $U = F'/[F,R]$ is a universal central extension.
