@@ -390,7 +390,7 @@ $E= [F,F][F,R] \rightarrow [F,F]/R=G$.
 {\bf Definition:} If $K$ and $Q$ are groups, $G$ is an \emph{extension} of $K$ by $Q$ if $\exists K_1 \cong K$,
 $K_1 \lhd G$ and $G/K_1 \cong Q$.  Let $\pi: G \rightarrow Q$ be a surjection. A \emph{lifting}
 of $Q$ is a map $l:Q \rightarrow G: \pi(l(x))=x$.
-{\bf Data:} $(K,Q,\theta)$, $K$, abelian, $\theta: Q \rightarrow Aut(K)$, for every transversal $l: Q \rightarrow G$.
+\emph{Data:} $(K,Q,\theta)$, $K$, abelian, $\theta: Q \rightarrow Aut(K)$, for every transversal $l: Q \rightarrow G$.
 $G$ realizes $(K,Q,\theta)$ if $G$ is an extension of $K$ by $Q$, if $\forall: Q \rightarrow G$ with
 $xa=\theta(x)(a)= l(x) + a -l(x)$.
 \\
@@ -431,8 +431,17 @@ $1 \rightarrow K \rightarrow G' \rightarrow Q \rightarrow 1$ commute.
 \\
 \\
 {\bf Definition:} An extension of $K$ by $Q$ is central iff $ K \subseteq {\mathbb Z}(G)$.
-\emph{Projective lifting property}. If $Q$ is a finite group $U$ is a \emph{cover} of $Q$
+$Q$ is a finite group $U$ is a \emph{cover} of $Q$
 is an extension of $K$ by $Q$ and $K \leq U'$.
+A \emph{projective representation} of a group $Q$ is a homomorphism
+$\tau: Q \rightarrow PGL_n({\mathbb C})$.
+We say $U$ has the \emph{projective lifting property} if every projective representation
+of $Q$ can be lifted to $U$.hi (i.e.- $\tau:Q \rightarrow PGL_n({\mathbb C})$ lifts to
+${\overline {\tau}}: Q \rightarrow GL_n({\mathbb C})$.)
+If $Q$ is a group then a \emph{cover} (or \emph{representation group}) of $Q$ is a
+central extension of $U$ of $K$ by $Q$ (for some abelian $K$) with the projective lifting property
+and $K \le U'$.
+\\
 \\
 \\
 {\bf Schrier} There is a bijection from $H^2(K, Q, \theta)$ to $E$, the set of all equivalence classes
