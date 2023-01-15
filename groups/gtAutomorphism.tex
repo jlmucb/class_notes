@@ -34,7 +34,8 @@ $G$ is cyclic or $G= \langle x, y \rangle$ with $|x|=p^n$ and one of the followi
 (ii) $p > 2$ or $p=2, n>2$ and $y^{-1}x y = x^{1+p^{n-1}}$;
 (iii) $p=2$ and $y^{-1}x y = x^{-1}$ [dihedral],
 (iv) $p=2$ and $y^{-1}x y = x^{-1 + 2^{n-1}}$ [semi-dihedral], or
-(v) $p=2$ and $y^2= x^{2^{n-1}}$, $y^{-1} x y = x^{-1}$ [quaternion].
+(v) $p=2$ and $y^2= x^{2^{n-1}}$, $y^{-1} x y = x^{-1}$ [quaternion].  Moreover, types (i) and (ii) have
+characteristic abelian subgroups of type $(p,p)$.
 \begin{quote}
 \emph{Proof:}
 Let $A= \langle x \rangle$, $|G:A| = p$.  If $A$ is central, $G$ is abelian.  If not, $C(A)=A$.  Let
@@ -48,6 +49,10 @@ $y^p =1$ and we get (ii).  If $p=2$, put $y= x^{-s(1+2^{n-2}}w$.  Again $y^2=1$ 
 \\
 \\
 Thus $p=2$.  If $x^w = x^{-1}$, put $y=w$ so $y^2=1$ or $y^2 = x^{2^{n-1}}$, giving case (iv).
+\\
+\\
+Finally, put $B = \langle x^{p^{n-1}}, y \rangle$.  $[x^{p^{n-1}}, y] =1$ and each has order $p$.
+Every element of order $p$ is in $B$ so $B \; char \; G$.
 \end{quote}
 {\bf Theorem 5:} Suppose $G$ is a $p$-group and $G$ is not cyclic, dihedral, semi-dihedral or quaternion.  Then
 $G$ has a subgroup of type $(p,p)$.
