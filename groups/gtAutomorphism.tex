@@ -41,12 +41,20 @@ $G$ is cyclic or $G= \langle x, y \rangle$ with $|x|=p^n$ and one of the followi
 {\bf Theorem 5:} Suppose $G$ is a $p$-group and $G$ is not cyclic, dihedral, semi-dihedral or quaternion.  Then
 $G$ has a subgroup of type $(p,p)$.
 \begin{quote}
-\emph{Proof:}
+\emph{Proof:}  Let $A$ be maximal with respect to being normal and cyclic. $|G| \geq p$ and $|A| \geq p$
+and $A \ne G$.  If $C(A) > A$, $exists B \subseteq C(A): |B:A| = p$.  $B$ is abelian and non cyclic so it is
+of type (i) above, which proves it.  If $C(A)=A$, $G$ acts by conjugation with kernel $C(A)$ and
+$G/A \rightarrow Aut(A)$ so we're in cases (ii), (iii), (iv) or (v) sp $p=2$, $|A|=2^n$ and
+$x \mapsto x^{1+2^n} \notin A$.   Thus $|G:A|=2$ and $G=B$, so we're in (iii), (iv) or (v).
 \end{quote}
 {\bf Theorem 6:} Suppose $G$ is a $p$-group and ${\mathbb Z}({\mathbb Z}(G))$ is cyclic then $G$ is cyclic,
 dihedral, semi-dihedral or quaternion.
 \begin{quote}
 \emph{Proof:}
+If $G$ is not cyclic,
+dihedral, semi-dihedral or quaternion, $\exists D \lhd G$ of type $(p,p)$. $[G,D] < D$ and $[G,[G,D]] = 1$ and
+$ D \subseteq {\mathbb Z}({\mathbb Z}(G))$;
+hence ${\mathbb Z}({\mathbb Z}(G))$ is not cyclic.
 \end{quote}
 {\bf Theorem 7:} Suppose $G$ is a $p$-group and every normal abelian subgroup is cyclic.  Then $G$ is cyclic,
 dihedral, semi-dihedral or quaternion.
@@ -56,11 +64,30 @@ dihedral, semi-dihedral or quaternion.
 {\bf Theorem 8:} Suppose $G$ is a $p$-group with exactly one subgroup of order $p$. Then $G$ is cyclic or quaternion.
 \begin{quote}
 \emph{Proof:}
+$G$ cannot have a subgroup of type $(p,p)$, so $G$ is cyclic, dihedral, semi-dihedral or quaternion.
+Looking at generators and relations only the cyclic and quaternion cases are possible.  If cyclic, we're done.
+Let $G = \langle x,y: x^{2^n} =1, y^2 = x^{2^{n-1}}, y^{-1}xy = x^{-1} \rangle$.  Let $w$ be of order $2$.
+If $w \in \langle x \rangle, w = x^{2^{n-1}}$.  If not, $w= x^iy$.
+$1 = w^2 x^i y x^i y = x^i y^2 (y^{-1}x^i y)= y^2 = x^{2^{n-1}}$, which is a contradiction.  Thus $G$ has a
+unique element of order $2$.
 \end{quote}
 {\bf Theorem 9:} If $G$ is quaternion of order $8$ then (i) every subgroup is cyclic, (ii) $Aut(G) \cong S_4$,
 (iii) an element of order $3$ transitively permutes the $3$ non-central classes of $G$.
 \begin{quote}
 \emph{Proof:}
+Let $H < G$, so $|H| \leq 4$.  Since $G$ has a unique element of order $2$ and $H$ is abelian, $H$ is cyclic and
+(i) follows.  $G$ has three distinct subgroups of order $4$:
+$\langle u \rangle$,
+$\langle v \rangle$, and
+$\langle w \rangle$. $u^2=v^2=w^2 =z$ and $[u,v] = [w,v] = [u,w] =z$ and
+$\langle u, v \rangle = 
+\langle u, w \rangle = 
+\langle v, w \rangle = G$.  $Sym(u,v,w) \mapsto Aut(G)$.  Further, $Sym(u,v,w) \cap Inn(G) = 1$ since
+$\langle u \rangle, \langle v \rangle, \langle w \rangle$ are normal.  But $Inn(u,v,w) \lhd Aut(G)$ and
+$|Inn(G)| = 4$.  $Aut(G)$ contains the semi-direct product of $Inn(G)$ and $Sym(u, v, w)$, which is
+isomorphic to $S_4$.  Finally, let  $\sigma \in Aut(G)$ have order $3$, $\sigma$ permutes $u,v,w$.
+If $\sigma$ fixes one of these, it fixes all of them.  So $\sigma(u)= u u^{-1}$ and same for $v, w$
+and the result follows.
 \end{quote}
 {\bf Theorem 10:} If $G$ is quaternion of order $>8$ then (i) every subgroup is cyclic or quaternion,
 (ii) if $N$ is a non-ableian normal subgroup, $|G:N| = 1, 2$,
@@ -70,6 +97,19 @@ $Aut(G)$ is a $2$-group, and,
 and the other two consist of half the elements of $G \setminus A$.
 \begin{quote}
 \emph{Proof:}
+Since $G$ has a unique element of order $2$, so does every subgroup.
+The subgroups are cyclic or quaternion.
+$G = \langle x, y: x^{2^n}= 1, y^2= x^{2^{n-1}}, y^{-1} x y = x^{-1} \rangle$.  Let $A = \langle x \rangle$.
+Every element of $G \setminus A$ has order $4$.  The generators of $A$ are the only elements of $G$
+of order $2^n > 4$ and $A \; char \; G$ giving (i) and (iii).  Suppose $N$ is a normal, non-abelian subgroup
+of $G$ and $N$ is not a subgroup of $A$.  Let $w \in N \setminus A$, $w^2 = x^{2^{n-1}}$ and
+$w^{-1} x w = x^{-1}$.  Since $N \lhd G$, $N$ contains $[w,x]=x^2$ and $\langle x^2, w \rangle \subseteq N$
+of index $2$.  So (ii) follows.
+Suppose $Aut(G)$ is not a $2$ group. $\sigma \in Aut(G)$ of prime order coprime to $2$. $\sigma \in Aut(A)$,
+but $Aut(A)$ is a $2$-group, so $\sigma$ fixes $A$.  $\exists w \in G: \sigma(w) =w$.
+$G = \langle A, w \rangle$; $\sigma$ fixes all of $G$, contradiction and (iv) holds.
+$\{ x^{2^{n-2}},x^{-2^{n-2}} \} $ are the elements of $A$ of order $4$.  Let $w \in G \setminus A$,
+$x^w = w^{-1}$ and $C(w)= \langle x^{2^{n-1}}, w \rangle = \langle w \rangle$ and the result follows.
 \end{quote}
 \section {Non-cyclic groups}
 {\bf Theorem 1:}
