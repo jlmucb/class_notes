@@ -28,7 +28,7 @@ If $\sigma$ centralizes $G/G_1$ or $\sigma$ centralizes $G/G_2$, $\sigma = 1$
 If $\sigma$ centralizes $G/G_1$, $r=1+kp$.
 If $\sigma$ centralizes $G/G_2$, $p^{t-1}(1-r) = 0 \jmod{p^t}$ and again, $r=1+kp$.  The result follows.
 \end{quote}
-{\bf Theorem 4:} Suppose $G$ is a $p$-group of order $p^{n+1}$ with a cyclic subgroup of order $p$ then either
+{\bf Theorem 4:} Suppose $G$ is a $p$-group of order $p^{n+1}$ with a cyclic subgroup of order $p^n$ then either
 $G$ is cyclic or $G= \langle x, y \rangle$ with $|x|=p^n$ and one of the following holds for $y$:
 (i) $|y| = p$ and $[x,y]=1$,
 (ii) $p > 2$ or $p=2, n>2$ and $y^{-1}x y = x^{1+p^{n-1}}$;
@@ -38,16 +38,22 @@ $G$ is cyclic or $G= \langle x, y \rangle$ with $|x|=p^n$ and one of the followi
 \begin{quote}
 \emph{Proof:}
 Let $A= \langle x \rangle$, $|G:A| = p$.  If $A$ is central, $G$ is abelian.  If not, $C(A)=A$.  Let
-$G = \langle x, w \rangle$.  $w^p \in C(A)$ so $w^p = x^r$ and $(x^r)^w = x^r$.  Now we examine the
+$G = \langle x, w \rangle$.  $w^p \in C(A)$. Put $w^p = x^r$.  Now we examine the
 action of $w$ on $\langle x \rangle$.\\
 \\
-If $x^w = x^{1+ip^{n-1}}$, so $r = ps$.
+If $x^w = x^{1+ip^{n-1}}$, so $r = ps$ since $|X|= p^n$.  $(x^{-s}w)^p = w^p (x^{-s})^{w^p} (x^{-s})^{w^{p-1}}
+\ldots (x^{-s})^w$.  Thus $(x^{-s}w)^p = w^p x^{(-s) [p + {\frac {p^n(p+1)} 2}]}$. $w^p = x^{sp}$ so
+$(x^{-s}w)^p = w^p x^{(-s) p^n {\frac {p+1} 2}}$. For $p \ne 2$, put $y= x^{-s}w$.  $x^y = x^{1+p^{n-1}}$ and
+$y^p =1$ and we get (ii).  If $p=2$, put $y= x^{-s(1+2^{n-2}}w$.  Again $y^2=1$ and we have (ii).
+\\
+\\
+Thus $p=2$.  If $x^w = x^{-1}$, put $y=w$ so $y^2=1$ or $y^2 = x^{2^{n-1}}$, giving case (iv).
 \end{quote}
 {\bf Theorem 5:} Suppose $G$ is a $p$-group and $G$ is not cyclic, dihedral, semi-dihedral or quaternion.  Then
 $G$ has a subgroup of type $(p,p)$.
 \begin{quote}
 \emph{Proof:}  Let $A$ be maximal with respect to being normal and cyclic. $|G| \geq p$ and $|A| \geq p$
-and $A \ne G$.  If $C(A) > A$, $exists B \subseteq C(A): |B:A| = p$.  $B$ is abelian and non cyclic so it is
+and $A \ne G$.  If $C(A) > A$, $\exists B \subseteq C(A): |B:A| = p$.  $B$ is abelian and non cyclic so it is
 of type (i) above, which proves it.  If $C(A)=A$, $G$ acts by conjugation with kernel $C(A)$ and
 $G/A \rightarrow Aut(A)$ so we're in cases (ii), (iii), (iv) or (v) sp $p=2$, $|A|=2^n$ and
 $x \mapsto x^{1+2^n} \notin A$.   Thus $|G:A|=2$ and $G=B$, so we're in (iii), (iv) or (v).
@@ -68,7 +74,7 @@ dihedral, semi-dihedral or quaternion.
 \end{quote}
 {\bf Theorem 8:} Suppose $G$ is a $p$-group with exactly one subgroup of order $p$. Then $G$ is cyclic or quaternion.
 \begin{quote}
-\emph{Proof:}
+\emph{Proof:} ${\mathbb Z}(G/{\mathbb Z}(G))$ is a normal ableian group, so the result follows from Theorem 7.
 $G$ cannot have a subgroup of type $(p,p)$, so $G$ is cyclic, dihedral, semi-dihedral or quaternion.
 Looking at generators and relations only the cyclic and quaternion cases are possible.  If cyclic, we're done.
 Let $G = \langle x,y: x^{2^n} =1, y^2 = x^{2^{n-1}}, y^{-1}xy = x^{-1} \rangle$.  Let $w$ be of order $2$.
@@ -103,13 +109,18 @@ and the other two consist of half the elements of $G \setminus A$.
 \begin{quote}
 \emph{Proof:}
 Since $G$ has a unique element of order $2$, so does every subgroup.
-The subgroups are cyclic or quaternion.
+Thus subgroups are cyclic or quaternion.
 $G = \langle x, y: x^{2^n}= 1, y^2= x^{2^{n-1}}, y^{-1} x y = x^{-1} \rangle$.  Let $A = \langle x \rangle$.
 Every element of $G \setminus A$ has order $4$.  The generators of $A$ are the only elements of $G$
-of order $2^n > 4$ and $A \; char \; G$ giving (i) and (iii).  Suppose $N$ is a normal, non-abelian subgroup
+of order $2^n > 4$ and $A \; char \; G$ giving (i) and (iii).
+\\
+\\
+Suppose $N$ is a normal, non-abelian subgroup
 of $G$ and $N$ is not a subgroup of $A$.  Let $w \in N \setminus A$, $w^2 = x^{2^{n-1}}$ and
 $w^{-1} x w = x^{-1}$.  Since $N \lhd G$, $N$ contains $[w,x]=x^2$ and $\langle x^2, w \rangle \subseteq N$
 of index $2$.  So (ii) follows.
+\\
+\\
 Suppose $Aut(G)$ is not a $2$ group. $\sigma \in Aut(G)$ of prime order coprime to $2$. $\sigma \in Aut(A)$,
 but $Aut(A)$ is a $2$-group, so $\sigma$ fixes $A$.  $\exists w \in G: \sigma(w) =w$.
 $G = \langle A, w \rangle$; $\sigma$ fixes all of $G$, contradiction and (iv) holds.
