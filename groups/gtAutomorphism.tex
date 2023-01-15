@@ -37,6 +37,11 @@ $G$ is cyclic or $G= \langle x, y \rangle$ with $|x|=p^n$ and one of the followi
 (v) $p=2$ and $y^2= x^{2^{n-1}}$, $y^{-1} x y = x^{-1}$ [quaternion].
 \begin{quote}
 \emph{Proof:}
+Let $A= \langle x \rangle$, $|G:A| = p$.  If $A$ is central, $G$ is abelian.  If not, $C(A)=A$.  Let
+$G = \langle x, w \rangle$.  $w^p \in C(A)$ so $w^p = x^r$ and $(x^r)^w = x^r$.  Now we examine the
+action of $w$ on $\langle x \rangle$.\\
+\\
+If $x^w = x^{1+ip^{n-1}}$, so $r = ps$.
 \end{quote}
 {\bf Theorem 5:} Suppose $G$ is a $p$-group and $G$ is not cyclic, dihedral, semi-dihedral or quaternion.  Then
 $G$ has a subgroup of type $(p,p)$.
@@ -47,14 +52,14 @@ of type (i) above, which proves it.  If $C(A)=A$, $G$ acts by conjugation with k
 $G/A \rightarrow Aut(A)$ so we're in cases (ii), (iii), (iv) or (v) sp $p=2$, $|A|=2^n$ and
 $x \mapsto x^{1+2^n} \notin A$.   Thus $|G:A|=2$ and $G=B$, so we're in (iii), (iv) or (v).
 \end{quote}
-{\bf Theorem 6:} Suppose $G$ is a $p$-group and ${\mathbb Z}({\mathbb Z}(G))$ is cyclic then $G$ is cyclic,
+{\bf Theorem 6:} Suppose $G$ is a $p$-group and ${\mathbb Z}(G/{\mathbb Z}(G))$ is cyclic then $G$ is cyclic,
 dihedral, semi-dihedral or quaternion.
 \begin{quote}
 \emph{Proof:}
 If $G$ is not cyclic,
 dihedral, semi-dihedral or quaternion, $\exists D \lhd G$ of type $(p,p)$. $[G,D] < D$ and $[G,[G,D]] = 1$ and
 $ D \subseteq {\mathbb Z}({\mathbb Z}(G))$;
-hence ${\mathbb Z}({\mathbb Z}(G))$ is not cyclic.
+hence ${\mathbb Z}(G/{\mathbb Z}(G))$ is not cyclic.
 \end{quote}
 {\bf Theorem 7:} Suppose $G$ is a $p$-group and every normal abelian subgroup is cyclic.  Then $G$ is cyclic,
 dihedral, semi-dihedral or quaternion.
