@@ -192,6 +192,13 @@ If $deg(f(x)) = n$ with leading coefficient $1$ then $f(x)$ has $n$ solutions
 iff $f(x) \mid (x^p - x)$.  If $d \mid (p-1)$ then $x^d = 1 \jmod{p}$ has $d$ solutions.
 \\
 \\
+{\bf Lemma:}  Suppose $f(x) \in {\mathbb Z} [x]$.
+$f(x+tp^j) = f(x) + {\frac {f^{(')}(x)} {1!}} tp^j + \ldots + {\frac {f^{(k)}(x)} {k!}} (tp^j)^k$.
+\begin{quote}
+\emph{Proof:} 
+Consider $f(x)= x^k$.  By direct calculation, it's true for $f(x)$, Now, extend this to
+$\sum_{k=0}^n a_k (x+tp^j)^k$.
+\end{quote}
 {\bf Hensel Lemma:}  Suppose $f(x) \in {\mathbb Z} [x]$.  If $f(a) = 0 \jmod{p^j}$ and
 $f'(a) \ne 0 \jmod{p}$, there is a unique $t: f(a+tp^j)= 0 \jmod{p^{j+1}}$.
 \begin{quote}
@@ -201,7 +208,15 @@ $f(a+tp^j)= f(a)+ tp^j f'(a) + \textnormal{ terms in } p^{2j} \textnormal{ or hi
 $f(a+t p^j)= (r+t f'(a)) p^j \jmod{p^{j+1}}$.   Find $t: r+t f'(a) = 0 \jmod{p}$.  Then
 $f(a+tp^j)= 0 \jmod{p^{j+1}}$.
 \end{quote}
-{\bf Definition:} Let $S_k = \{y: 1 \leq y <k: (y,k)=1 \}$.  $\phi(k)= |S_k|$.  Let $n= {p_1}^{e_1} {p_2}^{e_2} \ldots {p_k}^{e_k}$.
+{\bf Lemma:}  There are $\phi(p-1)$ primitive roots $\jmod{p}$.  There are $\phi(p(p-1))$ primitive roots $\jmod{p^2}$.
+If $p$ is prime and $g$ is a primitive root $\jmod{p^2}$ then $g$ is a primitive root $\jmod{p^{\alpha}}, \alpha \ge 2$.
+There are primitive roots $\jmod{m}$ for $m = 1, 2, 4, p^{\alpha}, 2 p^{\alpha}$ and none otherwise. If
+$\alpha \ge 3$ then $\pm 5$, $\pm 5^2$, ..., $\pm 5^{2^{\alpha - 2}}$ is a complete residue set $\jmod{2^{\alpha}}$.
+\begin{quote}
+\emph{Proof:} 
+\end{quote}
+{\bf Definition:} Let $S_k = \{y: 1 \leq y <k: (y,k)=1 \}$.  $\phi(k)= |S_k|$.
+Let $n= {p_1}^{e_1} {p_2}^{e_2} \ldots {p_k}^{e_k}$.
 $\mu(1)= 1$, if $n=1$; $\mu(n)=0$ if $e_i > 1$ for any $i$; otherwise, $\mu(n)= (-1)^k$.
 \\
 \\
