@@ -28,6 +28,7 @@ public:
   double z_;
   double t_;
   void replace(const space_time_point& r);
+  void clear();
 };
 
 void space_time_point::replace(const space_time_point& r) {
@@ -37,15 +38,35 @@ void space_time_point::replace(const space_time_point& r) {
   t_ = r.t_;
 }
 
+
+void space_time_point::clear() {
+  x_ = 0.0;
+  y_ = 0.0;
+  z_ = 0.0;
+  t_ = 0.0;
+}
+
 void print_point(const space_time_point& r) {
-  printf("(%10.2lf, %10.2lf, %10.2lf, %10.2lf)", r.x_, r.y_, r.z_, r.t_);
+  printf("(%11.2lf, %11.2lf, %11.2lf, %11.2lf)", r.x_, r.y_, r.z_, r.t_);
 }
 
 class state {
 public:
   space_time_point r_;
   space_time_point v_;
+  void replace(const state& s);
+  void clear();
 };
+
+void state::replace(const state& s) {
+	r_.replace(s.r_);
+	v_.replace(s.v_);
+}
+
+void state::clear() {
+	r_.clear();
+	v_.clear();
+}
 
 double dist(const space_time_point& r) {
   return sqrt(r.x_ * r.x_ + r.y_ * r.y_ + r.z_ * r.z_);
@@ -110,24 +131,32 @@ bool update_state(double delta_t, const space_time_point& acc, const state& old,
 }
 
 const double r0 = 6378000;
-const double h = 160000;
-const double v0 = 17500.00 * 5280.0 * 12.0 / 39.37;
+const double h =   160000;
+const double v0 = 17500.00 * 5280.0 * 12.0 / (39.37 * 60.0 * 60.0);
 const double T = 12000.0;
 
 const double start_burn_t = 0.0;
 const double stop_burn_t = 200.0;
-const double delta_v = 10000.0;
+const double delta_v = 100.0;
 
-bool get_acc(const space_time_point& r, space_time_point* a) {
+bool normalize(const space_time_point& p, space_time_point* np) {
+  double d = dist(p);
+  np->x_ = p.x_ / d;
+  np->y_ = p.y_ / d;
+  np->z_ = p.z_ / d;
+  return true;
+}
+
+bool get_acc(const space_time_point& r, const space_time_point& v, space_time_point* a) {
   // Gravity down plus burn
   normal(r, a);
-  double x = acc_grav(r);
-  a->x_ *= -x;
-  a->y_ *= -x;
-  a->z_ *= -x;
+  double b = acc_grav(r);
+  a->x_ *= -b;
+  a->y_ *= -b;
+  a->z_ *= -b;
   if (r.t_ >= start_burn_t && r.t_ <= stop_burn_t) {
     space_time_point tn;
-    tangent(r, &tn);
+    normalize(v, &tn);
     tn.x_ *= delta_v;
     tn.y_ *= delta_v;
     tn.z_ *= delta_v;
@@ -135,7 +164,6 @@ bool get_acc(const space_time_point& r, space_time_point* a) {
     a->y_ -= tn.y_;
     a->z_ -= tn.z_;
   }
-  printf("a: "); print_point(*a);printf("\n");
   return true;
 }
 
@@ -155,17 +183,28 @@ int main(int an, char** av) {
   cur.v_.z_ = 0.0;
   cur.v_.x_ = 0.0;
 
-  printf("v0: %10.2lf\n", v0);
+  printf("v0: %11.2lf\n\n", v0);
   printf("Original state:\n");
   print_state(cur);
   printf("\n");
   for (int i = 0; (int) (T / delta_t); i++) {
     space_time_point a;
-    get_acc(cur.r_, &a);
+    get_acc(cur.r_, cur.v_, &a);
     update_state(delta_t, a, cur, &next);
-    printf("Time step %d:\n", i);
-    print_state(next);
-    printf("\n");
+    if ((i%100) == 0) {
+      printf("\nTime step %d:\n", i);
+      print_state(next);
+      printf("\n");
+      printf("a: "); print_point(a);printf("\n");
+    }
+    cur.replace(next);
+    if (dist(cur.r_) <= r0) {
+      printf("\nTime step %d:\n", i);
+      print_state(next);
+      printf("\n");
+      printf("a: "); print_point(a);printf("\n");
+      break;
+    }
   }
 
   return 0;
