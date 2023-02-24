@@ -37,11 +37,25 @@ void space_time_point::replace(const space_time_point& r) {
   t_ = r.t_;
 }
 
+void print_point(const space_time_point& r) {
+  printf("(%10.2lf, %10.2lf, %10.2lf, %10.2lf)", r.x_, r.y_, r.z_, r.t_);
+}
+
 class state {
 public:
   space_time_point r_;
   space_time_point v_;
 };
+
+double dist(const space_time_point& r) {
+  return sqrt(r.x_ * r.x_ + r.y_ * r.y_ + r.z_ * r.z_);
+}
+
+void print_state(const state& s) {
+  printf("r: "); print_point(s.r_); printf("\n");
+  printf("v: "); print_point(s.v_); printf("\n");
+  printf("Distance: %lf km\n", dist(s.r_) / 1000.0);
+}
 
 const double G = 6.743e-11;
 const double M = 6e24;
@@ -89,15 +103,15 @@ bool update_state(double delta_t, const space_time_point& acc, const state& old,
   next->v_.y_ = old.v_.y_ + delta_t * acc.y_;
   next->v_.z_ = old.v_.z_ + delta_t * acc.z_;
 
-  next->r_.x_ = old.v_.x_ + delta_t * acc.x_;
-  next->r_.y_ = old.v_.y_ + delta_t * acc.y_;
-  next->r_.z_ = old.v_.z_ + delta_t * acc.z_;
+  next->r_.x_ = old.r_.x_ + delta_t * (old.v_.x_ + next->v_.x_) / 2.0;
+  next->r_.y_ = old.r_.y_ + delta_t * (old.v_.y_ + next->v_.y_) / 2.0;
+  next->r_.z_ = old.r_.z_ + delta_t * (old.v_.z_ + next->v_.z_) / 2.0;
   return true;
 }
 
 const double r0 = 6378000;
 const double h = 160000;
-const double v0 = sqrt(G * M) * (r0 + h);
+const double v0 = 17500.00 * 5280.0 * 12.0 / 39.37;
 const double T = 12000.0;
 
 const double start_burn_t = 0.0;
@@ -121,6 +135,7 @@ bool get_acc(const space_time_point& r, space_time_point* a) {
     a->y_ -= tn.y_;
     a->z_ -= tn.z_;
   }
+  printf("a: "); print_point(*a);printf("\n");
   return true;
 }
 
@@ -135,10 +150,22 @@ int main(int an, char** av) {
   cur.r_.z_ = 0.0;
   cur.r_.x_ = h + r0;
 
-  space_time_point a;
+  cur.v_.t_ = 0.0;
+  cur.v_.y_ = v0;
+  cur.v_.z_ = 0.0;
+  cur.v_.x_ = 0.0;
+
+  printf("v0: %10.2lf\n", v0);
+  printf("Original state:\n");
+  print_state(cur);
+  printf("\n");
   for (int i = 0; (int) (T / delta_t); i++) {
+    space_time_point a;
     get_acc(cur.r_, &a);
     update_state(delta_t, a, cur, &next);
+    printf("Time step %d:\n", i);
+    print_state(next);
+    printf("\n");
   }
 
   return 0;
