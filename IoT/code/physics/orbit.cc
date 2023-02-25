@@ -210,11 +210,9 @@ int main(int an, char** av) {
   cur.v_.z_ = 0.0;
   cur.v_.x_ = 0.0;
 
-  printf("v0: %.2lf m/s\n\n", v0);
-  printf("Original state, distances in meters, speeds in meters/second\n");
+  printf("\nOriginal state: %.2lf meter orbit, v0: %.2lf m/s, distances in meters, speeds in meters/second\n",
+      h / 1000.0, v0);
   print_state(cur);
-  printf("%.2lf km above the earth\n", h / 1000.0);
-  printf("\n");
   for (int i = 0; (int) (T / delta_t); i++) {
     space_time_point a;
     get_acc(start_burn_t, stop_burn_t, delta_t, delta_v, cur.r_, cur.v_, &a);
@@ -231,7 +229,7 @@ int main(int an, char** av) {
     if (dist(cur.r_) <= r0) {
       printf("\nBurn %.2lf m/s delta-v during (%.2lf, %.2lf) seconds\n",
           delta_v, start_burn_t, stop_burn_t);
-      printf("Time step %d, %.2lf seconds\n",
+      printf("Time step %d, %.2lf seconds to landing\n",
           i, ((double)i)*delta_t);
       print_state(next);
       printf("\n");
