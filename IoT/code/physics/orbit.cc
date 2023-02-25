@@ -22,6 +22,14 @@ using std::string;
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+
+//  For Glenn mission
+//    Apogee: 459 km
+//    Perogee: 150 km
+//    v0: 17,544 mi/hr
+//    30 second retro burn
+//    25 minutes from burn to landing
+
 class space_time_point {
 public:
   double x_;
