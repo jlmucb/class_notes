@@ -1,6 +1,7 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "math.h"
+#include "string.h"
 #include "tgmath.h"
 #include <vector>
 using std::vector;
@@ -131,13 +132,6 @@ bool update_state(double delta_t, const space_time_point& acc, const state& old,
 }
 
 const double r0 = 6378000;
-const double h =   160000;
-const double v0 = 17500.00 * 5280.0 * 12.0 / (39.37 * 60.0 * 60.0);
-const double T = 12000.0;
-
-const double start_burn_t = 0.0;
-const double stop_burn_t = 200.0;
-const double delta_v = 100.0;
 
 bool normalize(const space_time_point& p, space_time_point* np) {
   double d = dist(p);
@@ -147,7 +141,9 @@ bool normalize(const space_time_point& p, space_time_point* np) {
   return true;
 }
 
-bool get_acc(const space_time_point& r, const space_time_point& v, space_time_point* a) {
+bool get_acc(const double start_burn_t, const double stop_burn_t, const double delta_t,
+          const double delta_v, const space_time_point& r, const space_time_point& v,
+          space_time_point* a) {
   // Gravity down plus burn
   normal(r, a);
   double b = acc_grav(r);
@@ -171,7 +167,38 @@ int main(int an, char** av) {
 
   state cur;
   state next;
+
+  double h =   160000;
+  double T = 15000.0;
+  double v0 = 17500.00 * 5280.0 * 12.0 / (39.37 * 60.0 * 60.0);
+  double start_burn_t = 0.0;
+  double stop_burn_t = 150.0;
+  double delta_v = 100.0;
   double delta_t = .05;  // seconds
+
+  for (int i = 0; i < an; i++) {
+    if (strncmp("--h=", av[i], 4) == 0) {
+      sscanf(av[i]+4, "%lf", &h);
+    }
+    if (strncmp("--T=", av[i], 4) == 0) {
+      sscanf(av[i]+4, "%lf", &h);
+    }
+    if (strncmp("--v0=", av[i], 5) == 0) {
+      sscanf(av[i]+5, "%lf", &v0);
+    }
+    if (strncmp("--start=", av[i], 8) == 0) {
+      sscanf(av[i]+8, "%lf", &start_burn_t);
+    }
+    if (strncmp("--stop=", av[i], 7) == 0) {
+      sscanf(av[i]+7, "%lf", &start_burn_t);
+    }
+    if (strncmp("--delta_t=", av[i], 10) == 0) {
+      sscanf(av[i]+10, "%lf", &delta_t);
+    }
+    if (strncmp("--delta_v=", av[i], 10) == 0) {
+      sscanf(av[i]+10, "%lf", &delta_v);
+    }
+  }
 
   cur.r_.t_ = 0.0;
   cur.r_.y_ = 0.0;
@@ -189,20 +216,21 @@ int main(int an, char** av) {
   printf("\n");
   for (int i = 0; (int) (T / delta_t); i++) {
     space_time_point a;
-    get_acc(cur.r_, cur.v_, &a);
+    get_acc(start_burn_t, stop_burn_t, delta_t, delta_v, cur.r_, cur.v_, &a);
     update_state(delta_t, a, cur, &next);
     if ((i%100) == 0) {
       printf("\nTime step %d:\n", i);
       print_state(next);
       printf("\n");
-      printf("a: "); print_point(a);printf("\n");
+      //printf("a: "); print_point(a);printf("\n");
     }
     cur.replace(next);
     if (dist(cur.r_) <= r0) {
-      printf("\nTime step %d:\n", i);
+      printf("\nBurn %8.2lf during (%8.2lf, %8.2lf)\n", delta_v, start_burn_t, stop_burn_t);
+      printf("Time step %d, %8.2lf seconds:\n", i, ((double)i)*delta_t);
       print_state(next);
       printf("\n");
-      printf("a: "); print_point(a);printf("\n");
+      // printf("a: "); print_point(a);printf("\n");
       break;
     }
   }
