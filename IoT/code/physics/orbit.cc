@@ -190,7 +190,7 @@ int main(int an, char** av) {
       sscanf(av[i]+8, "%lf", &start_burn_t);
     }
     if (strncmp("--stop=", av[i], 7) == 0) {
-      sscanf(av[i]+7, "%lf", &start_burn_t);
+      sscanf(av[i]+7, "%lf", &stop_burn_t);
     }
     if (strncmp("--delta_t=", av[i], 10) == 0) {
       sscanf(av[i]+10, "%lf", &delta_t);
