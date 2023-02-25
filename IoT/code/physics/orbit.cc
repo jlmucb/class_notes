@@ -210,7 +210,7 @@ int main(int an, char** av) {
   cur.v_.z_ = 0.0;
   cur.v_.x_ = 0.0;
 
-  printf("\nOriginal state: %.2lf meter orbit, v0: %.2lf m/s, distances in meters, speeds in meters/second\n",
+  printf("\nOriginal state: %.2lf km orbit, v0: %.2lf m/s, distances in meters, speeds in meters/second\n",
       h / 1000.0, v0);
   print_state(cur);
   for (int i = 0; (int) (T / delta_t); i++) {
