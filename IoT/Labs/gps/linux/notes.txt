@@ -1,0 +1,109 @@
+  time_t now;
+  time(&now);
+  struct tm*  currentTime = gmtime(&now);
+
+
+Member	  Type	Meaning	Range
+tm_sec	  int	seconds after the minute	0-60*
+tm_min	  int	minutes after the hour	0-59
+tm_hour	  int	hours since midnight	0-23
+tm_mday	  int	day of the month	1-31
+tm_mon	  int	months since January	0-11
+tm_year	  int	years since 1900	
+tm_wday	  int	days since Sunday	0-6
+tm_yday	  int	days since January 1	0-365
+tm_isdst  int	Daylight Saving Time flag	
+
+sudo apt-get update
+sudo apt-get install swig
+
+/* file : gfg.c */
+  
+#include <stdio.h>
+#include <math.h>
+  
+//our header file
+#include "gfg.h"
+#define ll long long
+  
+double myvar = 3.4;
+  
+// calculate factorial
+ll int fact(ll int n)
+{
+    if(n <= 1)
+        return 1;
+    else
+        return (n * fact(n-1));
+}
+  
+//find mod
+int my_mod(int n, int m)
+{
+  return(n % m);
+}
+Here is our header file gfg.h –
+
+
+long long int fact(long long int n);
+int my_mod(int n, int m);
+
+swig -python gfg.i
+gcc -c -fpic gfg_wrap.c gfg.c -I/use/include/python2.7
+
+>>> import gfg
+>>> res = fact(5)
+>>> res
+120
+>>> res = my_mod(5,2)
+>>> res
+1
+>>> gfg.cv
+
+
+# File : setup.py
+  
+from distutils.core import setup, Extension
+#name of module
+name  = "gfg"
+  
+#version of module
+version = "1.0"
+  
+# specify the name of the extension and source files
+# required to compile this
+ext_modules = Extension(name='_gfg',sources=["gfg.i","gfg.c"])
+  
+setup(name=name,
+      version=version,
+      ext_modules=[ext_modules])
+
+python setup.py build_ext --inplace
+
+
+/* file : gfg.i */
+  
+/* name of module to use*/
+%module gfg
+%{
+    /* Every thing in this file is being copied in 
+     wrapper file. We include the C header file necessary
+     to compile the interface */
+    #include "gfg.h"
+  
+    /* variable declaration*/
+    double myvar;
+%}
+  
+/* explicitly list functions and variables to be interfaced */
+double myvar;
+long long int fact(long long int n1);
+int my_mod(int m, int n);
+  
+/* or if we want to interface all functions then we can simply
+   include header file like this - 
+   %include "gfg.h"
+*/
+
+
+
