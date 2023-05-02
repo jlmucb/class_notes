@@ -29,8 +29,7 @@ sudo apt-get install swig
 double myvar = 3.4;
   
 // calculate factorial
-ll int fact(ll int n)
-{
+long long int fact(ll int n) {
     if(n <= 1)
         return 1;
     else
