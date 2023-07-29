@@ -43,15 +43,17 @@ If $p \nmid |a|$, apply the inductive hypothesis to $G/ \langle a \rangle$.
 \end{quote}
 {\bf Sylow's Theorem:}  Let $|G|_p$ denote the largest $i$ such that $p^i \mid |G|$.
 (1) $\exists S \le G, |S|= p^{|G|_p}$; (2) Let $S_p(G)= \{S \le G: |S|= p^{|G|_p} \}$,
-$|S_p(G)| = 1 \jmod{p}$ and $|S_p(G)| \mid |G:P|$.
+$|S_p(G)| = 1 \jmod{p}$ and $|S_p(G)| \mid |G:P|$.  All elements of $S_p(G)$ are conjugate.
 \begin{quote}
 \emph{Proof of (1):}  By induction on $|G|$; true if $|G|=1$.
 Let $G$ act by conjugation on its elements and decompose these into disjoint orbits.  We get
 $|G|= |{\mathbb Z}(G)|+\sum_{x} |G:C_G(x)|$.  If $p \nmid |{\mathbb Z}(G)|$, $p \nmid |C_G(x)|$
 for some $x$ and we can apply the induction hypothesis to $C_G(x)$.  If $p \mid |G|$, by Cauchy,
 $\exists a \in {\mathbb Z}(G), a \ne 1, a^p =1$.  $\langle a \rangle \lhd G$.  
-Apply the induction hypothesis to
-$G/ \langle a \rangle$.
+Apply the induction hypothesis to $G/ \langle a \rangle$.  Let $\Omega = S^G, S \in S_p(G)$.
+If $R \notin \Omega, R \in S_p(G)$, let $R$ act on $\Omega$. If $R \in N(S)$, $|RS|_p > |S|$,
+which is a contradiction. Thus, the length of all $R$-orbits on $\Omega$ is divisible by $p$,
+which contradicts the fact that $|S_p(G)| = 1 \jmod{p}$.
 \\
 \\
 \emph{Proof of (2, 3):}
