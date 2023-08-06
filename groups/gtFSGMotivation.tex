@@ -28,9 +28,10 @@ $$.  The element
 $$
 u =\left(
 \begin{array}{ccc}
-I_r &  0_{r} & 0_{r}\\
-0_{n-2r} &  I_{n-2r} & 0_{n-2r}\\
-I_r &  0_{r} & I_r\\
+I_{r \times r} &  0_{r \times n-2r} & 0_{r \times r}\\
+0_{n-2r \times r} &  I_{n-2r \times n-2r} & 0_{n-2r \times r}\\
+I_{r \times r} &  0_{r \times n -2r} & I_{r \times r}\\
+
 \end{array}
 \right)
 $$ is unipotent and its centralizer has the form
@@ -38,9 +39,9 @@ $$
 C(u)=
 \left(
 \begin{array}{ccc}
-X &  0_{r} & 0_r\\
-P &  Y & 0_{n-2r}\\
-Q & R & X\\
+X_{r \times r} &  0_{r \times n-2r} & 0_{r \times r}\\
+P_{n-2r \times r} &  Y_{n-2r \times n-2r} & 0_{n-2r \times r}\\
+Q_{r \times r} & R_{r \times n-2r} & X_{r \times r}\\
 \end{array}
 \right)
 $$ which is nilpotent.  Further, 
