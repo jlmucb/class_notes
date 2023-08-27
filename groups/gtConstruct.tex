@@ -1,18 +1,19 @@
 \chapter{Constructions}
 \section {Semidirect Product}
-{\bf Definition 3:}
-$G$ is an \emph{extension} of $K$ by $Q$ if $G \triangleright K$ and $G/K \cong Q$.  Equivalently,
-there is a surjective homomorphism $\pi:G \rightarrow Q$.
-\\
-\\
 {\bf Definition 1:}
+$G$ is an \emph{extension} of $K$ by $Q$ if $G \triangleright K$ and $G/K \cong Q$.  Equivalently,
+there is a surjective homomorphism $\pi:G \rightarrow Q$ (i.e.: $1 \rightarrow K \rightarrow G \rightarrow H \rightarrow 1$).
+\\
+\\
+{\bf Definition 2:}
 Let $\pi: H \rightarrow Aut(K)$, $K \lhd G$, $H<G$ and $H \cap K = 1$ define the
 \emph {semidirect} product of $K$ by $H$ (denoted $H \ltimes K$) as the group with elements
 $(a, g) \in H \times K$ with the product $(a, g) \cdot (b, h)= (ab, \pi(b)(g)h)$ [or $(ab, (g)^{\pi(b)}h)$].
+\emph{Example:} The dihedrael group, $D_n : |D_n|=2n$ is $H \ltimes K$, where $K= \langle a \rangle, |a|=n$ and
+$H$ is a group of order 2, the non-identity element is a reflection.  $(a, g)^{-1} = (a^{-1}, (g^{-1})^{\pi(a^{-1})})$.
 \\
 \\
-{\bf Definition 2:} An extension $G$ of $K$ by $H$ (i.e.: $1 \rightarrow K \rightarrow G \rightarrow H \rightarrow 1$) 
-\emph {splits} if G is a semidirect product of $H$ and $K$.
+{\bf Definition 3:} An extension $G$ of $K$ by $H$ \emph {splits} if G is a semidirect product of $H$ and $K$.
 \\
 \\
 {\bf Theorem 1:}
@@ -43,8 +44,7 @@ conditions of (1).
 \section {Presentations}
 {\bf Theorem 2:}  Let $G=
 \langle x_1, \ldots, x_n| R_1(x_1, \ldots, x_n), R_2(x_1, \ldots, x_n), \ldots R_m(x_1, \ldots, x_n)
-\rangle
-$. There is a one to one correspondance between homomorphisms
+\rangle $. There is a one to one correspondance between homomorphisms
 $\rho: G \rightarrow H$ and solutions to
 $R_1(y_1, \ldots, y_n)=1, R_2(y_1, \ldots, y_n)=1, \ldots R_m(y_1, \ldots, y_n)=1, y_i \in H$.
 \\
