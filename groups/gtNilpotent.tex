@@ -73,15 +73,20 @@ It is called the \emph {Frattini subgroup} of $G$.
 \\
 \\
 {\bf Theorem 3:} 
+(1) If $\langle \Phi(G), X \rangle = G$, $\langle X \rangle = G$
 $\Phi(G) \; char \; G$; further,
-(1) $\Phi(G)$ is nilpotent. (2)
+(2) $\Phi(G)$ is nilpotent. (3)
 $F(G)/\Phi(G)= F(G/\Phi(G))$.
 \begin{quote}
 \emph{Proof:}  
-Automorphisms, $\phi$, and their inverses take maximal subgroups in $G$ so 
+For (1), if not put $H=\langle X \rangle$.  $H$ is in some maximal subgroup of $G$, say $M$,
+So $\Phi(G) \subseteq M$ and $\langle \Phi(G), X \rangle \subseteq \langle \Phi(G), H \rangle \subseteq M$,
+contradiction!.
+Automorphisms, $\phi$, and their inverses take maximal subgroups in $G$ into
+maximal subgroups in $G$, so 
 $ \bigcap_{M \in {\cal M}} M = \bigcap_{M \in {\cal M}} \phi(M)= \Phi(G)$.
 Let $P \in S_p(\Phi(G))$.  Since $\Phi(G) \lhd G$, $G= \langle \Phi(G), N_G(P) \rangle = N_G(P)$ and so
-$P \lhd G$ so $\Phi(G)$ is nilpotent.  (2) follows from (1).
+$P \lhd G$ so $\Phi(G)$ is nilpotent.  (3) follows from (2).
 \end{quote}
 {\bf Theorem 4:} If $G$ is nilpotent, $G' \subseteq \Phi(G)$.
 \begin{quote}
