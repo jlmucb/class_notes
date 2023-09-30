@@ -14,7 +14,7 @@
 
 
 #ifndef SRC_DIR
-SRC_DIR=$(HOME)/jlm/MySrc/newmath
+SRC_DIR=$(HOME)/src/github.com/jlmucb/class_notes/IoT/code/newmath
 #endif
 #ifndef OBJ_DIR
 #endif
