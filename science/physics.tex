@@ -1336,17 +1336,27 @@ difference, electrons tunnel and we get dc, if dc potential is applied, we get a
 $f \approx {\frac {2eV}{h}}$.
 \section{Quantum Mechanics}
 {\bf Schrodinger and its discontents:}
+Motivation:  From photon experiments, $\lambda = {\frac {h} {p}}$, $p= \hbar k$ and $E= \hbar \omega$.
+Solution should look like $\phi(x,t) = A exp[i(kx- \omega t)]$. $T= {\frac{p^2} {2m}}$, $E= T+V$.  For these
+solutions, $\nabla^2 \phi = -k^2 \phi$ and ${\frac {\partial \phi} {\partial t}} = i \omega \phi$.  These lead to
+Schroedinger equation.
+\\
+\\
 $$-{\frac {\hbar^2} {2m}} {\frac {\partial^2 \Psi (x, t)} {\partial x^2}} +
-V \Psi(x,t)= i \hbar {\frac {\partial \Psi(x,t)} {\partial t}}, \int_S |\Psi|^2 =1$$
-
-See quantum operators.
+V \Psi(x,t)= i \hbar {\frac {\partial \Psi(x,t)} {\partial t}}$$
+As always, $\int_S |\Psi|^2 dr = 1$.  See quantum operators.
+\\
 
 $$\langle Q(x,p)\rangle= 
 \int \Psi^* Q(x,{\frac {\hbar} {i}}{\frac {\partial}{\partial x}}) \Psi dx$$.
 
 $$\hat{H}= -{\frac {\hbar^2} {2m}} {\frac {\partial^2} {{\partial x}^2}} + V(x)$$.
 
-Separation of variables (for well defined
+In addition, 
+$\langle x \rangle = \int \overline{\psi} x \psi dr$ and
+$\langle p_x \rangle = \int \overline{\psi} - \hbar i {\frac {\partial} {\partial t}} \psi dr$.
+
+Now starting with Schroedinger, we can use separation of variables (for well defined
 energy): $\Psi(x,t)= \varphi(x) \phi(t)$. 
 $-{\frac {\hbar^2} {2m}} \varphi''(x) \phi(t) + 
 V \varphi(x) \phi(t)= i \hbar \varphi(x) {\dot \phi}(t)$. 
@@ -1361,7 +1371,13 @@ If $V-E<0$ (scattering), the solution is
 $\varphi(x)= A e^{ikx}+ B e^{-ikx}$ or
 $\varphi(x)= A cos(kx)+ B sin(kx)$.
 Note that for solution when separation of variables is possible, $|\Psi|^2$ is time 
-independent.  
+independent.  \\
+\\
+For Hamiltonian treatment
+$H= T+V, H \phi - i \hbar$, $p_i = {\frac {\partial L}{\partial {\dot{q_i}}}}$,
+$\dot{q_i} = {\frac {\partial H} {\partial {q_i}}}$.
+\\
+\\
 If $Q(x,p)$ is an operator,
 $\langle Q \rangle = {\frac {i} {\hbar}} [H, Q] + \langle {\frac {\partial Q} {\partial t}} \rangle$.
 Consider the usual harmonic potential $V(x) = {\frac 1 2} m \omega^2 x^2$ in Schroedinger's equation:
