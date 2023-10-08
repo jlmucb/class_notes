@@ -549,7 +549,10 @@ algebraic number field $K$ with ${\mathbb Z}$-basis $\{ \alpha_1 , \ldots , \alp
 then $|{\mathfrak D}/G|^2 \mid \Delta(\alpha_1, \ldots , \alpha_n)$.
 \begin{quote}
 \emph{Proof:}  
-Todo.
+Let $\beta_1 , \beta_2 , \ldots , \beta_n$ be an integral basis for ${\mathfrak D}$ then
+there is a basis $\mu_1 \beta_1 , \mu_2 \beta_2 , \ldots , \mu_n \beta_n$ be an integral basis for $G$.
+$\Delta[\mu_1 \beta_1 , \mu_2 \beta_2 , \ldots , \beta_n] = 
+(\mu_1 \mu_2 \ldots \mu_n)^2 \Delta[\beta_1 , \beta_2 , \ldots , \mu_n \beta_n] $ and the result follows.
 \end{quote}
 {\bf Chain conditions and exact sequences:}
 If $0 \rightarrow A
@@ -3010,7 +3013,7 @@ yield contradictions.
 then $R_m$ is not a Euclidean domain.
 \begin{quote}
 \emph{Proof:}
-Suppose if is.  CHoose $b \in R_m \setminus U(R_m)$ with $d(b)$ minimal.
+Suppose if is.  Choose $b \in R_m \setminus U(R_m)$ with $d(b)$ minimal.
 $\forall a, a=bq+r$ and $r =0, \pm  1$, so $b \mid 2, 3$.  However,
 both $2$ and $3$ are irreducible in $R_m$.  If $m = 1 \jmod{4}$ and put $a= {\frac {1 + {\sqrt m}} {2}}$.
 Neither $a, a+1, a-1$ are divisible by $2$ or $3$.  Contradiction.
