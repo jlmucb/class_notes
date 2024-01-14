@@ -2335,3 +2335,106 @@ $.2= \{ x \in .O$, $x$ stabilizes
 $2$ points $v,w \in \Lambda_2: |v-w|= 4 {\sqrt 2} \}$.
 $.3= \{ x \in .O$, where $x$ stabilizes
 $2$ points $v,w \in \Lambda_2: |v-w|= 4 {\sqrt 3} \}$.
+\section {Centralizers of involutions (following Suzuki):}
+First we'll compute the centralizer of an involution in $G=PSL_n(q)$.   Most of the computations happen
+in $SL_n(q)$. Let $t \in Inv(G)$ and $T$ be the matrix for $t$.  Put 
+$C= \{ X: XT= \mu TX \}$ and $Z= \{ \lambda I_n \}, \lambda^n=1$. Finally, if $d= |Z|$, $d= (n, q-1)$.
+In $G$, $C_G(t) = C/Z$.
+\\
+\\
+{\bf Theorem  1:}
+If $G=PSL_n(q)$, $q$, odd, and $t \in Inv(G)$. \\
+If $n$ is odd, $n= r+s$, $\exists N \lhd C_G(t)$ such that $N$ is a minimal central product of
+$SL_r(q)$ and $SL_s(q)$.  $C_G(t)/N$ and ${\mathbb Z}(N)$ are cyclic with orders dividing $q-1$.
+If $n=2m$ is even, $n= 2m$, in addition to the possibly above, with $r \ne s$, the following
+two possibilities arise:\\
+(i)
+$\exists C_0  \lhd C_G(t)$ and $E \lhd C_G(t)$ with $r=s=m$ with $C_G(t)/E$ is dihedral,
+$C_0/E$ and ${\mathbb Z}(E)$ are cyclic whose order divides $q-1$. $\exists v \notin C_0, |v|=2$
+that interchanges the factors of $E$.
+such that $N$ is a minimal central product of
+$SL_r(q)$ and $SL_s(q)$.  $C_G(t)/N$ and ${\mathbb Z}(N)$ are cyclic with orders dividing $q-1$.\\
+(ii)
+$\exists C_0  \lhd C_G(t)$ and $E \lhd C_G(t)$ with $r=s=m$ with $E/{\mathbb z}(E) =PSL_m(q^2)$,
+${\mathbb Z}(E)$ is cyclic with order dividing $q+1$,
+$C_0/E$ is dihedral of order $q+1$ or $2(q+1)$ and there is an element of
+$C_G(t) \setminus C_0$ which acts like the non-identity element of $GF(q^2)$ over $GF(q)$.
+\begin{quote}
+\emph{Proof:} 
+Either (i)
+$T= \left(
+\begin{array}{cc}
+\rho I_r & 0 \\
+0 & -\rho I_s \\
+\end{array}
+\right)$, or (ii)
+$T= \left(
+\begin{array}{cc}
+0 & I_m \\
+\rho I_m & 0 \\
+\end{array}
+\right)$.
+$T^2=1$ so $T$ has minumal polynomial $(x+ \rho)(x -\rho$ or $x^2 - \lambda$ depending on whether
+$\sqrt{\lambda} \in GF(q)$.
+$X= \left(
+\begin{array}{cc}
+X_1 &  X_2 \\
+X_3 &  X_4 \\
+\end{array}
+\right)$.
+\end{quote}
+{\bf Theorem 2}
+If $G=PSL_n(q)$, $q$, even, and $t \in Inv(G)$. 
+$\exists E, Q:  E \lhd C_G(t), Q \lhd C_G(t)$,
+$\{1\} \subset Q \subset E \subset C_G(t)$ with $C_G(t)/E$ is cyclic of order dividing
+$q-1$, $E/Q$ is a minimal central product of $SL_r(q)$ and $SL_s(q)$ with $n=2r+s$ and
+$Q$ is a $2$-group of order at most $2$.  Further, $C_G(Q) \subset Q$.
+\begin{quote}
+\emph{Proof:} 
+\end{quote}
+Now consider the remaining linear groups.
+Let $G(V,f)$ be the group associated with a bilinear, $f$, form with
+$f(\alpha u,\beta v)= \alpha \overline{\beta} f(u,v)$.
+$f$ can be symplectic, orthogonal, unitary or bilinear.  $Z= {\mathbb Z}(G(V,f))$ and
+$G= G(V,f)/Z$.  The simple group associated with $G$ is $G$ itself if $f$ is symplectic,
+hermitian or unitary and $G'$ if $f$ is orthogonal.
+{\bf Theorem 3:}
+$G= PSp_{2m}(q)$, $q$ odd. $t \in Inv(G)$.  $C_G(t)$ has one of the following forms:
+\\ (i)
+\\ (ii)
+\\ (iii)
+\\ (iv)
+\begin{quote}
+\emph{Proof:} 
+\end{quote}
+{\bf Theorem 4:}
+$G= PSp_{2m}(q)$, $q$ even. $t \in Inv(G)$.  $ \exists E \lhd C_G(t)$ with $E$ a $2$-group of
+class at most $2$, $C_G(R) \subseteq E$, $C_G(t)/E = G_0 \times Sp_s(q)$ where $G_0$ is (i)
+$Sp_r(q)$, or (ii) $Sp_{r-1}(q)$, or (iii) the semidirect product of $Sp_{r-2}(q)$ and a special
+$2$-group, $Q$ of order $Q^{r-1}$
+\begin{quote}
+\emph{Proof:} 
+\end{quote}
+{\bf Theorem 5 :}
+$G= PSU_{n}(q)$, $q$ odd. $t \in Inv(G)$.  $C_G(t)$ has one of the following forms:
+\\ (i)
+\\ (ii)
+\\ (iii)
+\begin{quote}
+\emph{Proof:} 
+\end{quote}
+{\bf Theorem 6:}
+$G= PSU_{n}(q)$, $q$ even. $t \in Inv(G)$.  $C_G(t)$ has one of the following forms:
+\begin{quote}
+\emph{Proof:} 
+\end{quote}
+{\bf Theorem 7:}
+$G= P\Omega_{n}(q)$, $q$ odd. $t \in Inv(G)$.  $C_G(t)$ has one of the following forms:
+\begin{quote}
+\emph{Proof:} 
+\end{quote}
+{\bf Theorem 8:}
+$G= P\Omega_{\epsilon, 2m}(q)$, $q$ even. $t \in Inv(G)$.  $C_G(t)$ has one of the following forms:
+\begin{quote}
+\emph{Proof:} 
+\end{quote}
