@@ -2361,6 +2361,9 @@ $C_0/E$ is dihedral of order $q+1$ or $2(q+1)$ and there is an element of
 $C_G(t) \setminus C_0$ which acts like the non-identity element of $GF(q^2)$ over $GF(q)$.
 \begin{quote}
 \emph{Proof:} 
+If $T$ is an involutions, $T^2= \lambda I$.
+So $T$ has minimal polynomial $(x+ \rho)(x -\rho )$ or $x^2 - \lambda$ depending on whether
+$\sqrt{\lambda} \in GF(q)$.
 Either (i)
 $T= \left(
 \begin{array}{cc}
@@ -2374,15 +2377,114 @@ $T= \left(
 \rho I_m & 0 \\
 \end{array}
 \right)$.
-$T^2=1$ so $T$ has minumal polynomial $(x+ \rho)(x -\rho$ or $x^2 - \lambda$ depending on whether
-$\sqrt{\lambda} \in GF(q)$.
 $X= \left(
 \begin{array}{cc}
 X_1 &  X_2 \\
 X_3 &  X_4 \\
 \end{array}
-\right)$.
-\end{quote}
+\right)$.  Either (a) $X_2=X_3=0$ and $det(X_1)det(X_2) = 1$ or (b) $r=s$, $X_1= X_4 = 0$ and
+$det(X_2) det(-X_3)=1$
+In case (a), $\delta: X \rightarrow det(X_1)$ is a homomorphism and
+$K=key( \ delta ) = SL_r(q) \times SL_s(q)$.  Put $E= KZ/Z$ $E \lhd C/Z$ and $E = K/(K \cap Z)$
+\\
+In case b, $X \rightarrow \mu (X)$ is a homomorphism.  Put $A= X_1, B= X_2$ then
+$
+\left(
+\begin{array}{cc}
+\rho I & I \\
+- \rho I & I \\
+\end{array}
+\right)
+\left(
+\begin{array}{cc}
+A & B \\
+\lambda B & A \\
+\end{array}
+\right)
+=
+\left(
+\begin{array}{cc}
+A + \rho B & 0 \\
+0 & A  - \rho B\\
+\end{array}
+\right)
+\left(
+\begin{array}{cc}
+\rho I & I \\
+- \rho I & I \\
+\end{array}
+\right)
+$, and $\rho \in GF(q^2)$.
+\\
+Now we can assume $n=2m$. Again,
+$T$ is an involutions, $T^2= \lambda I$ and
+either (i)
+$T= \left(
+\begin{array}{cc}
+\rho I_r & 0 \\
+0 & -\rho I_s \\
+\end{array}
+\right)$, or (ii)
+$T= \left(
+\begin{array}{cc}
+0 & I_m \\
+\lambda I_m & 0 \\
+\end{array}
+\right)$.  
+Let
+$J= \left(
+\begin{array}{cc}
+0 & I_m \\
+- I_m & 0 \\
+\end{array}
+\right) \in C$.  In case (i),
+The matricies $X$, the form $C_1$ or $C_1 + C_1 J$, where $C_1= \{X: X_2=X_3=0, det(X_1)det(X_4) = 1 \}$.
+$C_1$ has index $2$ in $C$.  Again, $\delta: X \rightarrow det( X_1 )$ is a homomorphism.  Again
+$K = SL_m(q) \times SL_m(q)$ and $J^{-1} 
+\left(
+\begin{array}{cc}
+X_1 & 0 \\
+0 & X_4 \\
+\end{array}
+\right)  
+J =
+\left(
+\begin{array}{cc}
+X_4 & 0 \\
+0 & X_1 \\
+\end{array}
+\right)
+$.
+In case (ii), $X_1= \mu X_4, \mu X_3 = \lambda X_2, \mu^2=1$. $\mu(X)$ is a homomorphism and
+$
+\left(
+\begin{array}{cc}
+\rho I & I \\
+- \rho I & I \\
+\end{array}
+\right)
+\left(
+\begin{array}{cc}
+A & B \\
+\lambda B & A \\
+\end{array}
+\right) 
+=
+\left(
+\begin{array}{cc}
+A + \rho B & 0 \\
+0 & A - \rho B \\
+\end{array}
+\right) 
+\left(
+\begin{array}{cc}
+\rho I & I \\
+- \rho I & I \\
+\end{array}
+\right)
+$, $\rho^2= \lambda$.
+$K \lhd C$ and $C/K$ is dihedral.
+\end{quote}.
 {\bf Theorem 2}
 If $G=PSL_n(q)$, $q$, even, and $t \in Inv(G)$. 
 $\exists E, Q:  E \lhd C_G(t), Q \lhd C_G(t)$,
@@ -2391,6 +2493,31 @@ $q-1$, $E/Q$ is a minimal central product of $SL_r(q)$ and $SL_s(q)$ with $n=2r+
 $Q$ is a $2$-group of order at most $2$.  Further, $C_G(Q) \subset Q$.
 \begin{quote}
 \emph{Proof:} 
+$T= \left(
+\begin{array}{ccc}
+I_r & 0 & I_r \\
+0 & \rho I_s & 0 \\
+0 & 0 & I_r \\
+\end{array}
+\right)$.
+$X= \left(
+\begin{array}{ccc}
+R & L & M \\
+0 & S & N \\
+0 & 0 & R \\
+\end{array}
+\right)$, $n=2r+s, det(r)^2 det(S) 1$. 
+$\delta: X \rightarrow det(R)$ is a homomorphism.  If $X \in K$, $R \in SL_r(q)$ and
+$S \in SL_s(q)$.  $X \rightarrow SL_r(q) \times SL_s(q)$ is a homomorphism with kernel $Q_1$.
+$E= KZ/Z, Q= Q_1 Z/Z$.  $E/Q = K/(K \cap Q_1)$. $K/Q_1$ has matricies of the form
+$ \left(
+\begin{array}{ccc}
+R & 0 & 0 \\
+0 & S & 0 \\
+0 & 0 & S \\
+\end{array}
+\right)$.
+$R = \lambda I_r$, $S= \lambda I_s$, $L=0$ and $N=0$.
 \end{quote}
 Now consider the remaining linear groups.
 Let $G(V,f)$ be the group associated with a bilinear, $f$, form with
@@ -2400,10 +2527,16 @@ $G= G(V,f)/Z$.  The simple group associated with $G$ is $G$ itself if $f$ is sym
 hermitian or unitary and $G'$ if $f$ is orthogonal.
 {\bf Theorem 3:}
 $G= PSp_{2m}(q)$, $q$ odd. $t \in Inv(G)$.  $C_G(t)$ has one of the following forms:
-\\ (i)
-\\ (ii)
+\\ (i) $C_G(t)$ is a minimal central product of $Sp_{2r}(q)$ and $Sp_{2s}(q)$, $r+s=m$,
+$r \ne s$
+\\ (ii) $\exists C_1 \lhd C_g(t)$ of index $2$ where $C_1$ is a minimal central product
+of two copies of $SL_{2m}(q)$. $Y \in C= C_1$ interchanges the factors.
 \\ (iii)
+$\exists C_1 \lhd C_g(t)$ of index $2$ where $C_1 = GL_m(q)/\langle -1 \rangle$ and
+$C \setminus C_1$ has a automorphism corresponding to $A =rightarrow ""^tA^{-1}$.
 \\ (iv)
+$\exists C_1 \lhd C_g(t)$ of index $2$ where $C_1 = U_m(q)/\langle -1 \rangle$ and
+$q=3 \jmod{4}$.
 \begin{quote}
 \emph{Proof:} 
 \end{quote}
@@ -2417,9 +2550,10 @@ $2$-group, $Q$ of order $Q^{r-1}$
 \end{quote}
 {\bf Theorem 5 :}
 $G= PSU_{n}(q)$, $q$ odd. $t \in Inv(G)$.  $C_G(t)$ has one of the following forms:
-\\ (i)
-\\ (ii)
-\\ (iii)
+\\ (i) $\exists N \lhd C_G(t)$ which is a minimal central product of $SU_r(q)$ and $SU_s(q)$.
+$C_G(t)/N$ and $N$ are cyclic groups with orders dividing $q+1$.
+\\ (ii) situation (i) with two factors that are exchanged by an element of $C_G(t) -N$
+\\ (iii) $\exists C_0 \lhd C_G(t)$ of index $2$ and $E \lhd C_G(t)$ with $E/{\mathbb Z}(E)= PSL_m(q^2)$.
 \begin{quote}
 \emph{Proof:} 
 \end{quote}
@@ -2429,7 +2563,10 @@ $G= PSU_{n}(q)$, $q$ even. $t \in Inv(G)$.  $C_G(t)$ has one of the following fo
 \emph{Proof:} 
 \end{quote}
 {\bf Theorem 7:}
-$G= P\Omega_{n}(q)$, $q$ odd. $t \in Inv(G)$.  $C_G(t)$ has one of the following forms:
+$G= P\Omega_{n}(q)$, $q$ odd. $t \in Inv(G)$.  $\exists E \lhd C$ with $C_G(t)/E$ solvable.
+and $E$ is one of 
+$SL_m(q)/\langle -1 \rangle$ or
+$SU_m(q)/\langle -1 \rangle$ or a central product of $\Omega_r(q)$ and  $\Omega_s(q)$.
 \begin{quote}
 \emph{Proof:} 
 \end{quote}
