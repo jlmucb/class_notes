@@ -21,7 +21,50 @@ $G$ on its chief factors of $G$ is $p-$stable then $G=N_G(Z(J(S)))$. \\
 \\
 {\bf Glauberman's $Z^*$ Theorem:}
 Let $G$ be a finite group and $t$ and involution in $G$ which is weakly closed in
-$C(t)$.  Then $t^* \in Z(G^*)$  where $G^*= G/O_{2'} (G)$.
+$C(t)$.  Then $t^* \in Z(G^*)$  where $G^*= G/O_{2'}(G)$.
+\section{Centralizers of involutions}
+{\bf Basic question:} Let $G$ be a finite simple group and $N=C_G(t)$ for the central
+involution, $t$, of a Sylow subgroup.  Can you show any simple group with this centralizer
+has to be $G$?  This requires knowing the core of $N$ which is trivial or a cyclic group
+in which $|N:C_H(O(N))|=2$.  $O(N)$ is trivial when $G$ is a Lie group over characteristic $2$,
+$A_m, m = 0, 1,2 \jmod{4}$ and sporadic groups but is non trivial in Lie groups over
+odd characteristics.  Walter showed that if $G$ has $2$-rank $\geq 5$, and $O(G)=1$,
+and $C_G(t)$ is $2$-constrained, then $O(C_G(t)) = 1$.  This started the interest in
+signalizers.
+\\
+\\
+{\bf Glauberman 1:} If $S \in S_2(G), z \in Inv(G)$ and $z$ is not conjugate to any other involution
+in $S$ then $zO(G) \in {\mathbb Z}(G/O(G))$.
+\\
+\\
+{\bf Glauberman 2:} Suppose $O_{p'}(H)=1$ and $O_p(H) \ne 1$, $p$, odd, $P \in S_p(H)$.
+If $H$ is $p$-constrained and $p$-stable, then ${\mathbb Z}(J(P)) \lhd H$.
+\\
+\\
+{\bf Application of Glauberman 2:} Let $H$ be a $p$-local of $G$,
+$H \subseteq M = N_G({\mathbb Z}(J(P))$.  Suppose $R \in S_p(G), P \subseteq R$.
+If $P=R$, $H$ contains a Sylow $p$-subgroup of $G$.  If not, $Q=N_G({\mathbb Z}(J(P))) > P$ and
+$Q$ normalizes ${\mathbb Z}(J(P))$.  $Q \subseteq M$ and a $p$-subgroup of $M$ contains
+$P$ properly.  If $M$ is $p$-constrained and $p$-stable with $O_{p'}(M)=1$ we can repeat this
+argument.  Thus we can "push-up" from a $p$-local to a Sylow $p$-subgroup.
+So every maximal $p$-local is conjugate to $ N_G({\mathbb Z}(J(P))$.
+\section{Recognition Problem}
+{\bf Motivation:} Let $(B,N)$ be the Bruhat structure of a simple group $G^*$ then
+$G^* \cong G$ for any simple group $G$ with the same Bruhat structure.
+\\
+\\
+Define a $G^*(q)$ as a Lie group type over $q$.  $W$ is Coxeter if $w = \langle w_i \rangle, 1 \leq i \leq t$ and
+$t$ is the rank  and $(w_i w_j)^{k_{ij}} =1$.  Let $P \in S_p(G^*(q)), B= N_G(P)$ and let $H$
+be the complement of $P$ in $B$. $\exists N:$
+(1) $B \cap N = H \lhd N$, (2) $G = \bigcup_{u \in N} BuB$,
+(3) $BuBu_iB \subseteq BuB \cup Buu_iB$,
+(4) $B^{u_i} \ne B$. $W = N/H$ is the Weyl group.
+\\
+\\
+{\bf Setting:} For some non-cyclic abelian $2$-group, $A$, of $G$
+(I) $W_A = \langle O(C_G(a)), a \in Inv(A) \rangle$ has odd order and (II)
+if $W_A \ne 1$, $M=N_G(AW_A)$ is strongly embedded.
+
 \section{Major Classification Results}
 {\bf Brauer, Suzuki:} Suppose the Sylow $2$-subgroups of $G$ are quaternion then
 ${\mathbb Z}^*(G)/O_{2'}(G) \cong C_2$.
