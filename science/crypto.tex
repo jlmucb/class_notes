@@ -1596,14 +1596,17 @@ degree $d$ when $|x| \le n^{\frac 1 d}$.
 {\bf GGH public key scheme: }
 Let $n \in {\mathbb N}$ be the security parameter. $M \in {\mathbb Z}$ and $\sigma = 3$.
 \begin{enumerate}
-\item ${\cal M} = \{ -M, \ldots , 0, 1, \ldots M\}$ is the message space ${\cal C} = {\mathbb Z}^n$ is the cipherspace.
+\item ${\cal M} = \{ -M, \ldots , 0, 1, \ldots M\}^n$ is the message space ${\cal C} = {\mathbb Z}^n$ is the cipherspace.
 \item For key generation, choose $B \in {\mathbb Z}^{n \times n}$ uniformly over small integers (say between $-4$ and
-$4$).  Check that $B$ is invertible.  $B$ is the private key.  Let $H$ be the HNF of $B$.  $H$ is the public key.
+$4$).  Check that $B$ is invertible (over ${\mathbb Q}$).  $B$ is the private key.  Let $H$ be the HNF of $B$.  $H$ is the public key.
 \item To encrypt, ${\vec m} \in \{ -M \ldots 0, 1, \ldots M\}$,
 choose random noise vector, ${\vec r} \in \{ -\sigma, \sigma \}^n$.  ${\vec c} = H{\vec m} + r$.
 \item To decrypt, ${\vec m} = H^{-1} B \lfloor B^{-1} {\vec c}\rceil$ ( $ \lfloor B^{-1} {\vec c} \rceil$ is
 called the Babai rounding of ${\vec c}$ with respect to  $B$).
 \end{enumerate}
+$B$, which was the private key, is a good basis for $\Lambda$ since its entries are small.  Note that it is
+likely that $\lfloor B^{-1}r\rceil = 0$, so $H^{-1}B \lfloor B^{-1} \rceil c = B^{-1}Hm + \lfloor B^{-1}r\rceil$.
+and so $H^{-1}B \lfloor B^{-1}c \rceil = m$.
 {\bf NTRU public key scheme: }
 $R = {\mathbb Z}[x]/(x^N-1)$.  Define ${\cal T}(d_1, d_2)$ are ternary polynomials n $R$
 with $d_1$ coefficients $1$, $d_2$ coefficients
@@ -1646,7 +1649,12 @@ $s \in {\mathbb Z}_q^n$ is secret and we are given $m \geq n$ approximate equati
 $a_1 \cdot s = b_1$,
 $a_2 \cdot s = b_2$,
 \ldots
-$a_m \cdot s = b_m$.  The errors, $e_1, e_2, \ldots, e_m$ are small and chosed from $\chi$.
+$a_m \cdot s = b_m$.
+Choose "small" errors, $e_1, e_2, \ldots, e_m$ from $\chi$.
+$a_1 \cdot s + e_1 = b_1$,
+$a_2 \cdot s + e_2 = b_2$,
+\ldots
+$a_m \cdot s + e_m = b_m$.
 We often use the discrete Gaussian for $\chi$: $p(x) = {\frac 1 c} e^{\frac {x^2}{2 \sigma^2}}, x \in {\mathbb Z}$,
 where $c = \sum_{k \in {\mathbb Z}} e^{\frac {k^2}{2 \sigma^2}} \approx \sigma \sqrt{2 \pi}$.  Parameter width is
 $s = {\frac {s} {\sqrt{2 \pi}}}$.
@@ -1655,7 +1663,7 @@ $s = {\frac {s} {\sqrt{2 \pi}}}$.
 {\bf Definition: } Let $n, m, q \in {\mathbb N}, m \geq n, q \geq 2$ with 
 $s \in {\mathbb Z}_q^n$.  Let $A \in {\mathbb Z}_q^{m \times n}$ with entries choosen uniformly at random.
 Let $e \in {\mathbb Z}_q^m$ be drawn from $\chi^m$.
-The \emph{search LWE} problem is to find $s$, given $A$ and $b =As+e$.
+The \emph{search LWE} problem is to find $s$, given $A$ and $b = As+e$.
 The \emph{decision LWE} problem is to distinguish between (1) $b = As +e$ and (2) a uniform distribution.
 \\
 \\
@@ -1672,7 +1680,7 @@ length.  ${\cal M} = \{0, 1\}^l$, ${\cal C} = {\mathbb Z}_q^n \times {\mathbb Z}
 \item Keys: Choose 
 $S \in {\mathbb Z}^{n \times l}$ and 
 $A \in {\mathbb Z}^{m \times n}$ uniformly at random and choose
-$E \in {\mathbb Z}^{m \times l}$  according to $\chi$.  Public key is $(A, P=AS+e)$.  Secret key is $S$.
+$E \in {\mathbb Z}^{m \times l}$  according to $\chi$.  Public key is $(A, P=AS+E)$.  Secret key is $S$.
 \item to encrypt $v \in \{ 0, 1\}^l$, choose $a \in \{0, 1 \}^m$ uniformly at random.  Cipher is
 $(u,c) = (A^Ta, P^Ta + \lfloor {\frac q 2} \rceil v)$.
 \item To decrypt, $D = \lfloor \lfloor {\frac q 2}\rceil^{-1} (c - S^Tu)\rceil \jmod{2}$.
@@ -1873,6 +1881,87 @@ $256$-bit security.  Public key size about 2 KB.
 \item McElice uses $n=6960$, $k=5413$, $t=119$ with a Goppa code.  The key size
 is $8$MB.
 \end{enumerate}
+The winners were Dilithium (for signing) and Kyber (for key encapsulation).  For both,
+put $R_q = {{\mathbb Z}_q}^{k} / (x^{256} + 1)$.
+$||w||+{\infty} = max_i \{\pi_w(w) \}$ and $S_{\eta} = \{ w \in S : ||w||_{\infty} \leq \eta$.
+\\
+\\
+For Dilithium, $q = 2^{23} - 2^{13} + 1$. Parameters are $(k, l, \eta, \gamma_1, \gamma_2, \beta)$ with $\beta \leq 60 \eta)$.
+We use $k=5, l=4, \gamma_1 = {\frac {q - 1} {16}}, \gamma_2 = {\frac {\gamma_1} {2}}, \eta = 5, \beta=275$.
+\\
+\\
+{\bf Gen}: \\
+\begin{enumerate}
+\item $A := {r_q}^{k \times l}$, at random.
+\item $(s_1, s_2) \in {S_{\eta}}^k \times {S_{\eta}}^l$, at random
+\item $t = As_1 + s_2$
+\end {enumerate}
+Public key is $PK=(A, t)$, private key is $pk=(s_1, s_2)$.
+\\
+\\
+{\bf Sign($sk, M$):}\\
+\begin{enumerate}
+\item $z = \perp$
+\item while ($z == \perp$) {
+\item $\;$ $y = {S_{\gamma_1}}^l -1$
+\item $\;$ $w_1 = highbits(Ay, 2 \gamma_2)$
+\item $\;$ $c = SHAKE256(M || w_1)$
+\item $\;$ $z = y + c s_2$
+\item $\;$ if $||z||_{\infty} \geq \gamma_1 - \beta$ or $lowbits(Ay-cs_2, 2 \gamma_1) \geq \gamma_2 - \beta$, $z= \perp$
+\item }
+\end{enumerate}
+{\bf Verify($PK, M, \sigma, z, c$):}\\
+\begin{enumerate}
+\item ${w_1}' = highbits(Az-ct, 2 \gamma_2)$
+\item return $||z||_{\infty} \leq \gamma_1 - \beta$ and $c=SHAKE256(M||{w_1}')$.
+\end{enumerate}
+\\
+\\
+For Kyber, $q= 3329$, $g=17$ is a primitive $512$ root of unity.  $\hat{x}$ means
+NTT applied to $x$ which turns a vector $x \in {R_q}^k$, into a $128$ components consisting
+of linear polynomial mod $x^2 - {\gamma}^{2k+1}$.
+\\
+\\
+{\bf Gen}: \\
+$\hat{t} = \hat{A} (\hat{s}) + \hat{e} \in {R_q}^k$, $\hat{A}$ is generated from a
+$32$-bit random number $\rho$.  $\hat{A}$ is a $k \times k$ matrix.
+\\
+\\
+{\bf Encrypt($m, r$)}: \\
+${\vec r}(x)$ is generated from $CBD_{\eta_1}$ where the polynomial coefficients are in $R_q$ with
+dimension $4$. ${\vec e}_1 \in {R_q}^k$ is generated from $CBD_{\eta_2}$.
+${\vec u}(x) = NTT^{-1}(\hat{A}^T {\vec r}) + {\vec e}_1$. $\mu = decompress_1(decode_1(m))$ and
+$\nu= NTT^{-1}({\hat{t}}^T \cdot \hat{\vec r} + e_1 + \mu$. $c_1 = encode_{d_u}(compress_{d_u}({\vec u})$,
+$c_2 = encode_{d_v}(compress_{d_v}({\vec r})$.  Return $c_1, c_2$.
+\\
+\\
+{\bf Decrypt($c_1, c_2$)}: \\
+$w = \nu - NTT^{-1}(\hat{s} \cdot NTT(u))$.  Return $encode_1(compress_1(w))$.
+\\
+\\
+{\bf EKM-keygen():}
+\begin{enumerate}
+\item $z$ a $32$ byte random value.
+\item $e_{PKE}, d_{PKE}$ = kyber-keygen()
+\item $d_{KEM} = d_{PKE} || e_k || H(e_k) || z$
+\item ($e_{PKE}, dk_{KEM}$
+\end{enumerate}
+{\bf EKM-encaps():}
+\begin{enumerate}
+\item $m$ a $32$ byte random value.
+\item $(K, r) = SHA-3_{512}(m || H(ek))$
+\item $c = kyber-encrypt(ek, m, r)$
+\item $(K, c)$
+\end{enumerate}
+{\bf EKM-decaps():}
+\begin{enumerate}
+\item $m' = kyber-decrypt(dk, c)$
+\item $(K', r') = SHA-3(m' || H(ek))$
+\item $\overline{K}= SHAKE256(z||c, 32)$
+\item $c' = kyber-encrypt(ek, m', r')$A
+\item if ($c' == c$) return $K'$ else error
+\end{enumerate}
+
 \section{Symmetric Key Analysis}
 {\bf DES S Box Criteria:} (1) $S$ is not linear or affine in the inputs,
 (2) changing 1 bit of input changes at least 2 bits of output, (3)
