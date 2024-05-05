@@ -1605,7 +1605,7 @@ choose random noise vector, ${\vec r} \in \{ -\sigma, \sigma \}^n$.  ${\vec c} =
 called the Babai rounding of ${\vec c}$ with respect to  $B$).
 \end{enumerate}
 $B$, which was the private key, is a good basis for $\Lambda$ since its entries are small.  Note that it is
-likely that $\lfloor B^{-1}r\rceil = 0$, so $H^{-1}B \lfloor B^{-1} \rceil c = B^{-1}Hm + \lfloor B^{-1}r\rceil$.
+likely that $\lfloor B^{-1}r\rceil = 0$, so $H^{-1}B \lfloor B^{-1} c \rceil = B^{-1}Hm + \lfloor B^{-1}r\rceil$.
 and so $H^{-1}B \lfloor B^{-1}c \rceil = m$.
 {\bf NTRU public key scheme: }
 $R = {\mathbb Z}[x]/(x^N-1)$.  Define ${\cal T}(d_1, d_2)$ are ternary polynomials n $R$
@@ -1678,9 +1678,9 @@ $m,n,q \in {\mathbb N}$, $m \geq n, q \geq 2$, $\chi$ and error distribution on 
 length.  ${\cal M} = \{0, 1\}^l$, ${\cal C} = {\mathbb Z}_q^n \times {\mathbb Z}_q^l$.
 \begin{enumerate}
 \item Keys: Choose 
-$S \in {\mathbb Z}^{n \times l}$ and 
-$A \in {\mathbb Z}^{m \times n}$ uniformly at random and choose
-$E \in {\mathbb Z}^{m \times l}$  according to $\chi$.  Public key is $(A, P=AS+E)$.  Secret key is $S$.
+$S \in {{\mathbb Z}_q}^{n \times l}$ and 
+$A \in {{\mathbb Z}_q}^{m \times n}$ uniformly at random and choose
+$E \in {{\mathbb Z}_q}^{m \times l}$  according to $\chi$.  Public key is $(A, P=AS+E)$.  Secret key is $S$.
 \item to encrypt $v \in \{ 0, 1\}^l$, choose $a \in \{0, 1 \}^m$ uniformly at random.  Cipher is
 $(u,c) = (A^Ta, P^Ta + \lfloor {\frac q 2} \rceil v)$.
 \item To decrypt, $D = \lfloor \lfloor {\frac q 2}\rceil^{-1} (c - S^Tu)\rceil \jmod{2}$.
