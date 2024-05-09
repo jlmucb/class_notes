@@ -1606,7 +1606,8 @@ called the Babai rounding of ${\vec c}$ with respect to  $B$).
 \end{enumerate}
 $B$, which was the private key, is a good basis for $\Lambda$ since its entries are small.  Note that it is
 likely that $\lfloor B^{-1}r\rceil = 0$, so $H^{-1}B \lfloor B^{-1} c \rceil = B^{-1}Hm + \lfloor B^{-1}r\rceil$.
-and so $H^{-1}B \lfloor B^{-1}c \rceil = m$.
+and so $H^{-1}B \lfloor B^{-1}c \rceil = m$.\\
+\\
 {\bf NTRU public key scheme: }
 $R = {\mathbb Z}[x]/(x^N-1)$.  Define ${\cal T}(d_1, d_2)$ are ternary polynomials n $R$
 with $d_1$ coefficients $1$, $d_2$ coefficients
@@ -1655,8 +1656,8 @@ $a_1 \cdot s + e_1 = b_1$,
 $a_2 \cdot s + e_2 = b_2$,
 \ldots
 $a_m \cdot s + e_m = b_m$.
-We often use the discrete Gaussian for $\chi$: $p(x) = {\frac 1 c} e^{\frac {x^2}{2 \sigma^2}}, x \in {\mathbb Z}$,
-where $c = \sum_{k \in {\mathbb Z}} e^{\frac {k^2}{2 \sigma^2}} \approx \sigma \sqrt{2 \pi}$.  Parameter width is
+We often use the discrete Gaussian for $\chi$: $p(x) = {\frac 1 c} e^{\frac {-x^2}{2 \sigma^2}}, x \in {\mathbb Z}$,
+where $c = \sum_{k \in {\mathbb Z}} e^{\frac {-k^2}{2 \sigma^2}} \approx \sigma \sqrt{2 \pi}$.  Parameter width is
 $s = {\frac {s} {\sqrt{2 \pi}}}$.
 \\
 \\
@@ -1681,7 +1682,7 @@ length.  ${\cal M} = \{0, 1\}^l$, ${\cal C} = {\mathbb Z}_q^n \times {\mathbb Z}
 $S \in {{\mathbb Z}_q}^{n \times l}$ and 
 $A \in {{\mathbb Z}_q}^{m \times n}$ uniformly at random and choose
 $E \in {{\mathbb Z}_q}^{m \times l}$  according to $\chi$.  Public key is $(A, P=AS+E)$.  Secret key is $S$.
-\item to encrypt $v \in \{ 0, 1\}^l$, choose $a \in \{0, 1 \}^m$ uniformly at random.  Cipher is
+\item To encrypt $v \in \{ 0, 1\}^l$, choose $a \in \{0, 1 \}^m$ uniformly at random.  Cipher is
 $(u,c) = (A^Ta, P^Ta + \lfloor {\frac q 2} \rceil v)$.
 \item To decrypt, $D = \lfloor \lfloor {\frac q 2}\rceil^{-1} (c - S^Tu)\rceil \jmod{2}$.
 \end{enumerate}
@@ -1875,7 +1876,7 @@ $m = x^3 + x$.
 \item New hope uses ring LWE with parameters $q=12289$, $n=1024$.
 \item Frodo uses LWE onunstructures lattices with $m=n=1344$, $q= 2^{16}$, $\sigma = 1.4$,
 $-6 \leq x \leq 6$, for AES-256 parity.  Cipher text size is $21644$-bytes.  Decoding
-error rate is $2^{-252}$.  The public key size is about 1 Mb.
+error rate is $2^{-252}$.  The public key size is about 1 MB.
 \item The NTRU parameters are $n=1024$ $N=743$, $q=2048$, $d_1=11$, $d_2=11$ giving
 $256$-bit security.  Public key size about 2 KB.
 \item McElice uses $n=6960$, $k=5413$, $t=119$ with a Goppa code.  The key size
@@ -1883,11 +1884,11 @@ is $8$MB.
 \end{enumerate}
 The winners were Dilithium (for signing) and Kyber (for key encapsulation).  For both,
 put $R_q = {{\mathbb Z}_q}^{k} / (x^{256} + 1)$.
-$||w||+{\infty} = max_i \{\pi_w(w) \}$ and $S_{\eta} = \{ w \in S : ||w||_{\infty} \leq \eta$.
+$||w||_{\infty} = max_i \{\pi_i(w) \}$ and $S_{\eta} = \{ w \in S : ||w||_{\infty} \leq \eta \}$.
 $1753$ is a primitive root of unity.
 \\
 \\
-For Dilithium, $q = 2^{23} - 2^{13} + 1$. Parameters are $(k, l, \eta, \gamma_1, \gamma_2, \beta)$ with $\beta \leq 60 \eta)$.
+For Dilithium, $q = 2^{23} - 2^{13} + 1$. Parameters are $(k, l, \eta, \gamma_1, \gamma_2, \beta)$ with $\beta \leq 60 \eta$.
 We use $k=5, l=4, \gamma_1 = {\frac {q - 1} {16}}, \gamma_2 = {\frac {\gamma_1} {2}}, \eta = 5, \beta=275$.
 \\
 \\
@@ -1919,8 +1920,8 @@ Public key is $PK=(A, t)$, private key is $pk=(s_1, s_2)$.
 \\
 \\
 For Kyber, $q= 3329$, $g=17$ is a primitive $512$ root of unity.  $\hat{x}$ means
-NTT applied to $x$ which turns a vector $x \in {R_q}^k$, into a $128$ components consisting
-of linear polynomial mod $x^2 - {\gamma}^{2k+1}$.
+NTT applied to $x$, which turns a vector $x \in {R_q}^k$, into $128$ components each
+consisting of linear polynomial mod $x^2 - {\gamma}^{2k+1}$.
 \\
 \\
 {\bf Gen}: \\
@@ -1933,7 +1934,7 @@ ${\vec r}(x)$ is generated from $CBD_{\eta_1}$ where the polynomial coefficients
 dimension $4$. ${\vec e}_1 \in {R_q}^k$ is generated from $CBD_{\eta_2}$.
 ${\vec u}(x) = NTT^{-1}(\hat{A}^T {\vec r}) + {\vec e}_1$. $\mu = decompress_1(decode_1(m))$ and
 $\nu= NTT^{-1}({\hat{t}}^T \cdot \hat{\vec r} + e_1 + \mu$. $c_1 = encode_{d_u}(compress_{d_u}({\vec u})$,
-$c_2 = encode_{d_v}(compress_{d_v}({\vec r})$.  Return $c_1, c_2$.
+$c_2 = encode_{d_v}(compress_{d_v}({\vec r})$.  Return $(c_1, c_2)$.
 \\
 \\
 {\bf Decrypt($c_1, c_2$)}: \\
@@ -1942,14 +1943,14 @@ $w = \nu - NTT^{-1}(\hat{s} \cdot NTT(u))$.  Return $encode_1(compress_1(w))$.
 \\
 {\bf EKM-keygen():}
 \begin{enumerate}
-\item $z$ a $32$ byte random value.
+\item $z$, a $32$ byte random value.
 \item $e_{PKE}, d_{PKE}$ = kyber-keygen()
 \item $d_{KEM} = d_{PKE} || e_k || H(e_k) || z$
-\item ($e_{PKE}, dk_{KEM}$
+\item ($e_{PKE}, dk_{KEM}$)
 \end{enumerate}
 {\bf EKM-encaps():}
 \begin{enumerate}
-\item $m$ a $32$ byte random value.
+\item $m$, a $32$ byte random value.
 \item $(K, r) = SHA-3_{512}(m || H(ek))$
 \item $c = kyber-encrypt(ek, m, r)$
 \item $(K, c)$
