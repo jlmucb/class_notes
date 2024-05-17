@@ -1599,7 +1599,7 @@ Let $n \in {\mathbb N}$ be the security parameter. $M \in {\mathbb Z}$ and $\sig
 \item ${\cal M} = \{ -M, \ldots , 0, 1, \ldots M\}^n$ is the message space ${\cal C} = {\mathbb Z}^n$ is the cipherspace.
 \item For key generation, choose $B \in {\mathbb Z}^{n \times n}$ uniformly over small integers (say between $-4$ and
 $4$).  Check that $B$ is invertible (over ${\mathbb Q}$).  $B$ is the private key.  Let $H$ be the HNF of $B$.  $H$ is the public key.
-\item To encrypt, ${\vec m} \in \{ -M \ldots 0, 1, \ldots M\}$,
+\item To encrypt, ${\vec m} \in \{ -M \ldots 0, 1, \ldots M\}^n$,
 choose random noise vector, ${\vec r} \in \{ -\sigma, \sigma \}^n$.  ${\vec c} = H{\vec m} + r$.
 \item To decrypt, ${\vec m} = H^{-1} B \lfloor B^{-1} {\vec c}\rceil$ ( $ \lfloor B^{-1} {\vec c} \rceil$ is
 called the Babai rounding of ${\vec c}$ with respect to  $B$).
