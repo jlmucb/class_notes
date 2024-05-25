@@ -202,6 +202,23 @@ $G \ne O^{\pi'}(G)$.
 \emph{Proof:}  
 Follows from Theorem 11.
 \end{quote}
+{\bf Theorem:}  Let $P \in S_p(G)$.  (i) $\exists K \lhd G: G/K \cong P/(P \cap G')$, (ii) If
+$K \lhd G$ and $G/K$ is an abelian $p$-group, then $P \cap G' \subseteq K$ and $G/K \cong P/(P \cap G')$.
+\begin{quote}
+\emph{Proof:}
+(ii): $G$ is abelian so $G' \subseteq K$.  $G=KP \cong P/(P \cap K)$. $G' \cap P \subseteq K \cap P$ so
+$P/(P \cap K)$ is a homomorphic image of $P/(P \cap G')$. \\
+(i) $P \cap G' \in S_P(G')$ and $G' \lhd G$.  Put ${\overline G} = G/G'$. ${\overline G}$ is abelian.  Let
+$K$ be the inverse image of $O_{p'}({\overline G})$.  $G' \subseteq K$ so $P \cap G' \subseteq P \cap K$
+but $P/(P \cap K)$ is a homomorphic image of $P/(P \cap G')$ so $P \cap K = P \cap G'$.
+\end{quote}
+{\bf Theorem:}  If $P \in S_p(G)$, $Foc_G(P) = P \cap G'$ .
+\begin{quote}
+\emph{Proof:} $P' \subseteq Foc_G(P) \subseteq P \cap G'$.  $P/Foc_G(P)$ is abelian.  Let $\phi$ be the
+natural map $P \rightarrow P/Foc_G(P)$ and $\tau$ the transfer from $P$ to $P/Foc_G(P)$ and put
+$K = ker(\tau)$.  $P/Foc_G(P)$ is a homomorphic image of $P/(P \cap G')$ so $|P/(P \cap G')| > |P/Foc_G(P)|$.
+Since $Foc_G(P) \subseteq P \cap G'$, this means $Foc_G(P) = P \cap G'$.
+\end{quote}
 {\bf Burnside's Lemma:}  If $P \in S_p(G)$, $A_1, A_2 \subseteq P$ with 
 $(A_i)^x = A_i, \forall x \in P, i= 1, 2$, then
 if $A_1^g=A_2$, then $\exists h \in N_G(P): A_1^h=A_2$. ($N(P)$ controls fusion in $P$.)
