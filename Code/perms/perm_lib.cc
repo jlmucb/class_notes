@@ -99,3 +99,14 @@ bool parse_perm_string(const char* s, int n, byte* a) {
 
   return true;
 }
+
+bool commutes(int n, byte* a, byte* b) {
+  byte r1[n];
+  byte r2[n];
+
+  if (!multiply_perms(n, a, b, r1))
+    return false;
+  if (!multiply_perms(n, b, a, r2))
+    return false;
+  return perms_equal(n, r1, r2);
+}

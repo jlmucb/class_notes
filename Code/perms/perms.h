@@ -32,6 +32,7 @@ bool multiply_perms(int n, byte* a, byte* b ,byte* r);
 bool inverse_perms(int n, byte* a, byte* b);
 bool perms_equal(int n, byte* a, byte* b);
 bool is_identity(int n, byte* a);
+bool commutes(int n, byte* a, byte* b);
 
 bool parse_perm_string(const char* s, int n, byte* a);
 
