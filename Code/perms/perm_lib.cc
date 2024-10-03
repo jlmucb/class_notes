@@ -56,11 +56,17 @@ void print_perm_cycles(int n, byte* a) {
     printf("1");
 }
 
-bool multiply_perms(int n, byte* a, byte* b) {
+bool multiply_perms(int n, byte* a, byte* b, byte* r) {
+  for (int i = 0; i < n; i++) {
+    r[i] = b[a[i]-1];
+  }
   return true;
 }
 
 bool inverse_perms(int n, byte* a, byte* b) {
+  for (int i = 0; i < n; i++) {
+    b[a[i] - 1] = i + 1;
+  }
   return true;
 }
 
@@ -72,4 +78,11 @@ bool perms_equal(int n, byte* a, byte* b) {
   return true;
 }
 
+bool is_identity(int n, byte* a) {
+  for (int i = 0; i < n; i++) {
+    if (a[i] != (i + 1))
+      return false;
+  }
+  return true;
+}
 

@@ -28,8 +28,9 @@ typedef unsigned char byte;
 void print_perm(int n, byte* a);
 void print_perm_cycles(int n, byte* a);
 
-bool multiply_perms(int n, byte* a, byte* b);
+bool multiply_perms(int n, byte* a, byte* b ,byte* r);
 bool inverse_perms(int n, byte* a, byte* b);
 bool perms_equal(int n, byte* a, byte* b);
+bool is_identity(int n, byte* a);
 
 #endif

@@ -75,7 +75,47 @@ bool test_equal() {
 }
 
 bool test_mult() {
-  printf("num_perm_test_ops: %d\n", num_perm_test_ops);
+  int n = 6;
+  byte a[n];
+  byte b[n];
+  byte c[n];
+  a[0]= 2; a[1]=3; a[2] = 1; a[3] = 5; a[4]= 6; a[5]= 4;
+  if (!multiply_perms(n, a, a ,c))
+    return false;
+  print_perm_cycles(n, a);
+  printf(" ");
+  print_perm_cycles(n, a);
+  printf(" = ");
+  print_perm_cycles(n, c);
+  printf("\n");
+
+  b[0]= 2; b[1]= 1; b[2] = 3; b[3] = 4; b[4]= 5; b[5]= 6;
+  if (!multiply_perms(n, a, b ,c))
+    return false;
+  print_perm_cycles(n, a);
+  printf(" ");
+  print_perm_cycles(n, b);
+  printf(" = ");
+  print_perm_cycles(n, c);
+  printf("\n");
+   
+  byte d[n];
+  if (!inverse_perms(n, a, d))
+    return false;
+  printf("inverse of ");
+  print_perm_cycles(n, a);
+  printf(" = ");
+  print_perm_cycles(n, d);
+  printf("\n");
+
+  byte e[n];
+  if (!multiply_perms(n, a, d ,e))
+    return false;
+  if (is_identity(n, e))
+    printf("identity\n");
+  else
+    printf("error\n");
+
   return true;
 }
 
