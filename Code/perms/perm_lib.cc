@@ -86,3 +86,16 @@ bool is_identity(int n, byte* a) {
   return true;
 }
 
+bool parse_perm_string(const char* s, int n, byte* a) {
+  if(strlen(s) != n)
+    return false;
+
+  for (int i = 0; i < n; i++) {
+    int j = (int)s[i] - (int)'0';
+     if (j < 0 || j > 9)
+      return false;
+    a[i] = j;
+  } 
+
+  return true;
+}

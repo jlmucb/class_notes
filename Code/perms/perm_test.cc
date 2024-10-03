@@ -119,9 +119,32 @@ bool test_mult() {
   return true;
 }
 
+bool test_parse() {
+  int n = 6;
+  byte a[n];
+
+  const char* s = "123456";
+  if (!parse_perm_string(s, n, a))
+    return false;
+
+  printf("%s -->", s);
+  print_perm_cycles(n, a);
+  printf("\n");
+
+  s = "234561";
+  if (!parse_perm_string(s, n, a))
+    return false;
+
+  printf("%s -->", s);
+  print_perm_cycles(n, a);
+  printf("\n");
+  return true;
+}
+
 TEST (perms, test_perms) {
   EXPECT_TRUE(test_equal());
   EXPECT_TRUE(test_mult());
+  EXPECT_TRUE(test_parse());
 }
 
 int main(int an, char** av) {
