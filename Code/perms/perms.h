@@ -25,4 +25,11 @@
 typedef unsigned char byte;
 #endif
 
+void print_perm(int n, byte* a);
+void print_perm_cycles(int n, byte* a);
+
+bool multiply_perms(int n, byte* a, byte* b);
+bool inverse_perms(int n, byte* a, byte* b);
+bool perms_equal(int n, byte* a, byte* b);
+
 #endif

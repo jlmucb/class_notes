@@ -41,12 +41,46 @@ void print_options() {
 
 DEFINE_bool(print_all, false, "Print intermediate test computations");
 
+bool test_equal() {
+  int n = 6;
+  byte a[n];
+  byte b[n];
+
+  for(int i = 0; i < n; i++) {
+    a[i]= i + 1;
+    b[i]= i + 1;
+  }
+  b[0]= 2;
+  b[1]= 1;
+
+  if (!perms_equal(n, a, a))
+    return false;
+  if (perms_equal(n, a, b))
+    return false;
+
+  print_perm(n, a);
+  printf(" ");
+  print_perm(n, b);
+  printf("\n");
+
+  print_perm_cycles(n, a);
+  printf("\n");
+  print_perm_cycles(n, b);
+  printf("\n");
+  byte c[n];
+  c[0]= 2; c[1]=3; c[2] = 1; c[3] = 5; c[4]= 6; c[5]= 4;
+  print_perm_cycles(n, c);
+  printf("\n");
+  return true;
+}
+
 bool test_mult() {
   printf("num_perm_test_ops: %d\n", num_perm_test_ops);
   return true;
 }
 
 TEST (perms, test_perms) {
+  EXPECT_TRUE(test_equal());
   EXPECT_TRUE(test_mult());
 }
 

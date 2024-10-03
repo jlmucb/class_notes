@@ -14,5 +14,62 @@
 
 #include <perms.h>
 
+void print_perm(int n, byte* a) {
+  printf("[ ");
+  for (int i = 0; i < n; i++)
+    printf("%02d ", a[i]);
+  printf("] ");
+}
+
+void print_perm_cycles(int n, byte* a) {
+  bool something_printed = false;
+  bool seen[n];
+
+  for (int i = 0; i < n; i++)
+    seen[i] = false;
+
+  for (int i = 0; i < n; i++) {
+    if (seen[i])
+      continue;
+
+    int last = i + 1;
+    seen[i] = true;
+    if (a[i] == last)
+      continue;
+    something_printed = true;
+
+    printf("(%2d ", last);
+    for (;;) {
+      int k = a[last - 1];
+      int index = k - 1;
+      last = k;
+      if (seen[index]) {
+        printf(")");
+        break;
+      }
+      printf("%2d ", k);
+      seen[index] = true;
+    }
+  }
+
+  if(!something_printed)
+    printf("1");
+}
+
+bool multiply_perms(int n, byte* a, byte* b) {
+  return true;
+}
+
+bool inverse_perms(int n, byte* a, byte* b) {
+  return true;
+}
+
+bool perms_equal(int n, byte* a, byte* b) {
+  for (int i = 0; i < n; i++) {
+    if (a[i] != b[i])
+      return false;
+  }
+  return true;
+}
 
 
