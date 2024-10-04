@@ -80,8 +80,10 @@ bool test_calc_p2() {
 
   for (int i = 0; i < 3; i++) {
     for (int j = 0; j < 8; j++) {
-      if (!multiply_perms(6, &three[6 * i], &eight[6 * j] ,&twenty_four[6 * (8 * i + j)]))
+      if (!multiply_perms(6, &three[6 * i], &eight[6 * j] ,&twenty_four[6 * (8 * i + j)])) {
+        printf("Couldn't mult perms 1\n");
         return false;
+      }
     }
   }
 
@@ -103,8 +105,10 @@ bool test_calc_p2() {
     fourty_eight[i]= twenty_four[i]; 
   }
   for (int i = 0; i < 24; i++) {
-      if (!multiply_perms(6, t, &twenty_four[6 * i], &fourty_eight[6 * (i + 24)]))
+      if (!multiply_perms(6, t, &twenty_four[6 * i], &fourty_eight[6 * (i + 24)])) {
+        printf("Couldn't mult perms 2 at %d\n", i);
         return false;
+      }
   }
 
   printf("\nfourty eight\n");
@@ -116,6 +120,18 @@ bool test_calc_p2() {
   printf("\n");
   printf("\n");
   printf("Done\n");
+
+  if (!perm_in_set(6, b_involution, 48, fourty_eight)) {
+    printf("perm_ in_set_failure (1)\n");
+    return false;
+  }
+  byte not_t[6] = {
+    2,3,4,5,6,1
+  };
+  if (perm_in_set(6, not_t, 48, fourty_eight)) {
+    printf("perm_ in_set_failure (2)\n");
+    return false;
+  }
 
   return true;
 }
@@ -140,6 +156,16 @@ bool test_p1() {
   printf("\n");
   printf("\n");
 
+  for (int i = 0; i < 48; i++) {
+    if(!commutes(6, a_involution, &P1_perms[6 * i])) {
+      printf("P1 commute fails at %d: ", i);
+      print_perm_cycles(6,&P1_perms[6 * i]);
+      printf("\n");
+      return false;
+    }
+  }
+
+  printf("Commute test succeeded on P1\n");
   return true;
 }
 
@@ -162,6 +188,16 @@ bool test_p2() {
   printf("\n");
   printf("\n");
 
+  for (int i = 0; i < 48; i++) {
+    if(!commutes(6, b_involution, &P2_perms[6 * i])) {
+      printf("P2 commute fails at %d: ", i);
+      print_perm_cycles(6,&P2_perms[6 * i]);
+      printf("\n");
+      return false;
+    }
+  }
+
+  printf("Commute test succeeded on P2\n");
   return true;
 }
 
@@ -315,8 +351,8 @@ TEST (perms, test_perms) {
   EXPECT_TRUE(test_equal());
   EXPECT_TRUE(test_mult());
   EXPECT_TRUE(test_p1());
-  EXPECT_TRUE(test_p2());
   EXPECT_TRUE(test_calc_p2());
+  EXPECT_TRUE(test_p2());
 }
 
 int main(int an, char** av) {

@@ -110,3 +110,12 @@ bool commutes(int n, byte* a, byte* b) {
     return false;
   return perms_equal(n, r1, r2);
 }
+
+bool perm_in_set(int n, byte* a, int m, byte* b) {
+  for (int i = 0; i < m; i++) {
+    if (perms_equal(n, a, &b[n * i])) {
+      return true;
+    }
+  }
+  return false;
+}
