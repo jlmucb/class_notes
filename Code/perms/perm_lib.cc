@@ -119,3 +119,13 @@ bool perm_in_set(int n, byte* a, int m, byte* b) {
   }
   return false;
 }
+
+bool cosets_intersect(byte* P1_union, int c1, byte* P2_union, int c2) {
+  for (int i = 0; i < 48; i++) {
+    for (int j = 0; j < 48; j++) {
+      if (perms_equal(6, &P1_union[48 * 6 * c1 + 6 * i], &P2_union[48 * 6 * c2 + 6 * j]))
+        return true;
+    }
+  }
+  return false;
+}

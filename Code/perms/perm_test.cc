@@ -275,6 +275,67 @@ bool test_p2() {
   return true;
 }
 
+bool test_edges() {
+  printf("test_edges\n");
+  for (int i = 0; i < 48; i++) {
+    if(!parse_perm_string(P1_str[i], 6, &P1_perms[6 * i])) {
+      printf("Couldn't parse P1 string %d\n", i);
+      return false;
+    }
+  }
+  for (int i = 0; i < 48; i++) {
+    if(!parse_perm_string(P2_str[i], 6, &P2_perms[6 * i])) {
+      printf("Couldn't parse P2 string %d\n", i);
+      return false;
+    }
+  }
+  for (int i = 0; i < 15; i++) {
+    if(!parse_perm_string(P1_coset_reps_str[i], 6, &P1_coset_reps[6 * i])) {
+      printf("Couldn't parse P1 coset rep  string %d\n", i);
+      return false;
+    }
+  }
+  for (int i = 0; i < 15; i++) {
+    if(!parse_perm_string(P2_coset_reps_str[i], 6, &P2_coset_reps[6 * i])) {
+      printf("Couldn't parse P2 coset rep  string %d\n", i);
+      return false;
+    }
+  }
+
+  for (int i = 0; i < 15; i++) {
+    for (int j= 0; j < 48; j++) {
+      if (!multiply_perms(6, &P1_perms[6 * j], &P1_coset_reps[6 * i], &P1_coset_union[48 * 6 * i + 6 * j])) {
+        printf("Couldn't mult perms 7\n");
+        return false;
+      }
+    }
+  }
+  for (int i = 0; i < 15; i++) {
+    for (int j= 0; j < 48; j++) {
+      if (!multiply_perms(6, &P2_perms[6 * j], &P2_coset_reps[6 * i], &P2_coset_union[48 * 6 * i + 6 * j])) {
+        printf("Couldn't mult perms 8\n");
+        return false;
+      }
+    }
+  }
+
+  int num_edges = 0;
+  for(int c1 = 0; c1 < 15; c1++) {
+    for(int c2 = 0; c2 < 15; c2++) {
+      if(cosets_intersect(P1_coset_union, c1, P2_coset_union, c2)) {
+        num_edges++;
+        printf("[P1 ");
+        print_perm_cycles(6, &P1_coset_reps[6 * c1]);
+        printf(", P2 ");
+        print_perm_cycles(6, &P2_coset_reps[6 * c2]);
+        printf("]\n");
+      }
+    }
+  }
+  printf("\n%d edges\n", num_edges);
+  return true;
+}
+
 bool test_equal() {
   int n = 6;
   byte a[n];
@@ -427,6 +488,7 @@ TEST (perms, test_perms) {
   EXPECT_TRUE(test_p1());
   EXPECT_TRUE(test_calc_p2());
   EXPECT_TRUE(test_p2());
+  EXPECT_TRUE(test_edges());
 }
 
 int main(int an, char** av) {

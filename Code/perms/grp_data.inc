@@ -202,3 +202,6 @@ byte three[6 * 3];
 byte twenty_four[6 * 24];
 byte fourty_eight[6 * 48];
 
+byte P1_coset_union[6 * 720];
+byte P2_coset_union[6 * 720];
+

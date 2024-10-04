@@ -34,6 +34,7 @@ bool perms_equal(int n, byte* a, byte* b);
 bool is_identity(int n, byte* a);
 bool commutes(int n, byte* a, byte* b);
 bool perm_in_set(int n, byte* a, int m, byte* b);
+bool cosets_intersect(byte* P1_union, int c1, byte* P2_union, int c2);
 
 bool parse_perm_string(const char* s, int n, byte* a);
 
