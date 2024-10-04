@@ -164,39 +164,7 @@ bool test_p1() {
       return false;
     }
   }
-
   printf("Commute test succeeded on P1\n");
-  return true;
-}
-
-bool test_p2() {
-  printf("test_p2\n"); 
-
-  for (int i = 0; i < 48; i++) {
-    if(!parse_perm_string(P2_str[i], 6, &P2_perms[6 * i])) {
-      printf("Couldn't parse P2 string %d\n", i);
-      return false;
-    }
-  }
-
-  printf("\nP2\n");
-  for (int i = 0; i < 48; i++) {
-    printf("    ");
-    print_perm_cycles(6, &P2_perms[6 * i]);
-    printf("\n");
-  }
-  printf("\n");
-  printf("\n");
-
-  for (int i = 0; i < 48; i++) {
-    if(!commutes(6, b_involution, &P2_perms[6 * i])) {
-      printf("P2 commute fails at %d: ", i);
-      print_perm_cycles(6,&P2_perms[6 * i]);
-      printf("\n");
-      return false;
-    }
-  }
-  printf("Commute test succeeded on P2\n");
 
   for (int i = 0; i < 15; i++) {
     if(!parse_perm_string(P1_coset_reps_str[i], 6, &P1_coset_reps[6 * i])) {
@@ -232,6 +200,75 @@ bool test_p2() {
         print_perm_cycles(6, &P1_coset_reps[6 * j]);
         printf("\n");
         return false;
+      }
+    }
+  }
+  return true;
+}
+
+bool test_p2() {
+  printf("test_p2\n"); 
+
+  for (int i = 0; i < 48; i++) {
+    if(!parse_perm_string(P2_str[i], 6, &P2_perms[6 * i])) {
+      printf("Couldn't parse P2 string %d\n", i);
+      return false;
+    }
+  }
+
+  printf("\nP2\n");
+  for (int i = 0; i < 48; i++) {
+    printf("    ");
+    print_perm_cycles(6, &P2_perms[6 * i]);
+    printf("\n");
+  }
+  printf("\n");
+  printf("\n");
+
+  for (int i = 0; i < 48; i++) {
+    if(!commutes(6, b_involution, &P2_perms[6 * i])) {
+      printf("P2 commute fails at %d: ", i);
+      print_perm_cycles(6,&P2_perms[6 * i]);
+      printf("\n");
+      return false;
+    }
+  }
+  printf("Commute test succeeded on P2\n");
+
+  for (int i = 0; i < 15; i++) {
+    if(!parse_perm_string(P2_coset_reps_str[i], 6, &P2_coset_reps[6 * i])) {
+      printf("Couldn't parse P2 coset rep  string %d\n", i);
+      return false;
+    }
+  }
+  printf("\nP2 coset reps:\n");
+  for (int i = 0; i < 15; i++) {
+    printf("  ");
+    print_perm_cycles(6, &P2_coset_reps[6 * i]);
+    printf("\n");
+  }
+
+  // check cosets dont intersect
+  byte inv[6];
+  byte t[6];
+  for (int i = 0; i < 15; i++) {
+    for (int j = (i + 1); j < 15; j++) {
+      if (!inverse_perms(6, &P2_coset_reps[6 * j], inv)) {
+        printf("inverse_perms fails\n");
+        return false;
+      }
+      if (!multiply_perms(6, &P2_coset_reps[6 * i], inv, t)) {
+        printf("Couldn't mult perms 6\n");
+        return false;
+      }
+      if (perm_in_set(6, t, 48, P2_perms)) {
+        printf("coset %d and coset %d intersect\n", i, j);
+        printf("  ");
+        print_perm_cycles(6, &P2_coset_reps[6 * i]);
+        printf("  ");
+        print_perm_cycles(6, &P2_coset_reps[6 * j]);
+        printf("\n");
+        //return false;
       }
     }
   }
