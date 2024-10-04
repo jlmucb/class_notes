@@ -268,7 +268,7 @@ bool test_p2() {
         printf("  ");
         print_perm_cycles(6, &P2_coset_reps[6 * j]);
         printf("\n");
-        //return false;
+        return false;
       }
     }
   }
