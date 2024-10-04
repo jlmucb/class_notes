@@ -79,7 +79,7 @@ const char* P1_str[48] = {
 
 byte P1_perms[6 * 48];
 
-// P1_coset_reps (not right yet)
+// P1_coset_reps
 const char* P1_coset_reps_str[15] ={
   // 123456
   // ------
@@ -161,7 +161,7 @@ const char* P2_str[48] = {
 byte P2_perms[6 * 48];
 
 
-// P2_coset_reps (not right yet)
+// P2_coset_reps
 const char* P2_coset_reps_str[15] = {
   "123456", // e
   "321456", // (13)
@@ -179,7 +179,7 @@ const char* P2_coset_reps_str[15] = {
   "234561", // (123456)
   "423651", // (146)
 };
-byte P2_coset_reps[6 * 16];
+byte P2_coset_reps[6 * 15];
 
 const char* eight_str[8] = {
     "123456", // e
