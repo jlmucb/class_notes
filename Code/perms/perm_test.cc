@@ -43,6 +43,85 @@ DEFINE_bool(print_all, false, "Print intermediate test computations");
 
 #include "grp_data.inc"
 
+bool test_calc_p2() {
+  printf("test_calc_p2\n"); 
+
+  for (int i = 0; i < 8; i++) {
+    if(!parse_perm_string(eight_str[i], 6, &eight[6 * i])) {
+      printf("Couldn't parse eight string %d\n", i);
+      return false;
+    }
+  }
+
+  printf("\neight\n");
+  for (int i = 0; i < 8; i++) {
+    printf("    ");
+    print_perm_cycles(6, &eight[6 * i]);
+    printf("\n");
+  }
+  printf("\n");
+  printf("\n");
+  printf("test_p1\n"); 
+
+  for (int i = 0; i < 3; i++) {
+    if(!parse_perm_string(three_str[i], 6, &three[6 * i])) {
+      printf("Couldn't parse three string %d\n", i);
+      return false;
+    }
+  }
+
+  printf("\nthree\n");
+  for (int i = 0; i < 3; i++) {
+    printf("    ");
+    print_perm_cycles(6, &three[6 * i]);
+    printf("\n");
+  }
+  printf("\n");
+  printf("\n");
+
+  for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 8; j++) {
+      if (!multiply_perms(6, &three[6 * i], &eight[6 * j] ,&twenty_four[6 * (8 * i + j)]))
+        return false;
+    }
+  }
+
+  printf("\ntwenty four\n");
+  for (int i = 0; i < 24; i++) {
+    printf("    ");
+    print_perm_cycles(6, &twenty_four[6 * i]);
+    printf("\n");
+  }
+  printf("\n");
+  printf("\n");
+
+  byte t[6];
+  t[4] = 5; t[5] = 6;
+  t[1] =3; t[2] = 2;
+  t[0] = 4; t[3] = 1;
+
+  for (int i = 0; i < 144; i++) {
+    fourty_eight[i]= twenty_four[i]; 
+  }
+  for (int i = 0; i < 24; i++) {
+      if (!multiply_perms(6, t, &twenty_four[6 * i], &fourty_eight[6 * (i + 24)]))
+        return false;
+  }
+
+  printf("\nfourty eight\n");
+  for (int i = 0; i < 48; i++) {
+    printf("    ");
+    print_perm_cycles(6, &fourty_eight[6 * i]);
+    printf("\n");
+  }
+  printf("\n");
+  printf("\n");
+  printf("Done\n");
+
+  return true;
+}
+
+
 bool test_p1() {
   printf("test_p1\n"); 
 
@@ -221,6 +300,7 @@ TEST (perms, test_perms) {
   EXPECT_TRUE(test_mult());
   EXPECT_TRUE(test_p1());
   EXPECT_TRUE(test_p2());
+  EXPECT_TRUE(test_calc_p2());
 }
 
 int main(int an, char** av) {
