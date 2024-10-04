@@ -61,7 +61,6 @@ bool test_calc_p2() {
   }
   printf("\n");
   printf("\n");
-  printf("test_p1\n"); 
 
   for (int i = 0; i < 3; i++) {
     if(!parse_perm_string(three_str[i], 6, &three[6 * i])) {
@@ -146,6 +145,23 @@ bool test_p1() {
 
 bool test_p2() {
   printf("test_p2\n"); 
+
+  for (int i = 0; i < 48; i++) {
+    if(!parse_perm_string(P2_str[i], 6, &P2_perms[6 * i])) {
+      printf("Couldn't parse P2 string %d\n", i);
+      return false;
+    }
+  }
+
+  printf("\nP2\n");
+  for (int i = 0; i < 48; i++) {
+    printf("    ");
+    print_perm_cycles(6, &P2_perms[6 * i]);
+    printf("\n");
+  }
+  printf("\n");
+  printf("\n");
+
   return true;
 }
 
