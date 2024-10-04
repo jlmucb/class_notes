@@ -41,11 +41,41 @@ void print_options() {
 
 DEFINE_bool(print_all, false, "Print intermediate test computations");
 
+#include "grp_data.inc"
+
+bool test_p1() {
+  printf("test_p1\n"); 
+
+  for (int i = 0; i < 48; i++) {
+    if(!parse_perm_string(P1_str[i], 6, &P1_perms[6 * i])) {
+      printf("Couldn't parse P1 string %d\n", i);
+      return false;
+    }
+  }
+
+  printf("\nP1\n");
+  for (int i = 0; i < 48; i++) {
+    printf("    ");
+    print_perm_cycles(6, &P1_perms[6 * i]);
+    printf("\n");
+  }
+  printf("\n");
+  printf("\n");
+
+  return true;
+}
+
+bool test_p2() {
+  printf("test_p2\n"); 
+  return true;
+}
+
 bool test_equal() {
   int n = 6;
   byte a[n];
   byte b[n];
 
+  printf("test_equal\n"); 
   for(int i = 0; i < n; i++) {
     a[i]= i + 1;
     b[i]= i + 1;
@@ -58,19 +88,21 @@ bool test_equal() {
   if (perms_equal(n, a, b))
     return false;
 
-  print_perm(n, a);
-  printf(" ");
-  print_perm(n, b);
-  printf("\n");
+  if(FLAGS_print_all) {
+    print_perm(n, a);
+    printf(" ");
+    print_perm(n, b);
+    printf("\n");
 
-  print_perm_cycles(n, a);
-  printf("\n");
-  print_perm_cycles(n, b);
-  printf("\n");
-  byte c[n];
-  c[0]= 2; c[1]=3; c[2] = 1; c[3] = 5; c[4]= 6; c[5]= 4;
-  print_perm_cycles(n, c);
-  printf("\n");
+    print_perm_cycles(n, a);
+    printf("\n");
+    print_perm_cycles(n, b);
+    printf("\n");
+    byte c[n];
+    c[0]= 2; c[1]=3; c[2] = 1; c[3] = 5; c[4]= 6; c[5]= 4;
+    print_perm_cycles(n, c);
+    printf("\n");
+  }
   return true;
 }
 
@@ -80,41 +112,78 @@ bool test_mult() {
   byte b[n];
   byte c[n];
   a[0]= 2; a[1]=3; a[2] = 1; a[3] = 5; a[4]= 6; a[5]= 4;
+
+  printf("test_mult\n");
   if (!multiply_perms(n, a, a ,c))
     return false;
-  print_perm_cycles(n, a);
-  printf(" ");
-  print_perm_cycles(n, a);
-  printf(" = ");
-  print_perm_cycles(n, c);
-  printf("\n");
+
+  if(FLAGS_print_all) {
+    print_perm_cycles(n, a);
+    printf(" ");
+    print_perm_cycles(n, a);
+    printf(" = ");
+    print_perm_cycles(n, c);
+    printf("\n");
+  }
 
   b[0]= 2; b[1]= 1; b[2] = 3; b[3] = 4; b[4]= 5; b[5]= 6;
   if (!multiply_perms(n, a, b ,c))
     return false;
-  print_perm_cycles(n, a);
-  printf(" ");
-  print_perm_cycles(n, b);
-  printf(" = ");
-  print_perm_cycles(n, c);
-  printf("\n");
+  if(FLAGS_print_all) {
+    print_perm_cycles(n, a);
+    printf(" ");
+    print_perm_cycles(n, b);
+    printf(" = ");
+    print_perm_cycles(n, c);
+    printf("\n");
+
+    print_perm_cycles(n, a);
+    printf("  and ");
+    print_perm_cycles(n, a);
+  }
+  if (commutes(n, a, a)) {
+    if(FLAGS_print_all) {
+        printf("  commute\n");
+    }
+  } else {
+    if(FLAGS_print_all) {
+      printf("  do not comute\n");
+    }
+    return false;
+  }
+
+  if(FLAGS_print_all) {
+    print_perm_cycles(n, a);
+    printf("  and ");
+    print_perm_cycles(n, b);
+  }
+  if (!commutes(n, a, b)) {
+    if(FLAGS_print_all) {
+      printf("  do not commute\n");
+    }
+  } else {
+    if(FLAGS_print_all) {
+      printf("  commute\n");
+    }
+      return false;
+  }
    
   byte d[n];
   if (!inverse_perms(n, a, d))
     return false;
-  printf("inverse of ");
-  print_perm_cycles(n, a);
-  printf(" = ");
-  print_perm_cycles(n, d);
-  printf("\n");
+  if(FLAGS_print_all) {
+    printf("inverse of ");
+    print_perm_cycles(n, a);
+    printf(" = ");
+    print_perm_cycles(n, d);
+    printf("\n");
+  }
 
   byte e[n];
   if (!multiply_perms(n, a, d ,e))
     return false;
-  if (is_identity(n, e))
-    printf("identity\n");
-  else
-    printf("error\n");
+  if (!is_identity(n, e))
+    return false;
 
   return true;
 }
@@ -123,28 +192,35 @@ bool test_parse() {
   int n = 6;
   byte a[n];
 
+  printf("test_parse\n");
   const char* s = "123456";
   if (!parse_perm_string(s, n, a))
     return false;
 
-  printf("%s -->", s);
-  print_perm_cycles(n, a);
-  printf("\n");
+  if(FLAGS_print_all) {
+    printf("%s -->", s);
+    print_perm_cycles(n, a);
+    printf("\n");
+  }
 
   s = "234561";
   if (!parse_perm_string(s, n, a))
     return false;
 
-  printf("%s -->", s);
-  print_perm_cycles(n, a);
-  printf("\n");
+  if(FLAGS_print_all) {
+    printf("%s -->", s);
+    print_perm_cycles(n, a);
+    printf("\n");
+  }
   return true;
 }
 
 TEST (perms, test_perms) {
+  EXPECT_TRUE(test_parse());
   EXPECT_TRUE(test_equal());
   EXPECT_TRUE(test_mult());
-  EXPECT_TRUE(test_parse());
+  EXPECT_TRUE(test_p1());
+  EXPECT_TRUE(test_p2());
 }
 
 int main(int an, char** av) {
@@ -157,6 +233,23 @@ int main(int an, char** av) {
  gflags::ParseCommandLineFlags(&an, &av, true);
   an = 1;
   ::testing::InitGoogleTest(&an, av);
+
+  if(!parse_perm_string(a_involution_str, 6, a_involution)) {
+    printf("Couldn't parse a_involution\n");
+    return 1;
+  }
+  if(!parse_perm_string(b_involution_str, 6, b_involution)) {
+    printf("Couldn't parse b_involution\n");
+    return 1;
+  }
+
+  printf("\na_involution: ");
+  print_perm_cycles(6, a_involution);
+  printf("\n");
+  printf("b_involution: ");
+  print_perm_cycles(6, b_involution);
+  printf("\n");
+  printf("\n");
 
   int result = RUN_ALL_TESTS();
   return result;
