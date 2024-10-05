@@ -179,6 +179,32 @@ bool test_p1() {
     printf("\n");
   }
 
+//#define TESTER
+#ifdef TESTER
+  int num_printed = 0;
+  byte tt[6];
+  printf("\n\n****TEST**\n");
+  for (int i = 0; i < 15; i++) {
+    for (int j = 0; j < 48; j++) {
+      if (!multiply_perms(6, &P1_perms[6 * j], &P1_coset_reps[6 * i], tt)) {
+        printf("mp fails TT\n");
+        return false;
+      }
+      byte ss[6];
+      if (!multiply_perms(6, tt, tt, ss)) {
+        printf("mp fails SS\n");
+        return false;
+      }
+      if (!is_identity(6, ss))
+        continue;
+      num_printed++;
+      print_perm_cycles(6, tt);
+      printf("\n");
+    }
+  }
+  printf("\n%d printed\n****END TEST**\n\n", num_printed);
+#endif
+
   // check cosets dont intersect
   byte inv[6];
   byte t[6];
