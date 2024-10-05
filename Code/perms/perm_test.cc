@@ -303,6 +303,7 @@ bool test_p2() {
 
 bool test_edges() {
   printf("\ntest_edges\n");
+
   for (int i = 0; i < 48; i++) {
     if(!parse_perm_string(P1_str[i], 6, &P1_perms[6 * i])) {
       printf("Couldn't parse P1 string %d\n", i);
@@ -315,22 +316,28 @@ bool test_edges() {
       return false;
     }
   }
+  printf("\nP1 cosets:\n");
   for (int i = 0; i < 15; i++) {
     if(!parse_perm_string(P1_coset_reps_str[i], 6, &P1_coset_reps[6 * i])) {
       printf("Couldn't parse P1 coset rep  string %d\n", i);
       return false;
     }
+    printf("  "); print_perm_cycles(6,  &P1_coset_reps[6 * i]);printf("\n");
   }
+  printf("\nP2 cosets:\n");
   for (int i = 0; i < 15; i++) {
     if(!parse_perm_string(P2_coset_reps_str[i], 6, &P2_coset_reps[6 * i])) {
       printf("Couldn't parse P2 coset rep  string %d\n", i);
       return false;
     }
+    printf("  "); print_perm_cycles(6,  &P2_coset_reps[6 * i]);printf("\n");
   }
 
+  memset(P1_coset_union, 0, 720 * 6);
+  memset(P2_coset_union, 0, 720 * 6);
   for (int i = 0; i < 15; i++) {
     for (int j= 0; j < 48; j++) {
-      if (!multiply_perms(6, &P1_perms[6 * j], &P1_coset_reps[6 * i], &P1_coset_union[48 * 6 * i + 6 * j])) {
+      if (!multiply_perms(6, &P1_perms[6 * j], &P1_coset_reps[6 * i], &P1_coset_union[(48 * 6 * i) + (6 * j)])) {
         printf("Couldn't mult perms 7\n");
         return false;
       }
@@ -338,14 +345,37 @@ bool test_edges() {
   }
   for (int i = 0; i < 15; i++) {
     for (int j= 0; j < 48; j++) {
-      if (!multiply_perms(6, &P2_perms[6 * j], &P2_coset_reps[6 * i], &P2_coset_union[48 * 6 * i + 6 * j])) {
+      if (!multiply_perms(6, &P2_perms[6 * j], &P2_coset_reps[6 * i], &P2_coset_union[(48 * 6 * i) + (6 * j)])) {
         printf("Couldn't mult perms 8\n");
         return false;
       }
     }
   }
 
+#ifdef CHECKER
+printf("CHECKER\n");
+  for (int i = 0; i < 720; i++) {
+    for (int j= (i + 1); j < 720; j++) {
+      if (perms_equal(6, &P1_coset_union[6 * i], &P1_coset_union[6 * j])) {
+        printf("P1 duplicates %d %d\n", i, j);
+        printf("    ");print_perm_cycles(6,  &P1_coset_union[6 * i]);
+        printf(" ---   ");print_perm_cycles(6,  &P1_coset_union[6 * j]);
+        printf("\n");
+      }
+    }
+  }
+  for (int i = 0; i < 720; i++) {
+    for (int j= (i + 1); j < 720; j++) {
+      if (perms_equal(6, &P2_coset_union[6 * i], &P2_coset_union[6 * j])) {
+        printf("P2 duplicates %d %d\n", i, j);
+      }
+    }
+  }
+printf("CHECKER done\n");
+#endif
+
   int num_edges = 0;
+  printf("\n\nedges:\n");
   for(int c1 = 0; c1 < 15; c1++) {
     for(int c2 = 0; c2 < 15; c2++) {
       if(cosets_intersect(P1_coset_union, c1, P2_coset_union, c2)) {
@@ -358,6 +388,24 @@ bool test_edges() {
       }
     }
   }
+  printf("\n\n");
+  printf("\n%d edges\n", num_edges);
+
+  num_edges = 0;
+  printf("\n\nedges:\n");
+  for(int c2 = 0; c2 < 15; c2++) {
+    for(int c1 = 0; c1 < 15; c1++) {
+      if(cosets_intersect(P1_coset_union, c1, P2_coset_union, c2)) {
+        num_edges++;
+        printf("[P2 ");
+        print_perm_cycles(6, &P2_coset_reps[6 * c2]);
+        printf(", P1 ");
+        print_perm_cycles(6, &P1_coset_reps[6 * c1]);
+        printf("]\n");
+      }
+    }
+  }
+  printf("\n\n");
   printf("\n%d edges\n", num_edges);
   return true;
 }
