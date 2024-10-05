@@ -44,7 +44,7 @@ DEFINE_bool(print_all, false, "Print intermediate test computations");
 #include "grp_data.inc"
 
 bool test_calc_p2() {
-  printf("test_calc_p2\n"); 
+  printf("\ntest_calc_p2\n"); 
 
   for (int i = 0; i < 8; i++) {
     if(!parse_perm_string(eight_str[i], 6, &eight[6 * i])) {
@@ -138,7 +138,7 @@ bool test_calc_p2() {
 
 
 bool test_p1() {
-  printf("test_p1\n"); 
+  printf("\ntest_p1\n"); 
 
   for (int i = 0; i < 48; i++) {
     if(!parse_perm_string(P1_str[i], 6, &P1_perms[6 * i])) {
@@ -207,7 +207,7 @@ bool test_p1() {
 }
 
 bool test_p2() {
-  printf("test_p2\n"); 
+  printf("\ntest_p2\n"); 
 
   for (int i = 0; i < 48; i++) {
     if(!parse_perm_string(P2_str[i], 6, &P2_perms[6 * i])) {
@@ -276,7 +276,7 @@ bool test_p2() {
 }
 
 bool test_edges() {
-  printf("test_edges\n");
+  printf("\ntest_edges\n");
   for (int i = 0; i < 48; i++) {
     if(!parse_perm_string(P1_str[i], 6, &P1_perms[6 * i])) {
       printf("Couldn't parse P1 string %d\n", i);
@@ -341,7 +341,7 @@ bool test_equal() {
   byte a[n];
   byte b[n];
 
-  printf("test_equal\n"); 
+  printf("\ntest_equal\n"); 
   for(int i = 0; i < n; i++) {
     a[i]= i + 1;
     b[i]= i + 1;
@@ -379,7 +379,7 @@ bool test_mult() {
   byte c[n];
   a[0]= 2; a[1]=3; a[2] = 1; a[3] = 5; a[4]= 6; a[5]= 4;
 
-  printf("test_mult\n");
+  printf("\ntest_mult\n");
   if (!multiply_perms(n, a, a ,c))
     return false;
 
@@ -458,7 +458,7 @@ bool test_parse() {
   int n = 6;
   byte a[n];
 
-  printf("test_parse\n");
+  printf("\ntest_parse\n");
   const char* s = "123456";
   if (!parse_perm_string(s, n, a))
     return false;
