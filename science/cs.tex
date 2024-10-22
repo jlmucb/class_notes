@@ -6,7 +6,13 @@ g \in \Omega (f) \leftrightarrow
 L_{x \rightarrow \infty} {\frac {f(x)} {g(x)}} < \infty$.
 $f \in o(g) \leftrightarrow
 g \in \omega (f) \leftrightarrow
-L_{x \rightarrow \infty} {\frac {f(x)} {g(x)}} = 0 $.  $G_1 \subset (G,E)$ is a
+L_{x \rightarrow \infty} {\frac {f(x)} {g(x)}} = 0 $.  Equivalently:
+$f(n)$ is $\Theta(g(n))$ if $\exists c_1, c_2, n_0: n \geq n_0 \rightarrow 0 \leq c_1 g(n) \leq f(n) \leq c_2 g(n)$.
+$f(n)$ is $O(g(n))$ if $\exists c, n_0: n \geq n_0 \rightarrow 0  \leq f(n) \leq c g(n)$.
+$f(n)$ is $\Omega(g(n))$ if $\exists c, n_0: n \geq n_0 \rightarrow 0  \leq c g(n) \leq f(n)$.
+$f(n)$ is $o(g(n))$ if $\forall \epsilon > 0, \exists n_0: n \geq n_0 \rightarrow 0  \leq {\frac {f(n)} {g(n)}} < \epsilon$.
+$f(n)$ is $\omega(g(n))$ if $g(n)$ is $o(f(n))$.
+$G_1 \subset (G,E)$ is a
 \emph{strongly connected component} iff $x,y \in G_1$ means there is a directed path
 $x \rightarrow y$ and a directed path $y \rightarrow x$.
 \\
@@ -25,7 +31,7 @@ $O(mn)$ time and $O(m+n)$ space.
 $GCD(u, v)$ average running time:
 $O((1+{\frac {max(u,v)} {(u,v)}}) lg(min(u, v)))$.
 $A^E \jmod{M}$ where $M$ is an $m$ bit number and $E$ is an $n$ bit number 
-takes $O(n m^2)$ time. 
+takes $O(n m^2)$ time. For $0 \leq \lambda \leq 1$: ${n \choose {\lambda n}} \leq 2^{n H(\lambda)}$.
 \\
 \\
 {\bf Theorem:}
