@@ -75,7 +75,9 @@ is the unique maximal, normal, nilpotent subgroup of $G$ and
 $F(G)= \prod_p O_p(G)$.
 \\
 \\
-{\bf Definition 13:} $A^{\pi}(G)$ is the unique smallest normal subgroup of $G$ such that
+{\bf Definition 13:} (a) If $P \leq H \leq G$, $H$ \emph{controls fusion} in $P$ with respect to
+$G$ if $\forall x, y \in P: x^g=y, g \in G$, $\exists h \in H: x^h=y$.
+(b) $A^{\pi}(G)$ is the unique smallest normal subgroup of $G$ such that
 $G/A^{\pi}(G)$ is an abelian $\pi$-group.  If $P \subseteq H \subseteq G$ then
 $ |G:A^p(G)| \le |H:A^p(H)|$ if equality holds we say $H$ \emph {controls $p$-transfer in $G$}.
 \\
@@ -87,8 +89,11 @@ consist of either $\pi'$-groups or a solvable
 $\pi$-groups.
 \\
 \\
-{\bf Definition 15:} $G$ is $\pi$\emph{-closed} if $G/O_{\pi}(G)$ is a $\pi'$ group and thus
-$O_{\pi}(G)=O^{\pi'}(G)$.
+{\bf Definition 15:} 
+(a) $O_{\cal K}(G) = \bigcap_{A \lhd G, A \in {\cal K}} A$,
+(b) $O^{\cal K}(G)= \bigcap_{A \lhd G, G/A \in {\cal K}} A$.
+(c) $G$ is $\pi$\emph{-closed} if $G/O_{\pi}(G)$ is a $\pi'$ group.
+(d) $G$ is $\pi$-separable iff $O_{\pi}(G) = O^{\pi'}(G)$.
 \\
 \\
 {\bf Definition 16:}
@@ -110,16 +115,11 @@ either a $\pi$ group or a $\pi'$ group.
 \\
 \\
 {\bf Definition 20:}
-$O^{\cal K}(G)= \bigcap_{A \lhd G, G/A \in {\cal K}} A$.
-$O_{\cal K}(G)= \bigcap_{A \lhd G, A \in {\cal K}} A$.
-\\
-\\
-{\bf Definition 21:}
 $O_{p'}(G)$ is called the $p$\emph{-core} of $G$. $O_{2'}(G)$ is often called the
 \emph{core} of $G$ and is sometimes denoted by $O(G)$.
 \\
 \\
-{\bf Definition 22:}
+{\bf Definition 21:}
 $G$ is
 \emph{metacyclic} if $\exists H \lhd G: G/H ,H$ are cyclic.
 \\
@@ -226,6 +226,9 @@ Thus $H^{\phi} = H$, $H \; char \; G$, so $G=H$.
 \end{quote}
 {\bf Corrollary:} If $G$ is solvable and $H \le G$ is characteristically simple, $H$
 is an elementary abelian $p$-group.
+\\
+\\
+{\bf Note:} This means $O_p(G) \ne 1$ for any solvable group $G$ for some $p \in \pi(G)$.
 \\
 \\
 {\bf Definition 23:} A group, $A$ acts on a set, $\Omega$, if $\forall x \in \Omega$ and $\forall a \in A$,
