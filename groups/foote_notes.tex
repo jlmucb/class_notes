@@ -5,13 +5,21 @@ $A= {\mathbb Z}_{p^{\alpha_1}} \times {\mathbb Z}_{p^{\alpha_2}} \times \ldots {
 $m(A)=r$.
 \\
 \\
-{\bf Theorem 1} If $F$ is a $q$ group normalized by a $p$-group, $A$, $F= \langle C_F(B), B \leq A, B$ a hyperplane of $A \rangle$.
+{\bf Theorem 1} If $F$ is a $q$ group normalized by an elementary abelian $p$-group, $A$,
+$F= \langle C_F(B), B \leq A, B$ a hyperplane of $A \rangle$.
 \begin{quote}
 \emph{Proof:}  
+Let $A, F$ be a counterexample wiht $|F|$ minimal and, subject to that, $|A|$ minimal.
+$F/\Phi(F)$ is also a minimal counterexample so we can assume $F$ is also elementary abelian.
+Put $V=F$.
+$A$ acts faithfully on $V$, $\langle C_V(B): B \leq A, |A:B|=p \rangle = 0$ and
+not proper non-trivial subspace of $V$ is notmalized by $A$. So $M=F_q(A)$ is an irreducible
+module and $End(V)$ is a division ring. The multiplicative group of $End(V)$ is cyclic and $A$ cyclic
+which is a contradiction.
 \end{quote}
 {\bf Theorem 2} If $B$ and $C$ are subspaces of $A$, $dim(B+C)= dim(B) + dim(C)- dim(B \cap C)$.
 \begin{quote}
-\emph{Proof:}  
+\emph{Proof:}  This follows from the homomorphism theorem on $B \times C \rightarrow B+C$.
 \end{quote}
 {\bf Definition 2:}  Suppose $P$ is a $p$-group, $d(P) = max_{A} m(A)$, $A$ is an abelian subgroup of $P$. 
 ${\cal A}(P)= \{ A: m(A)=d(P) \}$.  $J(P) = \langle {\cal A}(P) \rangle$.
@@ -19,28 +27,34 @@ ${\cal A}(P)= \{ A: m(A)=d(P) \}$.  $J(P) = \langle {\cal A}(P) \rangle$.
 \\
 {\bf Theorem 3} (1) $J(P) \thinspace char \thinspace P$.
 (2) $H \leq P$ and $J(P) \subseteq H$ then $J(P)= J(H)$.
-(3) $H \leq P$ and $J(H) \subseteq K \lhd G$ then $J(H) \lhd P$.
+(3) $H \leq P$, $K \lhd G$ and $J(H) \leq K$ then $J(H) \lhd G$.
 \begin{quote}
-\emph{Proof:}  
+\emph{Proof:}  (1) follows from the definition of $J(P)$.  (2) ${\cal A}(H) \subseteq {\cal A}(P)$.  Since
+$J(P) \subseteq H$, $\langle {\cal A}(P) \rangle \subseteq \langle {\cal A}(H) \rangle$ and the result follows.
+(3) $J(K) \thinspace char \thinspace K \lhd G$ so $J(K) \lhd G$.  Since $J(H) \subseteq J(K)$, the result follows from (2).
 \end{quote}
 {\bf Thompson factorization (restricted)} If $K$ is solvable, $P \in S_p(K)$, $Z= \Omega_1({\mathbb Z}(P))$ and 
 (1) $O_{p'}(K) = 1$ and (2) $C_K(Z)=P$, then one of the following holds: (1) $p=2$ and $ 2^3 3 \mid |K|$, (2)
 $p=3$ and $2^2 3^3 \mid |K|$ or (3) $J(P) \lhd K$.
 \begin{quote}
 \emph{Proof:}  Let $K$ be a minimal counterexample.  Put $V= \Omega_1({\mathbb Z}(O_p(K)))$. $K$ acts on $V$ by
-conjugation. Let $\phi: K \rightarrow Aut(V)$, $ker(\phi) = O_p(K)$.  From now on, put ${\overline K} = K/O_p(K)$.
-$Z \leq V$ so $C_K(V) \leq C_K(Z)$ and $C_K(V) \lhd K$ so $C_K(V) \subseteq O_p(G)$.
+conjugation. From now on, put ${\overline K} = K/O_p(K)$.
 \\
 \\
-1. ${\overline K}$ acts faithfully on $V$.
+1. ${\overline K}$ acts faithfully on $V$.\\
+Let $\phi: K \rightarrow Aut(V)$, $ker(\phi) = O_p(K)$.
+$Z \leq V$ so $C_K(V) \leq C_K(Z)$ and $C_K(V) \lhd K$ so $C_K(V) \subseteq O_p(G)$.  $ ker(\phi) \leq C_K(V) \leq O_p(K)$,
+so ${\overline K}$ acts faithfully.
 \\
 \\
 2. $K= O_p(K) A Q$, $A \in {\cal A}(P)$, $A \nsubseteq O_p(K)$, ${\overline Q}$ is a $q$-group, ${\overline A}$ acts on
-${\overline Q} \lhd {\overline K}$, non-trivially.
+${\overline Q} \lhd {\overline K}$, non-trivially. \\
+$J(P) \nsubseteq O_p(K)$ otherwise $J(P) \lhd K$ by the theorems above.  So $\exists A \in {\cal A}(P): A \nsubseteq O_p(K)$.
+So, $O_p({\overline K}) = 1$, $F({\overline K})= \prod_{q \ne p} O_q({\overline K})$.  Put ${\overline Q} \in S_q({\overline K})$
+and let $O_p(K) Q$ be its preimage.  Put $K_0 = A O_p(K)Q$.
 \\
 \\
-3. $O_p({\overline K}) = 1$, $F({\overline K})= \prod_{q \ne p} O_q({\overline K})$.  Put ${\overline Q} \in S_q({\overline K})$
-and let $O_p(K) Q$ be its preimage.  Put $K_0 = A O_p(K)Q$.  $K_0=K$
+3. $K_0=K$, so $K= A O_p(K)Q$.
 \\
 \\
 4. ${\overline Q} = \langle C_{\overline Q}({\overline B}) {\overline B}$ is a hyperplane of $A \rangle$.
