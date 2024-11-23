@@ -48,38 +48,46 @@ $Z \leq V$ so $C_K(V) \leq C_K(Z)$ and $C_K(V) \lhd K$ so $C_K(V) \subseteq O_p(
 so ${\overline K}$ acts faithfully.
 \\
 \\
-2. $K= O_p(K) A Q$, $A \in {\cal A}(P)$, $A \nsubseteq O_p(K)$, ${\overline Q}$ is a $q$-group, ${\overline A}$ acts on
+2. $\exists A: A \in {\cal A}(P)$, $A \nsubseteq O_p(K)$, ${\overline Q}$ is a $q$-group, ${\overline A}$ acts on
 ${\overline Q} \lhd {\overline K}$, non-trivially. \\
 $J(P) \nsubseteq O_p(K)$ otherwise $J(P) \lhd K$ by the theorems above.  So $\exists A \in {\cal A}(P): A \nsubseteq O_p(K)$.
-So, $O_p({\overline K}) = 1$, $F({\overline K})= \prod_{q \ne p} O_q({\overline K})$.  Put ${\overline Q} \in S_q({\overline K})$
-and let $O_p(K) Q$ be its preimage.  Put $K_0 = A O_p(K)Q$.  $P_0 := A O_p(K) \in S_p(K_0)$.
+$O_p({\overline K}) = 1$, $F({\overline K})= \prod_{q \ne p} O_q({\overline K})$.
+Since $A$ is a $p$-group, ${\overline A}$ acts faithfully on $F({\overline K})$ so it must act
+nontrivially on $O_q({\overline K})$ for some $q$.  Fix $q$.
+Let $Q$ be a Sylow $q$ subgroup on the preimage of $O_q({\overline K})$.
+Put $K_0 = A O_p(K)Q$.  $P_0 := A O_p(K) \in S_p(K_0)$.  $K_0$ is a $\{p, q \}$ group.
 \\
 \\
 3. $K_0=K$, so $K= A O_p(K)Q$. \\
-Use $m(A)=d(P_0)$. $A \leq J(P_0)$ but then $A$ is not normal in $K_0$. $Z \leq O_p(K) \leq P_0$ so $Z \leq \Omega_1({\mathbb Z}(P_0))$ and
+Since $A$ acts nontrivially on ${\overline Q}$, $A \nsubseteq O_p(K_0)$.
+So, $J(P_0)$ is not normal in $K_0$.
+$m(A)=d(P_0)$. $A \leq J(P_0)$.
+$K_0$ satisfies the hypothesis of the theorem:
+$Z \leq O_p(K) \leq P_0$ so $Z \leq \Omega_1({\mathbb Z}(P_0))$ and
 $C_{K_0}(\Omega_1({\mathbb Z}(P_0))) \leq C_{K_0}(Z)$. Thus hypothesis 2 holds.  $Z \leq O_p(K) \leq O_p(K_0)$.  $O_p(K_0)$ centralizes $O_q(K_0)$
 and $O_p(K_0)=1$ by hypothesis 2.  $m(A) =d(P) \geq d(P_0)$ so $A \in {\cal A}(K_0)$ so $J(P_0)$ is not normal in $K_0$.  By minimality, $K_0 = K$
 \\
 \\
-4. ${\overline Q} = \langle C_{\overline Q}({\overline B}) {\overline B}$ is a hyperplane of $A \rangle$.
-$B= O_p(K) \cap A$, $\langle {\overline a} \rangle \in S_p({\overline K})$.  There is another sylow group,
+4. $|{\overline A}| = |A: A \cap O_p(K)|$,
+${\overline Q} = \langle C_{\overline Q}({\overline B}), {\overline B}$ is a hyperplane of $A \rangle$.
+$B= O_p(K) \cap A$, $\langle {\overline a} \rangle \in S_p({\overline K})$.
+There is another Sylow $p$ group,
 $\langle a^g \rangle \leq {\overline K}$.  Put ${\overline H}= \langle {\overline a}, {\overline {a^g}} \rangle$. ${\overline H}$
 is not a $p$-group.\\
-${\overline Q} =C_{\overline Q}({\overline B})$  where ${\overline B})$ is a hyperplane of $A$.
-$B= A \cap O_p(K)$ and $A= B \times \langle a \rangle$.
-Since ${\overline A}$  acts nontrivially on ${\overline Q}$, ${\overline A}$ acts non-trivially on some hyperplane ${\overline B_1}$
+${\overline Q} =C_{\overline Q}({\overline B})$  where ${\overline B}$ is a hyperplane of $A$.
+Since ${\overline A}$ acts nontrivially on ${\overline Q}$, ${\overline A}$ acts non-trivially on some hyperplane ${\overline B_1}$
 Put ${\overline Q_1} = C_{\overline Q}({\overline {B_1}})$ and put $K_1= A Q_1 O_p(K)$.  As above, $K_1$ satisfies the hypothesis of the theorem
 so $K = K_1$ and thus $Q= Q_1$.  ${\overline {B_1}}$ centralizes ${\overline Q} = O_q({\overline K})$. Apply the result: If $K$ is solvable
-with no non-trivial normal subgroup of order prime to $p$ then $C_K(O_p(K)) = {\mathbb Z}(O_p(K))$ and so $C_k(O_p(K)) \leq O_p(K)$.  This
+with no non-trivial normal subgroup of order prime to $p$ then $C_K(O_p(K)) = {\mathbb Z}(O_p(K))$ and so $C_K(O_p(K)) \leq O_p(K)$.  This
 yields ${\overline {B_1}} = 1$ and thus $|{\overline A}| = |A:A \cap O_p(K)|= p$. Put $B = A \cap O_p(K)$.  $B$  is a hyperplane of $A$.
 Choose $a \in A \setminus B$.  Then $A = \langle a \rangle \times B$ and
 $\langle {\overline a} \rangle \in S_p({\overline K})$.
-Since $O_p({\overline K})=1$, there is another Sylow subgroup $\langle {\overline {a^g}} \rangle$. Fix $g$.
+Since $O_p({\overline K})=1$, there is another $p$ Sylow subgroup $\langle {\overline {a^g}} \rangle$. Fix $g$.
 ${\overline H} = \langle {\overline a}, {\overline {a^g}} \rangle$ is not a $p$-group.
 \\
 \\
 5. $a$ centralizes a hyperplane of $V$.\\
-$m(A)=r=d(P)$ and $m(B)=r-1$.  $B \leq O_p(K)$ and $V \leq {\cal Z}(O_p(K))$.  $\langle B, V \rangle$ is abelian and
+$m(A)=r=d(P)$ and $m(B)=r-1$.  $B \leq O_p(K)$ and $V \leq {\mathbb Z}(O_p(K))$.  $\langle B, V \rangle$ is abelian and
 $B+V$ is elementary abelian.  $r-1 = m(B) \leq m(B+V) \leq r$.  $A$ does not centralize $V$, so $B+V \ne B$ and thus
 $m(B+V)=r$.  $B \cap V$ is a hyperplane in $V$, so $a$ centralizes a hyperplane.
 \\
@@ -99,19 +107,16 @@ so $H$ acts transitively on ${\cal L}$.  $p+1 \mid |H|$, so
 $|{\tilde V}| |a| |(p+1) = p^3 (p+1)$.
 \\
 \\
-8. $a$ permutes the $p+1$ lines in ${\hat V}$, denoted ${\cal L}$ and so does $a^g$.
-\\
-\\
-9. Let $C$ be a hyperplane of $V$, $W \leq C \leq V$. $C/W$ is fixed by $a$ but $a^g$ moves $C/W$.  Thus $H$ acts transitively
+8. Let $C$ be a hyperplane of $V$, $W \leq C \leq V$. $C/W$ is fixed by $a$ but $a^g$ moves $C/W$.  Thus $H$ acts transitively
 on ${\cal L}$, $p+1 \mid |H|$, $|{\hat V} |a| (p+1) \mid p^3 (p+1)$.\\
 Let $C$ be a hyperplane: $W < C < V$.  $C/W$ is fixed by $a$ and $a^g$
 must move $C/W$ so $H$ acts transitively on ${\cal L}$.  $p+1 \mid |H|$, so
 \\
 \\
-10. If $p=2$, case (1) holds.  If $p=3$, case (2) holds.
+9. If $p=2$, case (1) holds.  If $p=3$, case (2) holds.
 \\
 \\
-11. If $p\geq 5$, $J(P) \lhd K$.\\
+10. If $p\geq 5$, $J(P) \lhd K$.\\
 Let $H_0$ be the kernal of tha action of $H$ on ${\cal L}$. Put ${\hat H} = H/H_0$. ${\hat H}$ acts faithfully on ${\cal L}$.
 Since $SL_2(p)$ is generated by 2 non commuting $p$ elements, ${\hat H} = PSL_2(p)$.   $p+1 \mid |{\hat H}|$ so $p+1=q^c$, $c \geq 2$,
 and $q=2$.
