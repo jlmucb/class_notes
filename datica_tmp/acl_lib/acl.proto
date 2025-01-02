@@ -1,0 +1,175 @@
+// Copyright 2025 John Manferdelli, All Rights Reserved.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//     http://www.apache.org/licenses/LICENSE-2.0
+// or in the the file LICENSE-2.0.txt in the top level sourcedirectory
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License
+// File:support.proto
+
+syntax="proto2";
+
+// These are existing certifier protos which may be useful
+
+message binary_blob_message {
+  optional string blob                          = 1;
+};
+
+message encrypted_message {
+  optional string scheme_identifier             = 1;
+  optional string message_identifier            = 2;
+  optional string source                        = 3;
+  optional string destination                   = 4;
+  optional string date                          = 5;
+  optional bytes buffer                         = 6;
+};
+
+message signature_message {
+  optional string encryption_algorithm_name     = 1;
+  optional string key_name                      = 2;
+  optional bytes signature                      = 3;
+  optional string signer_name                   = 4;
+};
+
+message rsa_public_parameters_message {
+   optional bytes modulus                      = 1;
+   optional bytes e                            = 2;
+};
+
+message rsa_private_parameters_message {
+   optional bytes d                            = 1;
+   optional bytes p                            = 2;
+   optional bytes q                            = 3;
+   optional bytes dp                           = 4;
+   optional bytes dq                           = 5;
+   optional bytes m_prime                      = 6;
+   optional bytes p_prime                      = 7;
+   optional bytes q_prime                      = 8;
+};
+
+message point_message {
+ optional bytes x                              = 1;
+ optional bytes y                              = 2;
+};
+
+message curve_message {
+  optional string curve_name                    = 1;
+  optional bytes curve_p                        = 2;
+  optional bytes curve_a                        = 3;
+  optional bytes curve_b                        = 4;
+};
+
+message ecc_public_parameters_message {
+  optional curve_message cm                     = 1;
+  optional point_message base_point             = 2;
+  optional point_message public_point           = 3;
+  optional bytes order_of_base_point            = 4;
+};
+
+message ecc_private_parameters_message {
+  optional bytes private_multiplier             = 1;
+};
+
+message hmac_parameters_message {
+  optional string algorithm                     = 1;
+  optional int32 size                           = 2;
+  optional bytes secret                         = 3;
+};
+
+// family: symmetric, public, hmac
+// algorithm: aes, twofish, rc4, simon, spec, tea
+//    des, rsa, ecc, sha256, sha1
+message key_message {
+  optional string family_type                         = 1;
+  optional string algorithm_type                      = 2;
+  optional string key_name                            = 3;
+  optional int32 key_size                             = 4;
+  optional string purpose                             = 5;
+  optional string notBefore                           = 6;
+  optional string notAfter                            = 7;
+  optional bytes secret                               = 8;
+  optional rsa_public_parameters_message rsa_pub      = 9;
+  optional rsa_private_parameters_message rsa_priv    =10;
+  optional ecc_public_parameters_message ecc_pub      =11;
+  optional ecc_private_parameters_message ecc_priv    =12;
+};
+
+message scheme_message {
+  optional string scheme_type                   = 1;
+  optional string scheme_instance_identifier    = 2;
+  optional string mode                          = 3;
+  optional string pad                           = 4;
+  optional string notbefore                     = 5;
+  optional string notafter                      = 6;
+  optional key_message encryption_key           = 7;
+  optional hmac_parameters_message parameters   = 8;
+};
+
+message certificate_name_message {
+  optional string name_type                       = 1;
+  optional string name_value                      = 2;
+}
+
+message certficate_principal_name_message {
+  repeated certificate_name_message names          = 1;
+}
+
+message certificate_algorithm_message {
+  optional string algorithm_name                    = 1;
+  optional rsa_public_parameters_message rsa_params = 2;
+  optional ecc_public_parameters_message ecc_params = 3;
+}
+
+message certificate_properties_message {
+  optional string property_name                   = 1;
+  optional string property_value                  = 2;
+}
+
+message certificate_body_message {
+  optional string version                             = 1;
+  optional certificate_name_message subject           = 2;
+  optional certificate_algorithm_message subject_key  = 3;
+  optional string purpose                             = 4;
+  optional string not_before                          = 5;
+  optional string not_after                           = 6;
+  optional bytes  nonce                               = 7;
+  optional string revocation_address                  = 8;
+  optional string date_signed                         = 9;
+}
+
+message certificate_message {
+  optional certificate_body_message info              = 1;
+  optional certificate_name_message issuer            = 2;
+  optional string signing_algorithm                   = 3;
+  optional certificate_algorithm_message signing_key  = 4;
+  optional bytes signature                            = 5;
+}
+
+message authentication_info {
+  optional string principal                           = 1;
+  optional string authentication_algorithm            = 2;
+  optional bytes credential                           = 3;
+};
+
+message audit_info {
+  optional string audit_file                          = 1;
+  optional string protocol                            = 2;
+};
+
+message acl_entry_message {
+  optional string resource_identifier                 = 1;
+  optional authentication_info auth_info              = 2;
+  optional bool audit_required                        = 3;
+  optional audit_info log                             = 4
+  optional bool read_permitted                        = 5;
+  optional bool write_permitted                       = 6;
+  optional bool delete_permitted                      = 7;
+  optional bool read_permitted                        = 8;
+};
+
+
