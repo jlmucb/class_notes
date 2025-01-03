@@ -1212,21 +1212,79 @@ bool channel_guard::load_resources(resource_list& rl) {
   return true;
 }
 
-bool channel_guard::can_read(string resource_name) {
+// We have to be careful that resource names are unique and not
+// subject to spoofing by creators making up a resources with
+// an existing name to avoid authentication.
+int channel_guard::can_read(string resource_name) {
+  if (!channel_principal_authenticated_) {
+    return -1;
+  }
   // see if principal_name_ is on reader list
-  return false;
+  int i= find_resource(resource_name);
+  if (i < 0) {
+    return -1;
+  }
+  for (int j = 0; j < resources_[i].readers_size(); j++) {
+    if (resources_[i].readers(j) == principal_name_) {
+      return i;
+    }
+    return -1;
+  }
+  return -1;
 }
 
-bool channel_guard::can_write(string resource_name) {
-  return false;
+int channel_guard::can_write(string resource_name) {
+  if (!channel_principal_authenticated_) {
+    return -1;
+  }
+  // see if principal_name_ is on writer list
+  int i= find_resource(resource_name);
+  if (i < 0) {
+    return -1;
+  }
+  for (int j = 0; j < resources_[i].writers_size(); j++) {
+    if (resources_[i].writers(j) == principal_name_) {
+      return i;
+    }
+    return -1;
+  }
+  return -1;
 }
 
-bool channel_guard::can_delete(string resource_name) {
-  return false;
+int channel_guard::can_delete(string resource_name) {
+  if (!channel_principal_authenticated_) {
+    return -1;
+  }
+  // see if principal_name_ is on deleters list
+  int i= find_resource(resource_name);
+  if (i < 0) {
+    return -1;
+  }
+  for (int j = 0; j < resources_[i].deleters_size(); j++) {
+    if (resources_[i].deleters(j) == principal_name_) {
+      return i;
+    }
+    return -1;
+  }
+  return -1;
 }
 
-bool channel_guard::can_create(string resource_name) {
-  return false;
+int channel_guard::can_create(string resource_name) {
+  if (!channel_principal_authenticated_) {
+    return -1;
+  }
+  // see if principal_name_ is on creator list
+  int i= find_resource(resource_name);
+  if (i < 0) {
+    return -1;
+  }
+  for (int j = 0; j < resources_[i].creators_size(); j++) {
+    if (resources_[i].creators(j) == principal_name_) {
+      return i;
+    }
+    return -1;
+  }
+  return -1;
 }
 
 int channel_guard::find_resource(string& name) {

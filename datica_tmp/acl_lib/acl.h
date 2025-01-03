@@ -145,10 +145,10 @@ class channel_guard {
   void print();
   bool authenticate(string& name, principal_list& pl);
   bool load_resources(resource_list& rl);
-  bool can_read(string resource_name);
-  bool can_write(string resource_name);
-  bool can_delete(string resource_name);
-  bool can_create(string resource_name);
+  int can_read(string resource_name);
+  int can_write(string resource_name);
+  int can_delete(string resource_name);
+  int can_create(string resource_name);
   int find_resource(string& name);
 };
 
