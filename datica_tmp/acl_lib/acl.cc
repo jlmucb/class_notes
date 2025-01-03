@@ -1137,17 +1137,14 @@ void print_resource_message(const resource_message& rm) {
   for (int i = 0; i < rm.readers_size(); i++) {
     printf("  %s\n", rm.readers(i).c_str());
   }
-  printf("\n");
   printf("Writers\n");
   for (int i = 0; i < rm.writers_size(); i++) {
     printf("  %s\n", rm.writers(i).c_str());
   }
-  printf("\n");
   printf("Deleters\n");
   for (int i = 0; i < rm.deleters_size(); i++) {
     printf("  %s\n", rm.deleters(i).c_str());
   }
-  printf("\n");
   printf("Creators\n");
   for (int i = 0; i < rm.creators_size(); i++) {
     printf("  %s\n", rm.creators(i).c_str());
@@ -1365,6 +1362,105 @@ bool save_principals_to_file(principal_list& pl, string& file_name) {
   if (!file.write_file(file_name.c_str(), serialized_pl.size(), (byte*)serialized_pl.data())) {
     return false;
   }
+  return true;
+}
+
+int on_reader_list(resource_message& r, string& name) {
+  for (int i = 0; i < r.readers_size(); i++) {
+    if (r.readers(i) == name)
+      return i;
+  }
+  return -1;
+}
+
+int on_writer_list(resource_message& r, string& name) {
+  for (int i = 0; i < r.writers_size(); i++) {
+    if (r.writers(i) == name)
+      return i;
+  }
+  return -1;
+}
+
+int on_deleter_list(resource_message& r, string& name) {
+  for (int i = 0; i < r.deleters_size(); i++) {
+    if (r.deleters(i) == name)
+      return i;
+  }
+  return -1;
+}
+
+int on_creator_list(resource_message& r, string& name) {
+  for (int i = 0; i < r.creators_size(); i++) {
+    if (r.creators(i) == name)
+      return i;
+  }
+  return -1;
+}
+
+int on_principal_list(string& name, principal_list& pl) {
+  for (int i = 0; i < pl.principals_size(); i++) {
+    if (pl.principals(i).principal_name() == name)
+      return i;
+  }
+  return -1;
+}
+
+int on_resource_list(string& name, resource_list& rl) {
+  for (int i = 0; i < rl.resources_size(); i++) {
+    if (rl.resources(i).resource_identifier() == name)
+      return i;
+  }
+  return -1;
+}
+
+bool add_reader_to_resource(string& name, resource_message* r) {
+  if (on_reader_list(*r, name) >= 0)
+    return false;
+  string* ns = r->add_readers();
+  *ns = name;
+  return true;
+}
+
+bool add_writer_to_resource(string& name, resource_message* r) {
+  if (on_writer_list(*r, name) >= 0)
+    return false;
+  string* ns = r->add_writers();
+  *ns = name;
+  return true;
+}
+
+bool add_deleter_to_resource(string& name, resource_message* r) {
+  if (on_deleter_list(*r, name) >= 0)
+    return false;
+  string* ns = r->add_deleters();
+  *ns = name;
+  return true;
+}
+
+bool add_creator_to_resource(string& name, resource_message* r) {
+  if (on_creator_list(*r, name) >= 0)
+    return false;
+  string* ns = r->add_creators();
+  *ns = name;
+  return true;
+}
+
+bool add_principal_to_proto_list(string& name, string& alg, int num_bytes, byte* cred, principal_list* pl) {
+  principal_message* pm = pl->add_principals();
+  pm->set_principal_name(name);
+  pm->set_authentication_algorithm(alg);
+  if (num_bytes > 0 && cred != nullptr)
+    pm->set_credential(cred, num_bytes);
+  return true;
+}
+
+bool add_resource_to_proto_list(string& id, string& locat, string& t_created, string& t_written,
+      resource_list* rl) {
+  resource_message* rm = rl->add_resources();
+  rm->set_resource_identifier(id);
+  rm->set_resource_location(locat);
+  rm->set_time_created(t_created);
+  rm->set_time_last_written(t_written);
   return true;
 }
 

@@ -22,11 +22,42 @@ DEFINE_bool(print_all, false, "Print intermediate test computations");
 
 
 bool construct_sample_principals(principal_list* pl) {
-  return false;
+  string p1("john");
+  string p2("paul");
+  string alg("none");
+  if (!add_principal_to_proto_list(p1, alg, 0, nullptr, pl)) {
+    return false;
+  }
+  if (!add_principal_to_proto_list(p2, alg, 0, nullptr, pl)) {
+    return false;
+  }
+  return true;
 }
 
 bool construct_sample_resources(resource_list* rl) {
-  return false;
+  string p1("john");
+  string p2("paul");
+  string r1("file_1");
+  string r2("file_2");
+  string l1("/datica/file_1");
+  string l2("/datica/file_2");
+  string t;
+  time_point tp;
+  if (!tp.time_now())
+    return false;
+  if (!tp.encode_time(&t))
+    return false;
+  if (!add_resource_to_proto_list(r1, l1, t, t, rl)) {
+    return false;
+  }
+  if (!add_resource_to_proto_list(r2, l1, t, t, rl)) {
+    return false;
+  }
+  if (!add_reader_to_resource(p1, rl->mutable_resources(0)))
+    return false;
+  if (!add_reader_to_resource(p2, rl->mutable_resources(1)))
+    return false;
+  return true;
 }
 
 bool test_basic() {
