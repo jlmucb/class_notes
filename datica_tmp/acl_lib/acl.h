@@ -131,6 +131,27 @@ class file_util {
   bool write_file(const char* filename, int size, byte* buf);
 };
 
+class channel_guard {
+  channel_guard();
+  ~channel_guard();
+
+  string principal_name_;
+  string authentication_algorithm_name_;
+  byte* creds_;
+  bool channel_principal_authenticated_;
+  int  num_resources_;
+  resource_message* resources_;
+
+  void print();
+  bool authenticate(string& name, principal_list& pl);
+  bool load_resources(resource_list& rl);
+  bool can_read(string resource_name);
+  bool can_write(string resource_name);
+  bool can_delete(string resource_name);
+  bool can_create(string resource_name);
+  int find_resource(string& name);
+};
+
 key_message* make_symmetrickey(const char* alg, const char* name, int bit_size,
                                const char* purpose, const char* not_before,
                                const char* not_after, string& secret);
@@ -185,9 +206,12 @@ bool init_crypto();
 void close_crypto();
 
 void print_encryption_parameters(const scheme_message& sm);
-void print_authentication_info(const authentication_info& ai);
+void print_principal_info(const principal_message& pi);
 void print_audit_info(const audit_info& inf);
-void print_acl_entry_message(const acl_entry_message& aem);
+void print_resource_message(const resource_message& rm);
+void print_principal_message(const principal_message& rm);
+void print_resource_list(const resource_list& rm);
+void print_principal_list(const principal_list& rm);
 
 #endif
 

@@ -1098,43 +1098,143 @@ void print_encryption_parameters(const scheme_message& sm) {
   print_scheme_message(sm);
 }
 
-void print_authentication_info(const authentication_info& ai) {
-  if (ai.has_principal())
-      printf("Principal: %s\n", ai.principal().c_str());
-  if (ai.has_authentication_algorithm())
-      printf("Authentication algorithm: %s\n", ai.authentication_algorithm().c_str());
+void print_principal_message(const principal_message& pi) {
+  if (pi.has_principal_name())
+      printf("Principal: %s\n", pi.principal_name().c_str());
+  if (pi.has_authentication_algorithm())
+      printf("Authentication algorithm: %s\n", pi.authentication_algorithm().c_str());
+  if (pi.has_credential()) {
+    printf("Credential: ");
+    printf("\n");
+  }
 }
 
 void print_audit_info(const audit_info& inf) {
 }
 
-void print_acl_entry_message(const acl_entry_message& aem) {
+void print_resource_message(const resource_message& rm) {
   printf("\n");
-  printf("Resource: %s\n", aem.resource_identifier().c_str());
-  printf("Resource location: %s\n", aem.resource_location().c_str());
-  printf("Created: %s\n", aem.time_created().c_str());
-  printf("Written: %s\n", aem.time_last_written().c_str());
-  if (aem.has_auth_info()) {
-    print_authentication_info(aem.auth_info());
+  printf("Resource: %s\n", rm.resource_identifier().c_str());
+  printf("Resource location: %s\n", rm.resource_location().c_str());
+  printf("Created: %s\n", rm.time_created().c_str());
+  printf("Written: %s\n", rm.time_last_written().c_str());
+  if (rm.has_encryption_parameters()) {
+    print_encryption_parameters(rm.encryption_parameters());
   }
-  if (aem.has_encryption_parameters()) {
-    print_encryption_parameters(aem.encryption_parameters());
+  if (rm.has_log()) {
+    print_audit_info(rm.log());
   }
-  if (aem.has_log()) {
-    print_audit_info(aem.log());
+  printf("Readers\n");
+  for (int i = 0; i < rm.readers_size(); i++) {
+    printf("  %s\n", rm.readers(i).c_str());
   }
-  printf("Permissions: ");
-  if (aem.read_permitted())
-    printf("read allowed ");
-  else
-    printf("read denied  ");
-  if (aem.write_permitted())
-    printf("write allowed ");
-  else
-    printf("write denied  ");
-  if (aem.delete_permitted())
-    printf("delete allowed ");
-  else
-    printf("delete denied  ");
+  printf("\n");
+  printf("Writers\n");
+  for (int i = 0; i < rm.writers_size(); i++) {
+    printf("  %s\n", rm.writers(i).c_str());
+  }
+  printf("\n");
+  printf("Deleters\n");
+  for (int i = 0; i < rm.deleters_size(); i++) {
+    printf("  %s\n", rm.deleters(i).c_str());
+  }
+  printf("\n");
+  printf("Creators\n");
+  for (int i = 0; i < rm.creators_size(); i++) {
+    printf("  %s\n", rm.creators(i).c_str());
+  }
   printf("\n");
 }
+
+void print_principal_list(const principal_list& pl) {
+  printf("Principals\n");
+  for (int i = 0; i < pl.principals_size(); i++) {
+    print_principal_message(pl.principals(i));
+  }
+  printf("\n");
+}
+
+void print_resource_list(const resource_list& rl) {
+  printf("Resources\n");
+  for (int i = 0; i < rl.resources_size(); i++) {
+    print_resource_message(rl.resources(i));
+  }
+  printf("\n");
+}
+
+channel_guard::channel_guard() {
+  channel_principal_authenticated_= false;
+  creds_ = nullptr;
+  num_resources_ = 0;
+  resources_= nullptr;
+}
+
+channel_guard::~channel_guard() {
+}
+ 
+void channel_guard::print() {
+  printf("Principal name: %s\n", principal_name_.c_str());
+  printf("Authentication algorithm: %s\n", authentication_algorithm_name_.c_str());
+  // byte* creds_;
+  if (channel_principal_authenticated_) {
+    printf("Principal authenticated\n");
+  } else {
+    printf("Principal not authenticated\n");
+  }
+  printf("Number of resources: %d\n", num_resources_);
+  if (resources_ == nullptr)
+    return;
+  for (int i = 0; i <num_resources_; i++) {
+    print_resource_message(resources_[i]);
+  }
+}
+ 
+
+bool channel_guard::authenticate(string& name, principal_list& pl) {
+  for (int i = 0; i < pl.principals_size(); i++) {
+    if (name == pl.principals(i).principal_name()) {
+      // call authenticator
+    }
+  }
+  return channel_principal_authenticated_;
+}
+
+bool channel_guard::load_resources(resource_list& rl) {
+  resources_= new resource_message[rl.resources_size()];
+  if (resources_ == nullptr) {
+    num_resources_ = 0;
+    resources_ = nullptr;
+  }
+  num_resources_ = rl.resources_size();
+  for (int i = 0; i < num_resources_; i++) {
+    resources_[i].CopyFrom(rl.resources(i));
+  }
+  return true;
+}
+
+bool channel_guard::can_read(string resource_name) {
+  // see if principal_name_ is on reader list
+  return false;
+}
+
+bool channel_guard::can_write(string resource_name) {
+  return false;
+}
+
+bool channel_guard::can_delete(string resource_name) {
+  return false;
+}
+
+bool channel_guard::can_create(string resource_name) {
+  return false;
+}
+
+int channel_guard::find_resource(string& name) {
+  for (int i = 0; i < num_resources_; i++) {
+    if (name == resources_[i].resource_identifier()) {
+      return i;
+    }
+  }
+  return -1;
+}
+
