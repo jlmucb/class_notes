@@ -161,15 +161,21 @@ message audit_info {
   optional string protocol                            = 2;
 };
 
+// for now every resource is in its own file named by resource_location
+// file is encrypted with encryption parameters
+// if audit is required, logging info is in audit info
 message acl_entry_message {
   optional string resource_identifier                 = 1;
-  optional authentication_info auth_info              = 2;
-  optional bool audit_required                        = 3;
-  optional audit_info log                             = 4
-  optional bool read_permitted                        = 5;
-  optional bool write_permitted                       = 6;
-  optional bool delete_permitted                      = 7;
-  optional bool read_permitted                        = 8;
+  optional string resource_location                   = 2;
+  optional scheme_message encryption_parameters       = 3;
+  optional authentication_info auth_info              = 4;
+  optional bool audit_required                        = 5;
+  optional audit_info log                             = 6
+  optional bool read_permitted                        = 7;
+  optional bool write_permitted                       = 8;
+  optional bool delete_permitted                      = 9;
+  optional string time_created                        =10;
+  optional string time_last_written                   =11;
 };
 
 

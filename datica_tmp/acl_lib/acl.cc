@@ -10,600 +10,1040 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License
-// File: test_crypto_support.cc
+// File: acl.cc
 
-#include <gtest/gtest.h>
-#include <gflags/gflags.h>
-#include <stdio.h>
-#include "crypto_support.h"
-#include "support.pb.h"
-#include "crypto_names.h"
+#include "acl.h"
+#include "acl.pb.h"
 
-DEFINE_bool(print_all, false, "Print intermediate test computations");
 
-bool test_alg_names() {
-  if (FLAGS_print_all) {
-    printf("schemes:\n");
-    print_schemes();
-    printf("\n");
-    printf("algorithms:\n");
-    print_algorithms();
-    printf("\n");
-    printf("operations:\n");
-    print_operations();
-    printf("\n");
-  }
-  return true;
+// these are from crypto lib
+
+time_point::time_point() {
+  year_ = 0;
+  month_ = 0;
+  day_in_month_ = 0;
+  hour_ = 0;
+  minutes_ = 0;
+  seconds_ = 0.0;
 }
 
-bool time_convert_test() {
-  time_point t;
-  
-  t.time_now();
-  if (FLAGS_print_all) {
-    t.print_time();
-    printf("\n");
-  }
+bool time_point::time_now() {
+  time_t now;
+  struct tm current_time;
 
-  string s1;
-  if (!t.encode_time(&s1))
-    return false;
-  time_point t1;
-  if (FLAGS_print_all)
-    printf("Encoded string: %s\n", s1.c_str());
-  t1.decode_time(s1);
-  string s2;
-  if (!t1.encode_time(&s2))
-    return false;
-  if (FLAGS_print_all) {
-    printf("Re-encoded string: %s\n", s2.c_str());
-  }
-  if (s1.compare(s2) != 0)
+  time(&now);
+  gmtime_r(&now, &current_time);
+  if (!unix_tm_to_time_point(&current_time))
     return false;
   return true;
 }
 
-bool random_test() {
-  random_source rs;
+bool time_point::add_interval_to_time(time_point& from, double seconds_later) {
+  // This doesn't do leap years, seconds, month or other stuff... correctly
+  year_ = from.year_;
+  day_in_month_ = from.day_in_month_;
+  month_= from.month_;
+  minutes_= from.minutes_;
+  hour_= from.hour_;
+  seconds_= from.seconds_;
 
-  if (!rs.start_random_source()) {
-    return false;
+  int days = seconds_later / (double)seconds_in_day;
+  seconds_later -= (double) (days * seconds_in_day);
+  int yrs = days /365;
+  days -= yrs * 365;
+  year_ += yrs;
+  int months = days / 30; // not right;
+  days -= months * 30;
+  month_ +=  months;
+  day_in_month_ += days;
+  int mins = (int)seconds_later / 60.0;
+  seconds_later -= (double) (mins * 60);
+  int hrs = (int)mins / 60.0;
+  mins -= hrs * 60;
+  hour_ += hrs;
+  minutes_ += mins;
+  seconds_+= seconds_later;
+  // now fix overflows
+  if (seconds_ >= 60.0) {
+    seconds_ -= 60.0;
+    minutes_ += 1;
   }
-  byte b[64];
-  int m = rs.get_random_bytes(64, b);
-  if (m < 0)
-    return false;
-  if (FLAGS_print_all) {
-    print_bytes(m, b);
+  if (minutes_ >= 60) {
+    minutes_ -= 60;
+    hour_ += 1;
   }
-  return rs.close_random_source();
-}
-
-bool global_random_test() {
-
-  byte b[64];
-  int m = crypto_get_random_bytes(64, b);
-  if (m < 0)
-    return false;
-  if (FLAGS_print_all) {
-    print_bytes(m, b);
+  if (hour_ >= 24) {
+    day_in_month_ += 1;
+    hour_ -= 24;
   }
-  return true;
-}
-
-string test_hex_string1("012ab33");
-string test_hex_string2("a012ab334466557789");
-
-bool hex_convert_test() {
-  string b1(50, 0);
-  string b2(50, 0);
-  b1.clear();
-  b2.clear();
-
-  if (FLAGS_print_all) {
-    printf("hex 1: %s\n", test_hex_string1.c_str());
-    printf("hex 2: %s\n", test_hex_string2.c_str());
+  if(day_in_month_ > 30) {
+    month_ += 1;
+    day_in_month_ -= 30;
   }
-
-  if (!hex_to_bytes(test_hex_string1, &b1))
-    return false;
-  if (!hex_to_bytes(test_hex_string1, &b1))
-    return false;
-  if (!hex_to_bytes(test_hex_string2, &b2))
-    return false;
-
-  if (FLAGS_print_all) {
-    printf("b1: ");
-    print_bytes((int)b1.size(), (byte*)b1.data());
-    printf("b2: ");
-    print_bytes((int)b2.size(), (byte*)b2.data());
-  }
-  
-  string c1(50, 0);
-  string c2(50, 0);
-  if (!bytes_to_hex(b1, &c1))
-    return false;
-  if (!bytes_to_hex(b2, &c2))
-    return false;
-
-  if (FLAGS_print_all) {
-    printf("c1: %s\n", c1.c_str());
-    printf("c2: %s\n", c2.c_str());
-  }
-
-  string d1(50, 0);
-  string d2(50, 0);
-  if (!hex_to_bytes(c1, &d1))
-    return false;
-  if (!hex_to_bytes(c2, &d2))
-    return false;
-
-  if (FLAGS_print_all) {
-    printf("d1: ");
-    print_bytes((int)d1.size(), (byte*)d1.data());
-    printf("d2: ");
-    print_bytes((int)d2.size(), (byte*)d2.data());
-  }
-
-  if (d1.compare(b1) != 0)
-    return false;
-  if (d2.compare(b2) != 0)
-    return false;
-  return true;
-}
-bool base64_convert_test() {
-  string b1, b2, b3, b4;
-  b1.clear();
-  b1.append(1, 0x11);
-  b1.append(1, 0xab);
-  b1.append(1, 0x89);
-
-  b2.clear();
-  b2.append(1, 0x40);
-  b2.append(1, 0x11);
-  b2.append(1, 0xab);
-  b2.append(1, 0x89);
-
-  b3.clear();
-  b3.append(1, 0x40);
-  b3.append(1, 0x11);
-  b3.append(1, 0xab);
-  b3.append(1, 0x89);
-  b3.append(1, 0xcc);
-
-  b4.clear();
-  b4.append(1, 0x40);
-  b4.append(1, 0x11);
-  b4.append(1, 0xab);
-  b4.append(1, 0x89);
-  b4.append(1, 0xcc);
-  b4.append(1, 0x20);
-
-  if (FLAGS_print_all) {
-    printf("b1: ");
-    print_bytes((int)b1.size(), (byte*)b1.data());
-    printf("b2: ");
-    print_bytes((int)b2.size(), (byte*)b2.data());
-    printf("b3: ");
-    print_bytes((int)b3.size(), (byte*)b3.data());
-    printf("b4: ");
-    print_bytes((int)b4.size(), (byte*)b4.data());
-  }
-
-  string h1, h2, h3, h4;
-  string d1, d2, d3, d4;
-
-  if (!bytes_to_base64(b1, &h1))
-    return false;
-  if (!bytes_to_base64(b2, &h2))
-    return false;
-  if (!bytes_to_base64(b3, &h3))
-    return false;
-  if (!bytes_to_base64(b4, &h4))
-    return false;
-
-  if (FLAGS_print_all) {
-    printf("h1: %s\n", h1.c_str());
-    printf("h2: %s\n", h2.c_str());
-    printf("h3: %s\n", h3.c_str());
-    printf("h4: %s\n", h4.c_str());
-  }
-
-  if (!base64_to_bytes(h1, &d1))
-    return false;
-  if (!base64_to_bytes(h2, &d2))
-    return false;
-  if (!base64_to_bytes(h3, &d3))
-    return false;
-  if (!base64_to_bytes(h4, &d4))
-    return false;
-
-  if (FLAGS_print_all) {
-    printf("d1: ");
-    print_bytes((int)d1.size(), (byte*)d1.data());
-    printf("d2: ");
-    print_bytes((int)d2.size(), (byte*)d2.data());
-    printf("d3: ");
-    print_bytes((int)d3.size(), (byte*)d3.data());
-    printf("d4: ");
-    print_bytes((int)d4.size(), (byte*)d4.data());
-  }
-
-  if (d1.compare(b1) != 0)
-    return false;
-  if (d2.compare(b2) != 0)
-    return false;
-  if (d3.compare(b3) != 0)
-    return false;
-  if (d4.compare(b4) != 0)
-    return false;
-
-  return true;
-}
-
-bool time_increment_test() {
-  time_point t1, t2;
-  t1.time_now();
-  t2.add_interval_to_time(t1, 377 * 86400.0);
-  if (FLAGS_print_all) {
-    printf("\n");
-    t1.print_time();
-    printf("\n");
-    t2.print_time();
-    printf("\n");
-  }
-  t2.add_interval_to_time(t1, 5 * 365 * 86400.0);
-  if (FLAGS_print_all) {
-    printf("\n");
-    t1.print_time();
-    printf("\n");
-    t2.print_time();
-    printf("\n");
-  }
-  if ((t1.year_ + 5) != t2.year_) {
-    return false;
+  if (month_ > 12) {
+    year_ += 1;
+    month_ -= 12;
   }
   return true;
 }
 
-bool endian_test() {
-  uint64_t l64, b64, r64;
-  uint32_t l32, b32, r32;
-  uint16_t l16, b16, r16;
-
-  l64 = (0x12345678ULL<<32) | 0x90abcdef;
-  l32 = 0x90abcdf;
-  l16 = 0xbcdf;
-
-  little_to_big_endian_64(&l64, &b64);
-  big_to_little_endian_64(&b64, &r64);
-  little_to_big_endian_32(&l32, &b32);
-  big_to_little_endian_32(&b32, &r32);
-  little_to_big_endian_16(&l16, &b16);
-  big_to_little_endian_16(&b16, &r16);
-
-  if (FLAGS_print_all) {
-    printf("l64: %016lx, b64: %016lx, r64: %016lx\n", l64, b64, r64);
-    printf("l32: %08x, b32: %08x, r32: %08x\n", l32, b32, r32);
-    printf("l16: %04x, b16: %04x, r16: %04x\n", l16, b16, r16);
-  }
-  if (l64 != r64)
-    return false;
-  if (l32 != r32)
-    return false;
-  if (l16 != r16)
-    return false;
-  return true;
-}
-
-const int test_file_data_size = 32;
-byte test_file_data[test_file_data_size] = {
-  0, 1, 2, 3, 4, 5, 6, 7,
-  8, 9, 10, 11,12,13,14,15,
-  0, 1, 2, 3, 4, 5, 6, 7,
-  8, 9, 10, 11,12,13,14,15,
+const char* s_months[] = {
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
 };
-bool file_test() {
-  file_util file;
-  byte buf_read[64];
+void time_point::print_time() {
+  int m = month_ - 1;
+  if (m < 0 || m > 11)
+    return;
+  printf("%d %s %d, %02d:%02d:%lfZ", day_in_month_, s_months[m], year_,
+      hour_, minutes_, seconds_);
+}
 
-  unlink("file_test_file");
-  if (!file.create("file_test_file"))
+bool time_point::encode_time(string* the_time) {
+  int m = month_ - 1;
+  if (m < 0 || m > 11)
     return false;
-  if(!file.write_file("file_test_file", test_file_data_size, test_file_data))
-    return false;
-  file.close();
-  if (!file.open("file_test_file"))
-    return false;
-  if (32 != file.bytes_in_file())
-    return false;
-  int k = file.read_a_block(64, buf_read);
-  if (k != file.bytes_in_file())
-    return false;
-  file.close();
-  if (memcmp(test_file_data, buf_read, 32) != 0)
-    return false;
-
+  char time_str[256];
+  *time_str = '\0';
+  snprintf(time_str,255, "%d %s %d, %02d:%02d:%lfZ", day_in_month_, s_months[m], year_,
+      hour_, minutes_, seconds_);
+  m = strlen(time_str);
+  *the_time = time_str;
   return true;
 }
 
-bool symmetric_key_test() {
-  string s;
-
-  for(int i = 0; i < 32; i++)
-    s.append(1, (char)i);
-  key_message* m = make_symmetrickey("aes", "test_key", 256,
-                               nullptr, "30 August 2020, 20:52:28.000000Z",
-                               "30 August 2025, 20:52:28.000000Z", s);
-  if (m == nullptr)
-    return false;
-  if (FLAGS_print_all)
-    print_key_message(*m);
-
-  string ns;
-  m->SerializeToString(&ns);
-  delete m;
-  key_message nm;
-  nm.ParseFromString(ns);
-  if (FLAGS_print_all) {
-    printf("\nrecovered\n");
-    print_key_message(nm);
+const char* m_months[12] = {
+  "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+};
+int month_from_name(char* mn) {
+  for(int i = 0; i < 12; i++) {
+    if (strcmp(mn, m_months[i]) == 0)
+      return i;
   }
-  if (!nm.has_key_name() || strcmp("test_key", nm.key_name().c_str()) != 0)
-    return false;
+  return -1;
+}
+bool time_point::decode_time(string& encoded_time) {
+  int dm, yr, hr, min;
+  double sec;
+  char s[20];
+  sscanf(encoded_time.c_str(), "%d %s %d, %02d:%02d:%lfZ", &dm, s, &yr,
+      &hr, &min, &sec);
+  int mm = month_from_name(s);
+  if (mm < 0)
+   return false;
+  mm++;
+  year_ = yr;
+  month_ = mm;
+  day_in_month_ = dm;
+  hour_ = hr;
+  minutes_ = min;
+  seconds_ = sec;
   return true;
 }
 
-bool rsa_key_test() {
-  string empty;
-  string mod;
-  string e;
-  string d;
-  string p;
-  string q;
+bool time_point::time_point_to_unix_tm(struct tm* time_now) {
+  return false;
+}
 
-  empty.clear();
-  mod.clear();
-  e.clear();
-  d.clear();
-  p.clear();
-  q.clear();
-
-  byte mod_set[5] = { 1, 2, 3, 4, 5};
-  mod.assign((char*)mod_set, 5);
-
-  byte e_set[5] = {6, 7, 8, 9, 10};
-  e.assign((char*)e_set, 5);
-
-  byte d_set[5] = {0xa, 0xb, 0xc, 0xd, 0xe};
-  d.assign((char*)d_set, 5);
-
-  byte p_set[5] = {0x1a, 0x1b, 0x1c, 0x1d, 0x1e};
-  p.assign((char*)p_set, 5);
-
-  byte q_set[5] = {0x2a, 0x2b, 0x2c, 0x2d, 0x2e};
-  q.assign((char*)q_set, 5);
-
-  key_message* km = make_rsakey("rsa", "test_key", 256, nullptr,
-                     "30 August 2020, 20:52:28.000000Z", "30 August 2025, 20:52:28.000000Z", 
-                     mod, e, d, p, q, empty, empty, empty, empty, empty);
-
-  if (km == nullptr)
-    return false;
-  if (FLAGS_print_all)
-    print_key_message(*km);
-  if (!km->has_rsa_pub())
-    return false;
+bool time_point::unix_tm_to_time_point(struct tm* the_time) {
+  year_ = the_time->tm_year + 1900;
+  month_ = the_time->tm_mon + 1;
+  day_in_month_ = the_time->tm_mday;
+  hour_ = the_time->tm_hour;
+  minutes_ = the_time->tm_min;
+  seconds_ = the_time->tm_sec;
   return true;
 }
 
-bool ecc_key_test() {
-  string curve_name("p-256");
-  string curve_p;
-  string curve_a;
-  string curve_b;
-  string curve_base_x;
-  string curve_base_y;
-  string order_base_point;
-  string secret;
-  string curve_public_x;
-  string curve_public_y;
-  string empty;
-
-  curve_p.empty();
-  curve_a.empty();
-  curve_b.empty();
-  curve_base_x.empty();
-  curve_base_y.empty();
-  order_base_point.empty();
-  secret.empty();
-  curve_public_x.empty();
-  curve_public_y.empty();
-  empty.empty();
-
-  byte p_set[5] = { 0x01, 0x02, 0x03, 0x04, 0x05};
-  curve_p.assign((char*)p_set, 5);
-  byte a_set[5] = { 0x11, 0x12, 0x13, 0x14, 0x15};
-  curve_a.assign((char*)a_set, 5);
-  byte b_set[5] = { 0x21, 0x22, 0x23, 0x24, 0x25};
-  curve_b.assign((char*)b_set, 5);
-
-  byte base_x_set[5] = { 0x31, 0x32, 0x33, 0x34, 0x35};
-  curve_base_x.assign((char*)base_x_set, 5);
-  byte base_y_set[5] = { 0x41, 0x42, 0x43, 0x44, 0x45};
-  curve_base_y.assign((char*)base_y_set, 5);
-  byte set_order_base_point_set[5] = { 0x51, 0x52, 0x53, 0x54, 0x55};
-
-  order_base_point.assign((char*)set_order_base_point_set, 5);
-
-  byte public_x_set[5] = { 0x61, 0x62, 0x63, 0x64, 0x65};
-  curve_public_x.assign((char*)public_x_set, 5);
-  byte public_y_set[5] = { 0x71, 0x72, 0x73, 0x74, 0x75};
-  curve_public_y.assign((char*)public_y_set, 5);
-
-  byte secret_set[5] = { 0x81, 0x82, 0x83, 0x84, 0x85};
-  secret.assign((char*)secret_set, 5);
-
-  key_message* km = make_ecckey("test_key_2", 256, nullptr,
-                         "30 August 2020, 20:52:28.000000Z", "30 August 2025, 20:52:28.000000Z",
-                         curve_name, curve_p, curve_a, curve_b,
-                         curve_base_x, curve_base_y, order_base_point, secret,
-                         curve_public_x, curve_public_y);
-
-  if (km == nullptr)
-    return false;
-  if (FLAGS_print_all)
-    print_key_message(*km);
-  if (!km->has_ecc_pub())
-    return false;
-
-  return true;
-}
-
-bool u64_array_bytes_test() {
-  uint64_t n_in[4] = {
-    0x01020104, 0xffeeddccbbaa9988, 0x7766554433221100, 0x4455
-  };
-  string b_out;
-  uint64_t n_out[4];
-
-  int k= u64_array_to_bytes(3, n_in, &b_out);
-  if (k <= 0)
-    return false;
-  int m = bytes_to_u64_array(b_out, 3, n_out);
-  if (m <= 0)
-    return false;
-  if (FLAGS_print_all) {
-    printf("\n");
-    printf("n in   : "); print_u64_array(3, n_in); printf("\n");
-    printf("b out  : "); print_bytes(k, (byte*)b_out.data()); 
-    printf("n out  : "); print_u64_array(m, n_out); printf("\n");
-  }
-  if (m != 3)
-    return false;
-  for (int i = 0; i < m; i++) {
-    if (n_in[i] != n_out[i])
-      return false;
-  }
-
-  for (int i = 0; i < 4; i++) {
-    n_out[0] = 0ULL;
-  }
-  k= u64_array_to_bytes(4, n_in, &b_out);
-  if (k <= 0)
-    return false;
-  m = bytes_to_u64_array(b_out, 4, n_out);
-  if (m <= 0)
-    return false;
-  if (FLAGS_print_all) {
-    printf("\n");
-    printf("n in   : "); print_u64_array(4, n_in); printf("\n");
-    printf("b out  : "); print_bytes(k, (byte*)b_out.data()); 
-    printf("n out  : "); print_u64_array(m, n_out); printf("\n");
-  }
-  if (m != 4)
-    return false;
-  for (int i = 0; i < m; i++) {
-    if (n_in[i] != n_out[i])
-      return false;
-  }
-  return true;
-}
-
-bool scheme_message_test() {
-  string enc_key;
-  string hmac_key;
-  string nonce;
-  byte x[32];
-
-  for (int i = 0; i < 32; i++)
-    x[i] = i;
-  enc_key.assign((char*)x, 32);
-  for (int i = 0; i < 32; i++)
-    x[i] = i+32;
-  hmac_key.assign((char*)x, 32);
-  for (int i = 0; i < 32; i++)
-    x[i] = i+64;
-  nonce.assign((char*)x, 32);
-
-  time_point t1, t2;
-
-  t1.time_now();
-  string s1, s2;
-  if (!t1.encode_time(&s1))
-    return false;
-  t2.add_interval_to_time(t1, 5 * 365 * 86400.0);
-  if (!t2.encode_time(&s2))
-    return false;
-
-  scheme_message* m = make_scheme("aes-hmac-sha256-ctr", "scheme-id",
-      "ctr", "sym-pad", "testing", s1.c_str(), s2.c_str(),
-      "aes", 128, enc_key, "aes_test_key", "hmac-sha256", 256,  hmac_key);
-  if (m == nullptr)
-    return false;
-  print_scheme_message(*m);
-  return true;
-}
-
-TEST (algs, test_alg_names) {
-  EXPECT_TRUE(test_alg_names());
-}
-TEST (timeutilities, time_convert_test) {
-  EXPECT_TRUE(time_convert_test());
-  EXPECT_TRUE(time_increment_test());
-}
-TEST (convertutilities, hex_convert_test) {
-  EXPECT_TRUE(hex_convert_test());
-}
-TEST (convertutilities, base64_convert_test) {
-  EXPECT_TRUE(base64_convert_test());
-}
-TEST (randomutilities, random_test) {
-  EXPECT_TRUE(random_test());
-  EXPECT_TRUE(global_random_test());
-}
-TEST (endian, endian_test) {
-  EXPECT_TRUE(endian_test());
-}
-TEST (fileutilities, file_test) {
-  EXPECT_TRUE(file_test());
-}
-TEST (keyutilities, key_tests) {
-  EXPECT_TRUE(symmetric_key_test());
-  EXPECT_TRUE(rsa_key_test());
-  EXPECT_TRUE(ecc_key_test());
-  EXPECT_TRUE(scheme_message_test());
-}
-TEST (u64stuff, u64_array_bytes_test) {
-  EXPECT_TRUE(u64_array_bytes_test());
-}
-
-int main(int an, char** av) {
-  gflags::ParseCommandLineFlags(&an, &av, true);
-  an = 1;
-  ::testing::InitGoogleTest(&an, av);
-
-#if defined(X64)
-  uint64_t cycles_per_second = calibrate_rdtsc();
-  printf("This computer runs at %llu cycles per second\n", cycles_per_second);
-  if (have_intel_rd_rand())
-    printf("rd rand present\n");
-  else
-    printf("rd rand not present\n");
-  if (have_intel_aes_ni())
-    printf("aes ni present\n");
-  else
-    printf("aes ni not present\n");
-#endif
-
-  printf("Starting\n");
-  if (!init_crypto()) {
-    printf("init_crypto failed\n");
+int compare_time_points(time_point& l, time_point& r) {
+  if (l.year_ > r.year_)
     return 1;
+  if (l.year_ < r.year_)
+    return -1;
+  if (l.month_ > r.month_)
+    return 1;
+  if (l.month_ < r.month_)
+    return -1;
+  if (l.day_in_month_ > r.day_in_month_)
+    return 1;
+  if (l.day_in_month_ < r.day_in_month_)
+    return -1;
+  if (l.hour_ > r.hour_)
+    return 1;
+  if (l.hour_ < r.hour_)
+    return -1;
+  if (l.minutes_ > r.minutes_)
+    return 1;
+  if (l.minutes_ < r.minutes_)
+    return -1;
+  if (l.seconds_ > r.seconds_)
+    return 1;
+  if (l.seconds_ < r.seconds_)
+    return -1;
+  return 0;
+}
+
+int bits_to_bytes(int n) {
+  return NBITSINBYTE * n;
+}
+
+int bytes_to_bits(int n) {
+  return (n + NBITSINBYTE - 1) / NBITSINBYTE;
+}
+
+int bits_to_uint64(int n) {
+  return NBITSINUINT64 * n;
+}
+
+int uint64_to_bits(int n) {
+  return (n + NBITSINUINT64 - 1) / NBITSINUINT64;
+}
+
+static byte s_hex_values1[10] = {
+  0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+};
+static byte s_hex_values2[6] = {
+  10, 11, 12, 13, 14, 15
+};
+byte hex_value(char a) {
+  if (a >= '0' && a <= '9')
+    return s_hex_values1[a - '0'];
+  if (a >= 'A' && a <= 'F')
+    return s_hex_values2[a - 'A'];
+  if (a >= 'a' && a <= 'f')
+    return s_hex_values2[a - 'a'];
+  return 0;
+}  
+
+bool valid_hex(char* s) {
+  char a;
+  while (*s != '\0') {
+    a = *(s++);
+    if (a >= '0' && a <= '9')
+      continue;
+    if (a >= 'A' && a <= 'F')
+      continue;
+    if (a >= 'a' && a <= 'f')
+      continue;
+    return false;
+  }
+  return true;
+}
+
+bool hex_to_bytes(string& h, string* b) {
+  b->clear();
+  if (!valid_hex((char*)h.c_str()))
+    return false;
+  int h_size = strlen(h.c_str());
+
+  // if odd first 4 bits is 0
+  byte b1, b2;
+  int k;
+  if ((h_size % 2) != 0) {
+    b1 = 0;
+    b2 = hex_value(h[0]);
+    k = 1;
+    b->append(1, (char)b2);
+  } else {
+    k = 0;
+  }
+  for (int i = k; i < h_size; i += 2) {
+    b1 = hex_value(h[i]);
+    b2 = hex_value(h[i + 1]);
+    b1 = (b1 << 4) | b2;
+    b->append(1, b1);
+  }
+  return true;
+}
+
+static char s_hex_chars[16] = {
+  '0', '1', '2', '3', '4', '5', '6', '7',
+  '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
+};
+char hex_char(byte b) {
+  if (b > 16)
+    return '0';
+  return s_hex_chars[b];
+}
+
+bool bytes_to_hex(string& b, string* h) {
+  // always returns even number of hex characters
+  h->clear();
+  int b_size = b.size();
+  char c1, c2;
+  byte b1, b2;
+  for (int i = 0; i < b_size; i++) {
+    b1 = (b[i] >> 4) & 0x0f;
+    b2 = b[i] & 0x0f;
+    c1 = hex_char(b1);
+    c2 = hex_char(b2);
+    h->append(1, c1);
+    h->append(1, c2);
+  }
+  h->append(1, '\0');
+  return true;
+}
+
+static const char* web_safe_base64_characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
+bool valid_base64(char* s) {
+  char a;
+  while (*s != '\0') {
+    a = *(s++);
+    if (a >= '0' && a <= '9')
+      continue;
+    if (a >= 'A' && a <= 'Z')
+      continue;
+    if (a >= 'a' && a <= 'z')
+      continue;
+    if (a == '-' || a == '_' || a == '=')
+      continue;
+    return false;
+  }
+  return true;
+}
+byte base64_value(char a) {
+  for (int i = 0; i < (int)strlen(web_safe_base64_characters); i++) {
+    if (a == web_safe_base64_characters[i])
+      return i;
+  }
+  return -1;
+}
+char base64_char(byte a) {
+  if (a >= 0x3f)
+   return ' ';
+  return web_safe_base64_characters[(int)a];
+}
+bool base64_to_bytes(string& b64, string* b) {
+  if (!valid_base64((char*)b64.c_str()))
+    return false;
+  b->clear();
+  int b64_size = strlen(b64.c_str());
+  if (((int)b->capacity()) < ((b64_size / 4) * 3 + 1))
+    return false;
+  int i;
+  byte x1, x2, x3, x4, z;
+  for (i = 0; i < (b64_size - 4); i += 4) {
+    x1 = base64_value(b64[i]);
+    x2 = base64_value(b64[i + 1]);
+    x3 = base64_value(b64[i + 2]);
+    x4 = base64_value(b64[i + 3]);
+    z = (x1 << 2) | (x2 >> 4);
+    b->append(1, (char)z);
+    x2 &= 0x0f;
+    z = (x2 << 4) | (x3 >> 2);
+    b->append(1, (char)z);
+    x3 &= 0x03;
+    z = (x3 << 6) | x4;
+    b->append(1, (char)z);
+  }
+  // the possibilities for the remaining base64 characters are
+  //  c1 (6 bits), c2 (2 bits), =, =
+  //  c1 (6 bits), c2 (6 bits), c3 (4bits), =
+  // sanity check
+  if ((b64_size - i) != 4)
+    return false;
+  if (b64[b64_size - 1] == '=' && b64[b64_size - 2] != '=') {
+    x1 = base64_value(b64[b64_size - 4]);
+    x2 = base64_value(b64[b64_size - 3]);
+    x3 = base64_value(b64[b64_size - 2]);
+    z = (x1 << 2) | (x2 >> 4);
+    b->append(1, (char)z);
+    z = (x2 << 4) | x3;
+    b->append(1, (char)z);
+  } else if (b64[b64_size - 1] == '=' && b64[b64_size - 2] == '=') {
+    x1 = base64_value((char)b64[b64_size - 4]);
+    x2 = base64_value((char)b64[b64_size - 3]);
+    z = (x1 << 2) | x2;
+    b->append(1, (char)z);
+  } else {
+    x1 = base64_value((char)b64[b64_size - 4]);
+    x2 = base64_value((char)b64[b64_size - 3]);
+    x3 = base64_value((char)b64[b64_size - 2]);
+    x4 = base64_value((char)b64[b64_size - 1]);
+    z = (x1 << 2) | (x2 >> 4);
+    b->append(1, (char)z);
+    x2 &= 0x0f;
+    z = (x2 << 4) | (x3 >> 2);
+    b->append(1, (char)z);
+    x3 &= 0x03;
+    z = (x3 << 6) | x4;
+    b->append(1, (char)z);
+  }
+  return true;
+}
+
+bool bytes_to_base64(string& b, string* b64) {
+  b64->clear();
+  int b_size = b.size();
+  byte x1, x2, x3, z;
+  char c;
+  int i;
+  for (i = 0; i < (b_size - 3); i += 3) {
+    x1 = b[i];
+    z = x1 >> 2;
+    c = base64_char(z);
+    b64->append(1, c);
+    x2 = b[i + 1];
+    z = (x1 & 0x03) << 4 | x2>>4;
+    c = base64_char(z);
+    b64->append(1, c);
+    x3 = b[i + 2];
+    z = (x2 & 0x0f) << 2 | x3 >> 6; 
+    c = base64_char(z);
+    b64->append(1, c);
+    z = x3 & 0x3f;
+    c = base64_char(z);
+    b64->append(1, c);
+  }
+  // there can be 1, 2 or 3 bytes left
+  if ((b_size - i) == 1) {
+    x1 = b[i];
+    z = x1 >> 2;
+    c = base64_char(z);
+    b64->append(1, c);
+    z = (x1 & 0x03);
+    c = base64_char(z);
+    b64->append(1, c);
+    b64->append(2, '=');
+  } else if ((b_size - i) == 2) {
+    x1 = b[i];
+    x2 = b[i + 1];
+    z = x1 >> 2;
+    c = base64_char(z);
+    b64->append(1, c);
+    z = (x1 & 0x03) << 4 | x2 >> 4;
+    c = base64_char(z);
+    b64->append(1, c);
+    z =  x2 & 0x0f;
+    c = base64_char(z);
+    b64->append(1, c);
+    b64->append(1, '=');
+  } else if ((b_size - i) == 3) {
+    x1 = b[i];
+    x2 = b[i + 1];
+    x3 = b[i + 2];
+    z = x1 >> 2;
+    c = base64_char(z);
+    b64->append(1, c);
+    z = (x1 & 0x03) << 4 | x2 >> 4;
+    c = base64_char(z);
+    b64->append(1, c);
+    z =  (x2 & 0x0f) << 2 | x3 >> 6;
+    c = base64_char(z);
+    b64->append(1, c);
+    z =  x3 & 0x03f;
+    c = base64_char(z);
+    b64->append(1, c);
+  }
+  b64->append(1, '\0');
+  return true;
+}
+
+void print_bytes(int n, byte* in) {
+  int i;
+
+  for(i = 0; i < n; i++) {
+    printf("%02x",in[i]);
+    if ((i%32)== 31)
+      printf("\n");
+  }
+  if ((i%32) != 0)
+    printf("\n");
+}
+
+void reverse_bytes(int size, byte* in, byte* out) {
+  for (int i = 0; i < size; i++)
+    out[size - 1 - i] = in[i];
+}
+
+bool file_util::create(const char* filename) {
+  write_ = true;
+  fd_ = creat(filename, S_IRWXU | S_IRWXG);
+  initialized_ = fd_ > 0;
+  return initialized_;
+}
+
+bool file_util::open(const char* filename) {
+  struct stat file_info;
+
+  if (stat(filename, &file_info) != 0)
+    return false;
+  if (!S_ISREG(file_info.st_mode))
+    return false;
+  bytes_in_file_ = (int)file_info.st_size;
+  fd_ = ::open(filename, O_RDONLY);
+  initialized_ = fd_ > 0;
+  write_ = false;
+  return initialized_;
+}
+
+
+int file_util::bytes_in_file() {
+  return bytes_in_file_;
+}
+
+int file_util::bytes_left_in_file() {
+  return bytes_in_file_ - bytes_read_;
+}
+
+int file_util::bytes_written_to_file() {
+  return bytes_written_;
+}
+
+void file_util::close() {
+  ::close(fd_);
+  initialized_ = false;
+}
+
+int file_util::read_a_block(int size, byte* buf) {
+  if (!initialized_)
+    return -1;
+  if (write_)
+    return -1;
+  bytes_read_ += size;
+  return read(fd_, buf, size);
+}
+
+bool file_util::write_a_block(int size, byte* buf) {
+  if (!initialized_)
+    return false;
+  if (!write_)
+    return false;
+  bytes_written_ += size;
+  return write(fd_, buf, size) > 0;
+}
+
+int file_util::read_file(const char* filename, int size, byte* buf) {
+  if (!open(filename))
+    return -1;
+  if (bytes_in_file_ < size) {
+      close();
+      return -1;
+  }
+  int n = read_a_block(size, buf);
+  close();
+  return n;
+}
+
+bool file_util::write_file(const char* filename, int size, byte* buf) {
+  if (!create(filename))
+    return -1;
+  int n = write_a_block(size, buf);
+  close();
+  return n > 0;
+}
+
+bool global_crypto_initialized = false;
+random_source global_crypto_random_source;
+
+int crypto_get_random_bytes(int num_bytes, byte* buf) {
+  if (!global_crypto_initialized)
+    return -1;
+  return global_crypto_random_source.get_random_bytes(num_bytes, buf);
+}
+
+bool init_crypto() {
+  if (!global_crypto_random_source.start_random_source())
+    return false;
+  global_crypto_initialized = true;
+  return true;
+}
+
+void close_crypto() {
+  if (global_crypto_initialized)
+    global_crypto_random_source.close_random_source();
+}
+
+
+key_message* make_symmetrickey(const char* alg, const char* name, int bit_size,
+                               const char* purpose, const char* not_before,
+                               const char* not_after, string& secret) {
+  // has_algorithm_type
+  key_message* m = new(key_message);
+  m->set_family_type("symmetric");
+  if (alg  != nullptr)
+    m->set_algorithm_type(alg);
+  if (name != nullptr)
+    m->set_key_name(name);
+  m->set_key_size(bit_size);
+  if (purpose != nullptr)
+    m->set_purpose(purpose);
+  if (not_before != nullptr)
+    m->set_notbefore(not_before);
+  if (not_after != nullptr)
+    m->set_notafter(not_after);
+  m->set_secret(secret);
+
+  return m;
+}
+
+key_message* make_ecckey(const char* name, int prime_bit_size, const char* purpose,
+                         const char* not_before, const char* not_after,
+                         string& curve_name, string& curve_p,
+                         string& curve_a, string& curve_b,
+                         string& curve_base_x, string& curve_base_y,
+                         string& order_base_point, string& secret,
+                         string& curve_public_point_x, string& curve_public_point_y) {
+  key_message* km = new(key_message);
+  if (km == nullptr)
+    return nullptr;
+  km->set_family_type("public");
+  km->set_algorithm_type("ecc");
+  if (name != nullptr)
+    km->set_key_name(name);
+  if (purpose != nullptr)
+    km->set_purpose(purpose);
+  if (not_before != nullptr)
+    km->set_notbefore(not_before);
+  if (not_after != nullptr)
+    km->set_notafter(not_after);
+  km->set_key_size(prime_bit_size);
+
+  ecc_public_parameters_message* pub = km->mutable_ecc_pub();
+  curve_message* cmsg = pub->mutable_cm();
+  cmsg->set_curve_name(curve_name);
+  cmsg->set_curve_p((void*)curve_p.data(), (int)curve_p.size());
+  cmsg->set_curve_a((void*)curve_a.data(), (int)curve_a.size());
+  cmsg->set_curve_b((void*)curve_b.data(), (int)curve_b.size());
+  pub->set_order_of_base_point((void*)order_base_point.data(), (int)order_base_point.size());
+  point_message* bpm = pub->mutable_base_point();
+  bpm->set_x((void*)curve_base_x.data(), (int)curve_base_x.size());
+  bpm->set_y((void*)curve_base_y.data(), (int)curve_base_y.size());
+  point_message* ppm = pub->mutable_public_point();
+  ppm->set_x((void*)curve_public_point_x.data(), (int)curve_public_point_x.size());
+  ppm->set_y((void*)curve_public_point_y.data(), (int)curve_public_point_y.size());
+
+  ecc_private_parameters_message* priv = km->mutable_ecc_priv();
+  priv->set_private_multiplier((void*)secret.data(), (int)secret.size());
+
+  return km;
+}
+
+key_message* make_rsakey(const char* alg, const char* name, int bit_size,
+    const char* purpose, const char* not_before, const char* not_after,
+    string& mod, string& e, string& d, string& p, string& q, string& dp,
+    string& dq, string& m_prime, string& p_prime, string& q_prime) {
+  key_message* km = new(key_message);
+  km->set_family_type("public");
+  km->set_algorithm_type("rsa");
+  if (name != nullptr)
+    km->set_key_name(name);
+  km->set_key_size(bit_size);
+  if (purpose != nullptr)
+    km->set_purpose(purpose);
+  if (not_before != nullptr)
+    km->set_notbefore(not_before);
+  if (not_after != nullptr)
+    km->set_notafter(not_after);
+
+  rsa_public_parameters_message* pub = km->mutable_rsa_pub();
+  pub->set_modulus((void*)mod.data(), (int)mod.size());
+  pub->set_e((void*)e.data(), (int)e.size());
+
+  rsa_private_parameters_message* priv = km->mutable_rsa_priv();
+  priv->set_d((void*)d.data(), (int)d.size());
+  priv->set_p((void*)p.data(), (int)p.size());
+  priv->set_q((void*)q.data(), (int)q.size());
+  priv->set_dq((void*)dq.data(), (int)dq.size());
+  priv->set_m_prime((void*) m_prime.data(), (int)m_prime.size());
+  priv->set_p_prime((void*) p_prime.data(), (int)p_prime.size());
+  priv->set_q_prime((void*) q_prime.data(), (int)q_prime.size());
+
+  return km;
+}
+
+scheme_message* make_scheme(const char* alg, const char* id_name,
+      const char* mode, const char* pad, const char* purpose,
+      const char* not_before, const char* not_after,
+      const char* enc_alg, int size_enc_key, string& enc_key,
+      const char* enc_key_name, const char* hmac_alg,
+      int size_hmac_key,  string& hmac_key) {
+
+  scheme_message* m = new(scheme_message);
+  m->set_scheme_type(alg);
+  m->set_scheme_instance_identifier(id_name);
+  m->set_mode(mode);
+  m->set_pad(pad);
+  m->set_notbefore(not_before);
+  m->set_notafter(not_after);
+  m->set_scheme_instance_identifier(id_name);
+  key_message* km = make_symmetrickey(enc_alg, enc_key_name, size_enc_key,
+                               purpose, not_before, not_after, enc_key);
+  m->set_allocated_encryption_key(km);
+  hmac_parameters_message* hp =  new hmac_parameters_message;
+  hp->set_algorithm(hmac_alg);
+  hp->set_size(size_hmac_key);
+  hp->set_secret(hmac_key);
+  m->set_allocated_parameters(hp);
+  return m;
+}
+
+certificate_body_message* make_certificate_body(string& version, string& subject_name_type,
+      string& subject_name_value, key_message& subject_key, string& purpose,
+      string& not_before, string& not_after, string& nonce, string& revocation_address,
+      string& date_signed) {
+
+  certificate_body_message* cbm = new(certificate_body_message);
+  if (cbm == nullptr) {
+    return nullptr;
+  }
+  cbm->set_version(version.c_str());
+  certificate_name_message* cnm = cbm->mutable_subject();
+  cnm->set_name_type(subject_name_type.c_str());
+  cnm->set_name_value(subject_name_value.c_str());
+  certificate_algorithm_message* cam = cbm->mutable_subject_key();
+  cam->set_algorithm_name(subject_key.algorithm_type().c_str());
+  rsa_public_parameters_message* rpm = cam->mutable_rsa_params();
+  rpm->set_modulus(subject_key.rsa_pub().modulus());
+  rpm->set_e(subject_key.rsa_pub().e());
+  cbm->set_purpose(purpose.c_str());
+  cbm->set_not_before(not_before.c_str());
+  cbm->set_not_after(not_after.c_str());
+  cbm->set_nonce(nonce);
+  cbm->set_revocation_address(revocation_address.c_str());
+  cbm->set_date_signed(date_signed.c_str());
+  return cbm;
+}
+
+certificate_message* make_certificate(certificate_body_message& cbm,
+      string& issuer_name_type, string& issuer_name_value, key_message& issuer_key,
+      string& signing_algorithm, string& signature) {
+  certificate_message* cm = new(certificate_message);
+  cm->set_allocated_info(&cbm);
+  certificate_name_message* cnm = cm->mutable_issuer();
+  cnm->set_name_type(issuer_name_type.c_str());
+  cnm->set_name_value(issuer_name_value.c_str());
+  cm->set_signing_algorithm(signing_algorithm);
+  certificate_algorithm_message* cam = cm->mutable_signing_key();
+  cam->set_algorithm_name(signing_algorithm.c_str());
+  rsa_public_parameters_message* rpm = cam->mutable_rsa_params();
+  rpm->set_modulus(issuer_key.rsa_pub().modulus());
+  rpm->set_e(issuer_key.rsa_pub().e());
+  cm->set_signature(signature);
+  return cm;
+}
+
+void print_binary_blob(binary_blob_message& m) {
+  printf("Binary blob: ");
+  print_bytes((int)m.blob().size(), (byte*)m.blob().data());
+}
+
+void print_encrypted_message(encrypted_message& m) {
+  printf("Encrypted message:\n");
+  if (m.has_scheme_identifier())
+    printf("  Scheme id   : %s\n", m.scheme_identifier().c_str());
+  if (m.has_message_identifier())
+    printf("  Message id  : %s\n", m.message_identifier().c_str());
+  if (m.has_source() && m.has_destination())
+    printf("  Source      : %s, destination: %s\n", m.source().c_str(), m.destination().c_str());
+  if (m.has_date())
+    printf("  Date        : %s\n", m.date().c_str());
+  if (m.has_buffer()) {
+    printf("  Buffer      : ");
+    print_bytes((int)m.buffer().size(), (byte*)m.buffer().data());
+  }
+}
+
+void print_signature_message(signature_message& m) {
+  printf("Signature message\n");
+  printf("    algorithm : %s\n", m.encryption_algorithm_name().c_str());
+  printf("    key name  : %s\n", m.key_name().c_str());
+  printf("    signature : ");
+  print_bytes((int)m.signature().size(), (byte*)m.signature().data());
+  printf("    signer    : %s\n", m.signer_name().c_str());
+}
+
+void print_rsa_public_parameters_message(rsa_public_parameters_message& m) {
+  printf("    modulus   : "); print_bytes((int)m.modulus().size(), (byte*)m.modulus().data());
+  printf("    e         : "); print_bytes((int)m.e().size(), (byte*)m.e().data());
+}
+
+void print_ecc_public_parameters_message(ecc_public_parameters_message& m) {
+}
+
+void print_rsa_private_parameters_message(rsa_private_parameters_message& m) {
+}
+
+void print_ecc_private_parameters_message(ecc_private_parameters_message& m) {
+}
+
+void print_hmac_parameters_message(hmac_parameters_message& m) {
+  if (m.has_algorithm())
+    printf("hmac algorithm: %s\n", m.algorithm().c_str());
+  if (m.has_size())
+    printf("hmac key size : %d\n", m.size());
+  if (m.has_secret()) {
+    printf("hmac secret   : ");
+    print_bytes((int)m.secret().size(), (byte*)m.secret().data());
+  }
+}
+
+void print_key_message(key_message& m) {
+  if (!m.has_family_type())
+    return;
+  printf("%s key\n", m.family_type().c_str());
+  if (m.has_algorithm_type())
+    printf("  Algorithm   : %s\n", m.algorithm_type().c_str());
+  if (m.has_key_name())
+    printf("  Key name    : %s\n", m.key_name().c_str());
+  if (m.has_key_size())
+    printf("  Key size    : %d bits\n", m.key_size());
+  if (m.has_algorithm_type())
+    printf("  Purpose     : %s\n", m.purpose().c_str());
+  if (m.has_notbefore())
+    printf("  Not before  : %s\n", m.notbefore().c_str());
+  if (m.has_notafter())
+    printf("  Not after   : %s\n", m.notafter().c_str());
+  if (m.has_secret()) {
+    printf("  Secret      : "); print_bytes((int)m.secret().size(),
+                                (byte*)m.secret().data());
+  }
+  if (m.has_rsa_pub()) {
+    if (m.rsa_pub().has_modulus() && (int)m.rsa_pub().modulus().size() > 0) {
+      printf("  modulus     : ");
+      print_bytes((int)(m.rsa_pub().modulus().size()),
+          (byte*)m.rsa_pub().modulus().data());
+    }
+    if (m.rsa_pub().has_e() && (int)m.rsa_pub().e().size() > 0) {
+      printf("  e           : ");
+      print_bytes((int)(m.rsa_pub().e().size()),
+        (byte*)m.rsa_pub().e().data());
+    }
+  }
+  if (m.has_rsa_priv() && (int)m.rsa_priv().d().size() > 0) {
+    if (m.rsa_priv().has_d()) {
+      printf("  d           : ");
+      print_bytes((int)(m.rsa_priv().d().size()),
+         (byte*)m.rsa_priv().d().data());
+    }
+    if (m.rsa_priv().has_p() && (int)m.rsa_priv().p().size() > 0) {
+      printf("  p           : ");
+      print_bytes((int)(m.rsa_priv().p().size()),
+         (byte*)m.rsa_priv().p().data());
+    }
+    if (m.rsa_priv().has_q() && (int)m.rsa_priv().q().size() > 0) {
+      printf("  q           : ");
+      print_bytes((int)(m.rsa_priv().q().size()),
+        (byte*)m.rsa_priv().q().data());
+    }
+    if (m.rsa_priv().has_m_prime() && (int)m.rsa_priv().m_prime().size() > 0) {
+      printf("  m_prime     : ");
+      print_bytes((int)(m.rsa_priv().m_prime().size()),
+        (byte*)m.rsa_priv().m_prime().data());
+    }
+    if (m.rsa_priv().has_p_prime() && (int)m.rsa_priv().p_prime().size() > 0) {
+      printf("  p_prime     : ");
+      print_bytes((int)(m.rsa_priv().p_prime().size()),
+        (byte*)m.rsa_priv().p_prime().data());
+    }
+    if (m.rsa_priv().has_q_prime() && (int)m.rsa_priv().q_prime().size() > 0) {
+      printf("  q_prime     : ");
+      print_bytes((int)(m.rsa_priv().q_prime().size() / NBITSINBYTE),
+        (byte*)m.rsa_priv().q_prime().data());
+    }
+  }
+  if (m.has_ecc_pub()) {
+    ecc_public_parameters_message* pub = m.mutable_ecc_pub();
+    if (pub->has_cm()) {
+      curve_message* cmsg= pub->mutable_cm();
+      if (cmsg->has_curve_name())  
+        printf("  curve name  : %s\n", cmsg->curve_name().c_str());
+      if (cmsg->has_curve_p())   {
+        printf("  curve p     : ");
+        print_bytes((int)cmsg->curve_p().size(), (byte*)cmsg->curve_p().data());
+      }
+      if (cmsg->has_curve_a())   {
+        printf("  curve a     : ");
+        print_bytes((int)cmsg->curve_a().size(), (byte*)cmsg->curve_a().data());
+      }
+      if (cmsg->has_curve_b())   {
+        printf("  curve b     : ");
+        print_bytes((int)cmsg->curve_b().size(), (byte*)cmsg->curve_b().data());
+      }
+    }
+    if (pub->has_base_point()) {
+      point_message* pt= pub->mutable_base_point();
+      if (pt->has_x()) {
+        printf("  base x      : ");
+        print_bytes((int)pt->x().size(), (byte*)pt->x().data());
+      }
+      if (pt->has_y()) {
+        printf("  base y      : ");
+        print_bytes((int)pt->y().size(), (byte*)pt->y().data());
+      }
+    }
+    if (pub->has_public_point()) {
+      point_message* pt= pub->mutable_public_point();
+      if (pt->has_x()) {
+        printf("  public x    : ");
+        print_bytes((int)pt->x().size(), (byte*)pt->x().data());
+      }
+      if (pt->has_y()) {
+        printf("  public y    : ");
+        print_bytes((int)pt->y().size(), (byte*)pt->y().data());
+      }
+    }
+    if (pub->has_order_of_base_point()) {
+      printf("  order base    : ");
+      print_bytes((int)pub->order_of_base_point().size(), (byte*)pub->order_of_base_point().data());
+    }
   }
 
-  int result = RUN_ALL_TESTS();
+  if (m.has_ecc_priv() && (int)m.ecc_priv().private_multiplier().size() > 0) {
+    printf("  private key     : ");
+    print_bytes((int)m.ecc_priv().private_multiplier().size(), (byte*)m.ecc_priv().private_multiplier().data());
+  }
+}
 
-  close_crypto();
-  return result;
+void print_scheme_message(scheme_message& m) {
+  printf("Scheme:\n");
+  if (m.has_scheme_type()) {
+    printf("scheme        : %s\n", m.scheme_type().c_str());
+  }
+  if (m.has_scheme_instance_identifier()) {
+    printf("scheme id     : %s\n", m.scheme_instance_identifier().c_str());
+  }
+  if (m.has_mode()) {
+    printf("mode          : %s\n", m.mode().c_str());
+  }
+  if (m.has_pad()) {
+    printf("pad: %s\n", m.pad().c_str());
+  }
+  if (m.has_notbefore()) {
+    printf("not before    : %s\n", m.notbefore().c_str());
+  }
+  if (m.has_notafter()) {
+    printf("not after     : %s\n", m.notafter().c_str());
+  }
+  if (m.has_encryption_key()) {
+    key_message* km = m.mutable_encryption_key();
+    print_key_message(*km);
+  }
+  if (m.has_parameters()) {
+    hmac_parameters_message* hp = m.mutable_parameters();
+    print_hmac_parameters_message(*hp);
+  }
+}
+void print_certificate_name_message(certificate_name_message& m) {
+  if (m.has_name_type()) 
+    printf("    type      : %s, ", m.name_type().c_str());
+  if (m.has_name_value()) 
+    printf(" name       : %s\n", m.name_value().c_str());
+}
+
+void print_algorithm_message(certificate_algorithm_message& am) {
+  printf("    algorithm : %s\n", am.algorithm_name().c_str());
+  if (strcmp(am.algorithm_name().c_str(), "rsa") == 0 ||
+      strcmp(am.algorithm_name().c_str(), "rsa-1024-sha-256-pkcs") == 0 ||
+      strcmp(am.algorithm_name().c_str(), "rsa-2048-sha-256-pkcs") == 0) {
+    rsa_public_parameters_message* rm = am.mutable_rsa_params();
+    print_rsa_public_parameters_message(*rm);
+  } else if (strcmp(am.algorithm_name().c_str(), "ecc") == 0) {
+      ecc_public_parameters_message* em = am.mutable_ecc_params();
+      print_ecc_public_parameters_message(*em);
+  } else {
+    printf("  unsupported cert algorithm\n");
+  }
+}
+
+void print_certificate_body(certificate_body_message& cbm) {
+  if (cbm.has_version()) {
+    printf("  Version     : %s\n", cbm.version().c_str());
+  }
+  if (cbm.has_subject()) {
+    certificate_name_message* sn = cbm.mutable_subject();
+    printf("  Subject     : \n");
+    print_certificate_name_message(*sn);
+  }
+  if (cbm.has_subject_key()) {
+    printf("  Subject key : \n");
+    certificate_algorithm_message* sk = cbm.mutable_subject_key();
+    print_algorithm_message(*sk);
+  }
+  if (cbm.has_purpose()) {
+    printf(" Purpose      : %s\n", cbm.purpose().c_str());
+  }
+  if (cbm.has_not_before()) {
+    printf(" Not before   : %s\n", cbm.not_before().c_str());
+  }
+  if (cbm.has_not_after()) {
+    printf(" Not after    : %s\n", cbm.not_after().c_str());
+  }
+  if (cbm.has_revocation_address()) {
+    printf(" Revocation   : %s\n", cbm.revocation_address().c_str());
+  }
+  if (cbm.has_date_signed()) {
+    printf(" Date signed  : %s\n", cbm.date_signed().c_str());
+  }
+}
+
+void print_certificate_message(certificate_message& m) {
+  if (m.has_info()) {
+    certificate_body_message* cbm = m.mutable_info();
+    print_certificate_body(*cbm);
+  }
+  if (m.has_issuer()) {
+    certificate_name_message* in = m.mutable_issuer();
+    printf("  Issuer      : \n");
+    print_certificate_name_message(*in);
+  }
+  if (m.has_signing_algorithm()) {
+    printf("  Signing alg : %s\n", m.signing_algorithm().c_str());
+  }
+  if (m.has_signing_key()) {
+    certificate_algorithm_message* ik = m.mutable_signing_key();
+    print_algorithm_message(*ik);
+  }
+  printf("  Signature   : ");
+  print_bytes((int)m.signature().size(), (byte*)m.signature().data());
+}
+
+
+// -------------------------------------------------------------------------------a
+
+void print_encryption_parameters(scheme_message& sm) {
+  print_scheme_message(sm);
+}
+
+void print_authentication_info(authentication_info& ai) {
+  if (ai.has_principal())
+      printf("Principal: %s\n", ai.principal().c_str());
+  if (ai.has_authentication_algorithm())
+      printf("Authentication algorithm: %s\n", ai.authentication_algorithm().c_str());
+}
+
+void print_audit_info(audit_info& inf) {
+}
+
+void print_acl_entry_message(acl_entry_message& aem) {
+  printf("\n");
+  printf("Resource: %s\n", aem.resource_identifier().c_str());
+  printf("Resource location: %s\n", aem.resource_location().c_str());
+  printf("Created: %s\n", aem.time_created().c_str());
+  printf("Written: %s\n", aem.time_written().c_str());
+  if (aem.has_authentication_info()) {
+    print_authentication_info(aem.authentication_info());
+  }
+  if (aem.has_encryption_parameters()) {
+    print_encryption_parameters(aem.encryption_parameters());
+  }
+  if (aem.has_audit_info()) {
+    print_audit_info(aem.audit_info());
+  }
+  printf("Permissions: ");
+  if (aem.read_permitted())
+    printf("read allowed ");
+  else
+    printf("read denied  ");
+  if (aem.write_permitted())
+    printf("write allowed ");
+  else
+    printf("write denied  ");
+  if (aem.delete_permitted())
+    printf("delete allowed ");
+  else
+    printf("delete denied  ");
+  printf("\n");
 }
