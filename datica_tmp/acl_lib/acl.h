@@ -223,12 +223,12 @@ bool get_resources_from_file(string& file_name, resource_list* rl);
 bool get_principals_from_file(string& file_name, principal_list* pl);
 bool save_resources_to_file(resource_list& rl, string& file_name);
 bool save_principals_to_file(principal_list& pl, string& file_name);
-int on_reader_list(resource_message& r, string& name);
-int on_writer_list(resource_message& r, string& name);
-int on_deleter_list(resource_message& r, string& name);
-int on_creator_list(resource_message& r, string& name);
-int on_principal_list(string& name, principal_list& pl);
-int on_resource_list(string& name, resource_list& rl);
+int on_reader_list(const resource_message& r, string& name);
+int on_writer_list(const resource_message& r, string& name);
+int on_deleter_list(const resource_message& r, string& name);
+int on_creator_list(const resource_message& r, string& name);
+int on_principal_list(string& name, const principal_list& pl);
+int on_resource_list(string& name, const resource_list& rl);
 bool add_reader_to_resource(string& name, resource_message* r);
 bool add_writer_to_resource(string& name, resource_message* r);
 bool add_deleter_to_resource(string& name, resource_message* r);
@@ -236,7 +236,7 @@ bool add_creator_to_resource(string& name, resource_message* r);
 bool add_principal_to_proto_list(string& name, string& alg, int num_bytes, byte* cred, principal_list* pl);
 bool add_resource_to_proto_list(string& id, string& locat, string& t_created, string& t_written, resource_list* rl);
 
-
+bool sign_nonce(string& nonce, key_message& k, string* signature);
 
 #endif
 

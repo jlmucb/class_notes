@@ -1365,7 +1365,7 @@ bool save_principals_to_file(principal_list& pl, string& file_name) {
   return true;
 }
 
-int on_reader_list(resource_message& r, string& name) {
+int on_reader_list(const resource_message& r, string& name) {
   for (int i = 0; i < r.readers_size(); i++) {
     if (r.readers(i) == name)
       return i;
@@ -1373,7 +1373,7 @@ int on_reader_list(resource_message& r, string& name) {
   return -1;
 }
 
-int on_writer_list(resource_message& r, string& name) {
+int on_writer_list(const resource_message& r, string& name) {
   for (int i = 0; i < r.writers_size(); i++) {
     if (r.writers(i) == name)
       return i;
@@ -1381,7 +1381,7 @@ int on_writer_list(resource_message& r, string& name) {
   return -1;
 }
 
-int on_deleter_list(resource_message& r, string& name) {
+int on_deleter_list(const resource_message& r, string& name) {
   for (int i = 0; i < r.deleters_size(); i++) {
     if (r.deleters(i) == name)
       return i;
@@ -1389,7 +1389,7 @@ int on_deleter_list(resource_message& r, string& name) {
   return -1;
 }
 
-int on_creator_list(resource_message& r, string& name) {
+int on_creator_list(const resource_message& r, string& name) {
   for (int i = 0; i < r.creators_size(); i++) {
     if (r.creators(i) == name)
       return i;
@@ -1397,7 +1397,7 @@ int on_creator_list(resource_message& r, string& name) {
   return -1;
 }
 
-int on_principal_list(string& name, principal_list& pl) {
+int on_principal_list(string& name, const principal_list& pl) {
   for (int i = 0; i < pl.principals_size(); i++) {
     if (pl.principals(i).principal_name() == name)
       return i;
@@ -1405,7 +1405,7 @@ int on_principal_list(string& name, principal_list& pl) {
   return -1;
 }
 
-int on_resource_list(string& name, resource_list& rl) {
+int on_resource_list(string& name, const resource_list& rl) {
   for (int i = 0; i < rl.resources_size(); i++) {
     if (rl.resources(i).resource_identifier() == name)
       return i;
@@ -1464,3 +1464,6 @@ bool add_resource_to_proto_list(string& id, string& locat, string& t_created, st
   return true;
 }
 
+bool sign_nonce(string& nonce, key_message& k, string* signature) {
+  return false;
+}

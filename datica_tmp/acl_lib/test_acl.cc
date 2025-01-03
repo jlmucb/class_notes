@@ -57,6 +57,14 @@ bool construct_sample_resources(resource_list* rl) {
     return false;
   if (!add_reader_to_resource(p2, rl->mutable_resources(1)))
     return false;
+  if (!add_writer_to_resource(p1, rl->mutable_resources(0)))
+    return false;
+  if (!add_writer_to_resource(p2, rl->mutable_resources(1)))
+    return false;
+  if (!add_creator_to_resource(p1, rl->mutable_resources(0)))
+    return false;
+  if (!add_creator_to_resource(p2, rl->mutable_resources(1)))
+    return false;
   return true;
 }
 
@@ -74,6 +82,62 @@ bool test_basic() {
   }
   print_principal_list(pl);
   print_resource_list(rl);
+
+  string p1("john");
+  string p2("paul");
+  string p3("tho");
+  string r1("file_1");
+  string r2("file_2");
+  string r3("file_3");
+
+  if (on_reader_list(rl.resources(0), p1) < 0) {
+    printf("%s should be reader\n", p1.c_str());
+    return false;
+  }
+  if (on_reader_list(rl.resources(1), p1) >= 0) {
+    printf("%s should not be reader\n", p1.c_str());
+    return false;
+  }
+  if (on_reader_list(rl.resources(1), p2) < 0) {
+    printf("%s should be reader\n", p2.c_str());
+    return false;
+  }
+  if (on_reader_list(rl.resources(0), p2) >= 0) {
+    printf("%s should not be reader\n", p1.c_str());
+    return false;
+  }
+
+  if (on_principal_list(p1, pl) < 0) {
+    printf("%s should be on principal list\n", p1.c_str());
+    return false;
+  }
+  if (on_resource_list(r1, rl) < 0) {
+    printf("%s should be on resource list\n", r1.c_str());
+    return false;
+  }
+  if (on_principal_list(p3, pl) >0 ) {
+    printf("%s should NOT be on principal list\n", p3.c_str());
+    return false;
+  }
+  if (on_resource_list(r3, rl) >0 ) {
+    printf("%s should NOT be on resource list\n", r3.c_str());
+    return false;
+  }
+
+  if (!init_crypto()) {
+    printf("Couldn't init crypto\n");
+    return false;
+  }
+  byte nonce[32];
+  int n =  crypto_get_random_bytes(32, nonce);
+  if(n < 32) {
+    printf("Couldn't get nonce\n");
+    return false;
+  }
+  printf("Nonce: ");
+  print_bytes(n, nonce);
+  printf("\n");
+  close_crypto();
   return true;
 }
 
@@ -108,3 +172,4 @@ int main(int an, char** av) {
 
   return result;
 }
+
