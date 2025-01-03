@@ -49,7 +49,7 @@ AR=ar
 LDFLAGS= -lprotobuf -lgtest -lgflags -lpthread
 
 # build the library later
-tobj=   $(O)/acl.o $(O)/test_acl.o
+tobj=   $(O)/acl.pb.o $(O)/acl.o $(O)/test_acl.o
 
 
 all:	test_acl.exe

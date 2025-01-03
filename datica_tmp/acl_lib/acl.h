@@ -167,24 +167,24 @@ certificate_message* make_certificate(certificate_body_message& cbm,
 void print_binary_blob(binary_blob_message& m);
 void print_encrypted_message(encrypted_message& m);
 void print_signature_message(signature_message& m);
-void print_rsa_public_parameters_message(rsa_public_parameters_message& m);
-void print_ecc_public_parameters_message(ecc_public_parameters_message& m);
-void print_rsa_private_parameters_message(rsa_private_parameters_message& m);
-void print_ecc_private_parameters_message(ecc_private_parameters_message& m);
-void print_hmac_parameters_message(hmac_parameters_message& m);
-void print_key_message(key_message& m);
-void print_scheme_message(scheme_message& m);
-void print_certificate_name_message(certificate_name_message& m);
-void print_certificate_algorithm_message(certificate_algorithm_message& m);
-void print_certificate_message(certificate_message& m);
-void print_certificate_body(certificate_body_message& cbm);
-void print_certificate(certificate_message& cm);
+void print_rsa_public_parameters_message(const rsa_public_parameters_message& m);
+void print_ecc_public_parameters_message(const ecc_public_parameters_message& m);
+void print_rsa_private_parameters_message(const rsa_private_parameters_message& m);
+void print_ecc_private_parameters_message(const ecc_private_parameters_message& m);
+void print_hmac_parameters_message(const hmac_parameters_message& m);
+void print_key_message(const key_message& m);
+void print_scheme_message(const scheme_message& m);
+void print_certificate_name_message(const certificate_name_message& m);
+void print_certificate_algorithm_message(const certificate_algorithm_message& m);
+void print_certificate_message(const certificate_message& m);
+void print_certificate_body(const certificate_body_message& cbm);
+void print_certificate(const certificate_message& cm);
 
 int crypto_get_random_bytes(int num_bytes, byte* buf);
 bool init_crypto();
 void close_crypto();
 
-void print_encryption_parameters(scheme_message& sm);
+void print_encryption_parameters(const scheme_message& sm);
 void print_authentication_info(const authentication_info& ai);
 void print_audit_info(const audit_info& inf);
 void print_acl_entry_message(const acl_entry_message& aem);
