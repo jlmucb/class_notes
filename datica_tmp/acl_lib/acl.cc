@@ -14,6 +14,10 @@
 
 #include "acl.pb.h"
 #include "acl.h"
+#include "stdio.h"
+#include <unistd.h>
+#include "sys/fcntl.h"
+#include "sys/stat.h"
 
 // these are from crypto lib
 
@@ -1006,30 +1010,30 @@ void print_encryption_parameters(scheme_message& sm) {
   print_scheme_message(sm);
 }
 
-void print_authentication_info(authentication_info& ai) {
+void print_authentication_info(const authentication_info& ai) {
   if (ai.has_principal())
       printf("Principal: %s\n", ai.principal().c_str());
   if (ai.has_authentication_algorithm())
       printf("Authentication algorithm: %s\n", ai.authentication_algorithm().c_str());
 }
 
-void print_audit_info(audit_info& inf) {
+void print_audit_info(const audit_info& inf) {
 }
 
-void print_acl_entry_message(acl_entry_message& aem) {
+void print_acl_entry_message(const acl_entry_message& aem) {
   printf("\n");
   printf("Resource: %s\n", aem.resource_identifier().c_str());
   printf("Resource location: %s\n", aem.resource_location().c_str());
   printf("Created: %s\n", aem.time_created().c_str());
-  printf("Written: %s\n", aem.time_written().c_str());
-  if (aem.has_authentication_info()) {
-    print_authentication_info(aem.authentication_info());
+  printf("Written: %s\n", aem.time_last_written().c_str());
+  if (aem.has_auth_info()) {
+    print_authentication_info(aem.auth_info());
   }
   if (aem.has_encryption_parameters()) {
     print_encryption_parameters(aem.encryption_parameters());
   }
-  if (aem.has_audit_info()) {
-    print_audit_info(aem.audit_info());
+  if (aem.has_log()) {
+    print_audit_info(aem.log());
   }
   printf("Permissions: ");
   if (aem.read_permitted())

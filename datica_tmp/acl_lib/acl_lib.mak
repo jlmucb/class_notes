@@ -16,7 +16,7 @@ ifndef SRC_DIR
 SRC_DIR=$(HOME)/src/github.com/jlmucb/class_notes
 endif
 ifndef OBJ_DIR
-OBJ_DIR=$(HOME)/cryptoobj/acl_lib
+OBJ_DIR=$(HOME)/cryptoobj
 endif
 ifndef EXE_DIR
 EXE_DIR=$(HOME)/cryptobin

@@ -19,8 +19,6 @@
 
 // these may be duplicated so add a namespace
 
-#if defined(X64)
-
 #ifndef int32_t
 typedef int int32_t;
 #endif
@@ -44,13 +42,16 @@ typedef long unsigned uint64_t;
 typedef long long unsigned uint64_t;
 #endif
 #endif
-#endif
 
 #ifndef NBITSINBYTE
 #define NBITSINBYTE 8
 #endif
 #ifndef NBITSINUINT64
 #define NBITSINUINT64 64
+#endif
+
+#ifndef byte
+typedef unsigned char byte;
 #endif
 
 using std::string;
@@ -184,9 +185,9 @@ bool init_crypto();
 void close_crypto();
 
 void print_encryption_parameters(scheme_message& sm);
-void print_authentication_info(authentication_info& ai);
-void print_audit_info(audit_info& inf);
-void print_acl_entry_message(acl_entry_message& aem);
+void print_authentication_info(const authentication_info& ai);
+void print_audit_info(const audit_info& inf);
+void print_acl_entry_message(const acl_entry_message& aem);
 
 #endif
 

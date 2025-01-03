@@ -19,7 +19,7 @@
 
 DEFINE_bool(print_all, false, "Print intermediate test computations");
 
-bool test_verify {
+bool test_verify() {
   return true;
 }
 
