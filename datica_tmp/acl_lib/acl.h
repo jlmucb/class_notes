@@ -185,6 +185,11 @@ certificate_message* make_certificate(certificate_body_message& cbm,
       string& issuer_name_type, string& issuer_name, key_message& issuer_key,
       string& signing_algorithm, string& signature);
 
+bool get_resources_from_file(string& file_name, resource_list* rl);
+bool get_principals_from_file(string& file_name, principal_list* pl);
+bool save_resources_to_file(resource_list& rl, string& file_name);
+bool save_principals_to_file(principal_list& pl, string& file_name);
+
 void print_binary_blob(binary_blob_message& m);
 void print_encrypted_message(encrypted_message& m);
 void print_signature_message(signature_message& m);
@@ -209,9 +214,10 @@ void print_encryption_parameters(const scheme_message& sm);
 void print_principal_info(const principal_message& pi);
 void print_audit_info(const audit_info& inf);
 void print_resource_message(const resource_message& rm);
-void print_principal_message(const principal_message& rm);
-void print_resource_list(const resource_list& rm);
-void print_principal_list(const principal_list& rm);
+void print_principal_message(const principal_message& pm);
+
+void print_resource_list(const resource_list& rl);
+void print_principal_list(const principal_list& pl);
 
 #endif
 

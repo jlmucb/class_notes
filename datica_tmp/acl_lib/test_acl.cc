@@ -16,16 +16,54 @@
 #include <gflags/gflags.h>
 #include <stdio.h>
 #include "acl.pb.h"
+#include "acl.h"
 
 DEFINE_bool(print_all, false, "Print intermediate test computations");
 
-bool test_verify() {
+
+bool construct_sample_principals(principal_list* pl) {
+  return false;
+}
+
+bool construct_sample_resources(resource_list* rl) {
+  return false;
+}
+
+bool test_basic() {
+  principal_list pl;
+  resource_list rl;
+
+  if (!construct_sample_principals(&pl)) {
+    printf("Cant construct principals\n");
+    return false;
+  }
+  if (!construct_sample_resources(&rl)) {
+    printf("Cant construct resources\n");
+    return false;
+  }
+  print_principal_list(pl);
+  print_resource_list(rl);
   return true;
 }
 
+bool test_access() {
+  principal_list pl;
+  resource_list rl;
 
-TEST (verify, test_verify) {
-  EXPECT_TRUE(test_verify());
+  if (!construct_sample_principals(&pl)) {
+    printf("Cant construct principals\n");
+    return false;
+  }
+  if (!construct_sample_resources(&rl)) {
+    printf("Cant construct resources\n");
+    return false;
+  }
+  return true;
+}
+
+TEST (basic, test_basic) {
+  EXPECT_TRUE(test_basic());
+  EXPECT_TRUE(test_access());
 }
 
 int main(int an, char** av) {

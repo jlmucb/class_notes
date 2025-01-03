@@ -461,6 +461,15 @@ void reverse_bytes(int size, byte* in, byte* out) {
     out[size - 1 - i] = in[i];
 }
 
+file_util::file_util() {
+  initialized_ = false;
+  fd_ = 0;
+  write_= false;
+  bytes_in_file_ = 0;
+  bytes_read_ = 0;
+  bytes_written_ = 0; 
+}
+
 bool file_util::create(const char* filename) {
   write_ = true;
   fd_ = creat(filename, S_IRWXU | S_IRWXG);
@@ -1294,5 +1303,68 @@ int channel_guard::find_resource(string& name) {
     }
   }
   return -1;
+}
+
+bool get_resources_from_file(string& file_name, resource_list* rl) {
+  string serialized_rl;
+  // read file into serialized_rl
+  file_util file;
+  if (!file.open(file_name.c_str())) {
+    return false;
+  }
+  int size = file.bytes_in_file();
+  if (serialized_rl.capacity() < size) {
+    serialized_rl.resize(size);
+  }
+  file.close();
+  if (!file.read_file(file_name.c_str(), size, (byte*)serialized_rl.data())) {
+    return false;
+  }
+  
+  return rl->ParseFromString(serialized_rl);
+}
+
+bool get_principals_from_file(string& file_name, principal_list* pl) {
+  string serialized_pl;
+  // read file into serialized_pl
+  file_util file;
+  if (!file.open(file_name.c_str())) {
+    return false;
+  }
+  int size = file.bytes_in_file();
+  if (serialized_pl.capacity() < size) {
+    serialized_pl.resize(size);
+  }
+  file.close();
+  if (!file.read_file(file_name.c_str(), size, (byte*)serialized_pl.data())) {
+    return false;
+  }
+  return pl->ParseFromString(serialized_pl);
+}
+
+bool save_resources_to_file(resource_list& rl, string& file_name) {
+  string serialized_rl;
+  if (rl.SerializeToString(&serialized_rl)) {
+    return false;
+  }
+  // write file
+  file_util file;
+  if (!file.write_file(file_name.c_str(), serialized_rl.size(), (byte*)serialized_rl.data())) {
+    return false;
+  }
+  return true;
+}
+
+bool save_principals_to_file(principal_list& pl, string& file_name) {
+  string serialized_pl;
+  if (pl.SerializeToString(&serialized_pl)) {
+    return false;
+  }
+  // write file
+  file_util file;
+  if (!file.write_file(file_name.c_str(), serialized_pl.size(), (byte*)serialized_pl.data())) {
+    return false;
+  }
+  return true;
 }
 
