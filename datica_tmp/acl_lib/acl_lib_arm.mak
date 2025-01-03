@@ -13,10 +13,10 @@
 
 
 ifndef SRC_DIR
-SRC_DIR=$(HOME)/src/github.com/jlmucb/crypto/v2
+SRC_DIR=$(HOME)/src/github.com/jlmucb/class_notes/datica_tmp/acl_lib
 endif
 ifndef OBJ_DIR
-OBJ_DIR=$(HOME)/cryptoobj/v2
+OBJ_DIR=$(HOME)/cryptoobj/acl_lib
 endif
 ifndef EXE_DIR
 EXE_DIR=$(HOME)/cryptobin
@@ -44,35 +44,31 @@ AR=ar
 #export LD_LIBRARY_PATH=/usr/local/lib
 LDFLAGS= -lprotobuf -lgtest -lgflags -lpthread
 
-dobj=	$(O)/test_crypto_support.o $(O)/support.pb.o $(O)/crypto_support.o $(O)/crypto_names.o
+tobj=	$(O)/acl.o $(O)/acl.pb.o $(O)/test_acl.o
 
 
-all:	test_crypto_support.exe
+all:	test_acl.exe
 clean:
 	@echo "removing object files"
 	rm $(O)/*.o
 	@echo "removing executable file"
-	rm $(EXE_DIR)/test_crypto_support.exe
+	rm $(EXE_DIR)/test_acl.exe
 
-test_crypto_support.exe: $(dobj) 
+test_acl.exe: $(dobj) 
 	@echo "linking executable files"
-	$(LINK) -o $(EXE_DIR)/test_crypto_support.exe $(dobj) $(LDFLAGS)
+	$(LINK) -o $(EXE_DIR)/test_acl.exe $(tobj) $(LDFLAGS)
 
-$(S)/support.pb.cc $(S)/support.pb.h: $(S)/support.proto
-	$(PROTO) -I=$(S) --cpp_out=$(S) $(S)/support.proto
+$(S)/acl.pb.cc $(S)/acl.pb.h: $(S)/acl.proto
+	$(PROTO) -I=$(S) --cpp_out=$(S) $(S)/acl.proto
 
-$(O)/test_crypto_support.o: $(S)/test_crypto_support.cc $(S)/support.pb.h
-	@echo "compiling test_crypto_support.cc"
-	$(CC) $(CFLAGS) -c $(I) -o $(O)/test_crypto_support.o $(S)/test_crypto_support.cc
+$(O)/test_acl.o: $(S)/test_acl.cc $(S)/support.pb.h
+	@echo "compiling test_acl.cc"
+	$(CC) $(CFLAGS) -c $(I) -o $(O)/test_acl.o $(S)/test_acl.cc
 
-$(O)/support.pb.o: $(S)/support.pb.cc $(S)/support.pb.h
-	@echo "compiling support.pb.cc"
-	$(CC) $(CFLAGS) -c $(I) -o $(O)/support.pb.o $(S)/support.pb.cc
+$(O)/acl.pb.o: $(S)/acl.pb.cc $(S)/acl.pb.h
+	@echo "compiling acl.pb.cc"
+	$(CC) $(CFLAGS) -c $(I) -o $(O)/acl.pb.o $(S)/acl.pb.cc
 
-$(O)/crypto_support.o: $(S)/crypto_support.cc $(S)/support.pb.h
-	@echo "compiling crypto_support.cc"
-	$(CC) $(CFLAGS) -c $(I) -o $(O)/crypto_support.o $(S)/crypto_support.cc
-
-$(O)/crypto_names.o: $(S)/crypto_names.cc
-	@echo "compiling crypto_names.cc"
-	$(CC) $(CFLAGS) -c $(I) -o $(O)/crypto_names.o $(S)/crypto_names.cc
+$(O)/acl.o: $(S)/acl.cc $(S)/acl.pb.h
+	@echo "compiling acl.cc"
+	$(CC) $(CFLAGS) -c $(I) -o $(O)/acl.o $(S)/acl.cc

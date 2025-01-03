@@ -10,7 +10,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License
-// File:support.proto
+// File:acl.proto
 
 syntax="proto2";
 
@@ -170,7 +170,7 @@ message acl_entry_message {
   optional scheme_message encryption_parameters       = 3;
   optional authentication_info auth_info              = 4;
   optional bool audit_required                        = 5;
-  optional audit_info log                             = 6
+  optional audit_info log                             = 6;
   optional bool read_permitted                        = 7;
   optional bool write_permitted                       = 8;
   optional bool delete_permitted                      = 9;

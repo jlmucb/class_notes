@@ -9,11 +9,11 @@
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #    See the License for the specific language governing permissions and
 #    limitations under the License
-#    File: crypto_support.mak
+#    File: acl_lib.mak
 
 
 ifndef SRC_DIR
-SRC_DIR=$(HOME)/src/github.com/jlmucb/class_notes/datica_tmp/acl_lib
+SRC_DIR=$(HOME)/src/github.com/jlmucb/class_notes
 endif
 ifndef OBJ_DIR
 OBJ_DIR=$(HOME)/cryptoobj/acl_lib
@@ -35,8 +35,8 @@ TARGET_MACHINE_TYPE= x64
 endif
 
 
-S= $(SRC_DIR)/crypto_support
-O= $(OBJ_DIR)/crypto_support
+S= $(SRC_DIR)/datica_tmp/acl_lib
+O= $(OBJ_DIR)/acl_lib
 INCLUDE= -I$(SRC_DIR)/include -I$(S) -I/usr/local/include
 
 CFLAGS=$(INCLUDE) -O3 -g -Wall -std=c++11 -Wno-unused-variable -D X64
@@ -52,12 +52,17 @@ LDFLAGS= -lprotobuf -lgtest -lgflags -lpthread
 tobj=   $(O)/acl.o $(O)/test_acl.o
 
 
-all:	test_acl.exe acl_lib
+all:	test_acl.exe
 clean:
 	@echo "removing object files"
 	rm $(O)/*.o
 	@echo "removing executable file"
 	rm $(EXE_DIR)/test_acl.exe
+	$(LINK) -o $(EXE_DIR)/test_acl.exe $(tobj) $(LDFLAGS)
+
+
+test_acl.exe: $(tobj)
+	@echo "linking executable files"
 	$(LINK) -o $(EXE_DIR)/test_acl.exe $(tobj) $(LDFLAGS)
 
 $(S)/acl.pb.cc $(S)/acl.pb.h: $(S)/acl.proto
@@ -71,6 +76,6 @@ $(O)/acl.pb.o: $(S)/acl.pb.cc $(S)/acl.pb.h
 	@echo "compiling acl.pb.cc"
 	$(CC) $(CFLAGS) -c $(I) -o $(O)/acl.pb.o $(S)/acl.pb.cc
 
-$(O)/acl.o: $(S)/acl.cc $(S)/support.pb.h
+$(O)/acl.o: $(S)/acl.cc $(S)/acl.pb.h
 	@echo "compiling acl.cc"
 	$(CC) $(CFLAGS) -c $(I) -o $(O)/acl.o $(S)/acl.cc

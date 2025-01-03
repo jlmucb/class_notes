@@ -12,9 +12,15 @@
 // limitations under the License
 // File: acl.h
 
+#ifndef ACL_H__
+#define ACL_H__
+
 #include "acl.pb.h"
 
-if defined(X64)
+// these may be duplicated so add a namespace
+
+#if defined(X64)
+
 #ifndef int32_t
 typedef int int32_t;
 #endif
@@ -176,4 +182,11 @@ void print_certificate(certificate_message& cm);
 int crypto_get_random_bytes(int num_bytes, byte* buf);
 bool init_crypto();
 void close_crypto();
+
+void print_encryption_parameters(scheme_message& sm);
+void print_authentication_info(authentication_info& ai);
+void print_audit_info(audit_info& inf);
+void print_acl_entry_message(acl_entry_message& aem);
+
+#endif
 
