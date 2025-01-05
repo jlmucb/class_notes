@@ -124,6 +124,37 @@ bool test_basic() {
     return false;
   }
 
+  principal_list restored_pl;
+  resource_list restored_rl;
+
+  string prin_file("saved_principals.bin");
+  if (!save_principals_to_file(pl, prin_file)) {
+    printf("Can't save principals file\n");
+    return false;
+  }
+  if (!get_principals_from_file(prin_file, &restored_pl)) {
+    printf("Can't recover principals file\n");
+    return false;
+  }
+  if (FLAGS_print_all) {
+    printf("Restored principals file\n");
+    print_principal_list(restored_pl);
+  }
+
+  string resource_file("saved_resource.bin");
+  if (!save_resources_to_file(rl, resource_file)) {
+    printf("Can't save resources file\n");
+    return false;
+  }
+  if (!get_resources_from_file(resource_file, &restored_rl)) {
+    printf("Can't recover resources file\n");
+    return false;
+  }
+  if (FLAGS_print_all) {
+    printf("Restored resources file\n");
+    print_resource_list(restored_rl);
+  }
+
   if (!init_crypto()) {
     printf("Couldn't init crypto\n");
     return false;
@@ -153,6 +184,8 @@ bool test_access() {
     printf("Cant construct resources\n");
     return false;
   }
+
+
   return true;
 }
 

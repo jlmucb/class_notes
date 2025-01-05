@@ -1341,12 +1341,14 @@ bool get_principals_from_file(string& file_name, principal_list* pl) {
 
 bool save_resources_to_file(resource_list& rl, string& file_name) {
   string serialized_rl;
-  if (rl.SerializeToString(&serialized_rl)) {
+  if (!rl.SerializeToString(&serialized_rl)) {
+    printf("Cant serialize resource list\n");
     return false;
   }
   // write file
   file_util file;
   if (!file.write_file(file_name.c_str(), serialized_rl.size(), (byte*)serialized_rl.data())) {
+    printf("Cant save resource list\n");
     return false;
   }
   return true;
@@ -1354,12 +1356,14 @@ bool save_resources_to_file(resource_list& rl, string& file_name) {
 
 bool save_principals_to_file(principal_list& pl, string& file_name) {
   string serialized_pl;
-  if (pl.SerializeToString(&serialized_pl)) {
+  if (!pl.SerializeToString(&serialized_pl)) {
+    printf("Cant serialize principals list\n");
     return false;
   }
   // write file
   file_util file;
   if (!file.write_file(file_name.c_str(), serialized_pl.size(), (byte*)serialized_pl.data())) {
+    printf("Cant write principals file\n");
     return false;
   }
   return true;
