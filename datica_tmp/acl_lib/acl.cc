@@ -1310,7 +1310,7 @@ bool get_resources_from_file(string& file_name, resource_list* rl) {
     return false;
   }
   int size = file.bytes_in_file();
-  if (serialized_rl.capacity() < size) {
+  if (((int)serialized_rl.capacity()) < size) {
     serialized_rl.resize(size);
   }
   file.close();
@@ -1329,7 +1329,7 @@ bool get_principals_from_file(string& file_name, principal_list* pl) {
     return false;
   }
   int size = file.bytes_in_file();
-  if (serialized_pl.capacity() < size) {
+  if (((int)serialized_pl.capacity()) < size) {
     serialized_pl.resize(size);
   }
   file.close();

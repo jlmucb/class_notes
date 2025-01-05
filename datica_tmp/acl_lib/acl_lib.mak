@@ -33,23 +33,35 @@ endif
 ifndef TARGET_MACHINE_TYPE
 TARGET_MACHINE_TYPE= x64
 endif
+NEWPROTOBUF=on
 
 
 S= $(SRC_DIR)/datica_tmp/acl_lib
 O= $(OBJ_DIR)/acl_lib
 INCLUDE= -I$(SRC_DIR)/include -I$(S) -I/usr/local/include
 
+ifndef NEWPROTOBUF
 CFLAGS=$(INCLUDE) -O3 -g -Wall -std=c++11 -Wno-unused-variable -D X64
 CFLAGS1=$(INCLUDE) -O1 -g -Wall -std=c++11 -Wno-unused-variable -D X64
+else
+CFLAGS=$(INCLUDE) -O3 -g -Wall -std=c++17 -Wno-unused-variable -D X64
+CFLAGS1=$(INCLUDE) -O1 -g -Wall -std=c++17 -Wno-unused-variable -D X64
+endif
 CC=g++
 LINK=g++
 PROTO=protoc
 AR=ar
-#export LD_LIBRARY_PATH=/usr/local/lib
-LDFLAGS= -lprotobuf -lgtest -lgflags -lpthread
 
 # build the library later
-tobj=   $(O)/acl.pb.o $(O)/acl.o $(O)/test_acl.o
+tobj=   $(O)/acl.o $(O)/acl.pb.o $(O)/test_acl.o
+
+ifdef NEWPROTOBUF
+export LD_LIBRARY_PATH=/usr/local/lib
+LDFLAGS= -L/usr/local/lib `pkg-config --cflags --libs protobuf` -lgtest -lgflags -lpthread
+else
+export LD_LIBRARY_PATH=/usr/local/lib
+LDFLAGS= -L/usr/local/lib -lprotobuf -lgtest -lgflags -lpthread
+endif
 
 
 all:	test_acl.exe
@@ -58,7 +70,6 @@ clean:
 	rm $(O)/*.o
 	@echo "removing executable file"
 	rm $(EXE_DIR)/test_acl.exe
-	$(LINK) -o $(EXE_DIR)/test_acl.exe $(tobj) $(LDFLAGS)
 
 
 test_acl.exe: $(tobj)

@@ -25,7 +25,7 @@ endif
 #GOOGLE_INCLUDE=/usr/local/include/g
 #endif
 ifndef LOCAL_LIB
-LOCAL_LIB=/usr/local/lib
+export LOCAL_LIB=/usr/local/lib
 endif
 ifndef TARGET_MACHINE_TYPE
 TARGET_MACHINE_TYPE= ARM64
@@ -42,7 +42,7 @@ LINK=g++
 PROTO=protoc
 AR=ar
 #export LD_LIBRARY_PATH=/usr/local/lib
-LDFLAGS= -lprotobuf -lgtest -lgflags -lpthread
+LDFLAGS= -lprotobuf -lgtest -lgflags -lpthread 
 
 tobj=	$(O)/acl.o $(O)/acl.pb.o $(O)/test_acl.o
 
