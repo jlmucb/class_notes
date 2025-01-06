@@ -131,6 +131,17 @@ class file_util {
   bool write_file(const char* filename, int size, byte* buf);
 };
 
+class active_resource {
+public:
+  active_resource();
+  ~active_resource();
+
+  string principal_name_;
+  string resource_name_;
+  int desc_;
+  unsigned rights_;
+};
+
 class channel_guard {
 public:
   channel_guard();
@@ -154,6 +165,15 @@ public:
   bool access_check(string& resource_name, string& action);
   bool add_new_principal(principal_message& pm);
   bool add_access_rights(access_list& al);
+#if 0
+  bool accept_credentials();
+  bool create_resource();
+  bool open_resource();
+  bool read_resource();
+  bool write_resource();
+  bool delete_resource();
+  bool close_resource();
+#endif
 };
 
 key_message* make_symmetrickey(const char* alg, const char* name, int bit_size,
