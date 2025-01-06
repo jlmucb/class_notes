@@ -136,6 +136,8 @@ public:
   active_resource();
   ~active_resource();
 
+  enum {READ=0x1, WRITE=0x2, DELETE=0x4, CREATE=0x08};
+
   string principal_name_;
   string resource_name_;
   int desc_;
