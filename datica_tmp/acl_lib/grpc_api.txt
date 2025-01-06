@@ -1,0 +1,10 @@
+grpc API
+
+accept_credentials
+create_resource
+open_resource
+read_resource
+write_resource
+delete_resource
+close_resource
+
