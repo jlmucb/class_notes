@@ -1326,6 +1326,14 @@ bool channel_guard::access_check(string& resource_name, string& action) {
   return false;
 }
 
+bool channel_guard::add_new_principal(principal_message& pm) {
+  return false;
+}
+
+bool channel_guard::add_access_rights(access_list& al) {
+  return false;
+}
+
 bool get_resources_from_file(string& file_name, resource_list* rl) {
   string serialized_rl;
   // read file into serialized_rl

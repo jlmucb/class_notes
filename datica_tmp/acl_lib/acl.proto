@@ -186,4 +186,9 @@ message principal_list {
   repeated principal_message principals               = 1;
 };
 
+message access_list {
+  optional string resource                            = 1;
+  repeated string prins                               = 2;
+};
+
 
