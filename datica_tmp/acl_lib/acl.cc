@@ -1302,6 +1302,30 @@ int channel_guard::find_resource(string& name) {
   return -1;
 }
 
+bool channel_guard::access_check(string& resource_name, string& action) {
+  if (action == "read") {
+    if (can_read(resource_name)) {
+      return true;
+    }
+  }
+  if (action == "write") {
+    if (can_write(resource_name)) {
+      return true;
+    }
+  }
+  if (action == "delete") {
+    if (can_delete(resource_name)) {
+      return true;
+    }
+  }
+  if (action == "create") {
+    if (can_create(resource_name)) {
+      return true;
+    }
+  }
+  return false;
+}
+
 bool get_resources_from_file(string& file_name, resource_list* rl) {
   string serialized_rl;
   // read file into serialized_rl

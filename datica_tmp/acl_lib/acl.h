@@ -132,6 +132,7 @@ class file_util {
 };
 
 class channel_guard {
+public:
   channel_guard();
   ~channel_guard();
 
@@ -150,6 +151,7 @@ class channel_guard {
   int can_delete(string resource_name);
   int can_create(string resource_name);
   int find_resource(string& name);
+  bool access_check(string& resource_name, string& action);
 };
 
 key_message* make_symmetrickey(const char* alg, const char* name, int bit_size,
