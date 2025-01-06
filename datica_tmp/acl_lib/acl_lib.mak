@@ -33,8 +33,7 @@ endif
 ifndef TARGET_MACHINE_TYPE
 TARGET_MACHINE_TYPE= x64
 endif
-NEWPROTOBUF=on
-
+NEWPROTOBUF=1
 
 S= $(SRC_DIR)/datica_tmp/acl_lib
 O= $(OBJ_DIR)/acl_lib

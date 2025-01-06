@@ -185,6 +185,16 @@ bool test_access() {
     return false;
   }
 
+  channel_guard guard;
+
+  // guard.load_resources(rl);
+  // sign_nonce(string& nonce, key_message& k, string* signature)
+  // guard.authenticate();
+  // set the principal name for now
+  // guard.print();
+  // guard.find_resource(string& name)
+  // access_check(string& resource_name, string& action)
+
 
   return true;
 }
