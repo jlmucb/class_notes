@@ -12,7 +12,6 @@
 // limitations under the License
 // File: acl.cc
 
-#include "acl.pb.h"
 #include "acl.h"
 #include "stdio.h"
 #include <unistd.h>
@@ -1168,172 +1167,6 @@ void print_resource_list(const resource_list& rl) {
   printf("\n");
 }
 
-channel_guard::channel_guard() {
-  channel_principal_authenticated_= false;
-  creds_ = nullptr;
-  num_resources_ = 0;
-  resources_= nullptr;
-}
-
-channel_guard::~channel_guard() {
-}
- 
-void channel_guard::print() {
-  printf("Principal name: %s\n", principal_name_.c_str());
-  printf("Authentication algorithm: %s\n", authentication_algorithm_name_.c_str());
-  // byte* creds_;
-  if (channel_principal_authenticated_) {
-    printf("Principal authenticated\n");
-  } else {
-    printf("Principal not authenticated\n");
-  }
-  printf("Number of resources: %d\n", num_resources_);
-  if (resources_ == nullptr)
-    return;
-  for (int i = 0; i <num_resources_; i++) {
-    print_resource_message(resources_[i]);
-  }
-}
- 
-
-bool channel_guard::authenticate(string& name, principal_list& pl) {
-  for (int i = 0; i < pl.principals_size(); i++) {
-    if (name == pl.principals(i).principal_name()) {
-      // call authenticator
-    }
-  }
-  return channel_principal_authenticated_;
-}
-
-bool channel_guard::load_resources(resource_list& rl) {
-  resources_= new resource_message[rl.resources_size()];
-  if (resources_ == nullptr) {
-    num_resources_ = 0;
-    resources_ = nullptr;
-  }
-  num_resources_ = rl.resources_size();
-  for (int i = 0; i < num_resources_; i++) {
-    resources_[i].CopyFrom(rl.resources(i));
-  }
-  return true;
-}
-
-// We have to be careful that resource names are unique and not
-// subject to spoofing by creators making up a resources with
-// an existing name to avoid authentication.
-int channel_guard::can_read(string resource_name) {
-  if (!channel_principal_authenticated_) {
-    return -1;
-  }
-  // see if principal_name_ is on reader list
-  int i= find_resource(resource_name);
-  if (i < 0) {
-    return -1;
-  }
-  for (int j = 0; j < resources_[i].readers_size(); j++) {
-    if (resources_[i].readers(j) == principal_name_) {
-      return i;
-    }
-    return -1;
-  }
-  return -1;
-}
-
-int channel_guard::can_write(string resource_name) {
-  if (!channel_principal_authenticated_) {
-    return -1;
-  }
-  // see if principal_name_ is on writer list
-  int i= find_resource(resource_name);
-  if (i < 0) {
-    return -1;
-  }
-  for (int j = 0; j < resources_[i].writers_size(); j++) {
-    if (resources_[i].writers(j) == principal_name_) {
-      return i;
-    }
-    return -1;
-  }
-  return -1;
-}
-
-int channel_guard::can_delete(string resource_name) {
-  if (!channel_principal_authenticated_) {
-    return -1;
-  }
-  // see if principal_name_ is on deleters list
-  int i= find_resource(resource_name);
-  if (i < 0) {
-    return -1;
-  }
-  for (int j = 0; j < resources_[i].deleters_size(); j++) {
-    if (resources_[i].deleters(j) == principal_name_) {
-      return i;
-    }
-    return -1;
-  }
-  return -1;
-}
-
-int channel_guard::can_create(string resource_name) {
-  if (!channel_principal_authenticated_) {
-    return -1;
-  }
-  // see if principal_name_ is on creator list
-  int i= find_resource(resource_name);
-  if (i < 0) {
-    return -1;
-  }
-  for (int j = 0; j < resources_[i].creators_size(); j++) {
-    if (resources_[i].creators(j) == principal_name_) {
-      return i;
-    }
-    return -1;
-  }
-  return -1;
-}
-
-int channel_guard::find_resource(string& name) {
-  for (int i = 0; i < num_resources_; i++) {
-    if (name == resources_[i].resource_identifier()) {
-      return i;
-    }
-  }
-  return -1;
-}
-
-bool channel_guard::access_check(string& resource_name, string& action) {
-  if (action == "read") {
-    if (can_read(resource_name)) {
-      return true;
-    }
-  }
-  if (action == "write") {
-    if (can_write(resource_name)) {
-      return true;
-    }
-  }
-  if (action == "delete") {
-    if (can_delete(resource_name)) {
-      return true;
-    }
-  }
-  if (action == "create") {
-    if (can_create(resource_name)) {
-      return true;
-    }
-  }
-  return false;
-}
-
-bool channel_guard::add_new_principal(principal_message& pm) {
-  return false;
-}
-
-bool channel_guard::add_access_rights(access_list& al) {
-  return false;
-}
-
 bool get_resources_from_file(string& file_name, resource_list* rl) {
   string serialized_rl;
   // read file into serialized_rl
@@ -1401,7 +1234,7 @@ bool save_principals_to_file(principal_list& pl, string& file_name) {
   return true;
 }
 
-int on_reader_list(const resource_message& r, string& name) {
+int on_reader_list(const resource_message& r, const string& name) {
   for (int i = 0; i < r.readers_size(); i++) {
     if (r.readers(i) == name)
       return i;
@@ -1409,7 +1242,7 @@ int on_reader_list(const resource_message& r, string& name) {
   return -1;
 }
 
-int on_writer_list(const resource_message& r, string& name) {
+int on_writer_list(const resource_message& r, const string& name) {
   for (int i = 0; i < r.writers_size(); i++) {
     if (r.writers(i) == name)
       return i;
@@ -1417,7 +1250,7 @@ int on_writer_list(const resource_message& r, string& name) {
   return -1;
 }
 
-int on_deleter_list(const resource_message& r, string& name) {
+int on_deleter_list(const resource_message& r, const string& name) {
   for (int i = 0; i < r.deleters_size(); i++) {
     if (r.deleters(i) == name)
       return i;
@@ -1425,7 +1258,7 @@ int on_deleter_list(const resource_message& r, string& name) {
   return -1;
 }
 
-int on_creator_list(const resource_message& r, string& name) {
+int on_creator_list(const resource_message& r, const string& name) {
   for (int i = 0; i < r.creators_size(); i++) {
     if (r.creators(i) == name)
       return i;
@@ -1433,7 +1266,7 @@ int on_creator_list(const resource_message& r, string& name) {
   return -1;
 }
 
-int on_principal_list(string& name, const principal_list& pl) {
+int on_principal_list(const string& name, principal_list& pl) {
   for (int i = 0; i < pl.principals_size(); i++) {
     if (pl.principals(i).principal_name() == name)
       return i;
@@ -1441,7 +1274,7 @@ int on_principal_list(string& name, const principal_list& pl) {
   return -1;
 }
 
-int on_resource_list(string& name, const resource_list& rl) {
+int on_resource_list(const string& name, resource_list& rl) {
   for (int i = 0; i < rl.resources_size(); i++) {
     if (rl.resources(i).resource_identifier() == name)
       return i;
@@ -1449,15 +1282,15 @@ int on_resource_list(string& name, const resource_list& rl) {
   return -1;
 }
 
-bool add_reader_to_resource(string& name, resource_message* r) {
-  if (on_reader_list(*r, name) >= 0)
+bool add_reader_to_resource_proto_list(const string& prin_name, resource_message* r) {
+  if (on_reader_list(*r, prin_name) >= 0)
     return false;
   string* ns = r->add_readers();
-  *ns = name;
+  *ns = prin_name;
   return true;
 }
 
-bool add_writer_to_resource(string& name, resource_message* r) {
+bool add_writer_to_resource_proto_list(const string& name, resource_message* r) {
   if (on_writer_list(*r, name) >= 0)
     return false;
   string* ns = r->add_writers();
@@ -1465,7 +1298,7 @@ bool add_writer_to_resource(string& name, resource_message* r) {
   return true;
 }
 
-bool add_deleter_to_resource(string& name, resource_message* r) {
+bool add_deleter_to_resource_proto_list(const string& name, resource_message* r) {
   if (on_deleter_list(*r, name) >= 0)
     return false;
   string* ns = r->add_deleters();
@@ -1473,7 +1306,7 @@ bool add_deleter_to_resource(string& name, resource_message* r) {
   return true;
 }
 
-bool add_creator_to_resource(string& name, resource_message* r) {
+bool add_creator_to_resource_proto_list(const string& name, resource_message* r) {
   if (on_creator_list(*r, name) >= 0)
     return false;
   string* ns = r->add_creators();
@@ -1481,16 +1314,15 @@ bool add_creator_to_resource(string& name, resource_message* r) {
   return true;
 }
 
-bool add_principal_to_proto_list(string& name, string& alg, int num_bytes, byte* cred, principal_list* pl) {
+bool add_principal_to_proto_list(const string& name, const string& alg, const string& cred, principal_list* pl) {
   principal_message* pm = pl->add_principals();
   pm->set_principal_name(name);
   pm->set_authentication_algorithm(alg);
-  if (num_bytes > 0 && cred != nullptr)
-    pm->set_credential(cred, num_bytes);
+  pm->set_credential(cred);
   return true;
 }
 
-bool add_resource_to_proto_list(string& id, string& locat, string& t_created, string& t_written,
+bool add_resource_to_proto_list(const string& id, const string& locat, const string& t_created, const string& t_written,
       resource_list* rl) {
   resource_message* rm = rl->add_resources();
   rm->set_resource_identifier(id);
@@ -1501,5 +1333,284 @@ bool add_resource_to_proto_list(string& id, string& locat, string& t_created, st
 }
 
 bool sign_nonce(string& nonce, key_message& k, string* signature) {
+  return false;
+}
+
+channel_guard::channel_guard() {
+  channel_principal_authenticated_= false;
+  capacity_resources_ = 0;
+  num_resources_ = 0;
+  resources_= nullptr;
+  num_active_resources_= 0;
+  capacity_active_resources_ = max_active_resources;
+}
+
+channel_guard::~channel_guard() {
+}
+
+void channel_guard::print() {
+  printf("Principal name: %s\n", principal_name_.c_str());
+  printf("Authentication algorithm: %s\n", authentication_algorithm_name_.c_str());
+  // byte* creds_;
+  if (channel_principal_authenticated_) {
+    printf("Principal authenticated\n");
+  } else {
+    printf("Principal not authenticated\n");
+  }
+  printf("Number of resources: %d\n", num_resources_);
+  if (resources_ == nullptr)
+    return;
+  for (int i = 0; i <num_resources_; i++) {
+    print_resource_message(resources_[i]);
+  }
+}
+
+
+bool channel_guard::authenticate(const string& name, principal_list& pl) {
+  for (int i = 0; i < pl.principals_size(); i++) {
+    if (name == pl.principals(i).principal_name()) {
+      principal_name_= pl.principals(i).principal_name();
+      authentication_algorithm_name_= pl.principals(i).authentication_algorithm();
+      creds_= pl.principals(i).authentication_algorithm();
+      // call authenticator  FIX
+      channel_principal_authenticated_= true;
+    }
+  }
+  return channel_principal_authenticated_;
+}
+
+bool channel_guard::load_resources(resource_list& rl) {
+  num_resources_ = rl.resources_size();
+  capacity_resources_ = 2 * (num_resources_ + 10);
+  resources_= new resource_message[capacity_resources_];
+  if (resources_ == nullptr) {
+    num_resources_ = 0;
+    resources_ = nullptr;
+  }
+  for (int i = 0; i < num_resources_; i++) {
+    resources_[i].CopyFrom(rl.resources(i));
+  }
+  return true;
+}
+
+active_resource::active_resource() {
+  desc_ = -1;;
+  rights_= 0;
+
+}
+
+active_resource::~active_resource() {
+}
+
+
+// We have to be careful that resource names are unique and not
+// subject to spoofing by creators making up a resources with
+// an existing name to avoid authentication.
+bool channel_guard::can_read(int resource_entry) {
+  if (!channel_principal_authenticated_) {
+    return false;
+  }
+  // see if principal_name_ is on reader list
+  for (int j = 0; j < resources_[resource_entry].readers_size(); j++) {
+    if (resources_[resource_entry].readers(j) == principal_name_) {
+      return true;
+    }
+  }
+  return false;
+}
+
+bool channel_guard::can_write(int resource_entry) {
+  if (!channel_principal_authenticated_) {
+    return false;
+  }
+  for (int j = 0; j < resources_[resource_entry].writers_size(); j++) {
+    if (resources_[resource_entry].writers(j) == principal_name_) {
+      return true;
+    }
+  }
+  return false;
+}
+
+bool channel_guard::can_delete(int resource_entry) {
+  if (!channel_principal_authenticated_) {
+    return false;
+  }
+  // see if principal_name_ is on deleters list
+  for (int j = 0; j < resources_[resource_entry].deleters_size(); j++) {
+    if (resources_[resource_entry].deleters(j) == principal_name_) {
+      return true;
+    }
+  }
+  return false;
+}
+
+bool channel_guard::can_create(int resource_entry) {
+  if (!channel_principal_authenticated_) {
+    return false;
+  }
+  for (int j = 0; j < resources_[resource_entry].creators_size(); j++) {
+    if (resources_[resource_entry].creators(j) == principal_name_) {
+      return true;
+    }
+  }
+  return false;
+}
+
+int channel_guard::find_resource(const string& name) {
+  for (int i = 0; i < num_resources_; i++) {
+    if (name == resources_[i].resource_identifier()) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+bool channel_guard::access_check(int resource_entry, const string& action) {
+  if (action == "read") {
+    if (can_read(resource_entry)) {
+      return true;
+    }
+  }
+  if (action == "write") {
+    if (can_write(resource_entry)) {
+      return true;
+    }
+  }
+  if (action == "delete") {
+    if (can_delete(resource_entry)) {
+      return true;
+    }
+  }
+  if (action == "create") {
+    if (can_create(resource_entry)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+bool accept_credentials(const string& principal_name, const string& alg, const string& cred, principal_list* pl) {
+  principal_message pm;
+  pm.set_principal_name(principal_name);
+  pm.set_authentication_algorithm(alg);
+  pm.set_credential(cred);
+  return add_principal_to_proto_list(principal_name, alg, cred, pl);
+}
+
+bool channel_guard::add_access_rights(string& resource_name, string& right, string& new_prin) {
+  // can current channel principal add access rights to this resource?
+  int n = find_resource(resource_name);
+  if (n < 0) {
+    printf("No such resource\n");
+    return false;
+  }
+  // already there?
+  return false;
+}
+
+bool channel_guard::create_resource(string& name) {
+  // make up encryption key
+  // automatically give creator read, write, delete rights
+  return false;
+}
+
+bool channel_guard::open_resource(const string& resource_name, const string& access_mode) {
+  printf("open_resource(%s, %s)\n", resource_name.c_str(), access_mode.c_str());
+  int n = find_resource(resource_name);
+  if (n < 0) {
+    printf("No such resource\n");
+    return false;
+  }
+  if (!access_check(n, access_mode)) {
+    printf("access failure\n");
+    return false;
+  }
+
+  unsigned requested_right = 0;
+  if (access_mode == "read") {
+    requested_right |= active_resource::READ;
+  } else if (access_mode == "write") {
+    requested_right |= active_resource::WRITE;
+  } else {
+      printf("unknown access mode\n");
+      return false;
+  }
+
+  int resource_entry = -1;
+  for (int i = 0; i < num_active_resources_; i++) {
+      if (ar_[i].principal_name_ == principal_name_ &&
+          ar_[i].resource_name_ == resource_name) {
+        if (ar_[i].rights_ == requested_right)
+          resource_entry = i;
+      }
+  }
+  if (resource_entry < 0) {
+    if (num_active_resources_ >= capacity_active_resources_) {
+      printf("number of active resources exceeded\n");
+      return false;
+    }
+    resource_entry = num_active_resources_++;
+    ar_[resource_entry].principal_name_ = principal_name_;
+    ar_[resource_entry].resource_name_ = resource_name;
+    ar_[resource_entry].rights_ |= requested_right;
+  }
+
+  // open, set descriptor
+  if (ar_[resource_entry].desc_ >= 0) {
+    printf("resource already open\n");
+    return false;
+  }
+  switch(requested_right) {
+    case active_resource::READ:
+      // open for reading
+    case active_resource::WRITE:
+      // open for writing
+      return true;
+    default:
+      return false;
+  }
+
+  return true;
+}
+
+bool channel_guard::read_resource(const string& resource_name) {
+  // in active resources?
+  return false;
+}
+
+bool channel_guard::write_resource(const string& resource_name) {
+  return false;
+}
+
+bool channel_guard::delete_resource(const string& resource_name) {
+  return false;
+}
+
+bool channel_guard::close_resource(const string& resource_name, unsigned requested_right) {
+  int resource_entry = -1;
+  for (int i = 0; i < num_active_resources_; i++) {
+      if (ar_[i].principal_name_ == principal_name_ && 
+          ar_[i].resource_name_ == resource_name &&
+          ar_[i].rights_ == requested_right) {
+          resource_entry = i;
+          break;
+      }
+  }
+  if (resource_entry >= 0) {
+     close(ar_[resource_entry].desc_);
+     ar_[resource_entry].desc_= -1;
+     // remove entry
+     return true;
+  }
+  return false;
+}
+
+bool channel_guard::save_principals(string& master_principal_list) {
+  // should be database, eventually
+  return false;
+}
+
+bool channel_guard::save_resources(string& master_resource_list) {
+  // should be database, eventually
   return false;
 }

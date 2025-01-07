@@ -75,10 +75,10 @@ test_acl.exe: $(tobj)
 	@echo "linking executable files"
 	$(LINK) -o $(EXE_DIR)/test_acl.exe $(tobj) $(LDFLAGS)
 
-$(S)/acl.pb.cc: $(S)/acl.h $(S)/acl.pb.h $(S)/acl.proto
+$(S)/acl.pb.cc: $(S)/acl.proto
 	$(PROTO) -I=$(S) --cpp_out=$(S) $(S)/acl.proto
 
-$(O)/test_acl.o: acl.h $(S)/test_acl.cc $(S)/acl.pb.h
+$(O)/test_acl.o: acl.h $(S)/test_acl.cc $(S)/acl.pb.cc
 	@echo "compiling test_acl.cc"
 	$(CC) $(CFLAGS) -c $(I) -o $(O)/test_acl.o $(S)/test_acl.cc
 
@@ -86,6 +86,6 @@ $(O)/acl.pb.o: $(S)/acl.pb.cc $(S)/acl.pb.h
 	@echo "compiling acl.pb.cc"
 	$(CC) $(CFLAGS) -c $(I) -o $(O)/acl.pb.o $(S)/acl.pb.cc
 
-$(O)/acl.o: acl.h $(S)/acl.cc $(S)/acl.pb.h
+$(O)/acl.o: acl.h $(S)/acl.cc $(S)/acl.pb.cc
 	@echo "compiling acl.cc"
 	$(CC) $(CFLAGS) -c $(I) -o $(O)/acl.o $(S)/acl.cc

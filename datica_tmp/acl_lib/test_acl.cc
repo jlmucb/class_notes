@@ -25,10 +25,11 @@ bool construct_sample_principals(principal_list* pl) {
   string p1("john");
   string p2("paul");
   string alg("none");
-  if (!add_principal_to_proto_list(p1, alg, 0, nullptr, pl)) {
+  string cred;
+  if (!add_principal_to_proto_list(p1, alg, cred, pl)) {
     return false;
   }
-  if (!add_principal_to_proto_list(p2, alg, 0, nullptr, pl)) {
+  if (!add_principal_to_proto_list(p2, alg, cred, pl)) {
     return false;
   }
   return true;
@@ -43,6 +44,7 @@ bool construct_sample_resources(resource_list* rl) {
   string l2("/datica/file_2");
   string t;
   time_point tp;
+
   if (!tp.time_now())
     return false;
   if (!tp.encode_time(&t))
@@ -53,17 +55,17 @@ bool construct_sample_resources(resource_list* rl) {
   if (!add_resource_to_proto_list(r2, l1, t, t, rl)) {
     return false;
   }
-  if (!add_reader_to_resource(p1, rl->mutable_resources(0)))
+  if (!add_reader_to_resource_proto_list(p1, rl->mutable_resources(0)))
     return false;
-  if (!add_reader_to_resource(p2, rl->mutable_resources(1)))
+  if (!add_reader_to_resource_proto_list(p2, rl->mutable_resources(1)))
     return false;
-  if (!add_writer_to_resource(p1, rl->mutable_resources(0)))
+  if (!add_writer_to_resource_proto_list(p1, rl->mutable_resources(0)))
     return false;
-  if (!add_writer_to_resource(p2, rl->mutable_resources(1)))
+  if (!add_writer_to_resource_proto_list(p2, rl->mutable_resources(1)))
     return false;
-  if (!add_creator_to_resource(p1, rl->mutable_resources(0)))
+  if (!add_creator_to_resource_proto_list(p1, rl->mutable_resources(0)))
     return false;
-  if (!add_creator_to_resource(p2, rl->mutable_resources(1)))
+  if (!add_creator_to_resource_proto_list(p2, rl->mutable_resources(1)))
     return false;
   return true;
 }
@@ -187,14 +189,35 @@ bool test_access() {
 
   channel_guard guard;
 
-  // guard.load_resources(rl);
-  // sign_nonce(string& nonce, key_message& k, string* signature)
-  // guard.authenticate();
-  // set the principal name for now
-  // guard.print();
-  // guard.find_resource(string& name)
-  // access_check(string& resource_name, string& action)
+  string channel_prin("john");
+  if (!guard.authenticate(channel_prin, pl)) {
+    printf("Cant authenticate %s\n", channel_prin.c_str());
+    return false;
+  }
+  printf("Channel principal set\n");
 
+  if (!guard.load_resources(rl)) {
+    printf("Cant load resource list\n");
+    return false;
+  }
+  printf("resource list loaded\n");
+
+  string res1("file_1");
+  string acc1("read");
+  if (!guard.open_resource(res1, acc1)) {
+    printf("open_resource failed\n");
+    return false;
+  }
+#if 0
+  bool channel_guard::create_resource(string& name)
+  bool channel_guard::add_access_rights(string& right, access_list& al)
+  bool channel_guard::read_resource(string& resource_name)
+  bool channel_guard::write_resource(string& resource_name) {
+  bool channel_guard::close_resource(string& resource_name)
+  channel_guard::close_resource(string& resource_name)
+  bool channel_guard::save_principals(string& master_principal_list)
+  bool channel_guard::save_resources(string& master_resource_list)
+#endif
 
   return true;
 }

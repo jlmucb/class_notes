@@ -55,7 +55,6 @@ typedef unsigned char byte;
 #endif
 
 using std::string;
-using std::ofstream;
 
 const int seconds_in_day = 86400;
 const int seconds_in_minute = 60;
@@ -119,6 +118,7 @@ class file_util {
   int bytes_written_;
 
   file_util();
+
   bool create(const char* filename);
   bool open(const char* filename);
   int bytes_in_file();
@@ -129,53 +129,6 @@ class file_util {
   bool write_a_block(int size, byte* buf);
   int read_file(const char* filename, int size, byte* buf);
   bool write_file(const char* filename, int size, byte* buf);
-};
-
-class active_resource {
-public:
-  active_resource();
-  ~active_resource();
-
-  enum {READ=0x1, WRITE=0x2, DELETE=0x4, CREATE=0x08};
-
-  string principal_name_;
-  string resource_name_;
-  int desc_;
-  unsigned rights_;
-};
-
-class channel_guard {
-public:
-  channel_guard();
-  ~channel_guard();
-
-  string principal_name_;
-  string authentication_algorithm_name_;
-  byte* creds_;
-  bool channel_principal_authenticated_;
-  int  num_resources_;
-  resource_message* resources_;
-
-  void print();
-  bool authenticate(string& name, principal_list& pl);
-  bool load_resources(resource_list& rl);
-  int can_read(string resource_name);
-  int can_write(string resource_name);
-  int can_delete(string resource_name);
-  int can_create(string resource_name);
-  int find_resource(string& name);
-  bool access_check(string& resource_name, string& action);
-  bool add_new_principal(principal_message& pm);
-  bool add_access_rights(access_list& al);
-#if 0
-  bool accept_credentials();
-  bool create_resource();
-  bool open_resource();
-  bool read_resource();
-  bool write_resource();
-  bool delete_resource();
-  bool close_resource();
-#endif
 };
 
 key_message* make_symmetrickey(const char* alg, const char* name, int bit_size,
@@ -232,6 +185,14 @@ void print_certificate_message(const certificate_message& m);
 void print_certificate_body(const certificate_body_message& cbm);
 void print_certificate(const certificate_message& cm);
 
+bool add_reader_to_resource_proto_list(const string& name, resource_message* r);
+bool add_writer_to_resource_proto_list(const string& name, resource_message* r);
+bool add_deleter_to_resource_proto_list(const string& name, resource_message* r);
+bool add_creator_to_resource_proto_list(const string& name, resource_message* r);
+bool add_principal_to_proto_list(const string& name, const string& alg, const string& cred, principal_list* pl);
+bool add_resource_to_proto_list(const string& id, const string& locat, const string& t_created,
+		const string& t_written, resource_list* rl);
+
 int crypto_get_random_bytes(int num_bytes, byte* buf);
 bool init_crypto();
 void close_crypto();
@@ -249,20 +210,84 @@ bool get_resources_from_file(string& file_name, resource_list* rl);
 bool get_principals_from_file(string& file_name, principal_list* pl);
 bool save_resources_to_file(resource_list& rl, string& file_name);
 bool save_principals_to_file(principal_list& pl, string& file_name);
-int on_reader_list(const resource_message& r, string& name);
-int on_writer_list(const resource_message& r, string& name);
-int on_deleter_list(const resource_message& r, string& name);
-int on_creator_list(const resource_message& r, string& name);
-int on_principal_list(string& name, const principal_list& pl);
-int on_resource_list(string& name, const resource_list& rl);
+int on_reader_list(const resource_message& r, const string& name);
+int on_writer_list(const resource_message& r, const string& name);
+int on_deleter_list(const resource_message& r, const string& name);
+int on_creator_list(const resource_message& r, const string& name);
+
+int on_principal_list(const string& name, principal_list& pl);
+int on_resource_list(const string& name, resource_list& rl);
+
 bool add_reader_to_resource(string& name, resource_message* r);
 bool add_writer_to_resource(string& name, resource_message* r);
 bool add_deleter_to_resource(string& name, resource_message* r);
 bool add_creator_to_resource(string& name, resource_message* r);
-bool add_principal_to_proto_list(string& name, string& alg, int num_bytes, byte* cred, principal_list* pl);
-bool add_resource_to_proto_list(string& id, string& locat, string& t_created, string& t_written, resource_list* rl);
+bool add_principal_to_proto_list(const string& name, const string& alg,
+		const string& cred, principal_list* pl);
+bool add_resource_to_proto_list(const string& id, const string& locat,
+		const string& t_created, const string& t_written, resource_list* rl);
 
 bool sign_nonce(string& nonce, key_message& k, string* signature);
+bool rotate_resource_key(string& resource, scheme_message& sm);
 
+class active_resource {
+public:
+  active_resource();
+  ~active_resource();
+
+  enum {READ=0x1, WRITE=0x2, DELETE=0x4, CREATE=0x08};
+
+  string principal_name_;
+  string resource_name_;
+  int desc_;
+  unsigned rights_;
+};
+
+const int max_active_resources = 25;
+class channel_guard {
+public:
+  channel_guard();
+  ~channel_guard();
+
+  string principal_name_;
+  string authentication_algorithm_name_;
+  string creds_;
+  bool channel_principal_authenticated_;
+
+  int  capacity_resources_;
+  int  num_resources_;
+  resource_message* resources_;
+  int num_active_resources_;
+  int capacity_active_resources_;
+  active_resource ar_[max_active_resources];
+
+  void print();
+
+  int find_resource(const string& name);
+
+  bool authenticate(const string& name, principal_list& pl);
+  bool load_resources(resource_list& rl);
+
+  bool can_read(int resource_entry);
+  bool can_write(int resource_entry);
+  bool can_delete(int resource_entry);
+  bool can_create(int resource_entry);
+
+  bool access_check(int resource_entry, const string& action);
+
+  bool add_resource(resource_message& rm);
+  bool save_principals(string& master_principal_list);
+  bool save_resources(string& master_resource_list);
+
+  // Called from grpc
+  bool accept_credentials(const string& principal_name, const string& alg,const string& cred, principal_list* pl);
+  bool add_access_rights(string& resource_name, string& right, string& new_prin);
+  bool create_resource(string& name);
+  bool open_resource(const string& resource_name, const string& access_mode);
+  bool read_resource(const string& resource_name);
+  bool write_resource(const string& resource_name);
+  bool delete_resource(const string& resource_name);
+  bool close_resource(const string& resource_name, unsigned requested_right);
+};
 #endif
 
