@@ -33,11 +33,11 @@ endif
 ifndef TARGET_MACHINE_TYPE
 TARGET_MACHINE_TYPE= x64
 endif
-NEWPROTOBUF=1
+#NEWPROTOBUF=1
 
 S= $(SRC_DIR)/datica_tmp/acl_lib
 O= $(OBJ_DIR)/acl_lib
-INCLUDE= -I$(SRC_DIR)/include -I$(S) -I/usr/local/include
+INCLUDE= -I$(SRC_DIR)/include -I$(S) -I/usr/local/include -I/usr/local/opt/openssl@1.1/include/
 
 ifndef NEWPROTOBUF
 CFLAGS=$(INCLUDE) -O3 -g -Wall -std=c++11 -Wno-unused-variable -D X64
@@ -56,10 +56,10 @@ tobj=   $(O)/acl.o $(O)/acl.pb.o $(O)/test_acl.o
 
 ifdef NEWPROTOBUF
 export LD_LIBRARY_PATH=/usr/local/lib
-LDFLAGS= -L/usr/local/lib `pkg-config --cflags --libs protobuf` -lgtest -lgflags -lpthread
+LDFLAGS= -L/usr/local/lib `pkg-config --cflags --libs protobuf` -lgtest -lgflags -lpthread -L/usr/local/opt/openssl@1.1/lib/ -lcrypto -lssl
 else
 export LD_LIBRARY_PATH=/usr/local/lib
-LDFLAGS= -L/usr/local/lib -lprotobuf -lgtest -lgflags -lpthread
+LDFLAGS= -L/usr/local/lib -lprotobuf -lgtest -lgflags -lpthread -L/usr/local/opt/openssl@1.1/lib/ -lcrypto -lssl
 endif
 
 

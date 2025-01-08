@@ -12,10 +12,24 @@
 // limitations under the License
 // File: acl.h
 
-#ifndef ACL_H__
-#define ACL_H__
+#ifndef _ACL_H__
+#define _ACL_H__
 
 #include "acl.pb.h"
+
+#include <openssl/ssl.h>
+#include <openssl/rsa.h>
+#include <openssl/evp.h>
+#include <openssl/rand.h>
+#include <openssl/hmac.h>
+#include <openssl/ecdsa.h>
+#include <openssl/bn.h>
+#include <openssl/evp.h>
+#include <openssl/ec.h>
+
+#include <openssl/asn1.h>
+#include <openssl/x509.h>
+#include <openssl/x509v3.h>
 
 // these may be duplicated so add a namespace
 
@@ -155,35 +169,17 @@ scheme_message* make_scheme(const char* alg, const char* id_name,
       const char* enc_key_name, const char* hmac_alg,
       int size_hmac_key, string& hmac_key);
 
-certificate_body_message* make_certificate_body(string& version, string& subject_name_type,
-      string& subject_name, key_message& subject_key, string& purpose,
-      string& not_before, string& note_after, string& nonce, string& revocation_address,
-      string& date_signed);
-
-certificate_message* make_certificate(certificate_body_message& cbm,
-      string& issuer_name_type, string& issuer_name, key_message& issuer_key,
-      string& signing_algorithm, string& signature);
-
 bool get_resources_from_file(string& file_name, resource_list* rl);
 bool get_principals_from_file(string& file_name, principal_list* pl);
 bool save_resources_to_file(resource_list& rl, string& file_name);
 bool save_principals_to_file(principal_list& pl, string& file_name);
 
-void print_binary_blob(binary_blob_message& m);
+void print_encryption_parameters(const scheme_message& sm);
 void print_encrypted_message(encrypted_message& m);
 void print_signature_message(signature_message& m);
-void print_rsa_public_parameters_message(const rsa_public_parameters_message& m);
-void print_ecc_public_parameters_message(const ecc_public_parameters_message& m);
-void print_rsa_private_parameters_message(const rsa_private_parameters_message& m);
-void print_ecc_private_parameters_message(const ecc_private_parameters_message& m);
 void print_hmac_parameters_message(const hmac_parameters_message& m);
 void print_key_message(const key_message& m);
 void print_scheme_message(const scheme_message& m);
-void print_certificate_name_message(const certificate_name_message& m);
-void print_certificate_algorithm_message(const certificate_algorithm_message& m);
-void print_certificate_message(const certificate_message& m);
-void print_certificate_body(const certificate_body_message& cbm);
-void print_certificate(const certificate_message& cm);
 
 bool add_reader_to_resource_proto_list(const string& name, resource_message* r);
 bool add_writer_to_resource_proto_list(const string& name, resource_message* r);
@@ -289,5 +285,152 @@ public:
   bool delete_resource(const string& resource_name);
   bool close_resource(const string& resource_name, unsigned requested_right);
 };
+
+int digest_output_byte_size(const char *alg_name);
+int mac_output_byte_size(const char *alg_name);
+int cipher_block_byte_size(const char *alg_name);
+int cipher_key_byte_size(const char *alg_name);
+
+extern const char* Enc_method_aes_128;
+extern const char* Enc_method_aes_256;
+extern const char* Enc_method_aes_256_cbc;
+extern const char* Enc_method_aes_128_cbc_hmac_sha256;
+extern const char* Enc_method_aes_256_cbc_hmac_sha256;
+extern const char* Enc_method_aes_256_cbc_hmac_sha384;
+extern const char* Enc_method_aes_256_gcm;
+extern const char* Enc_method_ecc_256_private;
+extern const char* Enc_method_ecc_256_public;
+extern const char* Enc_method_ecc_256_sha256_pkcs_sign;
+extern const char* Enc_method_ecc_384;
+extern const char* Enc_method_ecc_384_private;
+extern const char* Enc_method_ecc_384_public;
+extern const char* Enc_method_ecc_384_sha384_pkcs_sign;
+extern const char* Enc_method_rsa_1024;
+extern const char* Enc_method_rsa_1024_private;
+extern const char* Enc_method_rsa_1024_public;
+extern const char* Enc_method_rsa_1024_sha256_pkcs_sign;
+extern const char* Enc_method_rsa_2048;
+extern const char* Enc_method_rsa_2048_private;
+extern const char* Enc_method_rsa_2048_public;
+extern const char* Enc_method_rsa_2048_sha256_pkcs_sign;
+extern const char* Enc_method_rsa_3072;
+extern const char* Enc_method_rsa_3072_private;
+extern const char* Enc_method_rsa_3072_public;
+extern const char* Enc_method_rsa_3072_sha384_pkcs_sign;
+extern const char* Enc_method_rsa_4096;
+extern const char* Enc_method_rsa_4096_private;
+extern const char* Enc_method_rsa_4096_public;
+extern const char* Enc_method_rsa_4096_sha384_pkcs_sign;
+extern const char* Digest_method_sha256;
+extern const char* Digest_method_sha_256;
+extern const char* Digest_method_sha_384;
+extern const char* Digest_method_sha_512;
+extern const char* Integrity_method_aes_256_cbc_hmac_sha256;
+extern const char* Integrity_method_aes_256_cbc_hmac_sha384;
+extern const char* Integrity_method_aes_256_gcm;
+extern const char* Integrity_method_hmac_sha256 ;
+
+class cert_keys_seen {
+ public: 
+  string       issuer_name_;
+  key_message *k_;
+};
+
+class cert_keys_seen_list {
+ public:
+  cert_keys_seen_list(int max_size);
+  ~cert_keys_seen_list();
+  int              max_size_;
+  int              size_;
+  cert_keys_seen **entries_;
+
+  key_message *find_key_seen(const string &name);
+  bool         add_key_seen(key_message *k);
+}; 
+    
+class name_size {
+ public:
+  const char *name_;
+  int         size_;
+};
+
+bool time_t_to_tm_time(time_t *t, struct tm *tm_time);
+bool tm_time_to_time_point(struct tm * tm_time, time_point *tp);
+bool asn1_time_to_tm_time(const ASN1_TIME *s, struct tm * tm_time);
+bool get_not_before_from_cert(X509 *c, time_point *tp) ;
+bool get_not_after_from_cert(X509 *c, time_point *tp);
+int compare_time(time_point &t1, time_point &t2);
+bool encrypt(byte *in, int in_len, byte *key, byte *iv,
+             byte *out, int * out_size);
+bool decrypt(byte *in, int in_len, byte *key, byte *iv,
+             byte *out, int * size_out);
+bool aes_256_cbc_sha256_encrypt(byte *in, int in_len, byte *key, byte *iv,
+                                byte *out, int * out_size);
+bool aes_256_cbc_sha256_decrypt(byte *in, int in_len, byte *key, byte *out,
+                                int * out_size);
+bool aes_256_cbc_sha384_encrypt(byte *in, int   in_len, byte *key, byte *iv,
+                                byte *out, int * out_size);
+bool aes_256_cbc_sha384_decrypt(byte *in, int in_len, byte *key,
+                                byte *out, int * out_size);
+bool aes_256_gcm_encrypt(byte *in, int in_len, byte *key, byte *iv,
+                         byte *out, int * out_size);
+bool aes_256_gcm_decrypt(byte *in, int in_len, byte *key,
+                         byte *out, int * out_size);
+bool authenticated_encrypt(const char *alg_name, byte* in, int in_len, byte* key, int key_len,
+                           byte* iv, int iv_len, byte* out, int* out_size);
+bool authenticated_decrypt(const char *alg_name, byte* in, int in_len, byte* key,
+                           int key_len, byte* out, int* out_size);
+bool private_key_to_public_key(const key_message &in, key_message* out);
+bool make_certifier_rsa_key(int n, key_message *k);
+bool rsa_public_encrypt(RSA * key, byte *data, int data_len,
+                        byte *encrypted, int * size_out);
+bool rsa_private_decrypt(RSA * key, byte *enc_data, int data_len,
+                         byte *decrypted, int * size_out);
+bool rsa_sha256_sign(RSA * key, int to_sign_size, byte* to_sign,
+                     int* sig_size, byte* sig);
+bool rsa_sign(const char *alg, RSA* key, int size,
+              byte* msg, int* sig_size, byte* sig);
+bool rsa_verify(const char *alg, RSA* key, int size, byte* msg,
+                int sig_size, byte* sig);
+bool generate_new_rsa_key(int num_bits, RSA *r);
+bool key_to_RSA(const key_message &k, RSA *r);
+bool RSA_to_key(const RSA *r, key_message *k);
+void print_point(const point_message &pt);
+void print_ecc_key(const ecc_message &em);
+bool ecc_sign(const char *alg, EC_KEY* key, int size, byte* msg,
+              int* size_out, byte* out);
+bool ecc_verify(const char *alg, EC_KEY* key, int size,
+                byte* msg, int size_sig, byte* sig);
+EC_KEY *key_to_ECC(const key_message &k);
+bool ECC_to_key(const EC_KEY *ecc_key, key_message *k);
+bool make_certifier_ecc_key(int n, key_message *k);
+void print_rsa_key(const rsa_message &rsa);
+void print_key(const key_message &k);
+void print_key_descriptor(const key_message &k);
+int add_ext(X509 *cert, int nid, const char *value);
+bool produce_artifact(key_message &signing_key, string& issuer_name_str, string& issuer_organization_str,
+                                            key_message& subject_key, string& subject_name_str,
+                                            string& subject_organization_str, uint64_t sn,
+                                            double secs_duration, X509* x509,
+                                            bool is_root);
+bool asn1_to_x509(const string &in, X509 *x);
+bool x509_to_asn1(X509 *x, string *out);
+int  sized_pipe_write(int fd, int size, byte *buf);
+int sized_pipe_read(int fd, string *out);
+int sized_ssl_write(SSL *ssl, int size, byte *buf);
+int sized_ssl_read(SSL *ssl, string *out);
+int sized_socket_read(int fd, string *out);
+int sized_socket_write(int fd, int size, byte *buf);
+bool key_from_pkey(EVP_PKEY *pkey, const string &name, key_message *k);
+key_message *get_issuer_key(X509 *x, cert_keys_seen_list &list);
+EVP_PKEY *pkey_from_key(const key_message &k);
+bool x509_to_public_key(X509 *x, key_message *k);
+bool make_root_key_with_cert(string& type, string& name, string& issuer_name,
+                                           key_message *k);
+
+
+bool rsa_sha256_verify(RSA *key, int size, byte *msg, int sig_size, byte *sig);
+
+
 #endif
 

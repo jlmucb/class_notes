@@ -36,67 +36,55 @@ message signature_message {
   optional string signer_name                   = 4;
 };
 
-message rsa_public_parameters_message {
-   optional bytes modulus                      = 1;
-   optional bytes e                            = 2;
-};
-
-message rsa_private_parameters_message {
-   optional bytes d                            = 1;
-   optional bytes p                            = 2;
-   optional bytes q                            = 3;
-   optional bytes dp                           = 4;
-   optional bytes dq                           = 5;
-   optional bytes m_prime                      = 6;
-   optional bytes p_prime                      = 7;
-   optional bytes q_prime                      = 8;
+message rsa_message {
+  optional bytes public_modulus             = 1;
+  optional bytes public_exponent            = 2;
+  optional bytes private_exponent           = 3;
+  optional bytes private_p                  = 4;
+  optional bytes private_q                  = 5;
+  optional bytes private_dp                 = 6;
+  optional bytes private_dq                 = 7;
+  optional bytes private_iqmp               = 8;
 };
 
 message point_message {
- optional bytes x                              = 1;
- optional bytes y                              = 2;
+ optional bytes x                           = 1;
+ optional bytes y                           = 2;
 };
 
-message curve_message {
-  optional string curve_name                    = 1;
-  optional bytes curve_p                        = 2;
-  optional bytes curve_a                        = 3;
-  optional bytes curve_b                        = 4;
+message ecc_message {
+  optional string curve_name                = 1;
+  optional bytes curve_p                    = 2;
+  optional bytes curve_a                    = 3;
+  optional bytes curve_b                    = 4;
+  optional point_message base_point         = 5;
+  optional point_message public_point       = 6;
+  optional bytes order_of_base_point        = 7;
+  optional bytes private_multiplier         = 8;
 };
 
-message ecc_public_parameters_message {
-  optional curve_message cm                     = 1;
-  optional point_message base_point             = 2;
-  optional point_message public_point           = 3;
-  optional bytes order_of_base_point            = 4;
-};
-
-message ecc_private_parameters_message {
-  optional bytes private_multiplier             = 1;
+// Key types: "rsa-2048-public" "ecc-384-public",
+//    "rsa-2048-private" "ecc-384-private",
+//    "aes-256", "aes-256-hmac-sha-256", etc.
+// Principal formats: "vse-entity"
+// Key formats: "vse-key", "x509-cert"
+message key_message {
+  optional string key_name                  = 1;
+  optional string key_type                  = 2;
+  optional string key_format                = 3;
+  optional rsa_message rsa_key              = 4;
+  optional ecc_message ecc_key              = 5;
+  optional bytes secret_key_bits            = 6;
+  optional bytes certificate                = 7;
+  optional bytes other_key_formats          = 8;
+  optional string not_before                = 9;
+  optional string not_after                 = 10;
 };
 
 message hmac_parameters_message {
   optional string algorithm                     = 1;
   optional int32 size                           = 2;
   optional bytes secret                         = 3;
-};
-
-// family: symmetric, public, hmac
-// algorithm: aes, twofish, rc4, simon, spec, tea
-//    des, rsa, ecc, sha256, sha1
-message key_message {
-  optional string family_type                         = 1;
-  optional string algorithm_type                      = 2;
-  optional string key_name                            = 3;
-  optional int32 key_size                             = 4;
-  optional string purpose                             = 5;
-  optional string notBefore                           = 6;
-  optional string notAfter                            = 7;
-  optional bytes secret                               = 8;
-  optional rsa_public_parameters_message rsa_pub      = 9;
-  optional rsa_private_parameters_message rsa_priv    =10;
-  optional ecc_public_parameters_message ecc_pub      =11;
-  optional ecc_private_parameters_message ecc_priv    =12;
 };
 
 message scheme_message {
@@ -119,35 +107,9 @@ message certficate_principal_name_message {
   repeated certificate_name_message names          = 1;
 }
 
-message certificate_algorithm_message {
-  optional string algorithm_name                    = 1;
-  optional rsa_public_parameters_message rsa_params = 2;
-  optional ecc_public_parameters_message ecc_params = 3;
-}
-
 message certificate_properties_message {
   optional string property_name                   = 1;
   optional string property_value                  = 2;
-}
-
-message certificate_body_message {
-  optional string version                             = 1;
-  optional certificate_name_message subject           = 2;
-  optional certificate_algorithm_message subject_key  = 3;
-  optional string purpose                             = 4;
-  optional string not_before                          = 5;
-  optional string not_after                           = 6;
-  optional bytes  nonce                               = 7;
-  optional string revocation_address                  = 8;
-  optional string date_signed                         = 9;
-}
-
-message certificate_message {
-  optional certificate_body_message info              = 1;
-  optional certificate_name_message issuer            = 2;
-  optional string signing_algorithm                   = 3;
-  optional certificate_algorithm_message signing_key  = 4;
-  optional bytes signature                            = 5;
 }
 
 message principal_message {
