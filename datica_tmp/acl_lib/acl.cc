@@ -121,8 +121,6 @@ name_size mac_byte_name_size[] = {
 };
 
 
-// these are from crypto lib
-
 time_point::time_point() {
   year_ = 0;
   month_ = 0;
@@ -563,92 +561,6 @@ void reverse_bytes(int size, byte* in, byte* out) {
     out[size - 1 - i] = in[i];
 }
 
-file_util::file_util() {
-  initialized_ = false;
-  fd_ = 0;
-  write_= false;
-  bytes_in_file_ = 0;
-  bytes_read_ = 0;
-  bytes_written_ = 0; 
-}
-
-bool file_util::create(const char* filename) {
-  write_ = true;
-  fd_ = creat(filename, S_IRWXU | S_IRWXG);
-  initialized_ = fd_ > 0;
-  return initialized_;
-}
-
-bool file_util::open(const char* filename) {
-  struct stat file_info;
-
-  if (stat(filename, &file_info) != 0)
-    return false;
-  if (!S_ISREG(file_info.st_mode))
-    return false;
-  bytes_in_file_ = (int)file_info.st_size;
-  fd_ = ::open(filename, O_RDONLY);
-  initialized_ = fd_ > 0;
-  write_ = false;
-  return initialized_;
-}
-
-
-int file_util::bytes_in_file() {
-  return bytes_in_file_;
-}
-
-int file_util::bytes_left_in_file() {
-  return bytes_in_file_ - bytes_read_;
-}
-
-int file_util::bytes_written_to_file() {
-  return bytes_written_;
-}
-
-void file_util::close() {
-  ::close(fd_);
-  initialized_ = false;
-}
-
-int file_util::read_a_block(int size, byte* buf) {
-  if (!initialized_)
-    return -1;
-  if (write_)
-    return -1;
-  bytes_read_ += size;
-  return read(fd_, buf, size);
-}
-
-bool file_util::write_a_block(int size, byte* buf) {
-  if (!initialized_)
-    return false;
-  if (!write_)
-    return false;
-  bytes_written_ += size;
-  return write(fd_, buf, size) > 0;
-}
-
-int file_util::read_file(const char* filename, int size, byte* buf) {
-  if (!open(filename))
-    return -1;
-  if (bytes_in_file_ < size) {
-      close();
-      return -1;
-  }
-  int n = read_a_block(size, buf);
-  close();
-  return n;
-}
-
-bool file_util::write_file(const char* filename, int size, byte* buf) {
-  if (!create(filename))
-    return -1;
-  int n = write_a_block(size, buf);
-  close();
-  return n > 0;
-}
-
 bool have_intel_rd_rand() {
   uint32_t arg = 1;
   uint32_t rd_rand_enabled;
@@ -689,7 +601,7 @@ bool have_intel_aes_ni() {
 
 random_source::random_source() {
   initialized_ = false;
-  have_rd_rand_ = ::have_intel_rd_rand();
+  have_rd_rand_ = have_intel_rd_rand();
 }
 
 bool random_source::have_intel_rd_rand() { 
@@ -1003,17 +915,10 @@ void print_resource_list(const resource_list& rl) {
 
 bool get_resources_from_file(string& file_name, resource_list* rl) {
   string serialized_rl;
+
   // read file into serialized_rl
-  file_util file;
-  if (!file.open(file_name.c_str())) {
-    return false;
-  }
-  int size = file.bytes_in_file();
-  if (((int)serialized_rl.capacity()) < size) {
-    serialized_rl.resize(size);
-  }
-  file.close();
-  if (!file.read_file(file_name.c_str(), size, (byte*)serialized_rl.data())) {
+  if (!read_file_into_string(file_name, &serialized_rl)) {
+    printf("Cant read resource file %s\n", file_name.c_str());
     return false;
   }
   
@@ -1023,16 +928,8 @@ bool get_resources_from_file(string& file_name, resource_list* rl) {
 bool get_principals_from_file(string& file_name, principal_list* pl) {
   string serialized_pl;
   // read file into serialized_pl
-  file_util file;
-  if (!file.open(file_name.c_str())) {
-    return false;
-  }
-  int size = file.bytes_in_file();
-  if (((int)serialized_pl.capacity()) < size) {
-    serialized_pl.resize(size);
-  }
-  file.close();
-  if (!file.read_file(file_name.c_str(), size, (byte*)serialized_pl.data())) {
+  if (!read_file_into_string(file_name, &serialized_pl)) {
+    printf("Cant read principal file %s\n", file_name.c_str());
     return false;
   }
   return pl->ParseFromString(serialized_pl);
@@ -1044,10 +941,8 @@ bool save_resources_to_file(resource_list& rl, string& file_name) {
     printf("Cant serialize resource list\n");
     return false;
   }
-  // write file
-  file_util file;
-  if (!file.write_file(file_name.c_str(), serialized_rl.size(), (byte*)serialized_rl.data())) {
-    printf("Cant save resource list\n");
+  if (!write_file_from_string(file_name, serialized_rl)) {
+    printf("Cant read resource file %s\n", file_name.c_str());
     return false;
   }
   return true;
@@ -1060,9 +955,8 @@ bool save_principals_to_file(principal_list& pl, string& file_name) {
     return false;
   }
   // write file
-  file_util file;
-  if (!file.write_file(file_name.c_str(), serialized_pl.size(), (byte*)serialized_pl.data())) {
-    printf("Cant write principals file\n");
+  if (!write_file_from_string(file_name, serialized_pl)) {
+    printf("Cant write principals file %s\n", file_name.c_str());
     return false;
   }
   return true;

@@ -112,6 +112,8 @@ message certificate_properties_message {
   optional string property_value                  = 2;
 }
 
+// These are the new acl specific protos
+
 message principal_message {
   optional string principal_name                      = 1;
   optional string authentication_algorithm            = 2;

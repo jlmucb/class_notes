@@ -31,7 +31,10 @@
 #include <openssl/x509.h>
 #include <openssl/x509v3.h>
 
-// these may be duplicated so add a namespace
+// These first definition are copied from certifier.  When linked
+// into a certifier applications, we should use those.
+
+// -------------------------------------------------------------------------------------------
 
 #ifndef int32_t
 typedef int int32_t;
@@ -122,29 +125,6 @@ bool bytes_to_hex(string& b, string* h);
 bool base64_to_bytes(string& b64, string* b);
 bool bytes_to_base64(string& b, string* b64);
 
-class file_util {
- public:
-  bool initialized_;
-  int fd_;
-  bool write_;
-  int bytes_in_file_;
-  int bytes_read_;
-  int bytes_written_;
-
-  file_util();
-
-  bool create(const char* filename);
-  bool open(const char* filename);
-  int bytes_in_file();
-  int bytes_left_in_file();
-  int bytes_written_to_file();
-  void close();
-  int read_a_block(int size, byte* buf);
-  bool write_a_block(int size, byte* buf);
-  int read_file(const char* filename, int size, byte* buf);
-  bool write_file(const char* filename, int size, byte* buf);
-};
-
 key_message* make_symmetrickey(const char* alg, const char* name, int bit_size,
                                const char* purpose, const char* not_before,
                                const char* not_after, string& secret);
@@ -187,7 +167,7 @@ bool add_deleter_to_resource_proto_list(const string& name, resource_message* r)
 bool add_creator_to_resource_proto_list(const string& name, resource_message* r);
 bool add_principal_to_proto_list(const string& name, const string& alg, const string& cred, principal_list* pl);
 bool add_resource_to_proto_list(const string& id, const string& locat, const string& t_created,
-		const string& t_written, resource_list* rl);
+                const string& t_written, resource_list* rl);
 
 int crypto_get_random_bytes(int num_bytes, byte* buf);
 bool init_crypto();
@@ -219,72 +199,9 @@ bool add_writer_to_resource(string& name, resource_message* r);
 bool add_deleter_to_resource(string& name, resource_message* r);
 bool add_creator_to_resource(string& name, resource_message* r);
 bool add_principal_to_proto_list(const string& name, const string& alg,
-		const string& cred, principal_list* pl);
+                const string& cred, principal_list* pl);
 bool add_resource_to_proto_list(const string& id, const string& locat,
-		const string& t_created, const string& t_written, resource_list* rl);
-
-bool sign_nonce(string& nonce, key_message& k, string* signature);
-bool rotate_resource_key(string& resource, scheme_message& sm);
-
-class active_resource {
-public:
-  active_resource();
-  ~active_resource();
-
-  enum {READ=0x1, WRITE=0x2, DELETE=0x4, CREATE=0x08};
-
-  string principal_name_;
-  string resource_name_;
-  int desc_;
-  unsigned rights_;
-};
-
-const int max_active_resources = 25;
-class channel_guard {
-public:
-  channel_guard();
-  ~channel_guard();
-
-  string principal_name_;
-  string authentication_algorithm_name_;
-  string creds_;
-  bool channel_principal_authenticated_;
-
-  int  capacity_resources_;
-  int  num_resources_;
-  resource_message* resources_;
-  int num_active_resources_;
-  int capacity_active_resources_;
-  active_resource ar_[max_active_resources];
-
-  void print();
-
-  int find_resource(const string& name);
-
-  bool authenticate(const string& name, principal_list& pl);
-  bool load_resources(resource_list& rl);
-
-  bool can_read(int resource_entry);
-  bool can_write(int resource_entry);
-  bool can_delete(int resource_entry);
-  bool can_create(int resource_entry);
-
-  bool access_check(int resource_entry, const string& action);
-
-  bool add_resource(resource_message& rm);
-  bool save_principals(string& master_principal_list);
-  bool save_resources(string& master_resource_list);
-
-  // Called from grpc
-  bool accept_credentials(const string& principal_name, const string& alg,const string& cred, principal_list* pl);
-  bool add_access_rights(string& resource_name, string& right, string& new_prin);
-  bool create_resource(string& name);
-  bool open_resource(const string& resource_name, const string& access_mode);
-  bool read_resource(const string& resource_name);
-  bool write_resource(const string& resource_name);
-  bool delete_resource(const string& resource_name);
-  bool close_resource(const string& resource_name, unsigned requested_right);
-};
+                const string& t_created, const string& t_written, resource_list* rl);
 
 int digest_output_byte_size(const char *alg_name);
 int mac_output_byte_size(const char *alg_name);
@@ -332,7 +249,7 @@ extern const char* Integrity_method_hmac_sha256 ;
 
 class cert_keys_seen {
  public: 
-  string       issuer_name_;
+  string issuer_name_;
   key_message *k_;
 };
 
@@ -340,8 +257,8 @@ class cert_keys_seen_list {
  public:
   cert_keys_seen_list(int max_size);
   ~cert_keys_seen_list();
-  int              max_size_;
-  int              size_;
+  int max_size_;
+  int size_;
   cert_keys_seen **entries_;
 
   key_message *find_key_seen(const string &name);
@@ -351,7 +268,7 @@ class cert_keys_seen_list {
 class name_size {
  public:
   const char *name_;
-  int         size_;
+  int size_;
 };
 
 bool time_t_to_tm_time(time_t *t, struct tm *tm_time);
@@ -415,22 +332,95 @@ bool produce_artifact(key_message &signing_key, string& issuer_name_str, string&
                                             bool is_root);
 bool asn1_to_x509(const string &in, X509 *x);
 bool x509_to_asn1(X509 *x, string *out);
-int  sized_pipe_write(int fd, int size, byte *buf);
+
+
+int sized_pipe_write(int fd, int size, byte *buf);
 int sized_pipe_read(int fd, string *out);
 int sized_ssl_write(SSL *ssl, int size, byte *buf);
 int sized_ssl_read(SSL *ssl, string *out);
 int sized_socket_read(int fd, string *out);
 int sized_socket_write(int fd, int size, byte *buf);
+
 bool key_from_pkey(EVP_PKEY *pkey, const string &name, key_message *k);
 key_message *get_issuer_key(X509 *x, cert_keys_seen_list &list);
 EVP_PKEY *pkey_from_key(const key_message &k);
 bool x509_to_public_key(X509 *x, key_message *k);
 bool make_root_key_with_cert(string& type, string& name, string& issuer_name,
                                            key_message *k);
-
-
 bool rsa_sha256_verify(RSA *key, int size, byte *msg, int sig_size, byte *sig);
 
+int file_size(const string &file_name);
+bool write_file(const string &file_name, int size, byte* data);
+bool write_file_from_string(const string &file_name, const string &in);
+bool read_file(const string &file_name, int* size, byte* data);
+bool read_file_into_string(const string &file_name, string* out);
+
+
+// ----------------------------------------------------------------------------
+//  These are acl specific
+
+bool sign_nonce(string& nonce, key_message& k, string* signature);
+bool rotate_resource_key(string& resource, scheme_message& sm);
+
+class active_resource {
+public:
+  active_resource();
+  ~active_resource();
+
+  enum {READ=0x1, WRITE=0x2, DELETE=0x4, CREATE=0x08};
+
+  string principal_name_;
+  string resource_name_;
+  int desc_;
+  unsigned rights_;
+};
+
+const int max_active_resources = 25;
+class channel_guard {
+public:
+  channel_guard();
+  ~channel_guard();
+
+  string principal_name_;
+  string authentication_algorithm_name_;
+  string creds_;
+  bool channel_principal_authenticated_;
+
+  int  capacity_resources_;
+  int  num_resources_;
+  resource_message* resources_;
+  int num_active_resources_;
+  int capacity_active_resources_;
+  active_resource ar_[max_active_resources];
+
+  void print();
+
+  int find_resource(const string& name);
+
+  bool authenticate(const string& name, principal_list& pl);
+  bool load_resources(resource_list& rl);
+
+  bool can_read(int resource_entry);
+  bool can_write(int resource_entry);
+  bool can_delete(int resource_entry);
+  bool can_create(int resource_entry);
+
+  bool access_check(int resource_entry, const string& action);
+
+  bool add_resource(resource_message& rm);
+  bool save_principals(string& master_principal_list);
+  bool save_resources(string& master_resource_list);
+
+  // Called from grpc
+  bool accept_credentials(const string& principal_name, const string& alg,const string& cred, principal_list* pl);
+  bool add_access_rights(string& resource_name, string& right, string& new_prin);
+  bool create_resource(string& name);
+  bool open_resource(const string& resource_name, const string& access_mode);
+  bool read_resource(const string& resource_name);
+  bool write_resource(const string& resource_name);
+  bool delete_resource(const string& resource_name);
+  bool close_resource(const string& resource_name, unsigned requested_right);
+};
 
 #endif
 
