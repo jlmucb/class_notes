@@ -1682,8 +1682,8 @@ int mac_output_byte_size(const char *alg_name) {
 }
 
 
-bool digest_message(const char * alg, const byte* message, int message_len,
-                                      byte* digest, unsigned int digest_len) {
+bool digest_message(const char* alg, const byte* message, int message_len,
+                    byte* digest, unsigned int digest_len) {
 
   int n = digest_output_byte_size(alg);
   if (n < 0) {
