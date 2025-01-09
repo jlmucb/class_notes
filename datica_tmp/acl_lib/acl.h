@@ -314,6 +314,7 @@ bool produce_artifact(key_message &signing_key, string& issuer_name_str, string&
 bool verify_artifact(X509& cert, key_message &verify_key, string* issuer_name_str,
                      string* issuer_description_str, key_message* subject_key,
                      string* subject_name_str, string* subject_organization_str, uint64_t *sn);
+bool verify_cert_chain(X509& root_cert, buffer_list& certs);
 
 bool asn1_to_x509(const string &in, X509 *x);
 bool x509_to_asn1(X509 *x, string *out);
@@ -332,6 +333,7 @@ bool x509_to_public_key(X509 *x, key_message *k);
 bool make_root_key_with_cert(string& type, string& name, string& issuer_name, key_message *k);
 bool same_point(const point_message &pt1, const point_message &pt2);
 bool same_key(const key_message &k1, const key_message &k2);
+bool same_cert(X509* c1, X509* c2);
 bool rsa_sha256_verify(RSA *key, int size, byte *msg, int sig_size, byte *sig);
 
 int file_size(const string &file_name);
@@ -393,8 +395,7 @@ public:
   bool access_check(int resource_entry, const string& action);
 
   bool add_resource(resource_message& rm);
-  bool save_principals(string& master_principal_list);
-  bool save_resources(string& master_resource_list);
+  bool save_active_resources(const string& file_name);
 
   // Called from grpc
   bool accept_credentials(const string& principal_name, const string& alg,const string& cred, principal_list* pl);

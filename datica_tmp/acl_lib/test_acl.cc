@@ -206,13 +206,14 @@ bool test_access() {
     return false;
   }
 #if 0
+  bool channel_guard::authenticate(string& name);
+  bool open_resource(const string& resource_name, const string& access_mode);
   bool channel_guard::create_resource(string& name)
-  bool channel_guard::add_access_rights(string& right, access_list& al)
   bool channel_guard::read_resource(string& resource_name)
   bool channel_guard::write_resource(string& resource_name) {
   bool channel_guard::close_resource(string& resource_name)
   channel_guard::close_resource(string& resource_name)
-  bool channel_guard::save_principals(string& master_principal_list)
+  bool save_resources_to_file(resource_list& rl, string& file_name);
   bool channel_guard::save_resources(string& master_resource_list)
 #endif
 

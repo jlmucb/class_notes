@@ -1198,12 +1198,7 @@ bool channel_guard::close_resource(const string& resource_name, unsigned request
   return false;
 }
 
-bool channel_guard::save_principals(string& master_principal_list) {
-  // should be database, eventually
-  return false;
-}
-
-bool channel_guard::save_resources(string& master_resource_list) {
+bool channel_guard::save_active_resources(const string& file_name) {
   // should be database, eventually
   return false;
 }
@@ -3264,8 +3259,7 @@ int add_ext(X509 *cert, int nid, const char *value) {
 bool produce_artifact(key_message &signing_key, string& issuer_name_str, string& issuer_organization_str,
                                             key_message& subject_key, string& subject_name_str,
                                             string& subject_organization_str, uint64_t sn,
-                                            double secs_duration, X509* x509,
-                                            bool is_root) {
+                                            double secs_duration, X509* x509, bool is_root) {
 
   ASN1_INTEGER *a = ASN1_INTEGER_new();
   ASN1_INTEGER_set_uint64(a, sn);
@@ -3442,6 +3436,141 @@ bool produce_artifact(key_message &signing_key, string& issuer_name_str, string&
   X509_NAME_free(subject_name);
   X509_NAME_free(issuer_name);
   return true;
+}
+
+bool same_cert(X509* c1, X509* c2) {
+  bool ret = true;
+
+  key_message k1;
+  key_message k2;
+
+  string issuer_name_1_str;
+  string issuer_name_2_str;
+  X509_NAME *issuer_name_1 = nullptr;
+  X509_NAME *issuer_name_2 = nullptr;
+
+  string subject_name_1_str;
+  string subject_name_2_str;
+  X509_NAME *subject_name_1 = nullptr;
+  X509_NAME *subject_name_2 = nullptr;
+
+  int max_buf = 512;
+  char name_buf[max_buf];
+
+  issuer_name_1 = X509_get_issuer_name(c1);
+  if (issuer_name_1 == nullptr) {
+    ret = false;
+    goto done;
+  }
+  if (X509_NAME_get_text_by_NID(issuer_name_1, NID_commonName, name_buf, max_buf) < 0) {
+    ret = false;
+    goto done;
+  }
+  issuer_name_1_str.assign(name_buf);
+
+  issuer_name_2 = X509_get_issuer_name(c2);
+  if (issuer_name_2 == nullptr) {
+    ret = false;
+    goto done;
+  }
+  if (X509_NAME_get_text_by_NID(issuer_name_2, NID_commonName, name_buf, max_buf) < 0) {
+    ret = false;
+    goto done;
+  }
+  issuer_name_2_str.assign(name_buf);
+
+  if (issuer_name_1_str != issuer_name_2_str) {
+    ret = false;
+    goto done;
+  }
+
+  subject_name_1 = X509_get_subject_name(c1);
+  if (subject_name_1 == nullptr) {
+    ret = false;
+    goto done;
+  }
+  if (X509_NAME_get_text_by_NID(subject_name_1, NID_commonName, name_buf, max_buf) < 0) {
+    ret = false;
+    goto done;
+  }
+  subject_name_1_str.assign(name_buf);
+
+  subject_name_2 = X509_get_subject_name(c2);
+  if (subject_name_2 == nullptr) {
+    ret = false;
+    goto done;
+  }
+  if (X509_NAME_get_text_by_NID(subject_name_2, NID_commonName, name_buf, max_buf) < 0) {
+    ret = false;
+    goto done;
+  }
+  subject_name_2_str.assign(name_buf);
+
+  if (subject_name_1_str != subject_name_2_str) {
+    ret = false;
+    goto done;
+  }
+
+  // same_keys?
+  if (!same_key(k1, k2)) {
+    ret = false;
+    goto done;
+  }
+
+done:
+  if (issuer_name_1 != nullptr) {
+    X509_NAME_free(issuer_name_1);
+    issuer_name_1 = nullptr;
+  }
+  if (issuer_name_2 != nullptr) {
+    X509_NAME_free(issuer_name_2);
+    issuer_name_2 = nullptr;
+  }
+  if (subject_name_1 != nullptr) {
+    X509_NAME_free(subject_name_1);
+    subject_name_1 = nullptr;
+  }
+  if (subject_name_2 != nullptr) {
+    X509_NAME_free(subject_name_2);
+    subject_name_2 = nullptr;
+  }
+  return ret;
+}
+
+bool verify_cert_chain(X509& root_cert, buffer_list& certs) {
+
+  // first cert should be root cert
+  if (certs.blobs_size() < 1) {
+    return false;
+  }
+  string asn_cert;
+  X509* current_cert = X509_new();
+
+  asn_cert.assign((char*)certs.blobs(0).data(), certs.blobs(0).size());
+
+  if (!asn1_to_x509(asn_cert, current_cert)) {
+    X509_free(current_cert);
+    return(false);
+  }
+
+  // key_message *get_issuer_key(X509 *x, cert_keys_seen_list &list);
+  // bool x509_to_public_key(X509 *x, key_message *k)
+  // EVP_PKEY *subject_pkey = X509_get_pubkey(x);
+  // X509_NAME *issuer_name = X509_get_issuer_name(x);
+  // bool certifier::utilities::get_not_before_from_cert(X509 *c, time_point *tp)
+  // bool certifier::utilities::get_not_after_from_cert(X509 *c, time_point *tp) 
+  // time_point time_now
+  // if (X509_NAME_get_text_by_NID(subject_name, NID_commonName, name_buf, max_buf) < 0)
+  //   X509_NAME *subject_name = X509_get_subject_name(&cert);
+  // const int  max_buf = 2048;
+  // char       name_buf[max_buf];
+  // if (X509_NAME_get_text_by_NID(subject_name, NID_commonName, name_buf, max_buf) < 0)
+  // subject_name_str->assign((const char *)name_buf);
+  //  X509_NAME *issuer_name = X509_get_issuer_name(x);
+  // if (X509_NAME_get_text_by_NID(issuer_name, NID_commonName, name_buf, max_buf) < 0)
+  cert_keys_seen_list list(20);
+
+  return false;
 }
 
 bool verify_artifact(X509& cert, key_message &verify_key, string* issuer_name_str,

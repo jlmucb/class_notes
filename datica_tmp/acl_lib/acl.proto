@@ -29,6 +29,10 @@ message encrypted_message {
   optional bytes buffer                         = 6;
 };
 
+message buffer_list {
+  repeated bytes blobs                          = 1;
+};
+
 message signature_message {
   optional string encryption_algorithm_name     = 1;
   optional string key_name                      = 2;
