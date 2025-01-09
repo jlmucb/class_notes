@@ -1026,6 +1026,10 @@ bool test_artifact(bool print_all) {
   return true;
 }
 
+bool test_signed_nonce() {
+  return true;
+}
+
 bool test_crypto() {
   if (!test_random(FLAGS_print_all)) {
     printf("test_random failed\n");
@@ -1059,11 +1063,10 @@ bool test_crypto() {
     printf("test_artifact failed\n");
     return false;
   }
-  return true;
-}
-
-
-bool test_sign_nonce() {
+  if (!test_signed_nonce()) {
+    printf("test_signed_nonce failed\n");
+    return false;
+  }
   return true;
 }
 
