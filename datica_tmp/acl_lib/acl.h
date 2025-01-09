@@ -339,8 +339,9 @@ bool key_from_pkey(EVP_PKEY *pkey, const string &name, key_message *k);
 key_message *get_issuer_key(X509 *x, cert_keys_seen_list &list);
 EVP_PKEY *pkey_from_key(const key_message &k);
 bool x509_to_public_key(X509 *x, key_message *k);
-bool make_root_key_with_cert(string& type, string& name, string& issuer_name,
-                                           key_message *k);
+bool make_root_key_with_cert(string& type, string& name, string& issuer_name, key_message *k);
+bool same_point(const point_message &pt1, const point_message &pt2);
+bool same_key(const key_message &k1, const key_message &k2);
 bool rsa_sha256_verify(RSA *key, int size, byte *msg, int sig_size, byte *sig);
 
 int file_size(const string &file_name);

@@ -4030,4 +4030,133 @@ bool make_root_key_with_cert(string& type, string& name, string& issuer_name,
   return true;
 }
 
+// may want to check leading 0's
+bool same_point(const point_message &pt1, const point_message &pt2) {
+  if (pt1.x().size() != pt2.x().size()) {
+    return false;
+  } 
+  if (pt1.y().size() != pt2.y().size()) {
+    return false;
+  } 
+  if (memcmp(pt1.x().data(), pt1.x().data(), pt1.x().size()) != 0) {
+    return false;
+  }     
+  if (memcmp(pt1.y().data(), pt1.y().data(), pt1.y().size()) != 0) {
+    return false; 
+  }            
+  return true;
+}   
+
+bool same_key(const key_message &k1, const key_message &k2) {
+  if (k1.key_type() != k2.key_type()) {
+    return false;
+  }
+
+  if (k1.key_type() == Enc_method_rsa_2048_private || k1.key_type() == Enc_method_rsa_2048_public
+      || k1.key_type() == Enc_method_rsa_1024_private || k1.key_type() == Enc_method_rsa_1024_public
+      || k1.key_type() == Enc_method_rsa_3072_private || k1.key_type() == Enc_method_rsa_3072_public
+      || k1.key_type() == Enc_method_rsa_4096_private || k1.key_type() == Enc_method_rsa_4096_public) {
+    string b1, b2;
+    if (!k1.has_rsa_key() || !k2.has_rsa_key()) {
+      return false;
+    }
+    if (k1.rsa_key().public_modulus() != k2.rsa_key().public_modulus()) {
+      return false;
+    } 
+    if (k1.rsa_key().public_exponent() != k2.rsa_key().public_exponent()) {
+      return false;
+    }         
+    return true;
+  } else if (k1.key_type() == Enc_method_aes_256_cbc_hmac_sha256
+             || k1.key_type() == Enc_method_aes_256_cbc
+             || k1.key_type() == Enc_method_aes_256) {
+    if (!k1.has_secret_key_bits()) {
+      printf("%s() error, line: %d, no secret key bits\n", __func__, __LINE__);
+      return false;
+    }
+    if (k1.secret_key_bits().size() != k2.secret_key_bits().size()) {
+      printf("%s() error, line: %d, number of key bits don't match\n",
+             __func__,
+             __LINE__);
+      return false;
+    }
+    return (memcmp(k1.secret_key_bits().data(),
+                   k2.secret_key_bits().data(),
+                   k1.secret_key_bits().size())
+            == 0);
+  } else if (k1.key_type() == Enc_method_ecc_384_public
+             || k1.key_type() == Enc_method_ecc_384_private) {
+    const ecc_message &em1 = k1.ecc_key();
+    const ecc_message &em2 = k2.ecc_key();
+    if (em1.curve_p().size() != em2.curve_p().size()
+        || memcmp(em1.curve_p().data(),
+                  em2.curve_p().data(),
+                  em1.curve_p().size())
+               != 0) {
+      return false;
+
+    }
+    if (em1.curve_a().size() != em2.curve_a().size()
+        || memcmp(em1.curve_a().data(),
+                  em1.curve_a().data(),
+                  em2.curve_a().size())
+               != 0) {
+      return false;
+    }
+    if (em1.curve_b().size() != em2.curve_b().size()
+        || memcmp(em1.curve_b().data(),
+                  em1.curve_b().data(),
+                  em2.curve_b().size())
+               != 0) {
+      return false;
+    }
+    if (!same_point(em1.base_point(), em2.base_point())) {
+      return false;
+    }
+    if (!same_point(em1.public_point(), em2.public_point())) {
+      return false;
+    }
+    return true;
+  } else if (k1.key_type() == Enc_method_ecc_256_public
+             || k1.key_type() == Enc_method_ecc_256_private) {
+    const ecc_message &em1 = k1.ecc_key();
+    const ecc_message &em2 = k2.ecc_key();
+    if (em1.curve_p().size() != em2.curve_p().size()
+        || memcmp(em1.curve_p().data(),
+                  em2.curve_p().data(),
+                  em1.curve_p().size())
+               != 0) {
+      return false;
+    }
+    if (em1.curve_a().size() != em2.curve_a().size()
+        || memcmp(em1.curve_a().data(),
+                  em1.curve_a().data(),
+                  em2.curve_a().size())
+               != 0) {
+      return false;
+    }
+    if (em1.curve_b().size() != em2.curve_b().size()
+        || memcmp(em1.curve_b().data(),
+                  em1.curve_b().data(),
+                  em2.curve_b().size())
+               != 0) {
+      return false;
+    }
+    if (!same_point(em1.base_point(), em2.base_point())) {
+      return false;
+    }
+    if (!same_point(em1.base_point(), em2.base_point())) {
+      return false;
+    }
+    if (!same_point(em1.public_point(), em2.public_point())) {
+      return false;
+    }
+    return true;
+  } else {
+    printf("%s() error, line: %d, baad ecc type\n", __func__, __LINE__);
+    return false;
+  }
+  return true;
+}
+
 // -----------------------------------------------------------------------

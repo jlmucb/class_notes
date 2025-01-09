@@ -610,15 +610,13 @@ bool test_authenticated_encrypt(bool print_all) {
   return true;
 }
 
-#if 0
 bool test_public_keys(bool print_all) {
 
   RSA *r1 = RSA_new();
 
   if (!generate_new_rsa_key(2048, r1)) {
     printf("%s() error, line: %d, generate_new_rsa_key failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return false;
   }
 
@@ -631,13 +629,13 @@ bool test_public_keys(bool print_all) {
     print_key((const key_message &)km1);
   }
 
-  const char *msg = "This is a message of length 32  ";
-  int         size_data = 32;
-  byte        data[size_data];
-  int         size_out = 2048;
-  byte        out[size_out];
-  int         size_recovered = 2048;
-  byte        recovered[size_recovered];
+  const char* msg = "This is a message of length 32  ";
+  int size_data = 32;
+  byte data[size_data];
+  int  size_out = 2048;
+  byte out[size_out];
+  int  size_recovered = 2048;
+  byte recovered[size_recovered];
 
   memset(data, 0, size_data);
   memset(out, 0, size_out);
@@ -976,7 +974,6 @@ bool test_key_translation(bool print_all) {
   }
   return true;
 }
-#endif
 
 bool test_crypto() {
   if (!test_random(FLAGS_print_all)) {
@@ -993,6 +990,18 @@ bool test_crypto() {
   }
   if (!test_authenticated_encrypt(FLAGS_print_all)) {
     printf("test_authenticated_encrypt failed\n");
+    return false;
+  }
+  if (!test_public_keys(FLAGS_print_all)) {
+    printf("test_public_keys failed\n");
+    return false;
+  }
+  if (!test_sign_and_verify(FLAGS_print_all)) {
+    printf("test_sign_and_verify failed\n");
+    return false;
+  }
+  if (!test_key_translation(FLAGS_print_all)) {
+    printf("test_key_translation failed\n");
     return false;
   }
   return true;
