@@ -626,7 +626,7 @@ bool test_public_keys(bool print_all) {
     return false;
   }
   if (print_all) {
-    print_key((const key_message &)km1);
+    print_key_message((const key_message &)km1);
   }
 
   const char* msg = "This is a message of length 32  ";
@@ -689,7 +689,7 @@ bool test_public_keys(bool print_all) {
   }
   if (print_all) {
     printf("\n");
-    print_key((const key_message &)km2);
+    print_key_message((const key_message &)km2);
   }
 
   memset(data, 0, size_data);
@@ -746,7 +746,7 @@ bool test_public_keys(bool print_all) {
   }
   if (print_all) {
     printf("\n");
-    print_key((const key_message &)km3);
+    print_key_message((const key_message &)km3);
   }
   if (print_all) {
     printf("public to encrypt: ");
@@ -781,7 +781,7 @@ bool test_public_keys(bool print_all) {
   priv_km.set_key_type(Enc_method_ecc_384_private);
   if (print_all) {
     printf("Key:\n");
-    print_key(priv_km);
+    print_key_message(priv_km);
     printf("\n");
   }
 
@@ -794,7 +794,7 @@ bool test_public_keys(bool print_all) {
 
   if (print_all) {
     printf("Key:\n");
-    print_key(pub_km);
+    print_key_message(pub_km);
     printf("\n");
 
     printf("Descriptor: ");
@@ -824,7 +824,7 @@ bool test_public_keys(bool print_all) {
   }
   if (print_all) {
     printf("\n");
-    print_key((const key_message &)km4);
+    print_key_message((const key_message &)km4);
   }
 
   if (print_all) {
@@ -865,7 +865,7 @@ bool test_public_keys(bool print_all) {
   priv_km2.set_key_type(Enc_method_ecc_256_private);
   if (print_all) {
     printf("Key:\n");
-    print_key(priv_km2);
+    print_key_message(priv_km2);
     printf("\n");
   }
 
@@ -878,7 +878,7 @@ bool test_public_keys(bool print_all) {
 
   if (print_all) {
     printf("Key:\n");
-    print_key(pub_km2);
+    print_key_message(pub_km2);
     printf("\n");
 
     printf("Descriptor: ");
@@ -905,7 +905,7 @@ bool test_sign_and_verify(bool print_all) {
     return false;
   }
   if (print_all) {
-    print_key((const key_message &)km);
+    print_key_message((const key_message &)km);
   }
 
   const char *test_message = "I am a test message, verify me";

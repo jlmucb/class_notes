@@ -125,28 +125,18 @@ bool bytes_to_hex(string& b, string* h);
 bool base64_to_bytes(string& b64, string* b);
 bool bytes_to_base64(string& b, string* b64);
 
-key_message* make_symmetrickey(const char* alg, const char* name, int bit_size,
-                               const char* purpose, const char* not_before,
-                               const char* not_after, string& secret);
-
-scheme_message* make_scheme(const char* alg, const char* id_name,
-      const char* mode, const char* pad, const char* purpose,
-      const char* not_before, const char* not_after,
-      const char* enc_alg, int size_enc_key, string& enc_key,
-      const char* enc_key_name, const char* hmac_alg,
-      int size_hmac_key, string& hmac_key);
+key_message* make_symmetric_key(string& alg, string& name,
+      const string& not_before, const string& not_after,
+      const string& key_bits);
 
 bool get_resources_from_file(string& file_name, resource_list* rl);
 bool get_principals_from_file(string& file_name, principal_list* pl);
 bool save_resources_to_file(resource_list& rl, string& file_name);
 bool save_principals_to_file(principal_list& pl, string& file_name);
 
-void print_encryption_parameters(const scheme_message& sm);
 void print_encrypted_message(encrypted_message& m);
 void print_signature_message(signature_message& m);
-void print_hmac_parameters_message(const hmac_parameters_message& m);
 void print_key_message(const key_message& m);
-void print_scheme_message(const scheme_message& m);
 
 bool add_reader_to_resource_proto_list(const string& name, resource_message* r);
 bool add_writer_to_resource_proto_list(const string& name, resource_message* r);
@@ -160,7 +150,6 @@ int crypto_get_random_bytes(int num_bytes, byte* buf);
 bool init_crypto();
 void close_crypto();
 
-void print_encryption_parameters(const scheme_message& sm);
 void print_principal_info(const principal_message& pi);
 void print_audit_info(const audit_info& inf);
 void print_resource_message(const resource_message& rm);
@@ -316,7 +305,6 @@ bool ecc_verify(const char *alg, EC_KEY* key, int size,
                 byte* msg, int size_sig, byte* sig);
 bool make_certifier_ecc_key(int n, key_message *k);
 void print_rsa_key(const rsa_message &rsa);
-void print_key(const key_message &k);
 void print_key_descriptor(const key_message &k);
 int add_ext(X509 *cert, int nid, const char *value);
 bool produce_artifact(key_message &signing_key, string& issuer_name_str, string& issuer_organization_str,
@@ -357,7 +345,7 @@ bool read_file_into_string(const string &file_name, string* out);
 //  These are acl specific
 
 bool sign_nonce(string& nonce, key_message& k, string* signature);
-bool rotate_resource_key(string& resource, scheme_message& sm);
+bool rotate_resource_key(string& resource, key_message& km);
 
 class active_resource {
 public:

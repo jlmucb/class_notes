@@ -670,121 +670,19 @@ void close_crypto() {
     global_crypto_random_source.close_random_source();
 }
 
-
-key_message* make_symmetrickey(const char* alg, const char* name, int bit_size,
-                               const char* purpose, const char* not_before,
-                               const char* not_after, string& secret) {
-  // has_algorithm_type
-  key_message* m = new(key_message);
-  return m;
-}
-
-key_message* make_ecckey(const char* name, int prime_bit_size, const char* purpose,
-                         const char* not_before, const char* not_after,
-                         string& curve_name, string& curve_p,
-                         string& curve_a, string& curve_b,
-                         string& curve_base_x, string& curve_base_y,
-                         string& order_base_point, string& secret,
-                         string& curve_public_point_x, string& curve_public_point_y) {
-#if 0
-//FIX
+key_message* make_symmetric_key(string& alg, string& name,
+      const string& not_before, const string& not_after,
+      const string& key_bits) {
   key_message* km = new(key_message);
-  if (km == nullptr)
-    return nullptr;
-  km->set_family_type("public");
-  km->set_key_type("ecc");
-  if (name != nullptr)
-    km->set_key_name(name);
-  if (purpose != nullptr)
-    km->set_purpose(purpose);
-  if (not_before != nullptr)
-    km->set_notbefore(not_before);
-  if (not_after != nullptr)
-    km->set_notafter(not_after);
-  km->set_key_size(prime_bit_size);
 
-  ecc_public_parameters_message* pub = km->mutable_ecc_pub();
-  curve_message* cmsg = pub->mutable_cm();
-  cmsg->set_curve_name(curve_name);
-  cmsg->set_curve_p((void*)curve_p.data(), (int)curve_p.size());
-  cmsg->set_curve_a((void*)curve_a.data(), (int)curve_a.size());
-  cmsg->set_curve_b((void*)curve_b.data(), (int)curve_b.size());
-  pub->set_order_of_base_point((void*)order_base_point.data(), (int)order_base_point.size());
-  point_message* bpm = pub->mutable_base_point();
-  bpm->set_x((void*)curve_base_x.data(), (int)curve_base_x.size());
-  bpm->set_y((void*)curve_base_y.data(), (int)curve_base_y.size());
-  point_message* ppm = pub->mutable_public_point();
-  ppm->set_x((void*)curve_public_point_x.data(), (int)curve_public_point_x.size());
-  ppm->set_y((void*)curve_public_point_y.data(), (int)curve_public_point_y.size());
-
-  ecc_private_parameters_message* priv = km->mutable_ecc_priv();
-  priv->set_private_multiplier((void*)secret.data(), (int)secret.size());
+  km->set_key_name(name);
+  km->set_key_type(alg);
+  km->set_key_format("vse");
+  km->set_secret_key_bits(key_bits);
+  km->set_not_before(not_before);
+  km->set_not_after(not_after);
 
   return km;
-#endif
-  return nullptr;
-}
-
-key_message* make_rsakey(const char* alg, const char* name, int bit_size,
-    const char* purpose, const char* not_before, const char* not_after,
-    string& mod, string& e, string& d, string& p, string& q, string& dp,
-    string& dq, string& m_prime, string& p_prime, string& q_prime) {
-#if 0
-  key_message* km = new(key_message);
-  km->set_family_type("public");
-  km->set_key_type("rsa");
-  if (name != nullptr)
-    km->set_key_name(name);
-  km->set_key_size(bit_size);
-  if (purpose != nullptr)
-    km->set_purpose(purpose);
-  if (not_before != nullptr)
-    km->set_notbefore(not_before);
-  if (not_after != nullptr)
-    km->set_notafter(not_after);
-
-  rsa_public_parameters_message* pub = km->mutable_rsa_pub();
-  pub->set_modulus((void*)mod.data(), (int)mod.size());
-  pub->set_e((void*)e.data(), (int)e.size());
-
-  rsa_private_parameters_message* priv = km->mutable_rsa_priv();
-  priv->set_d((void*)d.data(), (int)d.size());
-  priv->set_p((void*)p.data(), (int)p.size());
-  priv->set_q((void*)q.data(), (int)q.size());
-  priv->set_dq((void*)dq.data(), (int)dq.size());
-  priv->set_m_prime((void*) m_prime.data(), (int)m_prime.size());
-  priv->set_p_prime((void*) p_prime.data(), (int)p_prime.size());
-  priv->set_q_prime((void*) q_prime.data(), (int)q_prime.size());
-
-  return km;
-#endif
-  return nullptr;
-}
-
-scheme_message* make_scheme(const char* alg, const char* id_name,
-      const char* mode, const char* pad, const char* purpose,
-      const char* not_before, const char* not_after,
-      const char* enc_alg, int size_enc_key, string& enc_key,
-      const char* enc_key_name, const char* hmac_alg,
-      int size_hmac_key,  string& hmac_key) {
-
-  scheme_message* m = new(scheme_message);
-  m->set_scheme_type(alg);
-  m->set_scheme_instance_identifier(id_name);
-  m->set_mode(mode);
-  m->set_pad(pad);
-  m->set_notbefore(not_before);
-  m->set_notafter(not_after);
-  m->set_scheme_instance_identifier(id_name);
-  key_message* km = make_symmetrickey(enc_alg, enc_key_name, size_enc_key,
-                               purpose, not_before, not_after, enc_key);
-  m->set_allocated_encryption_key(km);
-  hmac_parameters_message* hp =  new hmac_parameters_message;
-  hp->set_algorithm(hmac_alg);
-  hp->set_size(size_hmac_key);
-  hp->set_secret(hmac_key);
-  m->set_allocated_parameters(hp);
-  return m;
 }
 
 void print_binary_blob(const binary_blob_message& m) {
@@ -794,8 +692,8 @@ void print_binary_blob(const binary_blob_message& m) {
 
 void print_encrypted_message(const encrypted_message& m) {
   printf("Encrypted message:\n");
-  if (m.has_scheme_identifier())
-    printf("  Scheme id   : %s\n", m.scheme_identifier().c_str());
+  if (m.has_encryption_identifier())
+    printf("  Scheme id   : %s\n", m.encryption_identifier().c_str());
   if (m.has_message_identifier())
     printf("  Message id  : %s\n", m.message_identifier().c_str());
   if (m.has_source() && m.has_destination())
@@ -817,40 +715,7 @@ void print_signature_message(const signature_message& m) {
   printf("    signer    : %s\n", m.signer_name().c_str());
 }
 
-void print_scheme_message(const scheme_message& m) {
-  printf("Scheme:\n");
-  if (m.has_scheme_type()) {
-    printf("scheme        : %s\n", m.scheme_type().c_str());
-  }
-  if (m.has_scheme_instance_identifier()) {
-    printf("scheme id     : %s\n", m.scheme_instance_identifier().c_str());
-  }
-  if (m.has_mode()) {
-    printf("mode          : %s\n", m.mode().c_str());
-  }
-  if (m.has_pad()) {
-    printf("pad: %s\n", m.pad().c_str());
-  }
-  if (m.has_notbefore()) {
-    printf("not before    : %s\n", m.notbefore().c_str());
-  }
-  if (m.has_notafter()) {
-    printf("not after     : %s\n", m.notafter().c_str());
-  }
-  if (m.has_encryption_key()) {
-    const key_message& km = m.encryption_key();
-    print_key(km);
-  }
-  if (m.has_parameters()) {
-  }
-}
-
-
 // -------------------------------------------------------------------------------a
-
-void print_encryption_parameters(const scheme_message& sm) {
-  print_scheme_message(sm);
-}
 
 void print_principal_message(const principal_message& pi) {
   if (pi.has_principal_name())
@@ -872,8 +737,8 @@ void print_resource_message(const resource_message& rm) {
   printf("Resource location: %s\n", rm.resource_location().c_str());
   printf("Created: %s\n", rm.time_created().c_str());
   printf("Written: %s\n", rm.time_last_written().c_str());
-  if (rm.has_encryption_parameters()) {
-    print_encryption_parameters(rm.encryption_parameters());
+  if (rm.has_resource_key()) {
+    print_key_message(rm.resource_key());
   }
   if (rm.has_log()) {
     print_audit_info(rm.log());
@@ -2556,7 +2421,7 @@ bool key_to_RSA(const key_message &k, RSA *r) {
     printf("%s() error, line: %d, modulus or exponent missing\n",
            __func__,
            __LINE__);
-    print_key(k);
+    print_key_message(k);
     return false;
   }
   BIGNUM *n = BN_bin2bn((byte *)(rsa_key_data.public_modulus().data()),
@@ -3290,7 +3155,7 @@ void print_rsa_key(const rsa_message &rsa) {
   }
 }
 
-void print_key(const key_message &k) {
+void print_key_message(const key_message &k) {
   if (k.has_key_name()) {
     printf("Key name: %s\n", k.key_name().c_str());
   }

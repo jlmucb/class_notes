@@ -21,7 +21,7 @@ message binary_blob_message {
 };
 
 message encrypted_message {
-  optional string scheme_identifier             = 1;
+  optional string encryption_identifier         = 1;
   optional string message_identifier            = 2;
   optional string source                        = 3;
   optional string destination                   = 4;
@@ -81,37 +81,6 @@ message key_message {
   optional string not_after                 = 10;
 };
 
-message hmac_parameters_message {
-  optional string algorithm                     = 1;
-  optional int32 size                           = 2;
-  optional bytes secret                         = 3;
-};
-
-message scheme_message {
-  optional string scheme_type                   = 1;
-  optional string scheme_instance_identifier    = 2;
-  optional string mode                          = 3;
-  optional string pad                           = 4;
-  optional string notbefore                     = 5;
-  optional string notafter                      = 6;
-  optional key_message encryption_key           = 7;
-  optional hmac_parameters_message parameters   = 8;
-};
-
-message certificate_name_message {
-  optional string name_type                       = 1;
-  optional string name_value                      = 2;
-}
-
-message certficate_principal_name_message {
-  repeated certificate_name_message names          = 1;
-}
-
-message certificate_properties_message {
-  optional string property_name                   = 1;
-  optional string property_value                  = 2;
-}
-
 // These are the new acl specific protos
 
 message principal_message {
@@ -126,12 +95,12 @@ message audit_info {
 };
 
 // for now every resource is in its own file named by resource_location
-// file is encrypted with encryption parameters
+// file is encrypted with resource_key
 // if audit is required, logging info is in audit info
 message resource_message {
   optional string resource_identifier                 = 1;
   optional string resource_location                   = 2;
-  optional scheme_message encryption_parameters       = 3;
+  optional key_message resource_key                   = 3;
   optional bool audit_required                        = 4;
   optional audit_info log                             = 5;
   optional string time_created                        = 6;
