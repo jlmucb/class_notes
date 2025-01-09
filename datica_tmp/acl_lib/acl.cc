@@ -2891,19 +2891,13 @@ bool ecc_verify(const char *alg, EC_KEY* key, int size,
 
   if (!digest_message(alg, msg, size, digest, len)) {
     printf("%s() error, line: %d, ecc_verify: %s digest failed %d\n",
-           __func__,
-           __LINE__,
-           alg,
-           len);
+           __func__, __LINE__, alg, len);
     return false;
   }
   int res = ECDSA_verify(0, digest, len, sig, size_sig, key);
   if (res != 1) {
     printf("%s() error, line: %d, ecc_verify: ECDSA_failed %d %d\n",
-           __func__,
-           __LINE__,
-           len,
-           size_sig);
+           __func__, __LINE__, len, size_sig);
     return false;
   }
   return true;
@@ -2919,31 +2913,25 @@ EC_KEY *generate_new_ecc_key(int num_bits) {
   } else {
     printf("%s() error, line: %d, generate_new_ecc_key: Only P-256 and P-384 "
            "supported\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return nullptr;
   }
   if (ecc_key == nullptr) {
     printf("%s() error, line: %d,  generate_new_ecc_key: Can't get curve by "
-           "name\n",
-           __func__,
-           __LINE__);
+           "name\n", __func__, __LINE__);
     return nullptr;
   }
 
   if (1 != EC_KEY_generate_key(ecc_key)) {
     printf("%s() error, line: %d, generate_new_ecc_key: Can't generate key\n",
-           __func__,
-           __LINE__);
-    return nullptr;
+           __func__, __LINE__); return nullptr;
   }
 
   BN_CTX *        ctx = BN_CTX_new();
   const EC_GROUP *group = EC_KEY_get0_group(ecc_key);
   if (group == nullptr) {
     printf("%s() error, line: %d, generate_new_ecc_key: Can't get group (1)\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return nullptr;
   }
   BIGNUM *        pt_x = BN_new();
@@ -2967,15 +2955,12 @@ EC_KEY *key_to_ECC(const key_message &k) {
     ecc_key = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1);
   } else {
     printf("%s() error, line: %d, key_to_ECC: wrong type %s\n",
-           __func__,
-           __LINE__,
-           k.key_type().c_str());
+           __func__, __LINE__, k.key_type().c_str());
     return nullptr;
   }
   if (ecc_key == nullptr) {
     printf("%s() error, line: %d, key_to_ECC: Can't get curve by name\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return nullptr;
   }
 
@@ -3311,6 +3296,9 @@ void print_key(const key_message &k) {
   }
   if (k.has_key_type()) {
     printf("Key type: %s\n", k.key_type().c_str());
+  }
+  if (k.has_key_format()) {
+    printf("Key format: %s\n", k.key_format().c_str());
   }
   if (k.has_rsa_key()) {
     print_rsa_key(k.rsa_key());

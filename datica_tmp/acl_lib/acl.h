@@ -129,19 +129,6 @@ key_message* make_symmetrickey(const char* alg, const char* name, int bit_size,
                                const char* purpose, const char* not_before,
                                const char* not_after, string& secret);
 
-key_message* make_rsakey(const char* alg, const char* name, int bit_size,
-    const char* purpose, const char* not_before, const char* not_after,
-    string& mod, string& e, string& d, string& p, string& q, string& dp,
-    string& dq, string& m_prime, string& p_prime, string& q_prime);
-
-key_message* make_ecckey(const char* name, int bit_size, const char* purpose,
-                         const char* not_before, const char* not_after,
-                         string& curve_name, string& curve_p,
-                         string& curve_a, string& curve_b,
-                         string& curve_base_x, string& curve_base_y,
-                         string& order_base_point, string& secret,
-                         string& curve_public_point_x, string& curve_public_point_y);
-
 scheme_message* make_scheme(const char* alg, const char* id_name,
       const char* mode, const char* pad, const char* purpose,
       const char* not_before, const char* not_after,
@@ -297,7 +284,14 @@ bool authenticated_encrypt(const char *alg_name, byte* in, int in_len, byte* key
                            byte* iv, int iv_len, byte* out, int* out_size);
 bool authenticated_decrypt(const char *alg_name, byte* in, int in_len, byte* key,
                            int key_len, byte* out, int* out_size);
+
 bool private_key_to_public_key(const key_message &in, key_message* out);
+bool key_to_RSA(const key_message &k, RSA *r);
+bool RSA_to_key(const RSA *r, key_message *k);
+EC_KEY *key_to_ECC(const key_message &k);
+bool ECC_to_key(const EC_KEY *ecc_key, key_message *k);
+
+bool generate_new_rsa_key(int num_bits, RSA *r);
 bool make_certifier_rsa_key(int n, key_message *k);
 bool rsa_public_encrypt(RSA * key, byte *data, int data_len,
                         byte *encrypted, int * size_out);
@@ -309,17 +303,14 @@ bool rsa_sign(const char *alg, RSA* key, int size,
               byte* msg, int* sig_size, byte* sig);
 bool rsa_verify(const char *alg, RSA* key, int size, byte* msg,
                 int sig_size, byte* sig);
-bool generate_new_rsa_key(int num_bits, RSA *r);
-bool key_to_RSA(const key_message &k, RSA *r);
-bool RSA_to_key(const RSA *r, key_message *k);
 void print_point(const point_message &pt);
+
+EC_KEY* generate_new_ecc_key(int num_bits);
 void print_ecc_key(const ecc_message &em);
 bool ecc_sign(const char *alg, EC_KEY* key, int size, byte* msg,
               int* size_out, byte* out);
 bool ecc_verify(const char *alg, EC_KEY* key, int size,
                 byte* msg, int size_sig, byte* sig);
-EC_KEY *key_to_ECC(const key_message &k);
-bool ECC_to_key(const EC_KEY *ecc_key, key_message *k);
 bool make_certifier_ecc_key(int n, key_message *k);
 void print_rsa_key(const rsa_message &rsa);
 void print_key(const key_message &k);

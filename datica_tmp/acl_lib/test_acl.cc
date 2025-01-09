@@ -223,9 +223,20 @@ bool test_access() {
   return true;
 }
 
+bool test_crypto() {
+  return true;
+}
+
 TEST (basic, test_basic) {
   EXPECT_TRUE(test_basic());
+}
+
+TEST (access, test_access) {
   EXPECT_TRUE(test_access());
+}
+
+TEST (crypto, test_crypto) {
+  EXPECT_TRUE(test_crypto());
 }
 
 int main(int an, char** av) {
