@@ -264,6 +264,9 @@ bool asn1_time_to_tm_time(const ASN1_TIME *s, struct tm * tm_time);
 bool get_not_before_from_cert(X509 *c, time_point *tp) ;
 bool get_not_after_from_cert(X509 *c, time_point *tp);
 int compare_time(time_point &t1, time_point &t2);
+
+bool digest_message(const char* alg, const byte* message, int message_len,
+                    byte* digest, unsigned int digest_len);
 bool encrypt(byte *in, int in_len, byte *key, byte *iv,
              byte *out, int * out_size);
 bool decrypt(byte *in, int in_len, byte *key, byte *iv,

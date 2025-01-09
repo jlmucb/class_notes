@@ -238,23 +238,158 @@ bool test_random(bool print_all) {
   return true;
 }
 
-#if 0
-bool test_encrypt(bool print_all) {
-  const int   in_size = 2 * block_size;
-  const int   out_size = in_size + 128;
-  const char *alg_name = Enc_method_aes_256_cbc_hmac_sha256;
-  const int   key_size = cipher_key_byte_size(alg_name);
-  int         blk_size = cipher_block_byte_size(alg_name);
+//  Test vectors
+//    Input: "abc"
+//    sha256: ba7816bf 8f01cfea 414140de 5dae2223 b00361a3 96177a9c b410ff61
+//    f20015ad sha384: cb00753f45a35e8b b5a03d699ac65007 272c32ab0eded163
+//    1a8b605a43ff5bed
+//            8086072ba1e7cc23 58baeca134c825a7
+//    sha512: ddaf35a193617aba cc417349ae204131 12e6fa4e89a97ea2
+//    0a9eeee64b55d39a
+//            2192992a274fc1a8 36ba3c23a3feebbd 454d4423643ce80e
+//            2a9ac94fa54ca49f
 
-  byte      key[key_size];
-  const int iv_size = blk_size;
-  byte      iv[block_size];
-  byte      plain[in_size];
-  byte      cipher[out_size];
-  const int decrypt_size = in_size + block_size;
-  byte      decrypted[decrypt_size];
-  int       size1 = in_size;
-  int       size2 = decrypt_size;
+byte sha256_test[32] = {0xba, 0x78, 0x16, 0xbf, 0x8f, 0x01, 0xcf, 0xea,
+                        0x41, 0x41, 0x40, 0xde, 0x5d, 0xae, 0x22, 0x23,
+                        0xb0, 0x03, 0x61, 0xa3, 0x96, 0x17, 0x7a, 0x9c,
+                        0xb4, 0x10, 0xff, 0x61, 0xf2, 0x00, 0x15, 0xad};
+
+byte sha384_test[48] = {
+    0xcb, 0x00, 0x75, 0x3f, 0x45, 0xa3, 0x5e, 0x8b, 0xb5, 0xa0, 0x3d, 0x69,
+    0x9a, 0xc6, 0x50, 0x07, 0x27, 0x2c, 0x32, 0xab, 0x0e, 0xde, 0xd1, 0x63,
+    0x1a, 0x8b, 0x60, 0x5a, 0x43, 0xff, 0x5b, 0xed, 0x80, 0x86, 0x07, 0x2b,
+    0xa1, 0xe7, 0xcc, 0x23, 0x58, 0xba, 0xec, 0xa1, 0x34, 0xc8, 0x25, 0xa7};
+
+byte sha512_test[64] = {
+    0xdd, 0xaf, 0x35, 0xa1, 0x93, 0x61, 0x7a, 0xba, 0xcc, 0x41, 0x73,
+    0x49, 0xae, 0x20, 0x41, 0x31, 0x12, 0xe6, 0xfa, 0x4e, 0x89, 0xa9,
+    0x7e, 0xa2, 0x0a, 0x9e, 0xee, 0xe6, 0x4b, 0x55, 0xd3, 0x9a, 0x21,
+    0x92, 0x99, 0x2a, 0x27, 0x4f, 0xc1, 0xa8, 0x36, 0xba, 0x3c, 0x23,
+    0xa3, 0xfe, 0xeb, 0xbd, 0x45, 0x4d, 0x44, 0x23, 0x64, 0x3c, 0xe8,
+    0x0e, 0x2a, 0x9a, 0xc9, 0x4f, 0xa5, 0x4c, 0xa4, 0x9f};
+
+bool test_digest(bool print_all) {
+  const char * message = "1234";
+  int          msg_len = strlen(message);
+  unsigned int size_digest = 64;
+  byte         digest[size_digest];
+
+  memset(digest, 0, size_digest);
+  if (!digest_message(Digest_method_sha_256, (const byte *)message,
+                      msg_len, digest, size_digest)) {
+    printf("%s() error, line: %d, digest failed, %d\n",
+           __func__, __LINE__, size_digest);
+    return false;
+  }
+  if (print_all) {
+    printf("SHA-256 message: ");
+    print_bytes(msg_len, (byte *)message);
+    printf("\n");
+    printf("SHA-256 digest : ");
+    print_bytes(32, digest);
+    printf("\n");
+  }
+
+  // Verifier outputs
+  const char *message2 = "abc";
+  msg_len = 3;
+
+  size_digest = (unsigned int)digest_output_byte_size(Digest_method_sha256);
+  if (size_digest < 0) {
+    printf("%s() error, line: %d, digest size failed, %d\n",
+           __func__,
+           __LINE__,
+           size_digest);
+    return false;
+  }
+  memset(digest, 0, size_digest);
+  if (!digest_message(Digest_method_sha_256, (const byte *)message2, msg_len,
+                      digest, size_digest)) {
+    printf("%s() error, line: %d, digest_message() failed\n",
+           __func__, __LINE__);
+    return false;
+  }
+  if (print_all) {
+    printf("\nSHA-256 message: ");
+    print_bytes(msg_len, (byte *)message2);
+    printf("\n");
+    printf("SHA-256 digest : ");
+    print_bytes((int)size_digest, digest);
+    printf("\n");
+  }
+  if (memcmp(digest, sha256_test, size_digest) != 0) {
+    printf("%s() error, line: %d, test digest doesn't match\n",
+           __func__, __LINE__);
+    return false;
+  }
+
+  size_digest = (unsigned int)digest_output_byte_size(Digest_method_sha_384);
+  if (size_digest < 0) {
+    printf("%s() error, line: %d, digest_message failed\n", __func__, __LINE__);
+    return false;
+  }
+  memset(digest, 0, size_digest);
+  if (!digest_message(Digest_method_sha_384, (const byte *)message2, msg_len,
+                      digest, size_digest)) {
+    printf("%s() error, line: %d, digest_message failed\n", __func__, __LINE__);
+    return false;
+  }
+  if (print_all) {
+    printf("SHA-384 message: ");
+    print_bytes(msg_len, (byte *)message2);
+    printf("\n");
+    printf("SHA-384 digest : ");
+    print_bytes((int)size_digest, digest);
+    printf("\n");
+  }
+  if (memcmp(digest, sha384_test, size_digest) != 0) {
+    printf("%s() error, line: %d, memcmp failed\n", __func__, __LINE__);
+    return false;
+  }
+
+  size_digest = (unsigned int)digest_output_byte_size(Digest_method_sha_512);
+  if (size_digest < 0) {
+    printf("%s() error, line: %d, digest_message failed\n", __func__, __LINE__);
+    return false;
+  }
+  memset(digest, 0, size_digest); if (!digest_message(Digest_method_sha_512, (const byte *)message2,
+                      msg_len, digest, size_digest)) {
+    printf("%s() error, line: %d, digest_message failed\n", __func__, __LINE__);
+    return false;
+  }
+  if (print_all) {
+    printf("SHA-512 message: ");
+    print_bytes(msg_len, (byte *)message2);
+    printf("\n");
+    printf("SHA-512 digest : ");
+    print_bytes((int)size_digest, digest);
+    printf("\n");
+  }
+  if (memcmp(digest, sha512_test, size_digest) != 0) {
+    printf("%s() error, line: %d, memcmp failed\n", __func__, __LINE__);
+    return false;
+  }
+
+  return true;
+}
+
+
+bool test_encrypt(bool print_all) {
+  const char *alg_name = Enc_method_aes_256_cbc_hmac_sha256;
+  int block_size = cipher_block_byte_size(alg_name);
+  int key_size = cipher_key_byte_size(alg_name);
+  int in_size = 2 * block_size;
+  int out_size = in_size + 128;
+
+  byte key[key_size];
+  const int iv_size = block_size;
+  byte iv[block_size];
+  byte plain[in_size];
+  byte cipher[out_size];
+  int decrypt_size = in_size + block_size;
+  byte decrypted[decrypt_size];
+  int  size1 = in_size;
+  int  size2 = decrypt_size;
 
   memset(plain, 0, in_size);
   memset(cipher, 0, out_size);
@@ -264,7 +399,7 @@ bool test_encrypt(bool print_all) {
 
   for (int i = 0; i < key_size; i++)
     key[i] = (byte)(i % 16);
-  for (int i = 0; i < blk_size; i++)
+  for (int i = 0; i < block_size; i++)
     iv[i] = (byte)(i % 16);
   const char *msg = "this is a message of length 32.";
   memcpy(plain, (byte *)msg, 32);
@@ -306,19 +441,21 @@ bool test_encrypt(bool print_all) {
 }
 
 bool test_authenticated_encrypt(bool print_all) {
-  const int in_size = 2 * block_size;
-  const int out_size = in_size + 256;
-  const int key_size = 96;
-  byte      key[key_size];
-  const int iv_size = block_size;
-  byte      iv[block_size];
-  byte      plain[in_size];
-  byte      cipher[out_size];
-  int       size_encrypt_out = out_size;
-  int       size_decrypt_out = out_size;
+  const char *alg_name = Enc_method_aes_256_cbc_hmac_sha256;
+  int block_size = cipher_block_byte_size(alg_name);
+  int in_size = 2 * block_size;
+  int out_size = in_size + 256;
+  int key_size = 96;
+  byte key[key_size];
+  int iv_size = block_size;
+  byte iv[block_size];
+  byte plain[in_size];
+  byte cipher[out_size];
+  int  size_encrypt_out = out_size;
+  int  size_decrypt_out = out_size;
 
   const int decrypt_size = in_size + block_size;
-  byte      decrypted[decrypt_size];
+  byte decrypted[decrypt_size];
 
   memset(plain, 0, in_size);
   memset(cipher, 0, out_size);
@@ -341,7 +478,7 @@ bool test_authenticated_encrypt(bool print_all) {
     printf("\n");
   }
 
-  if (!authenticated_encrypt(Enc_method_aes_256_cbc_hmac_sha256, plain, in_size,
+  if (!authenticated_encrypt(alg_name, plain, in_size,
                              key, key_size, iv, iv_size, cipher, &size_encrypt_out)) {
     printf("%s() error, line: %d, authenticated encrypt failed\n",
            __func__,
@@ -397,9 +534,7 @@ bool test_authenticated_encrypt(bool print_all) {
   }
   if (print_all) {
     printf("authenticated encrypt for aes-256-cbc-hmac-sha384 succeeded, "
-           "in_size: %d, out_size is %d\n",
-           in_size,
-           size_encrypt_out);
+           "in_size: %d, out_size is %d\n", in_size, size_encrypt_out);
     printf("iv: ");
     print_bytes(block_size, iv);
     printf("\n");
@@ -410,8 +545,7 @@ bool test_authenticated_encrypt(bool print_all) {
   if (!authenticated_decrypt(Enc_method_aes_256_cbc_hmac_sha384, cipher, size_encrypt_out,
                              key, key_size, decrypted, &size_decrypt_out)) {
     printf("%s() error, line: %d, authenticated decrypt failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return false;
   }
 
@@ -426,27 +560,17 @@ bool test_authenticated_encrypt(bool print_all) {
   }
   if (size_decrypt_out != size_in || memcmp(plain, decrypted, size_in) != 0) {
     printf("%s() error, line: %d, plaintext and decrypted text are different\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return false;
   }
 
   size_encrypt_out = out_size;
   size_decrypt_out = out_size;
 
-  if (!authenticated_encrypt(Enc_method_aes_256_gcm,
-                             plain,
-                             in_size,
-                             key,
-                             key_size,
-                             iv,
-                             iv_size,
-                             cipher,
-                             &size_encrypt_out)) {
+  if (!authenticated_encrypt(Enc_method_aes_256_gcm, plain, in_size, key,
+                             key_size, iv, iv_size, cipher, &size_encrypt_out)) {
     printf("%s() error, line: %d, authenticated_encrypt() for aes-256-gcm "
-           "encrypt failed\n",
-           __func__,
-           __LINE__);
+           "encrypt failed\n", __func__, __LINE__);
     return false;
   }
   if (print_all) {
@@ -461,13 +585,8 @@ bool test_authenticated_encrypt(bool print_all) {
     print_bytes(size_encrypt_out, cipher);
     printf("\n");
   }
-  if (!authenticated_decrypt(Enc_method_aes_256_gcm,
-                             cipher,
-                             size_encrypt_out,
-                             key,
-                             key_size,
-                             decrypted,
-                             &size_decrypt_out)) {
+  if (!authenticated_decrypt(Enc_method_aes_256_gcm, cipher, size_encrypt_out, key,
+                             key_size, decrypted, &size_decrypt_out)) {
     printf(
         "%s() error, line: %d, authenticated for aes-256-gcm decrypt failed\n",
         __func__,
@@ -491,6 +610,7 @@ bool test_authenticated_encrypt(bool print_all) {
   return true;
 }
 
+#if 0
 bool test_public_keys(bool print_all) {
 
   RSA *r1 = RSA_new();
@@ -531,8 +651,7 @@ bool test_public_keys(bool print_all) {
   }
   if (!rsa_public_encrypt(r1, data, size_data, out, &size_out)) {
     printf("%s() error, line: %d, rsa_public_encrypt failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return false;
   }
   if (print_all) {
@@ -542,8 +661,7 @@ bool test_public_keys(bool print_all) {
   }
   if (!rsa_private_decrypt(r1, out, size_out, recovered, &size_recovered)) {
     printf("%s() error, line: %d, rsa_private_decrypt failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return false;
   }
   if (print_all) {
@@ -560,8 +678,7 @@ bool test_public_keys(bool print_all) {
   RSA *r2 = RSA_new();
   if (!generate_new_rsa_key(4096, r2)) {
     printf("%s() error, line: %d, generate_new_rsa_key failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return false;
   }
 
@@ -589,8 +706,7 @@ bool test_public_keys(bool print_all) {
   }
   if (!rsa_public_encrypt(r2, data, size_data, out, &size_out)) {
     printf("%s() error, line: %d, rsa_public_encrypt failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return false;
   }
   if (print_all) {
@@ -639,12 +755,8 @@ bool test_public_keys(bool print_all) {
     print_bytes(size_data, data);
     printf("\n");
   }
-  if (!ecc_sign(Digest_method_sha_384,
-                ecc_key,
-                size_data,
-                data,
-                &size_out,
-                out)) {
+  if (!ecc_sign(Digest_method_sha_384, ecc_key, size_data, data,
+                &size_out, out)) {
     printf("ecc_sign failed\n");
     printf("Sig size: %d\n", size_out);
     return false;
@@ -654,12 +766,8 @@ bool test_public_keys(bool print_all) {
     print_bytes(size_out, out);
     printf("\n");
   }
-  if (!ecc_verify(Digest_method_sha_384,
-                  ecc_key,
-                  size_data,
-                  data,
-                  size_out,
-                  out)) {
+  if (!ecc_verify(Digest_method_sha_384, ecc_key, size_data,
+                  data, size_out, out)) {
     printf("%s() error, line: %d, ecc verify failed\n", __func__, __LINE__);
     return false;
   }
@@ -708,8 +816,7 @@ bool test_public_keys(bool print_all) {
   EC_KEY *ecc_key2 = generate_new_ecc_key(256);
   if (ecc_key2 == nullptr) {
     printf("%s() error, line: %d, Can't generate new ecc key\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return false;
   }
   key_message km4;
@@ -727,12 +834,8 @@ bool test_public_keys(bool print_all) {
     print_bytes(size_data, data);
     printf("\n");
   }
-  if (!ecc_sign(Digest_method_sha_256,
-                ecc_key2,
-                size_data,
-                data,
-                &size_out,
-                out)) {
+  if (!ecc_sign(Digest_method_sha_256, ecc_key2, size_data, data,
+                &size_out, out)) {
     printf("%s() error, line: %d, ecc_sign failed, size: %d\n",
            __func__,
            __LINE__,
@@ -746,12 +849,8 @@ bool test_public_keys(bool print_all) {
   }
 #if 1
   // TODO: sometimes this faults
-  if (!ecc_verify(Digest_method_sha_256,
-                  ecc_key,
-                  size_data,
-                  data,
-                  size_out,
-                  out)) {
+  if (!ecc_verify(Digest_method_sha_256, ecc_key, size_data,
+                  data, size_out, out)) {
     printf("%s() error, line: %d, ecc_verify failed\n", __func__, __LINE__);
     return false;
   }
@@ -793,294 +892,12 @@ bool test_public_keys(bool print_all) {
   return true;
 }
 
-//  Test vectors
-//    Input: "abc"
-//    sha256: ba7816bf 8f01cfea 414140de 5dae2223 b00361a3 96177a9c b410ff61
-//    f20015ad sha384: cb00753f45a35e8b b5a03d699ac65007 272c32ab0eded163
-//    1a8b605a43ff5bed
-//            8086072ba1e7cc23 58baeca134c825a7
-//    sha512: ddaf35a193617aba cc417349ae204131 12e6fa4e89a97ea2
-//    0a9eeee64b55d39a
-//            2192992a274fc1a8 36ba3c23a3feebbd 454d4423643ce80e
-//            2a9ac94fa54ca49f
-
-byte sha256_test[32] = {0xba, 0x78, 0x16, 0xbf, 0x8f, 0x01, 0xcf, 0xea,
-                        0x41, 0x41, 0x40, 0xde, 0x5d, 0xae, 0x22, 0x23,
-                        0xb0, 0x03, 0x61, 0xa3, 0x96, 0x17, 0x7a, 0x9c,
-                        0xb4, 0x10, 0xff, 0x61, 0xf2, 0x00, 0x15, 0xad};
-
-byte sha384_test[48] = {
-    0xcb, 0x00, 0x75, 0x3f, 0x45, 0xa3, 0x5e, 0x8b, 0xb5, 0xa0, 0x3d, 0x69,
-    0x9a, 0xc6, 0x50, 0x07, 0x27, 0x2c, 0x32, 0xab, 0x0e, 0xde, 0xd1, 0x63,
-    0x1a, 0x8b, 0x60, 0x5a, 0x43, 0xff, 0x5b, 0xed, 0x80, 0x86, 0x07, 0x2b,
-    0xa1, 0xe7, 0xcc, 0x23, 0x58, 0xba, 0xec, 0xa1, 0x34, 0xc8, 0x25, 0xa7};
-
-byte sha512_test[64] = {
-    0xdd, 0xaf, 0x35, 0xa1, 0x93, 0x61, 0x7a, 0xba, 0xcc, 0x41, 0x73,
-    0x49, 0xae, 0x20, 0x41, 0x31, 0x12, 0xe6, 0xfa, 0x4e, 0x89, 0xa9,
-    0x7e, 0xa2, 0x0a, 0x9e, 0xee, 0xe6, 0x4b, 0x55, 0xd3, 0x9a, 0x21,
-    0x92, 0x99, 0x2a, 0x27, 0x4f, 0xc1, 0xa8, 0x36, 0xba, 0x3c, 0x23,
-    0xa3, 0xfe, 0xeb, 0xbd, 0x45, 0x4d, 0x44, 0x23, 0x64, 0x3c, 0xe8,
-    0x0e, 0x2a, 0x9a, 0xc9, 0x4f, 0xa5, 0x4c, 0xa4, 0x9f};
-
-bool test_digest(bool print_all) {
-  const char * message = "1234";
-  int          msg_len = strlen(message);
-  unsigned int size_digest = 64;
-  byte         digest[size_digest];
-
-  memset(digest, 0, size_digest);
-  if (!digest_message(Digest_method_sha_256,
-                      (const byte *)message,
-                      msg_len,
-                      digest,
-                      size_digest)) {
-    printf("%s() error, line: %d, digest failed, %d\n",
-           __func__,
-           __LINE__,
-           size_digest);
-    return false;
-  }
-  if (print_all) {
-    printf("SHA-256 message: ");
-    print_bytes(msg_len, (byte *)message);
-    printf("\n");
-    printf("SHA-256 digest : ");
-    print_bytes(32, digest);
-    printf("\n");
-  }
-
-  // Verifier outputs
-  const char *message2 = "abc";
-  msg_len = 3;
-
-  size_digest = (unsigned int)digest_output_byte_size(Digest_method_sha256);
-  if (size_digest < 0) {
-    printf("%s() error, line: %d, digest size failed, %d\n",
-           __func__,
-           __LINE__,
-           size_digest);
-    return false;
-  }
-  memset(digest, 0, size_digest);
-  if (!digest_message(Digest_method_sha_256,
-                      (const byte *)message2,
-                      msg_len,
-                      digest,
-                      size_digest)) {
-    printf("%s() error, line: %d, digest_message() failed\n",
-           __func__,
-           __LINE__);
-    return false;
-  }
-  if (print_all) {
-    printf("\nSHA-256 message: ");
-    print_bytes(msg_len, (byte *)message2);
-    printf("\n");
-    printf("SHA-256 digest : ");
-    print_bytes((int)size_digest, digest);
-    printf("\n");
-  }
-  if (memcmp(digest, sha256_test, size_digest) != 0) {
-    printf("%s() error, line: %d, test digest doesn't match\n",
-           __func__,
-           __LINE__);
-    return false;
-  }
-
-  size_digest = (unsigned int)digest_output_byte_size(Digest_method_sha_384);
-  if (size_digest < 0) {
-    printf("%s() error, line: %d, digest_message failed\n", __func__, __LINE__);
-    return false;
-  }
-  memset(digest, 0, size_digest);
-  if (!digest_message(Digest_method_sha_384,
-                      (const byte *)message2,
-                      msg_len,
-                      digest,
-                      size_digest)) {
-    printf("%s() error, line: %d, digest_message failed\n", __func__, __LINE__);
-    return false;
-  }
-  if (print_all) {
-    printf("SHA-384 message: ");
-    print_bytes(msg_len, (byte *)message2);
-    printf("\n");
-    printf("SHA-384 digest : ");
-    print_bytes((int)size_digest, digest);
-    printf("\n");
-  }
-  if (memcmp(digest, sha384_test, size_digest) != 0) {
-    printf("%s() error, line: %d, memcmp failed\n", __func__, __LINE__);
-    return false;
-  }
-
-  size_digest = (unsigned int)digest_output_byte_size(Digest_method_sha_512);
-  if (size_digest < 0) {
-    printf("%s() error, line: %d, digest_message failed\n", __func__, __LINE__);
-    return false;
-  }
-  memset(digest, 0, size_digest);
-  if (!digest_message(Digest_method_sha_512,
-                      (const byte *)message2,
-                      msg_len,
-                      digest,
-                      size_digest)) {
-    printf("%s() error, line: %d, digest_message failed\n", __func__, __LINE__);
-    return false;
-  }
-  if (print_all) {
-    printf("SHA-512 message: ");
-    print_bytes(msg_len, (byte *)message2);
-    printf("\n");
-    printf("SHA-512 digest : ");
-    print_bytes((int)size_digest, digest);
-    printf("\n");
-  }
-  if (memcmp(digest, sha512_test, size_digest) != 0) {
-    printf("%s() error, line: %d, memcmp failed\n", __func__, __LINE__);
-    return false;
-  }
-
-  return true;
-}
-
-#define NUM_TEST_FILES_TO_DIGEST 4
-
-/*
- * test_digest_multiple() - Similar to test_digest()
- *
- * Here we do a simple verification whether the hash-digest produced by
- * digest_message() is the same if you read-in all input files once
- * v/s if you read-on each file one-at-a-time and make multiple calls
- * to digest_message(). Using digest_message(), which is a wrapper around
- * underlying EVP_Digest*() interfaces, is not additive. This test checks
- * that the resultant digest is different between the two schemes.
- */
-bool test_digest_multiple(bool print_all) {
-  // This test-case will be invoked by ./certifier_tests.exe from the src/
-  // dir. Create a list of files to build the hash digest for verification.
-  const char *files_list[] = {"./certifier_tests.exe",
-                              "./support_tests.cc",
-                              "../libcertifier_framework.so",
-                              "../certifier_framework.py"};
-  int         files_size[NUM_TEST_FILES_TO_DIGEST] = {0};
-
-  // Read-in other files to capture each file's size
-  int         max_file_size = 0;
-  int         all_files_total_size = 0;
-  const char *filename = nullptr;
-  for (int i = 0; i < NUM_TEST_FILES_TO_DIGEST; i++) {
-    filename = files_list[i];
-    int this_files_size = file_size(filename);
-    if (this_files_size < 0) {
-      printf("Error: Input file '%s' not found.\n", filename);
-      return false;
-    }
-    files_size[i] = this_files_size;
-    if (max_file_size < this_files_size) {
-      max_file_size = this_files_size;
-    }
-    all_files_total_size += this_files_size;
-  }
-
-  byte *to_hash_single = (byte *)malloc(max_file_size);
-  if (to_hash_single == nullptr) {
-    printf("Error: Cannot malloc %d bytes for to_hash_single[]\n",
-           max_file_size);
-    return false;
-  }
-
-  const int sha256_size = 32;
-
-  byte digest_updated[sha256_size];
-  memset(digest_updated, 0, sizeof(digest_updated));
-
-  // Compute the aggregated hash digest, one file-at-a-time.
-  for (int i = 0; i < NUM_TEST_FILES_TO_DIGEST; i++) {
-    filename = files_list[i];
-    if (!read_file(filename, &files_size[i], to_hash_single)) {
-      free(to_hash_single);
-      printf("Error: Cannot read file '%s'\n", filename);
-      return false;
-    }
-    if (print_all) {
-      printf("Read file: '%s', size=%d\n", filename, files_size[i]);
-    }
-    // Update digest-hash across each file
-    if (!digest_message(Digest_method_sha256,
-                        to_hash_single,
-                        files_size[i],
-                        digest_updated,
-                        sizeof(digest_updated))) {
-      free(to_hash_single);
-      printf("Error: digest_message() failed on file '%s'\n", filename);
-      return false;
-    }
-    printf("Digest after file %d    : ", i);
-    print_bytes(sizeof(digest_updated), digest_updated);
-    printf("\n");
-  }
-  free(to_hash_single);
-
-  byte *to_hash_multiple = (byte *)malloc(all_files_total_size);
-  if (to_hash_multiple == nullptr) {
-    printf("Error: Cannot malloc %d bytes for to_hash_multiple[]\n",
-           all_files_total_size);
-    return false;
-  }
-  byte *to_hash_mult_start = to_hash_multiple;
-  if (print_all) {
-    printf("Allocated to_hash_mult_start[] of size=%d bytes.\n",
-           all_files_total_size);
-  }
-
-  // Read-in all files, adjacent to each other, into to_hash_multiple[]
-  for (int i = 0; i < NUM_TEST_FILES_TO_DIGEST; i++) {
-    filename = files_list[i];
-    if (!read_file(filename, &files_size[i], to_hash_multiple)) {
-      free(to_hash_mult_start);
-      printf("Error: Cannot read file '%s'\n", filename);
-      return false;
-    }
-    if (print_all) {
-      printf("Read file: '%s', size=%d to_hash_multiple=%p\n",
-             filename,
-             files_size[i],
-             to_hash_multiple);
-    }
-    to_hash_multiple += files_size[i];
-  }
-
-  // Compute hash of all files read-in and hashed at once
-  byte digest_multiple[sha256_size];
-  memset(digest_multiple, 0, sizeof(digest_multiple));
-
-  // Update digest-hash across all the files, combined ...
-  if (!digest_message(Digest_method_sha256,
-                      to_hash_mult_start,
-                      all_files_total_size,
-                      digest_multiple,
-                      sizeof(digest_multiple))) {
-    free(to_hash_mult_start);
-    printf("Error: digest_message() failed on all files\n");
-    return false;
-  }
-  free(to_hash_mult_start);
-  printf("Digest after all files : ");
-  print_bytes(sizeof(digest_multiple), digest_multiple);
-  printf("\n");
-
-  return memcmp(digest_multiple, digest_updated, sizeof(digest_updated)) == 0;
-}
-
 bool test_sign_and_verify(bool print_all) {
   RSA *r = RSA_new();
 
   if (!generate_new_rsa_key(2048, r)) {
     printf("%s() error, line: %d, generate_new_rsa_key failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return false;
   }
 
@@ -1102,24 +919,16 @@ bool test_sign_and_verify(bool print_all) {
   memset(sig, 0, sig_size);
   memset(recovered, 0, recovered_size);
 
-  if (!rsa_sha256_sign(r,
-                       strlen(test_message),
-                       (byte *)test_message,
-                       &sig_size,
-                       sig)) {
+  if (!rsa_sha256_sign(r, strlen(test_message), (byte *)test_message,
+                       &sig_size, sig)) {
     printf("%s() error, line: %d, rsa_sha256_sign failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return false;
   }
-  if (!rsa_sha256_verify(r,
-                         strlen(test_message),
-                         (byte *)test_message,
-                         sig_size,
-                         sig)) {
+  if (!rsa_sha256_verify(r, strlen(test_message), (byte *)test_message,
+                         sig_size, sig)) {
     printf("%s() error, line: %d, rsa_sha256_verify failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return false;
   }
 
@@ -1172,6 +981,18 @@ bool test_key_translation(bool print_all) {
 bool test_crypto() {
   if (!test_random(FLAGS_print_all)) {
     printf("test_random failed\n");
+    return false;
+  }
+  if (!test_digest(FLAGS_print_all)) {
+    printf("test_digest failed\n");
+    return false;
+  }
+  if (!test_encrypt(FLAGS_print_all)) {
+    printf("test_encrypt failed\n");
+    return false;
+  }
+  if (!test_authenticated_encrypt(FLAGS_print_all)) {
+    printf("test_authenticated_encrypt failed\n");
     return false;
   }
   return true;
