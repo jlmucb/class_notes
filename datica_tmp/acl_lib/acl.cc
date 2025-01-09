@@ -936,6 +936,7 @@ channel_guard::channel_guard() {
   resources_= nullptr;
   num_active_resources_= 0;
   capacity_active_resources_ = max_active_resources;
+  root_cert_ = nullptr;
 }
 
 channel_guard::~channel_guard() {
@@ -958,8 +959,7 @@ void channel_guard::print() {
   }
 }
 
-
-bool channel_guard::authenticate(const string& name, principal_list& pl) {
+bool channel_guard::authenticate_me(const string& name, principal_list& pl, string* nonce) {
   for (int i = 0; i < pl.principals_size(); i++) {
     if (name == pl.principals(i).principal_name()) {
       principal_name_= pl.principals(i).principal_name();
@@ -970,6 +970,26 @@ bool channel_guard::authenticate(const string& name, principal_list& pl) {
     }
   }
   return channel_principal_authenticated_;
+}
+
+bool channel_guard::verify_me(const string& name, const string& nonce, const string& signed_nonce) {
+  if (root_cert_ == nullptr)
+    return false;
+  string cred_buffer_list_str;
+  cred_buffer_list_str.assign(creds_.data(), creds_.size());
+  buffer_list list;
+  if (!list.ParseFromString(cred_buffer_list_str))
+    return false;
+  if (!verify_cert_chain(root_cert_, list))
+    return false;
+
+  // check signature
+  string subj_cert_str;
+  subj_cert_str.assign((char*)list.blobs(list.blobs_size() - 1).data(),
+                       list.blobs(list.blobs_size() - 1).size());
+  X509* signing_cert = X509_new();
+  asn1_to_x509(subj_cert_str, signing_cert);
+  return false;
 }
 
 bool channel_guard::load_resources(resource_list& rl) {

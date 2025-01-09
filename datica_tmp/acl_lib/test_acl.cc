@@ -187,8 +187,22 @@ bool test_access() {
   channel_guard guard;
 
   string channel_prin("john");
-  if (!guard.authenticate(channel_prin, pl)) {
-    printf("Cant authenticate %s\n", channel_prin.c_str());
+  string nonce;
+  string signed_nonce;
+
+  // construct cert chain and keys and add them to principals
+  buffer_list credentials;
+  X509* root_cert = X509_new();
+
+  if (!guard.authenticate_me(channel_prin, pl, &nonce)) {
+    printf("Cant authenticate_me %s\n", channel_prin.c_str());
+    return false;
+  }
+
+  // sign nonce
+
+  if (!guard.verify_me(channel_prin, nonce, signed_nonce)) {
+    printf("Cant verify_me %s\n", channel_prin.c_str());
     return false;
   }
   printf("Channel principal set\n");

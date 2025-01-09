@@ -307,6 +307,7 @@ bool make_certifier_ecc_key(int n, key_message *k);
 void print_rsa_key(const rsa_message &rsa);
 void print_key_descriptor(const key_message &k);
 int add_ext(X509 *cert, int nid, const char *value);
+
 bool produce_artifact(key_message &signing_key, string& issuer_name_str, string& issuer_organization_str,
                                             key_message& subject_key, string& subject_name_str,
                                             string& subject_organization_str, uint64_t sn,
@@ -380,11 +381,14 @@ public:
   int capacity_active_resources_;
   active_resource ar_[max_active_resources];
 
+  X509* root_cert_;
+
   void print();
 
   int find_resource(const string& name);
 
-  bool authenticate(const string& name, principal_list& pl);
+  bool authenticate_me(const string& name, principal_list& pl, string* nonce);
+  bool verify_me(const string& name, const string& nonce, const string& signed_nonce);
   bool load_resources(resource_list& rl);
 
   bool can_read(int resource_entry);
