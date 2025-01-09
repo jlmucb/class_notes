@@ -3324,9 +3324,7 @@ bool produce_artifact(key_message &signing_key, string& issuer_name_str, string&
       RSA *subject_rsa_key = RSA_new();
       if (!key_to_RSA(subject_key, subject_rsa_key)) {
         printf("%s() error, line: %d, produce_artifact: can't get rsa subject "
-               "key\n",
-               __func__,
-               __LINE__);
+               "key\n", __func__, __LINE__);
         return false;
       }
       EVP_PKEY_set1_RSA(subject_pkey, subject_rsa_key);
@@ -3340,8 +3338,7 @@ bool produce_artifact(key_message &signing_key, string& issuer_name_str, string&
       if (subject_ecc_key == nullptr) {
         printf(
             "%s() error, line: %d, produce_artifact: can't get subject key\n",
-            __func__,
-            __LINE__);
+            __func__, __LINE__);
         return false;
       }
       EVP_PKEY_set1_EC_KEY(subject_pkey, subject_ecc_key);
@@ -3349,9 +3346,7 @@ bool produce_artifact(key_message &signing_key, string& issuer_name_str, string&
       EC_KEY_free(subject_ecc_key);
     } else {
       printf("%s() error, line: %d, produce_artifact: unknown public key type "
-             "%s\n",
-             __func__,
-             __LINE__,
+             "%s\n", __func__, __LINE__,
              subject_key.key_type().c_str());
       return false;
     }
@@ -3369,8 +3364,7 @@ bool produce_artifact(key_message &signing_key, string& issuer_name_str, string&
     EC_KEY *signing_ecc_key = key_to_ECC(signing_key);
     if (signing_ecc_key == nullptr) {
       printf("%s() error, line: %d, produce_artifact: can't get signing key\n",
-             __func__,
-             __LINE__);
+             __func__, __LINE__);
       return false;
     }
     EVP_PKEY *signing_pkey = EVP_PKEY_new();
@@ -3389,9 +3383,7 @@ bool produce_artifact(key_message &signing_key, string& issuer_name_str, string&
       RSA *subject_rsa_key = RSA_new();
       if (!key_to_RSA(subject_key, subject_rsa_key)) {
         printf("%s() error, line: %d, produce_artifact: can't get rsa subject "
-               "key\n",
-               __func__,
-               __LINE__);
+               "key\n", __func__, __LINE__);
         return false;
       }
       EVP_PKEY_set1_RSA(subject_pkey, subject_rsa_key);
@@ -3405,8 +3397,7 @@ bool produce_artifact(key_message &signing_key, string& issuer_name_str, string&
       if (subject_ecc_key == nullptr) {
         printf(
             "%s() error, line: %d, produce_artifact: can't get subject key\n",
-            __func__,
-            __LINE__);
+            __func__, __LINE__);
         return false;
       }
       EVP_PKEY_set1_EC_KEY(subject_pkey, subject_ecc_key);
@@ -3414,9 +3405,7 @@ bool produce_artifact(key_message &signing_key, string& issuer_name_str, string&
       EC_KEY_free(subject_ecc_key);
     } else {
       printf("%s() error, line: %d, produce_artifact: unknown public key type "
-             "%s\n",
-             __func__,
-             __LINE__,
+             "%s\n", __func__, __LINE__,
              subject_key.key_type().c_str());
       return false;
     }
@@ -3425,8 +3414,7 @@ bool produce_artifact(key_message &signing_key, string& issuer_name_str, string&
     EVP_PKEY_free(subject_pkey);
   } else {
     printf("%s() error, line: %d, produce_artifact: Unsupported algorithm\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return false;
   }
 
@@ -3512,6 +3500,14 @@ bool same_cert(X509* c1, X509* c2) {
   }
 
   // same_keys?
+  if (!x509_to_public_key(c1, &k1)) {
+    ret = false;
+    goto done;
+  }
+  if (!x509_to_public_key(c2, &k2)) {
+    ret = false;
+    goto done;
+  }
   if (!same_key(k1, k2)) {
     ret = false;
     goto done;
@@ -3537,13 +3533,15 @@ done:
   return ret;
 }
 
-bool verify_cert_chain(X509& root_cert, buffer_list& certs) {
+// note: no revocation check
+bool verify_cert_chain(X509* root_cert, buffer_list& certs) {
 
   // first cert should be root cert
   if (certs.blobs_size() < 1) {
     return false;
   }
   string asn_cert;
+  X509* last_cert = X509_new();
   X509* current_cert = X509_new();
 
   asn_cert.assign((char*)certs.blobs(0).data(), certs.blobs(0).size());
@@ -3553,22 +3551,35 @@ bool verify_cert_chain(X509& root_cert, buffer_list& certs) {
     return(false);
   }
 
-  // key_message *get_issuer_key(X509 *x, cert_keys_seen_list &list);
+  string issuer_name_str;
+  string subject_name_str;
+  string issuer_description_str;
+  string subject_organization_str;
+  key_message sk;
+  key_message root_verify_key;
+
+  if (!x509_to_public_key(root_cert, &root_verify_key)) {
+    return false;
+  }
+  uint64_t sn;
+  if (!verify_artifact(*root_cert, root_verify_key, &issuer_name_str, 
+                     &issuer_description_str, &sk,
+                     &subject_name_str, &subject_organization_str, &sn)) {
+    return false;
+  }
+  if (!same_cert(root_cert, current_cert)) {
+    return false;
+  }
+
+  cert_keys_seen_list list(20);
+  list.add_key_seen(&root_verify_key);
+
   // bool x509_to_public_key(X509 *x, key_message *k)
   // EVP_PKEY *subject_pkey = X509_get_pubkey(x);
   // X509_NAME *issuer_name = X509_get_issuer_name(x);
   // bool certifier::utilities::get_not_before_from_cert(X509 *c, time_point *tp)
   // bool certifier::utilities::get_not_after_from_cert(X509 *c, time_point *tp) 
   // time_point time_now
-  // if (X509_NAME_get_text_by_NID(subject_name, NID_commonName, name_buf, max_buf) < 0)
-  //   X509_NAME *subject_name = X509_get_subject_name(&cert);
-  // const int  max_buf = 2048;
-  // char       name_buf[max_buf];
-  // if (X509_NAME_get_text_by_NID(subject_name, NID_commonName, name_buf, max_buf) < 0)
-  // subject_name_str->assign((const char *)name_buf);
-  //  X509_NAME *issuer_name = X509_get_issuer_name(x);
-  // if (X509_NAME_get_text_by_NID(issuer_name, NID_commonName, name_buf, max_buf) < 0)
-  cert_keys_seen_list list(20);
 
   return false;
 }
@@ -3839,8 +3850,7 @@ bool key_from_pkey(EVP_PKEY *pkey, const string &name, key_message *k) {
     // EC_KEY_free(ecc_key);
   } else {
     printf("%s() error, line: %d, key_from_pkey: unsupported key type\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return false;
   }
 

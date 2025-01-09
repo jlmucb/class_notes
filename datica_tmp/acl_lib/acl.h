@@ -314,7 +314,7 @@ bool produce_artifact(key_message &signing_key, string& issuer_name_str, string&
 bool verify_artifact(X509& cert, key_message &verify_key, string* issuer_name_str,
                      string* issuer_description_str, key_message* subject_key,
                      string* subject_name_str, string* subject_organization_str, uint64_t *sn);
-bool verify_cert_chain(X509& root_cert, buffer_list& certs);
+bool verify_cert_chain(X509* root_cert, buffer_list& certs);
 
 bool asn1_to_x509(const string &in, X509 *x);
 bool x509_to_asn1(X509 *x, string *out);
