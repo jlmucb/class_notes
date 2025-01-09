@@ -975,6 +975,57 @@ bool test_key_translation(bool print_all) {
   return true;
 }
 
+bool test_artifact(bool print_all) {
+  X509* cert = X509_new();
+  key_message signing_key;
+  key_message subject_key;
+  string issuer_name_str("Policy-key");  // eventually serialized key
+  string issuer_description_str("Policy-key");
+  string enclave_type("simulated-enclave");
+
+  string subject_name_str("JLM");
+  if (print_all)
+    printf("Subject name: %s\n", subject_name_str.c_str());
+  string subject_description_str("writer");
+
+  double   secs_duration = 60.0 * 60.0 * 24.0 * 365.0;
+  uint64_t sn = 1;
+
+  if (!make_certifier_rsa_key(2048, &signing_key)) {
+    printf("Cant make signing key\n");
+    return false;
+  }
+  if (!make_certifier_rsa_key(2048, &subject_key)) {
+    printf("Cant make subject key\n");
+    return false;
+  }
+  if (!produce_artifact(signing_key, issuer_name_str, issuer_description_str,
+                        subject_key, subject_name_str, subject_description_str, sn,
+                        secs_duration, cert, true)) {
+    printf("Cant produce artifact\n");
+    return false;
+  }
+
+  if (print_all)
+    X509_print_fp(stdout, cert);
+
+  uint64_t recovered_sn;
+  string recovered_subject_name_str;
+  string recovered_issuer_name_str;
+  string recovered_subject_description_str;
+  string recovered_issuer_description_str;
+  key_message recovered_subject_key;
+  if (!verify_artifact(*cert, signing_key, &recovered_issuer_name_str, &recovered_issuer_description_str,
+                       &recovered_subject_key, &recovered_subject_name_str, &recovered_subject_description_str,
+                       &recovered_sn)) {
+    printf("Cant verify artifact\n");
+    return false;
+  }
+  if (print_all)
+    printf("Recovered subject name: %s\n", recovered_subject_name_str.c_str());
+  return true;
+}
+
 bool test_crypto() {
   if (!test_random(FLAGS_print_all)) {
     printf("test_random failed\n");
@@ -1002,6 +1053,10 @@ bool test_crypto() {
   }
   if (!test_key_translation(FLAGS_print_all)) {
     printf("test_key_translation failed\n");
+    return false;
+  }
+  if (!test_artifact(FLAGS_print_all)) {
+    printf("test_artifact failed\n");
     return false;
   }
   return true;

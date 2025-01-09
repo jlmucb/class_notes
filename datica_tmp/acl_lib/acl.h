@@ -322,11 +322,13 @@ int add_ext(X509 *cert, int nid, const char *value);
 bool produce_artifact(key_message &signing_key, string& issuer_name_str, string& issuer_organization_str,
                                             key_message& subject_key, string& subject_name_str,
                                             string& subject_organization_str, uint64_t sn,
-                                            double secs_duration, X509* x509,
-                                            bool is_root);
+                                            double secs_duration, X509* x509, bool is_root);
+bool verify_artifact(X509& cert, key_message &verify_key, string* issuer_name_str,
+                     string* issuer_description_str, key_message* subject_key,
+                     string* subject_name_str, string* subject_organization_str, uint64_t *sn);
+
 bool asn1_to_x509(const string &in, X509 *x);
 bool x509_to_asn1(X509 *x, string *out);
-
 
 int sized_pipe_write(int fd, int size, byte *buf);
 int sized_pipe_read(int fd, string *out);
