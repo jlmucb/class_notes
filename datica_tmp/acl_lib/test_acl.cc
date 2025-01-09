@@ -1062,6 +1062,11 @@ bool test_crypto() {
   return true;
 }
 
+
+bool test_sign_nonce() {
+  return true;
+}
+
 TEST (basic, test_basic) {
   EXPECT_TRUE(test_basic());
 }
