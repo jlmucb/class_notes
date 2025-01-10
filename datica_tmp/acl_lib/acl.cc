@@ -975,21 +975,80 @@ bool channel_guard::authenticate_me(const string& name, principal_list& pl, stri
 bool channel_guard::verify_me(const string& name, const string& nonce, const string& signed_nonce) {
   if (root_cert_ == nullptr)
     return false;
+
+  bool ret = true;
   string cred_buffer_list_str;
   cred_buffer_list_str.assign(creds_.data(), creds_.size());
   buffer_list list;
-  if (!list.ParseFromString(cred_buffer_list_str))
-    return false;
-  if (!verify_cert_chain(root_cert_, list))
-    return false;
+  X509* signing_cert = nullptr;
+  EVP_PKEY *subject_pkey = nullptr;
+  string subj_cert_str;
+
+  if (!list.ParseFromString(cred_buffer_list_str)) {
+    printf("%s() error, line: %d, ParseFromString failed\n", __func__, __LINE__);
+    ret= false;
+    goto done;
+  }
+  if (!verify_cert_chain(root_cert_, list)) {
+    printf("%s() error, line: %d, verify_cert_chain failed\n", __func__, __LINE__);
+    ret= false;
+    goto done;
+  }
 
   // check signature
-  string subj_cert_str;
   subj_cert_str.assign((char*)list.blobs(list.blobs_size() - 1).data(),
                        list.blobs(list.blobs_size() - 1).size());
-  X509* signing_cert = X509_new();
-  asn1_to_x509(subj_cert_str, signing_cert);
-  return false;
+  if (signing_cert == nullptr) {
+    printf("%s() error, line: %d, X509_new failed\n", __func__, __LINE__);
+    ret= false;
+    goto done;
+  }
+  if (!asn1_to_x509(subj_cert_str, signing_cert)) {
+    printf("%s() error, line: %d, asn1_to_x509 failed\n", __func__, __LINE__);
+    ret= false;
+    goto done;
+  }
+  subject_pkey = X509_get_pubkey(signing_cert);
+  if (subject_pkey == nullptr) {
+    printf("%s() error, line: %d, Can't get public key from cert\n", __func__, __LINE__);
+    ret= false;
+    goto done;
+  }
+
+  if (strcmp(authentication_algorithm_name_.c_str(), Enc_method_rsa_1024_sha256_pkcs_sign) == 0 ||
+      strcmp(authentication_algorithm_name_.c_str(), Enc_method_rsa_2048_sha256_pkcs_sign) == 0 ) {
+      // verify it
+     RSA *rsa_key = EVP_PKEY_get1_RSA(subject_pkey);;
+    if (!rsa_verify(Digest_method_sha_256, rsa_key, nonce.size(), (byte*)nonce.data(),
+                    signed_nonce.size(),(byte*) signed_nonce.data())) {
+      printf("%s() error, line %d: verify failed\n", __func__, __LINE__);
+      ret= false;
+      goto done;
+    }
+  } else if (strcmp(authentication_algorithm_name_.c_str(), Enc_method_rsa_3072_sha384_pkcs_sign) == 0) {
+     RSA *rsa_key = EVP_PKEY_get1_RSA(subject_pkey);;
+    if (!rsa_verify(Digest_method_sha_384, rsa_key, nonce.size(), (byte*)nonce.data(),
+                    signed_nonce.size(), (byte*)signed_nonce.data())) {
+      printf("%s() error, line %d: verify failed\n", __func__, __LINE__);
+      ret= false;
+      goto done;
+    }
+  } else {
+    printf("%s() error, line: %d, unsupported signing algorithm %s\n", __func__, __LINE__, authentication_algorithm_name_.c_str());
+    ret= false;
+    goto done;
+  }
+
+done:
+  if (signing_cert != nullptr) {
+    X509_free(signing_cert);
+    signing_cert = nullptr;
+  }
+  if (subject_pkey != nullptr) {
+    EVP_PKEY_free(subject_pkey);
+    subject_pkey= nullptr;
+  }
+  return ret;
 }
 
 bool channel_guard::load_resources(resource_list& rl) {
@@ -4030,8 +4089,7 @@ EVP_PKEY* pkey_from_key(const key_message &k) {
     return pkey;
   } else {
     printf("%s() error, line: %d, pkey_from_key: Unsupported key type\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     EVP_PKEY_free(pkey);
     return nullptr;
   }
