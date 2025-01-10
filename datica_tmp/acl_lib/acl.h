@@ -238,7 +238,7 @@ class cert_keys_seen_list {
   cert_keys_seen **entries_;
 
   key_message *find_key_seen(const string &name);
-  bool         add_key_seen(key_message *k);
+  bool add_key_seen(key_message *k);
 }; 
     
 class name_size {

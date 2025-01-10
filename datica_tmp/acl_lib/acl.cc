@@ -964,12 +964,10 @@ bool channel_guard::authenticate_me(const string& name, principal_list& pl, stri
     if (name == pl.principals(i).principal_name()) {
       principal_name_= pl.principals(i).principal_name();
       authentication_algorithm_name_= pl.principals(i).authentication_algorithm();
-      creds_= pl.principals(i).authentication_algorithm();
-      // call authenticator  FIX
-      channel_principal_authenticated_= true;
+      creds_.assign(pl.principals(i).credential());
     }
   }
-  return channel_principal_authenticated_;
+  return true;
 }
 
 bool channel_guard::verify_me(const string& name, const string& nonce, const string& signed_nonce) {
@@ -1040,6 +1038,7 @@ bool channel_guard::verify_me(const string& name, const string& nonce, const str
   }
 
 done:
+  channel_principal_authenticated_= ret;
   if (signing_cert != nullptr) {
     X509_free(signing_cert);
     signing_cert = nullptr;
