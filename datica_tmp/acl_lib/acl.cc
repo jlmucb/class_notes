@@ -1583,27 +1583,23 @@ bool digest_message(const char* alg, const byte* message, int message_len,
       || strcmp(alg, Digest_method_sha256) == 0) {
     if ((mdctx = EVP_MD_CTX_new()) == NULL) {
       printf("%s() error, line: %d, EVP_MD_CTX_new failed\n",
-             __func__,
-             __LINE__);
+             __func__, __LINE__);
       return false;
     }
     if (1 != EVP_DigestInit_ex(mdctx, EVP_sha256(), NULL)) {
       printf("%s() error, line: %d, EVP_DigestInit failed\n",
-             __func__,
-             __LINE__);
+             __func__, __LINE__);
       return false;
     }
   } else if (strcmp(alg, Digest_method_sha_384) == 0) {
     if ((mdctx = EVP_MD_CTX_new()) == NULL) {
       printf("%s() error, line: %d, EVP_MD_CTX_new failed\n",
-             __func__,
-             __LINE__);
+             __func__, __LINE__);
       return false;
     }
     if (1 != EVP_DigestInit_ex(mdctx, EVP_sha384(), NULL)) {
       printf("%s() error, line: %d, EVP_DigestInit failed\n",
-             __func__,
-             __LINE__);
+             __func__, __LINE__);
       return false;
     }
   } else if (strcmp(alg, Digest_method_sha_512) == 0) {
@@ -2141,10 +2137,7 @@ bool rsa_private_decrypt(RSA * key, byte *enc_data, int data_len,
   if (n <= 0) {
     printf("%s() error, line: %d, rsa_private_decrypt: RSA_private_decrypt "
            "failed %d, %d\n",
-           __func__,
-           __LINE__,
-           data_len,
-           *size_out);
+           __func__, __LINE__, data_len, *size_out);
     return false;
   }
   *size_out = n;
@@ -2154,12 +2147,8 @@ bool rsa_private_decrypt(RSA * key, byte *enc_data, int data_len,
 //  PKCS compliant signer
 bool rsa_sha256_sign(RSA * key, int to_sign_size, byte* to_sign,
                      int* sig_size, byte* sig) {
-  return rsa_sign(Digest_method_sha_256,
-                  key,
-                  to_sign_size,
-                  to_sign,
-                  sig_size,
-                  sig);
+  return rsa_sign(Digest_method_sha_256, key, to_sign_size,
+                  to_sign, sig_size, sig);
 }
 
 bool rsa_sha256_verify(RSA *key, int size, byte *msg, int sig_size, byte *sig) {
@@ -2172,74 +2161,60 @@ bool rsa_sign(const char *alg, RSA* key, int size,
   EVP_PKEY *private_key = EVP_PKEY_new();
   if (private_key == nullptr) {
     printf("%s() error, line: %d, rsa_sign: EVP_PKEY_new failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return false;
   }
   EVP_PKEY_assign_RSA(private_key, key);
+  char* digest_method = nullptr;
 
   EVP_MD_CTX *sign_ctx = EVP_MD_CTX_create();
   if (sign_ctx == nullptr) {
     printf("%s() error, line: %d, rsa_sign: EVP_MD_CTX_create() failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return false;
   }
 
   unsigned int size_digest = 0;
   if (strcmp(Digest_method_sha_256, alg) == 0) {
     if (EVP_DigestSignInit(sign_ctx, nullptr, EVP_sha256(),
-                           nullptr, private_key)
-        <= 0) {
+                           nullptr, private_key) <= 0) {
       printf("%s() error, line: %d, rsa_sign: EVP_DigestSignInit() failed\n",
-             __func__,
-             __LINE__);
+             __func__, __LINE__);
       return false;
     }
     if (EVP_DigestSignUpdate(sign_ctx, msg, size) <= 0) {
       printf("%s() error, line: %d, rsa_sign: EVP_DigestSignUpdate() failed\n",
-             __func__,
-             __LINE__);
+             __func__, __LINE__);
       return false;
     }
     size_t t = *sig_size;
     if (EVP_DigestSignFinal(sign_ctx, sig, &t) <= 0) {
       printf("%s() error, line: %d, rsa_sign: EVP_DigestSignFinal() failed\n",
-             __func__,
-             __LINE__);
+             __func__, __LINE__);
       return false;
     }
     *sig_size = t;
   } else if (strcmp(Digest_method_sha_384, alg) == 0) {
-    if (EVP_DigestSignInit(sign_ctx,
-                           nullptr,
-                           EVP_sha384(),
-                           nullptr,
-                           private_key)
-        <= 0) {
+    if (EVP_DigestSignInit(sign_ctx, nullptr, EVP_sha384(), nullptr, private_key) <= 0) {
       printf("%s() error, line: %d, rsa_sign: EVP_DigestSignInit() failed\n",
-             __func__,
-             __LINE__);
+             __func__, __LINE__);
       return false;
     }
     if (EVP_DigestSignUpdate(sign_ctx, msg, size) <= 0) {
       printf("%s() error, line: %d, rsa_sign: EVP_DigestSignUpdate() failed\n",
-             __func__,
-             __LINE__);
+             __func__, __LINE__);
       return false;
     }
     size_t t = *sig_size;
     if (EVP_DigestSignFinal(sign_ctx, sig, &t) <= 0) {
       printf("%s() error, line: %d, rsa_sign: EVP_DigestSignFinal() failed\n",
-             __func__,
-             __LINE__);
+             __func__, __LINE__);
       return false;
     }
     *sig_size = t;
   } else {
-    printf("%s() error, line: %d, rsa_sign: unsuported digest\n",
-           __func__,
-           __LINE__);
+    printf("%s() error, line: %d, rsa_sign: unsuported digest %s\n",
+           __func__, __LINE__, alg);
     return false;
   }
   EVP_MD_CTX_destroy(sign_ctx);

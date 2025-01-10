@@ -308,7 +308,7 @@ void print_rsa_key(const rsa_message &rsa);
 void print_key_descriptor(const key_message &k);
 int add_ext(X509 *cert, int nid, const char *value);
 
-bool produce_artifact(key_message &signing_key, string& issuer_name_str, string& issuer_organization_str,
+bool produce_artifact(key_message& signing_key, string& issuer_name_str, string& issuer_organization_str,
                                             key_message& subject_key, string& subject_name_str,
                                             string& subject_organization_str, uint64_t sn,
                                             double secs_duration, X509* x509, bool is_root);
