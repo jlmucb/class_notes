@@ -298,6 +298,11 @@ bool test_access() {
     goto done;
   }
 
+  if (!guard.init_root_cert(root_asn1_cert_str)) {
+    printf("%s() error, line %d: cant init_root_cert\n", __func__, __LINE__);
+    ret= false;
+    goto done;
+  }
 
   // signing cert
   signing_cert = X509_new();
@@ -355,11 +360,18 @@ bool test_access() {
     goto done;
   }
   nonce.assign((char*)buf, k);
-goto done;
+
+  if (!guard.load_resources(rl)) {
+    printf("Cant load resource list\n");
+    ret= false;
+    goto done;
+  }
 
   if (!guard.authenticate_me(channel_prin, pl, &nonce)) {
+    printf("%s() error, line %d: Cant authenticate_me %s\n", __func__, __LINE__, channel_prin.c_str());
     printf("Cant authenticate_me %s\n", channel_prin.c_str());
-    return false;
+    ret= false;
+    goto done;
   }
 
   // sign nonce
@@ -382,18 +394,14 @@ goto done;
     ret= false;
     goto done;
   }
+  signed_nonce.assign((char*)sig, sig_size);
 
-  if (!guard.verify_me(channel_prin, nonce, signed_nonce)) {
+  if (!guard.verify_me(channel_prin, signed_nonce)) {
+    printf("%s() error, line %d: verify_me %s failed\n", __func__, __LINE__, channel_prin.c_str());
     printf("Cant verify_me %s\n", channel_prin.c_str());
-    return false;
+    ret= false;
+    goto done;
   }
-  printf("Channel principal set\n");
-
-  if (!guard.load_resources(rl)) {
-    printf("Cant load resource list\n");
-    return false;
-  }
-  printf("resource list loaded\n");
 
   if (!guard.open_resource(res1, acc1)) {
     printf("open_resource failed\n");
@@ -1342,7 +1350,6 @@ bool test_signed_nonce() {
     goto done;
   }
 
-
   // signing cert
   signing_cert = X509_new();
   if (!produce_artifact(rkm, root_issuer_name_str, root_issuer_organization_str,
@@ -1467,12 +1474,12 @@ TEST (basic, test_basic) {
   EXPECT_TRUE(test_basic());
 }
 
-TEST (access, test_access) {
-  EXPECT_TRUE(test_access());
-}
-
 TEST (crypto, test_crypto) {
   EXPECT_TRUE(test_crypto());
+}
+
+TEST (access, test_access) {
+  EXPECT_TRUE(test_access());
 }
 
 int main(int an, char** av) {

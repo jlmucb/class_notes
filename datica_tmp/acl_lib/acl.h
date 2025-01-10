@@ -380,6 +380,7 @@ public:
   int num_active_resources_;
   int capacity_active_resources_;
   active_resource ar_[max_active_resources];
+  string nonce_;
 
   X509* root_cert_;
 
@@ -387,8 +388,9 @@ public:
 
   int find_resource(const string& name);
 
+  bool init_root_cert(const string& asn1_cert_str);
   bool authenticate_me(const string& name, principal_list& pl, string* nonce);
-  bool verify_me(const string& name, const string& nonce, const string& signed_nonce);
+  bool verify_me(const string& name, const string& signed_nonce);
   bool load_resources(resource_list& rl);
 
   bool can_read(int resource_entry);

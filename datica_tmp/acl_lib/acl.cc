@@ -959,24 +959,55 @@ void channel_guard::print() {
   }
 }
 
-bool channel_guard::authenticate_me(const string& name, principal_list& pl, string* nonce) {
-  for (int i = 0; i < pl.principals_size(); i++) {
-    if (name == pl.principals(i).principal_name()) {
-      principal_name_= pl.principals(i).principal_name();
-      authentication_algorithm_name_= pl.principals(i).authentication_algorithm();
-      creds_.assign(pl.principals(i).credential());
-    }
+bool channel_guard::init_root_cert(const string& asn1_cert_str) {
+  root_cert_ = X509_new();
+  if (root_cert_ == nullptr) {
+    printf("%s() error, line %d: sign failed\n", __func__, __LINE__);
+    return false;
+  }
+  if (!asn1_to_x509(asn1_cert_str, root_cert_)) {
+    printf("%s() error, line %d: asn1_to_x509 failed\n", __func__, __LINE__);
+    return false;
   }
   return true;
 }
 
-bool channel_guard::verify_me(const string& name, const string& nonce, const string& signed_nonce) {
-  if (root_cert_ == nullptr)
+bool channel_guard::authenticate_me(const string& name, principal_list& pl, string* nonce) {
+  int i = 0;
+  for (i = 0; i < pl.principals_size(); i++) {
+    if (name == pl.principals(i).principal_name()) {
+      principal_name_= pl.principals(i).principal_name();
+      authentication_algorithm_name_= pl.principals(i).authentication_algorithm();
+      creds_.assign(pl.principals(i).credential());
+      break;
+    }
+  }
+  if (i >= pl.principals_size()) {
+    printf("%s() error, line %d: Can't find principal %s\n", __func__, __LINE__, name.c_str());
     return false;
+  }
+  const int size_nonce = 32;
+  byte buf[32];
+  int k = crypto_get_random_bytes(size_nonce, buf);
+  if (k < size_nonce) {
+    printf("%s() error, line %d: cant generate nonce\n", __func__, __LINE__);
+    return false;
+  }
+  nonce_.assign((char*)buf, k);
+  nonce->assign((char*)buf, k);
+
+  return true;
+}
+
+bool channel_guard::verify_me(const string& name, const string& signed_nonce) {
+
+  if (root_cert_ == nullptr) {
+    printf("%s() error, line: %d, root_cert_ is null\n", __func__, __LINE__);
+    return false;
+  }
 
   bool ret = true;
   string cred_buffer_list_str;
-  cred_buffer_list_str.assign(creds_.data(), creds_.size());
   buffer_list list;
   X509* signing_cert = nullptr;
   EVP_PKEY *subject_pkey = nullptr;
@@ -987,6 +1018,18 @@ bool channel_guard::verify_me(const string& name, const string& nonce, const str
     ret= false;
     goto done;
   }
+  cred_buffer_list_str.assign((char*)creds_.data(), creds_.size());
+  if (!list.ParseFromString(cred_buffer_list_str)) {
+    printf("%s() error, line: %d, can't parse credentials\n", __func__,__LINE__);
+    ret= false;
+    goto done;
+  }
+  if (list.blobs_size() <= 0) {
+    printf("%s() error, line: %d, cred blobs is empty\n", __func__, __LINE__);
+    ret= false;
+    goto done;
+  }
+
   if (!verify_cert_chain(root_cert_, list)) {
     printf("%s() error, line: %d, verify_cert_chain failed\n", __func__, __LINE__);
     ret= false;
@@ -996,6 +1039,7 @@ bool channel_guard::verify_me(const string& name, const string& nonce, const str
   // check signature
   subj_cert_str.assign((char*)list.blobs(list.blobs_size() - 1).data(),
                        list.blobs(list.blobs_size() - 1).size());
+  signing_cert = X509_new();
   if (signing_cert == nullptr) {
     printf("%s() error, line: %d, X509_new failed\n", __func__, __LINE__);
     ret= false;
@@ -1006,6 +1050,7 @@ bool channel_guard::verify_me(const string& name, const string& nonce, const str
     ret= false;
     goto done;
   }
+
   subject_pkey = X509_get_pubkey(signing_cert);
   if (subject_pkey == nullptr) {
     printf("%s() error, line: %d, Can't get public key from cert\n", __func__, __LINE__);
@@ -1015,27 +1060,38 @@ bool channel_guard::verify_me(const string& name, const string& nonce, const str
 
   if (strcmp(authentication_algorithm_name_.c_str(), Enc_method_rsa_1024_sha256_pkcs_sign) == 0 ||
       strcmp(authentication_algorithm_name_.c_str(), Enc_method_rsa_2048_sha256_pkcs_sign) == 0 ) {
-      // verify it
-     RSA *rsa_key = EVP_PKEY_get1_RSA(subject_pkey);;
-    if (!rsa_verify(Digest_method_sha_256, rsa_key, nonce.size(), (byte*)nonce.data(),
-                    signed_nonce.size(),(byte*) signed_nonce.data())) {
+   // verify it
+     RSA *rsa_key = EVP_PKEY_get1_RSA(subject_pkey);
+     if (rsa_key == nullptr) {
+      printf("%s() error, line %d: EVP_PKEY_get1_RSA failed\n", __func__, __LINE__);
+      ret= false;
+      goto done;
+     }
+     // free rsa key?
+     if (!rsa_verify(Digest_method_sha_256, rsa_key, nonce_.size(), (byte*)nonce_.data(),
+                    signed_nonce.size(), (byte*) signed_nonce.data())) {
       printf("%s() error, line %d: verify failed\n", __func__, __LINE__);
       ret= false;
       goto done;
-    }
-  } else if (strcmp(authentication_algorithm_name_.c_str(), Enc_method_rsa_3072_sha384_pkcs_sign) == 0) {
-     RSA *rsa_key = EVP_PKEY_get1_RSA(subject_pkey);;
-    if (!rsa_verify(Digest_method_sha_384, rsa_key, nonce.size(), (byte*)nonce.data(),
+      }
+    } else if (strcmp(authentication_algorithm_name_.c_str(), Enc_method_rsa_3072_sha384_pkcs_sign) == 0) {
+      RSA *rsa_key = EVP_PKEY_get1_RSA(subject_pkey);;
+     if (rsa_key == nullptr) {
+      printf("%s() error, line %d: EVP_PKEY_get1_RSA failed\n", __func__, __LINE__);
+      ret= false;
+      goto done;
+     }
+      if (!rsa_verify(Digest_method_sha_384, rsa_key, nonce_.size(), (byte*)nonce_.data(),
                     signed_nonce.size(), (byte*)signed_nonce.data())) {
       printf("%s() error, line %d: verify failed\n", __func__, __LINE__);
       ret= false;
       goto done;
+      }
+    } else {
+      printf("%s() error, line: %d, unsupported signing algorithm %s\n", __func__, __LINE__, authentication_algorithm_name_.c_str());
+      ret= false;
+      goto done;
     }
-  } else {
-    printf("%s() error, line: %d, unsupported signing algorithm %s\n", __func__, __LINE__, authentication_algorithm_name_.c_str());
-    ret= false;
-    goto done;
-  }
 
 done:
   channel_principal_authenticated_= ret;
@@ -1663,14 +1719,12 @@ bool digest_message(const char* alg, const byte* message, int message_len,
   } else if (strcmp(alg, Digest_method_sha_512) == 0) {
     if ((mdctx = EVP_MD_CTX_new()) == NULL) {
       printf("%s() error, line: %d, EVP_MD_CTX_new failed\n",
-             __func__,
-             __LINE__);
+             __func__, __LINE__);
       return false;
     }
     if (1 != EVP_DigestInit_ex(mdctx, EVP_sha512(), NULL)) {
       printf("%s() error, line: %d, EVP_DigestInit failed\n",
-             __func__,
-             __LINE__);
+             __func__, __LINE__);
       return false;
     }
   } else {
@@ -1680,14 +1734,12 @@ bool digest_message(const char* alg, const byte* message, int message_len,
 
   if (1 != EVP_DigestUpdate(mdctx, message, message_len)) {
     printf("%s() error, line: %d, EVP_DigestUpdate failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return false;
   }
   if (1 != EVP_DigestFinal_ex(mdctx, digest, &digest_len)) {
     printf("%s() error, line: %d, EVP_DigestFinal_ex failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return false;
   }
   EVP_MD_CTX_free(mdctx);
@@ -2288,14 +2340,10 @@ bool rsa_verify(const char *alg, RSA* key, int size, byte* msg,
     byte digest[size_digest];
     memset(digest, 0, size_digest);
 
-    if (!digest_message(Digest_method_sha_256,
-                        (const byte *)msg,
-                        size,
-                        digest,
-                        size_digest)) {
+    if (!digest_message(Digest_method_sha_256, (const byte *)msg, size,
+                        digest, size_digest)) {
       printf("%s() error, line: %d, rsa_verify: digest_message failed\n",
-             __func__,
-             __LINE__);
+             __func__, __LINE__);
       return false;
     }
     int  size_decrypted = RSA_size(key);
@@ -2304,19 +2352,17 @@ bool rsa_verify(const char *alg, RSA* key, int size, byte* msg,
     int n = RSA_public_encrypt(sig_size, sig, decrypted, key, RSA_NO_PADDING);
     if (n < 0) {
       printf("%s() error, line: %d, rsa_verify: RSA_public_encrypt failed\n",
-             __func__,
-             __LINE__);
+             __func__, __LINE__);
       return false;
     }
     if (memcmp(digest, &decrypted[n - size_digest], size_digest) != 0) {
       printf("%s() error, line: %d, rsa_verify: digests don't match\n",
-             __func__,
-             __LINE__);
+             __func__, __LINE__);
       return false;
     }
 
     const int check_size = 16;
-    byte      check_buf[16] = {
+    byte check_buf[16] = {
         0x00,
         0x01,
         0xff,
@@ -2336,23 +2382,18 @@ bool rsa_verify(const char *alg, RSA* key, int size, byte* msg,
     };
     if (memcmp(check_buf, decrypted, check_size) != 0) {
       printf("%s() error, line: %d, rsa_verify: Bad header\n",
-             __func__,
-             __LINE__);
+             __func__, __LINE__);
       return false;
     }
     return memcmp(digest, &decrypted[n - size_digest], size_digest) == 0;
   } else if (strcmp(Digest_method_sha_384, alg) == 0) {
     unsigned int size_digest = digest_output_byte_size(Digest_method_sha_384);
-    byte         digest[size_digest];
+    byte digest[size_digest];
     memset(digest, 0, size_digest);
-    if (!digest_message(Digest_method_sha_384,
-                        (const byte *)msg,
-                        size,
-                        digest,
-                        size_digest)) {
+    if (!digest_message(Digest_method_sha_384, (const byte *)msg, size,
+                        digest, size_digest)) {
       printf("%s() error, line: %d, digest_message failed\n",
-             __func__,
-             __LINE__);
+             __func__, __LINE__);
       return false;
     }
     int  size_decrypted = RSA_size(key);
@@ -2361,12 +2402,11 @@ bool rsa_verify(const char *alg, RSA* key, int size, byte* msg,
     int n = RSA_public_encrypt(sig_size, sig, decrypted, key, RSA_NO_PADDING);
     if (n < 0) {
       printf("%s() error, line: %d, rsa_verify: RSA_public_encrypt failed\n",
-             __func__,
-             __LINE__);
+             __func__, __LINE__);
       return false;
     }
     const int check_size = 16;
-    byte      check_buf[16] = {
+    byte check_buf[16] = {
         0x00,
         0x01,
         0xff,
@@ -3507,11 +3547,13 @@ bool same_cert(X509* c1, X509* c2) {
     ret = false;
     goto done;
   }
+  // memset(name_buf, 0, max_buf);
   if (X509_NAME_get_text_by_NID(issuer_name_1, NID_commonName, name_buf, max_buf) < 0) {
     ret = false;
     goto done;
   }
   issuer_name_1_str.assign(name_buf);
+  // memset(name_buf, 0, max_buf);
   if (X509_NAME_get_text_by_NID(issuer_name_1, NID_organizationName, name_buf, max_buf) < 0) {
     ret = false;
     goto done;
@@ -3523,11 +3565,14 @@ bool same_cert(X509* c1, X509* c2) {
     ret = false;
     goto done;
   }
+  // memset(name_buf, 0, max_buf);
   if (X509_NAME_get_text_by_NID(issuer_name_2, NID_commonName, name_buf, max_buf) < 0) {
     ret = false;
     goto done;
   }
+
   issuer_name_2_str.assign(name_buf);
+  // memset(name_buf, 0, max_buf);
   if (X509_NAME_get_text_by_NID(issuer_name_2, NID_organizationName, name_buf, max_buf) < 0) {
     ret = false;
     goto done;
@@ -3544,11 +3589,13 @@ bool same_cert(X509* c1, X509* c2) {
     ret = false;
     goto done;
   }
+  // memset(name_buf, 0, max_buf);
   if (X509_NAME_get_text_by_NID(subject_name_1, NID_commonName, name_buf, max_buf) < 0) {
     ret = false;
     goto done;
   }
   subject_name_1_str.assign(name_buf);
+  // memset(name_buf, 0, max_buf);
   if (X509_NAME_get_text_by_NID(subject_name_1, NID_organizationName, name_buf, max_buf) < 0) {
     ret = false;
     goto done;
@@ -3560,11 +3607,13 @@ bool same_cert(X509* c1, X509* c2) {
     ret = false;
     goto done;
   }
+  // memset(name_buf, 0, max_buf);
   if (X509_NAME_get_text_by_NID(subject_name_2, NID_commonName, name_buf, max_buf) < 0) {
     ret = false;
     goto done;
   }
   subject_name_2_str.assign(name_buf);
+  // memset(name_buf, 0, max_buf);
   if (X509_NAME_get_text_by_NID(subject_name_2, NID_organizationName, name_buf, max_buf) < 0) {
     ret = false;
     goto done;
@@ -3626,8 +3675,6 @@ bool verify_cert_chain(X509* root_cert, buffer_list& certs) {
   key_message sk;
   key_message root_verify_key;
 
-  cert_keys_seen_list list(20);
-
   string last_issuer_name;
   X509* last_cert= nullptr;
   key_message* last_key = nullptr;
@@ -3639,30 +3686,34 @@ bool verify_cert_chain(X509* root_cert, buffer_list& certs) {
   string current_subject_name_str;
   string current_subject_organization_str;
   uint64_t current_sn;
+  uint64_t sn;
 
-  // first cert should be root cert
   if (certs.blobs_size() < 1) {
+    printf("%s() error, line %d: there are no cert blobs\n", __func__, __LINE__);
     ret = false;
     goto done;
   }
 
+  // first cert should be root cert
   asn_cert.assign((char*)certs.blobs(0).data(), certs.blobs(0).size());
+  current_cert = X509_new();
   if (!asn1_to_x509(asn_cert, current_cert)) {
+    printf("%s() error, line %d: asn1_to_x509 failed\n", __func__, __LINE__);
     ret = false;
     goto done;
   }
 
   if (!x509_to_public_key(root_cert, &root_verify_key)) {
+    printf("%s() error, line %d: x509_to_public_key failed\n", __func__, __LINE__);
     ret = false;
     goto done;
   }
 
-  uint64_t sn;
   last_key = new(key_message);
-  current_cert = X509_new();
   if (!verify_artifact(*root_cert, root_verify_key, &issuer_name_str, 
                      &issuer_description_str, last_key,
                      &subject_name_str, &subject_organization_str, &sn)) {
+    printf("%s() error, line %d: verify_artifact failed\n", __func__, __LINE__);
     ret = false;
     goto done;
   }
@@ -3688,20 +3739,26 @@ bool verify_cert_chain(X509* root_cert, buffer_list& certs) {
     bool res = verify_artifact(*current_cert, *last_key, &current_issuer_name_str,
                       &current_issuer_organization_str, current_key,
                       &current_subject_name_str, &current_subject_organization_str, &current_sn);
+    if (!res) {
+      printf("%s() error, line %d: %d cert verify failed\n", __func__, __LINE__, i);
+      ret = false;
+      goto done;
+    }
+#if 0
+printf("loop %d\n", i);
     if (last_cert != nullptr) {
       X509_free(last_cert);
       last_cert= nullptr;
     }
+#endif
     if (last_key != nullptr) {
       delete last_key;
       last_key = nullptr;
     }
     last_cert= current_cert;
     last_key = current_key;
-    if (!res) {
-      ret = false;
-      goto done;
-    }
+    current_cert = nullptr;
+    current_key = nullptr;
   }
 
 done:
@@ -4154,7 +4211,7 @@ bool x509_to_public_key(X509 *x, key_message *k) {
   X509_NAME *subject_name = X509_get_subject_name(x);
   const int  max_buf = 2048;
   char       name_buf[max_buf];
-  memset(name_buf, 0, max_buf);
+   memset(name_buf, 0, max_buf);
   if (X509_NAME_get_text_by_NID(subject_name, NID_commonName, name_buf, max_buf)
       < 0) {
     printf("%s() error, line: %d, x509_to_public_key: can't get subject_name\n",
