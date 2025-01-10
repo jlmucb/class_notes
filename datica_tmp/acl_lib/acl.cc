@@ -1235,6 +1235,14 @@ bool channel_guard::add_access_rights(string& resource_name, string& right, stri
   return false;
 }
 
+int channel_guard::find_in_active_resource_table(const string& name) {
+  for (int i = 0; i < num_active_resources_; i++) {
+    if (ar_[i].resource_name_ == name && ar_[i].principal_name_ == principal_name_)
+      return i;
+  }
+  return -1;
+}
+
 bool channel_guard::create_resource(string& name) {
   // make up encryption key
   // automatically give creator read, write, delete rights
@@ -1243,12 +1251,12 @@ bool channel_guard::create_resource(string& name) {
 
 bool channel_guard::open_resource(const string& resource_name, const string& access_mode) {
   printf("open_resource(%s, %s)\n", resource_name.c_str(), access_mode.c_str());
-  int n = find_resource(resource_name);
-  if (n < 0) {
+  int resource_index = find_resource(resource_name);
+  if (resource_index < 0) {
     printf("No such resource\n");
     return false;
   }
-  if (!access_check(n, access_mode)) {
+  if (!access_check(resource_index, access_mode)) {
     printf("access failure\n");
     return false;
   }
@@ -1287,11 +1295,17 @@ bool channel_guard::open_resource(const string& resource_name, const string& acc
     printf("resource already open\n");
     return false;
   }
+
+  string file_name;
+  file_name = resources_[resource_index].resource_location();
   switch(requested_right) {
     case active_resource::READ:
       // open for reading
+      ar_[resource_entry].desc_ = open(file_name.c_str(), O_RDONLY);
+      return true;
     case active_resource::WRITE:
       // open for writing
+      ar_[resource_entry].desc_ = open(file_name.c_str(), O_RDWR | O_CREAT | O_TRUNC, 0644);
       return true;
     default:
       return false;
@@ -1300,12 +1314,33 @@ bool channel_guard::open_resource(const string& resource_name, const string& acc
   return true;
 }
 
-bool channel_guard::read_resource(const string& resource_name) {
-  // in active resources?
+bool channel_guard::read_resource(const string& resource_name, int n, string* out) {
+  int rn = find_in_active_resource_table(resource_name);
+  if (rn < 0) {
+    return false;
+  }
+  if (ar_[rn].desc_ >= 0) {
+    byte buf[n];
+    int k = read(ar_[rn].desc_, buf, n);
+    if (k < 0)
+      return false;
+    out->assign((char*)buf, k);
+    return true;
+  }
   return false;
 }
 
-bool channel_guard::write_resource(const string& resource_name) {
+bool channel_guard::write_resource(const string& resource_name, int n, string& in) {
+  int rn = find_in_active_resource_table(resource_name);
+  if (rn < 0) {
+    return false;
+  }
+  if (ar_[rn].desc_ >= 0) {
+    int k = write(ar_[rn].desc_, (byte*)in.data(), in.size());
+    if (k < 0)
+      return false;
+    return true;
+  }
   return false;
 }
 
@@ -1313,21 +1348,15 @@ bool channel_guard::delete_resource(const string& resource_name) {
   return false;
 }
 
-bool channel_guard::close_resource(const string& resource_name, unsigned requested_right) {
-  int resource_entry = -1;
-  for (int i = 0; i < num_active_resources_; i++) {
-      if (ar_[i].principal_name_ == principal_name_ && 
-          ar_[i].resource_name_ == resource_name &&
-          ar_[i].rights_ == requested_right) {
-          resource_entry = i;
-          break;
-      }
+bool channel_guard::close_resource(const string& resource_name) {
+  int rn = find_in_active_resource_table(resource_name);
+  if (rn < 0) {
+    return false;
   }
-  if (resource_entry >= 0) {
-     close(ar_[resource_entry].desc_);
-     ar_[resource_entry].desc_= -1;
-     // remove entry
-     return true;
+  if (ar_[rn].desc_ >= 0) {
+    close(ar_[rn].desc_);
+    ar_[rn].desc_ = -1;
+    return true;
   }
   return false;
 }
@@ -1338,9 +1367,7 @@ bool channel_guard::save_active_resources(const string& file_name) {
 }
 
 
-bool write_file(const string &file_name,
-                                      int           size,
-                                      byte *        data) {
+bool write_file(const string &file_name, int size, byte* data) {
   int out = open(file_name.c_str(), O_RDWR | O_CREAT | O_TRUNC, 0644);
   if (out < 0)
     return false;
@@ -1353,8 +1380,7 @@ bool write_file(const string &file_name,
   return true;
 }
 
-bool write_file_from_string(const string &file_name,
-                                                  const string &in) {
+bool write_file_from_string(const string &file_name, const string &in) {
   return write_file(file_name, in.size(), (byte *)in.data());
 }
 
@@ -1368,9 +1394,7 @@ int file_size(const string &file_name) {
   return (int)file_info.st_size;
 }
 
-bool read_file(const string &file_name,
-                                     int *         size,
-                                     byte *        data) {
+bool read_file(const string &file_name, int* size, byte* data) {
   struct stat file_info;
 
   if (stat(file_name.c_str(), &file_info) != 0) {
@@ -1379,22 +1403,19 @@ bool read_file(const string &file_name,
   }
   if (!S_ISREG(file_info.st_mode)) {
     printf("%s() error, line: %d, read_file, not a regular file\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return false;
   }
   int bytes_in_file = (int)file_info.st_size;
   if (bytes_in_file > *size) {
     printf("%s() error, line: %d, read_file, Buffer too small\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return false;
   }
   int fd = ::open(file_name.c_str(), O_RDONLY);
   if (fd < 0) {
     printf("%s() error, line: %d, read_file, open failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return false;
   }
   int n = (int)read(fd, data, bytes_in_file);
@@ -1408,19 +1429,13 @@ bool read_file_into_string(const string &file_name,
   int size = file_size(file_name);
   if (size < 0) {
     printf("%s() error, line: %d, read_file_into_string: Can't size input file "
-           "%s\n",
-           __func__,
-           __LINE__,
-           file_name.c_str());
+           "%s\n", __func__, __LINE__, file_name.c_str());
     return false;
   }
   byte buf[size];
   if (!read_file(file_name, &size, buf)) {
     printf("%s() error, line: %d, read_file_into_string: Can't read file %s\n",
-           __func__,
-           __LINE__,
-           file_name.c_str());
-    return false;
+           __func__, __LINE__, file_name.c_str()); return false;
   }
 
   out->assign((char *)buf, size);
@@ -1447,8 +1462,7 @@ bool tm_time_to_time_point(struct tm * tm_time, time_point *tp) {
 bool asn1_time_to_tm_time(const ASN1_TIME *s, struct tm * tm_time) {
   if (1 != ASN1_TIME_to_tm(s, tm_time)) {
     printf("%s() error, line: %d, ASN1_TIME_to_tm_time() failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return false;
   }
   return true;
@@ -1458,21 +1472,18 @@ bool get_not_before_from_cert(X509 *c, time_point *tp) {
   const ASN1_TIME *asc_time = X509_getm_notBefore(c);
   if (asc_time == nullptr) {
     printf("%s() error, line: %d, get_not_before_from_cert() failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return false;
   }
   struct tm tm_time;
   if (!asn1_time_to_tm_time(asc_time, &tm_time)) {
     printf("%s() error, line: %d, asn1_time_to_tm_time() failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return false;
   }
   if (!tm_time_to_time_point(&tm_time, tp)) {
     printf("%s() error, line: %d, tm_time_to_time_point failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return false;
   }
   return true;
@@ -1482,21 +1493,18 @@ bool get_not_after_from_cert(X509 *c, time_point *tp) {
   const ASN1_TIME *asc_time = X509_getm_notAfter(c);
   if (asc_time == nullptr) {
     printf("%s() error, line: %d, X509_getm_notAfter failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return false;
   }
   struct tm tm_time;
   if (!asn1_time_to_tm_time(asc_time, &tm_time)) {
     printf("%s() error, line: %d, asn1_time_to_tm_time failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return false;
   }
   if (!tm_time_to_time_point(&tm_time, tp)) {
     printf("%s() error, line: %d, tm_time_to_time_point failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return false;
   }
   return true;
@@ -1546,28 +1554,25 @@ int compare_time(time_point &t1, time_point &t2) {
 bool encrypt(byte *in, int in_len, byte *key, byte *iv,
              byte *out, int * out_size) {
   EVP_CIPHER_CTX *ctx = nullptr;
-  int             len = 0;
-  int             out_len = 0;
-  bool            ret = true;
+  int len = 0;
+  int out_len = 0;
+  bool ret = true;
 
   if (!(ctx = EVP_CIPHER_CTX_new())) {
     printf("%s() error, line: %d, EVP_CIPHER_CTX_new() failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     ret = false;
     goto done;
   }
   if (1 != EVP_EncryptInit_ex(ctx, EVP_aes_256_cbc(), NULL, key, iv)) {
     printf("%s() error, line: %d, EVP_EncryptInit_ex() failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     ret = false;
     goto done;
   }
   if (1 != EVP_EncryptUpdate(ctx, out, &len, in, in_len)) {
     printf("%s() error, line: %d, EVP_EncryptUpdate() failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     ret = false;
     goto done;
   }
@@ -1591,36 +1596,32 @@ done:
 bool decrypt(byte *in, int in_len, byte *key, byte *iv,
              byte *out, int * size_out) {
   EVP_CIPHER_CTX *ctx = nullptr;
-  int             len = 0;
-  int             out_len = 0;
-  bool            ret = true;
+  int len = 0;
+  int out_len = 0;
+  bool ret = true;
 
   if (!(ctx = EVP_CIPHER_CTX_new())) {
     printf("%s() error, line: %d, EVP_CIPHER_CTX_new() failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     ret = false;
     goto done;
   }
   if (1 != EVP_DecryptInit_ex(ctx, EVP_aes_256_cbc(), NULL, key, iv)) {
     printf("%s() error, line: %d, EVP_DecryptInit failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     ret = false;
     goto done;
   }
   if (1 != EVP_DecryptUpdate(ctx, out, &len, in, in_len)) {
     printf("%s() error, line: %d, EVP_DecryptUpdate failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     ret = false;
     goto done;
   }
   out_len = len;
   if (1 != EVP_DecryptFinal_ex(ctx, out + len, &len)) {
     printf("%s() error, line: %d, EVP_DecryptFinal failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     ret = false;
     goto done;
   }
@@ -1682,8 +1683,7 @@ bool digest_message(const char* alg, const byte* message, int message_len,
   int n = digest_output_byte_size(alg);
   if (n < 0) {
     printf("%s() error, line: %d, digest_output_byte_size failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return false;
   }
   if (n > (int)digest_len) {
@@ -1758,8 +1758,7 @@ bool aes_256_cbc_sha256_encrypt(byte *in, int in_len, byte *key, byte *iv,
 
   if (!encrypt(in, in_len, key, iv, out + blk_size, &cipher_size)) {
     printf("%s() error, line: %d, aes_256_cbc_sha256_encrypt: encrypt failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return false;
   }
   memcpy(out, iv, blk_size);
@@ -1789,25 +1788,18 @@ bool aes_256_cbc_sha256_decrypt(byte *in, int in_len, byte *key, byte *out,
   unsigned int hmac_size = mac_size;
 
   byte hmac_out[hmac_size];
-  HMAC(EVP_sha256(),
-       &key[key_size / 2],
-       mac_size,
-       in,
-       msg_with_iv_size,
-       (byte *)hmac_out,
-       &hmac_size);
+  HMAC(EVP_sha256(), &key[key_size / 2], mac_size, in,
+       msg_with_iv_size, (byte *)hmac_out, &hmac_size);
   if (memcmp(hmac_out, in + msg_with_iv_size, mac_size) != 0) {
     printf("%s() error, line: %d, aes_256_cbc_sha256_decrypt: HMAC failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return false;
   }
 
   if (!decrypt(in + blk_size, msg_with_iv_size - blk_size, key, in,
                out, &plain_size)) {
     printf("%s() error, line: %d, aes_256_cbc_sha256_decrypt: decrypt failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return false;
   }
   *out_size = plain_size;
@@ -1825,20 +1817,14 @@ bool aes_256_cbc_sha384_encrypt(byte *in, int   in_len, byte *key, byte *iv,
 
   if (!encrypt(in, in_len, key, iv, out + blk_size, &cipher_size)) {
     printf("%s() error, line: %d, aes_256_cbc_sha384_encrypt: encrypt failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return false;
   }
   memcpy(out, iv, blk_size);
   cipher_size += blk_size;
   unsigned int hmac_size = mac_size;
-  HMAC(EVP_sha384(),
-       &key[key_size / 2],
-       mac_size,
-       out,
-       cipher_size,
-       out + cipher_size,
-       &hmac_size);
+  HMAC(EVP_sha384(), &key[key_size / 2], mac_size, out,
+       cipher_size, out + cipher_size, &hmac_size);
   *out_size = cipher_size + hmac_size;
 
   return true;
@@ -1856,25 +1842,18 @@ bool aes_256_cbc_sha384_decrypt(byte *in, int in_len, byte *key,
   unsigned int hmac_size = mac_size;
 
   byte hmac_out[hmac_size];
-  HMAC(EVP_sha384(),
-       &key[key_size / 2],
-       mac_size,
-       in,
-       msg_with_iv_size,
-       (byte *)hmac_out,
-       &hmac_size);
+  HMAC(EVP_sha384(), &key[key_size / 2], mac_size, in,
+       msg_with_iv_size, (byte *)hmac_out, &hmac_size);
   if (memcmp(hmac_out, in + msg_with_iv_size, mac_size) != 0) {
     printf("%s() error, line: %d, aes_256_cbc_sha384_decrypt: HMAC failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return false;
   }
 
   if (!decrypt(in + blk_size, msg_with_iv_size - blk_size, key,
                in, out, &plain_size)) {
     printf("%s() error, line: %d, aes_256_cbc_sha384_decrypt: decrypt failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return false;
   }
   *out_size = plain_size;
@@ -1885,28 +1864,25 @@ bool aes_256_cbc_sha384_decrypt(byte *in, int in_len, byte *key,
 bool aes_256_gcm_encrypt(byte *in, int in_len, byte *key, byte *iv,
                          byte *out, int * out_size) {
   EVP_CIPHER_CTX *ctx = nullptr;
-  int             len;
-  int             ciphertext_len;
-  int             blk_size = cipher_block_byte_size(Enc_method_aes_256);
-  int             key_size = cipher_key_byte_size(Enc_method_aes_256);
-  int             tag_len = 0;
-  byte            tag[16];
-  int             aad_len = 0;
-  byte *          aad = nullptr;
-  bool            ret = true;
+  int len;
+  int ciphertext_len;
+  int blk_size = cipher_block_byte_size(Enc_method_aes_256);
+  int key_size = cipher_key_byte_size(Enc_method_aes_256);
+  int tag_len = 0;
+  byte tag[16];
+  int aad_len = 0;
+  byte* aad = nullptr;
+  bool ret = true;
 
   if (!(ctx = EVP_CIPHER_CTX_new())) {
     printf("%s() error, line: %d, EVP_CIPHER_CTX_new failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return false;
   }
 
-  if (1
-      != EVP_EncryptInit_ex(ctx, EVP_aes_256_gcm(), nullptr, nullptr, nullptr)) {
+  if (1 != EVP_EncryptInit_ex(ctx, EVP_aes_256_gcm(), nullptr, nullptr, nullptr)) {
     printf("%s() error, line: %d, EVP_EncryptInit_ex failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     ret = false;
     goto done;
   }
@@ -1915,15 +1891,13 @@ bool aes_256_gcm_encrypt(byte *in, int in_len, byte *key, byte *iv,
   if (1
       != EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_GCM_SET_IVLEN, blk_size, nullptr)) {
     printf("%s() error, line: %d, EVP_CIPHER_CTX_ctrl failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     ret = false;
     goto done;
   }
   if (1 != EVP_EncryptInit_ex(ctx, nullptr, nullptr, key, iv)) {
     printf("%s() error, line: %d, EVP_EncryptInit_ex failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     ret = false;
     goto done;
   }
@@ -1932,15 +1906,13 @@ bool aes_256_gcm_encrypt(byte *in, int in_len, byte *key, byte *iv,
 
   if (1 != EVP_EncryptUpdate(ctx, nullptr, &len, aad, aad_len)) {
     printf("%s() error, line: %d, EVP_EncryptUpdate failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     ret = false;
     goto done;
   }
   if (1 != EVP_EncryptUpdate(ctx, out + blk_size, &len, in, in_len)) {
     printf("%s() error, line: %d, EVP_EncryptUpdate failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     ret = false;
     goto done;
   }
@@ -1949,8 +1921,7 @@ bool aes_256_gcm_encrypt(byte *in, int in_len, byte *key, byte *iv,
   // Finalize
   if (1 != EVP_EncryptFinal_ex(ctx, out + len, &len)) {
     printf("%s() error, line: %d, EVP_EncryptFinal_ex failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     ret = false;
     goto done;
   }
@@ -1959,8 +1930,7 @@ bool aes_256_gcm_encrypt(byte *in, int in_len, byte *key, byte *iv,
   tag_len = EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_GCM_GET_TAG, blk_size, tag);
   if (tag_len <= 0) {
     printf("%s() error, line: %d, EVP_CIPHER_CTX_ctrl failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     ret = false;
     goto done;
   }
@@ -1981,57 +1951,51 @@ done:
 bool aes_256_gcm_decrypt(byte *in, int in_len, byte *key,
                          byte *out, int * out_size) {
   EVP_CIPHER_CTX *ctx = nullptr;
-  int             blk_size = cipher_block_byte_size(Enc_method_aes_256);
-  int             key_size = cipher_key_byte_size(Enc_method_aes_256);
-  byte *          iv = in;
-  bool            ret = true;
-  byte *          tag = in + in_len - blk_size;
-  int             aad_len = 0;
-  byte *          aad = nullptr;
-  int             len;
-  int             plaintext_len;
-  int             stream_len = in_len - 2 * blk_size;
-  int             err = 0;
+  int blk_size = cipher_block_byte_size(Enc_method_aes_256);
+  int key_size = cipher_key_byte_size(Enc_method_aes_256);
+  byte* iv = in;
+  bool ret = true;
+  byte* tag = in + in_len - blk_size;
+  int aad_len = 0;
+  byte* aad = nullptr;
+  int len;
+  int plaintext_len;
+  int stream_len = in_len - 2 * blk_size;
+  int err = 0;
 
   if (!(ctx = EVP_CIPHER_CTX_new())) {
     printf("%s() error, line: %d, EVP_CIPHER_CTX_new failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return false;
   }
   if (!EVP_DecryptInit_ex(ctx, EVP_aes_256_gcm(), nullptr, nullptr, nullptr)) {
     printf("%s() error, line: %d, EVP_DecryptInit_ex failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     ret = false;
     goto done;
   }
   if (!EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_GCM_SET_IVLEN, blk_size, nullptr)) {
     printf("%s() error, line: %d, EVP_CIPHER_CTX_ctrl failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     ret = false;
     goto done;
   }
   if (!EVP_DecryptInit_ex(ctx, nullptr, nullptr, key, iv)) {
     printf("%s() error, line: %d, EVP_DecryptInit_ex failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     ret = false;
     goto done;
   }
 
   if (!EVP_DecryptUpdate(ctx, nullptr, &len, aad, aad_len)) {
     printf("%s() error, line: %d, EVP_DecryptUpdate failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     ret = false;
     goto done;
   }
   if (!EVP_DecryptUpdate(ctx, out, &len, in + blk_size, stream_len)) {
     printf("%s() error, line: %d, EVP_DecryptUpdate failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     ret = false;
     goto done;
   }
@@ -2039,8 +2003,7 @@ bool aes_256_gcm_decrypt(byte *in, int in_len, byte *key,
 
   if (!EVP_CIPHER_CTX_ctrl(ctx, EVP_CTRL_GCM_SET_TAG, blk_size, tag)) {
     printf("%s() error, line: %d, EVP_CIPHER_CTX_ctrl failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     ret = false;
     goto done;
   }
@@ -2049,8 +2012,7 @@ bool aes_256_gcm_decrypt(byte *in, int in_len, byte *key,
   err = EVP_DecryptFinal_ex(ctx, in + in_len - blk_size, &len);
   if (err <= 0) {
     printf("%s() error, line: %d, EVP_DecryptFinal failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     ret = false;
     goto done;
   }
@@ -2069,10 +2031,7 @@ bool authenticated_encrypt(const char *alg_name, byte* in, int in_len, byte* key
   int key_size = cipher_key_byte_size(alg_name);
   if (key_size > key_len) {
     printf("%s() error, line: %d, authenticated_encrypt: key length too short\n"
-           "%s\n",
-           __func__,
-           __LINE__,
-           alg_name);
+           "%s\n", __func__, __LINE__, alg_name);
     return false;
   }
   if (strcmp(alg_name, "aes-256-cbc-hmac-sha256") == 0) {
@@ -2083,10 +2042,7 @@ bool authenticated_encrypt(const char *alg_name, byte* in, int in_len, byte* key
     return aes_256_gcm_encrypt(in, in_len, key, iv, out, out_size);
   } else {
     printf("%s() error, line: %d, authenticated_decrypt: unsupported algorithm "
-           "%s\n",
-           __func__,
-           __LINE__,
-           alg_name);
+           "%s\n", __func__, __LINE__, alg_name);
     return false;
   }
 }
@@ -2096,10 +2052,7 @@ bool authenticated_decrypt(const char *alg_name, byte* in, int in_len, byte* key
   int key_size = cipher_key_byte_size(alg_name);
   if (key_size > key_len) {
     printf("%s() error, line: %d, authenticated_decrypt: key length too short\n"
-           "%s\n",
-           __func__,
-           __LINE__,
-           alg_name);
+           "%s\n", __func__, __LINE__, alg_name);
     return false;
   }
 
@@ -2111,10 +2064,7 @@ bool authenticated_decrypt(const char *alg_name, byte* in, int in_len, byte* key
     return aes_256_gcm_decrypt(in, in_len, key, out, out_size);
   } else {
     printf("%s() error, line: %d, authenticated_decrypt: unsupported algorithm "
-           "%s\n",
-           __func__,
-           __LINE__,
-           alg_name);
+           "%s\n", __func__, __LINE__, alg_name);
     return false;
   }
 }
@@ -2191,9 +2141,7 @@ bool make_certifier_rsa_key(int n, key_message *k) {
   RSA *r = RSA_new();
   if (!generate_new_rsa_key(n, r)) {
     printf("%s() error, line: %d, make_certifier_rsa_key: Can't generate RSA "
-           "key\n",
-           __func__,
-           __LINE__);
+           "key\n", __func__, __LINE__);
     return false;
   }
 
@@ -2226,11 +2174,7 @@ bool rsa_public_encrypt(RSA * key, byte *data, int data_len,
   int n = RSA_public_encrypt(data_len, data, encrypted, key, RSA_PKCS1_PADDING);
   if (n <= 0) {
     printf("%s() error, line: %d, rsa_public_encrypt: RSA_public_encrypt "
-           "failed %d, %d\n",
-           __func__,
-           __LINE__,
-           data_len,
-           *size_out);
+           "failed %d, %d\n", __func__, __LINE__, data_len, *size_out);
     return false;
   }
   *size_out = n;
@@ -2239,11 +2183,8 @@ bool rsa_public_encrypt(RSA * key, byte *data, int data_len,
 
 bool rsa_private_decrypt(RSA * key, byte *enc_data, int data_len,
                          byte *decrypted, int * size_out) {
-  int n = RSA_private_decrypt(data_len,
-                              enc_data,
-                              decrypted,
-                              key,
-                              RSA_PKCS1_PADDING);
+  int n = RSA_private_decrypt(data_len, enc_data, decrypted,
+                              key, RSA_PKCS1_PADDING);
   if (n <= 0) {
     printf("%s() error, line: %d, rsa_private_decrypt: RSA_private_decrypt "
            "failed %d, %d\n",
@@ -2593,14 +2534,12 @@ bool key_to_RSA(const key_message &k, RSA *r) {
     }
     if (1 != RSA_set0_factors(r, p, q)) {
       printf("%s() error, line: %d, RSA_set0_factors failed\n",
-             __func__,
-             __LINE__);
+             __func__, __LINE__);
       return false;
     }
     if (1 != RSA_set0_crt_params(r, dmp1, dmq1, iqmp)) {
       printf("%s() error, line: %d, RSA_set0_crt_params failed\n",
-             __func__,
-             __LINE__);
+             __func__, __LINE__);
       return false;
     }
   }
@@ -4426,6 +4365,14 @@ bool same_key(const key_message &k1, const key_message &k2) {
     return false;
   }
   return true;
+}
+
+int find_resource_in_resource_proto_list(const resource_list& rl, const string& name) {
+  for (int i = 0; i < rl.resources_size(); i++) {
+    if (rl.resources(i).resource_identifier() == name)
+      return i;
+  }
+  return -1;
 }
 
 // -----------------------------------------------------------------------

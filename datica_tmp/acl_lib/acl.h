@@ -387,6 +387,7 @@ public:
   void print();
 
   int find_resource(const string& name);
+  int find_in_active_resource_table(const string& name);
 
   bool init_root_cert(const string& asn1_cert_str);
   bool authenticate_me(const string& name, principal_list& pl, string* nonce);
@@ -408,11 +409,13 @@ public:
   bool add_access_rights(string& resource_name, string& right, string& new_prin);
   bool create_resource(string& name);
   bool open_resource(const string& resource_name, const string& access_mode);
-  bool read_resource(const string& resource_name);
-  bool write_resource(const string& resource_name);
+  bool read_resource(const string& resource_name, int n, string* out);
+  bool write_resource(const string& resource_name, int n, string& in);
   bool delete_resource(const string& resource_name);
-  bool close_resource(const string& resource_name, unsigned requested_right);
+  bool close_resource(const string& resource_name);
 };
+
+int find_resource_in_resource_proto_list(const resource_list& rl, const string& name);
 
 #endif
 

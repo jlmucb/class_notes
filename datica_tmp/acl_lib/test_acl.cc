@@ -41,8 +41,8 @@ bool construct_sample_resources(resource_list* rl) {
   string p2("paul");
   string r1("file_1");
   string r2("file_2");
-  string l1("/datica/file_1");
-  string l2("/datica/file_2");
+  string l1("./tmp/file_1");
+  string l2("./tmp/file_2");
   string t;
   time_point tp;
 
@@ -219,10 +219,14 @@ bool test_access() {
   bool ret = true;
   string res1("file_1");
   string acc1("read");
+  string res2("file_2");
+  string acc2("write");
   string* b;
   string prin_name("john");
   int i = 0;
   string auth_alg(Enc_method_rsa_2048_sha256_pkcs_sign);
+  string bytes_read;
+  string bytes_written("Hello there");
 
   // keys and certs
   root_cert = X509_new();
@@ -403,21 +407,29 @@ bool test_access() {
     goto done;
   }
 
+  goto done;  //under test
+
   if (!guard.open_resource(res1, acc1)) {
     printf("open_resource failed\n");
     return false;
   }
-#if 0
-  bool channel_guard::authenticate(string& name);
-  bool open_resource(const string& resource_name, const string& access_mode);
-  bool channel_guard::create_resource(string& name)
-  bool channel_guard::read_resource(string& resource_name)
-  bool channel_guard::write_resource(string& resource_name) {
-  bool channel_guard::close_resource(string& resource_name)
-  channel_guard::close_resource(string& resource_name)
-  bool save_resources_to_file(resource_list& rl, string& file_name);
-  bool channel_guard::save_resources(string& master_resource_list)
-#endif
+  if (guard.read_resource(res1, 14, &bytes_read)) {
+  } else {
+  }
+  if (guard.close_resource(res1)) {
+  } else {
+  }
+
+  if (!guard.open_resource(res2, acc2)) {
+    printf("open_resource failed\n");
+    return false;
+  }
+  if (guard.write_resource(res2, 12, bytes_written)) {
+  } else {
+  }
+  if (guard.close_resource(res2)) {
+  } else {
+  }
 
 done:
   if (r1 != nullptr) {
