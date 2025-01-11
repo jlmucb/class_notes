@@ -1038,7 +1038,7 @@ bool digest_message(const char* alg, const byte* message, int message_len,
     return false;
   }
 
-  EVP_MD_CTX *mdctx;
+  EVP_MD_CTX* mdctx;
 
   if (strcmp(alg, Digest_method_sha_256) == 0
       || strcmp(alg, Digest_method_sha256) == 0) {
@@ -1474,8 +1474,7 @@ bool private_key_to_public_key(const key_message &in, key_message* out) {
     return true;
   } else {
     printf("%s() error, line: %d, private_key_to_public_key: bad key type\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return false;
   }
 }
@@ -1502,8 +1501,7 @@ bool make_certifier_rsa_key(int n, key_message *k) {
     k->set_key_type(Enc_method_rsa_3072_private);
   } else {
     printf("%s() error, line: %d, bad modulus size failed\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     RSA_free(r);
     return false;
   }
@@ -2201,8 +2199,7 @@ EC_KEY *key_to_ECC(const key_message &k) {
                 NULL);
   if (priv_mult == nullptr) {
     printf("%s() error, line: %d, key_to_ECC: no private mult\n",
-           __func__,
-           __LINE__);
+           __func__, __LINE__);
     return nullptr;
   }
   if (EC_KEY_set_private_key(ecc_key, priv_mult) != 1) {
@@ -2583,8 +2580,7 @@ void print_key_descriptor(const key_message &k) {
     }
   } else {
     printf("%s() error, line: %d, unsupported type %s ",
-           __func__, __LINE__,
-           k.key_type().c_str());
+           __func__, __LINE__, k.key_type().c_str());
   }
 }
 
@@ -3059,7 +3055,7 @@ bool verify_artifact(X509& cert, key_message &verify_key, string* issuer_name_st
     EVP_PKEY_set1_RSA(verify_pkey, verify_rsa_key);
 
     EVP_PKEY *subject_pkey = X509_get_pubkey(&cert);
-    RSA *     subject_rsa_key = EVP_PKEY_get1_RSA(subject_pkey);
+    RSA* subject_rsa_key = EVP_PKEY_get1_RSA(subject_pkey);
     if (!RSA_to_key(subject_rsa_key, subject_key)) {
       return false;
     }
@@ -3098,7 +3094,7 @@ bool verify_artifact(X509& cert, key_message &verify_key, string* issuer_name_st
   // Todo: report other cert values
   X509_NAME *subject_name = X509_get_subject_name(&cert);
   const int  max_buf = 2048;
-  char       name_buf[max_buf];
+  char name_buf[max_buf];
   if (X509_NAME_get_text_by_NID(subject_name, NID_commonName, name_buf, max_buf)
       < 0)
     success = false;
@@ -3417,8 +3413,7 @@ bool x509_to_public_key(X509 *x, key_message *k) {
     RSA *subject_rsa_key = EVP_PKEY_get1_RSA(subject_pkey);
     if (!RSA_to_key(subject_rsa_key, k)) {
       printf("%s() error, line: %d, x509_to_public_key: RSA_to_key failed\n",
-             __func__,
-             __LINE__);
+             __func__, __LINE__);
       return false;
     }
     switch (size) {

@@ -177,7 +177,8 @@ bool add_creator_to_resource(string& name, resource_message* r);
 bool add_principal_to_proto_list(const string& name, const string& alg,
                 const string& cred, principal_list* pl);
 bool add_resource_to_proto_list(const string& id, const string& locat,
-                const string& t_created, const string& t_written, resource_list* rl);
+                const string& t_created, const string& t_written,
+                resource_list* rl);
 
 int digest_output_byte_size(const char *alg_name);
 int mac_output_byte_size(const char *alg_name);
@@ -309,12 +310,13 @@ void print_key_descriptor(const key_message &k);
 int add_ext(X509 *cert, int nid, const char *value);
 
 bool produce_artifact(key_message& signing_key, string& issuer_name_str, string& issuer_organization_str,
-                                            key_message& subject_key, string& subject_name_str,
-                                            string& subject_organization_str, uint64_t sn,
-                                            double secs_duration, X509* x509, bool is_root);
+                      key_message& subject_key, string& subject_name_str,
+                      string& subject_organization_str, uint64_t sn,
+                      double secs_duration, X509* x509, bool is_root);
 bool verify_artifact(X509& cert, key_message &verify_key, string* issuer_name_str,
                      string* issuer_description_str, key_message* subject_key,
-                     string* subject_name_str, string* subject_organization_str, uint64_t *sn);
+                     string* subject_name_str, string* subject_organization_str,
+                     uint64_t *sn);
 bool verify_cert_chain(X509* root_cert, buffer_list& certs);
 
 bool asn1_to_x509(const string &in, X509 *x);

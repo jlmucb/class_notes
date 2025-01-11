@@ -393,7 +393,8 @@ bool channel_guard::verify_me(const string& name, const string& signed_nonce) {
       goto done;
       }
     } else {
-      printf("%s() error, line: %d, unsupported signing algorithm %s\n", __func__, __LINE__, authentication_algorithm_name_.c_str());
+      printf("%s() error, line: %d, unsupported signing algorithm %s\n",
+             __func__, __LINE__, authentication_algorithm_name_.c_str());
       ret= false;
       goto done;
     }
