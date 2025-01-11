@@ -2796,18 +2796,17 @@ bool same_cert(X509* c1, X509* c2) {
   int max_buf = 512;
   char name_buf[max_buf];
 
+  memset(name_buf, 0, max_buf);
   issuer_name_1 = X509_get_issuer_name(c1);
   if (issuer_name_1 == nullptr) {
     ret = false;
     goto done;
   }
-  // memset(name_buf, 0, max_buf);
   if (X509_NAME_get_text_by_NID(issuer_name_1, NID_commonName, name_buf, max_buf) < 0) {
     ret = false;
     goto done;
   }
   issuer_name_1_str.assign(name_buf);
-  // memset(name_buf, 0, max_buf);
   if (X509_NAME_get_text_by_NID(issuer_name_1, NID_organizationName, name_buf, max_buf) < 0) {
     ret = false;
     goto done;
@@ -2819,14 +2818,12 @@ bool same_cert(X509* c1, X509* c2) {
     ret = false;
     goto done;
   }
-  // memset(name_buf, 0, max_buf);
   if (X509_NAME_get_text_by_NID(issuer_name_2, NID_commonName, name_buf, max_buf) < 0) {
     ret = false;
     goto done;
   }
 
   issuer_name_2_str.assign(name_buf);
-  // memset(name_buf, 0, max_buf);
   if (X509_NAME_get_text_by_NID(issuer_name_2, NID_organizationName, name_buf, max_buf) < 0) {
     ret = false;
     goto done;
@@ -2843,13 +2840,11 @@ bool same_cert(X509* c1, X509* c2) {
     ret = false;
     goto done;
   }
-  // memset(name_buf, 0, max_buf);
   if (X509_NAME_get_text_by_NID(subject_name_1, NID_commonName, name_buf, max_buf) < 0) {
     ret = false;
     goto done;
   }
   subject_name_1_str.assign(name_buf);
-  // memset(name_buf, 0, max_buf);
   if (X509_NAME_get_text_by_NID(subject_name_1, NID_organizationName, name_buf, max_buf) < 0) {
     ret = false;
     goto done;
@@ -2861,13 +2856,11 @@ bool same_cert(X509* c1, X509* c2) {
     ret = false;
     goto done;
   }
-  // memset(name_buf, 0, max_buf);
   if (X509_NAME_get_text_by_NID(subject_name_2, NID_commonName, name_buf, max_buf) < 0) {
     ret = false;
     goto done;
   }
   subject_name_2_str.assign(name_buf);
-  // memset(name_buf, 0, max_buf);
   if (X509_NAME_get_text_by_NID(subject_name_2, NID_organizationName, name_buf, max_buf) < 0) {
     ret = false;
     goto done;
@@ -2898,22 +2891,8 @@ bool same_cert(X509* c1, X509* c2) {
   }
 
 done:
-  if (issuer_name_1 != nullptr) {
-    X509_NAME_free(issuer_name_1);
-    issuer_name_1 = nullptr;
-  }
-  if (issuer_name_2 != nullptr) {
-    X509_NAME_free(issuer_name_2);
-    issuer_name_2 = nullptr;
-  }
-  if (subject_name_1 != nullptr) {
-    X509_NAME_free(subject_name_1);
-    subject_name_1 = nullptr;
-  }
-  if (subject_name_2 != nullptr) {
-    X509_NAME_free(subject_name_2);
-    subject_name_2 = nullptr;
-  }
+  // issuer_name_1, issuer_name_2, subject_name_1, subject_name_2
+  //   should not be freed.
   return ret;
 }
 
@@ -2949,15 +2928,6 @@ bool verify_cert_chain(X509* root_cert, buffer_list& certs) {
     goto done;
   }
 
-  // first cert should be root cert
-  asn_cert.assign((char*)certs.blobs(0).data(), certs.blobs(0).size());
-  current_cert = X509_new();
-  if (!asn1_to_x509(asn_cert, current_cert)) {
-    printf("%s() error, line %d: asn1_to_x509 failed\n", __func__, __LINE__);
-    ret = false;
-    goto done;
-  }
-
   if (!x509_to_public_key(root_cert, &root_verify_key)) {
     printf("%s() error, line %d: x509_to_public_key failed\n", __func__, __LINE__);
     ret = false;
@@ -2972,10 +2942,25 @@ bool verify_cert_chain(X509* root_cert, buffer_list& certs) {
     ret = false;
     goto done;
   }
+
+  // first cert should be root cert
+  asn_cert.assign((char*)certs.blobs(0).data(), certs.blobs(0).size());
+  current_cert = X509_new();
+  if (current_cert == nullptr) {
+    printf("%s() error, line %d: can't allocate current cert\n", __func__, __LINE__);
+    ret = false;
+    goto done;
+  }
+  if (!asn1_to_x509(asn_cert, current_cert)) {
+    printf("%s() error, line %d: asn1_to_x509 failed\n", __func__, __LINE__);
+    ret = false;
+    goto done;
+  }
   if (!same_cert(root_cert, current_cert)) {
     ret = false;
     goto done;
   }
+
   last_cert = current_cert;  // now points to root cert
   current_cert = nullptr;
 
@@ -3003,21 +2988,10 @@ bool verify_cert_chain(X509* root_cert, buffer_list& certs) {
     }
     current_key = nullptr;
 
-#if 0
-printf("loop %d\n", i);
     if (last_cert != nullptr) {
       X509_free(last_cert);
       last_cert= nullptr;
     }
-#else
-printf("\n");
-printf("loop %d\n", i);
-printf("last_cert:\n");
-X509_print_fp(stdout, last_cert);
-printf("current_cert:\n");
-X509_print_fp(stdout, current_cert);
-printf("\n");
-#endif
     if (last_key != nullptr) {
       delete last_key;
       last_key = nullptr;
