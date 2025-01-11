@@ -3057,15 +3057,15 @@ bool verify_artifact(X509& cert, key_message &verify_key, string* issuer_name_st
              || verify_key.key_type() == Enc_method_ecc_384_private
              || verify_key.key_type() == Enc_method_ecc_256_public
              || verify_key.key_type() == Enc_method_ecc_256_private) {
-    EVP_PKEY *verify_pkey = EVP_PKEY_new();
-    EC_KEY *  verify_ecc_key = key_to_ECC(verify_key);
+    EVP_PKEY* verify_pkey = EVP_PKEY_new();
+    EC_KEY*  verify_ecc_key = key_to_ECC(verify_key);
     if (verify_ecc_key == nullptr) {
       return false;
     }
     EVP_PKEY_set1_EC_KEY(verify_pkey, verify_ecc_key);
 
-    EVP_PKEY *subject_pkey = X509_get_pubkey(&cert);
-    EC_KEY *  subject_ecc_key = EVP_PKEY_get1_EC_KEY(subject_pkey);
+    EVP_PKEY* subject_pkey = X509_get_pubkey(&cert);
+    EC_KEY* subject_ecc_key = EVP_PKEY_get1_EC_KEY(subject_pkey);
     if (!ECC_to_key(subject_ecc_key, subject_key)) {
       return false;
     }
@@ -3080,7 +3080,7 @@ bool verify_artifact(X509& cert, key_message &verify_key, string* issuer_name_st
   }
 
   // Todo: report other cert values
-  X509_NAME *subject_name = X509_get_subject_name(&cert);
+  X509_NAME* subject_name = X509_get_subject_name(&cert);
   const int  max_buf = 2048;
   char name_buf[max_buf];
   if (X509_NAME_get_text_by_NID(subject_name, NID_commonName, name_buf, max_buf)
@@ -3090,7 +3090,6 @@ bool verify_artifact(X509& cert, key_message &verify_key, string* issuer_name_st
     subject_name_str->assign((const char *)name_buf);
   }
 
-  // X509_NAME_free(subject_name);
   return success;
 }
 
@@ -3266,10 +3265,9 @@ bool key_from_pkey(EVP_PKEY *pkey, const string &name, key_message *k) {
       default:
         return false;
     }
-    // RSA_free(rsa_key);
   } else if (EVP_PKEY_base_id(pkey) == EVP_PKEY_EC) {
-    int     size = EVP_PKEY_bits(pkey);
-    EC_KEY *ecc_key = EVP_PKEY_get1_EC_KEY(pkey);
+    int size = EVP_PKEY_bits(pkey);
+    EC_KEY* ecc_key = EVP_PKEY_get1_EC_KEY(pkey);
     if (!ECC_to_key(ecc_key, k)) {
       printf("%s() error, line: %d, key_from_pkey: ECC_to_key failed\n",
              __func__, __LINE__);
@@ -3282,7 +3280,6 @@ bool key_from_pkey(EVP_PKEY *pkey, const string &name, key_message *k) {
     } else {
       return false;
     }
-    // EC_KEY_free(ecc_key);
   } else {
     printf("%s() error, line: %d, key_from_pkey: unsupported key type\n",
            __func__, __LINE__);
@@ -3355,16 +3352,13 @@ EVP_PKEY* pkey_from_key(const key_message &k) {
     RSA *rsa_key = RSA_new();
     if (!key_to_RSA(k, rsa_key)) {
       printf("%s() error, line: %d, pkey_from_key: Can't translate key to RSA "
-             "key\n",
-             __func__,
-             __LINE__);
+             "key\n", __func__, __LINE__);
       EVP_PKEY_free(pkey);
       return nullptr;
     }
     if (1 != EVP_PKEY_assign_RSA(pkey, rsa_key)) {
       printf("%s() error, line: %d, pkey_from_key: Can't set RSA key\n",
-             __func__,
-             __LINE__);
+             __func__, __LINE__);
       EVP_PKEY_free(pkey);
       return nullptr;
     }
