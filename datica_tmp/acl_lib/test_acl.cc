@@ -407,11 +407,12 @@ bool test_access() {
   }
 
   if (!guard.open_resource(res1, acc1)) {
-    printf("%s() error, line %d: open_resource failed\n");
+    printf("%s() error, line %d: open_resource failed\n", __func__, __LINE__);
     return false;
   }
   if (guard.read_resource(res1, 14, &bytes_read)) {
     printf("open resource succeeded, %d bytes read\n", bytes_read.size());
+    printf("Received: %s\n", bytes_read.c_str());
   } else {
     printf("open resource failed\n");
   }
