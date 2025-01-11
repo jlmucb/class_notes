@@ -78,7 +78,7 @@ test_acl.exe: $(tobj)
 $(S)/acl.pb.cc: $(S)/acl.proto
 	$(PROTO) -I=$(S) --cpp_out=$(S) $(S)/acl.proto
 
-$(O)/test_acl.o: acl.h $(S)/test_acl.cc $(S)/acl.pb.cc
+$(O)/test_acl.o: $(S)/acl.h $(S)/test_acl.cc $(S)/acl.pb.cc
 	@echo "compiling test_acl.cc"
 	$(CC) $(CFLAGS) -c $(I) -o $(O)/test_acl.o $(S)/test_acl.cc
 
@@ -86,10 +86,10 @@ $(O)/acl.pb.o: $(S)/acl.pb.cc $(S)/acl.pb.h
 	@echo "compiling acl.pb.cc"
 	$(CC) $(CFLAGS) -c $(I) -o $(O)/acl.pb.o $(S)/acl.pb.cc
 
-$(O)/acl_support.o: acl_support.h $(S)/acl.cc $(S)/acl.pb.cc
+$(O)/acl_support.o: $(S)/acl_support.h $(S)/acl_support.cc $(S)/acl.pb.cc
 	@echo "compiling acl_support.cc"
 	$(CC) $(CFLAGS) -c $(I) -o $(O)/acl_support.o $(S)/acl_support.cc
 
-$(O)/acl.o: acl.h $(S)/acl.cc $(S)/acl.pb.cc
+$(O)/acl.o: $(S)/acl.h $(S)/acl.cc $(S)/acl.pb.cc $(S)/acl_support.h
 	@echo "compiling acl.cc"
 	$(CC) $(CFLAGS) -c $(I) -o $(O)/acl.o $(S)/acl.cc

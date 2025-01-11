@@ -412,7 +412,7 @@ bool test_access() {
     return false;
   }
   if (guard.read_resource(res1, 14, &bytes_read)) {
-    printf("open resource succeeded, %d bytes read\n", bytes_read.size());
+    printf("open resource succeeded, %d bytes read\n", (int)bytes_read.size());
     printf("Received: %s\n", bytes_read.c_str());
   } else {
     printf("open resource failed\n");

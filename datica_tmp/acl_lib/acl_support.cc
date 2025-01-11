@@ -2919,6 +2919,7 @@ done:
 
 // note: no revocation check
 bool verify_cert_chain(X509* root_cert, buffer_list& certs) {
+
   bool ret = true;
   string asn_cert;
 
@@ -2929,12 +2930,12 @@ bool verify_cert_chain(X509* root_cert, buffer_list& certs) {
   key_message sk;
   key_message root_verify_key;
 
-  string last_issuer_name;
   X509* last_cert= nullptr;
   key_message* last_key = nullptr;
-
   X509* current_cert = nullptr;
   key_message* current_key = nullptr;
+
+  string last_issuer_name;
   string current_issuer_name_str;
   string current_issuer_organization_str;
   string current_subject_name_str;
@@ -2975,7 +2976,7 @@ bool verify_cert_chain(X509* root_cert, buffer_list& certs) {
     ret = false;
     goto done;
   }
-  last_cert = current_cert;
+  last_cert = current_cert;  // now points to root cert
   current_cert = nullptr;
 
   for (int i = 1; i < certs.blobs_size(); i++) {
@@ -2986,29 +2987,42 @@ bool verify_cert_chain(X509* root_cert, buffer_list& certs) {
     }
     asn_cert.assign((char*)certs.blobs(i).data(), certs.blobs(i).size());
     if (!asn1_to_x509(asn_cert, current_cert)) {
+      printf("%s() error, line %d: asn1_to_cert failed\n", __func__, __LINE__);
       ret = false;
       goto done;
     }
     current_key = new(key_message);
     bool res = verify_artifact(*current_cert, *last_key, &current_issuer_name_str,
                       &current_issuer_organization_str, current_key,
-                      &current_subject_name_str, &current_subject_organization_str, &current_sn);
+                      &current_subject_name_str, &current_subject_organization_str,
+                      &current_sn);
     if (!res) {
       printf("%s() error, line %d: %d cert verify failed\n", __func__, __LINE__, i);
       ret = false;
       goto done;
     }
+    current_key = nullptr;
+
 #if 0
 printf("loop %d\n", i);
     if (last_cert != nullptr) {
       X509_free(last_cert);
       last_cert= nullptr;
     }
+#else
+printf("\n");
+printf("loop %d\n", i);
+printf("last_cert:\n");
+X509_print_fp(stdout, last_cert);
+printf("current_cert:\n");
+X509_print_fp(stdout, current_cert);
+printf("\n");
 #endif
     if (last_key != nullptr) {
       delete last_key;
       last_key = nullptr;
     }
+
     last_cert= current_cert;
     last_key = current_key;
     current_cert = nullptr;
