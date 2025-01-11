@@ -402,24 +402,26 @@ bool test_access() {
 
   if (!guard.verify_me(channel_prin, signed_nonce)) {
     printf("%s() error, line %d: verify_me %s failed\n", __func__, __LINE__, channel_prin.c_str());
-    printf("Cant verify_me %s\n", channel_prin.c_str());
     ret= false;
     goto done;
   }
 
-  goto done;  //under test
-
   if (!guard.open_resource(res1, acc1)) {
-    printf("open_resource failed\n");
+    printf("%s() error, line %d: open_resource failed\n");
     return false;
   }
   if (guard.read_resource(res1, 14, &bytes_read)) {
+    printf("open resource succeeded, %d bytes read\n", bytes_read.size());
   } else {
+    printf("open resource failed\n");
   }
   if (guard.close_resource(res1)) {
+    printf("close resource succeeded\n");
   } else {
+    printf("close resource failed\n");
   }
 
+#if 0
   if (!guard.open_resource(res2, acc2)) {
     printf("open_resource failed\n");
     return false;
@@ -430,6 +432,7 @@ bool test_access() {
   if (guard.close_resource(res2)) {
   } else {
   }
+#endif
 
 done:
   if (r1 != nullptr) {

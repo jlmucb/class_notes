@@ -1250,7 +1250,6 @@ bool channel_guard::create_resource(string& name) {
 }
 
 bool channel_guard::open_resource(const string& resource_name, const string& access_mode) {
-  printf("open_resource(%s, %s)\n", resource_name.c_str(), access_mode.c_str());
   int resource_index = find_resource(resource_name);
   if (resource_index < 0) {
     printf("No such resource\n");
