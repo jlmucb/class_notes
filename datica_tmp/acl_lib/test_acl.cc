@@ -17,6 +17,7 @@
 #include <stdio.h>
 
 #include "acl.pb.h"
+#include "acl_support.h"
 #include "acl.h"
 
 DEFINE_bool(print_all, false, "Print intermediate test computations");
