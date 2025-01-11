@@ -534,7 +534,8 @@ bool channel_guard::add_access_rights(string& resource_name, string& right, stri
   // can current channel principal add access rights to this resource?
   int n = find_resource(resource_name);
   if (n < 0) {
-    printf("No such resource\n");
+    printf("%s() error, line: %d: No such resource\n",
+            __func__, __LINE__);
     return false;
   }
   // already there?
@@ -558,11 +559,13 @@ bool channel_guard::create_resource(string& name) {
 bool channel_guard::open_resource(const string& resource_name, const string& access_mode) {
   int resource_index = find_resource(resource_name);
   if (resource_index < 0) {
-    printf("No such resource\n");
+    printf("%s() error, line: %d: No such resource\n",
+            __func__, __LINE__);
     return false;
   }
   if (!access_check(resource_index, access_mode)) {
-    printf("access failure\n");
+    printf("%s() error, line: %d: access failure\n",
+            __func__, __LINE__);
     return false;
   }
 
@@ -572,7 +575,8 @@ bool channel_guard::open_resource(const string& resource_name, const string& acc
   } else if (access_mode == "write") {
     requested_right |= active_resource::WRITE;
   } else {
-      printf("unknown access mode\n");
+      printf("%s() error, line: %d: unknown access mode\n",
+             __func__, __LINE__);
       return false;
   }
 
@@ -586,7 +590,8 @@ bool channel_guard::open_resource(const string& resource_name, const string& acc
   }
   if (resource_entry < 0) {
     if (num_active_resources_ >= capacity_active_resources_) {
-      printf("number of active resources exceeded\n");
+      printf("%s() error, line: %d: number of active resources exceeded\n",
+            __func__, __LINE__);
       return false;
     }
     resource_entry = num_active_resources_++;
@@ -597,7 +602,8 @@ bool channel_guard::open_resource(const string& resource_name, const string& acc
 
   // open, set descriptor
   if (ar_[resource_entry].desc_ >= 0) {
-    printf("resource already open\n");
+    printf("%s() error, line: %d: resource already open\n",
+            __func__, __LINE__);
     return false;
   }
 
