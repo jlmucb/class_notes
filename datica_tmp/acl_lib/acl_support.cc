@@ -50,10 +50,10 @@ const char* Enc_method_rsa_4096                  = "rsa-4096";
 const char* Enc_method_rsa_4096_private          = "rsa-4096-private";
 const char* Enc_method_rsa_4096_public           = "rsa-4096-public";
 const char* Enc_method_rsa_4096_sha384_pkcs_sign = "rsa-4096-sha384-pkcs-sign";
-const char* Digest_method_sha256  = "sha256";
-const char* Digest_method_sha_256 = "sha-256";
-const char* Digest_method_sha_384 = "sha-384";
-const char* Digest_method_sha_512 = "sha-512";
+const char* Digest_method_sha256                 = "sha256";
+const char* Digest_method_sha_256                = "sha-256";
+const char* Digest_method_sha_384                = "sha-384";
+const char* Digest_method_sha_512                = "sha-512";
 const char* Integrity_method_aes_256_cbc_hmac_sha256 = "aes-256-cbc-hmac-sha256";
 const char* Integrity_method_aes_256_cbc_hmac_sha384 = "aes-256-cbc-hmac-sha384";
 const char* Integrity_method_aes_256_gcm             = "aes-256-gcm";
@@ -790,6 +790,7 @@ bool read_file_into_string(const string &file_name, string* out) {
   out->assign((char *)buf, size);
   return true;
 }
+
 // -----------------------------------------------------------------------
 
 bool time_t_to_tm_time(time_t *t, struct tm *tm_time) {
@@ -1111,13 +1112,8 @@ bool aes_256_cbc_sha256_encrypt(byte *in, int in_len, byte *key, byte *iv,
   memcpy(out, iv, blk_size);
   cipher_size += blk_size;
   unsigned int hmac_size = mac_size;
-  HMAC(EVP_sha256(),
-       &key[key_size / 2],
-       mac_size,
-       out,
-       cipher_size,
-       out + cipher_size,
-       &hmac_size);
+  HMAC(EVP_sha256(), &key[key_size / 2], mac_size, out,
+       cipher_size, out + cipher_size, &hmac_size);
   *out_size = cipher_size + hmac_size;
 
   return true;
@@ -1130,8 +1126,8 @@ bool aes_256_cbc_sha256_decrypt(byte *in, int in_len, byte *key, byte *out,
   int mac_size = mac_output_byte_size(Enc_method_aes_256_cbc_hmac_sha256);
   int cipher_size = *out_size - blk_size;
 
-  int          plain_size = *out_size - blk_size - mac_size;
-  int          msg_with_iv_size = in_len - mac_size;
+  int plain_size = *out_size - blk_size - mac_size;
+  int msg_with_iv_size = in_len - mac_size;
   unsigned int hmac_size = mac_size;
 
   byte hmac_out[hmac_size];
@@ -1544,7 +1540,7 @@ bool rsa_private_decrypt(RSA * key, byte *enc_data, int data_len,
 bool rsa_sha256_sign(RSA * key, int to_sign_size, byte* to_sign,
                      int* sig_size, byte* sig) {
   return rsa_sign(Digest_method_sha_256, key, to_sign_size,
-                  to_sign, sig_size, sig);
+                   to_sign, sig_size, sig);
 }
 
 bool rsa_sha256_verify(RSA *key, int size, byte *msg, int sig_size, byte *sig) {
@@ -1724,8 +1720,8 @@ bool rsa_verify(const char *alg, RSA* key, int size, byte* msg,
 }
 
 bool generate_new_rsa_key(int num_bits, RSA *r) {
-  bool     ret = true;
-  BIGNUM * bne = NULL;
+  bool ret = true;
+  BIGNUM* bne = NULL;
   uint32_t e = RSA_F4;
 
   bne = BN_new();
@@ -1794,21 +1790,21 @@ bool key_to_RSA(const key_message &k, RSA *r) {
     print_key_message(k);
     return false;
   }
-  BIGNUM *n = BN_bin2bn((byte *)(rsa_key_data.public_modulus().data()),
+  BIGNUM* n = BN_bin2bn((byte *)(rsa_key_data.public_modulus().data()),
                         (int)(rsa_key_data.public_modulus().size()),
                         NULL);
   if (n == nullptr) {
     printf("%s() error, line: %d, Can't get bignum\n", __func__, __LINE__);
     return false;
   }
-  BIGNUM *e = BN_bin2bn((const byte *)rsa_key_data.public_exponent().data(),
+  BIGNUM* e = BN_bin2bn((const byte *)rsa_key_data.public_exponent().data(),
                         (int)rsa_key_data.public_exponent().size(),
                         NULL);
   if (e == nullptr) {
     printf("%s() error, line: %d, Can't get bignum\n", __func__, __LINE__);
     return false;
   }
-  BIGNUM *d = nullptr;
+  BIGNUM* d = nullptr;
   if (private_key && rsa_key_data.has_private_exponent()) {
     d = BN_bin2bn((const byte *)rsa_key_data.private_exponent().data(),
                   (int)rsa_key_data.private_exponent().size(),
@@ -1823,11 +1819,11 @@ bool key_to_RSA(const key_message &k, RSA *r) {
     return false;
   }
   if (private_key) {
-    BIGNUM *p = nullptr;
-    BIGNUM *q = nullptr;
-    BIGNUM *dmp1 = nullptr;
-    BIGNUM *dmq1 = nullptr;
-    BIGNUM *iqmp = nullptr;
+    BIGNUM* p = nullptr;
+    BIGNUM* q = nullptr;
+    BIGNUM* dmp1 = nullptr;
+    BIGNUM* dmq1 = nullptr;
+    BIGNUM* iqmp = nullptr;
     if (rsa_key_data.has_private_p()) {
       p = BN_bin2bn((const byte *)rsa_key_data.private_p().data(),
                     (int)rsa_key_data.private_p().size(),
@@ -1888,14 +1884,14 @@ bool key_to_RSA(const key_message &k, RSA *r) {
 }
 
 bool RSA_to_key(const RSA *r, key_message *k) {
-  const BIGNUM *m = nullptr;
-  const BIGNUM *e = nullptr;
-  const BIGNUM *d = nullptr;
-  const BIGNUM *p = nullptr;
-  const BIGNUM *q = nullptr;
-  const BIGNUM *dmp1 = nullptr;
-  const BIGNUM *dmq1 = nullptr;
-  const BIGNUM *iqmp = nullptr;
+  const BIGNUM* m = nullptr;
+  const BIGNUM* e = nullptr;
+  const BIGNUM* d = nullptr;
+  const BIGNUM* p = nullptr;
+  const BIGNUM* q = nullptr;
+  const BIGNUM* dmp1 = nullptr;
+  const BIGNUM* dmq1 = nullptr;
+  const BIGNUM* iqmp = nullptr;
 
   RSA_get0_key(r, &m, &e, &d);
   RSA_get0_factors(r, &p, &q);
@@ -1988,8 +1984,8 @@ void print_point(const point_message &pt) {
   if (!pt.has_x() || !pt.has_y())
     return;
 
-  BIGNUM *x = BN_new();
-  BIGNUM *y = BN_new();
+  BIGNUM* x = BN_new();
+  BIGNUM* y = BN_new();
 
   BN_bin2bn((byte *)pt.x().data(), pt.x().size(), x);
   BN_bin2bn((byte *)pt.y().data(), pt.y().size(), y);
@@ -2033,7 +2029,7 @@ void print_ecc_key(const ecc_message &em) {
   }
 
   if (em.has_private_multiplier()) {
-    BIGNUM *private_mult = BN_new();
+    BIGNUM* private_mult = BN_new();
 
     BN_bin2bn((byte *)em.private_multiplier().data(),
               em.private_multiplier().size(),
@@ -2048,9 +2044,9 @@ void print_ecc_key(const ecc_message &em) {
   }
 
   if (em.has_curve_p() && em.has_curve_p() && em.has_curve_p()) {
-    BIGNUM *p = BN_new();
-    BIGNUM *a = BN_new();
-    BIGNUM *b = BN_new();
+    BIGNUM* p = BN_new();
+    BIGNUM* a = BN_new();
+    BIGNUM* b = BN_new();
 
     BN_bin2bn((byte *)em.curve_p().data(), em.curve_p().size(), p);
     BN_bin2bn((byte *)em.curve_a().data(), em.curve_a().size(), a);
@@ -2131,7 +2127,7 @@ bool ecc_verify(const char *alg, EC_KEY* key, int size,
   return true;
 }
 
-EC_KEY *generate_new_ecc_key(int num_bits) {
+EC_KEY* generate_new_ecc_key(int num_bits) {
 
   EC_KEY *ecc_key = nullptr;
   if (num_bits == 384) {
@@ -2155,7 +2151,7 @@ EC_KEY *generate_new_ecc_key(int num_bits) {
            __func__, __LINE__); return nullptr;
   }
 
-  BN_CTX *        ctx = BN_CTX_new();
+  BN_CTX* ctx = BN_CTX_new();
   const EC_GROUP *group = EC_KEY_get0_group(ecc_key);
   if (group == nullptr) {
     printf("%s() error, line: %d, generate_new_ecc_key: Can't get group (1)\n",
@@ -2215,11 +2211,11 @@ EC_KEY *key_to_ECC(const key_message &k) {
            __func__, __LINE__);
     return nullptr;
   }
-  const BIGNUM *p_pt_x =
+  const BIGNUM* p_pt_x =
       BN_bin2bn((byte *)(k.ecc_key().public_point().x().data()),
                 (int)(k.ecc_key().public_point().x().size()),
                 NULL);
-  const BIGNUM *p_pt_y =
+  const BIGNUM* p_pt_y =
       BN_bin2bn((byte *)(k.ecc_key().public_point().y().data()),
                 (int)(k.ecc_key().public_point().y().size()),
                 NULL);
@@ -2229,13 +2225,13 @@ EC_KEY *key_to_ECC(const key_message &k) {
     return nullptr;
   }
 
-  EC_POINT *pt = EC_POINT_new(group);
+  EC_POINT* pt = EC_POINT_new(group);
   if (pt == nullptr) {
     printf("%s() error, line: %d, key_to_ECC: no pt in group\n",
            __func__, __LINE__);
     return nullptr;
   }
-  BN_CTX *ctx = BN_CTX_new();
+  BN_CTX* ctx = BN_CTX_new();
   if (ctx == nullptr) {
     printf("%s() error, line: %d, BN_CTX_new failed\n", __func__, __LINE__);
     return nullptr;
@@ -2261,7 +2257,7 @@ bool ECC_to_key(const EC_KEY *ecc_key, key_message *k) {
     printf("%s() error, line: %d, ECC_to_key\n", __func__, __LINE__);
     return false;
   }
-  ecc_message *ek = new ecc_message;
+  ecc_message* ek = new ecc_message;
   if (ek == nullptr) {
     printf("%s() error, line: %d, Can't allocate ecc_message\n",
            __func__, __LINE__);
@@ -2269,7 +2265,7 @@ bool ECC_to_key(const EC_KEY *ecc_key, key_message *k) {
   }
 
 
-  BN_CTX *ctx = BN_CTX_new();
+  BN_CTX* ctx = BN_CTX_new();
   if (ctx == nullptr) {
     printf("%s() error, line: %d, BN_CTX_new failed\n", __func__, __LINE__);
     return false;
@@ -2282,9 +2278,9 @@ bool ECC_to_key(const EC_KEY *ecc_key, key_message *k) {
     return false;
   }
 
-  BIGNUM *p = BN_new();
-  BIGNUM *a = BN_new();
-  BIGNUM *b = BN_new();
+  BIGNUM* p = BN_new();
+  BIGNUM* a = BN_new();
+  BIGNUM* b = BN_new();
   if (EC_GROUP_get_curve_GFp(group, p, a, b, ctx) <= 0) {
     printf("%s() error, line: %d, EC_GROUP_get_curve_GFp failed\n",
            __func__, __LINE__);
@@ -2584,9 +2580,9 @@ void print_key_descriptor(const key_message &k) {
   }
 }
 
-int add_ext(X509 *cert, int nid, const char *value) {
-  X509_EXTENSION *ex;
-  X509V3_CTX      ctx;
+int add_ext(X509* cert, int nid, const char *value) {
+  X509_EXTENSION* ex;
+  X509V3_CTX ctx;
 
   // This sets the 'context' of the extensions.
   X509V3_set_ctx_nodb(&ctx);
@@ -2603,7 +2599,8 @@ int add_ext(X509 *cert, int nid, const char *value) {
 
 // Caller should have allocated X509
 // name is some printable version of the measurement
-bool produce_artifact(key_message &signing_key, string& issuer_name_str, string& issuer_organization_str,
+bool produce_artifact(key_message &signing_key, string& issuer_name_str,
+                      string& issuer_organization_str,
                       key_message& subject_key, string& subject_name_str,
                       string& subject_organization_str, uint64_t sn,
                       double secs_duration, X509* x509, bool is_root) {
@@ -3025,7 +3022,8 @@ done:
 
 bool verify_artifact(X509& cert, key_message &verify_key, string* issuer_name_str,
                      string* issuer_description_str, key_message* subject_key,
-                     string* subject_name_str, string* subject_organization_str, uint64_t *sn) {
+                     string* subject_name_str, string* subject_organization_str,
+                     uint64_t *sn) {
 
   bool success = false;
   if (verify_key.key_type() == Enc_method_rsa_1024_public
@@ -3093,10 +3091,10 @@ bool verify_artifact(X509& cert, key_message &verify_key, string* issuer_name_st
   return success;
 }
 
-bool asn1_to_x509(const string &in, X509 *x) {
+bool asn1_to_x509(const string& in, X509* x) {
   int len = in.size();
 
-  byte *p = (byte *)in.data();
+  byte* p = (byte *)in.data();
   d2i_X509(&x, (const byte **)&p, len);
   if (x == nullptr) {
     printf("%s() error, line: %d, no x509 pointer\n", __func__, __LINE__);
@@ -3105,10 +3103,10 @@ bool asn1_to_x509(const string &in, X509 *x) {
   return true;
 }
 
-bool x509_to_asn1(X509 *x, string *out) {
-  int   len = i2d_X509(x, nullptr);
-  byte  buf[len];
-  byte *p = buf;
+bool x509_to_asn1(X509* x, string *out) {
+  int len = i2d_X509(x, nullptr);
+  byte buf[len];
+  byte* p = buf;
 
   i2d_X509(x, (byte **)&p);
   out->assign((char *)buf, len);
@@ -3338,8 +3336,8 @@ key_message *get_issuer_key(X509 *x, cert_keys_seen_list &list) {
   return list.find_key_seen(str_issuer_name);
 }
 
-EVP_PKEY* pkey_from_key(const key_message &k) {
-  EVP_PKEY *pkey = EVP_PKEY_new();
+EVP_PKEY* pkey_from_key(const key_message& k) {
+  EVP_PKEY* pkey = EVP_PKEY_new();
 
   if (k.key_type() == Enc_method_rsa_1024_public
       || k.key_type() == Enc_method_rsa_1024_private
@@ -3383,7 +3381,7 @@ EVP_PKEY* pkey_from_key(const key_message &k) {
 }
 
 // make a public key from the X509 cert's subject key
-bool x509_to_public_key(X509 *x, key_message *k) {
+bool x509_to_public_key(X509* x, key_message* k) {
   EVP_PKEY *subject_pkey = X509_get_pubkey(x);
   if (subject_pkey == nullptr) {
     printf("x509_to_public_key: subject_pkey is null\n");
@@ -3439,7 +3437,7 @@ bool x509_to_public_key(X509 *x, key_message *k) {
 
   X509_NAME *subject_name = X509_get_subject_name(x);
   const int  max_buf = 2048;
-  char       name_buf[max_buf];
+  char name_buf[max_buf];
    memset(name_buf, 0, max_buf);
   if (X509_NAME_get_text_by_NID(subject_name, NID_commonName, name_buf, max_buf)
       < 0) {
