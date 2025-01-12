@@ -129,4 +129,13 @@ message access_list {
   repeated string prins                               = 2;
 };
 
-
+message rpc_call {
+  optional string function_name                       = 1;
+  repeated string str_inputs                          = 2;
+  repeated int32 int_inputs                           = 3;
+  repeated bytes buf_inputs                           = 4;
+  optional bool status                                = 5;
+  repeated string str_outputs                         = 6;
+  repeated int32 int_outputs                          = 7;
+  repeated bytes buf_outputs                          = 8;
+};

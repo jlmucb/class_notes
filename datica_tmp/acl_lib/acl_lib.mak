@@ -52,7 +52,7 @@ PROTO=protoc
 AR=ar
 
 # build the library later
-tobj=   $(O)/acl_support.o $(O)/acl.o $(O)/acl.pb.o $(O)/test_acl.o
+tobj=   $(O)/acl_rpc.o $(O)/acl_support.o $(O)/acl.o $(O)/acl.pb.o $(O)/test_acl.o
 
 ifdef NEWPROTOBUF
 export LD_LIBRARY_PATH=/usr/local/lib
@@ -93,3 +93,7 @@ $(O)/acl_support.o: $(S)/acl_support.h $(S)/acl_support.cc $(S)/acl.pb.cc
 $(O)/acl.o: $(S)/acl.h $(S)/acl.cc $(S)/acl.pb.cc $(S)/acl_support.h
 	@echo "compiling acl.cc"
 	$(CC) $(CFLAGS) -c $(I) -o $(O)/acl.o $(S)/acl.cc
+
+$(O)/acl_rpc.o: $(S)/acl.h $(S)/acl_rpc.h $(S)/acl.pb.cc $(S)/acl_support.h $(S)/acl_rpc.cc
+	@echo "compiling acl_rpc.cc"
+	$(CC) $(CFLAGS) -c $(I) -o $(O)/acl_rpc.o $(S)/acl_rpc.cc

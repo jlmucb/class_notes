@@ -1492,6 +1492,10 @@ bool test_crypto() {
   return true;
 }
 
+bool test_rpc() {
+  return true;
+}
+
 TEST (basic, test_basic) {
   EXPECT_TRUE(test_basic());
 }
@@ -1502,6 +1506,10 @@ TEST (crypto, test_crypto) {
 
 TEST (access, test_access) {
   EXPECT_TRUE(test_access());
+}
+
+TEST (rpc, test_rpc) {
+  EXPECT_TRUE(test_rpc());
 }
 
 int main(int an, char** av) {
