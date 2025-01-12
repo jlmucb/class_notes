@@ -146,6 +146,7 @@ public:
 };
 
 int find_resource_in_resource_proto_list(const resource_list& rl, const string& name);
+int find_principal_in_principal_proto_list(const principal_list& pl, const string& name);
 
 #endif
 

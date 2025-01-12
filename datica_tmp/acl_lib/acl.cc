@@ -708,4 +708,12 @@ int find_resource_in_resource_proto_list(const resource_list& rl, const string& 
   return -1;
 }
 
+int find_principal_in_principal_proto_list(const principal_list& pl, const string& name) {
+  for (int i = 0; i < pl.principals_size(); i++) {
+    if (pl.principals(i).principal_name() == name)
+      return i;
+  }
+  return -1;
+}
+
 // -----------------------------------------------------------------------

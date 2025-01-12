@@ -40,12 +40,16 @@ class acl_server_dispatch {
 private:
   bool initialized_;
   int channel_descriptor_;
+  principal_list principal_list_;
+  resource_list resource_list_;
   channel_guard guard_;
 
 public:
   acl_server_dispatch(int channel);
   ~acl_server_dispatch();
 
+  bool load_principals(principal_list& pl);
+  bool load_resources(resource_list& pl);
   bool service_request();
 };
 #endif
