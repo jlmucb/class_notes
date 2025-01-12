@@ -103,16 +103,17 @@ message audit_info {
 // if audit is required, logging info is in audit info
 message resource_message {
   optional string resource_identifier                 = 1;
-  optional string resource_location                   = 2;
-  optional key_message resource_key                   = 3;
-  optional bool audit_required                        = 4;
-  optional audit_info log                             = 5;
-  optional string time_created                        = 6;
-  optional string time_last_written                   = 7;
-  repeated string readers                             = 8;
-  repeated string writers                             = 9;
-  repeated string deleters                            =10;
-  repeated string creators                            =11;
+  optional string resource_type                       = 2;
+  optional string resource_location                   = 3;
+  optional key_message resource_key                   = 4;
+  optional bool audit_required                        = 5;
+  optional audit_info log                             = 6;
+  optional string time_created                        = 7;
+  optional string time_last_written                   = 8;
+  repeated string readers                             = 9;
+  repeated string writers                             =10;
+  repeated string deleters                            =11;
+  repeated string creators                            =12;
 };
 
 message resource_list {

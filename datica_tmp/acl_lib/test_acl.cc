@@ -45,16 +45,17 @@ bool construct_sample_resources(resource_list* rl) {
   string l1("./tmp/file_1");
   string l2("./tmp/file_2");
   string t;
+  string ty("file");
   time_point tp;
 
   if (!tp.time_now())
     return false;
   if (!tp.encode_time(&t))
     return false;
-  if (!add_resource_to_proto_list(r1, l1, t, t, rl)) {
+  if (!add_resource_to_proto_list(r1, ty, l1, t, t, rl)) {
     return false;
   }
-  if (!add_resource_to_proto_list(r2, l1, t, t, rl)) {
+  if (!add_resource_to_proto_list(r2, ty, l2, t, t, rl)) {
     return false;
   }
   if (!add_reader_to_resource_proto_list(p1, rl->mutable_resources(0)))

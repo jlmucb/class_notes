@@ -38,10 +38,16 @@ void print_audit_info(const audit_info& inf) {
 
 void print_resource_message(const resource_message& rm) {
   printf("\n");
-  printf("Resource: %s\n", rm.resource_identifier().c_str());
-  printf("Resource location: %s\n", rm.resource_location().c_str());
-  printf("Created: %s\n", rm.time_created().c_str());
-  printf("Written: %s\n", rm.time_last_written().c_str());
+  if (rm.has_resource_identifier())
+    printf("Resource: %s\n", rm.resource_identifier().c_str());
+  if (rm.has_resource_type())
+    printf("Resource type: %s\n", rm.resource_type().c_str());
+  if (rm.has_resource_location())
+    printf("Resource location: %s\n", rm.resource_location().c_str());
+  if (rm.has_time_created())
+    printf("Created: %s\n", rm.time_created().c_str());
+  if (rm.has_time_last_written())
+        printf("Written: %s\n", rm.time_last_written().c_str());
   if (rm.has_resource_key()) {
     print_key_message(rm.resource_key());
   }
@@ -212,7 +218,8 @@ bool add_creator_to_resource_proto_list(const string& name, resource_message* r)
   return true;
 }
 
-bool add_principal_to_proto_list(const string& name, const string& alg, const string& cred, principal_list* pl) {
+bool add_principal_to_proto_list(const string& name, const string& alg,
+                const string& cred, principal_list* pl) {
   principal_message* pm = pl->add_principals();
   pm->set_principal_name(name);
   pm->set_authentication_algorithm(alg);
@@ -220,10 +227,12 @@ bool add_principal_to_proto_list(const string& name, const string& alg, const st
   return true;
 }
 
-bool add_resource_to_proto_list(const string& id, const string& locat, const string& t_created, const string& t_written,
-      resource_list* rl) {
+bool add_resource_to_proto_list(const string& id, const string& type,
+                const string& locat, const string& t_created, const string& t_written,
+                resource_list* rl) {
   resource_message* rm = rl->add_resources();
   rm->set_resource_identifier(id);
+  rm->set_resource_type(type);
   rm->set_resource_location(locat);
   rm->set_time_created(t_created);
   rm->set_time_last_written(t_written);
@@ -499,6 +508,10 @@ int channel_guard::find_resource(const string& name) {
 }
 
 bool channel_guard::access_check(int resource_entry, const string& action) {
+  if (!channel_principal_authenticated_) {
+    printf("access_check: nauthenticated\n");
+    return false;
+  }
   if (action == "read") {
     if (can_read(resource_entry)) {
       return true;
@@ -557,9 +570,16 @@ bool channel_guard::create_resource(string& name) {
 }
 
 bool channel_guard::open_resource(const string& resource_name, const string& access_mode) {
+  string file_type("file");
+
   int resource_index = find_resource(resource_name);
   if (resource_index < 0) {
     printf("%s() error, line: %d: No such resource\n",
+            __func__, __LINE__);
+    return false;
+  }
+  if (resources_[resource_index].resource_type() != file_type) {
+    printf("%s() error, line: %d: only file types supported\n",
             __func__, __LINE__);
     return false;
   }

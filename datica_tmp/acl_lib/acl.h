@@ -54,6 +54,45 @@ public:
   unsigned rights_;
 };
 
+void print_principal_info(const principal_message& pi);
+void print_audit_info(const audit_info& inf);
+void print_resource_message(const resource_message& rm);
+void print_principal_message(const principal_message& pm);
+void print_resource_list(const resource_list& rl);
+void print_principal_list(const principal_list& pl);
+
+bool add_reader_to_resource_proto_list(const string& name, resource_message* r);
+bool add_writer_to_resource_proto_list(const string& name, resource_message* r);
+bool add_deleter_to_resource_proto_list(const string& name, resource_message* r);
+bool add_creator_to_resource_proto_list(const string& name, resource_message* r);
+bool add_principal_to_proto_list(const string& name, const string& alg,
+                  const string& cred, principal_list* pl);
+bool add_resource_to_proto_list(const string& id, const string& type,
+                  const string& locat, const string& t_created,
+                  const string& t_written, resource_list* rl);
+bool get_resources_from_file(string& file_name, resource_list* rl);
+bool get_principals_from_file(string& file_name, principal_list* pl);
+bool save_resources_to_file(resource_list& rl, string& file_name);
+bool save_principals_to_file(principal_list& pl, string& file_name);
+
+int on_reader_list(const resource_message& r, const string& name);
+int on_writer_list(const resource_message& r, const string& name);
+int on_deleter_list(const resource_message& r, const string& name);
+int on_creator_list(const resource_message& r, const string& name);
+
+int on_principal_list(const string& name, principal_list& pl);
+int on_resource_list(const string& name, resource_list& rl);
+
+bool add_reader_to_resource(string& name, resource_message* r);
+bool add_writer_to_resource(string& name, resource_message* r);
+bool add_deleter_to_resource(string& name, resource_message* r);
+bool add_creator_to_resource(string& name, resource_message* r);
+bool add_principal_to_proto_list(const string& name, const string& alg,
+                const string& cred, principal_list* pl);
+bool add_resource_to_proto_list(const string& id, const string& locat,
+                const string& t_created, const string& t_written,
+                resource_list* rl);
+
 const int max_active_resources = 25;
 class channel_guard {
 public:
