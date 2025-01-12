@@ -627,6 +627,9 @@ bool channel_guard::open_resource(const string& resource_name, const string& acc
     return false;
   }
 
+  // note that if file doesn't exist, we create it which isn't right
+  // principal should have create right on parent directory but we don't
+  // support directories yet.
   string file_name;
   file_name = resources_[resource_index].resource_location();
   switch(requested_right) {

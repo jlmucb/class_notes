@@ -62,9 +62,13 @@ bool construct_sample_resources(resource_list* rl) {
     return false;
   if (!add_reader_to_resource_proto_list(p2, rl->mutable_resources(1)))
     return false;
+  if (!add_reader_to_resource_proto_list(p1, rl->mutable_resources(1)))
+    return false;
   if (!add_writer_to_resource_proto_list(p1, rl->mutable_resources(0)))
     return false;
   if (!add_writer_to_resource_proto_list(p2, rl->mutable_resources(1)))
+    return false;
+  if (!add_writer_to_resource_proto_list(p1, rl->mutable_resources(1)))
     return false;
   if (!add_creator_to_resource_proto_list(p1, rl->mutable_resources(0)))
     return false;
@@ -97,10 +101,6 @@ bool test_basic() {
 
   if (on_reader_list(rl.resources(0), p1) < 0) {
     printf("%s should be reader\n", p1.c_str());
-    return false;
-  }
-  if (on_reader_list(rl.resources(1), p1) >= 0) {
-    printf("%s should not be reader\n", p1.c_str());
     return false;
   }
   if (on_reader_list(rl.resources(1), p2) < 0) {
@@ -416,26 +416,30 @@ bool test_access() {
     printf("open resource succeeded, %d bytes read\n", (int)bytes_read.size());
     printf("Received: %s\n", bytes_read.c_str());
   } else {
-    printf("open resource failed\n");
+    printf("open reading resource failed\n");
+    return false;
   }
   if (guard.close_resource(res1)) {
     printf("close resource succeeded\n");
   } else {
-    printf("close resource failed\n");
+    printf("close reading resource failed\n");
+    return false;
   }
 
-#if 0
   if (!guard.open_resource(res2, acc2)) {
-    printf("open_resource failed\n");
+    printf("open_resource for writing failed\n");
     return false;
   }
   if (guard.write_resource(res2, 12, bytes_written)) {
   } else {
+    printf("write_resource failed\n");
+    return false;
   }
   if (guard.close_resource(res2)) {
   } else {
+    printf("close writing resource failed\n");
+    return false;
   }
-#endif
 
 done:
   if (r1 != nullptr) {
