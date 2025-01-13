@@ -78,6 +78,161 @@ bool construct_sample_resources(resource_list* rl) {
   return true;
 }
 
+bool make_keys_and_certs(string& root_issuer_name, string& root_issuer_org,
+                         string& signing_subject_name, string& signing_subject_org,
+                         key_message* root_key, key_message* signer_key,
+                         buffer_list* list) {
+  bool ret = true;
+
+  key_message public_root_key;
+  key_message public_signer_key;
+  const char* alg= Enc_method_rsa_2048_sha256_pkcs_sign;
+
+  RSA* r1 = nullptr;
+  RSA* r2 = nullptr;
+  X509* root_cert = nullptr;
+  X509* signing_cert = nullptr;
+
+  string root_asn1_cert_str;
+  string signing_asn1_cert_str;
+
+  uint64_t sn = 1;
+  uint64_t duration = 86400 * 366;
+
+  int sig_size= 256;
+  byte sig[sig_size];
+  string* ptr_str= nullptr;
+
+  r1 = RSA_new();
+  if (r1 == nullptr) {
+    printf("%s() error, line: %d, cannt RSA_new \n", __func__, __LINE__);
+    ret= false;
+    goto done;
+  }
+  if (!generate_new_rsa_key(2048, r1)) {
+    printf("%s() error, line: %d, generate_new_rsa_key failed\n",
+           __func__, __LINE__);
+    return false;
+  }
+  if (!RSA_to_key(r1, root_key)) {
+    printf("%s() error, line: %d, RSA_to_key failed\n", __func__, __LINE__);
+    ret= false;
+    goto done;
+  }
+  root_key->set_key_name("identity-root");
+  if (FLAGS_print_all) {
+    printf("root key:\n");
+    print_key_message((const key_message)*root_key);
+  }
+  if (!private_key_to_public_key(*root_key, &public_root_key)) {
+    printf("%s() error, line: %d, private_to_public failed\n", __func__, __LINE__);
+    ret= false;
+    goto done;
+  }
+
+  r2 = RSA_new();
+  if (r2 == nullptr) {
+    printf("%s() error, line: %d, cannt RSA_new \n", __func__, __LINE__);
+    ret= false;
+    goto done;
+  }
+  if (!generate_new_rsa_key(2048, r2)) {
+    printf("%s() error, line: %d, generate_new_rsa_key failed\n",
+           __func__, __LINE__);
+    ret= false;
+    goto done;
+  }
+  if (!RSA_to_key(r2, signer_key)) {
+    printf("%s() error, line: %d, RSA_to_key failed\n", __func__, __LINE__);
+    ret= false;
+    goto done;
+  }
+  signer_key->set_key_name("johns_signing-key");
+  if (FLAGS_print_all) {
+    printf("signing key:\n");
+    print_key_message((const key_message&)*signer_key);
+  }
+  if (!private_key_to_public_key(*signer_key, &public_signer_key)) {
+    printf("%s() error, line: %d, private_to_public failed\n", __func__, __LINE__);
+    ret= false;
+    goto done;
+  }
+
+  // root cert
+  root_cert = X509_new();
+  if (!produce_artifact(*root_key, root_issuer_name, root_issuer_org,
+                        public_root_key, root_issuer_name, root_issuer_org,
+                        sn, duration, root_cert, true)) {
+    printf("%s() error, line %d: cant generate root cert\n", __func__, __LINE__);
+    ret= false;
+    goto done;
+  }
+  sn++;
+  if (!x509_to_asn1(root_cert, &root_asn1_cert_str)) {
+    printf("%s() error, line %d: cant asn1 translate root cert\n", __func__, __LINE__);
+    ret= false;
+    goto done;
+  }
+
+  // signing cert
+  signing_cert = X509_new();
+  if (!produce_artifact(*root_key, root_issuer_name, root_issuer_org,
+                        public_signer_key, signing_subject_name, signing_subject_org,
+                        sn, duration, signing_cert, false)) {
+    printf("%s() error, line %d: cant generate signing cert\n", __func__, __LINE__);
+    ret= false;
+    goto done;
+  }
+  if (!x509_to_asn1(signing_cert, &signing_asn1_cert_str)) {
+    printf("%s() error, line %d: cant asn1 translate signing cert\n", __func__, __LINE__);
+    ret= false;
+    goto done;
+  }
+
+  if (FLAGS_print_all) {
+    printf("root cert:\n");
+    X509_print_fp(stdout, root_cert);
+    printf("\n");
+    printf("signing cert:\n");
+    X509_print_fp(stdout, signing_cert);
+    printf("\n");
+  }
+
+  ptr_str = list->add_blobs();
+  if (ptr_str == nullptr) {
+    printf("%s() error, line %d: cant allocate blobs\n", __func__, __LINE__);
+    ret= false;
+    goto done;
+  }
+  *ptr_str = root_asn1_cert_str;
+  ptr_str = list->add_blobs();
+  if (ptr_str == nullptr) {
+    printf("%s() error, line %d: cant allocate blobs\n", __func__, __LINE__);
+    ret= false;
+    goto done;
+  }
+  *ptr_str = signing_asn1_cert_str;
+
+done:
+  if (r1 != nullptr) {
+    RSA_free(r1);
+    r1 = nullptr;
+  }
+  if (r2 != nullptr) {
+    RSA_free(r2);
+    r2 = nullptr;
+  }
+  if (root_cert != nullptr) {
+    X509_free(root_cert);
+    root_cert = nullptr;
+  }
+  if (signing_cert != nullptr) {
+    X509_free(signing_cert);
+    signing_cert = nullptr;
+  }
+  return ret;
+}
+
 bool test_basic() {
   principal_list pl;
   resource_list rl;
@@ -1271,130 +1426,37 @@ bool test_artifact(bool print_all) {
 
 bool test_signed_nonce() {
   bool ret = true;
+
+  string root_issuer_name("johns-root");
+  string root_issuer_org("datica");
+  string signing_subject_name("johns-signing-key");
+  string signing_subject_org("datica");
+
   buffer_list list;
   string nonce;
   string signed_nonce;
 
   // make up keys and certs
-  key_message rkm;
-  key_message skm;
-  key_message public_rkm;
-  key_message public_skm;
+  key_message root_key;
+  key_message signing_key ;
   const char* alg= Enc_method_rsa_2048_sha256_pkcs_sign;
-
-  RSA* r1 = nullptr;
+  EVP_PKEY* pkey = nullptr;
   RSA* r2 = nullptr;
+
   int size_nonce = 32;
   byte buf[size_nonce];
+  int size_sig = 512;
+  byte sig[size_sig];
   int k = 0;
-  X509* root_cert = nullptr;
-  X509* signing_cert = nullptr;
+  string dig_alg;
 
-  string root_issuer_name_str("johns-root");
-  string root_issuer_organization_str("datica");
-  uint64_t sn = 1;
-  string root_asn1_cert_str;
-  string signing_asn1_cert_str;
-  string signing_subject_name_str("johns-signing-key");;
-  string signing_subject_organization_str("datica");
+  if (!make_keys_and_certs(root_issuer_name, root_issuer_org,
+                         signing_subject_name, signing_subject_org,
+                         &root_key, &signing_key, &list)) {
+    printf("%s() error, line %d: cant make keys and certs\n", __func__, __LINE__);
+    ret= false;
+    goto done;
 
-  uint64_t duration = 86400 * 366;
-  int sig_size= 256;
-  byte sig[sig_size];
-
-  r1 = RSA_new();
-  if (r1 == nullptr) {
-    printf("%s() error, line: %d, cannt RSA_new \n", __func__, __LINE__);
-    ret= false;
-    goto done;
-  }
-  if (!generate_new_rsa_key(2048, r1)) {
-    printf("%s() error, line: %d, generate_new_rsa_key failed\n",
-           __func__, __LINE__);
-    return false;
-  }
-  if (!RSA_to_key(r1, &rkm)) {
-    printf("%s() error, line: %d, RSA_to_key failed\n", __func__, __LINE__);
-    ret= false;
-    goto done;
-  }
-  rkm.set_key_name("identity-root");
-  if (FLAGS_print_all) {
-    printf("root key:\n");
-    print_key_message((const key_message &)rkm);
-  }
-  if (!private_key_to_public_key(rkm, &public_rkm)) {
-    printf("%s() error, line: %d, private_to_public failed\n", __func__, __LINE__);
-    ret= false;
-    goto done;
-  }
-
-  r2 = RSA_new();
-  if (r2 == nullptr) {
-    printf("%s() error, line: %d, cannt RSA_new \n", __func__, __LINE__);
-    ret= false;
-    goto done;
-  }
-  if (!generate_new_rsa_key(2048, r2)) {
-    printf("%s() error, line: %d, generate_new_rsa_key failed\n",
-           __func__, __LINE__);
-    ret= false;
-    goto done;
-  }
-  if (!RSA_to_key(r2, &skm)) {
-    printf("%s() error, line: %d, RSA_to_key failed\n", __func__, __LINE__);
-    ret= false;
-    goto done;
-  }
-  skm.set_key_name("johns_signing-key");
-  if (FLAGS_print_all) {
-    printf("signing key:\n");
-    print_key_message((const key_message &)skm);
-  }
-  if (!private_key_to_public_key(skm, &public_skm)) {
-    printf("%s() error, line: %d, private_to_public failed\n", __func__, __LINE__);
-    ret= false;
-    goto done;
-  }
-
-  // root cert
-  root_cert = X509_new();
-  if (!produce_artifact(rkm, root_issuer_name_str, root_issuer_organization_str,
-                        public_rkm, root_issuer_name_str, root_issuer_organization_str,
-                        sn, duration, root_cert, true)) {
-    printf("%s() error, line %d: cant generate root cert\n", __func__, __LINE__);
-    ret= false;
-    goto done;
-  }
-  sn++;
-  if (!x509_to_asn1(root_cert, &root_asn1_cert_str)) {
-    printf("%s() error, line %d: cant asn1 translate root cert\n", __func__, __LINE__);
-    ret= false;
-    goto done;
-  }
-
-  // signing cert
-  signing_cert = X509_new();
-  if (!produce_artifact(rkm, root_issuer_name_str, root_issuer_organization_str,
-                        public_skm, signing_subject_name_str, signing_subject_organization_str,
-                        sn, duration, signing_cert, false)) {
-    printf("%s() error, line %d: cant generate signing cert\n", __func__, __LINE__);
-    ret= false;
-    goto done;
-  }
-  if (!x509_to_asn1(signing_cert, &signing_asn1_cert_str)) {
-    printf("%s() error, line %d: cant asn1 translate signing cert\n", __func__, __LINE__);
-    ret= false;
-    goto done;
-  }
-
-  if (FLAGS_print_all) {
-    printf("root cert:\n");
-    X509_print_fp(stdout, root_cert);
-    printf("\n");
-    printf("signing cert:\n");
-    X509_print_fp(stdout, signing_cert);
-    printf("\n");
   }
 
   // construct nonce
@@ -1406,7 +1468,6 @@ bool test_signed_nonce() {
   }
   nonce.assign((char*)buf, k);
 
-  const char* dig_alg;
   if (strcmp(alg, Enc_method_rsa_2048_sha256_pkcs_sign) == 0) {
     dig_alg = Digest_method_sha_256;
   } else if (strcmp(alg, Enc_method_rsa_1024_sha256_pkcs_sign) == 0) {
@@ -1419,36 +1480,37 @@ bool test_signed_nonce() {
     goto done;
   }
 
+  pkey = pkey_from_key(signing_key);
+  r2 = EVP_PKEY_get1_RSA(pkey);
+  if (pkey == nullptr) {
+    printf("%s() error, line %d: Can't get pkey\n", __func__, __LINE__);
+    ret= false;
+    goto done;
+  }
+  if (r2 == nullptr) {
+    printf("%s() error, line %d: Can't get rsa key\n", __func__, __LINE__);
+    ret= false;
+    goto done;
+  }
+
   // sign nonce
-  if (!rsa_sign(dig_alg, r2, nonce.size(), (byte*)nonce.data(), &sig_size, sig)) {
+  if (!rsa_sign(dig_alg.c_str(), r2, nonce.size(), (byte*)nonce.data(), &size_sig, sig)) {
     printf("%s() error, line %d: sign failed\n", __func__, __LINE__);
     ret= false;
     goto done;
   }
 
   // verify it
-  if (!rsa_verify(dig_alg, r2, nonce.size(), (byte*)nonce.data(), sig_size, sig)) {
+  if (!rsa_verify(dig_alg.c_str(), r2, nonce.size(), (byte*)nonce.data(), size_sig, sig)) {
     printf("%s() error, line %d: verify failed\n", __func__, __LINE__);
     ret= false;
     goto done;
   }
 
 done:
-  if (r1 != nullptr) {
-    RSA_free(r1);
-    r1 = nullptr;
-  }
-  if (r2 != nullptr) {
-    RSA_free(r2);
-    r2 = nullptr;
-  }
-  if (root_cert != nullptr) {
-    X509_free(root_cert);
-    root_cert = nullptr;
-  }
-  if (signing_cert != nullptr) {
-    X509_free(signing_cert);
-    signing_cert = nullptr;
+  if (pkey != nullptr) {
+    EVP_PKEY_free(pkey);
+    pkey= nullptr;
   }
   return ret;
 }

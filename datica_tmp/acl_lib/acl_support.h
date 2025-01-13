@@ -31,6 +31,11 @@
 #include <openssl/x509.h>
 #include <openssl/x509v3.h>
 
+#include "stdio.h"
+#include <unistd.h>
+#include "sys/fcntl.h"
+#include "sys/stat.h"
+
 // These first definition are copied from certifier.  When linked
 // into a certifier applications, we should use those.
 
