@@ -40,12 +40,12 @@ bool acl_client_dispatch::rpc_authenticate_me(const string& principal_name,
   string encode_parameters_str;
   rpc_call input_call_struct;
   rpc_call output_call_struct;
-  const int size_buffer = 1024;
-  byte buf[size_buffer];
-  int bytes_read= 0;
+  int bytes_read = 0;
 
   // format input buffer, serialize it
   input_call_struct.set_function_name(authenticate_me_tag);
+  string* in = input_call_struct.add_str_inputs();
+  *in = principal_name;
 
   if (!input_call_struct.SerializeToString(&encode_parameters_str)) {
     printf("%s() error, line %d: Can't input\n",
@@ -59,14 +59,14 @@ bool acl_client_dispatch::rpc_authenticate_me(const string& principal_name,
     return false;
   }
 
-  bytes_read= read(channel_descriptor_, buf, size_buffer);
+  // To be replaced by int sized_socket_read(int fd, string *out);
+  bytes_read= sized_pipe_read(channel_descriptor_, &decode_parameters_str);
   if (bytes_read < 0) {
     printf("%s() error, line %d: Can't read from channel\n",
            __func__, __LINE__);
     return false;
   }
 
-  decode_parameters_str.assign((char*)buf, bytes_read);
   if (!output_call_struct.ParseFromString(decode_parameters_str)) {
     printf("%s() error, line %d: Can't parse return buffer\n",
            __func__, __LINE__);
@@ -81,39 +81,280 @@ bool acl_client_dispatch::rpc_authenticate_me(const string& principal_name,
   if (!ret) {
     return false;
   }
-  if (output_call_struct.str_outputs_size() < 1) {
+  if (output_call_struct.buf_outputs_size() < 1) {
     printf("%s() error, line %d: missing return argument\n",
            __func__, __LINE__);
     return false;
   }
-  const string& out_nonce = output_call_struct.str_outputs(0);
+  const string& out_nonce = output_call_struct.buf_outputs(0);
   output->assign(out_nonce.data(), out_nonce.size());
   return true;
 }
 
 bool acl_client_dispatch::rpc_verify_me(const string& principal_name,
                                         const string& signed_nonce) {
-  return false;
+  string decode_parameters_str;
+  string encode_parameters_str;
+  rpc_call input_call_struct;
+  rpc_call output_call_struct;
+  int bytes_read= 0;
+
+  // format input buffer, serialize it
+  input_call_struct.set_function_name(verify_me_tag);
+  string* in = input_call_struct.add_buf_inputs();
+  *in = signed_nonce;
+
+  if (!input_call_struct.SerializeToString(&encode_parameters_str)) {
+    printf("%s() error, line %d: Can't input\n",
+           __func__, __LINE__);
+    return false;
+  }
+
+  // The following to be replaced by sized_ssl_write(SSL *ssl, int size, byte *buf);
+  if (write(channel_descriptor_, (byte*)encode_parameters_str.data(),
+                                 encode_parameters_str.size()) < 0) {
+    printf("%s() error, line %d: Can't write to channel\n",
+           __func__, __LINE__);
+    return false;
+  }
+
+  // the following to be replaced by sized_ssl_read(SSL *ssl, string *out);
+  bytes_read = sized_pipe_read(channel_descriptor_, &decode_parameters_str);
+  if (bytes_read < 0) {
+    printf("%s() error, line %d: Can't read from channel\n",
+           __func__, __LINE__);
+    return false;
+  }
+
+  if (!output_call_struct.ParseFromString(decode_parameters_str)) {
+    printf("%s() error, line %d: Can't parse return buffer\n",
+           __func__, __LINE__);
+    return false;
+  } 
+  if (output_call_struct.function_name() != verify_me_tag) {
+    printf("%s() error, line %d: wrong function name tag\n",
+           __func__, __LINE__);
+    return false;
+  }
+  bool ret = output_call_struct.status();
+  if (!ret) {
+    return false;
+  }
+  return true;
 }
 
 bool acl_client_dispatch::rpc_open_resource(const string& resource_name,
                                             const string& access_right) {
-  return false;
+  string decode_parameters_str;
+  string encode_parameters_str;
+  rpc_call input_call_struct;
+  rpc_call output_call_struct;
+  int bytes_read= 0;
+
+  // format input buffer, serialize it
+  input_call_struct.set_function_name(open_resource_tag);
+  string* pr_name = input_call_struct.add_str_inputs();
+  *pr_name = resource_name;
+  string* pr_access = input_call_struct.add_str_inputs();
+  *pr_access = access_right;
+
+  if (!input_call_struct.SerializeToString(&encode_parameters_str)) {
+    printf("%s() error, line %d: Can't input\n",
+           __func__, __LINE__);
+    return false;
+  }
+
+  // The following to be replaced by sized_ssl_write(SSL *ssl, int size, byte *buf);
+  if (write(channel_descriptor_, (byte*)encode_parameters_str.data(),
+                                 encode_parameters_str.size()) < 0) {
+    printf("%s() error, line %d: Can't write to channel\n",
+           __func__, __LINE__);
+    return false;
+  }
+
+  // the following to be replaced by sized_ssl_read(SSL *ssl, string *out);
+  bytes_read = sized_pipe_read(channel_descriptor_, &decode_parameters_str);
+  if (bytes_read < 0) {
+    printf("%s() error, line %d: Can't read from channel\n",
+           __func__, __LINE__);
+    return false;
+  }
+
+  if (!output_call_struct.ParseFromString(decode_parameters_str)) {
+    printf("%s() error, line %d: Can't parse return buffer\n",
+           __func__, __LINE__);
+    return false;
+  } 
+  if (output_call_struct.function_name() != open_resource_tag) {
+    printf("%s() error, line %d: wrong function name tag\n",
+           __func__, __LINE__);
+    return false;
+  }
+  bool ret = output_call_struct.status();
+  if (!ret) {
+    return false;
+  }
+  return true;
 }
 
 bool acl_client_dispatch::rpc_read_resource(const string& resource_name,
                                             int num_bytes,
-                                            string* bytes_read) {
-  return false;
+                                            string* bytes_output) {
+  string decode_parameters_str;
+  string encode_parameters_str;
+  rpc_call input_call_struct;
+  rpc_call output_call_struct;
+  int bytes_read_ret = 0;
+
+  // format input buffer, serialize it
+  input_call_struct.set_function_name(read_resource_tag);
+  input_call_struct.add_int_inputs((::int32_t)num_bytes);
+
+  if (!input_call_struct.SerializeToString(&encode_parameters_str)) {
+    printf("%s() error, line %d: Can't input\n",
+           __func__, __LINE__);
+    return false;
+  }
+
+  // The following to be replaced by sized_ssl_write(SSL *ssl, int size, byte *buf);
+  if (write(channel_descriptor_, (byte*)encode_parameters_str.data(),
+                                 encode_parameters_str.size()) < 0) {
+    printf("%s() error, line %d: Can't write to channel\n",
+           __func__, __LINE__);
+    return false;
+  }
+
+  // the following to be replaced by sized_ssl_read(SSL *ssl, string *out);
+  bytes_read_ret  = sized_pipe_read(channel_descriptor_, &decode_parameters_str);
+  if (bytes_read_ret  < 0) {
+    printf("%s() error, line %d: Can't read from channel\n",
+           __func__, __LINE__);
+    return false;
+  }
+
+  if (!output_call_struct.ParseFromString(decode_parameters_str)) {
+    printf("%s() error, line %d: Can't parse return buffer\n",
+           __func__, __LINE__);
+    return false;
+  } 
+  if (output_call_struct.function_name() != read_resource_tag) {
+    printf("%s() error, line %d: wrong function name tag\n",
+           __func__, __LINE__);
+    return false;
+  }
+  bool ret = output_call_struct.status();
+  if (!ret) {
+    return false;
+  }
+  if (output_call_struct.buf_outputs_size() < 1) {
+    return false;
+  }
+  *bytes_output= output_call_struct.buf_outputs(0);
+  return true;
 }
 
 bool acl_client_dispatch::rpc_write_resource(const string& resource_name,
                                              const string& bytes_to_write) {
-  return false;
+
+  string decode_parameters_str;
+  string encode_parameters_str;
+  rpc_call input_call_struct;
+  rpc_call output_call_struct;
+  int bytes_read= 0;
+
+  // format input buffer, serialize it
+  input_call_struct.set_function_name(write_resource_tag);
+  string* buf_to_write = input_call_struct.add_buf_inputs();
+  *buf_to_write = bytes_to_write;
+
+  if (!input_call_struct.SerializeToString(&encode_parameters_str)) {
+    printf("%s() error, line %d: Can't input\n",
+           __func__, __LINE__);
+    return false;
+  }
+
+  // The following to be replaced by sized_ssl_write(SSL *ssl, int size, byte *buf);
+  if (write(channel_descriptor_, (byte*)encode_parameters_str.data(),
+                                 encode_parameters_str.size()) < 0) {
+    printf("%s() error, line %d: Can't write to channel\n",
+           __func__, __LINE__);
+    return false;
+  }
+
+  // the following to be replaced by sized_ssl_read(SSL *ssl, string *out);
+  bytes_read = sized_pipe_read(channel_descriptor_, &decode_parameters_str);
+  if (bytes_read < 0) {
+    printf("%s() error, line %d: Can't read from channel\n",
+           __func__, __LINE__);
+    return false;
+  }
+
+  if (!output_call_struct.ParseFromString(decode_parameters_str)) {
+    printf("%s() error, line %d: Can't parse return buffer\n",
+           __func__, __LINE__);
+    return false;
+  } 
+  if (output_call_struct.function_name() != write_resource_tag) {
+    printf("%s() error, line %d: wrong function name tag\n",
+           __func__, __LINE__);
+    return false;
+  }
+  bool ret = output_call_struct.status();
+  if (!ret) {
+    return false;
+  }
+  return true;
 }
 
 bool acl_client_dispatch::rpc_close_resource(const string& resource_name) {
-  return false;
+  string decode_parameters_str;
+  string encode_parameters_str;
+  rpc_call input_call_struct;
+  rpc_call output_call_struct;
+  int bytes_read= 0;
+
+  // format input buffer, serialize it
+  input_call_struct.set_function_name(close_resource_tag);
+  string* in = input_call_struct.add_buf_inputs();
+  *in = resource_name;
+
+  if (!input_call_struct.SerializeToString(&encode_parameters_str)) {
+    printf("%s() error, line %d: Can't input\n",
+           __func__, __LINE__);
+    return false;
+  }
+
+  // The following to be replaced by sized_ssl_write(SSL *ssl, int size, byte *buf);
+  if (write(channel_descriptor_, (byte*)encode_parameters_str.data(),
+                                 encode_parameters_str.size()) < 0) {
+    printf("%s() error, line %d: Can't write to channel\n",
+           __func__, __LINE__);
+    return false;
+  }
+
+  // the following to be replaced by sized_ssl_read(SSL *ssl, string *out);
+  bytes_read = sized_pipe_read(channel_descriptor_, &decode_parameters_str);
+  if (bytes_read < 0) {
+    printf("%s() error, line %d: Can't read from channel\n",
+           __func__, __LINE__);
+    return false;
+  }
+
+  if (!output_call_struct.ParseFromString(decode_parameters_str)) {
+    printf("%s() error, line %d: Can't parse return buffer\n",
+           __func__, __LINE__);
+    return false;
+  } 
+  if (output_call_struct.function_name() != close_resource_tag) {
+    printf("%s() error, line %d: wrong function name tag\n",
+           __func__, __LINE__);
+    return false;
+  }
+  bool ret = output_call_struct.status();
+  if (!ret) {
+    return false;
+  }
+  return true;
 }
 
 bool acl_client_dispatch::rpc_add_access_right(const string& resource_name,
@@ -150,13 +391,11 @@ bool acl_server_dispatch::load_resources(resource_list& rl) {
 
 bool acl_server_dispatch::service_request() {
 
-  const int size_buffer = 1024;
-  byte buf[size_buffer];
-  int bytes_read= 0;
   string decode_parameters_str;
   string encode_parameters_str;
   rpc_call input_call_struct;
   rpc_call output_call_struct;
+  int bytes_read= 0;
 
   if (!initialized_) {
     printf("%s() error, line %d: acl_server_dispatch not initialized\n",
@@ -165,11 +404,12 @@ bool acl_server_dispatch::service_request() {
   }
 
   // read the buffer
-  bytes_read = read(channel_descriptor_, buf, size_buffer);
-  if (bytes_read <= 0)
+  // Following line to be replaced by int sized_ssl_read(SSL *ssl, string *out);
+  bytes_read = sized_pipe_read(channel_descriptor_, &decode_parameters_str);
+  if (bytes_read < 0) {
     return false;
-  
-  decode_parameters_str.assign((char*) buf, bytes_read);
+  }
+
   if (!input_call_struct.ParseFromString(decode_parameters_str)) {
     printf("%s() error, line %d: Can't parse call proto %d\n",
            __func__, __LINE__, (int)decode_parameters_str.size());
@@ -177,7 +417,6 @@ bool acl_server_dispatch::service_request() {
   }
 
   if(input_call_struct.function_name() == authenticate_me_tag) {
-    // fetch principal information from principal table
     if (input_call_struct.str_inputs_size() < 1) {
       return false;
     }
@@ -195,6 +434,8 @@ bool acl_server_dispatch::service_request() {
            __func__, __LINE__);
       return false;  // and the caller never knows
     }
+
+    // The following to be replaced by sized_ssl_write(SSL *ssl, int size, byte *buf);
     if (write(channel_descriptor_, (byte*)encode_parameters_str.data(),
               encode_parameters_str.size()) < 0) {
         printf("%s() error, line %d: channel write failed\n",
@@ -203,10 +444,147 @@ bool acl_server_dispatch::service_request() {
        }
     return true;
   } else if(input_call_struct.function_name() == verify_me_tag) {
+    if (input_call_struct.str_inputs_size() < 1) {
+      return false;
+    }
+    if (input_call_struct.buf_inputs_size() < 1) {
+      return false;
+    }
+    if (guard_.verify_me(input_call_struct.str_inputs(0),
+                         input_call_struct.buf_inputs(0))) {
+        output_call_struct.set_status(true);
+    } else {
+        output_call_struct.set_status(false);
+    }
+    output_call_struct.set_function_name(verify_me_tag);
+    if (!output_call_struct.SerializeToString(&encode_parameters_str)) {
+      printf("%s() error, line %d: can't encode parameters\n",
+           __func__, __LINE__);
+      return false;  // and the caller never knows
+    }
+
+    // The following to be replaced by sized_ssl_write(SSL *ssl, int size, byte *buf);
+    if (write(channel_descriptor_, (byte*)encode_parameters_str.data(),
+              encode_parameters_str.size()) < 0) {
+        printf("%s() error, line %d: channel write failed\n",
+           __func__, __LINE__);
+        return false;
+       }
+    return true;
+
   } else if(input_call_struct.function_name() == open_resource_tag) {
+    if (input_call_struct.str_inputs_size() < 2) {
+      return false;
+    }
+    if (guard_.open_resource(input_call_struct.str_inputs(0),
+                             input_call_struct.str_inputs(1))) {
+        output_call_struct.set_status(true);
+    } else {
+        output_call_struct.set_status(false);
+    }
+    output_call_struct.set_function_name(open_resource_tag);
+    if (!output_call_struct.SerializeToString(&encode_parameters_str)) {
+      printf("%s() error, line %d: can't encode parameters\n",
+           __func__, __LINE__);
+      return false;  // and the caller never knows
+    }
+
+    // The following to be replaced by sized_ssl_write(SSL *ssl, int size, byte *buf);
+    if (write(channel_descriptor_, (byte*)encode_parameters_str.data(),
+              encode_parameters_str.size()) < 0) {
+        printf("%s() error, line %d: channel write failed\n",
+           __func__, __LINE__);
+        return false;
+       }
+    return true;
   } else if(input_call_struct.function_name() == close_resource_tag) {
+    if (input_call_struct.str_inputs_size() < 1) {
+      return false;
+    }
+    if (guard_.close_resource(input_call_struct.str_inputs(0))) {
+        output_call_struct.set_status(true);
+    } else {
+        output_call_struct.set_status(false);
+    }
+    output_call_struct.set_function_name(close_resource_tag);
+    if (!output_call_struct.SerializeToString(&encode_parameters_str)) {
+      printf("%s() error, line %d: can't encode parameters\n",
+           __func__, __LINE__);
+      return false;  // and the caller never knows
+    }
+
+    // The following to be replaced by sized_ssl_write(SSL *ssl, int size, byte *buf);
+    if (write(channel_descriptor_, (byte*)encode_parameters_str.data(),
+              encode_parameters_str.size()) < 0) {
+        printf("%s() error, line %d: channel write failed\n",
+           __func__, __LINE__);
+        return false;
+       }
+    return true;
   } else if(input_call_struct.function_name() == read_resource_tag) {
+    if (input_call_struct.str_inputs_size() < 1) {
+      return false;
+    }
+    if (input_call_struct.int_inputs_size() < 1) {
+      return false;
+    }
+    string out;
+    if (guard_.read_resource(input_call_struct.str_inputs(0),
+                             input_call_struct.int_inputs(0),
+                             &out)) {
+        output_call_struct.set_status(true);
+        string* ret_out = output_call_struct.add_str_outputs();
+        ret_out->assign(out.data(), out.size());
+    } else {
+        output_call_struct.set_status(false);
+    }
+    output_call_struct.set_function_name(read_resource_tag);
+    if (!output_call_struct.SerializeToString(&encode_parameters_str)) {
+      printf("%s() error, line %d: can't encode parameters\n",
+           __func__, __LINE__);
+      return false;  // and the caller never knows
+    }
+
+    // The following to be replaced by sized_ssl_write(SSL *ssl, int size, byte *buf);
+    if (write(channel_descriptor_, (byte*)encode_parameters_str.data(),
+              encode_parameters_str.size()) < 0) {
+        printf("%s() error, line %d: channel write failed\n",
+           __func__, __LINE__);
+        return false;
+       }
+    return true;
   } else if(input_call_struct.function_name() == write_resource_tag) {
+    if (input_call_struct.str_inputs_size() < 1) {
+      return false;
+    }
+    if (input_call_struct.int_inputs_size() < 1) {
+      return false;
+    }
+    if (input_call_struct.buf_inputs_size() < 1) {
+      return false;
+    }
+    if (guard_.write_resource(input_call_struct.str_inputs(0), 
+                              input_call_struct.int_inputs(0),
+                              (string&)input_call_struct.buf_inputs(0))) {
+        output_call_struct.set_status(true);
+    } else {
+        output_call_struct.set_status(false);
+    }
+    output_call_struct.set_function_name(write_resource_tag);
+    if (!output_call_struct.SerializeToString(&encode_parameters_str)) {
+      printf("%s() error, line %d: can't encode parameters\n",
+           __func__, __LINE__);
+      return false;  // and the caller never knows
+    }
+
+    // The following to be replaced by sized_ssl_write(SSL *ssl, int size, byte *buf);
+    if (write(channel_descriptor_, (byte*)encode_parameters_str.data(),
+              encode_parameters_str.size()) < 0) {
+        printf("%s() error, line %d: channel write failed\n",
+           __func__, __LINE__);
+        return false;
+       }
+    return true;
   } else if(input_call_struct.function_name() == add_access_right_tag) {
   } else {
     printf("%s() error, line %d: unknown function\n",
