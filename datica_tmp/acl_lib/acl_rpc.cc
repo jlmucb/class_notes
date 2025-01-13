@@ -44,7 +44,7 @@ string write_resource_tag("write_resource");
 string add_access_right_tag("add_access_right");
 
 
-acl_client_dispatch::acl_client_dispatch(int channel) {
+acl_client_dispatch::acl_client_dispatch(SSL* channel) {
   channel_descriptor_ = channel;
   initialized_ = true;
 }
@@ -71,20 +71,33 @@ bool acl_client_dispatch::rpc_authenticate_me(const string& principal_name,
            __func__, __LINE__);
     return false;
   }
-  if (write(channel_descriptor_, (byte*)encode_parameters_str.data(),
-                                 encode_parameters_str.size()) < 0) {
+#ifndef TEST_SIMULATED_CHANNEL
+  if (sized_ssl_write(channel_descriptor_, encode_parameters_str.size(),
+                      (byte*)encode_parameters_str.data()) < 0) {
     printf("%s() error, line %d: Can't write to channel\n",
            __func__, __LINE__);
     return false;
   }
+#else
+  if (simulated_buf_write(encode_parameters_str.size(), (byte*)encode_parameters_str.data()) < 0) {
+    printf("%s() error, line %d: Can't write\n", __func__, __LINE__);
+    return false;
+  }
+#endif
 
-  // To be replaced by int sized_socket_read(int fd, string *out);
-  bytes_read= sized_pipe_read(channel_descriptor_, &decode_parameters_str);
+#ifndef TEST_SIMULATED_CHANNEL
+  bytes_read= sized_ssl_read(channel_descriptor_, &decode_parameters_str);
   if (bytes_read < 0) {
     printf("%s() error, line %d: Can't read from channel\n",
            __func__, __LINE__);
     return false;
   }
+#else
+  if (simulated_sized_buf_read(&encode_parameters) < 0) {
+    printf("%s() error, line %d: Can't read from channel\n", __func__, __LINE__);
+    return false;
+  }
+#endif
 
   if (!output_call_struct.ParseFromString(decode_parameters_str)) {
     printf("%s() error, line %d: Can't parse return buffer\n",
@@ -124,26 +137,37 @@ bool acl_client_dispatch::rpc_verify_me(const string& principal_name,
   *in = signed_nonce;
 
   if (!input_call_struct.SerializeToString(&encode_parameters_str)) {
-    printf("%s() error, line %d: Can't input\n",
-           __func__, __LINE__);
+    printf("%s() error, line %d: Can't input\n", __func__, __LINE__);
     return false;
   }
 
-  // The following to be replaced by sized_ssl_write(SSL *ssl, int size, byte *buf);
-  if (write(channel_descriptor_, (byte*)encode_parameters_str.data(),
-                                 encode_parameters_str.size()) < 0) {
+#ifndef TEST_SIMULATED_CHANNEL
+  if (sized_ssl_write(channel_descriptor_, encode_parameters_str.size(),
+                      (byte*)encode_parameters_str.data()) < 0) {
     printf("%s() error, line %d: Can't write to channel\n",
            __func__, __LINE__);
     return false;
   }
+#else
+  if (simulated_buf_write(encode_parameters_str.size(), (byte*)encode_parameters_str.data()) < 0) {
+    printf("%s() error, line %d: Can't write\n", __func__, __LINE__);
+    return false;
+  }
+#endif
 
-  // the following to be replaced by sized_ssl_read(SSL *ssl, string *out);
-  bytes_read = sized_pipe_read(channel_descriptor_, &decode_parameters_str);
+#ifndef TEST_SIMULATED_CHANNEL
+  bytes_read = sized_ssl_read(channel_descriptor_, &decode_parameters_str);
   if (bytes_read < 0) {
     printf("%s() error, line %d: Can't read from channel\n",
            __func__, __LINE__);
     return false;
   }
+#else
+  if (simulated_sized_buf_read(&decode_parameters) < 0) {
+    printf("%s() error, line %d: Can't read from channel\n", __func__, __LINE__);
+    return false;
+  }
+#endif
 
   if (!output_call_struct.ParseFromString(decode_parameters_str)) {
     printf("%s() error, line %d: Can't parse return buffer\n",
@@ -183,21 +207,33 @@ bool acl_client_dispatch::rpc_open_resource(const string& resource_name,
     return false;
   }
 
-  // The following to be replaced by sized_ssl_write(SSL *ssl, int size, byte *buf);
-  if (write(channel_descriptor_, (byte*)encode_parameters_str.data(),
-                                 encode_parameters_str.size()) < 0) {
+#ifndef TEST_SIMULATED_CHANNEL
+  if (sized_ssl_write(channel_descriptor_, encode_parameters_str.size(),
+                      (byte*)encode_parameters_str.data()) < 0) {
     printf("%s() error, line %d: Can't write to channel\n",
            __func__, __LINE__);
     return false;
   }
+#else
+  if (simulated_buf_write(encode_parameters_str.size(), (byte*)encode_parameters_str.data()) < 0) {
+    printf("%s() error, line %d: Can't write\n", __func__, __LINE__);
+    return false;
+  }
+#endif
 
-  // the following to be replaced by sized_ssl_read(SSL *ssl, string *out);
-  bytes_read = sized_pipe_read(channel_descriptor_, &decode_parameters_str);
+#ifndef TEST_SIMULATED_CHANNEL
+  bytes_read = sized_ssl_read(channel_descriptor_, &decode_parameters_str);
   if (bytes_read < 0) {
     printf("%s() error, line %d: Can't read from channel\n",
            __func__, __LINE__);
     return false;
   }
+#else
+  if (simulated_sized_buf_read(&decode_parameters) < 0) {
+    printf("%s() error, line %d: Can't read from channel\n", __func__, __LINE__);
+    return false;
+  }
+#endif
 
   if (!output_call_struct.ParseFromString(decode_parameters_str)) {
     printf("%s() error, line %d: Can't parse return buffer\n",
@@ -235,21 +271,35 @@ bool acl_client_dispatch::rpc_read_resource(const string& resource_name,
     return false;
   }
 
-  // The following to be replaced by sized_ssl_write(SSL *ssl, int size, byte *buf);
-  if (write(channel_descriptor_, (byte*)encode_parameters_str.data(),
-                                 encode_parameters_str.size()) < 0) {
+
+#ifndef TEST_SIMULATED_CHANNEL
+  if (sized_ssl_write(channel_descriptor_, encode_parameters_str.size(),
+                      (byte*)encode_parameters_str.data()) < 0) {
     printf("%s() error, line %d: Can't write to channel\n",
            __func__, __LINE__);
     return false;
   }
+#else
+  if (simulated_buf_write(encode_parameters_str.size(), (byte*)encode_parameters_str.data()) < 0) {
+    printf("%s() error, line %d: Can't write\n", __func__, __LINE__);
+    return false;
+  }
+#endif
 
   // the following to be replaced by sized_ssl_read(SSL *ssl, string *out);
-  bytes_read_ret  = sized_pipe_read(channel_descriptor_, &decode_parameters_str);
+#ifndef TEST_SIMULATED_CHANNEL
+  bytes_read_ret  = sized_ssl_read(channel_descriptor_, &decode_parameters_str);
   if (bytes_read_ret  < 0) {
     printf("%s() error, line %d: Can't read from channel\n",
            __func__, __LINE__);
     return false;
   }
+#else
+  if (simulated_sized_buf_read(&decode_parameters) < 0) {
+    printf("%s() error, line %d: Can't read from channel\n", __func__, __LINE__);
+    return false;
+  }
+#endif
 
   if (!output_call_struct.ParseFromString(decode_parameters_str)) {
     printf("%s() error, line %d: Can't parse return buffer\n",
@@ -292,21 +342,34 @@ bool acl_client_dispatch::rpc_write_resource(const string& resource_name,
     return false;
   }
 
-  // The following to be replaced by sized_ssl_write(SSL *ssl, int size, byte *buf);
-  if (write(channel_descriptor_, (byte*)encode_parameters_str.data(),
-                                 encode_parameters_str.size()) < 0) {
+
+#ifndef TEST_SIMULATED_CHANNEL
+  if (sized_ssl_write(channel_descriptor_, encode_parameters_str.size(),
+                      (byte*)encode_parameters_str.data()) < 0) {
     printf("%s() error, line %d: Can't write to channel\n",
            __func__, __LINE__);
     return false;
   }
+#else
+  if (simulated_buf_write(encode_parameters_str.size(), (byte*)encode_parameters_str.data()) < 0) {
+    printf("%s() error, line %d: Can't write\n", __func__, __LINE__);
+    return false;
+  }
+#endif
 
-  // the following to be replaced by sized_ssl_read(SSL *ssl, string *out);
-  bytes_read = sized_pipe_read(channel_descriptor_, &decode_parameters_str);
+#ifndef TEST_SIMULATED_CHANNEL
+  bytes_read = sized_ssl_read(channel_descriptor_, &decode_parameters_str);
   if (bytes_read < 0) {
     printf("%s() error, line %d: Can't read from channel\n",
            __func__, __LINE__);
     return false;
   }
+#else
+  if (simulated_sized_buf_read(&decode_parameters) < 0) {
+    printf("%s() error, line %d: Can't read from channel\n", __func__, __LINE__);
+    return false;
+  }
+#endif
 
   if (!output_call_struct.ParseFromString(decode_parameters_str)) {
     printf("%s() error, line %d: Can't parse return buffer\n",
@@ -343,21 +406,33 @@ bool acl_client_dispatch::rpc_close_resource(const string& resource_name) {
     return false;
   }
 
-  // The following to be replaced by sized_ssl_write(SSL *ssl, int size, byte *buf);
-  if (write(channel_descriptor_, (byte*)encode_parameters_str.data(),
-                                 encode_parameters_str.size()) < 0) {
+#ifndef TEST_SIMULATED_CHANNEL
+  if (sized_ssl_write(channel_descriptor_, encode_parameters_str.size(),
+                      (byte*)encode_parameters_str.data()) < 0) {
     printf("%s() error, line %d: Can't write to channel\n",
            __func__, __LINE__);
     return false;
   }
+#else
+  if (simulated_buf_write(encode_parameters_str.size(), (byte*)encode_parameters_str.data()) < 0) {
+    printf("%s() error, line %d: Can't write\n", __func__, __LINE__);
+    return false;
+  }
+#endif
 
-  // the following to be replaced by sized_ssl_read(SSL *ssl, string *out);
-  bytes_read = sized_pipe_read(channel_descriptor_, &decode_parameters_str);
+#ifndef TEST_SIMULATED_CHANNEL
+  bytes_read = sized_ssl_read(channel_descriptor_, &decode_parameters_str);
   if (bytes_read < 0) {
     printf("%s() error, line %d: Can't read from channel\n",
            __func__, __LINE__);
     return false;
   }
+#else
+  if (simulated_sized_buf_read(&decode_parameters) < 0) {
+    printf("%s() error, line %d: Can't read from channel\n", __func__, __LINE__);
+    return false;
+  }
+#endif
 
   if (!output_call_struct.ParseFromString(decode_parameters_str)) {
     printf("%s() error, line %d: Can't parse return buffer\n",
@@ -383,7 +458,7 @@ bool acl_client_dispatch::rpc_add_access_right(const string& resource_name,
 }
 
 
-acl_server_dispatch::acl_server_dispatch(int channel) {
+acl_server_dispatch::acl_server_dispatch(SSL* channel) {
   channel_descriptor_ = channel;
   initialized_ = true;
 }
@@ -424,10 +499,17 @@ bool acl_server_dispatch::service_request() {
 
   // read the buffer
   // Following line to be replaced by int sized_ssl_read(SSL *ssl, string *out);
-  bytes_read = sized_pipe_read(channel_descriptor_, &decode_parameters_str);
+#ifndef TEST_SIMULATED_CHANNEL
+  bytes_read = sized_ssl_read(channel_descriptor_, &decode_parameters_str);
   if (bytes_read < 0) {
     return false;
   }
+#else
+  if (simulated_buf_write(encode_parameters_str.size(), (byte*)encode_parameters_str.data()) < 0) {
+    printf("%s() error, line %d: Can't write\n", __func__, __LINE__);
+    return false;
+  }
+#endif
 
   if (!input_call_struct.ParseFromString(decode_parameters_str)) {
     printf("%s() error, line %d: Can't parse call proto %d\n",
@@ -454,14 +536,19 @@ bool acl_server_dispatch::service_request() {
       return false;  // and the caller never knows
     }
 
-    // The following to be replaced by sized_ssl_write(SSL *ssl, int size, byte *buf);
-    if (write(channel_descriptor_, (byte*)encode_parameters_str.data(),
-              encode_parameters_str.size()) < 0) {
-        printf("%s() error, line %d: channel write failed\n",
+#ifndef TEST_SIMULATED_CHANNEL
+  if (sized_ssl_write(channel_descriptor_, encode_parameters_str.size(),
+                      (byte*)encode_parameters_str.data()) < 0) {
+    printf("%s() error, line %d: Can't write to channel\n",
            __func__, __LINE__);
-        return false;
-       }
-    return true;
+    return false;
+  }
+#else
+  if (simulated_buf_write(encode_parameters_str.size(), (byte*)encode_parameters_str.data()) < 0) {
+    printf("%s() error, line %d: Can't write\n", __func__, __LINE__);
+    return false;
+  }
+#endif
   } else if(input_call_struct.function_name() == verify_me_tag) {
     if (input_call_struct.str_inputs_size() < 1) {
       return false;
@@ -482,15 +569,21 @@ bool acl_server_dispatch::service_request() {
       return false;  // and the caller never knows
     }
 
-    // The following to be replaced by sized_ssl_write(SSL *ssl, int size, byte *buf);
-    if (write(channel_descriptor_, (byte*)encode_parameters_str.data(),
-              encode_parameters_str.size()) < 0) {
-        printf("%s() error, line %d: channel write failed\n",
-           __func__, __LINE__);
-        return false;
-       }
-    return true;
 
+#ifndef TEST_SIMULATED_CHANNEL
+  if (sized_ssl_write(channel_descriptor_, encode_parameters_str.size(),
+                      (byte*)encode_parameters_str.data()) < 0) {
+    printf("%s() error, line %d: Can't write to channel\n",
+           __func__, __LINE__);
+    return false;
+#else
+  if (simulated_buf_write(encode_parameters_str.size(), (byte*)encode_parameters_str.data()) < 0) {
+    printf("%s() error, line %d: Can't write\n", __func__, __LINE__);
+    return false;
+  }
+#endif
+    }
+    return false;
   } else if(input_call_struct.function_name() == open_resource_tag) {
     if (input_call_struct.str_inputs_size() < 2) {
       return false;
@@ -507,15 +600,19 @@ bool acl_server_dispatch::service_request() {
            __func__, __LINE__);
       return false;  // and the caller never knows
     }
-
-    // The following to be replaced by sized_ssl_write(SSL *ssl, int size, byte *buf);
-    if (write(channel_descriptor_, (byte*)encode_parameters_str.data(),
-              encode_parameters_str.size()) < 0) {
-        printf("%s() error, line %d: channel write failed\n",
+#ifndef TEST_SIMULATED_CHANNEL
+    if (sized_ssl_write(channel_descriptor_, encode_parameters_str.size(),
+                      (byte*)encode_parameters_str.data()) < 0) {
+      printf("%s() error, line %d: Can't write to channel\n",
            __func__, __LINE__);
-        return false;
-       }
-    return true;
+      return false;
+    }
+#else
+  if (simulated_buf_write(encode_parameters_str.size(), (byte*)encode_parameters_str.data()) < 0) {
+    printf("%s() error, line %d: Can't write\n", __func__, __LINE__);
+    return false;
+  }
+#endif
   } else if(input_call_struct.function_name() == close_resource_tag) {
     if (input_call_struct.str_inputs_size() < 1) {
       return false;
@@ -532,14 +629,19 @@ bool acl_server_dispatch::service_request() {
       return false;  // and the caller never knows
     }
 
-    // The following to be replaced by sized_ssl_write(SSL *ssl, int size, byte *buf);
-    if (write(channel_descriptor_, (byte*)encode_parameters_str.data(),
-              encode_parameters_str.size()) < 0) {
-        printf("%s() error, line %d: channel write failed\n",
-           __func__, __LINE__);
-        return false;
-       }
-    return true;
+#ifndef TEST_SIMULATED_CHANNEL
+    if (sized_ssl_write(channel_descriptor_, encode_parameters_str.size(),
+                        (byte*)encode_parameters_str.data()) < 0) {
+      printf("%s() error, line %d: Can't write to channel\n",
+            __func__, __LINE__);
+      return false;
+    }
+#else
+  if (simulated_buf_write(encode_parameters_str.size(), (byte*)encode_parameters_str.data()) < 0) {
+    printf("%s() error, line %d: Can't write\n", __func__, __LINE__);
+    return false;
+  }
+#endif
   } else if(input_call_struct.function_name() == read_resource_tag) {
     if (input_call_struct.str_inputs_size() < 1) {
       return false;
@@ -564,13 +666,19 @@ bool acl_server_dispatch::service_request() {
       return false;  // and the caller never knows
     }
 
-    // The following to be replaced by sized_ssl_write(SSL *ssl, int size, byte *buf);
-    if (write(channel_descriptor_, (byte*)encode_parameters_str.data(),
-              encode_parameters_str.size()) < 0) {
-        printf("%s() error, line %d: channel write failed\n",
-           __func__, __LINE__);
-        return false;
-       }
+#ifndef TEST_SIMULATED_CHANNEL
+    if (sized_ssl_write(channel_descriptor_, encode_parameters_str.size(),
+                        (byte*)encode_parameters_str.data()) < 0) {
+      printf("%s() error, line %d: Can't write to channel\n",
+            __func__, __LINE__);
+      return false;
+    }
+#else
+  if (simulated_buf_write(encode_parameters_str.size(), (byte*)encode_parameters_str.data()) < 0) {
+    printf("%s() error, line %d: Can't write\n", __func__, __LINE__);
+    return false;
+  }
+#endif
     return true;
   } else if(input_call_struct.function_name() == write_resource_tag) {
     if (input_call_struct.str_inputs_size() < 1) {
@@ -596,18 +704,23 @@ bool acl_server_dispatch::service_request() {
       return false;  // and the caller never knows
     }
 
-    // The following to be replaced by sized_ssl_write(SSL *ssl, int size, byte *buf);
-    if (write(channel_descriptor_, (byte*)encode_parameters_str.data(),
-              encode_parameters_str.size()) < 0) {
-        printf("%s() error, line %d: channel write failed\n",
-           __func__, __LINE__);
-        return false;
-       }
+#ifndef TEST_SIMULATED_CHANNEL
+    if (sized_ssl_write(channel_descriptor_, encode_parameters_str.size(),
+                        (byte*)encode_parameters_str.data()) < 0) {
+      printf("%s() error, line %d: Can't write to channel\n",
+            __func__, __LINE__);
+      return false;
+    }
+#else
+  if (simulated_buf_write(encode_parameters_str.size(), (byte*)encode_parameters_str.data()) < 0) {
+    printf("%s() error, line %d: Can't write\n", __func__, __LINE__);
+    return false;
+  }
+#endif
     return true;
   } else if(input_call_struct.function_name() == add_access_right_tag) {
   } else {
-    printf("%s() error, line %d: unknown function\n",
-           __func__, __LINE__);
+    printf("%s() error, line %d: unknown function\n", __func__, __LINE__);
     return false;
   }
 

@@ -21,10 +21,10 @@
 class acl_client_dispatch {
 private:
   bool initialized_;
-  int channel_descriptor_;
+  SSL* channel_descriptor_;
 
 public:
-  acl_client_dispatch(int channel);
+  acl_client_dispatch(SSL* channel);
   ~acl_client_dispatch();
   bool rpc_authenticate_me(const string& principal_name, string* output);
   bool rpc_verify_me(const string& principal_name, const string& signed_nonce);
@@ -39,13 +39,13 @@ public:
 class acl_server_dispatch {
 private:
   bool initialized_;
-  int channel_descriptor_;
+  SSL* channel_descriptor_;
   principal_list principal_list_;
   resource_list resource_list_;
 
 public:
   channel_guard guard_;
-  acl_server_dispatch(int channel);
+  acl_server_dispatch(SSL* channel);
   ~acl_server_dispatch();
 
   bool load_principals(principal_list& pl);
