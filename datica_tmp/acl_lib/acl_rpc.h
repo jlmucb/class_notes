@@ -42,9 +42,9 @@ private:
   int channel_descriptor_;
   principal_list principal_list_;
   resource_list resource_list_;
-  channel_guard guard_;
 
 public:
+  channel_guard guard_;
   acl_server_dispatch(int channel);
   ~acl_server_dispatch();
 

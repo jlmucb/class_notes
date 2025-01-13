@@ -1494,28 +1494,46 @@ bool test_rpc() {
 
   return true;  // for now
                 //
+  string signing_subject_name("johns-signing-key");
+  string signing_subject_org("datica");
+  string root_issuer_name("johns-root");
+  string root_issuer_org("datica");
+  buffer_list credentials;
+  key_message root_key;
+  key_message signing_key;
+  key_message public_root_key;
+  key_message public_signing_key;
+  const char* alg= Enc_method_rsa_2048_sha256_pkcs_sign;
+  EVP_PKEY* pkey = nullptr;
+  RSA* r2 = nullptr;
+
   principal_list pl;
   resource_list rl;
+
   acl_client_dispatch client(0);
   acl_server_dispatch server(0);
+
   string prin_name("john");
   string res1_name("file_1");
   string res2_name("file_2");
   string acc1("read");
   string acc2("write");
+
   string nonce;
   string signed_nonce;
-  buffer_list credentials;
-  key_message rkm;
-  key_message skm;
-  key_message public_rkm;
-  key_message public_skm;
-  const char* alg= Enc_method_rsa_2048_sha256_pkcs_sign;
+
   string bytes_read_from_file;
   string bytes_written_to_file("Hello there");
-  bool ret = true;
+    
+  int size_nonce = 32;
+  byte buf[size_nonce];
+  int size_sig = 512;
+  byte sig[size_sig];
+  int k = 0;
+  string dig_alg;
+  string asn1_cert_str;
 
-  // make keys and certs
+  bool ret = true;
 
   if (!construct_sample_principals(&pl)) {
     printf("%s() error, line %d: Cant construct principals\n",
@@ -1536,6 +1554,26 @@ bool test_rpc() {
   if (!server.load_resources(rl)) {
     printf("%s() error, line %d: Cant load resources\n",
            __func__, __LINE__);
+    return false;
+  }
+
+  // make up keys and certs
+  
+  if (!make_keys_and_certs(root_issuer_name, root_issuer_org,
+                         signing_subject_name, signing_subject_org,
+                         &root_key, &signing_key, &credentials)) {
+    printf("%s() error, line %d: cant make keys and certs\n", __func__, __LINE__);
+    return false;
+  } 
+
+  if (credentials.blobs_size() < 1) {
+    printf("%s() error, line %d: cant find root in credentials\n", __func__, __LINE__);
+    return false;
+  }
+  asn1_cert_str= credentials.blobs(0);
+
+  if (!server.guard_.init_root_cert(asn1_cert_str)) {
+    printf("%s() error, line %d: Can't init_root\n", __func__, __LINE__);
     return false;
   }
 

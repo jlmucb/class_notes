@@ -22,12 +22,17 @@ int size_buf = 0;
 byte simulated_buf[max_size_buf];
 
 int simulated_sized_buf_read(string* out) {
+  out->assign((char*)simulated_buf, size_buf);
+  return size_buf;
 }
 
 int simulated_buf_write(int n, byte* b) {
+  if (n > max_size_buf)
+    return -1;
+  memcpy(simulated_buf, b, n);
+  size_buf = n;
 }
 #endif
-
 
 // Functions supported
 string authenticate_me_tag("authenticate_me");
