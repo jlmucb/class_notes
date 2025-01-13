@@ -29,6 +29,7 @@ void print_principal_message(const principal_message& pi) {
       printf("Authentication algorithm: %s\n", pi.authentication_algorithm().c_str());
   if (pi.has_credential()) {
     printf("Credential: ");
+    print_bytes((int)pi.credential().size(), (byte*)pi.credential().data());
     printf("\n");
   }
 }

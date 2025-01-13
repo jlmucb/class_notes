@@ -15,6 +15,20 @@
 #include "acl_rpc.h"
 #include "acl.pb.h"
 
+// For testing only
+#ifdef TEST_SIMULATED_CHANNEL
+const int max_size_buf = 2048;
+int size_buf = 0;
+byte simulated_buf[max_size_buf];
+
+int simulated_sized_buf_read(string* out) {
+}
+
+int simulated_buf_write(int n, byte* b) {
+}
+#endif
+
+
 // Functions supported
 string authenticate_me_tag("authenticate_me");
 string verify_me_tag("verify_me");
