@@ -16,6 +16,7 @@
 #include "acl.pb.h"
 
 // For testing only
+#define TEST_SIMULATED_CHANNEL
 #ifdef TEST_SIMULATED_CHANNEL
 const int max_size_buf = 2048;
 int size_buf = 0;
@@ -23,7 +24,9 @@ byte simulated_buf[max_size_buf];
 
 int simulated_sized_buf_read(string* out) {
   out->assign((char*)simulated_buf, size_buf);
-  return size_buf;
+  int t = size_buf;
+  size_buf = 0;
+  return t;
 }
 
 int simulated_buf_write(int n, byte* b) {
@@ -31,6 +34,7 @@ int simulated_buf_write(int n, byte* b) {
     return -1;
   memcpy(simulated_buf, b, n);
   size_buf = n;
+  return n;
 }
 #endif
 
@@ -93,7 +97,7 @@ bool acl_client_dispatch::rpc_authenticate_me(const string& principal_name,
     return false;
   }
 #else
-  if (simulated_sized_buf_read(&encode_parameters) < 0) {
+  if (simulated_sized_buf_read(&encode_parameters_str) < 0) {
     printf("%s() error, line %d: Can't read from channel\n", __func__, __LINE__);
     return false;
   }
@@ -163,7 +167,7 @@ bool acl_client_dispatch::rpc_verify_me(const string& principal_name,
     return false;
   }
 #else
-  if (simulated_sized_buf_read(&decode_parameters) < 0) {
+  if (simulated_sized_buf_read(&decode_parameters_str) < 0) {
     printf("%s() error, line %d: Can't read from channel\n", __func__, __LINE__);
     return false;
   }
@@ -229,7 +233,7 @@ bool acl_client_dispatch::rpc_open_resource(const string& resource_name,
     return false;
   }
 #else
-  if (simulated_sized_buf_read(&decode_parameters) < 0) {
+  if (simulated_sized_buf_read(&decode_parameters_str) < 0) {
     printf("%s() error, line %d: Can't read from channel\n", __func__, __LINE__);
     return false;
   }
@@ -295,7 +299,7 @@ bool acl_client_dispatch::rpc_read_resource(const string& resource_name,
     return false;
   }
 #else
-  if (simulated_sized_buf_read(&decode_parameters) < 0) {
+  if (simulated_sized_buf_read(&decode_parameters_str) < 0) {
     printf("%s() error, line %d: Can't read from channel\n", __func__, __LINE__);
     return false;
   }
@@ -365,7 +369,7 @@ bool acl_client_dispatch::rpc_write_resource(const string& resource_name,
     return false;
   }
 #else
-  if (simulated_sized_buf_read(&decode_parameters) < 0) {
+  if (simulated_sized_buf_read(&decode_parameters_str) < 0) {
     printf("%s() error, line %d: Can't read from channel\n", __func__, __LINE__);
     return false;
   }
@@ -428,7 +432,7 @@ bool acl_client_dispatch::rpc_close_resource(const string& resource_name) {
     return false;
   }
 #else
-  if (simulated_sized_buf_read(&decode_parameters) < 0) {
+  if (simulated_sized_buf_read(&decode_parameters_str) < 0) {
     printf("%s() error, line %d: Can't read from channel\n", __func__, __LINE__);
     return false;
   }
@@ -562,6 +566,7 @@ bool acl_server_dispatch::service_request() {
     } else {
         output_call_struct.set_status(false);
     }
+
     output_call_struct.set_function_name(verify_me_tag);
     if (!output_call_struct.SerializeToString(&encode_parameters_str)) {
       printf("%s() error, line %d: can't encode parameters\n",
@@ -569,21 +574,20 @@ bool acl_server_dispatch::service_request() {
       return false;  // and the caller never knows
     }
 
-
 #ifndef TEST_SIMULATED_CHANNEL
   if (sized_ssl_write(channel_descriptor_, encode_parameters_str.size(),
                       (byte*)encode_parameters_str.data()) < 0) {
     printf("%s() error, line %d: Can't write to channel\n",
            __func__, __LINE__);
     return false;
-#else
-  if (simulated_buf_write(encode_parameters_str.size(), (byte*)encode_parameters_str.data()) < 0) {
-    printf("%s() error, line %d: Can't write\n", __func__, __LINE__);
-    return false;
   }
-#endif
+#else
+    if (simulated_buf_write(encode_parameters_str.size(), (byte*)encode_parameters_str.data()) < 0) {
+      printf("%s() error, line %d: Can't write\n", __func__, __LINE__);
+      return false;
     }
-    return false;
+#endif
+    return true;
   } else if(input_call_struct.function_name() == open_resource_tag) {
     if (input_call_struct.str_inputs_size() < 2) {
       return false;
@@ -719,6 +723,8 @@ bool acl_server_dispatch::service_request() {
 #endif
     return true;
   } else if(input_call_struct.function_name() == add_access_right_tag) {
+    printf("%s() error, line %d: not implemented yet\n", __func__, __LINE__);
+    return false;
   } else {
     printf("%s() error, line %d: unknown function\n", __func__, __LINE__);
     return false;

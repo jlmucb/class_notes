@@ -1551,6 +1551,8 @@ bool test_rpc() {
            __func__, __LINE__);
     return false;
   }
+
+
   if (!server.load_resources(rl)) {
     printf("%s() error, line %d: Cant load resources\n",
            __func__, __LINE__);
