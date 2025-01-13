@@ -19,6 +19,7 @@
 #include "acl.pb.h"
 #include "acl_support.h"
 #include "acl.h"
+#include "acl_rpc.h"
 
 DEFINE_bool(print_all, false, "Print intermediate test computations");
 
@@ -1493,6 +1494,78 @@ bool test_crypto() {
 }
 
 bool test_rpc() {
+
+  return true;  // for now
+		//
+  principal_list pl;
+  resource_list rl;
+  acl_client_dispatch client(0);
+  acl_server_dispatch server(0);
+  string prin_name("john");
+  string res1_name("file_1");
+  string res2_name("file_2");
+  string acc1("read");
+  string acc2("write");
+  string nonce;
+  string signed_nonce;
+  buffer_list credentials;
+  key_message rkm;
+  key_message skm;
+  key_message public_rkm;
+  key_message public_skm;
+  const char* alg= Enc_method_rsa_2048_sha256_pkcs_sign;
+  string bytes_read_from_file;
+  string bytes_written_to_file("Hello there");
+  bool ret = true;
+
+  // make keys and certs
+
+  if (!construct_sample_principals(&pl)) {
+    printf("%s() error, line %d: Cant construct principals\n",
+	   __func__, __LINE__);
+    return false;
+  }
+  if (!construct_sample_resources(&rl)) {
+    printf("%s() error, line %d: Cant construct resources\n",
+	   __func__, __LINE__);
+    return false;
+  }
+
+  if (!server.load_principals(pl)) {
+    printf("%s() error, line %d: Cant load principals\n",
+	   __func__, __LINE__);
+    return false;
+  }
+  if (!server.load_resources(rl)) {
+    printf("%s() error, line %d: Cant load resources\n",
+	   __func__, __LINE__);
+    return false;
+  }
+
+  return true;
+
+  ret = client.rpc_authenticate_me(prin_name, &nonce);
+  if (!ret) {
+    printf("%s() error, line %d: client.rpc_authenticate_me failed\n",
+	   __func__, __LINE__);
+    return false;
+  }
+
+  // sign nonce
+  ret = client.rpc_verify_me(prin_name, signed_nonce);
+
+  ret = client.rpc_open_resource(res1_name, acc1);
+
+  ret = client.rpc_read_resource(res1_name, 14, &bytes_read_from_file);
+
+  ret = client.rpc_close_resource(res1_name);
+
+  ret = client.rpc_open_resource(res2_name, acc2);
+
+  ret = client.rpc_write_resource(res2_name, bytes_written_to_file);
+
+  ret = client.rpc_close_resource(res2_name);
+
   return true;
 }
 
