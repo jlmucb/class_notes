@@ -1542,6 +1542,11 @@ bool test_rpc() {
 
   bool ret = true;
 
+#ifndef TEST_SIMULATED_CHANNEL
+  printf("test_rpc does not run without TEST_SIMULATED_CHANNEL\n");
+  return true;
+#endif
+
   if (!construct_sample_principals(&pl)) {
     printf("%s() error, line %d: Cant construct principals\n",
            __func__, __LINE__);
@@ -1681,13 +1686,32 @@ bool test_rpc() {
   printf("Bytes: %s\n", bytes_read_from_file.c_str());
 
   ret = client.rpc_close_resource(res1_name);
-  return true;
+  if (!ret) {
+    printf("%s() error, line %d: rpc_close_resource failed\n", __func__, __LINE__);
+    ret= false;
+    goto done;
+  }
 
   ret = client.rpc_open_resource(res2_name, acc2);
+  if (!ret) {
+    printf("%s() error, line %d: rpc_open_resource failed\n", __func__, __LINE__);
+    ret= false;
+    goto done;
+  }
 
   ret = client.rpc_write_resource(res2_name, bytes_written_to_file);
+  if (!ret) {
+    printf("%s() error, line %d: rpc_write_resource failed\n", __func__, __LINE__);
+    ret= false;
+    goto done;
+  }
 
   ret = client.rpc_close_resource(res2_name);
+  if (!ret) {
+    printf("%s() error, line %d: rpc_close_resource failed\n", __func__, __LINE__);
+    ret= false;
+    goto done;
+  }
 
 done:
   if (pkey != nullptr) {
