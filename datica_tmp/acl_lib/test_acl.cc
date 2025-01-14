@@ -1666,12 +1666,22 @@ bool test_rpc() {
   }
 
   ret = client.rpc_open_resource(res1_name, acc1);
-
-  return true;
+  if (!ret) {
+    printf("%s() error, line %d: rpc_open_resource failed\n", __func__, __LINE__);
+    ret= false;
+    goto done;
+  }
 
   ret = client.rpc_read_resource(res1_name, 14, &bytes_read_from_file);
+  if (!ret) {
+    printf("%s() error, line %d: rpc_read_resource failed\n", __func__, __LINE__);
+    ret= false;
+    goto done;
+  }
+  printf("Bytes: %s\n", bytes_read_from_file.c_str());
 
   ret = client.rpc_close_resource(res1_name);
+  return true;
 
   ret = client.rpc_open_resource(res2_name, acc2);
 

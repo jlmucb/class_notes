@@ -296,13 +296,14 @@ bool acl_client_dispatch::rpc_read_resource(const string& resource_name,
   // format input buffer, serialize it
   input_call_struct.set_function_name(read_resource_tag);
   input_call_struct.add_int_inputs((::int32_t)num_bytes);
+  string* pr_str = input_call_struct.add_str_inputs();
+  *pr_str = resource_name;
 
   if (!input_call_struct.SerializeToString(&encode_parameters_str)) {
     printf("%s() error, line %d: Can't input\n",
            __func__, __LINE__);
     return false;
   }
-
 
 #ifndef TEST_SIMULATED_CHANNEL
   if (sized_ssl_write(channel_descriptor_, encode_parameters_str.size(),
@@ -318,7 +319,11 @@ bool acl_client_dispatch::rpc_read_resource(const string& resource_name,
   }
 #endif
 
-  // the following to be replaced by sized_ssl_read(SSL *ssl, string *out);
+#ifdef TEST_SIMULATED_CHANNEL
+  extern acl_server_dispatch g_server;
+  g_server.service_request();
+#endif
+
 #ifndef TEST_SIMULATED_CHANNEL
   bytes_read_ret  = sized_ssl_read(channel_descriptor_, &decode_parameters_str);
   if (bytes_read_ret  < 0) {
@@ -338,16 +343,25 @@ bool acl_client_dispatch::rpc_read_resource(const string& resource_name,
            __func__, __LINE__);
     return false;
   } 
-  if (output_call_struct.function_name() != read_resource_tag) {
-    printf("%s() error, line %d: wrong function name tag\n",
+  if (!output_call_struct.has_function_name()) {
+    printf("%s() error, line %d: has no function name tag\n",
            __func__, __LINE__);
+    return false;
+  }
+  if (output_call_struct.function_name() != read_resource_tag) {
+    printf("%s() error, line %d: wrong function name tag %s\n",
+           __func__, __LINE__, output_call_struct.function_name().c_str());
     return false;
   }
   bool ret = output_call_struct.status();
   if (!ret) {
+printf("read_resources returned false\n");
     return false;
   }
+printf("read_resources returned true\n");
   if (output_call_struct.buf_outputs_size() < 1) {
+    printf("%s() error, line %d: too few returned bufs\n",
+           __func__, __LINE__);
     return false;
   }
   *bytes_output= output_call_struct.buf_outputs(0);
@@ -429,7 +443,7 @@ bool acl_client_dispatch::rpc_close_resource(const string& resource_name) {
 
   // format input buffer, serialize it
   input_call_struct.set_function_name(close_resource_tag);
-  string* in = input_call_struct.add_buf_inputs();
+  string* in = input_call_struct.add_str_inputs();
   *in = resource_name;
 
   if (!input_call_struct.SerializeToString(&encode_parameters_str)) {
@@ -450,6 +464,11 @@ bool acl_client_dispatch::rpc_close_resource(const string& resource_name) {
     printf("%s() error, line %d: Can't write\n", __func__, __LINE__);
     return false;
   }
+#endif
+
+#ifdef TEST_SIMULATED_CHANNEL
+  extern acl_server_dispatch g_server;
+  g_server.service_request();
 #endif
 
 #ifndef TEST_SIMULATED_CHANNEL
@@ -478,8 +497,10 @@ bool acl_client_dispatch::rpc_close_resource(const string& resource_name) {
   }
   bool ret = output_call_struct.status();
   if (!ret) {
+printf("client: returned false\n");
     return false;
   }
+printf("client: returned true\n");
   return true;
 }
 
@@ -663,12 +684,17 @@ printf("server: guard_.open_resource returned false\n");
 #endif
     return true;
   } else if(input_call_struct.function_name() == close_resource_tag) {
+printf("server: close_resource entry\n");
     if (input_call_struct.str_inputs_size() < 1) {
+      printf("%s() error, line %d: Too few string inputs\n",
+           __func__, __LINE__);
       return false;
     }
     if (guard_.close_resource(input_call_struct.str_inputs(0))) {
         output_call_struct.set_status(true);
+printf("server call to close resource returns true\n");
     } else {
+printf("server call to close resource returns false\n");
         output_call_struct.set_status(false);
     }
     output_call_struct.set_function_name(close_resource_tag);
@@ -691,39 +717,48 @@ printf("server: guard_.open_resource returned false\n");
     return false;
   }
 #endif
+printf("server returns true\n");
+    return true;
   } else if(input_call_struct.function_name() == read_resource_tag) {
+printf("server read_resource entry\n");
     if (input_call_struct.str_inputs_size() < 1) {
+      printf("%s() error, line %d: too few string resources\n",
+           __func__, __LINE__);
       return false;
     }
     if (input_call_struct.int_inputs_size() < 1) {
+      printf("%s() error, line %d: too few int resources\n",
+           __func__, __LINE__);
       return false;
     }
     string out;
     if (guard_.read_resource(input_call_struct.str_inputs(0),
                              input_call_struct.int_inputs(0),
                              &out)) {
+printf("server read_resource call returns true\n");
         output_call_struct.set_status(true);
-        string* ret_out = output_call_struct.add_str_outputs();
+        string* ret_out = output_call_struct.add_buf_outputs();
         ret_out->assign(out.data(), out.size());
     } else {
+printf("server read_resource call returns false\n");
         output_call_struct.set_status(false);
     }
     output_call_struct.set_function_name(read_resource_tag);
-    if (!output_call_struct.SerializeToString(&encode_parameters_str)) {
+    if (!output_call_struct.SerializeToString(&decode_parameters_str)) {
       printf("%s() error, line %d: can't encode parameters\n",
            __func__, __LINE__);
       return false;  // and the caller never knows
     }
 
 #ifndef TEST_SIMULATED_CHANNEL
-    if (sized_ssl_write(channel_descriptor_, encode_parameters_str.size(),
+    if (sized_ssl_write(channel_descriptor_, decode_parameters_str.size(),
                         (byte*)encode_parameters_str.data()) < 0) {
       printf("%s() error, line %d: Can't write to channel\n",
             __func__, __LINE__);
       return false;
     }
 #else
-  if (simulated_buf_write(encode_parameters_str.size(), (byte*)encode_parameters_str.data()) < 0) {
+  if (simulated_buf_write(decode_parameters_str.size(), (byte*)decode_parameters_str.data()) < 0) {
     printf("%s() error, line %d: Can't write\n", __func__, __LINE__);
     return false;
   }
