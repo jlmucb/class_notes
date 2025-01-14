@@ -83,7 +83,7 @@ bool acl_client_dispatch::rpc_authenticate_me(const string& principal_name,
   }
 #else
   if (simulated_buf_write(encode_parameters_str.size(),
-			  (byte*)encode_parameters_str.data()) < 0) {
+                          (byte*)encode_parameters_str.data()) < 0) {
     printf("%s() error, line %d: Can't write\n", __func__, __LINE__);
     return false;
   }
@@ -163,7 +163,7 @@ bool acl_client_dispatch::rpc_verify_me(const string& principal_name,
   }
 #else
   if (simulated_buf_write(encode_parameters_str.size(),
-			  (byte*)encode_parameters_str.data()) < 0) {
+                          (byte*)encode_parameters_str.data()) < 0) {
     printf("%s() error, line %d: Can't write\n", __func__, __LINE__);
     return false;
   }
@@ -226,6 +226,7 @@ bool acl_client_dispatch::rpc_open_resource(const string& resource_name,
   *pr_name = resource_name;
   string* pr_access = input_call_struct.add_str_inputs();
   *pr_access = access_right;
+printf("server: resource name: %s\n", pr_name->c_str());
 
   if (!input_call_struct.SerializeToString(&encode_parameters_str)) {
     printf("%s() error, line %d: Can't input\n",
@@ -245,6 +246,11 @@ bool acl_client_dispatch::rpc_open_resource(const string& resource_name,
     printf("%s() error, line %d: Can't write\n", __func__, __LINE__);
     return false;
   }
+#endif
+
+#ifdef TEST_SIMULATED_CHANNEL
+  extern acl_server_dispatch g_server;
+  g_server.service_request();
 #endif
 
 #ifndef TEST_SIMULATED_CHANNEL
@@ -575,7 +581,7 @@ printf("server dispatch %s\n", input_call_struct.function_name().c_str());
     }
 #else
     if (simulated_buf_write(encode_parameters_str.size(),
-			  (byte*)encode_parameters_str.data()) < 0) {
+                          (byte*)encode_parameters_str.data()) < 0) {
       printf("%s() error, line %d: Can't write\n", __func__, __LINE__);
       return false;
     }
@@ -630,9 +636,11 @@ printf("server verify_me returns false\n");
     }
     if (guard_.open_resource(input_call_struct.str_inputs(0),
                              input_call_struct.str_inputs(1))) {
+printf("server: guard_.open_resource returned true\n");
         output_call_struct.set_status(true);
     } else {
         output_call_struct.set_status(false);
+printf("server: guard_.open_resource returned false\n");
     }
     output_call_struct.set_function_name(open_resource_tag);
     if (!output_call_struct.SerializeToString(&encode_parameters_str)) {
@@ -648,11 +656,12 @@ printf("server verify_me returns false\n");
       return false;
     }
 #else
-  if (simulated_buf_write(encode_parameters_str.size(), (byte*)encode_parameters_str.data()) < 0) {
-    printf("%s() error, line %d: Can't write\n", __func__, __LINE__);
-    return false;
-  }
+    if (simulated_buf_write(encode_parameters_str.size(), (byte*)encode_parameters_str.data()) < 0) {
+      printf("%s() error, line %d: Can't write\n", __func__, __LINE__);
+      return false;
+    }
 #endif
+    return true;
   } else if(input_call_struct.function_name() == close_resource_tag) {
     if (input_call_struct.str_inputs_size() < 1) {
       return false;

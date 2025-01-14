@@ -1553,7 +1553,7 @@ bool test_rpc() {
     return false;
   }
 
-  if (!g_server.load_resources(rl)) {
+  if (!g_server.guard_.load_resources(rl)) {
     printf("%s() error, line %d: Cant load resources\n",
            __func__, __LINE__);
     return false;
@@ -1611,6 +1611,12 @@ bool test_rpc() {
     return false;
   }
 
+  if (!g_server.load_resources(rl)) {
+    printf("%s() error, line %d: Cant load resources\n",
+           __func__, __LINE__);
+    return false;
+  }
+
   ret = client.rpc_authenticate_me(prin_name, &nonce);
   if (!ret) {
     printf("%s() error, line %d: client.rpc_authenticate_me failed\n",
@@ -1653,10 +1659,15 @@ bool test_rpc() {
   signed_nonce.assign((char*)sig, size_sig);
 
   ret = client.rpc_verify_me(prin_name, signed_nonce);
-
-  return true;
+  if (!ret) {
+    printf("%s() error, line %d: rpc_verify_me failed\n", __func__, __LINE__);
+    ret= false;
+    goto done;
+  }
 
   ret = client.rpc_open_resource(res1_name, acc1);
+
+  return true;
 
   ret = client.rpc_read_resource(res1_name, 14, &bytes_read_from_file);
 

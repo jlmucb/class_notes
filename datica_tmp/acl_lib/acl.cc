@@ -575,8 +575,8 @@ bool channel_guard::open_resource(const string& resource_name, const string& acc
 
   int resource_index = find_resource(resource_name);
   if (resource_index < 0) {
-    printf("%s() error, line: %d: No such resource\n",
-            __func__, __LINE__);
+    printf("%s() error, line: %d: No such resource %s\n",
+            __func__, __LINE__, resource_name.c_str());
     return false;
   }
   if (resources_[resource_index].resource_type() != file_type) {
