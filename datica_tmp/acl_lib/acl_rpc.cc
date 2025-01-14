@@ -18,7 +18,7 @@
 // For testing only
 #define TEST_SIMULATED_CHANNEL
 #ifdef TEST_SIMULATED_CHANNEL
-const int max_size_buf = 2048;
+const int max_size_buf = 4096;
 int size_buf = 0;
 byte simulated_buf[max_size_buf];
 
@@ -58,7 +58,6 @@ acl_client_dispatch::~acl_client_dispatch() {
 
 bool acl_client_dispatch::rpc_authenticate_me(const string& principal_name,
                                               string* output) {
-
   string decode_parameters_str;
   string encode_parameters_str;
   rpc_call input_call_struct;
@@ -83,10 +82,16 @@ bool acl_client_dispatch::rpc_authenticate_me(const string& principal_name,
     return false;
   }
 #else
-  if (simulated_buf_write(encode_parameters_str.size(), (byte*)encode_parameters_str.data()) < 0) {
+  if (simulated_buf_write(encode_parameters_str.size(),
+			  (byte*)encode_parameters_str.data()) < 0) {
     printf("%s() error, line %d: Can't write\n", __func__, __LINE__);
     return false;
   }
+#endif
+
+#ifdef TEST_SIMULATED_CHANNEL
+  extern acl_server_dispatch g_server;
+  g_server.service_request();
 #endif
 
 #ifndef TEST_SIMULATED_CHANNEL
@@ -97,7 +102,7 @@ bool acl_client_dispatch::rpc_authenticate_me(const string& principal_name,
     return false;
   }
 #else
-  if (simulated_sized_buf_read(&encode_parameters_str) < 0) {
+  if (simulated_sized_buf_read(&decode_parameters_str) < 0) {
     printf("%s() error, line %d: Can't read from channel\n", __func__, __LINE__);
     return false;
   }
@@ -109,12 +114,14 @@ bool acl_client_dispatch::rpc_authenticate_me(const string& principal_name,
     return false;
   } 
   if (output_call_struct.function_name() != authenticate_me_tag) {
-    printf("%s() error, line %d: wrong function name tag\n",
-           __func__, __LINE__);
+    printf("%s() error, line %d: wrong function name tag %s\n",
+           __func__, __LINE__, output_call_struct.function_name().c_str());
     return false;
   }
   bool ret = output_call_struct.status();
   if (!ret) {
+    printf("%s() error, line %d: output call status is false\n",
+           __func__, __LINE__);
     return false;
   }
   if (output_call_struct.buf_outputs_size() < 1) {
@@ -137,8 +144,10 @@ bool acl_client_dispatch::rpc_verify_me(const string& principal_name,
 
   // format input buffer, serialize it
   input_call_struct.set_function_name(verify_me_tag);
-  string* in = input_call_struct.add_buf_inputs();
-  *in = signed_nonce;
+  string* in1 = input_call_struct.add_str_inputs();
+  *in1 = principal_name;
+  string* in2 = input_call_struct.add_buf_inputs();
+  *in2 = signed_nonce;
 
   if (!input_call_struct.SerializeToString(&encode_parameters_str)) {
     printf("%s() error, line %d: Can't input\n", __func__, __LINE__);
@@ -153,10 +162,16 @@ bool acl_client_dispatch::rpc_verify_me(const string& principal_name,
     return false;
   }
 #else
-  if (simulated_buf_write(encode_parameters_str.size(), (byte*)encode_parameters_str.data()) < 0) {
+  if (simulated_buf_write(encode_parameters_str.size(),
+			  (byte*)encode_parameters_str.data()) < 0) {
     printf("%s() error, line %d: Can't write\n", __func__, __LINE__);
     return false;
   }
+#endif
+
+#ifdef TEST_SIMULATED_CHANNEL
+  extern acl_server_dispatch g_server;
+  g_server.service_request();
 #endif
 
 #ifndef TEST_SIMULATED_CHANNEL
@@ -177,14 +192,21 @@ bool acl_client_dispatch::rpc_verify_me(const string& principal_name,
     printf("%s() error, line %d: Can't parse return buffer\n",
            __func__, __LINE__);
     return false;
-  } 
-  if (output_call_struct.function_name() != verify_me_tag) {
-    printf("%s() error, line %d: wrong function name tag\n",
+  }
+  if (!output_call_struct.has_function_name()) {
+    printf("%s() error, line %d: No function name\n",
            __func__, __LINE__);
+    return false;
+  }
+  if (output_call_struct.function_name() != verify_me_tag) {
+    printf("%s() error, line %d: wrong function name tag %s\n",
+           __func__, __LINE__, output_call_struct.function_name().c_str());
     return false;
   }
   bool ret = output_call_struct.status();
   if (!ret) {
+    printf("%s() error, line %d: return status is false\n",
+           __func__, __LINE__);
     return false;
   }
   return true;
@@ -495,6 +517,7 @@ bool acl_server_dispatch::service_request() {
   rpc_call output_call_struct;
   int bytes_read= 0;
 
+printf("In acl_server_dispatch::service_request\n");
   if (!initialized_) {
     printf("%s() error, line %d: acl_server_dispatch not initialized\n",
            __func__, __LINE__);
@@ -509,8 +532,8 @@ bool acl_server_dispatch::service_request() {
     return false;
   }
 #else
-  if (simulated_buf_write(encode_parameters_str.size(), (byte*)encode_parameters_str.data()) < 0) {
-    printf("%s() error, line %d: Can't write\n", __func__, __LINE__);
+  if (simulated_sized_buf_read(&decode_parameters_str) < 0) {
+    printf("%s() error, line %d: Can't read\n", __func__, __LINE__);
     return false;
   }
 #endif
@@ -520,15 +543,19 @@ bool acl_server_dispatch::service_request() {
            __func__, __LINE__, (int)decode_parameters_str.size());
     return false;
   }
+printf("server dispatch %s\n", input_call_struct.function_name().c_str());
 
   if(input_call_struct.function_name() == authenticate_me_tag) {
     if (input_call_struct.str_inputs_size() < 1) {
+      printf("%s() error, line %d: too few input arguments %d\n",
+           __func__, __LINE__, (int)decode_parameters_str.size());
       return false;
     }
+
     string nonce;
     if (guard_.authenticate_me(input_call_struct.str_inputs(0), principal_list_, &nonce)) {
         output_call_struct.set_status(true);
-        string* nounce_out = output_call_struct.add_str_outputs();
+        string* nounce_out = output_call_struct.add_buf_outputs();
         nounce_out->assign(nonce.data(), nonce.size());
     } else {
         output_call_struct.set_status(false);
@@ -539,31 +566,40 @@ bool acl_server_dispatch::service_request() {
            __func__, __LINE__);
       return false;  // and the caller never knows
     }
-
 #ifndef TEST_SIMULATED_CHANNEL
-  if (sized_ssl_write(channel_descriptor_, encode_parameters_str.size(),
+    if (sized_ssl_write(channel_descriptor_, encode_parameters_str.size(),
                       (byte*)encode_parameters_str.data()) < 0) {
-    printf("%s() error, line %d: Can't write to channel\n",
+      printf("%s() error, line %d: Can't write to channel\n",
            __func__, __LINE__);
-    return false;
-  }
+      return false;
+    }
 #else
-  if (simulated_buf_write(encode_parameters_str.size(), (byte*)encode_parameters_str.data()) < 0) {
-    printf("%s() error, line %d: Can't write\n", __func__, __LINE__);
-    return false;
-  }
+    if (simulated_buf_write(encode_parameters_str.size(),
+			  (byte*)encode_parameters_str.data()) < 0) {
+      printf("%s() error, line %d: Can't write\n", __func__, __LINE__);
+      return false;
+    }
 #endif
+    return true; 
   } else if(input_call_struct.function_name() == verify_me_tag) {
+printf("server verify me\n");
     if (input_call_struct.str_inputs_size() < 1) {
+      printf("%s() error, line %d: Too few input strings\n",
+           __func__, __LINE__);
       return false;
     }
     if (input_call_struct.buf_inputs_size() < 1) {
+      printf("%s() error, line %d: Too few input buffers\n",
+           __func__, __LINE__);
       return false;
     }
+
     if (guard_.verify_me(input_call_struct.str_inputs(0),
                          input_call_struct.buf_inputs(0))) {
+printf("server verify_me returns true\n");
         output_call_struct.set_status(true);
     } else {
+printf("server verify_me returns false\n");
         output_call_struct.set_status(false);
     }
 
@@ -732,5 +768,4 @@ bool acl_server_dispatch::service_request() {
 
   return true;
 }
-
 

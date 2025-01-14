@@ -33,7 +33,7 @@ endif
 ifndef TARGET_MACHINE_TYPE
 TARGET_MACHINE_TYPE= x64
 endif
-#NEWPROTOBUF=1
+NEWPROTOBUF=1
 
 S= $(SRC_DIR)/datica_tmp/acl_lib
 O= $(OBJ_DIR)/acl_lib
@@ -62,14 +62,12 @@ export LD_LIBRARY_PATH=/usr/local/lib
 LDFLAGS= -L/usr/local/lib -lprotobuf -lgtest -lgflags -lpthread -L/usr/local/opt/openssl@1.1/lib/ -lcrypto -lssl
 endif
 
-
 all:	test_acl.exe
 clean:
 	@echo "removing object files"
 	rm $(O)/*.o
 	@echo "removing executable file"
 	rm $(EXE_DIR)/test_acl.exe
-
 
 test_acl.exe: $(tobj)
 	@echo "linking executable files"

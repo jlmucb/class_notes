@@ -424,7 +424,8 @@ bool test_access() {
     }
   }
   if (i >= pl.principals_size()) {
-    printf("%s() error, line %d: couldn't put credentials on principal list\n", __func__, __LINE__);
+    printf("%s() error, line %d: couldn't put credentials on principal list\n",
+                    __func__, __LINE__);
     ret= false;
     goto done;
   }
@@ -451,7 +452,8 @@ bool test_access() {
   }
 
   if (!guard.authenticate_me(channel_prin, pl, &nonce)) {
-    printf("%s() error, line %d: Cant authenticate_me %s\n", __func__, __LINE__, channel_prin.c_str());
+    printf("%s() error, line %d: Cant authenticate_me %s\n",
+                    __func__, __LINE__, channel_prin.c_str());
     printf("Cant authenticate_me %s\n", channel_prin.c_str());
     ret= false;
     goto done;
@@ -1490,10 +1492,12 @@ bool test_crypto() {
   return true;
 }
 
+#if 1
+acl_server_dispatch g_server(nullptr);
+#endif
+
 bool test_rpc() {
 
-  return true;  // for now
-                //
   string signing_subject_name("johns-signing-key");
   string signing_subject_org("datica");
   string root_issuer_name("johns-root");
@@ -1506,12 +1510,13 @@ bool test_rpc() {
   const char* alg= Enc_method_rsa_2048_sha256_pkcs_sign;
   EVP_PKEY* pkey = nullptr;
   RSA* r2 = nullptr;
+  string serialized_cert_chain_str;
 
   principal_list pl;
   resource_list rl;
 
-  acl_client_dispatch client(0);
-  acl_server_dispatch server(0);
+  SSL* ch = nullptr;
+  acl_client_dispatch client(ch);
 
   string prin_name("john");
   string res1_name("file_1");
@@ -1530,8 +1535,10 @@ bool test_rpc() {
   int size_sig = 512;
   byte sig[size_sig];
   int k = 0;
+  int i = 0;
   string dig_alg;
   string asn1_cert_str;
+  string auth_alg(Enc_method_rsa_2048_sha256_pkcs_sign);
 
   bool ret = true;
 
@@ -1546,21 +1553,13 @@ bool test_rpc() {
     return false;
   }
 
-  if (!server.load_principals(pl)) {
-    printf("%s() error, line %d: Cant load principals\n",
-           __func__, __LINE__);
-    return false;
-  }
-
-
-  if (!server.load_resources(rl)) {
+  if (!g_server.load_resources(rl)) {
     printf("%s() error, line %d: Cant load resources\n",
            __func__, __LINE__);
     return false;
   }
 
   // make up keys and certs
-  
   if (!make_keys_and_certs(root_issuer_name, root_issuer_org,
                          signing_subject_name, signing_subject_org,
                          &root_key, &signing_key, &credentials)) {
@@ -1574,12 +1573,43 @@ bool test_rpc() {
   }
   asn1_cert_str= credentials.blobs(0);
 
-  if (!server.guard_.init_root_cert(asn1_cert_str)) {
+  if (!g_server.guard_.init_root_cert(asn1_cert_str)) {
     printf("%s() error, line %d: Can't init_root\n", __func__, __LINE__);
     return false;
   }
 
-  return true;
+    if (!credentials.SerializeToString(&serialized_cert_chain_str)) {
+    printf("%s() error, line %d: cant serialize credentials\n", __func__, __LINE__);
+    ret= false;
+    goto done;
+  }
+
+  // put it on principal list
+  for (i = 0; i < pl.principals_size(); i++) {
+    if (pl.principals(i).principal_name() == prin_name) {
+      pl.mutable_principals(i)->set_credential(serialized_cert_chain_str);
+      pl.mutable_principals(i)->set_authentication_algorithm(auth_alg);
+      break;
+    }
+  }
+  if (i >= pl.principals_size()) {
+    printf("%s() error, line %d: couldn't put credentials on principal list\n",
+                    __func__, __LINE__);
+    ret= false;
+    goto done;
+  }
+
+  if (FLAGS_print_all) {
+    printf("Prinicpals attached\n");
+    print_principal_list(pl);
+    printf("\n");
+  }
+
+  if (!g_server.load_principals(pl)) {
+    printf("%s() error, line %d: Cant load principals\n",
+           __func__, __LINE__);
+    return false;
+  }
 
   ret = client.rpc_authenticate_me(prin_name, &nonce);
   if (!ret) {
@@ -1589,7 +1619,42 @@ bool test_rpc() {
   }
 
   // sign nonce
+  if (strcmp(alg, Enc_method_rsa_2048_sha256_pkcs_sign) == 0) {
+    dig_alg = Digest_method_sha_256;
+  } else if (strcmp(alg, Enc_method_rsa_1024_sha256_pkcs_sign) == 0) {
+    dig_alg = Digest_method_sha_256;
+  } else if (strcmp(alg, Enc_method_rsa_3072_sha384_pkcs_sign) == 0) {
+    dig_alg = Digest_method_sha_384;
+  } else {
+    printf("%s() error, line %d: unsupported rsa signing alg %s\n", __func__, __LINE__, alg);
+    ret= false;
+    goto done;
+  }
+
+  pkey = pkey_from_key(signing_key);
+  if (pkey == nullptr) {
+    printf("%s() error, line %d: Can't get pkey\n", __func__, __LINE__);
+    ret= false;
+    goto done;
+  }
+  r2 = EVP_PKEY_get1_RSA(pkey);
+  if (r2 == nullptr) {
+    printf("%s() error, line %d: Can't get rsa key\n", __func__, __LINE__);
+    ret= false;
+    goto done;
+  }
+
+  // sign nonce
+  if (!rsa_sign(dig_alg.c_str(), r2, nonce.size(), (byte*)nonce.data(), &size_sig, sig)) {
+    printf("%s() error, line %d: sign failed\n", __func__, __LINE__);
+    ret= false;
+    goto done;
+  }
+  signed_nonce.assign((char*)sig, size_sig);
+
   ret = client.rpc_verify_me(prin_name, signed_nonce);
+
+  return true;
 
   ret = client.rpc_open_resource(res1_name, acc1);
 
@@ -1603,7 +1668,12 @@ bool test_rpc() {
 
   ret = client.rpc_close_resource(res2_name);
 
-  return true;
+done:
+  if (pkey != nullptr) {
+    EVP_PKEY_free(pkey);
+    pkey = nullptr; 
+  }
+  return ret;
 }
 
 TEST (basic, test_basic) {
@@ -1627,7 +1697,6 @@ int main(int an, char** av) {
   an = 1;
   ::testing::InitGoogleTest(&an, av);
 
-  printf("Starting\n");
   if (!init_crypto()) {
     printf("Couldn't init crypto\n");
     return 1;
