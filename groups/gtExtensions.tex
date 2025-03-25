@@ -414,6 +414,50 @@ If $G$ and $G'$ realize $(K, Q, \theta)$, they are equivalent iff $f' - f \in B^
 above.
 \\
 \\
+{\bf Summary:} If $F=G/H$, $G$ is an extension of $F$ by $H$.  Typically, $\sigma, \tau, \rho \in F$.
+$t: F \rightarrow G$ is a transversal if $t(F)H$ are the cosets of $H$ in $G$.  Usually, $t(1)=1$
+\\
+$t(\sigma) t(\tau) = t(\sigma \tau) f(\sigma, \tau)$. $f(\sigma, \tau) \in H$ is called a co-cycle. We define
+$T \in Aut(H)$ by $T(\sigma): h \rightarrow h^{t(\sigma)}$, $T(1)=1$.\\
+Note that
+$(t(\sigma) t(\tau)) t(\rho) = t(\sigma \tau) f(\sigma, \tau) t(\rho)=
+t((\sigma \tau) \rho) f(\sigma \tau, \rho) f(\sigma, \tau)^{t(\rho)}$;
+$t(\sigma) (t(\tau) t(\rho)) = f(\sigma, \tau \rho) f(\tau, \rho)$.  So,
+$f(\sigma \tau, \rho) f(\sigma, \tau)^{t(\rho)}= f(\sigma, \tau \rho) f(\tau, \rho)$, this is the co-cycle identity.
+\\
+\emph{Equivalent representation:} $t'(1)=1$, $t'(\sigma)= t(\sigma) h(\sigma)$.
+$f' (\sigma , \tau) = h(\sigma \tau)^{-1} f(\sigma, \tau) T(\tau)(h(\sigma)) h(\tau)$.
+\\
+{\bf Theorem:} If $f(\sigma, \tau)$ belongs to $T$ and we define
+$(\sigma, x) (\tau, y)= (\sigma \tau, f(\sigma, \tau) T(\tau)(x)y)$ then under this operation $\{ (\tau, x) \}$
+is a group.
+\\
+\\
+With these definitions, $(H, Z)$ is a central extension if $Z$ is abelian and the following diagram is exact:
+$0 \rightarrow Hom(G, {\mathbb C}^*) \rightarrow  Hom(H, {\mathbb C}^*) \rightarrow  Hom(Z, {\mathbb C}^*) \rightarrow  0$.
+The set of co-cycles under the operation + is $Z^2(G, {\mathbb C}^*)$. The subset of equivalent co-cycles is denoted
+$B^2(G, {\mathbb C}^*)$.  Define $H^2(G, {\mathbb C}^*) = Z^2(G, {\mathbb C}^*)/B^2(G, {\mathbb C}^*)$.
+$H^2(G, {\mathbb C}^*) = M(G)$ called the Schur multiplier.
+\\
+\\
+{\bf Theorem:} If $H:{\mathbb Z}$ is finite, so is $H:H'$.  Let $(H, Z)$ be a central extension of rank $n$ of $G$,
+the torsion group subgroup $T(Z)$ is isomorphic to $M(G)$.
+\\
+\\
+{\bf Theorem:} $M(G)$ is finite if $G$ is.
+\begin{quote}
+\emph{Proof:}
+First we show every coset in $Z^2(G, {\mathbb C}^*)/B^2(G, {\mathbb C}^*)$ has a cocycle $f(\sigma, \tau)$ that
+is a $|G|$-th root of unity, $\forall \sigma, \tau$: Pick $a(\sigma, \tau) \in Z^2(G, {\mathbb C}^*)$.
+$a(\sigma, \tau \rho) a(\tau, \rho) = a(\sigma \tau, \rho) a(\sigma, \tau)$, so
+$\prod_{\rho} a(\sigma, \tau \rho) \prod_{\rho} a(\tau, \rho) = \prod_{\rho} a(\sigma \tau, \rho) a(\sigma, \tau)^{|G|}$.
+$a(\sigma, \tau)^{|G|} = {d_{\sigma \tau}}^{-1} d_{\sigma} d_{\tau}$.  So $a(\sigma, \tau)^{|G|}$ is a co-boundary.
+$\exists |G|$-th roots ${e_{\sigma}}^{|G|} = d_{\sigma}$.
+So $b(\sigma, \tau) = e_{\sigma \tau} a(\sigma, \tau) {e_{\sigma}}^{-1} {{e_\tau}a}^{-1}$ is in the same homology class as
+$a(\sigma , \tau)$.  $b(\sigma , \tau)$ is a $|G|$-th root.  There are finitely many such roots so $|M(G)|$ is finite.
+\end{quote}
+\\
+\\
 {\bf Theorem:} Let $G$ and $G'$ be extensions realizing$(K,Q, \theta)$ are equivalent if
 $\exists \gamma: G \rightarrow G'$ making the diagrams
 $1 \rightarrow K \rightarrow G \rightarrow Q \rightarrow 1$ and
