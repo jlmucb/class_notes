@@ -144,14 +144,24 @@ prime in $\pi$.  It is a $\pi$-subgroup of $GG$ of maximal order.
 {\bf Hall's Theorem:} 
 Let $G$ be a solvable group and $\pi$ a set of primes then (i) $G$ has a $\pi$-Hall
 subgroup, (ii) $G$ acts transitively on its Hall $\pi$-subgroups via conjugation, 
-(3) any $\pi$ subgroup is contained in a Hall $\pi$ subgroup.
+(iii) any $\pi$ subgroup is contained in a Hall $\pi$ subgroup.
 \begin{quote}
 \emph{Proof:} By induction on $|G|$.  Let $N$ be a minimal normal subgroup of $G$ then
-$1 \ne N \lhd G$.  $N$ is elementary abelian for some $p$ and $p \mid mn$.   If
+$1 \ne N \lhd G$.  $N$ is elementary abelian for some $p$ and $p \mid mk= |G|$, where
+$(k,q)=1, q \in \pi$.   If
 $p \mid m, |G/N|= {\frac m p}$ and $\exists L: |L/N|= {\frac m p}, |L|= m$ and we're done.
-If $p \mid n, \exists H: |H/N|=m, |H|= |N|m$.  If $|H| < |G|$, we're done by induction.
-Otherwise $H=G, N \lhd G, |N|= n, |G:N|=m$ and $(m,n)=1$ so by Schur-Zassenhaus,
+If $p \mid k, \exists H: |H/N|=m, |H|= |N|m$.  If $|H| < |G|$, we're done by induction.
+Otherwise $H=G, N \lhd G, |N|= k, |G:N|=m$ and $(m,k)=1$ so by Schur-Zassenhaus,
 $\exists K: |K|=m$.
+\\
+\\
+We combine (i) and (ii) by proving that if $K$ is a Hall $\pi$-subgroup and $L$ is any $\pi$ subgroup,
+$\exists x \in G: L^x < K$.  Again, the proof is by induction and again, let $N$ be a minimal normal subgroup.
+$N= O_p(G)$ for some $p$.  If $p \in \pi$ and putting ${\overline G} = G / N$, we get by induction,
+${\overline L}^{\overline x} < {\overline K}$.  $K$ is a Hall subgroup and $L^x <K$, so we're done. So
+$p \notin \pi$.  If $G > KN$, we're done by induction, so $G=KN$.  $G= KN$ is solvable and $L$ is a
+Hall $\pi$ subgroup of $LN$ and $LN \cap K = L$, so $L$ is a Hall $\pi$ subgroup of $LN:$.  Again,
+by Schur-Zassenhaus, $\exists x: L^x < K$.
 \end{quote}
 {\bf Theorem 1: } Let $G$ be a finite group possessing a Hall $\pi'$ subgroup for each $p$, then $G$ 
 is solvable. 
