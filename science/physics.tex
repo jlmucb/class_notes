@@ -1455,13 +1455,24 @@ $v_p v_g= c^2$.
 For Pauli matricies: ${\vec n} = (cos(\varphi)cos(\theta), cos(\varphi)sin(\theta), sin(\varphi))$.
 ${\vec \sigma} \cdot {\vec n} = \sigma_n$. ${\vec E} = (p-eA)^2 +e \phi + {\frac {e} {mc}}S \cdot B$.
 $T(t_1 , t_2 ) T( t_2 , t_3 ) = T(t_1 , t_3)$. Probability current:
-${\frac {\partial {{\overline \psi}\psi}} {\partial t}} + {\frac {\hbar} {2 \mu i}} \nabla \cdot
+${\frac {\partial {({\overline \psi}\psi})} {\partial t}} + {\frac {\hbar} {2 \mu i}} \nabla \cdot
 ({\overline \psi} {\nabla \psi} - {\nabla {\overline \psi}} \psi) = 0$.
 For wave packets:
 $\psi(x) = {\frac 1 {\sqrt {2 \pi}}} \int_{-\infty}^{\infty} \varphi(k) exp(ikx) dk$,
 $\varphi(k) = {\frac 1 {\sqrt {2 \pi}}} \int_{-\infty}^{\infty} \psi(x) exp(-ikx) dx$.
 $L = r \times - \hbar i \nabla$. Operator $R$ represents a conserved quantity if $[H,R]=0$. 
-$[L_x, L_y] = i \hbar L_z$.  $U = 1 - \hbar i H$ is unitary.
+$[L_x, L_y] = i \hbar L_z$.  $U = 1 -i  \hbar \epsilon H$ is unitary.
+${\frac {\partial \psi} {\partial t}}=
+{\frac {\mid \psi(\epsilon)\rangle - \mid \psi(0)\rangle} {\epsilon}}= -i \hbar H(\mid \psi(0) \rangle)$.
+$I= \sum \mid x \rangle \langle x \mid$, $I= \int  \mid x \rangle \langle x \mid dx$.
+${\dot {\sigma_x}}= {\frac {i} {\hbar}} \langle [\sigma_x, H]\rangle$.
+$\Delta A \cdot \Delta B \geq {\frac 1 2} \mid \langle \psi \mid [A, B] \mid \psi \rangle \mid$.
+Harmonic oscillator: $H = {\frac 1 2} {\dot x}^2 + {\frac 1 2} \omega^2 x^2=
+{\frac 1 2} (P+i \omega X)(P - i \omega X) + {\frac {\omega \hbar} 2}$.
+Ground state: $\psi= exp(-{\frac {\omega} {2 \hbar}} x^2)$.
+$a^- = {\frac {i} {{\sqrt {2 \omega \hbar}}}} (P-i \omega X) $,
+$a^+ = {\frac {-i} {{\sqrt {2 \omega \hbar}}}} (P+i \omega X) $.  $N= a^+ a^-$,
+$a^+ \mid n\rangle = (n+1) \mid n \rangle$, $[a^+, a^-]=1$, $H = \omega \hbar (a^+ a^- + {\frac 1 2})$.
 $\langle p \mid x \rangle = {\frac 1 {\sqrt {2 \pi}}} exp(-i{\frac {p \cdot x} {\hbar}})$.
 $v = {\frac { d \langle \psi \mid X \mid \psi \rangle} {dt}} = {\frac i {2m \hbar}} [P^2, X]$.
 $[P^2, X] = P[P,X] + [P, X]P$.
