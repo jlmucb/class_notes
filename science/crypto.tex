@@ -1917,8 +1917,6 @@ Public key is $PK=(A, t)$, private key is $pk=(s_1, s_2)$.
 \item ${w_1}' = highbits(Az-ct, 2 \gamma_2)$
 \item return $||z||_{\infty} \leq \gamma_1 - \beta$ and $c=SHAKE256(M||{w_1}')$.
 \end{enumerate}
-\\
-\\
 For Kyber, $q= 3329$, $g=17$ is a primitive $512$ root of unity.  $\hat{x}$ means
 NTT applied to $x$, which turns a vector $x \in {R_q}^k$, into $128$ components each
 consisting of linear polynomial mod $x^2 - {\gamma}^{2k+1}$.

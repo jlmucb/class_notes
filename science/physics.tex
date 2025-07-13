@@ -1394,7 +1394,7 @@ $a_+ a_- = {\frac {1} {2m}}[{\frac {\hbar} {i}} {\frac {d^2 \Psi}{dx^2}} + {\fra
 {\frac 1 2} \hbar \omega$.  If $\Psi$ solves the Schroedinger equation with energy $E$, $a_+ \Psi$  solves
 the Schroedinger equation with energy $E + \hbar \omega$.\\
 \\
-\emph{Solution to wave equation:} $\Psi(x, t) = A e^{i(kx- \omega t}$.  Note: $\hbar k = p$ and $\hbar \omega = E$.
+\emph{Solution to wave equation:} $\Psi(x, t) = A e^{i(kx- \omega t)}$.  Note: $\hbar k = p$ and $\hbar \omega = E$.
 \\
 \\
 {\bf Potential well:}  
@@ -1449,6 +1449,25 @@ ${\frac {(k^2 + \alpha^2)^2} {sinh^2( \alpha L) +
 {\bf Resonant transmission:} $E = U_0 + {\frac {n^2 \pi^2 \hbar^2} {2 m L^2}}$.
 $n_{plasma}= {\sqrt {1- {\frac {\omega_p^2} {\omega \omega_m}}}}, \omega_m= {\frac {e B_0}{m}}$.
 $v_p v_g= c^2$.
+\\
+\\
+{\bf Notes:}
+For Pauli matricies: ${\vec n} = (cos(\varphi)cos(\theta), cos(\varphi)sin(\theta), sin(\varphi))$.
+${\vec \sigma} \cdot {\vec n} = \sigma_n$. ${\vec E} = (p-eA)^2 +e \phi + {\frac {e} {mc}}S \cdot B$.
+$T(t_1 , t_2 ) T( t_2 , t_3 ) = T(t_1 , t_3)$. Probability current:
+${\frac {\partial {{\overline \psi}\psi}} {\partial t}} + {\frac {\hbar} {2 \mu i}} \nabla \cdot
+({\overline \psi} {\nabla \psi} - {\nabla {\overline \psi}} \psi) = 0$.
+For wave packets:
+$\psi(x) = {\frac 1 {\sqrt {2 \pi}}} \int_{-\infty}^{\infty} \varphi(k) exp(ikx) dk$,
+$\varphi(k) = {\frac 1 {\sqrt {2 \pi}}} \int_{-\infty}^{\infty} \psi(x) exp(-ikx) dx$.
+$L = r \times - \hbar i \nabla$. Operator $R$ represents a conserved quantity if $[H,R]=0$. 
+$[L_x, L_y] = i \hbar L_z$.  $U = 1 - \hbar i H$ is unitary.
+$\langle p \mid x \rangle = {\frac 1 {\sqrt {2 \pi}}} exp(-i{\frac {p \cdot x} {\hbar}})$.
+$v = {\frac { d \langle \psi \mid X \mid \psi \rangle} {dt}} = {\frac i {2m \hbar}} [P^2, X]$.
+$[P^2, X] = P[P,X] + [P, X]P$.
+$[P, X] = i \hbar$. ${\frac {d \langle P \rangle}  {dt}}= {\frac i {2m \hbar}} \langle [P^2, P] \rangle
++ {\frac i {\hbar}}\langle [V, P] \rangle= - \langle  \nabla V \rangle$. $p = {\frac {\partial L}
+{\partial {\dot x}}}$ and $H= p {\dot x} - L$, just like the classical case.
 \\
 \\
 {\bf Hydrogen atom:}  In polar coordinates,
