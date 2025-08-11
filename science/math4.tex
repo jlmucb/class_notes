@@ -694,15 +694,15 @@ $R_n(a)= {\frac 1 {n!}} f^{(n+1)}(\xi) \int_b^a (b-t)^n dt ={\frac 1 {(n+1)!}} f
 \\
 \\
 \emph{A third proof}:
-We proceed by induction.  We want to show $f(a+h) = f(a) + \sum_{i=1}^{n} {\frac {h^i} {i!}} f^{(i)}(a) + R_n$,
-where $R_n= \int_{a}^{a+h} f^{(n+1)}(t) {\frac {(a + h -t)^n}  {n!}} dt$.
-For $n=0$, $f(a+h) - f(a) = \int_{a}^{a+h} f'(t) dt$ is just the FTOC.
+Define $R_n(x,a)= \int_{a}^{x} f^{(n)}(t) {\frac {(x-t)^{n-1}} {(n-1)!}} dt$.
+We proceed by induction.  We want to show $f(x) = f(a) + \sum_{i=1}^{n-1} {\frac {(x-a)^i} {i!}} f^{(i)}(a) + R_n(x, a)$.
+For $n=1$, $f(x) - f(a) = \int_{a}^{x} f'(t) dt$ is just the FTOC.
 For step $n+1$, we have from step $n$ that 
-$f(a+h) -f(a) -\sum_{i=1}^{n} {\frac {h^i} {i!}} f^{(i)}(a) = \int_{a}^{a+h} f^{(n+1)}(t) {\frac {(a + h -t)^n} {n!}}dt$. 
+$f(x) -f(a) -\sum_{i=1}^{n} {\frac {(x-a)^i} {i!}} f^{(i)}(a) = \int_{a}^{x} f^{(n+1)}(t) {\frac {(x -t)^n} {n!}}dt$. 
 Integrate by parts with
-$u= f^{(n+1)}(t)$ and $v= -{\frac {(a+h -t)^{n+1}} {(n+1)!}}$. This gives
-$f(a+h) - f(a) - \sum_{i=0}^{n+1} f^{(i)}(a) {\frac {h^i} {i!}} =
-\int_{a}^{a+h} {\frac {(a+h-t)^{n+1}}{(n+1)!}}f^{(n+2)}(t) dt$ which is the result for $n+1$.
+$u= f^{(n+1)}(t)$ and $v= -{\frac {(x -t)^{n+1}} {(n+1)!}}$. This gives
+$f(x) - f(a) - \sum_{i=0}^{n+1} f^{(i)}(a) {\frac {(x-a)^i} {i!}} =
+\int_{a}^{x} {\frac {(x-t)^{n+1}}{(n+1)!}}f^{(n+2)}(t) dt$ which is the result for $n+1$.
 \end{quote}
 {\bf Definition:}
 $X$ separates if $\exists A, B, A \ne X, \emptyset, \exists B \ne X, \emptyset$ 
