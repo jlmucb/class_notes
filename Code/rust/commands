@@ -1,0 +1,17 @@
+cargo new hello_world
+cargo build
+cargo run
+
+cargo new hello_world --bin
+cargo build --release
+
+[dependencies]
+time = "0.1.12"
+regex = "0.1.41
+use regex::Regex;
+
+$ cargo update         # updates all dependencies
+$ cargo update regex   # updates just “regex”
+
+$ cargo test foo
+
