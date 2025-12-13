@@ -24,7 +24,6 @@
 #include <fstream>
 #include <memory>
 
-#include <gtest/gtest.h>
 #include <gflags/gflags.h>
 using std::string;
 

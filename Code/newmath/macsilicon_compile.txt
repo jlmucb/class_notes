@@ -1,0 +1,1 @@
+clang++ -I/opt/homebrew/include  -L/opt/homebrew/lib -lgflags -v mog.cc
