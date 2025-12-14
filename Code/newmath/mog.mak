@@ -14,7 +14,7 @@
 
 
 #ifndef SRC_DIR
-SRC_DIR=$(HOME)/src/github.com/jlmucb/class_notes/IoT/code/newmath
+SRC_DIR=$(HOME)/src/github.com/jlmucb/class_notes/Code/newmath
 #endif
 #ifndef OBJ_DIR
 #endif
@@ -31,22 +31,29 @@ LOCAL_LIB=/usr/local/lib
 TARGET_MACHINE_TYPE= x64
 #endif
 
-O= $(HOME)/tmp
-INCLUDE= -I$(SRC_DIR)/include -I/usr/local/include -I$(SRC_DIR)/keys -I$(GOOGLE_INCLUDE) 
+O= $(HOME)/cryptoobj
 
-CFLAGS=$(INCLUDE) -O3 -g -Wall -std=c++11
-CFLAGS1=$(INCLUDE) -O1 -g -Wall -std=c++11
+CFLAGS=$(INCLUDE) -O3 -g -Wall -std=c++17
+CFLAGS1=$(INCLUDE) -O1 -g -Wall -std=c++17
 
-YOSEMITE=1
-ifdef YOSEMITE
+ifdef MACSI
+	TARGET_MACHINE_TYPE=arm64
+	INCLUDE= -I/opt/homebrew/include
 	CC=clang++
+	LDFLAGS=-v -L/opt/homebrew/lib -lgtest -lprotobuf -lgflags 
 	LINK=clang++
-	LDFLAGS= $(LOCAL_LIB)/libprotobuf.a -L$(LOCAL_LIB) -lgtest -lgflags -lprotobuf
 else
-	CC=g++
-	LINK=g++
-	export LD_LIBRARY_PATH=/usr/local/lib
-	LDFLAGS= -lprotobuf -lgtest -lgflags
+	INCLUDE= -I$(SRC_DIR)/include -I/usr/local/include -I$(SRC_DIR)/keys -I$(GOOGLE_INCLUDE) 
+	ifdef YOSEMITE
+		CC=clang++
+		LINK=clang++
+	LDFLAGS= $(LOCAL_LIB)/libprotobuf.a -L$(LOCAL_LIB) -lgflags -lprotobuf -lgtest
+	else
+		CC=g++
+		LINK=g++
+		export LD_LIBRARY_PATH=/usr/local/lib
+		LDFLAGS= -lprotobuf -lgtest -lgflags
+	endif
 endif
 
 dobj=	$(O)/mog.o 
