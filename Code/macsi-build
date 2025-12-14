@@ -1,5 +1,5 @@
 #!/bin/bash
 
-echo "clang++ -I/opt/homebrew/include  -L/opt/homebrew/lib $* -lgflags -lgtest -lproto -v"
-clang++ -I/opt/homebrew/include  -L/opt/homebrew/lib $* -lgflags -lgtest -lprotobuf -v
+echo "clang++ -I/opt/homebrew/include  -L/opt/homebrew/lib $* -lgtest -lproto -lgflags -v"
+clang++ -I/opt/homebrew/include  -L/opt/homebrew/lib $* -lgtest -lprotobuf -lgflags -v
 
