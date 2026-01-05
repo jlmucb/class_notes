@@ -1,4 +1,4 @@
-#
+
 #    Copyright 2014 John Manferdelli, All Rights Reserved.
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ GOOGLE_INCLUDE=/usr/local/include/google
 LOCAL_LIB=/usr/local/lib
 #endif
 #ifndef TARGET_MACHINE_TYPE
-TARGET_MACHINE_TYPE= x64
+TARGET_MACHINE_TYPE=x64
 #endif
 
 O= $(HOME)/cryptoobj
