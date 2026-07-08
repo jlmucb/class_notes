@@ -58,9 +58,25 @@ $G \supseteq G^*$.  $G^*$ has a central series by induction.
 {\bf Corrollary:}  If $G$ is nilpotent, $G= \bigoplus_{p \mid |G|} O_p(G)$ and 
 $O_p(G)$ is a Sylow subgroup of $G$.
 \section{Frattini Subgroup}
-{\bf Lemma:} Let $1 \ne H \lhd G$ and $J$, a $p$-group in $G$.  If $|H| \neq 1 \jmod{p}$ then
+{\bf Lemma 1:} Let $1 \ne H \lhd P$, $P$, a $p$-group, then $H \cap {\mathbb Z}(P) \ne 1$.
+\begin{quote}
+\emph{Proof:} Let $\Omega =H$ (the elements of $H$).  $P$ acts on $\Omega$.  The
+identity is in one orbit.  The remaining orbits have size $|P:C_P(h)|$ for some $1 \ne h \in H$.
+$p$ divides any such orbit unless $P=C_P(h)$, so there is an $1 \ne h \in H$ with $P=C_P(h)$ and
+$h \in {\mathbb Z}(P)$.
+\end{quote}
+{\bf Lemma 2:} Let $G$ be nilpotent and $1 \ne H \lhd G$, then ${\mathbb Z}(G) \cap H \ne 1$.
+\begin{quote}
+\emph{Proof:} Let $1 \ne S \in S_p(H)$. 
+$G = P \times P_2 \times \ldots \times P_n$, and
+${\mathbb Z}(G) = {\mathbb Z}(P) \times {\mathbb Z} (P_2) \times \ldots \times {\mathbb Z} (P_n)$, 
+where $P_k$ is a Sylow subgroup of $G$ because $G$ is nilpotent. WLOG $S \subseteq P$.
+$H \cap P =S$ and $S \lhd P$.  As above, $1 \ne S \cap {\mathbb Z}(P) < S \cap {\mathbb Z}(G)$.
+\end{quote}
+{\bf Lemma 3:} Let $1 \ne H \lhd G$ and $J$, a $p$-group in $G$.  If $|H| \neq 1 \jmod{p}$ then
 $H \cap C_G(J) \neq 1$.
 \begin{quote}
+Just like Lemma 1.
 \end{quote}
 {\bf Theorem 2:} If $G$ is nilpotent and $1 \ne H \lhd G$ then (1) $[H,G] \nsubseteq H$ and
 (2) $1 \ne H \cap {\mathbb Z}(G)$.
