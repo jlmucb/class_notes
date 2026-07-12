@@ -266,12 +266,64 @@ There are $4^2=2^4$ involutions in $T$ and no element of $T$ has order greater t
 {\bf Theorem 15:} If $G = PSL_3(4)$, then the order of elements of $G$ are $\leq 7$.
 \begin{quote}
 \emph{Proof:}
+The possible rational canonical forms for $A \in SL_3(4)$ are:
+$A=
+\left(
+\begin{array} {ccc}
+0 & 0 & a \\
+1 & 0 & b \\
+0 & 1 & c \\
+\end{array}
+\right)$,
+$A=
+\left(
+\begin{array} {ccc}
+a & 0 & 0 \\
+0 & b & 0 \\
+0 & 0 & c \\
+\end{array}
+\right)$,
+and
+$A=
+\left(
+\begin{array} {ccc}
+a & 0 & 0 \\
+0 & 0 & b \\
+0 & 1 & c \\
+\end{array}
+\right)$.  The second form yields elements of order $1$ or $3$ with $abc=1$.
+The third form must satisfy $ab=1$. The first form must satisfy $a=1$.  Except for order $3$,
+this leaves:
+$A=
+\left(
+\begin{array} {ccc}
+0 & 0 & 1 \\
+1 & 0 & b \\
+0 & 1 & c \\
+\end{array}
+\right)$
+or
+$A=
+\left(
+\begin{array} {ccc}
+b & 0 & 0 \\
+1 & 0 & b^{-1} \\
+0 & 1 & c \\
+\end{array}
+\right)$.
 \end{quote}
-{\bf Theorem 16:} $P \in S_P(G)$, $N_G(P) \subseteq M$, $M$, maximal, then $|G:M|=1 \jmod{p}$.
+{\bf Theorem 16:} There are two non-isomorphic groups of order $20160= 2^6 \cdot 3^2 \cdot 5 \cdot 7$,
+namely $A_8$  and $PSL_3(4)$.
+\begin{quote}
+\emph{Proof:}
+$A_8$ has an element of order $15$, namely, $(123)(45678)$.  By Theorems 14 and 15, the elements
+of $PSL_3(4)$ have order $\leq 7$.
+\end{quote}
+{\bf Theorem 17:} $P \in S_P(G)$, $N_G(P) \subseteq M$, $M$, maximal, then $|G:M|=1 \jmod{p}$.
 \begin{quote}
 \emph{Proof:}
 \end{quote}
-{\bf Theorem 17:} If $p$ is the smallest prime dividing $|G|$, $P \in S_p(G)$ and $P$ is cyclic, $N_G(P)=C_G(P)$.
+{\bf Theorem 18:} If $p$ is the smallest prime dividing $|G|$, $P \in S_p(G)$ and $P$ is cyclic, $N_G(P)=C_G(P)$.
 \begin{quote}
 \emph{Proof:}
 \end{quote}
