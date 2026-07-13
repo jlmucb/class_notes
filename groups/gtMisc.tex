@@ -172,7 +172,8 @@ has $p+1$ maximal subgroups.
 \begin{quote}
 \emph{Proof:}
 \end{quote}
-{\bf Theorem 11:} If $P,R$ are chosen with $|P \cap R|$ maximal, $N_G(P \cap R)$ is not a $p$-group.
+{\bf Theorem 11:} If $G$ has at least $2$ Sylow-$p$ subgroups, (a)$P,Q \in S_pp(G)$ are chosen with $|P \cap Q|$ maximal, $N_G(P \cap Q)$
+is not a $p$-group, and (b) $N_G(P \cap Q)$ has at least two Sylow-$p$ subgroups.
 \begin{quote}
 \emph{Proof:}
 \end{quote}
@@ -181,33 +182,75 @@ has $p+1$ maximal subgroups.
 \emph{Proof:}
 \\
 \\
-{\bf Lemma 1:} $G$ has no proper subgroups of index $7$.
+{\bf Lemma 1:} $G$ has no proper subgroups of index $<7$.
+\\
+If it did and $H$ was such a subgroup, $G/Core_G(H)$ would be isomorphic to a subgroup of $S_6$, so there would be an
+element of order $7$ in $Core_G(H)$, but $G$ is simple, contradiction.
 \\
 \\
 {\bf Lemma 2:} If $S \in S_7(G)$, $n_7=|G:N_G(S)|=8$ so no $2$ element centralizes $S$.
 \\
+$n_7=8$, so $|N_G(S_7)|= 3 \cdot 7$.  No element of order $2$ normalized $S_7$ so there
+is no element of order $14$ in $G$.
 \\
-{\bf Lemma 3:} $G$ has no element of orger $21$.
+{\bf Lemma 3:} $G$ has no element of order $21$.
+\\
+If there were an element of order $21$, $7 \mid N_G(S_3)$.
+$n_3= 7$ or $n_3= 28$.  Suppose $n_3=7$ and
+$P \in S_3(N_G(S_3)$ and
+$T \in S_2(N_G(S_3)$.
+$|N_G(S_3)|=24$. $S_3$ normalizes some $S_7$, say $R$. $P = P^t \subseteq N_G(R^t)$.
+$T$ acts by conjugation on $S_7(G)$ and is transitive on the orbit. Hence $P$ normalizes
+every Sylow $7$ subgroup of $G$ but this is a normal subgroup.
 \\
 \\
-{\bf Lemma 4:} $R \in S_3(G)$,  $n_3=|G:N_G(R)|=28$
+{\bf Lemma 4:} $R \in S_3(G)$,  $n_3=|G:N_G(R)|=28$ and $|N_G(S_3)| = 6$.
+\\
+By the above.
 \\
 \\
-{\bf Lemma 5:} $V \subseteq G$, $V$ a Klein $4$-group with $N_G(V)=S_4$.
+{\bf Lemma 5:} $V \subseteq G$, $V$ a Klein $4$-group with $N_G(V) \cong S_4$.
+\\
+Pick $T_1, T_2 \in S_2(G)$ with $V= T_1 \cap T_2$ as large as possible.
+$V$ is a Klein group and $N_G(V)=S_4$.  Put $N=N_G(V)$.  $|V| = 2$ or
+$|V| = 4$. $N$ acts on $V - \{1\}$.  If $7 \mid |N|$ a two element would
+normalize a Sylow $7$ groups which is ruled out above.  By theorem 11(b),
+$|N= 2^a \cdot 3$i, $a = 2$ or $a = 3$.  Let $P \in S_3(G)$, $N_N(P)$ has order
+$3$ or $6$. So $N$ has four Sylow $3$ subgroups, all permuted transitively by $N$.
+Groups of order $12$ have a normal Sylow $2$ or Sylow $3$ subgroup. $|N|=24$.
+Let $K$ be the kernel of $N$ acting on the Sylow $3$ subgroups. If $K=1$,
+$N \cong S_4$.  If $K > 1$, $K$ has an element of order dividing $6$ and $P$
+is not contained in $K$.  So $|K|=2$. $N/k$ has order $12$, a contradiction.
 \\
 \\
 {\bf Lemma 6:} If $Q \in S_2(G)$, $Q \cong D_8$.
 \\
+$S_4$ has a $D_8$ subgroup.
+\\
+\\
 {\bf Lemma 7:} $N_G(R) \cong S_3$.
+\\
+No element of order $2$ commutes with an element of odd prime order. $T \cong D_8$ so
+${\mathbb Z}(T)= \langle z \rangle$.  Since $C(z)$ has no elements of odd prime order,
+$C(z)=T$.
 \\
 \\
 {\bf Lemma 8:} If $T \in s_2(G)$, $n_2= |G:N_G(T)| = 21$. $G_G(T) = \langle z \rangle$ and ${\mathbb Z}(T) = \langle z \rangle$.
 \\
+$z$ has $21$ conjugates since $|C_G(z)|=8$ and (by 6), one conjugacy class of $4$ elements.  So,
+there are $42$ elements of order $4$, $48$ elements of order $7$, and $56$ elements of order $3$.
+\\
 \\
 {\bf Lemma 9:} $G$ has a unique conjugacy class of elements of order $2$.
 \\
+All $167$ non-identity elements are accounted for above, so every $2$ element is conjugate to $z$,
+Now, $V \leq T$.  Let $W$ be the other Klein group in $T$.  $V$ and $W$ are not conjugate.
+\\
 \\
 {\bf Lemma 10:} $N_G(W) \cong S_4$.
+\\
+Let $W = \langle z, w \rangle$.  $z^g=w$.  Put $T_0 = C_G(w)$.  i$W = T \cap T_0$ and
+Lemma 5 gives the result.
 \\
 \\
 {\bf Definition:} If 
