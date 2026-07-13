@@ -342,14 +342,34 @@ $B_2=
 0 & 0 & 1 \\
 0 & 1 & 1 \\
 \end{array}
-\right)$,  both have order $3$.
+\right)$,  both have order $3$ and $H = \langle B_1, B_2 \rangle$ has order $9$,
+so $H \in S_3(G)$.  Further,
+$B_1 A_5 {B_1}^{-1} =
+\left(
+\begin{array} {ccc}
+0 & 0 & b^2 \\
+b^2 & 0 & b \alpha \\
+0 & b^2 & \alpha \\
+\end{array}
+\right)$
+and
+$B_2 A_5 {B_2}^{-1} =
+\left(
+\begin{array} {ccc}
+0 & 1 & 0 \\
+1 & 1 & 1 \\
+1 & 0 & \alpha \\
+\end{array}
+\right)$.
+So, $H$ does not centralize $A_5$ and there is no element of $15$ in $G$.
 \end{quote}
 {\bf Theorem 16:} There are two non-isomorphic groups of order $20160= 2^6 \cdot 3^2 \cdot 5 \cdot 7$,
 namely $A_8$  and $PSL_3(4)$.
 \begin{quote}
 \emph{Proof:}
-$A_8$ has an element of order $15$, namely, $(123)(45678)$.  By Theorems 14 and 15, the elements
-of $PSL_3(4)$ have order $\leq 7$.
+$A_8$ has an element of order $15$, namely, $(123)(45678)$.  By Theorems 14 and 15, there
+is no element of order $15$ in $G$ (In fact, the elements
+of $PSL_3(4)$ have order $\leq 7$).
 \end{quote}
 {\bf Theorem 17:} $P \in S_P(G)$, $N_G(P) \subseteq M$, $M$, maximal, then $|G:M|=1 \jmod{p}$.
 \begin{quote}
