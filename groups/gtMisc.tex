@@ -167,13 +167,27 @@ The number of non-identity elements contained in conjugates of $M$ is at most $(
 $M \cap N = 1$.
 Now apply 5a.
 \end{quote}
-{\bf Theorem 7:} $SL_2(4) \cong A_5$
+{\bf Theorem 7:} $SL_2(4) \cong A_5$.
 \begin{quote}
 \emph{Proof:}
+$|SL_2(4)|=60$ and $|A_5|=60$. and both are simple.  Let $G=SL_2(4)$. By Sylow, in $G$, $n_3 = 3$ or $n_3=5$.
+Set $H=N_G(P), P \in S_2(G), n=n_3$. Let $\varphi: G \rightarrow S_n$ be the permutation representation on the
+cosets of $H$.  If $n=3$, $Core_G(H) \ne 1$, since $5 \nmid |S_3|$.  So $n=n_3=5, |H|=12$ and 
+$\varphi: G \rightarrow S_5$.  Since $Core_G(H) = 1$, $\varphi$ is an injection into $S_5$.  If the image contains
+an odd permutation, the image of $\varphi$ has a subgroup of $A_5$ of order $30$ which must be normal in
+$A_5$, a contradiction.
 \end{quote}
 {\bf Theorem 8:} $A_5$ is the symmetry group of the icosahedron.
 \begin{quote}
-\emph{Proof:}
+\emph{Proof:} Let $O$ be the icosahedron and $G$ be its group of symmetries. 
+$O$ has $12$ verticies and $20$ faces with $5$ edges incident on a vertex, so each vertex can go into
+$12$ verticies and an adjacent vertex can go into one of $5$. This uniquely determines a symmetry, so
+$|G|= 12 \cdot 5=60$.  Let $P \in S_5(G)$, $P$ permutes the verticies adjacent to a point.  Since
+$G$ is transitive on verticies, $|G:G_a|=12$ (where $a$ is a vertex), so $G_a = P$ for some $P$.
+$|G:N_G(P)|= 5$ and $|N_G(P)| = 12$.  Set $H=N_G(P)$ and let $\varphi: G \rightarrow S_5$ be a permutation
+representation on the cosets of $H$.  Only the identity symmetry fixes all such $H$ so $\varphi$ is
+an injection into $S_5$.  No symmetry swaps exactly two points so the image of $\varphi$ lies in $A_5$.
+Thus $G \cong A_5$.
 \end{quote}
 {\bf Theorem 9:} Maximal subgroups of solvable groups have index $p^k$, some $p \in \pi(G)$.
 \begin{quote}
