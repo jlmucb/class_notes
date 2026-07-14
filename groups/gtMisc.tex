@@ -447,17 +447,20 @@ $A_8$ has an element of order $15$, namely, $(123)(45678)$.  By Theorems 14 and 
 is no element of order $15$ in $G$ (In fact, the elements
 of $PSL_3(4)$ have order $\leq 7$).
 \end{quote}
-{\bf Theorem 17:} $P \in S_P(G)$, $N_G(P) \subseteq M$, $M$, maximal, then $|G:M|=1 \jmod{p}$.
+{\bf Theorem 17:} $P \in S_p(G)$, $N_G(P) \subseteq M$, $M$, maximal, then $|G:M|=1 \jmod{p}$.
 \begin{quote}
 \emph{Proof:}
 Let $O$ be the Sylow $p$-subgroups of $G$.  By Sylow, $|O| = |G:N_G(P)|$ and $|O| = 1 \jmod{p}$.
 $P \subseteq N_G(P) \subseteq M$.
-$|N_G(P)| \mid |M|$ since $N_G(P) \subseteq M$, so $|G:M| \mid |G:N_G(P)|$.  Thus $|G:M| \mid |G:N_G(P)| = 1 \jmod{p}$.
+$|N_G(P)| \mid |M|$ since $N_G(P) \subseteq M$, so $|G:M| \mid |G:N_G(P)|$.
 $|G:N_G(P)| = |G:M| \cdot |M:N_M(P)|$, $|M:N_M(P)| =1 \jmod{p}$ and $|G:N_G(P)| = 1 \jmod{p}$ and we're done.
 \end{quote}
 {\bf Theorem 18:} If $p$ is the smallest prime dividing $|G|$, $P \in S_p(G)$ and $P$ is cyclic, $N_G(P)=C_G(P)$.
 \begin{quote}
 \emph{Proof:}
+$N_G(P)/C_G(P)$ is a subgroup of the set of automorphisms of $P$.  Let $|P|=p^k$.  Since $P$ is cyclic, $|Aut(P)|= p^{k-1} (p-1)$.
+Since $P$ is abelian, $p \nmid |N(P)/C(P)|$, so $|N(P)/C(P)| \mid p-1$.  Since $p$ is the smalles prime dividing $|G|$ and hence
+$|N(P)/C(P)| = 1$.  $N_G(P)=C_G(P)$.
 \end{quote}
 {\bf Quasidihedral and generalized quaternion groups:}
 $QD_{16} = \langle \sigma, \tau | \sigma^8=\tau^2=1, \tau \sigma \tau = \sigma^3 \rangle$.
