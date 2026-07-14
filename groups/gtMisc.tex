@@ -450,10 +450,10 @@ of $PSL_3(4)$ have order $\leq 7$).
 {\bf Theorem 17:} $P \in S_P(G)$, $N_G(P) \subseteq M$, $M$, maximal, then $|G:M|=1 \jmod{p}$.
 \begin{quote}
 \emph{Proof:}
-Let $O$ be the Sylow $p$-subgroups of $G$.  By Sylow, $|O| = |G:G_N(P)|$ and $|O| = 1 \jmod{p}$.
+Let $O$ be the Sylow $p$-subgroups of $G$.  By Sylow, $|O| = |G:N_G(P)|$ and $|O| = 1 \jmod{p}$. $P$ normalizes
+itself so $P \subseteq N_G(P) \subseteq M$.
 $|N_G(P)| \mid |M|$ since $N_G(P) \subseteq M$, so $|G:M| \mid |G:N_G(P)|$.  Thus $|G:M| \mid |G:N_G(P)| = 1 \jmod{p}$.
-If $P \subseteq M$, then $|G:N_G(P)| = |G:M| |M:N_M(P)|$, $|M:N_M(P)| =1 \jmod{p}$ and $|G:N_G(P)| = 1 \jmod{p}$
-by Sylow and were done in this case. If $P \nsubseteq M$, $PM=G$ since $M$ is maximal. 
+$|G:N_G(P)| = |G:M| |M:N_M(P)|$, $|M:N_M(P)| =1 \jmod{p}$ and $|G:N_G(P)| = 1 \jmod{p}$ and we're done.
 \end{quote}
 {\bf Theorem 18:} If $p$ is the smallest prime dividing $|G|$, $P \in S_p(G)$ and $P$ is cyclic, $N_G(P)=C_G(P)$.
 \begin{quote}
