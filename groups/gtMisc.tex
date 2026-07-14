@@ -183,29 +183,48 @@ $A_5$, a contradiction.
 $O$ has $12$ verticies and $20$ faces with $5$ edges incident on a vertex, so each vertex can go into
 $12$ verticies and an adjacent vertex can go into one of $5$. This uniquely determines a symmetry, so
 $|G|= 12 \cdot 5=60$.  Let $P \in S_5(G)$, $P$ permutes the verticies adjacent to a point.  Since
-$G$ is transitive on verticies, $|G:G_a|=12$ (where $a$ is a vertex), so $G_a = P$ for some $P$.
-$|G:N_G(P)|= 5$ and $|N_G(P)| = 12$.  Set $H=N_G(P)$ and let $\varphi: G \rightarrow S_5$ be a permutation
-representation on the cosets of $H$.  Only the identity symmetry fixes all such $H$ so $\varphi$ is
-an injection into $S_5$.  No symmetry swaps exactly two points so the image of $\varphi$ lies in $A_5$.
-Thus $G \cong A_5$.
+$G$ is transitive on verticies, $|G:G_a|=12$ (where $a$ is a vertex), so $|G_a| = 5$ $G_a= P$ for
+some $P \in S_5(G)$.  $P$ fixes exactly $2$ (antipotal) verticies.  Let $\Omega$ be the pairs of
+antipotal points and let $H<G$ be the symmetries on $\Omega$. $|H| = 12$.
+Now let $\varphi: G \rightarrow S_5$ be a permutation
+representation on the cosets of $H$.  Only the identity symmetry fixes all such the cosets ot $H$
+so $\varphi$ is an injection into $S_5$.  No symmetry swaps exactly two points so the image of
+$\varphi$ lies in $A_5$.  Thus $G \cong A_5$.
 \end{quote}
 {\bf Theorem 9:} Maximal subgroups of solvable groups have index $p^k$, some $p \in \pi(G)$.
 \begin{quote}
 \emph{Proof:}
-Let $H$ be a minimal normal subgroup oog $G$. $H$ is elementary abelian so it has order $p^n$.
+Let $H$ be a minimal normal subgroup of $G$. $H$ is elementary abelian so it has order $p^n$.
 Let $M$ be a maximal subgroup.  If $H \subseteq M$, the theorem holds by induction.  If not
 $G=HM$ and $G/H \cong M/M \cap H$.  So ${\frac {|G|} {|H|}} = {\frac {|M|}{|M \cap H|}}$ and
-${frac {|G|} {|M|}} = {\frac {|H|} {M \cap H}}$ but $|H|$ is a prime power, so we're done.
+${\frac {|G|} {|M|}} = {\frac {|H|} {M \cap H}}$ but $|H|$ is a prime power, so we're done.
 \end{quote}
-{\bf Theorem 10:} If $|P|= p^3$, $P' \ne 1$, then $\Phi(P) = {\mathbb Z}(P)$.  $P/\Phi(P) \cong {\mathbb Z}_p \times {\mathbb Z}_p$ and
+{\bf Theorem 10:} If $|P|= p^3$, $P' \ne 1$, then $\Phi(P) = {\mathbb Z}(P)$.
+$P/\Phi(P) \cong {\mathbb Z}_p \times {\mathbb Z}_p$ and
 has $p+1$ maximal subgroups.
 \begin{quote}
 \emph{Proof:}
+${\mathbb Z}(P) \ne 1$ and $P/{\mathbb Z}(P)$ is abelian so $P' \subseteq {\mathbb Z}(P)$.
+$P' \ne 1$ and $P' \subseteq \Phi(P)$. $P/P'$.  If ${\mathbb Z}(P) \ne Phi(P)$,
+$\langle {\mathbb Z}(P),  Phi(P) \rangle = P=  {\mathbb Z}(P)$ which means $P$ is abelian.
+So ${\mathbb Z}(P) = \Phi(P)$.  If $|{\mathbb Z}(P)| = p^2$, $P$ is abelian. So $|Phi(P)|=p$
+and $P/Phi(P) = {\mathbb Z}_p \times {\mathbb Z}_p $.
+Put $H = P_1 \times P_2 = {\mathbb Z}_p \times {\mathbb Z}_p$.
+Let $\langle \sigma \rangle = P_1$ and
+$\langle \tau \rangle = P_2$.  The maximal subgroups of $H$ have order $p$.  The
+subgroups of $H$ od order $p$ are $\langle \sigma \tau^j \rangle$, $1 \leq j \leq p$ and
+$\langle \tau \rangle$.  There are $p+1$ of them.
 \end{quote}
-{\bf Theorem 11:} If $G$ has at least $2$ Sylow-$p$ subgroups, (a)$P,Q \in S_pp(G)$ are chosen with $|P \cap Q|$ maximal, $N_G(P \cap Q)$
+{\bf Theorem 11:} If $G$ has at least $2$ Sylow-$p$ subgroups, (a)$P,Q \in S_p(G)$ are chosen
+with $|P \cap Q|$ maximal, $N_G(P \cap Q)$
 is not a $p$-group, and (b) $N_G(P \cap Q)$ has at least two Sylow-$p$ subgroups.
 \begin{quote}
 \emph{Proof:}
+$N_P(P \cap Q) > P \cap Q$ and $N_Q(P \cap Q) > P \cap Q$.  If $N_P(P \cap Q)$ is a $p$ group,
+$N_P(P \cap Q) \cap N_Q(P \cap Q) > P \cap Q$ which proves (a).  Now, if $R \in S_p(N_G(P \cap Q))$
+and $R$ is the only such Sylow subgroup, $R \lhd N_G(P \cap Q)$.
+$\langle N_P(P \cap Q), N_Q(P \cap Q) \rangle \subseteq R$ and again
+$N_P(P \cap Q) \cap N_Q(P \cap Q) > P \cap Q$.
 \end{quote}
 {\bf Theorem 12:} There is a unique simple group, $G$ if order $168= 2^3 \cdot 3 \cdot 7$.
 \begin{quote}
@@ -431,6 +450,10 @@ of $PSL_3(4)$ have order $\leq 7$).
 {\bf Theorem 17:} $P \in S_P(G)$, $N_G(P) \subseteq M$, $M$, maximal, then $|G:M|=1 \jmod{p}$.
 \begin{quote}
 \emph{Proof:}
+Let $O$ be the Sylow $p$-subgroups of $G$.  By Sylow, $|O| = |G:G_N(P)|$ and $|O| = 1 \jmod{p}$.
+$|N_G(P)| \mid |M|$ since $N_G(P) \subseteq M$, so $|G:M| \mid |G:N_G(P)|$.  Thus $|G:M| \mid |G:N_G(P)| = 1 \jmod{p}$.
+If $P \subseteq M$, then $|G:N_G(P)| = |G:M| |M:N_M(P)|$, $|M:N_M(P)| =1 \jmod{p}$ and $|G:N_G(P)| = 1 \jmod{p}$
+by Sylow and were done in this case. If $P \nsubseteq M$, $PM=G$ since $M$ is maximal. 
 \end{quote}
 {\bf Theorem 18:} If $p$ is the smallest prime dividing $|G|$, $P \in S_p(G)$ and $P$ is cyclic, $N_G(P)=C_G(P)$.
 \begin{quote}
