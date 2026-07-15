@@ -159,13 +159,11 @@ $M \cap N = 1$.
 {\bf Theorem 6:} If every proper subgroup of $G$ is nilpotent, $G$ is solvable.
 \begin{quote}
 \emph{Proof:} Let $G$ be a minimal counterexample.  $G$ is simple. Let $M, N$ be maximal with $M \cap N$
-as large as possible. 
-$N_G(M)= M$ and $N_G(N)= N$.
-Since $M$, $N$ are nilpotent $N_M(M \cap N) > M \cap N$ and
-$N_N(M \cap N) > M \cap N$.
+as large as possible.  $N_G(M)= M$ and $N_G(N)= N$.  Since $M$, $N$ are nilpotent $N_M(M \cap N) > M \cap N$ and
+$N_N(M \cap N) > M \cap N$.  $M \cap N = 1$.
 The number of non-identity elements contained in conjugates of $M$ is at most $(|M| -1) \cdot |G:M|$.
-$M \cap N = 1$.
-Now apply 5a.
+The number of non-identity elements contained in conjugates of $N$ is at most $(|N| -1) \cdot |G:N|$.
+So there is at least one element in $N$ conjugate to and element of $M$.  Say $n^g \in M$.  $N^g \cap M > 1$.
 \end{quote}
 {\bf Theorem 7:} $SL_2(4) \cong A_5$.
 \begin{quote}
@@ -471,3 +469,17 @@ $|N(P)/C(P)| = 1$.  $N_G(P)=C_G(P)$.
 {\bf Quasidihedral and generalized quaternion groups:}
 $QD_{16} = \langle \sigma, \tau | \sigma^8=\tau^2=1, \tau \sigma \tau = \sigma^3 \rangle$.
 $Q_{2^{n+1}} = \langle h, x | h^{2^n}= a = x^4, x^{-1} h x = h^{-1}, h^{2^{n-1}}= x^2 \rangle$.
+\\
+\\
+{\bf Theorem 19:} If $|G|$ is odd, $x$ and $x^{-1}$ are not conjugate.
+\begin{quote}
+\emph{Proof:}
+Suppose $x^g = x^{-1}$. $x^{g^2}=x$, $g^2 \in C_G(x)$ but then $x^g=x$.
+\end{quote}
+{\bf Theorem 20:} If $G>H$, $G \ne \bigcup_{g \in G} H^g$.
+\begin{quote}
+\emph{Proof:}
+Let $M$ be a maximal subgroup containint $H$.  If $M \lhd G$, $\bigcup_{g \in G} H^g \subseteq M \ne G$.  If not,
+by the lemma before Theorem 17, there are at most $|G:M|(|M|-1)$ elements conjugate to non-identity elements of $G$.
+$|G| > |G:M|(|M|-1) + 1$.
+\end{quote}
