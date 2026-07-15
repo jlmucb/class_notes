@@ -447,6 +447,15 @@ $A_8$ has an element of order $15$, namely, $(123)(45678)$.  By Theorems 14 and 
 is no element of order $15$ in $G$ (In fact, the elements
 of $PSL_3(4)$ have order $\leq 7$).
 \end{quote}
+{\bf Lemma:} If $M$ is maximal in $G$, there are at most $(|M|-1) \cdot |G:M|)$ elements in $G$ conjugate to an element
+in $M^{\#}$.
+\begin{quote}
+\emph{Proof:}
+Thera are $(|M|-1)$ elements in $M^{\#}$ and at most $G:C_G(x)$ conjugates of each element in $G$.  $|M:C_M(x)|$ of these are in $M$ and
+at most $|G:M|$ outside $M$.  $C_G(x) \subseteq M$, otherwise $G = \langle C_G(x), M \rangle$. So $|G:C_G(x)| = |G:M| \cdot |M:C_M(x)|$.
+$|M:C_M(x)| \leq |M^{\#}|$. So, at most $|G:M|$ such conjugates lie outside $M$.  The total number of elements conjugate to some $x \in M^{\#}$
+is  thus $\leq (|M|-1) \cdot |G:M| + (|M|-1)$. 
+\end{quote}
 {\bf Theorem 17:} $P \in S_p(G)$, $N_G(P) \subseteq M$, $M$, maximal, then $|G:M|=1 \jmod{p}$.
 \begin{quote}
 \emph{Proof:}
