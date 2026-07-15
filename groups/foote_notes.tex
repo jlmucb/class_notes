@@ -1,4 +1,31 @@
 \chapter{Foote Notes}
+\section{Baer-Suzuki}
+{\bf Lemma:} Let $R \in p(G)$ and let ${\cal A}$ be any collection of subsets of $R$ stable under conjugation by $R$.
+Let ${\cal Y} \subset {\cal A}$ with ${\cal Y}$  with ${\cal Y}$ normalized by  $\langle {\cal Y} \rangle$.
+$\exists g \in {\cal A} - {\cal Y}$ that normalizes ${\cal Y}$.
+\begin{quote}
+\emph{Proof:}  
+Put ${\cal X} = \{ X^G \}$ and $N=N_R({\cal Y})$.  If $N=R$, every element of ${\cal A} - {\cal Y}$ normalized
+${\cal Y}$ and we're done.  If $N<R$, $N_N(R)>N$ so $\exists g \notin N: N^g=N$.  Since $g$ does not normalize ${\cal Y}$,
+$\exists X \in {\cal Y}: X^g \notin {\cal Y}$.  But ${\cal Y} \leq N$ and $N^g=N$.  Since ${\cal Y}$ is stable
+under conjugation, $X^g \in {\cal A} - {\cal Y}$, $g$ satifies the Lemma.
+\end{quote}
+{\bf Baer-Suzuki:} Let $X \in p(G)$.  If $\langle X, X^g \rangle \in p(G), \forall g \in G$, $X \leq O_p(G)$.
+\begin{quote}
+\emph{Proof:}  
+Again, put ${\cal X} = \{ X^G \}$.  Let ${\cal Z} \subseteq {\cal X}$ be maximal wrt ${\cal Z} = P \in p(G)$.
+If ${\cal Z} = {\cal X}$, we're done. ${\cal Z} \nleqslant {\cal X}$. $\langle {\cal Z}, U \rangle$ is not
+a $p$-groups for $U \in {\cal X} - {\cal Z}$.  Over all $p$-groups of $G$ that contain an element of 
+${\cal X} - {\cal Z}$, choose $Q$ such that ${\cal Y} = \{ Y \in {\cal X} : Y \leq P \cap Q \}$ has maximal cardinality.
+${\cal Y} \subseteq {\cal Z}$ and ${\cal Y} \neq {\cal Z}$.  $P \cap Q$ normalizes ${\cal Y}$ and so does
+$\langle {\cal Y} \rangle$.  Put ${\cal U} = \{ X \in {\cal X}: X \subseteq Q \}$.  By the lemma,
+$\exists  Z \in {\cal Z} - {cal Y}$  and 
+$\exists  U \in {\cal U} - {cal Y}$ that normalize ${\cal Y}$.  $\langle Z, U \rangle$ is a $p$-group
+that normalizes $\langle {\cal Y} \rangle$.  So $Q^{\*}= \langle {\cal Y}, Z, U \rangle$
+is a $p$ group. $U \in {\cal U}$ but $U \notin {\cal Y}$, so $U \notin {\cal Z}$.  But
+$P \cap Q^{\*}$ contains ${\cal Y} \cup \{Z\}$, which contradicts the maximality of ${\cal Y}$.
+\end{quote}
+{\bf Corollary:} If $z \in Inv(G)$ and $z \notin O_2(G)$, $z$ inverts some element of odd irder in $G$.
 \section{Supporting results}
 {\bf Definition 1:}  Suppose $A$ is abelian and
 $A= {\mathbb Z}_{p^{\alpha_1}} \times {\mathbb Z}_{p^{\alpha_2}} \times \ldots {\mathbb Z}_{p^{\alpha_r}}$, define
