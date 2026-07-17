@@ -318,6 +318,15 @@ $V_i$ is on $W_i$ iff $V_i \subseteq W_i$.
 {\bf Theorem 13:} If $G$ is simple and $|G|=p^2qr$, $G \cong A_5$.
 \begin{quote}
 \emph{Proof:}
+$|N_G(P)| = p^2$ or $|N_G(P)| = p^2 q$.  It can't be $p^2$ by Burnside transfer.
+$N(P)/P$ acts on $P$.  Where $|N(P)/P| =q$. If $(q, |Aut(P)|)=1$ a $q$
+element centralizes $P$ and $C(P)>Q$.  But if $C(P)>Q$, $N(P)$ has a normal
+$p$ complement $N(P)= PT$, $T \lhd G$, a contradiction.  So,
+$q \mid | |Aut(P)|$ and $q=p+1$.  $p=2$, $q=3$.
+$G=12 \cdot r$.  $|G/N(R)| \mid |G/R|= 12$ and $|G/N(R)| = 1 \jmod{r}$.
+Thus $|G/N(R)|= 6$ or $|G/N(R)|= 12$.
+If $|G/N(R)|=12$, $G$ has a normal $r$ complement.  So
+$|G/N(R)|= 6 = 1 \jmod{r}$ and $r = 5$.
 \end{quote}
 {\bf Theorem 14:} If $T \in S_2(G)$, $G = GL_3(4)$, then $T$ consists of upper triangular marticies.
 \begin{quote}
