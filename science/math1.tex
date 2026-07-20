@@ -1348,9 +1348,17 @@ No & No & $\sum_{i=1}^k p_i(n)$ & $1$ if $n \le k$, & $p_k(n)$\\
 \end{figure}
 \\
 Select $n$ elements from $r$ distinct objects, with repetition allowed: ${{n+r-1} \choose {r}}$.
-Correspondence: $\langle s_0, s_1, \ldots , s_n \rangle \rightarrow \langle s_1+0, s_2+1, \ldots, s_n+n-1 \rangle$.]
+Correspondence: $\langle s_0, s_1, \ldots , s_n \rangle \rightarrow \langle s_1+0, s_2+1, \ldots, s_n+n-1 \rangle$.
 \\
 Number of ways to distribute $r$ non-distinct objects into $n$ distinct cells: ${{n+r-1} \choose {(n-1)}}$.
 \\
-Number of ways to distribute $r$ distinct objects into $n$ distinct cells (more than one element in cell allowed): ${\frac {(n+r-1)!} {(n-1)!}}$.
+Number of ways to distribute $r$ distinct objects into $n$ distinct cells (more than one element in cell allowed): 
+${\frac {(n+r-1)!} {(n-1)!}}$.
+\\
+\\
+{\bf Least squares line fitting:} Given points 
+$(x_1, y_i), i = 1, 2, \ldots, n$, the least squares line $y=mx+b$ to fit the points is:
+$b = {\frac {\sum_{i=1}^n y_i - m \sum_{i=1}^n x_i} {n}}$ ,
+$m = {\frac {n \sum_{i=1}^n x_i y_i -  (\sum_{i=1}^n x_i) (\sum_{i=1}^n y_i)}
+{n \sum_{i=1}^n {y_i}^2 -  (\sum_{i=1}^n {x_i}^2)}}$ 
 
