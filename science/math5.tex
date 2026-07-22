@@ -219,7 +219,8 @@ ${\vec q}$ which is optimal?
 to optimize $Pr({\vec O} | \lambda)$, given the observed sequence: ${\vec O}$?
 \end {itemize}
 {\bf Solution to Problem 1:}
-Assuming the foregoing, the probability of the output ${\vec O}$ is:
+Assuming the foregoing, given ${\vec s}= (s_0, s_1, \ldots , s_{T-1})$,
+the probability of the output ${\vec O}$ is:
 $$
 Pr[{\vec O} | \lambda] = \sum_{{\vec s} \in {\vec S}^{(T)}}
 \pi({\vec s}_0) q(O_0 | {\vec s}_0)
@@ -292,6 +293,9 @@ ${\hat {q}}(j|i)=
 {\sum_{t=1}^{T} \alpha_t(i) \beta_t(i)}}$,
 $\sum_j q(j|i)=1$.
 \end {itemize}
+Note: the right hand side of the foregoing equations are calculated with the prior distribution.
+\\
+\\
 Baum showed that if $Q(\lambda, {\overline {\lambda}})=
 \sum_{s \in S} P_{\lambda}(O,s) log(P_{\overline {\lambda}}(O,s)$ and
 $Q(\lambda, {\overline {\lambda}}) >
