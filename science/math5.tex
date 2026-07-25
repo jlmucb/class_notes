@@ -227,8 +227,8 @@ $P({\vec y} | {\cal X}, \theta^g)= \prod_{i=1}^n P(y=y_i| x_i, \theta^g)$.
 $\theta^{max} = argmax_{\theta} \thinspace Q(\theta, \theta^g)$.
 \\
 \\
-$P(y_i | x_i, {\theta_i}^g) = {\frac {\alpha_{y_i}^g P(x=x_i | {\theta_{y_i}}^g)} {P(x=x_i | {\theta_{y_i}^g)}} }
-= {\frac {\alpha_{y_i}^g P(x=x_i | {\theta_{y_i}}^g)} {\sum_{k=1}^m {\alpha_k}^g P(x= x_i | {\theta_k}^g)}}$.
+$P(y_i | x_i, \theta_i^g) = {\frac {\alpha_{y_i}^g P(x=x_i | {\theta_{y_i}}^g)} {P(x=x_i | {\theta_{y_i}^g)}} }
+= {\frac {\alpha_{y_i}^g P(x=x_i | {\theta_{y_i}}^g)} {\sum_{k=1}^m {\alpha_k}^g P(x= x_i | \theta_k^g)}}$.
 \\
 \\
 $Q(\theta, \theta^g) = \sum_{{\vec y} \in Y^n} \ell (\theta | {\cal X}, {\cal Y}) P({\vec y} | {\cal X}, \theta^g)=
@@ -280,8 +280,8 @@ ${\mu_l}^{new} =
 {\frac {\sum_{i=1}^n (x_i p(l|x_i, \theta^g)}
 {\sum_{i=1}^n ((l|x_i, \theta^g)}}$, and
 ${\sigma_l}^{new} =
-{\frac {\sum_{i=1}^n p(l|x_i, \theta^g)(x-{\mu_l}^{max}) \cdot (x-{\mu_l}^{max, T})}
-{\sum_{i=1}^n ((l|x_i, \theta^g)}} $.
+{\frac {\sum_{i=1}^n p(l|x_i, \theta^g)(x-{\mu_l}^{max}) \cdot (x-{\mu_l}^{max})^T}
+{\sum_{i=1}^n p(l|x_i, \theta^g)}} $.
 \\
 \\
 {\bf HMM Maximum likelihood re-estimation:}
