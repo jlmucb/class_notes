@@ -198,7 +198,93 @@ $\rho(X,Y)^2= {\frac {cov(X,Y)^2} {cov(X,X) cov(Y,Y)}}$.  Posterior models.
 $P(|Y- \mu| \ge t) \le {\frac {var(Y)} {t^2}}$.
 \\
 \\
-{\bf Maximum likelihood re-estimation:}
+{\bf Maximum likelihood for mixture:}
+${\cal X} = \langle x_1 , x_2 , \ldots, x_n \rangle$ is a set of observations from
+a sample space $X$, with the distribution $P(x=j | \theta)$.
+The likelihood is ${\cal L}({\cal X}, \theta) = {\cal L}(\theta, {\cal X}) = \prod_{i=1}^n P(x=x_i | \theta)$.
+\\
+\\
+The problem is to find the likelihood and mixture constants for
+$P(x=x_i | \theta) = \sum_{j=1}^m \alpha_j P(x=x_i | \theta_j)$.  Imagine the $\alpha_j$ are ''hidden''
+variables. $Y = \{ 1, 2, \ldots, m \}$ is a sample space and $\alpha_j = P(y=j)$.
+We put ${\vec y} \in Y^n$, the set of all possible values for ${\vec y}$ over
+$n$ observations. The $x_i$ are the revealed parameters
+and the $y_i$ are the latent variables.  The entire parameter space is $(\alpha_1 , \alpha_2 , \ldots , \alpha_m, 
+\theta_1 , \theta_2 , \ldots , \theta_m)$.
+\\
+\\
+The ''incomplete'' likelihood is $\prod_{j=1}^n P(x=x_i | \theta) = \prod_{j=1}^n (\sum_{j=1}^m \alpha_j P(x=x_i | y = j) P(y=j))$.
+The ''complete'' likelihood is ${\cal L}({\cal X}, {\cal Y} | \theta)= {\cal L}(\theta | {\cal X}, {\cal Y})=
+\prod_{j=1}^n P(x=x_i | \theta) = \prod_{i=1}^n (\sum_{j=1}^m \alpha_j P(x=x_i | y = j)$.
+Log likelihood is
+$\ell ({\cal X}, {\cal Y} | \theta) = {\cal L}({\cal X}, {\cal Y} | \theta)$.  Estimation procedure starts with
+guess of the parameters $\theta^g$.
+\\
+\\
+$Q(\theta, \theta^g)= E[log(P({\cal X}, {\cal Y} | \theta | {\cal X}, \theta^g]=
+\int_{\vec y} log(P({\cal X}, {\cal Y} | \theta | {\cal X}, \theta^g) P({\vec y}| {\cal X}, \theta^g)P$.
+$P({\vec y} | {\cal X}, \theta^g)= \prod_{i=1}^n P(y=y_i| x_i, \theta^g)$.
+$\theta^{max} = argmax_{\theta} \thinspace Q(\theta, \theta^g)$.
+\\
+\\
+$P(y_i | x_i, {\theta_i}^g) = {\frac {\alpha_{y_i}^g P(x=x_i | {\theta_{y_i}}^g)} {P(x=x_i | {\theta_{y_i}^g)}} }
+= {\frac {\alpha_{y_i}^g P(x=x_i | {\theta_{y_i}}^g)} {\sum_{k=1}^m {\alpha_k}^g P(x= x_i | {\theta_k}^g)}}$.
+\\
+\\
+$Q(\theta, \theta^g) = \sum_{{\vec y} \in Y^n} \ell (\theta | {\cal X}, {\cal Y}) P({\vec y} | {\cal X}, \theta^g)=
+\sum_{{\vec y} \in Y^n} \sum_{i=1}^n log(\alpha_{y_i} p_{y_i}(x_i | \theta_{y_i})) \prod_{j=1}^n p(y_j| x_j, \theta^g)$.
+\\
+\\
+So,
+$Q(\theta, \theta^g)= 
+\sum_{y_1 =1}^m 
+\sum_{y_2 =1}^m \ldots
+\sum_{y_n =1}^m \sum_{i=1}^n  (log(\alpha_{y_i} p_{y_i}(x_i | \theta_{y_i})) \prod _{j=1}^n p(y_j| x_j, \theta^g))$.
+\\
+$= \sum_{y_1 =1}^m 
+\sum_{y_2 =1}^m \ldots
+\sum_{y_n =1}^m \sum_{i=1}^n  \sum_{l=1}^m \delta_{l , y_i} (log(\alpha_{y_i} p_{y_i}(x_i | \theta_{y_i})) \prod _{j=1}^n p(y_j| x_j, \theta^g)$
+\\
+$= (\sum_{y_1 =1}^m 
+\sum_{y_2 =1}^m \ldots
+\sum_{y_n =1}^m \sum_{i=1}^n  \sum_{l=1}^m \delta_{l , y_i} (log(\alpha_{y_i} p_{y_i}(x_i | \theta_{y_i})) \prod _{j=1, j \ne i}^n p(y_j| x_j, \theta^g))
+p(l | x_i, \theta^g))$.
+\\
+\\
+Since $\sum_{i=1}^m P(y=i | x_j, \theta^g) = 1$, this is just
+$p(l | x_i, \theta^g)$.
+\\
+So finally,
+$Q(\theta, \theta^g)= 
+\sum_{l=1}^m \sum_{i=1}^n log(\alpha_l p_l(l|x_i, \theta_l)) p(l|x_i, \theta)$.
+\\
+\\
+To maximize, find $\alpha_l$:
+\\
+\\
+${\frac {\partial} {\partial \alpha_l}} [
+\sum_{l=1}^m \sum_{i=1}^n (log(\alpha_l) p(l|x_i, \theta) + \lambda (\sum_{l=1}^m \alpha_l)-1) ] = 0
+$.
+\\
+\\
+This becomes
+$ \sum_{i=1}^n {\frac {1} {\alpha_l}} p(l| x_i, \theta^g) = 0 $, $\lambda = -n$,
+$\alpha_l  = {\frac {1} {n}} (\sum_{i=1}^n p(l|x_i, \theta^g))$.
+\\
+\\
+For the gaussian parameters $(\mu_l, \Sigma_l)$,
+${\alpha_l}^{new} =
+{\frac {1} {n}} \sum_{i=1}^n p(l|x_i, \theta^g)
+$,
+${\mu_l}^{new} =
+{\frac {\sum_{i=1}^n (x_i p(l|x_i, \theta^g)}
+{\sum_{i=1}^n ((l|x_i, \theta^g)}}$, and
+${\sigma_l}^{new} =
+{\frac {\sum_{i=1}^n p(l|x_i, \theta^g)(x-{\mu_l}^{max}) \cdot (x-{\mu_l}^{max, T})}
+{\sum_{i=1}^n ((l|x_i, \theta^g)}} $.
+\\
+\\
+{\bf HMM Maximum likelihood re-estimation:}
 Let $S= \{ 1,2,3, \ldots, n\}$ be the $n$ possible
 states of a hidden markov process with $T-1$ transitions and $T$ outputs.
 Suppose the output vector of the process
