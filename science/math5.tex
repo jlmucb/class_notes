@@ -227,6 +227,13 @@ $P({\vec y} | {\cal X}, \theta^g)= \prod_{i=1}^n P(y=y_i| x_i, \theta^g)$.
 $\theta^{max} = argmax_{\theta} \thinspace Q(\theta, \theta^g)$.
 \\
 \\
+$log({\cal L}( {\cal X}. {\cal Y} | \theta)=
+log(P({\cal L}( {\cal X}. {\cal Y} | \theta) =
+\sum_{i=1}^n log(P(x_i | y_i) P(y_i))=
+\sum_{i=1}^n log( \alpha_{y_i} P(x_i | \theta_{y_i}))$
+\\
+\\
+Using Bayes,
 $P(y_i | x_i, \theta_i^g) = {\frac {\alpha_{y_i}^g P(x=x_i | {\theta_{y_i}}^g)} {P(x=x_i | {\theta_{y_i}^g)}} }
 = {\frac {\alpha_{y_i}^g P(x=x_i | {\theta_{y_i}}^g)} {\sum_{k=1}^m {\alpha_k}^g P(x= x_i | \theta_k^g)}}$.
 \\
@@ -235,28 +242,65 @@ $Q(\theta, \theta^g) = \sum_{{\vec y} \in Y^n} \ell (\theta | {\cal X}, {\cal Y}
 \sum_{{\vec y} \in Y^n} \sum_{i=1}^n log(\alpha_{y_i} p_{y_i}(x_i | \theta_{y_i})) \prod_{j=1}^n p(y_j| x_j, \theta^g)$.
 \\
 \\
+$Q(\theta, \theta^g)= E[log(P({\cal X}, {\cal Y} | \theta | {\cal X}, \theta^g]=
+\int_{\vec y} log(p({\cal X}, {\cal Y} | \theta | {\cal X}, \theta^g) P({\vec y}| {\cal X}, \theta^g) dy$,
+$P({\vec y} | {\cal X}, \theta^g)= \prod_{i=1}^n P(y=y_i| x_i, \theta^g)$.
+$\theta^{max} = argmax_{\theta} \thinspace Q(\theta, \theta^g)$.
+\\
+\\
+Here,
+$Q(\theta, \theta^g) = \sum_{{\vec y} \in Y^n} \ell (\theta | {\cal X}, {\vec y}) P({\vec y} | {\cal X}, \theta^g)$.
+\\
 So,
-$Q(\theta, \theta^g)= 
-\sum_{y_1 =1}^m 
+$Q(\theta, \theta^g)=
+\sum_{y_1 =1}^m
 \sum_{y_2 =1}^m \ldots
 \sum_{y_n =1}^m \sum_{i=1}^n  (log(\alpha_{y_i} p_{y_i}(x_i | \theta_{y_i})) \prod _{j=1}^n p(y_j| x_j, \theta^g))$.
 \\
-$= \sum_{y_1 =1}^m 
+\\
+This gives
+\\
+$Q(\theta, \theta^g)=
+\sum_{y_1 =1}^m
 \sum_{y_2 =1}^m \ldots
-\sum_{y_n =1}^m \sum_{i=1}^n  \sum_{l=1}^m \delta_{l , y_i} (log(\alpha_{y_i} p_{y_i}(x_i | \theta_{y_i})) \prod _{j=1}^n p(y_j| x_j, \theta^g)$
+\sum_{y_n =1}^m \sum_{i=1}^n  \sum_{l=1}^m \delta_{l, y_i} (log(\alpha_{l} p(l|(x_i | \theta_{l})) \prod _{j=1}^n p(y_j| x_j, \theta^g))$
 \\
-$= (\sum_{y_1 =1}^m 
+$ = \sum_{l=1}^m \sum_{i=1}^n log(\alpha_l p_l(x_i | \theta_l)
+\sum_{y_1 =1}^m
 \sum_{y_2 =1}^m \ldots
-\sum_{y_n =1}^m \sum_{i=1}^n  \sum_{l=1}^m \delta_{l , y_i} (log(\alpha_{y_i} p_{y_i}(x_i | \theta_{y_i})) \prod _{j=1, j \ne i}^n p(y_j| x_j, \theta^g))
-p(l | x_i, \theta^g))$.
+\sum_{y_n =1}^m
+\sum_{l =1}^m \delta_{l, y_i} log(\alpha_{l} p(l|(x_i | \theta_{l})) \prod _{j=1}^n p(y_j| x_j, \theta^g))$
+\\
+$= \sum_{l=1}^m \sum_{i=1}^n 
+log(\alpha_{l} p(l|(x_i | \theta_{l}))
+\sum_{y_1 =1}^m
+\sum_{y_2 =1}^m \ldots
+\sum_{y_n =1}^m \delta_{l, y_i} \prod _{j=1}^n p(y_j| x_j, \theta^g)$.
 \\
 \\
-Since $\sum_{i=1}^m P(y=i | x_j, \theta^g) = 1$, this is just
-$p(l | x_i, \theta^g)$.
+Now,
 \\
-So finally,
-$Q(\theta, \theta^g)= 
-\sum_{l=1}^m \sum_{i=1}^n log(\alpha_l p_l(l|x_i, \theta_l)) p(l|x_i, \theta)$.
+$\sum_{y_1 =1}^m
+\sum_{y_2 =1}^m \ldots
+\sum_{y_n =1}^m
+\delta_{l, y_i} \prod _{j=1}^n p(y_j| x_j, \theta^g)) = $
+\\
+$
+(\sum_{y_1 =1}^m
+\sum_{y_2 =1}^m \ldots
+\sum_{y_{i-1} =1}^m \ldots \sum_{y_{i+1} =1}^m \ldots
+\sum_{y_n =1}^m \prod _{j=1, j \ne i}^n p(y_j| x_j, \theta^g)) p(l|x_i, \theta^g)
+= $
+\\
+$\prod _{j=1, j \ne i}^n 
+(\sum_{y_j =1}^m
+p({y_j}| (x_j , \theta^g))) p(l | x_i, \theta^g) = p(l | x_i, \theta^g)$,
+since $\sum_{i=1}^m P(y=i | x_j, \theta^g) = 1$.
+\\
+\\
+Finally, we get,
+$Q(\theta, \theta^g)=
+\sum_{l=1}^m \sum_{i=1}^n log(\alpha_l p(x_i | \theta_l)) p(l|x_i, \theta^g)$.
 \\
 \\
 To maximize, find $\alpha_l$:
@@ -265,11 +309,6 @@ To maximize, find $\alpha_l$:
 ${\frac {\partial} {\partial \alpha_l}} [
 \sum_{l=1}^m \sum_{i=1}^n (log(\alpha_l) p(l|x_i, \theta) + \lambda (\sum_{l=1}^m \alpha_l)-1) ] = 0
 $.
-\\
-\\
-This becomes
-$ \sum_{i=1}^n {\frac {1} {\alpha_l}} p(l| x_i, \theta^g) = 0 $, $\lambda = -n$,
-$\alpha_l  = {\frac {1} {n}} (\sum_{i=1}^n p(l|x_i, \theta^g))$.
 \\
 \\
 For the gaussian parameters $(\mu_l, \Sigma_l)$,
