@@ -205,7 +205,7 @@ The likelihood is ${\cal L}({\cal X}, \theta) = {\cal L}(\theta, {\cal X}) = \pr
 \\
 \\
 The problem is to find the likelihood and mixture constants for
-$P(x=x_i | \theta) = \sum_{j=1}^m \alpha_j P(x=x_i | \theta_j)$.  Imagine the $\alpha_j$ are ''hidden''
+$P(x=x_i | \theta) = \sum_{j=1}^m \alpha_j P(x=x_i | \theta_j)$.  Imagine the $\alpha_j$ are ``hidden''
 variables. $Y = \{ 1, 2, \ldots, m \}$ is a sample space and $\alpha_j = P(y=j)$.
 We put ${\vec y} \in Y^n$, the set of all possible values for ${\vec y}$ over
 $n$ observations. The $x_i$ are the revealed parameters
@@ -213,9 +213,9 @@ and the $y_i$ are the latent variables.  The entire parameter space is $(\alpha_
 \theta_1 , \theta_2 , \ldots , \theta_m)$.
 \\
 \\
-The ''incomplete'' likelihood is $\prod_{j=1}^n P(x=x_i | \theta) = \prod_{j=1}^n (\sum_{j=1}^m \alpha_j P(x=x_i | y = j) P(y=j))$.
-The ''complete'' likelihood is ${\cal L}({\cal X}, {\cal Y} | \theta)= {\cal L}(\theta | {\cal X}, {\cal Y})=
-\prod_{j=1}^n P(x=x_i | \theta) = \prod_{i=1}^n (\sum_{j=1}^m \alpha_j P(x=x_i | y = j)$.
+The ``incomplete'' likelihood is $\prod_{j=1}^n P(x=x_i | \theta) = \prod_{j=1}^n (\sum_{j=1}^m \alpha_j P(x=x_i | y = j) P(y=j))$.
+The ``complete'' likelihood is ${\cal L}({\cal X}, {\cal Y} | \theta)= {\cal L}(\theta | {\cal X}, {\cal Y})=
+\prod_{j=1}^n P(x=x_i | \theta) = \prod_{i=1}^n (\sum_{j=1}^m \alpha_j P(x=x_i | y = j))$.
 Log likelihood is
 $\ell ({\cal X}, {\cal Y} | \theta) = {\cal L}({\cal X}, {\cal Y} | \theta)$.  Estimation procedure starts with
 guess of the parameters $\theta^g$.
