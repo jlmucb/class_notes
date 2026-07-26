@@ -319,23 +319,46 @@ $Q(\theta, \theta^g)=
 \\
 \\
 To maximize, find $\alpha_l$:
+$${\frac {\partial} {\partial \alpha_l}} [
+\sum_{l=1}^m \sum_{i=1}^n (log(\alpha_l) p(l|x_i, \theta) + \lambda (\sum_{l=1}^m \alpha_l)-1) ] = 0$$
 \\
 \\
-${\frac {\partial} {\partial \alpha_l}} [
-\sum_{l=1}^m \sum_{i=1}^n (log(\alpha_l) p(l|x_i, \theta) + \lambda (\sum_{l=1}^m \alpha_l)-1) ] = 0
-$.
+Suppose $p_l(x | \mu_l, \Sigma_l)$ is a $d$-dimensional Gaussian distribution.
+$$p_l(x | \mu_l, \Sigma_l)= {\frac {1} {(2 \pi)^{\frac {d} {2}} {\sqrt {|\Sigma_l|}}}} exp(- {\frac {1}{2}} (x- \mu_l)^T (|\Sigma|)^{-1} (x- \mu_l)$$
+\\
+Taking the log,
+\\
+$\sum_{l=1}^m \sum_{i=1}^n log(p_l(x_i | \mu_l, \Sigma_l) p(l|x_i , \theta^g)) =
+\sum_{l=1}^m \sum_{i=1}^n [-{\frac{1}{2}} log(|\Sigma_l|) - {\frac{1}{2}} (x_i-\mu_l)^T (|\Sigma_l|)^{\frac{1}{2}}(x_i-\mu_l) ] p(l|x_i, \theta^g)$.
+\\
+\\
+Now,
+${\frac {\partial} {\partial \mu_l}}
+\sum_{l=1}^m \sum_{i=1}^n [-{\frac{1}{2}} log(|\Sigma_l|) - {\frac{1}{2}} (x_i-\mu_l)^T (|\Sigma_l|)^{-{\frac{1}{2}}}(x_i-\mu_l) ] p(l|x_i, \theta^g)
+=0$, gives:
+\\
+${\frac {\partial} {\partial \mu_l}} [\sum_{l=1}^m \sum_{i=1}^n (x_i-\mu_l) p(l | \mu_l, \Sigma_l) = 0$.  So,
+$\mu_l= {\frac {\sum_{i=1}^n x_i p(l|x_i | \theta^g} {\sum_{i=1}^n p(l| x_i, \theta^g)}}$.
+\\
+\\
+For the standard variation, take the log as above and set
+$${\frac {\partial} {\partial \Sigma}} [\sum_{l=1}^m \sum_{i=1}^n [-{\frac{1}{2}} log(|\Sigma_l|) - {\frac{1}{2}} (x_i-\mu_l)^T 
+(|\Sigma_l|)^{\frac{1}{2}}(x_i-\mu_l) ] p(l|x_i, \theta^g)] = 0$$
+This gives
+$\Sigma_l = {\frac {\sum_{i=1}^n p(l|x_i, \theta^g) N_{l,i}} {\sum_{i=1}^n p(l|x_i, \theta^g)}}$, where
+$N_{l,i} = (x_i-\mu_l)^T (x_i-\mu_l)$.
 \\
 \\
 For the gaussian parameters $(\mu_l, \Sigma_l)$,
-${\alpha_l}^{new} =
+$${\alpha_l}^{new} =
 {\frac {1} {n}} \sum_{i=1}^n p(l|x_i, \theta^g)
-$,
-${\mu_l}^{new} =
+$$
+$${\mu_l}^{new} =
 {\frac {\sum_{i=1}^n (x_i p(l|x_i, \theta^g)}
-{\sum_{i=1}^n ((l|x_i, \theta^g)}}$, and
-${\sigma_l}^{new} =
+{\sum_{i=1}^n ((l|x_i, \theta^g)}}$$
+$${\sigma_l}^{new} =
 {\frac {\sum_{i=1}^n p(l|x_i, \theta^g)(x-{\mu_l}^{max}) \cdot (x-{\mu_l}^{max})^T}
-{\sum_{i=1}^n p(l|x_i, \theta^g)}} $.
+{\sum_{i=1}^n p(l|x_i, \theta^g)}}$$
 \\
 \\
 {\bf HMM Maximum likelihood re-estimation:}
