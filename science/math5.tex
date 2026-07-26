@@ -202,33 +202,48 @@ $P(|Y- \mu| \ge t) \le {\frac {var(Y)} {t^2}}$.
 ${\cal X} = \langle x_1 , x_2 , \ldots, x_n \rangle$ is a set of observations from
 a sample space $X$, with the distribution $P(x=j | \theta)$.
 The likelihood is ${\cal L}({\cal X}, \theta) = {\cal L}(\theta, {\cal X}) = \prod_{i=1}^n P(x=x_i | \theta)$.
+We can certainly compute the expected ${\cal X}$'s, if we know the $\theta$'s.
+If we don't know the $\theta$'s, we might estimate it based on the observations of the ${\cal X}$ as
+setting $P(x=i)$ to the number of observations of $i$ divided by the total number of observations.
+This technique is used to estimate the mean and standard variation of a Gaussian distribution based
+on observations.
 \\
 \\
-The problem is to find the likelihood and mixture constants for
-$P(x=x_i | \theta) = \sum_{j=1}^m \alpha_j P(x=x_i | \theta_j)$.  Imagine the $\alpha_j$ are ``hidden''
-variables. $Y = \{ 1, 2, \ldots, m \}$ is a sample space and $\alpha_j = P(y=j)$.
-We put ${\vec y} \in Y^n$, the set of all possible values for ${\vec y}$ over
-$n$ observations. The $x_i$ are the revealed parameters
-and the $y_i$ are the latent variables.  The entire parameter space is $(\alpha_1 , \alpha_2 , \ldots , \alpha_m, 
-\theta_1 , \theta_2 , \ldots , \theta_m)$.
+Suppose, however, the problem is to find the likelihood and mixture constants for
+$P(x=x_i | \theta) = \sum_{j=1}^m \alpha_j P(x=x_i | \theta_j)$.
 \\
 \\
-The ``incomplete'' likelihood is $\prod_{j=1}^n P(x=x_i | \theta) = \prod_{j=1}^n (\sum_{j=1}^m \alpha_j P(x=x_i | y = j) P(y=j))$.
-The ``complete'' likelihood is ${\cal L}({\cal X}, {\cal Y} | \theta)= {\cal L}(\theta | {\cal X}, {\cal Y})=
-\prod_{j=1}^n P(x=x_i | \theta) = \prod_{i=1}^n (\sum_{j=1}^m \alpha_j P(x=x_i | y = j))$.
-Log likelihood is
+For this problem, we don't know the $\alpha_l$'s, so we can't estimmate the $\theta$'s based
+on the observations. 
+Given ``complete data'', namely both ${\cal X}$  and ${\cal Y}$, we could estimate
+${\cal L}({\cal X}, {\cal Y} | \theta)= {\cal L}(\theta | {\cal X}, {\cal Y})=
+\prod_{j=1}^n P(x=x_i | \theta) = \prod_{i=1}^n (\sum_{j=1}^m \alpha_j P(x=x_i , y = j, | \theta))$.
+The log likelihood is
 $\ell ({\cal X}, {\cal Y} | \theta) = {\cal L}({\cal X}, {\cal Y} | \theta)$.  Estimation procedure starts with
 guess of the parameters $\theta^g$.
 \\
 \\
+We think of the $\alpha_j$'s and $\theta$'s as ``hidden''
+variables. $Y = \{ 1, 2, \ldots, m \}$ is a sample space and $\alpha_j = P(y=j)$.
+We put ${\vec y} \in Y^n$, the set of all possible values for ${\vec y}$ over
+$n$ observations. The $x_i$ are the revealed parameters
+and the $y_i$ are the latent variables.  The entire parameter space is $(\alpha_1 , \alpha_2 , \ldots , \alpha_m, 
+\theta_1 , \theta_2 , \ldots , \theta_m)$.  The EM ``step'' starts with an estimate of the latent variables
+and updates them, based on further observations of the the output.  The EM-algorithm starts with a
+guess of the hidden parameters, does then computes the maximium likelihood of the $\theta$s
+and repeatedly does the EM step until convergence.  The hidden observations of the
+$y_i$'s is denoted by ${\cal Y}$.
+We denote the initial guess as $(\alpha_1^g , \alpha_2^g , \ldots , \alpha_m^g, \theta_1^g , \theta_2^g , \ldots , \theta_m^g)$.
+\\
+\\
+The EM step maximizes
 $Q(\theta, \theta^g)= E[log(P({\cal X}, {\cal Y} | \theta | {\cal X}, \theta^g]=
 \int_{\vec y} log(P({\cal X}, {\cal Y} | \theta | {\cal X}, \theta^g) P({\vec y}| {\cal X}, \theta^g)P$.
 $P({\vec y} | {\cal X}, \theta^g)= \prod_{i=1}^n P(y=y_i| x_i, \theta^g)$.
 $\theta^{max} = argmax_{\theta} \thinspace Q(\theta, \theta^g)$.
 \\
 \\
-$log({\cal L}( {\cal X}. {\cal Y} | \theta)=
-log(P({\cal L}( {\cal X}. {\cal Y} | \theta) =
+$log({\cal L}( {\cal X}. {\cal Y} | \theta)= log(P({\cal L}( {\cal X}. {\cal Y} | \theta) =
 \sum_{i=1}^n log(P(x_i | y_i) P(y_i))=
 \sum_{i=1}^n log( \alpha_{y_i} P(x_i | \theta_{y_i}))$
 \\
@@ -248,7 +263,7 @@ $P({\vec y} | {\cal X}, \theta^g)= \prod_{i=1}^n P(y=y_i| x_i, \theta^g)$.
 $\theta^{max} = argmax_{\theta} \thinspace Q(\theta, \theta^g)$.
 \\
 \\
-Here,
+For discrete variables,
 $Q(\theta, \theta^g) = \sum_{{\vec y} \in Y^n} \ell (\theta | {\cal X}, {\vec y}) P({\vec y} | {\cal X}, \theta^g)$.
 \\
 So,
@@ -263,7 +278,7 @@ This gives
 $Q(\theta, \theta^g)=
 \sum_{y_1 =1}^m
 \sum_{y_2 =1}^m \ldots
-\sum_{y_n =1}^m \sum_{i=1}^n  \sum_{l=1}^m \delta_{l, y_i} (log(\alpha_{l} p(l|(x_i | \theta_{l})) \prod _{j=1}^n p(y_j| x_j, \theta^g))$
+\sum_{y_n =1}^m \sum_{i=1}^n  \sum_{l=1}^m \delta_{l, y_i} (log(\alpha_{l} p(l|x_i | \theta_{l})) \prod _{j=1}^n p(y_j| x_j, \theta^g))$
 \\
 $ = \sum_{l=1}^m \sum_{i=1}^n log(\alpha_l p_l(x_i | \theta_l)
 \sum_{y_1 =1}^m
