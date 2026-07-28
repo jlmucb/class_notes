@@ -99,6 +99,23 @@ $x_1 x_2 \ldots x_t = x(x_1 \ldots x_{t-1})^x= x (x_1^x) \ldots (x_{t-1}^x)$, th
 a product of $t$ elements of $X$ since $X$ is closed under conjugation. We can continue and
 extract all copies of $x$ to the front.  Since $x^n=1$, the exponent of $x$ is $\le n-1$.
 \end{quote}
+{\bf Theorem 6a:} Let $P \in S_p(G)$. (1)$\exists K \lhd G$: $G/K$ is isomorphic to
+$P/(P \cap G')$, (2) If $K \lhd G$ with $G/K$ an abelian $p$-group, then $P \cap G' \subseteq K$
+and $G/K$ is isomorphic to a homomorphic image of $P/(P \cap G')$.
+\begin{quote}
+\emph{Proof:}
+$P \cap G' \in S_p(G')$.  Put ${\overline G} = G/G'$.  Now let $K$ be the inverse image
+of $O_{p'}({\overline G})$, $P \cap G' = P \cap K$ and $G/K \cong  P/(P \cap G')$.
+For (2), $G' \subseteq K$ and $G=KP$.  $G/K = KP/K \cong P / (P \cap G') \cong  (P / (P \cap K)) /((P \cap K) / (P \cap G'))$.
+\end{quote}
+{\bf Theorem 6b:} Let $P \in S_p(G)$. $P \cap G' = Foc_G(P)$.
+\begin{quote}
+\emph{Proof:}
+$P' \subseteq Foc_G(H) \subseteq P \cap G'$.  Note that $P/Foc_G(P)$ is an abelian
+group. $V_{G \rightarrow P}(x)= \prod_i x_i x^{r_i} x_i^{-1} = x^{|G:P|} \jmod{Foc_G(H)}$.
+If $x \in Foc_G(P)$, $V_{G \rightarrow P}(x)=1$.  Since $x$ is a $p$-element and $(p, |G:P|)=1$,
+if $x \ne 1$, $x^{|G:P|} \ne 1$.
+\end{quote}
 {\bf Schur's Theorem:} 
 Suppose $|G:{\mathbb Z}(G)| < \infty$ then $|G'|< \infty$.
 \begin{quote}
