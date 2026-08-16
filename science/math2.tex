@@ -1536,6 +1536,51 @@ $P^{-1}= (p^*_{ij})$, $v_i= \sum_j p^*_{ij} u_j$, $z_i= v_{n-s+i}$ and
 $V= D z_1 \oplus \ldots \oplus D z_s$.
 \\
 \\
+{\bf Background:}
+$f_i = \sum_{j=1}^n p_{j,i}e_j$,
+${\vec e} = (e_1 , e_2 , \ldots , e_n)^T$,
+${\vec f} = (f_1 , f_2 , \ldots , f_n)^T$,
+${\vec f} = P^T {\vec e}$.
+$P v_{[{\vec f}]} = v_{[{\vec e}]}$,
+$v_{[{\vec f}]} = P^{-1}v_{[{\vec e}]}$.
+\\
+\\
+{\bf Theorem:} Let $R$ be a pid, $M=Rx$.  If $|x|=d$, $|x|=fg$, $(f,g)=1$ then $Rx = Rf \oplus Rg$.
+\\
+\\
+{\bf More background:} Let $\langle u_1 , u_2 , \ldots , u_n \rangle$ be a basis for $V$, $Tu_i = \sum_{j=1}^n a_{j,i}u_j$.
+Let $f_i = \sum_{j=1}^n a_{j,i} e_j$ be generators for the submodule, $K$. $A$ is called a relations matrix.  Suppose
+${\vec f_i'}$ and ${\vec e_i'}$ be equivalent to ${\vec f}$, ${\vec e}$.
+$e_i' = \sum_{j=1}^n p_{j,i} e_j$ and
+$f_i' = \sum_{j=1}^n q_{j,i} e_j$, $P=(p_{i,j})$, $Q=(q_{i,j})$, both invertible.
+$f_i' = \sum_l q_{l,i} f_l= \sum_{l,k} q_{l,i} a_{k,l} e_k$.  $e_k = \sum_j p^*_{j,k} e_j'$, $P^{-1}= (P^*_{ij})$, so,
+$f_i' = \sum_l q_{l,i} f_l= \sum_{l,k,j} q_{l,i} a_{k,l} p^*_{j,k} e_j'$.  Put $a_{i,j}' = \sum_{l,k,j} q_{l,i} a_{k,l} p^*_{j,k}$.
+$A' = (a_{i,j}')$ is the relations matrix for ${\vec e'}, {\vec f}$.  Choose $P, Q$: $QAP^{-1} = diag (d_1 , d_2 , \ldots , d_r , 0 ,0, \ldots , 0)$.
+If $\langle x_1 , x_2 , \ldots , x_n \rangle$ are generators for $M$, $y_i \ \sum_j p^*_{j,i} x_j$ is also a set of
+generators.  If $\eta (e_i) = x_i$ then $\eta (e_i')= y_i$.  $P v_{[{\vec y}]} = v_{[{\vec x}]}$.
+$P^{-1} A_{[{\vec x}]} = P^{-1} A_{[{\vec x}]} P P^{-1} v_{[{\vec x}]} = P^{-1} A_{[{\vec x}]} P v_{[{\vec y}]}$.
+RCF for $A$ is $P^{-1} A_{[{\vec x}]} P$.  If $M\ne 0$ is a module over $R$, a pid, $\exists z_i$: $M= R z_1 \oplus \ldots \oplus R z_s$ and
+$ann(z_s)  \subseteq ann(z_{s-1}) \subseteq \ldots \subseteq ann(z_1)$.  Further, if $\eta: R^n \rightarrow R z_1 \oplus \ldots \oplus R z_s$.
+$R z_1 \oplus \ldots \oplus R z_s \cong R/(z_1) \oplus \ldots \oplus R/(z_s)$.
+If $M= R z_1 \oplus \ldots \oplus R z_s = R z_1' \oplus \ldots \oplus R z_r'$, with
+$ann(z_s) \subseteq ann(z_{s-1}) \subseteq \ldots \subseteq ann(z_1)$ and
+$ann(z_r')  \subseteq ann(z_{r-1}') \subseteq \ldots \subseteq ann(z_1')$, then $r=s$ and $ann(z_i) = ann(z_i')$.  In the base,
+$\langle z , Tz, \ldots , T^{n-1}z$ be a basis for a subspace $U \leq v$ with minimal polynomial, $f(x) = x^n + a_{n-1}x^{n-1} + \ldots + a_0$.
+$f(x) = char_T(x)$ and in that basis:
+$$
+T_{|U}=
+\left(
+\begin{array}{cccc}
+0 & 0 & \ldots & -a_0 \\
+1 & 0 & \ldots & -a_1 \\
+0 & 1 & \ldots & -a_2 \\
+\ldots & \ldots & \ldots & \ldots \\
+0 & \ldots & 1 & -a_{n-1} \\
+\end{array}
+\right)
+$$
+\\
+\\
 \emph{Example:}
 Suppose
 $T u_1= -u_1 - 2 u_2 + 6 u_3$,
