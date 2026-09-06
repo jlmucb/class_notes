@@ -682,18 +682,27 @@ $\sum (a_i x + b_i )^2$.  Get $(\sum {a_i}^2)x^2 + 2 (\sum a_i b_i) x +
 \sum {b_i}^2$.  Complete square. Constant is always $\geq 0$.
 \end{quote}
 {\bf Holder's inequality:}
-If ${\frac {1} {p}} + {\frac {1} {q}} = 1$ then
+If ${\frac {1} {p}} + {\frac {1} {q}} = 1$ then (a)
 ${\frac {a^p} {p}} + {\frac {b^q} {q}} \geq ab$ and
-$(\sum_{i} {a_i}^p )^{\frac 1 p} \cdot (\sum_{i} {b_i}^q )^{\frac 1 q}  \geq
+(b) $(\sum_{i} {a_i}^p )^{\frac 1 p} \cdot (\sum_{i} {b_i}^q )^{\frac 1 q}  \geq
 \sum_{i} a_i b_i $.
 \begin{quote}
-\emph{Proof:} If $f$ is
+\emph{Proof:} If ${\frac {1} {p}} + {\frac {1} {q}} = 1$ then $p + q =pq$ and $q=p(q-1)$
+so $q-1= {\frac q p}$.  Similarly, $p-1= {\frac p q}$.  Thus $p-1 = {\frac 1 {q-1}}$.
+Let $f(x)= x^{p-1}$.  $f^{-1}(y) = y^{\frac 1 {p-1}}=y^{q-1}$.  The rectangle with diagonal
+points $(0,0$ and $(a,b)$.  The area of the rectangle is $\int_0^a f(x) dx + \int_0^b f^{-1}(y) dy$.
+$[{\frac {x^p} p}]_0^a + [{\frac {y^q} q}]_0^b \geq ab$.
+If $f$ is
 monotonically increasing, $f(0)= 0$, then $\int_0^a f + \int_0^b f^{-1} \geq
 ab$.
 \\
+\emph{Another proof:}  You can prove first part using Arithmetic-Geometric inequality, as follows.
 \\
-\emph{Another proof:}  You can prove first part using Arithmetic-Geometric inequality.
-Apply this inequality repeatedly with
+$p+q=pq$.  By AM, ${\frac 1 {pq}} (qa^p + p b^q)={\frac 1 {p+q}} (qa^p + p b^q) \geq (a^{pq}b^{pq})^{\frac 1 {pq}}$.
+So, ${\frac {a^p} {p}} + {\frac {b^q} {q}} \geq ab$.
+\\
+\\
+For (b), apply this inequality repeatedly with
 $a= {\frac {a_{i}} {(\sum_{i=1}^n {a_i}^p)^{\frac 1 p}}}$ and
 $b= {\frac {b_{i}} {(\sum_{i=1}^n {b_i}^q)^{\frac 1 q}}}$.  Adding these we get
 $(\sum_{i=1}^n {{a_i}^p})^{\frac 1 p}
