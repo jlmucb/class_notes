@@ -713,24 +713,32 @@ $(\sum_{i=1}^n {{a_i}^p})^{\frac 1 p}
 $(\sum {a_i}^p )^{\frac 1 p} +
 (\sum {b_i}^p )^{\frac 1 p} \geq (\sum (a_i + b_i )^p )^{\frac 1 p}$.
 \begin{quote}
-\emph{Proof:}  Write
-$(x_1+x_2)^p +(y_1+y_2)^p
+\emph{Proof:}  ${\frac 1 p} + {\frac {p-1} p} =1$, so we can apply Holder
+with $q= {\frac p {p-1}}$.  Write
+$$
+(x_1+x_2)^p +(y_1+y_2)^p
 = [(x_1+x_2)^{p-1}x_1 +(y_1+y_2)^{p-1} y_1]
-+ [(x_1+x_2)^{p-1}x_2 +(y_1+y_2)^{p-1} y_2]$.  Apply Holder to each term to
-get
-$(x_1^p+y_1^p)^{\frac 1 p}
-[(x_1+x_2)^{(p-1)q}
-+(y_1+y_2)^{(p-1)q}]^{\frac 1 q} \geq
-x_1(x_1+x_2)^{p-1} +
-y_1(y_1+y_2)^{p-1}$ and
-$(x_2^p+y_2^p)^{\frac 1 p}
-[(x_1+x_2)^{(p-1)q}
-+(y_1+y_2)^{(p-1)q}]^{\frac 1 q} \geq
-x_2(x_1+x_2)^{p-1} +
-y_2(y_1+y_2)^{p-1}$.  Since ${\frac 1 p} + {\frac 1 q} = 1$, $(p-1)q=p$.
-Adding the two inequalities and dividing by
-$[(x_1^p+x_2^p) + (y_1^p+y_2^p)]^{\frac 1 q}$ while noting that
-$1 - {\frac 1 q} = {\frac 1 p}$, we get Minkowski.
++ [(x_1+x_2)^{p-1}x_2 +(y_1+y_2)^{p-1} y_2]$$  Apply Holder with
+$a_1=x_1, a_2=y_1$ and $b_1=(x_1 + x_2)^{p-1}, b_2= (y_1 + y_2)^{p-1}$ to get
+$$
+x_1 (x_1 + x_2)^{p-1} + y_1 (y_1 + y_2)^{p-1} \leq ({x_1}^p + {y_1}^p)^{\frac 1 p} ((x_1 + x_2)^{q(p-1)} + (y_1+y_2)^{q(p-1)})^{\frac 1 q}
+$$
+and then Holder with $a_1=x_2, a_2=y_2$ and $b_1=(x_1 + x_2)^{p-1}, b_2= (y_1 + y_2)^{p-1}$ to get
+$$
+x_2 (y_1 + y_2)^{p-1} + y_2 (x_1 + x_2)^{p-1} \leq ({x_2}^p + {y_2}^p)^{\frac 1 p} ((y_1 + y_2)^{q(p-1)} + (x_1+x_2)^{q(p-1)})^{\frac 1 q}
+$$
+Add these two to get
+$$
+(x_1 + x_2)^p + (y_1 + y_2)^p  \leq ((x_1 + x_2)^{q(p-1)} + (y_1+y_2)^{q(p-1)})^{\frac 1 q} ({x_1}^p + {y_1}^p)^{\frac 1 p} + ({x_2}^p + {y_2}^p)^{\frac 1 p}
+$$
+Since $q(p-1)=p$, dividing by $((y_1 + y_2)^{q(p-1)} + (x_1+x_2)^{q(p-1)})^{\frac 1 q}$, we get
+$$
+{\frac
+{ (x_1 + x_2)^p + (y_1 + y_2)^p)}
+{((x_1 + x_2)^p + (y_1 + y_2)^p)^{\frac 1 q}}
+}=
+((x_1 + x_2)^p + (y_1 + y_2)^p)^{1-{\frac 1 q}} = ((x_1 + x_2)^p + (y_1 + y_2)^p)^{\frac 1 p}  \leq ({x_1}^p + {y_1}^p)^{\frac 1 p} +({x_2}^p + {y_2}^p)^{\frac 1 p}
+$$
 \end{quote}
 {\bf Chebyshev's inequality:}
 If $a_1 \leq a_2 \ldots \le a_n$, $b_1 \leq b_2 \ldots \le b_n$
