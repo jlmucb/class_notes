@@ -788,19 +788,8 @@ ${\frac {b} {a+c}} + {\frac {a} {b+c}} + {\frac {c} {b+c}} \geq {\frac {3}
 $\lambda_1, \ldots , \lambda_n >0$ and
 $\sum_{i=1}^n \lambda_i= 1$, then
 $\sum_{i=1}^n \lambda_i x_i \geq \prod_{i=1}^n x_i^{\lambda_i}$.
-\subsection{Combinatorics and Sets}
-Let $f(x)= c_k x^k + \ldots + c_0$ be a polynomial
-with $c_0 c_k \ne 0$ which factors as
-$f(x)= c_k {(x- r_1 )}^{m_1} \ldots {(x- r_l )}^{m_l}$, then a sequence
-$\{a_n \}$ satisfies a \emph{linear recurrence} with characteristic polynomial
-$f(x)$ iff $\exists : g_1 (x) , \ldots , g_l (x)$ such that
-$a_n = g_1 (n) {r_1}^n + \ldots + g_l (n) {r_l}^n$ where
-$deg(g_{i})<m_{i}$.
-\begin{quote}
-\emph{Proof:} Put $a_n = a_j {\alpha_j}^n$ where $f(\alpha_j)=0$.
-Then $c_k {\alpha_j}^k + \ldots + c_0 = 0$.  These solutions are linearly independent for $1 \leq j \leq k$, so the general solution
-is a linear combination of these solutions.
-\end{quote}
+\\
+\\
 {\bf Power Means:}  If $k_1 \geq k_2$ and $a_i \geq 0$ then 
 $ (\sum_{i=1}^n {\frac {a_i^{k_1}} {n}})^{k_2} \geq (\sum_{i=1}^n {\frac {a_i^{k_2}} {n}})^{k_1} $.
 \begin{quote}
@@ -814,8 +803,19 @@ $(\sum_{i=1}^n {\frac {a_i^{k_1}} n})^{\frac {k_2} {k_1}} \geq (\sum_{i=1}^n {\f
 $x_{n+1} = (a x_{n} + c) \jmod{m}$
 has period $n$ if $(c,m)=1$.  $b=a-1$, $b=0 (p)$ if $p|m, b=0 (4)$
 if $m=0 (4)$.
-\\
-\\
+\subsection{Combinatorics and Sets}
+Let $f(x)= c_k x^k + \ldots + c_0$ be a polynomial
+with $c_0 c_k \ne 0$ which factors as
+$f(x)= c_k {(x- r_1 )}^{m_1} \ldots {(x- r_l )}^{m_l}$, then a sequence
+$\{a_n \}$ satisfies a \emph{linear recurrence} with characteristic polynomial
+$f(x)$ iff $\exists : g_1 (x) , \ldots , g_l (x)$ such that
+$a_n = g_1 (n) {r_1}^n + \ldots + g_l (n) {r_l}^n$ where
+$deg(g_{i})<m_{i}$.
+\begin{quote}
+\emph{Proof:} Put $a_n = a_j {\alpha_j}^n$ where $f(\alpha_j)=0$.
+Then $c_k {\alpha_j}^k + \ldots + c_0 = 0$.  These solutions are linearly independent for $1 \leq j \leq k$, so the general solution
+is a linear combination of these solutions.
+\end{quote}
 {\bf Difference calculus:} Let $\langle a_0, a_1, a_2, \ldots \rangle$ be a sequence.  Define $\Delta a_k = a_{k+1} - a_k$.
 $\Delta^2 a_k = \Delta (a_{k+1} - a_k) = a_{k+2} - 2a_{k+1} + a_k$ and in general
 $\Delta^n a_k = \sum_{i=0}^n {n \choose i} (-1)^i a_{k+i}$.  It is easy to show that $(\Delta + 1) a_k = a_{k+1}$ and in
