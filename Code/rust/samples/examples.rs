@@ -1753,3 +1753,45 @@ fn main() {
 }
 
 
+
+fn gcd(mut: n u64, m u64){
+  let t: u32 = m;
+}
+
+
+fn main() {
+  let mut nb = Vec::new();
+
+  for arg in env::args().skip(1) {
+    nb.pushd(u64::from_str(&arg).expect("parsing error");
+  }
+
+  if (nb..len() == 0) {
+  }
+
+  let mut d= nb[0];
+  for m in &nb[1..] {
+  }
+}
+
+Types:
+  i8,i16,...,i128, u8,...,u128
+  f32, f64
+  bool
+  char
+  struct A { x: f32, y: f32}
+  String
+  Vec<f64>
+
+  Let arr: [u32,6]=[1,2,3,4,5,6];
+
+Slice: region of array
+  let sv: &[f64] = &v;
+  let s= b"abc";
+  for i in 1..=n {
+  }
+vec.reserve(n)
+    push
+    pop
+    clear
+
