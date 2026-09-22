@@ -1905,7 +1905,8 @@ over an algebraically closed field.
 $M = \langle x_1, x_2, \ldots, x_n \rangle$,
 $N = \langle y_1, y_2, \ldots, y_m \rangle$.
 $f(x_i) = \sum_{j=1}^m a_{ji} y_j$.
-$A= (a_{ij})$.
+$A= (a_{ij})$ is the representation of $f$ wrt these basis and we write $A_{[x,y]}$ to make this explicit.  Note that
+$PA_{[x,y]}Q= A_{[Qx,P^{-1}y]}$.
 \\
 \\
 {\bf Theorem G1:} $R, M, N, f$ as above.  Put $E= Im(f)$.
@@ -2076,7 +2077,8 @@ So the basis for $M$ is just the columns of $Q$ and the basis for $N$ is just th
 $y_1, y_2 , \ldots , y_n$.  Again, by theorem G1, $N/E = \oplus_{\{s+1 \leq i \leq n\}} R(y_i + E)$.
 The isomorphism in G3, $\theta$, is given by $\theta(y_i + E) = \sum_j y_{ji}v_j = u_i$, since
 $y_i = \sum_j y_{ji}e_j$.  Finally, we get,
-$V_T= \oplus_{\{s+1 \leq i \leq n\}} R\langle u_i \rangle$.  This gives the RCF.
+$V_T= \oplus_{\{s+1 \leq i \leq n\}} R\langle u_i \rangle$.  This gives the RCF.  Note that the $y_i$ are the
+column vectors ot $P^{-1}$.
 \\
 \\
 {\bf Example:} $F = \mathbb{Q}$ and $T$ is represented over the standard basis as
