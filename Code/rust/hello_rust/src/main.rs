@@ -20,8 +20,9 @@ fn main() {
     i_matrix[2] = 22;
 
     s.name = String::from("Sedge");
-    s.age = 25;
+    s.age = 45;
     println!("\nName: {}\nAge: {}\n", s.name, s.age);
+    s.age = 25;
     sub1(&mut s);
     print!("\nName: { }\nAge: { :}\n", s.name, s.age);
 
