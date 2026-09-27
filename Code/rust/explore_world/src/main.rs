@@ -57,11 +57,11 @@ fn main() {
   println!("\ngcd test!");
   let mut a: u64 = n[0];
   let mut b: u64 = n[1];
-  let mut g: u64 = 0;
+  let mut g: u64;
   let mut res: bool;
   (res, g) = gcd(a, b);
   if res {
-    println!("({:?}, {:?}) = {:?}", a, b, g);
+    println!("  ({:?}, {:?}) = {:?}, a/g: {:}, b/g: {:}", a, b, g, a/g, b/g);
   } else {
     println!("failed");
   }
