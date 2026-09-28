@@ -269,6 +269,10 @@ fn main() {
 // type Binop = fn(i32, i32) -> i32;
 // let bo: Binop = add;
 // x = bo(5,7);
+// This crate is a library
+// #![crate_type = "lib"]
+// // The library is named "rary"
+// #![crate_name = "rary"]
 
 
 #[test]
