@@ -7,6 +7,10 @@ use std::env;
 use std::str::FromStr;
 
   // These are accessible outside the module
+  pub struct Bignum {
+    sign_: bool, // false is negative
+    val_: Vec<u64>,
+  }
   pub fn print() {
   }
   pub fn negate() {
@@ -24,6 +28,12 @@ use std::str::FromStr;
   pub fn mod() {
   }
   pub fn gcd() {
+  }
+  pub fn byte_size() {
+  }
+  pub fn bit_size() {
+  }
+  pub fn u64_size() {
   }
 
   pub fn ff_normalize() {
