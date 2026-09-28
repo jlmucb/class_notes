@@ -91,6 +91,65 @@ fn generalized_gcd(a:u64, b:u64, o: &mut Plucker) -> bool {
   // return false;
 }
 
+struct Sheep { naked: bool, name: &'static str }
+
+trait Animal {
+  // Associated function signature; `Self` refers to the implementor type.
+  fn new(name: &'static str) -> Self;
+
+  // Method signatures; these will return a string.
+  fn name(&self) -> &'static str;
+  fn noise(&self) -> &'static str;
+
+  // Traits can provide default method definitions.
+  fn talk(&self) {
+    println!("{} says {}", self.name(), self.noise());
+  }
+}
+
+impl Sheep {
+  fn is_naked(&self) -> bool {
+    self.naked
+  }
+
+  fn shear(&mut self) {
+    if self.is_naked() {
+      // Implementor methods can use the implementor's trait methods.
+      println!("{} is already naked...", self.name());
+    } else {
+      println!("{} gets a haircut!", self.name);
+
+      self.naked = true;
+    }
+  }
+}
+
+// Implement the `Animal` trait for `Sheep`.
+impl Animal for Sheep {
+  // `Self` is the implementor type: `Sheep`.
+  fn new(name: &'static str) -> Sheep {
+    Sheep { name: name, naked: false }
+  }
+
+  fn name(&self) -> &'static str {
+    self.name
+  }
+
+  fn noise(&self) -> &'static str {
+    if self.is_naked() {
+      "baaaaah?"
+    } else {
+      "baaaaah!"
+    }
+  }
+
+  // Default trait methods can be overridden.
+  fn talk(&self) {
+    // For example, we can add some quiet contemplation.
+    println!("{} pauses briefly... {}", self.name, self.noise());
+  }
+}
+
 fn main() {
   println!("Explore world!");
 
@@ -127,8 +186,90 @@ fn main() {
     println!("failed");
   }
 
+  // test arrays
+  let mut _array1: [i32; 5] = [1, 2, 3, 4, 5];
+  println!("array length = {:}", _array1.len());
+  let _n: usize = _array1.len();
+  for i in 0.._n {
+    print!("({:?}, {:}) ", i, _array1[i]);
+  }
+  print!("\n");
+
+  // Type annotation
+  println!("\ntypes");
+  let mut dolly: Sheep = Animal::new("Dolly");
+  dolly.talk();
+  dolly.shear();
+  dolly.talk();
+
   return;
 }
+
+// Comparison traits: Eq, PartialEq, Ord, PartialOrd.
+// Clone, to create T from &T via a copy.
+// Copy, to give a type ‘copy semantics’ instead of ‘move semantics’.
+// Hash, to compute a hash from &T.
+// Default, to create an empty instance of a data type.
+// Debug, to format a value using the {:?} formatter.
+// #[derive(PartialEq, PartialOrd)]
+
+// fn main() {
+//   let raw_p: *const u32 = &10;
+//   unsafe {
+//     assert!(*raw_p == 10);
+//   }
+// }
+//
+// use std::slice;
+// fn main() {
+//   let some_vector = vec![1, 2, 3, 4];
+
+//   let pointer = some_vector.as_ptr();
+//   let length = some_vector.len();
+// 
+//   unsafe {
+//     let my_slice: &[u32] = slice::from_raw_parts(pointer, length);
+// 
+//     assert_eq!(some_vector.as_slice(), my_slice);
+//   }
+// }
+//
+// static S4: u8 = 0;
+// #[unsafe(no_mangle)] pub fn f4() -> &'static u8 { &S4 }
+// #[unsafe(no_mangle)]
+// extern "C" fn foo() {}
+// use std::arch::asm;
+// unsafe {
+//   asm!("nop");
+// }
+//
+// Closure
+// fn main() {
+//   let outer_var = 42;
+// A regular function can't refer to variables in the enclosing environment
+//fn function(i: i32) -> i32 { i + outer_var }
+// Closures are anonymous, here we are binding them to references.
+// Annotation is identical to function annotation but is optional
+// as are the `{}` wrapping the body. These nameless functions
+// are assigned to appropriately named variables.
+//   let closure_annotated = |i: i32| -> i32 { i + outer_var };
+//   let closure_inferred  = |i   |      i + outer_var  ;
+// Call the closures.
+//   println!("closure_annotated: {}", closure_annotated(1));
+//   println!("closure_inferred: {}", closure_inferred(1));
+//   let one = || 1;
+//   println!("closure returning one: {}", one());
+// }
+//
+// Function pointers
+// fn add(x: i32, y: i32) -> i32 {
+//   x + y
+// }
+// let mut x = add(5,7);
+// type Binop = fn(i32, i32) -> i32;
+// let bo: Binop = add;
+// x = bo(5,7);
+
 
 #[test]
 fn pluck() {
