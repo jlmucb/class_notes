@@ -15,3 +15,6 @@ use std::str::FromStr;
   }
 }
 
+#[test]
+fn bool_test() {
+}

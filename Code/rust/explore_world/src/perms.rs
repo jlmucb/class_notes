@@ -13,3 +13,6 @@ use std::str::FromStr;
   }
 }
 
+#[test]
+fn perm_test() {
+}

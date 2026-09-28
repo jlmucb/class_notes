@@ -10,4 +10,6 @@ use std::str::FromStr;
   pub fn print() {
   }
 }
-
+#[test]
+fn file_test() {
+}

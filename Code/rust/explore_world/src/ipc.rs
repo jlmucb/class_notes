@@ -11,3 +11,6 @@ use std::str::FromStr;
   }
 }
 
+#[test]
+fn ipc_test() {
+}

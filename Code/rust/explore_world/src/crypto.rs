@@ -32,3 +32,6 @@ use std::str::FromStr;
   }
 }
 
+#[test]
+fn crypto_test() {
+}

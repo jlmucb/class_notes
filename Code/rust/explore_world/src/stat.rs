@@ -25,4 +25,6 @@ use std::str::FromStr;
   }
 
 }
-
+#[test]
+fn stat_test() {
+}

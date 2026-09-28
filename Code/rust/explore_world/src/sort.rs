@@ -16,4 +16,6 @@ use std::str::FromStr;
   pub fn heapsort() {
   }
 }
-
+#[test]
+fn sort_test() {
+}

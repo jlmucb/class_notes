@@ -42,3 +42,6 @@ use std::str::FromStr;
   }
 }
 
+#[test]
+fn bignum_test() {
+}
