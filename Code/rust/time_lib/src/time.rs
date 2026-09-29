@@ -1,9 +1,10 @@
 #[allow(unused)]
 #[allow(unused_mut)]
+#[allow(unused_imports)]
 
-mod time {
+use chrono::prelude::*;
 
-use std::str::FromStr;
+pub mod time {
 
   // These are accessible outside the module
   pub struct Time {
@@ -29,12 +30,13 @@ use std::str::FromStr;
   }
 }
 
-use crate::time::time::now;
-use crate::time::time::print;
-use crate::time::time::to_str;
-use crate::time::time::from_str;
-use crate::time::time::compare;
-use crate::time::time::add_interval;
+// use crate::time::time::now;
+// use crate::time::time::print;
+// use crate::time::time::to_str;
+// use crate::time::time::from_str;
+// use crate::time::time::compare;
+// use crate::time::time::add_interval;
+
 #[test]
 fn time_test() {
 }
