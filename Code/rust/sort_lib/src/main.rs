@@ -4,24 +4,23 @@ use crate::sort::sort::bubblesort;
 #[allow(unused)]
 #[allow(unused_mut)]
 #[allow(unused_imports)]
-
 fn main() {
   println!("sorting!");
   let mut _in: Vec<i64> = Vec::new();
   let mut _out: Vec<i64> = Vec::new();
 
-  _in.push(1 as i64);
-  _in.push(1 as i64);
-  _in.push(4 as i64);
-  _in.push(5 as i64);
-  _in.push(3 as i64);
-  _in.push(2 as i64);
-  _in.push(7 as i64);
-  _in.push(7 as i64);
-  _in.push(111 as i64);
-  _in.push(10 as i64);
-  _in.push(118 as i64);
-  _in.push(13 as i64);
+  _in.push(1_i64);
+  _in.push(1_i64);
+  _in.push(4_i64);
+  _in.push(5_i64);
+  _in.push(3_i64);
+  _in.push(2_i64);
+  _in.push(7_i64);
+  _in.push(7_i64);
+  _in.push(111_i64);
+  _in.push(10_i64);
+  _in.push(118_i64);
+  _in.push(13_i64);
 
   let l = _in.len();
 

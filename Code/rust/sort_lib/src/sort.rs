@@ -1,6 +1,5 @@
 #[allow(unused)]
 #[allow(unused_mut)]
-
 pub mod sort {
 
   // These are accessible outside the module
@@ -64,4 +63,26 @@ use crate::sort::sort::bubblesort;
 // use crate::sort::sort::heapsort;
 #[test]
 fn sort_test() {
+  let mut _in: Vec<i64> = Vec::new();
+  let mut _out: Vec<i64> = Vec::new();
+
+  _in.push(1_i64);
+  _in.push(1_i64);
+  _in.push(4_i64);
+  _in.push(5_i64);
+  _in.push(3_i64);
+  _in.push(2_i64);
+  _in.push(7_i64);
+  _in.push(7_i64);
+  _in.push(111_i64);
+  _in.push(10_i64);
+  _in.push(118_i64);
+  _in.push(13_i64);
+  let l = _in.len();
+
+  if ! bubblesort(_in, &mut _out) {
+    assert!(1 == 0, "Bubblesort failed");
+  }
+  assert!(_out.len() == 12);
+  assert!(_out[0]  == 118_i64 && _out[l - 1] == 1, "_out[0]: {:}, _out[{:}]: {:}\n", _out[0], l-1, _out[l-1]);
 }
