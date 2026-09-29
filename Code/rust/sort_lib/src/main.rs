@@ -25,13 +25,13 @@ fn main() {
 
   let l = _in.len();
 
-  print!("input: ");
+  print!("input : ");
   for n in 0..l {
     print!("{:} ", _in[n]);
   }
   print!("\n");
 
-  if ! bubblesort(_in, mut &_out) {
+  if ! bubblesort(_in, &mut _out) {
     println!("bubblesort failed");
     return;
   }
