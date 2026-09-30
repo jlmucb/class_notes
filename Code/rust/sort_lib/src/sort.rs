@@ -2,7 +2,10 @@
 #[allow(unused_mut)]
 pub mod sort {
 
-  // These are accessible outside the module
+  pub fn bucketsort() -> bool {
+    return true;
+  }
+  
   pub fn quicksort() -> bool {
     return true;
   }
