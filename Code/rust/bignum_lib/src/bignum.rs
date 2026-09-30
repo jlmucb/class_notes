@@ -40,30 +40,34 @@ pub mod bignum {
   }
 
   pub struct Bignum {
-    sign_: bool,    // false is negative
+    sign_: bool,    // true is negative
     val_: Vec<u64>,
   }
   impl Default for Bignum {
-    fn default() -> Self {Bignum {sign_: false, val_: Vec::<u64>::with_capacity(1)} }
+    fn default() -> Self {Bignum {sign_: false, val_: Vec::<u64>::from([0, 0, 0, 0])} }
   }
 
   pub fn set_val(s: bool, v: Vec<u64>, num: &mut Bignum) -> bool {
     num.sign_ = s;
     let l = v.len();
-    num.val_ = Vec::with_capacity(l + 1);
+    if l > num.val_.len() {
+      num.val_.resize(l + 1, 0);
+    }
     for i in 0..l {
       num.val_[i] = v[i];
     }
-    num.val_[l] = 0;
+    for i in l..num.val_.len() {
+      num.val_[i] = 0;
+    }
     return true;
   }
 
   pub fn print_val(num: &mut Bignum) {
 
     if !num.sign_ {
-      print!("+ ");
-    } else {
       print!("- ");
+    } else {
+      print!("+ ");
     }
     let l = num.val_.len()-1;
     for i in 0..=l {
@@ -132,6 +136,31 @@ pub mod bignum {
 
 }
 
+#[allow(unused_imports)]
+use crate::bignum::bignum::*;
 #[test]
-fn bignum_test() {
+fn big_num_test() {
+  let op1: u64= 0xffffffffffffffff;
+  let op2: u64= 0xffffffffffffffff;
+  let c: u64= 0;
+  let mut high:u64 = 0;
+  let mut low:u64 = 0;
+
+  let (high, low) = long_add(op1, op2, c);
+  
+  assert!(high == 1 && low == 0xfffffffffffffffe, "{:016x} + {:016x} + {:016x}, high: {:016x}, low:{:016x}", op1, op2, c, high, low);
+  
+  let mut bn: Bignum = Bignum::default();
+  let mut v: Vec<u64> = Vec::<u64>::new();
+  v.resize(5,0);
+  v[0] = 0;
+  v[1] = 0;
+  v[2] = 0;
+  v[3] = 0;
+  
+  if !set_val(true, v, &mut bn) {
+    assert!(1 == 0, "set_val failed");
+  }
+  print_val(&mut bn);
 }
+
