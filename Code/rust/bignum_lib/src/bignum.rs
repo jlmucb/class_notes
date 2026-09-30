@@ -16,14 +16,19 @@ use std::str::FromStr;
   pub fn negate() {
   }
   pub fn add() {
+    // let (sum, carry) = 5u32.carrying_add(10u32, true);
   }
   pub fn sub() {
+    // let (diff0, borrow1) = a0.borrowing_sub(b0, borrow0);
   }
   pub fn mult() {
+    // let (low, high) = a.widening_mul(b);
+    // let (low, high) = a.carrying_mul(b, carry);
   }
   pub fn fulldiv() {
   }
   pub fn div() {
+    wrapping_div(self, rhs: i64) -> i64
   }
   pub fn mod() {
   }
