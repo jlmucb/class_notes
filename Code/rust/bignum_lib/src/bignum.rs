@@ -35,7 +35,7 @@ pub mod bignum {
     return (((prod >> 64) & 0xffffffffffffffff) as u64, (prod & 0xffffffffffffffff) as u64);
   }
 
-  pub fn long_div(a: u64, b: u64, c: u64) -> (u64, u64) {
+  pub fn long_div(a: u64, b: u64, c: u64, q: u64, r: u64) -> (u64, u64) {
     return (0, 0);
   }
 
@@ -76,41 +76,159 @@ pub mod bignum {
     println!("");
   }
 
-  pub fn negate() {
+  pub fn zero(num: &mut Bignum) {
+    for i in 0..num.val_.len() {
+      num.val_[i] = 0;
+    }
+    num.sign_ = false;
   }
 
-  pub fn add() {
+  pub fn is_zero(num: &mut Bignum) -> bool {
+    for i in 0..num.val_.len() {
+      if num.val_[i] != 0 {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  //returns 1 if left>right, 0 if left == right, -1 if left<right
+  pub fn compare(left: &mut Bignum, right: &mut Bignum) -> i32 {
+    if left.sign_ && !right.sign_ {
+      return 1;
+    }
+    if !left.sign_ && right.sign_ {
+      return -1;
+    }
+    let left_size: usize = left.val_.len();
+    let right_size: usize= right.val_.len();
+    if left_size > right_size {
+      for i in (left_size-1..right_size).rev() {
+        if left.val_[i] > 0 {
+          if left.sign_ {
+            return 1;
+          } else {
+            return -1;
+          }
+        }
+      }
+      for i in (right_size-1 ..=0).rev() {
+        if left.val_[i] > right.val_[i] {
+          if !left.sign_ {
+            return 1;
+          } else {
+            return -1;
+          }
+        }
+      }
+      return 0;
+    } else  if right_size < left_size {
+      for i in (right_size-1..left_size).rev() {
+        if left.val_[i] > 0 {
+          if left.sign_ {
+            return 1;
+          } else {
+            return -1;
+          }
+        }
+      }
+      for i in (left_size-1 ..=0).rev() {
+        if left.val_[i] > right.val_[i] {
+          if !left.sign_ {
+            return 1;
+          } else {
+            return -1;
+          }
+        }
+      }
+      return 0;
+    } else {
+      for i in (left_size-1..=0).rev() {
+        if left.val_[i] > right.val_[i] {
+          if !left.sign_ {
+            return 1;
+          } else {
+            return -1;
+          }
+        }
+        if right.val_[i] > left.val_[i] {
+          if left.sign_ {
+            return 1;
+          } else {
+            return -1;
+          }
+        }
+      }
+      return 0;
+    }
+  }
+
+  pub fn negate(num: &mut Bignum) {
+    if is_zero(num) {
+      num.sign_ = true;
+      return;
+    }
+    num.sign_ = !num.sign_;
+  }
+
+  pub fn add(a: &mut Bignum, b: &mut Bignum, s: &mut Bignum) -> bool {
     // let (sum, carry) = 5u32.carrying_add(10u32, true);
+    return false;
   }
 
-  pub fn sub() {
+  pub fn sub(a: &mut Bignum, b: &mut Bignum, d: &mut Bignum) -> bool {
     // let (diff0, borrow1) = a0.borrowing_sub(b0, borrow0);
+    return false;
   }
 
-  pub fn mult() {
+  pub fn mult(a: &mut Bignum, b: &mut Bignum, p: &mut Bignum) -> bool {
     // let (low, high) = a.widening_mul(b);
     // let (low, high) = a.carrying_mul(b, carry);
+    return false;
   }
 
-  pub fn fulldiv() {
+  pub fn euclid_div(a: &mut Bignum, b: &mut Bignum,  q: &mut Bignum, r: &mut Bignum) -> bool {
+    return false;
   }
 
-  pub fn div() {
+  pub fn div(a: &mut Bignum, b: &mut Bignum, q: &mut Bignum) -> bool {
+    return false;
   }
 
-  pub fn modulo() {
+  pub fn modulo(a: &mut Bignum, b: &mut Bignum,  r: &mut Bignum) -> bool {
+    return false;
   }
 
-  pub fn gcd() {
+  // ax + by = g
+  pub fn gcd(a: &mut Bignum, b: &mut Bignum, x: &mut Bignum, y: &mut Bignum, g: &mut Bignum) -> bool {
+    return false;
   }
 
-  pub fn byte_size() {
+  pub fn byte_size(num: &mut Bignum) -> i32{
+    for i in (num.val_.len()-1 ..=0).rev() {
+      if num.val_[i] > 0 {
+        return (i + 1) as i32;
+      }
+    }
+    return 0;
   }
 
-  pub fn bit_size() {
+  pub fn bit_size(num: &mut Bignum) -> i32 {
+    for i in (num.val_.len()-1 ..=0).rev() {
+      if num.val_[i] > 0 {
+        return (i + 1) as i32;
+      }
+    }
+    return 0;
   }
 
-  pub fn u64_size() {
+  pub fn u64_size(num: &mut Bignum) -> i32 {
+    for i in (num.val_.len()-1 ..=0).rev() {
+      if num.val_[i] > 0 {
+        return (i + 1) as i32;
+      }
+    }
+    return 0;
   }
 
   pub fn ff_normalize() {
@@ -162,5 +280,29 @@ fn big_num_test() {
     assert!(1 == 0, "set_val failed");
   }
   print_val(&mut bn);
+
+  // long_sub
+  // long_mult
+  // long_div
+  // byte_size
+  // bit_size
+  // u64_size
+  // normalize
+  // compare
+  // zero
+  // negate
+  // add
+  // sub
+  // mult
+  // fulldiv
+  // div
+  // modulo
+  // gcd
+  // is_zero
+  // ff_negate
+  // ff_add
+  // ff_sub
+  // ff_mult
+  // ff_div
 }
 
