@@ -12,6 +12,7 @@ pub mod time {
   use std::format;
 
   // These are accessible outside the module
+  #[derive(Copy, Clone)]
   pub struct Time {
     year_: i32,
     month_: i32,
@@ -42,11 +43,24 @@ pub mod time {
     return true;
   }
 
-  pub fn to_str() {
+  pub fn to_str(t: &mut Time, s: &mut String) -> bool {
+    let mut str = format!("{:}-{:}-{:}T{:}:{:}:{:}Z", t.year_, t.month_, t.day_, t.hour_, t.min_, t.secs_);
+    s.clone_from(&mut str);
+    return true;
   }
 
-  pub fn from_str() {
-    // let dt2= Utc.datetime_from_str(&str2, "%Y-%m-%dT%H:%M:%S.%fZ");
+  pub fn from_str(s: &mut String, t: &mut Time) -> bool {
+    let dt:DateTime<Utc> = Utc.datetime_from_str(&s, "%Y-%m-%dT%H:%M:%S.%fZ").unwrap();
+    t.year_ = dt.year();
+    t.month_ = dt.month() as i32;
+    t.day_ = dt.day() as i32;
+    t.hour_ = dt.hour() as i32;
+    t.min_ = dt.minute() as i32;
+    let sec = dt.second();
+    let nano_sec = dt.nanosecond();
+    let fsec = sec as f64 + (nano_sec as f64) / 1000000000.0;
+    t.secs_ = fsec;
+    return true;
   }
 
   // returns 1 if t1 is later than t2
@@ -135,6 +149,24 @@ fn time_test() {
   print(&mut t1);
   print!(" + {:} secs = ", delta);
   print(&mut t2);
+  println!("");
+
+  let mut ri: i32 = compare(&mut t2, &mut t1);
+  assert!(ri > 0);
+  ri = compare(&mut t1, &mut t2);
+  assert!(ri < 0);
+  let mut t3 = t1;
+  ri = compare(&mut t1, &mut t3);
+  assert!(ri == 0);
+
+  let mut st: String = String::default();
+  let mut nt: Time = Time::default();
+  r = to_str(&mut t3, &mut st);
+  assert!(r);
+  r = from_str(&mut st, &mut nt);
+  assert!(r);
+  print!("recovered: ");
+  print(&mut nt);
   println!("");
 }
 
