@@ -93,28 +93,57 @@ pub mod bignum {
     return true;
   }
 
-  pub fn byte_size(num: &mut Bignum) -> i32{
-    for i in (num.val_.len()-1 ..=0).rev() {
-      if num.val_[i] > 0 {
-        return (8 * (i + 1)) as i32;
+  pub fn high_bit(x: u64) -> i32 {
+    let l:usize = 64;
+    let mut mask: u64 = 1 << 63;
+    for i in 0..l {
+      if mask & x != 0 {
+        return (l - i) as i32;
       }
+      mask = mask >> 1;
+    }
+    return 0;
+  }
+
+  pub fn high_byte(x: u64) -> i32 {
+    let l:usize = 8;
+    let mut mask: u64 = 0xff00000000000000;
+    for i in 0..l {
+      if mask & x != 0 {
+        return (l - i) as i32;
+      }
+      mask = mask >> 8;
     }
     return 0;
   }
 
   pub fn bit_size(num: &mut Bignum) -> i32 {
-    for i in (num.val_.len()-1 ..=0).rev() {
-      if num.val_[i] > 0 {
-        return (64 * (i + 1)) as i32;
+    let l: usize = num.val_.len();
+    for i in 0..l {
+      if num.val_[l - 1- i] > 0 {
+        let k = high_bit(num.val_[l - 1- i]);
+        return 64 * ((l - i -1) as i32) + k;
+      }
+    }
+    return 0;
+  }
+
+  pub fn byte_size(num: &mut Bignum) -> i32{
+    let l: usize = num.val_.len();
+    for i in 0..l {
+      if num.val_[l - 1- i] > 0 {
+        let k = high_byte(num.val_[l - 1- i]);
+        return 8 * ((l - i -1) as i32) + k;
       }
     }
     return 0;
   }
 
   pub fn u64_size(num: &mut Bignum) -> i32 {
-    for i in (num.val_.len()-1 ..=0).rev() {
-      if num.val_[i] > 0 {
-        return (i + 1) as i32;
+    let l: usize = num.val_.len();
+    for i in 0..l {
+      if num.val_[l - 1- i] > 0 {
+        return (l - i) as i32;
       }
     }
     return 0;
