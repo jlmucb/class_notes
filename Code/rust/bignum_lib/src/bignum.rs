@@ -479,7 +479,7 @@ fn big_num_test() {
   // div(a: &mut Bignum, b: &mut Bignum, q: &mut Bignum) -> bool
   // exp(a: &mut Bignum, e: &mut Bignum, x: &mut Bignum) -> bool
   // modulo(a: &mut Bignum, b: &mut Bignum,  r: &mut Bignum) -> bool
-  // gcd(a: &mut Bignum, b: &mut Bignum, x: &mut Bignum, y: &mut Bignum, g: &mut Bignum) -> bool
+
   // ff_normalize(num: &mut Bignum, m: &mut Bignum) -> bool
   // ff_print(num: &mut Bignum, m: &mut Bignum)
   // ff_negate(num: &mut Bignum, m: &mut Bignum, res: &mut Bignum) -> bool
@@ -487,6 +487,8 @@ fn big_num_test() {
   // ff_sub(n1: &mut Bignum, n2: &mut Bignum, m: &mut Bignum, res: &mut Bignum) -> bool
   // ff_mult(n1: &mut Bignum, n2: &mut Bignum, m: &mut Bignum, res: &mut Bignum) -> bool
   // ff_div(n1: &mut Bignum, n2: &mut Bignum, m: &mut Bignum, q: &mut Bignum, rem: &mut Bignum) -> bool
+
+  // gcd(a: &mut Bignum, b: &mut Bignum, x: &mut Bignum, y: &mut Bignum, g: &mut Bignum) -> bool
   // miller_rabin(n: &mut Bignum)
   // is_prime(n: &mut Bignum, rounds: u32)
 }
