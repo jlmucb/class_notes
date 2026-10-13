@@ -35,7 +35,7 @@ pub mod bignum {
     return (((prod >> 64) & 0xffffffffffffffff) as u64, (prod & 0xffffffffffffffff) as u64);
   }
 
-  pub fn long_div(a: u64, b: u64, c: u64, q: u64, r: u64) -> (u64, u64) {
+  pub fn long_div(a: u64, b: u64, c: u64) -> (u64, u64) {
     return (0, 0);
   }
 
@@ -332,15 +332,17 @@ pub mod bignum {
 use crate::bignum::bignum::*;
 #[test]
 fn big_num_test() {
+
   let op1: u64= 0xffffffffffffffff;
   let op2: u64= 0xffffffffffffffff;
   let c: u64= 0;
   let mut high:u64 = 0;
   let mut low:u64 = 0;
-
   let (high, low) = long_add(op1, op2, c);
-  
   assert!(high == 1 && low == 0xfffffffffffffffe, "{:016x} + {:016x} + {:016x}, high: {:016x}, low:{:016x}", op1, op2, c, high, low);
+  // long_sub(a: u64, b: u64, borrow: bool) -> (u64, u64)
+  // long_mult(a: u64, b: u64) -> (u64, u64)
+  // long_div(a: u64, b: u64, c: u64) -> (u64, u64)
   
   let mut bn: Bignum = Bignum::default();
   let mut v: Vec<u64> = Vec::<u64>::new();
