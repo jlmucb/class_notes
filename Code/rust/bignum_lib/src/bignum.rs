@@ -3,8 +3,6 @@
 
 pub mod bignum {
 
-  // helpers
-
   // return is (high, low)
   pub fn long_add(a: u64, b: u64, c: u64) -> (u64, u64) {
     let mut sum:u128 = 0;
@@ -14,6 +12,7 @@ pub mod bignum {
     return (((sum >> 64) & 0xffffffffffffffff) as u64, (sum & 0xffffffffffffffff) as u64);
   }
 
+  // return is (high, low)
   pub fn long_sub(a: u64, b: u64, borrow: bool) -> (u64, u64) {
     let mut op1: u128 = a as u128;
     let mut op2: u128 = b as u128;
@@ -30,11 +29,13 @@ pub mod bignum {
     return (((diff >> 64) & 0xffffffffffffffff) as u64, (diff & 0xffffffffffffffff) as u64);
   }
 
+  // return is (high, low)
   pub fn long_mult(a: u64, b: u64) -> (u64, u64) {
     let prod: u128 = (a as u128) * (b as u128);
     return (((prod >> 64) & 0xffffffffffffffff) as u64, (prod & 0xffffffffffffffff) as u64);
   }
 
+  // return is (high, low)
   pub fn long_div(a: u64, b: u64, c: u64) -> (u64, u64) {
     let q: u128 = (a as u128) / (b as u128);
     return (((q >> 64) & 0xffffffffffffffff) as u64, (q & 0xffffffffffffffff) as u64);
@@ -46,6 +47,14 @@ pub mod bignum {
   }
   impl Default for Bignum {
     fn default() -> Self {Bignum {sign_: false, val_: Vec::<u64>::from([0, 0, 0, 0])} }
+  }
+
+  pub fn byte_to_num(v: Vec<u8>, num: &mut Bignum) -> bool {
+    return false;
+  }
+
+  pub fn num_to_byte(num: &mut Bignum, v: Vec<u8>) -> bool {
+    return false;
   }
 
   pub fn set_val(s: bool, v: Vec<u64>, num: &mut Bignum) -> bool {
@@ -383,6 +392,7 @@ fn big_num_test() {
   } else {
     println!("Number is not zero");
   }
+  println!("");
 
   let mut l: i32 = byte_size(&mut bn);
   assert!(l == 33);
@@ -393,9 +403,12 @@ fn big_num_test() {
   l = u64_size(&mut bn);
   assert!(l == 5);
   println!("{:} digits", l);
+  println!("");
   let k = get_digit_in_num(4, &mut bn);
   assert!(k == 1);
   println!("digit 4 is {:}", k);
+  println!("");
+
   negate(&mut bn);
   assert!(get_sign(&mut bn));
   print_num(&mut bn);
@@ -409,12 +422,14 @@ fn big_num_test() {
   } else {
     println!("Number is not zero");
   }
+  println!("");
   l = byte_size(&mut bn);
   println!("{:} bytes", l);
   l = bit_size(&mut bn);
   println!("{:} bits", l);
   l = u64_size(&mut bn);
   println!("{:} digits", l);
+  println!("");
 
   assert!(set_small_num(6, &mut bn));
   print_num(&mut bn);
@@ -453,26 +468,26 @@ fn big_num_test() {
   print!(" ");
   print_num(&mut bn);
   println!(" : {:}", cmp);
-  
 
-  // long_sub
-  // long_mult
-  // long_div
+  // byte_to_num(v: Vec<u8>, num: &mut Bignum)
+  // num_to_byte(num: &mut Bignum, v: Vec<u8>)
 
-  // add(a: &mut Bignum, b: &mut Bignum, s: &mut Bignum) -> bool {
-  // sub(a: &mut Bignum, b: &mut Bignum, d: &mut Bignum) -> bool {
-  // mult(a: &mut Bignum, b: &mut Bignum, p: &mut Bignum) -> bool {
-  // euclid_div(a: &mut Bignum, b: &mut Bignum,  q: &mut Bignum, r: &mut Bignum) -> bool {
-  // div(a: &mut Bignum, b: &mut Bignum, q: &mut Bignum) -> bool {
-  // exp(a: &mut Bignum, e: &mut Bignum, x: &mut Bignum) -> bool {
-  // modulo(a: &mut Bignum, b: &mut Bignum,  r: &mut Bignum) -> bool {
-  // gcd(a: &mut Bignum, b: &mut Bignum, x: &mut Bignum, y: &mut Bignum, g: &mut Bignum) -> bool {
-  // ff_normalize(num: &mut Bignum, m: &mut Bignum) -> bool {
-  // ff_print(num: &mut Bignum, m: &mut Bignum) {
-  // ff_negate(num: &mut Bignum, m: &mut Bignum, res: &mut Bignum) -> bool {
-  // ff_add(n1: &mut Bignum, n2: &mut Bignum, m: &mut Bignum, res: &mut Bignum) -> bool {
-  // ff_sub(n1: &mut Bignum, n2: &mut Bignum, m: &mut Bignum, res: &mut Bignum) -> bool {
-  // ff_mult(n1: &mut Bignum, n2: &mut Bignum, m: &mut Bignum, res: &mut Bignum) -> bool {
-  // ff_div(n1: &mut Bignum, n2: &mut Bignum, m: &mut Bignum, q: &mut Bignum, rem: &mut Bignum) -> bool {
+  // add(a: &mut Bignum, b: &mut Bignum, s: &mut Bignum) -> bool
+  // sub(a: &mut Bignum, b: &mut Bignum, d: &mut Bignum) -> bool
+  // mult(a: &mut Bignum, b: &mut Bignum, p: &mut Bignum) -> bool
+  // euclid_div(a: &mut Bignum, b: &mut Bignum,  q: &mut Bignum, r: &mut Bignum) -> bool
+  // div(a: &mut Bignum, b: &mut Bignum, q: &mut Bignum) -> bool
+  // exp(a: &mut Bignum, e: &mut Bignum, x: &mut Bignum) -> bool
+  // modulo(a: &mut Bignum, b: &mut Bignum,  r: &mut Bignum) -> bool
+  // gcd(a: &mut Bignum, b: &mut Bignum, x: &mut Bignum, y: &mut Bignum, g: &mut Bignum) -> bool
+  // ff_normalize(num: &mut Bignum, m: &mut Bignum) -> bool
+  // ff_print(num: &mut Bignum, m: &mut Bignum)
+  // ff_negate(num: &mut Bignum, m: &mut Bignum, res: &mut Bignum) -> bool
+  // ff_add(n1: &mut Bignum, n2: &mut Bignum, m: &mut Bignum, res: &mut Bignum) -> bool
+  // ff_sub(n1: &mut Bignum, n2: &mut Bignum, m: &mut Bignum, res: &mut Bignum) -> bool
+  // ff_mult(n1: &mut Bignum, n2: &mut Bignum, m: &mut Bignum, res: &mut Bignum) -> bool
+  // ff_div(n1: &mut Bignum, n2: &mut Bignum, m: &mut Bignum, q: &mut Bignum, rem: &mut Bignum) -> bool
+  // miller_rabin(n: &mut Bignum)
+  // is_prime(n: &mut Bignum, rounds: u32)
 }
 
