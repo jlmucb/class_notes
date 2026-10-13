@@ -368,17 +368,23 @@ fn big_num_test() {
   }
 
   let mut l: i32 = byte_size(&mut bn);
+  assert!(l == 33);
   println!("{:} bytes", l);
   l = bit_size(&mut bn);
+  assert!(l == 257);
   println!("{:} bits", l);
   l = u64_size(&mut bn);
+  assert!(l == 5);
   println!("{:} digits", l);
   let k = get_digit_in_num(4, &mut bn);
+  assert!(k == 1);
   println!("digit 4 is {:}", k);
   negate(&mut bn);
+  assert!(get_sign(&mut bn));
   print_num(&mut bn);
   println!("");
   zero(&mut bn);
+  assert!(is_zero(&mut bn));
   print_num(&mut bn);
   println!("");
   if is_zero(&mut bn)  {
@@ -407,12 +413,14 @@ fn big_num_test() {
   println!("");
 
   let mut cmp: i32 = compare(&mut bn, &mut bm);
+  assert!(cmp == -1);
   print!("First compare: ");
   print_num(&mut bn);
   print!(" ");
   print_num(&mut bm);
   println!(" : {:}", cmp);
   cmp = compare(&mut bm, &mut bn);
+  assert!(cmp == 1);
   print!("Second compare: ");
   print_num(&mut bm);
   print!(" ");
@@ -421,8 +429,8 @@ fn big_num_test() {
 
   let mut bo: Bignum = Bignum::default();
   assert!(copy_num(&mut bn, &mut bo));
-
   cmp = compare(&mut bo, &mut bn);
+  assert!(cmp == 0);
   print!("Third compare: ");
   print_num(&mut bo);
   print!(" ");
