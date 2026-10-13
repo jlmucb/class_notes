@@ -357,6 +357,7 @@ fn big_num_test() {
   let mut high: u64 = 0;
   let mut low: u64 = 0;
 
+  println!("");
   let (high, low) = long_add(op1, op2, c);
   assert!(high == 1 && low == 0xfffffffffffffffe, "{:016x} + {:016x} + {:016x}, high: {:016x}, low:{:016x}", op1, op2, c, high, low);
   println! ("{:016x} + {:016x}, high: {:016x}, low:{:016x}", op1, op2, high, low);
@@ -491,5 +492,6 @@ fn big_num_test() {
   // gcd(a: &mut Bignum, b: &mut Bignum, x: &mut Bignum, y: &mut Bignum, g: &mut Bignum) -> bool
   // miller_rabin(n: &mut Bignum)
   // is_prime(n: &mut Bignum, rounds: u32)
+  println!("");
 }
 
