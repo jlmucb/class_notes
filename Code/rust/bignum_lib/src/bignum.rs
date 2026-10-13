@@ -161,15 +161,12 @@ pub mod bignum {
   }
   
   pub fn set_small_num(n: u64, num: &mut Bignum) -> bool {
-    for i in 0..num.val_.len() {
-      num.val_[i] = 0;
-    }
     num.sign_ = false;
     num.val_[0] = n;
     return true;
   }
 
-  pub fn append_small_num(n: u64, num: &mut Bignum) -> bool {
+  pub fn prepend_digit(n: u64, num: &mut Bignum) -> bool {
     return true;
   }
 
@@ -181,19 +178,32 @@ pub mod bignum {
     num.sign_ = !num.sign_;
   }
 
-  //returns 1 if left>right, 0 if left == right, -1 if left<right
+  pub fn copy_num(b_from: &mut Bignum, b_to: &mut Bignum) -> bool {
+    b_to.sign_ = b_from.sign_;
+    b_to.val_.resize(b_from.val_.len(), 0);
+    let l = b_from.val_.len();
+    for i in 0..l {
+      b_to.val_[l - 1 - i] = b_from.val_[l - 1 - i];
+    }
+    return true;
+  }
+
+  // returns 1 if left>right, 0 if left == right, -1 if left<right
   pub fn compare(left: &mut Bignum, right: &mut Bignum) -> i32 {
+
     if left.sign_ && !right.sign_ {
       return 1;
     }
     if !left.sign_ && right.sign_ {
       return -1;
     }
+
     let left_size: usize = left.val_.len();
     let right_size: usize= right.val_.len();
+
     if left_size > right_size {
-      for i in (left_size-1..right_size).rev() {
-        if left.val_[i] > 0 {
+      for i in right_size..=left_size {
+        if left.val_[left_size - i -1] > 0 {
           if left.sign_ {
             return 1;
           } else {
@@ -201,8 +211,8 @@ pub mod bignum {
           }
         }
       }
-      for i in (right_size-1 ..=0).rev() {
-        if left.val_[i] > right.val_[i] {
+      for i in 0..right_size {
+        if left.val_[right_size - 1 - i] > right.val_[right_size - 1 - i] {
           if !left.sign_ {
             return 1;
           } else {
@@ -211,18 +221,18 @@ pub mod bignum {
         }
       }
       return 0;
-    } else  if right_size < left_size {
-      for i in (right_size-1..left_size).rev() {
-        if left.val_[i] > 0 {
-          if left.sign_ {
-            return 1;
-          } else {
+    } else  if right_size > left_size {
+      for i in  left_size..right_size {
+        if right.val_[right_size - 1 - i] > 0 {
+          if right.sign_ {
             return -1;
+          } else {
+            return 1;
           }
         }
       }
-      for i in (left_size-1 ..=0).rev() {
-        if left.val_[i] > right.val_[i] {
+      for i in 0..left_size {
+        if left.val_[left_size - 1 - i] > right.val_[left_size - 1 - i] {
           if !left.sign_ {
             return 1;
           } else {
@@ -232,15 +242,15 @@ pub mod bignum {
       }
       return 0;
     } else {
-      for i in (left_size-1..=0).rev() {
-        if left.val_[i] > right.val_[i] {
+      for i in 0..left_size {
+        if left.val_[left_size - 1 - i] > right.val_[left_size - 1 - i] {
           if !left.sign_ {
             return 1;
           } else {
             return -1;
           }
         }
-        if right.val_[i] > left.val_[i] {
+        if right.val_[left_size - 1 - i] > left.val_[left_size - 1 - i] {
           if left.sign_ {
             return 1;
           } else {
@@ -363,15 +373,61 @@ fn big_num_test() {
   println!("{:} bits", l);
   l = u64_size(&mut bn);
   println!("{:} digits", l);
-  // get_digit_in_num(n: i32, num: &mut Bignum)
-  // negate(num: &mut Bignum)
-  // zero(num: &mut Bignum)
-  // is_zero(num: &mut Bignum) 
-  // byte_size(num: &mut Bignum)
-  // bit_size(num: &mut Bignum)
-  // u64_size(num: &mut Bignum)
-  // set_small_num(n: u64, num: &mut Bignum)
-  // append_small_num(n: u64, num: &mut Bignum)
+  let k = get_digit_in_num(4, &mut bn);
+  println!("digit 4 is {:}", k);
+  negate(&mut bn);
+  print_num(&mut bn);
+  println!("");
+  zero(&mut bn);
+  print_num(&mut bn);
+  println!("");
+  if is_zero(&mut bn)  {
+    println!("Number is zero");
+  } else {
+    println!("Number is not zero");
+  }
+  l = byte_size(&mut bn);
+  println!("{:} bytes", l);
+  l = bit_size(&mut bn);
+  println!("{:} bits", l);
+  l = u64_size(&mut bn);
+  println!("{:} digits", l);
+
+  assert!(set_small_num(6, &mut bn));
+  print_num(&mut bn);
+  println!("");
+  assert!(prepend_digit(7, &mut bn));
+  print_num(&mut bn);
+  println!("");
+
+  let mut bm: Bignum = Bignum::default();
+  assert!(set_small_num(7, &mut bm));
+  print_num(&mut bn);
+  println!("");
+  println!("");
+
+  let mut cmp: i32 = compare(&mut bn, &mut bm);
+  print!("First compare: ");
+  print_num(&mut bn);
+  print!(" ");
+  print_num(&mut bm);
+  println!(" : {:}", cmp);
+  cmp = compare(&mut bm, &mut bn);
+  print!("Second compare: ");
+  print_num(&mut bm);
+  print!(" ");
+  print_num(&mut bn);
+  println!(" : {:}", cmp);
+
+  let mut bo: Bignum = Bignum::default();
+  assert!(copy_num(&mut bn, &mut bo));
+
+  cmp = compare(&mut bo, &mut bn);
+  print!("Third compare: ");
+  print_num(&mut bo);
+  print!(" ");
+  print_num(&mut bn);
+  println!(" : {:}", cmp);
   
 
   // long_sub
